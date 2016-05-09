@@ -4,8 +4,10 @@
 <configuration>
 
 	<typeAliases>
+		<typeAlias type="com.ktds.sems.education.vo.EducationVO" alias="EducationVO"/>
 	</typeAliases>
 
 	<mappers>
+		<mapper resource="/com/ktds/sems/education/dao/impl/sql/educationDAO.xml" />
 	</mappers>
 </configuration>
