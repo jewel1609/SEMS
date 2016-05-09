@@ -23,7 +23,7 @@ public class MemberVO {
 	private String highestEducationLevel;
 	
 	@NotEmpty(message="학교는 필수 입력값 입니다.")
-	private String univercityName;
+	private String universityName;
 	
 	@NotEmpty(message="학과는 필수 입력값 입니다.")
 	private String majorName;
@@ -72,11 +72,11 @@ public class MemberVO {
 	public void setHighestEducationLevel(String highestEducationLevel) {
 		this.highestEducationLevel = highestEducationLevel;
 	}
-	public String getUnivercityName() {
-		return univercityName;
+	public String getUniversityName() {
+		return universityName;
 	}
-	public void setUnivercityName(String univercityName) {
-		this.univercityName = univercityName;
+	public void setUniversityName(String universityName) {
+		this.universityName = universityName;
 	}
 	public String getMajorName() {
 		return majorName;
