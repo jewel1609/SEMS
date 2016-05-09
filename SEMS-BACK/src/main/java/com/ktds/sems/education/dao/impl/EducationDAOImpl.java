@@ -1,7 +1,20 @@
 package com.ktds.sems.education.dao.impl;
 
-import com.ktds.sems.education.dao.EducationDAO;
+import org.mybatis.spring.support.SqlSessionDaoSupport;
 
-public class EducationDAOImpl implements EducationDAO {
+import com.ktds.sems.education.dao.EducationDAO;
+import com.ktds.sems.education.vo.EducationVO;
+
+public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationDAO {
+
+	@Override
+	public EducationVO getOneEducation(String educationId) {
+		return getSqlSession().selectOne("EducationDAO.getOneEducation", educationId);
+	}
+
+	@Override
+	public int modifyNewEducation(EducationVO changedEducationVO) {
+		return getSqlSession().update("EducationDAO.modifyNewEducation", changedEducationVO);
+	}
 
 }
