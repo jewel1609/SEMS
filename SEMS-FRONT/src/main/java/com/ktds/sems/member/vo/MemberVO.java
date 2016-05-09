@@ -1,18 +1,47 @@
 package com.ktds.sems.member.vo;
 
+import javax.validation.constraints.Min;
+
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
+
 public class MemberVO {
 
+	@NotEmpty(message="아이디는 필수 입력값 입니다.")
+	@Length(min=5, message="아이디는 4자리 이하를 적을 수 없습니다.")
 	private String id;
+	
+	@NotEmpty(message="비밀번호는 필수 입력값 입니다.")
+	@Length(min=10, message="Password는 9자리 이하를 적을 수 없습니다.")
 	private String password;
+	
+	@NotEmpty(message="이름는 필수 입력값 입니다.")
 	private String name;
+	
+	@NotEmpty(message="이메일는 필수 입력값 입니다.")
 	private String email;
+	
+	@NotEmpty(message="최종 학력은 필수 입력값 입니다.")
 	private String highestEducationLevel;
+	
+	@NotEmpty(message="학교는 필수 입력값 입니다.")
 	private String univercityName;
+	
+	@NotEmpty(message="학과는 필수 입력값 입니다.")
 	private String majorName;
+	
+	@NotEmpty(message="졸업 구분는 필수 입력값 입니다.")
 	private String graduationType;
+	
+	@NotEmpty(message="생년월일은 필수 입력값 입니다.")
 	private String brithDate;
+	
+	@NotEmpty(message="전화번호는 필수 입력값 입니다.")
 	private String phoneNumber;
+	
+	@NotEmpty(message="비밀번호는 필수 입력값 입니다.")
 	private String memberType;
+
 	private String salt;
 	
 	public String getId() {
