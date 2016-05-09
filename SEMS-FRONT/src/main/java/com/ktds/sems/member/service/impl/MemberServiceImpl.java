@@ -1,5 +1,7 @@
 package com.ktds.sems.member.service.impl;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -16,7 +18,23 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public ModelAndView registerNewMember(MemberVO member, Errors errors) {
-		return null;
+	public ModelAndView registerNewMember(MemberVO member, Errors errors, HttpSession session) {
+		ModelAndView view = new ModelAndView();
+		
+		MemberVO sessionMember = (MemberVO) session.getAttribute("_MEMBER_");
+		
+		if ( sessionMember != null ) {
+			throw new RuntimeException("유효한 접근이 아닙니다.");
+		}
+		else if ( errors.hasErrors() ) {
+			view.setViewName("member/register");
+			view.addObject("member", member);
+		}
+		else {
+			// TODO 회원 가입 후 보여질 페이지
+			view.setViewName("");
+		}
+		
+		return view;
 	}
 }
