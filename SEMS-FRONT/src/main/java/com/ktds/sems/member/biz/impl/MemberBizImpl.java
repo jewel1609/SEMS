@@ -13,8 +13,8 @@ public class MemberBizImpl implements MemberBiz{
 	}
 
 	@Override
-	public boolean registerNewMember(MemberVO member) {
-		return memberDAO.registerNewMember(member) > 0;
+	public boolean addNewMember(MemberVO member) {
+		return memberDAO.addNewMember(member) > 0;
 	}
 	
 	

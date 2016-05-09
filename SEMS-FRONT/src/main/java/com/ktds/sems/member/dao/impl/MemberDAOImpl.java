@@ -8,7 +8,7 @@ import com.ktds.sems.member.vo.MemberVO;
 public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 
 	@Override
-	public int registerNewMember(MemberVO member) {
+	public int addNewMember(MemberVO member) {
 		return getSqlSession().insert("MemberDAO.", member);
 	}
 	

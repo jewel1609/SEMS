@@ -4,6 +4,6 @@ import com.ktds.sems.member.vo.MemberVO;
 
 public interface MemberDAO {
 
-	int registerNewMember(MemberVO member);
+	int addNewMember(MemberVO member);
 
 }

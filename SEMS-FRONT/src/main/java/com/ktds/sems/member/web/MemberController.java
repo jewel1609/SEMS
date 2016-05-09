@@ -23,7 +23,7 @@ public class MemberController {
 
 	@RequestMapping(value="/member/doRegisterAction", method=RequestMethod.POST)
 	public ModelAndView registerNewMember (@Valid MemberVO member, Errors errors, HttpSession session) {
-		return memberService.registerNewMember(member, errors, session);
+		return memberService.addNewMember(member, errors, session);
 	}
 	
 	@RequestMapping("/member/register")

@@ -18,7 +18,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public ModelAndView registerNewMember(MemberVO member, Errors errors, HttpSession session) {
+	public ModelAndView addNewMember(MemberVO member, Errors errors, HttpSession session) {
 		ModelAndView view = new ModelAndView();
 		
 		MemberVO sessionMember = (MemberVO) session.getAttribute("_MEMBER_");
@@ -32,6 +32,7 @@ public class MemberServiceImpl implements MemberService {
 		}
 		else {
 			// TODO 회원 가입 후 보여질 페이지
+			memberBiz.addNewMember(member);
 			view.setViewName("");
 		}
 		

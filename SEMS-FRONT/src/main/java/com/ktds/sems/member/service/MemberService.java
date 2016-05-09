@@ -9,6 +9,6 @@ import com.ktds.sems.member.vo.MemberVO;
 
 public interface MemberService {
 
-	public ModelAndView registerNewMember(MemberVO members , Errors errors, HttpSession session);
+	public ModelAndView addNewMember(MemberVO members , Errors errors, HttpSession session);
 	
 }

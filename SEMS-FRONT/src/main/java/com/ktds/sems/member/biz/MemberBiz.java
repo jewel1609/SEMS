@@ -4,6 +4,6 @@ import com.ktds.sems.member.vo.MemberVO;
 
 public interface MemberBiz {
 
-	public boolean registerNewMember(MemberVO member);
+	public boolean addNewMember(MemberVO member);
 	
 }
