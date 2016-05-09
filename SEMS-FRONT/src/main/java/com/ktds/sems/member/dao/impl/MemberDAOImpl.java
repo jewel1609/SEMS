@@ -1,5 +1,9 @@
 package com.ktds.sems.member.dao.impl;
 
-public class MemberDAOImpl {
+import org.mybatis.spring.support.SqlSessionDaoSupport;
 
+import com.ktds.sems.member.dao.MemberDAO;
+
+public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
+	
 }
