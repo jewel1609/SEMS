@@ -18,4 +18,6 @@
 	
 	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
 	
+	<!-- 김동규 생성(customException요청) -->
+		<bean id="customExceptionHandler" class="com.ktds.sems.handler.CustomExceptionHandler" />
 </beans>
