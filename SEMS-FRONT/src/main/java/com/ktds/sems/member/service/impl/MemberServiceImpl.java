@@ -7,7 +7,7 @@ import com.ktds.sems.member.biz.MemberBiz;
 import com.ktds.sems.member.service.MemberService;
 import com.ktds.sems.member.vo.MemberVO;
 
-public class MemeberServiceImpl implements MemberService {
+public class MemberServiceImpl implements MemberService {
 
 	private MemberBiz memberBiz;
 
