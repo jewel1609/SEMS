@@ -1,7 +1,5 @@
 package com.ktds.sems.member.vo;
 
-import javax.validation.constraints.Min;
-
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
