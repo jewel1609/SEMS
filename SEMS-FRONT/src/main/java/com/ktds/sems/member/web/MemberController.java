@@ -1,5 +1,6 @@
 package com.ktds.sems.member.web;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
@@ -20,9 +21,14 @@ public class MemberController {
 		this.memberService = memberService;
 	}
 
-	@RequestMapping(value="/member/register", method=RequestMethod.POST)
-	public ModelAndView registerNewMember (@Valid MemberVO member, Errors errors) {
-		return memberService.registerNewMember(member, errors);
+	@RequestMapping(value="/member/doRegisterAction", method=RequestMethod.POST)
+	public ModelAndView registerNewMember (@Valid MemberVO member, Errors errors, HttpSession session) {
+		return memberService.registerNewMember(member, errors, session);
+	}
+	
+	@RequestMapping("/member/register")
+	public String viewRegisterPage () {
+		return "redirect:member/register";
 	}
 	
 }
