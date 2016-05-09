@@ -4,8 +4,10 @@
 <configuration>
 
 	<typeAliases>
+		<typeAlias type="MemberVO" alias="MemberVO"/>
 	</typeAliases>
 
 	<mappers>
+		<mapper resource="com/ktds/sems/member/dao/impl/sql/memberDAO.xml"/>
 	</mappers>
 </configuration>
