@@ -5,9 +5,9 @@ import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.member.service.MemberService;
@@ -32,13 +32,11 @@ public class MemberController {
 		return "member/register";
 	}
 	
-	
-	
-	
-	
 	@RequestMapping("/member/myPage")
-	public String viewMyPage () { 
-		return "redirect:member/myPage";
+	public ModelAndView viewMyPage () { 
+		ModelAndView view = new ModelAndView();
+		view.setViewName("member/myPage");
+		return view;
 	}
 	
 	@RequestMapping("/member/myPage/checkPassword")
@@ -50,13 +48,13 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/member/myPage/modify")
-	public ModelAndView viewModifyPage(@PathVariable String password, HttpSession session){
+	public ModelAndView viewModifyPage(@RequestParam String password, HttpSession session){
 		ModelAndView view = new ModelAndView();
 		
 		//임의로 정한 값 
 		//TODO 세션정보를 넘겨받기
 		MemberVO member = (MemberVO) session.getAttribute("_MEMBER_");
-		String sessionId = "aaaa";
+		String sessionId = "aaa";
 		String sessionPassword = "1234";
 		
 		if( password.equals(sessionPassword) ) {
@@ -64,7 +62,7 @@ public class MemberController {
 			 * 1. MODIFY_FAIL_COUNT를 0 으로 초기화한다.
 			 * 2. IS_MODIFY_ACCOUNT_LOCK을 'N'으로 초기화한다.
 			 */
-			return memberService.modifySuccess(member.getId());
+			return memberService.modifySuccess(sessionId);
 		}
 		else {
 		
