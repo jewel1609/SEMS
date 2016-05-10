@@ -57,5 +57,25 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 	public MemberVO getOneMember(String id) {
 		return getSqlSession().selectOne("MemberDAO.getOneMember", id);
 	}
+
+	@Override
+	public void resetModifyLockAndcount(String id) {
+		getSqlSession().update("MemberDAO.resetModifyLockAndcount", id);
+	}
+
+	@Override
+	public void plusModifyFailCount(String id) {
+		getSqlSession().update("MemberDAO.plusModifyFailCount", id);
+	}
+
+	@Override
+	public void updateModifyAccountLock(String id) {
+		getSqlSession().update("MemberDAO.updateModifyAccountLock", id);
+	}
+
+	@Override
+	public int isModifyAccountLock(String id) {
+		return getSqlSession().selectOne("MemberDAO.isModifyAccountLock", id);
+	}
 	
 }

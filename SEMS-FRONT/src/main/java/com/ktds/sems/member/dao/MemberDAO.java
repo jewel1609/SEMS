@@ -25,4 +25,12 @@ public interface MemberDAO {
 
 	public MemberVO getOneMember(String id);
 
+	public void resetModifyLockAndcount(String id);
+
+	public void plusModifyFailCount(String id);
+
+	public void updateModifyAccountLock(String id);
+
+	public int isModifyAccountLock(String id);
+
 }
