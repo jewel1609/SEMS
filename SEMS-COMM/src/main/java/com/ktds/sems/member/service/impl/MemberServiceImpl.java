@@ -17,6 +17,8 @@ public class MemberServiceImpl implements MemberService{
 		this.memberBiz = memberBiz;
 	}
 
+	/*Grtd*/
+	
 	@Override
 	public ModelAndView viewGrdtPage() {
 		
@@ -45,6 +47,17 @@ public class MemberServiceImpl implements MemberService{
 		return "redirect:/grdtPage";
 	}
 
+	@Override
+	public String doGrdtInsert(String cdId, String cdNm) {
+		GrdtTpVO grdtTpVO = new GrdtTpVO();
+		grdtTpVO.setCdId(cdId);
+		grdtTpVO.setCdNm(cdNm);
+		memberBiz.doGrdtInsert(grdtTpVO);
+		return "redirect:/grdtPage";
+	}
+	
+	/*MbrTp*/
+	
 	@Override
 	public ModelAndView viewMbrTpPage() {
 		ModelAndView view = new ModelAndView();
@@ -77,16 +90,6 @@ public class MemberServiceImpl implements MemberService{
 		mbrTpVO.setCdNm(cdNm);
 		memberBiz.doMbrTpModify(mbrTpVO);
 		return "redirect:/mbrTpPage";
-	}
-
-
-	@Override
-	public String doGrdtInsert(String cdId, String cdNm) {
-		GrdtTpVO grdtTpVO = new GrdtTpVO();
-		grdtTpVO.setCdId(cdId);
-		grdtTpVO.setCdNm(cdNm);
-		memberBiz.doGrdtInsert(grdtTpVO);
-		return "redirect:/grdtPage";
 	}
 
 }

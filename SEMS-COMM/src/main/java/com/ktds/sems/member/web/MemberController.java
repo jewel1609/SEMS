@@ -39,6 +39,14 @@ public class MemberController {
 		return memberService.doGrdtModify(cdId, cdNm);
 	}
 	
+	@RequestMapping("doGrdtInsert")
+	public String doGrdtInsert(HttpServletRequest request, HttpServletResponse response){
+		String cdId = request.getParameter("cdId");
+		String cdNm = request.getParameter("cdNm");
+		
+		return memberService.doGrdtInsert(cdId, cdNm);
+	}
+	
 	/*Member Type*/
 	@RequestMapping("/mbrTpPage")
 	public ModelAndView viewMbrTpPage () {
@@ -62,13 +70,5 @@ public class MemberController {
 		String cdNm = request.getParameter("cdNm");
 		
 		return memberService.doMbrTpModify(cdId, cdNm);
-	}
-	
-	@RequestMapping("doGrdtInsert")
-	public String doGrdtInsert(HttpServletRequest request, HttpServletResponse response){
-		String cdId = request.getParameter("cdId");
-		String cdNm = request.getParameter("cdNm");
-		
-		return memberService.doGrdtInsert(cdId, cdNm);
 	}
 }

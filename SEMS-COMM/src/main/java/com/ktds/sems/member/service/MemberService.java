@@ -8,18 +8,19 @@ public interface MemberService {
 
 	public ModelAndView viewGrdtPage();
 
-	public ModelAndView viewMbrTpPage();
-
-	public String doInsertMbrTp(String cdId, String cdNm);
-
 	public String doGrdtDelete(String cdId);
 
 	public String doGrdtModify(String cdId, String cdNm);
 
+	public String doGrdtInsert(String cdId, String cdNm);
+
+	public ModelAndView viewMbrTpPage();
+
+	public String doInsertMbrTp(String cdId, String cdNm);
+	
 	public String doMbrTpDelete(String cdId);
 
 	public String doMbrTpModify(String cdId, String cdNm);
 
-	public String doGrdtInsert(String cdId, String cdNm);
 
 }
