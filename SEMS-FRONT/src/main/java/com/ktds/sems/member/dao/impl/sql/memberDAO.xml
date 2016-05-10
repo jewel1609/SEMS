@@ -17,6 +17,7 @@
 							, PHONE_NMB
 							, MBR_TP
 							, SALT
+							, LATEST_LGI_DT
 						)
 		VALUES 			( 
 							#{id}
@@ -27,10 +28,11 @@
 							, #{universityName}
 							, #{majorName}
 							, #{graduationType}
-							, #{brithDate}
+							, #{birthDate}
 							, #{phoneNumber}
 							, #{memberType}
 							, #{salt}
+							, SYSDATE
 						)
 	</insert>
 	<select id="getSaltById" parameterType="string" resultType="string">
