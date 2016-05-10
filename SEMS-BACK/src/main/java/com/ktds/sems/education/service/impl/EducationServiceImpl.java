@@ -7,7 +7,6 @@ import com.ktds.sems.education.biz.EducationBiz;
 import com.ktds.sems.education.service.EducationService;
 import com.ktds.sems.education.vo.EducationVO;
 
-
 public class EducationServiceImpl implements EducationService {
 	
 	private EducationBiz educationBiz;
@@ -48,6 +47,33 @@ public class EducationServiceImpl implements EducationService {
 		}
 		view.addObject("educationVO", educationVO);
 		return view;
+	}
+
+	@Override
+	public ModelAndView writeNewEducation(EducationVO educationVO, Errors errors) {
+		
+	ModelAndView view = new ModelAndView();
+		
+		if ( educationVO.getEducationId() == null ) {
+			if ( errors.hasErrors() ) {
+				view.setViewName("education/eduwrite");
+				view.addObject("educationVO", educationVO);
+				return view;
+			}
+			else {
+				boolean result = educationBiz.writeNewEducation(educationVO);
+				
+				if ( result ) {
+					view.setViewName("redirect:/list");
+				}
+				else {
+					throw new RuntimeException("일시적인 장애가 발생했습니다. 잠시후 다시 시도해주세요.");
+				}
+			}
+		}
+		
+		return view;
+		
 	}
 
 }
