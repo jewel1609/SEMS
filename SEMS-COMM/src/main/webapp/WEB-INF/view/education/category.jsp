@@ -118,14 +118,21 @@
 			}
 		});
 		
+		$("#largeCategoryList").change(function(){
+			
+			console.log($(this).val());
+			console.log($('#largeCategoryList :selected').length);
+			
+		});
+		
 	});
 </script>
 <style type="text/css">
 	#newLargeCategoryContainer {
 	}
 	
-	select {
-		size: "10";
+	div {
+		float: left;
 	}
 </style>
 </head>
@@ -139,29 +146,33 @@
 				</c:forEach>
 			</c:if>
 		</select>
+		<br/>
 		<input type="button" id="newLargeCategoryBtn" value="추가">
+		<br/>
 		<div id="newCategoryContainer">
 			<form:form commandName="newCategoryForm" method="post">
 				<input type="hidden" id="parentCategoryId" name="parentCategoryId" >
 				<input type="hidden" id="categoryType" name="categoryType" value="large" >
 				<input type="text" id="categoryId" name="categoryId" placeholder="category id" maxlength="4">
-				<span id="categoryIdError"></span>
+				<span id="categoryIdError"></span><br/>
 				<input type="text" id="categoryName" name="categoryName" placeholder="category name" maxlength="30">
-				<span id="categoryNameError"></span>
+				<span id="categoryNameError"></span><br/>
 				<input type="button" id="addCategoryBtn" value="추가하기">
 			</form:form>
 		</div>
 	</div>
 	
 	<div id="mediumCategoryListContainer">
-		<select id="mediumCategoryList">
+		<select id="mediumCategoryList" size="10">
 		</select>
+		<br/>
 		<input type="button" id="newMediumCategoryBtn" value="추가">
 	</div>
 	
 	<div id="smallCategoryListContainer">
-		<select id="smallCategoryList">
+		<select id="smallCategoryList" size="10">
 		</select>
+		<br/>
 		<input type="button" id="newSmallCategoryBtn" value="추가">
 	</div>
 
