@@ -10,4 +10,6 @@ public interface MemberBiz {
 	public boolean loginHistory(LoginHistoryVO loginHistoryVO);
 	
 	public boolean logoutHistory(LoginHistoryVO loginHistoryVO);
+
+	public MemberVO getOneMember(String id);
 }

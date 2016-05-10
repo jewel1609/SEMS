@@ -10,5 +10,9 @@ import com.ktds.sems.member.vo.MemberVO;
 public interface MemberService {
 
 	public ModelAndView addNewMember(MemberVO members , Errors errors, HttpSession session);
+
+	public ModelAndView modifySuccess(String id);
+
+	public ModelAndView modifyMemberInfo(MemberVO member, Errors errors);
 	
 }

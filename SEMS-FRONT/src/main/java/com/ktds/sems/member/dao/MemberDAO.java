@@ -11,4 +11,6 @@ public interface MemberDAO {
 
 	public int logoutHistory(LoginHistoryVO loginHistoryVO);
 
+	public MemberVO getOneMember(String id);
+
 }

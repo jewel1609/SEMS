@@ -5,6 +5,7 @@ import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -30,5 +31,70 @@ public class MemberController {
 	public String viewRegisterPage () {
 		return "member/register";
 	}
+	
+	
+	
+	
+	
+	@RequestMapping("/member/myPage")
+	public String viewMyPage () { 
+		return "redirect:member/myPage";
+	}
+	
+	@RequestMapping("/member/myPage/checkPassword")
+	public ModelAndView viewCheckPasswordPage() { 
+		
+		ModelAndView view = new ModelAndView();
+		view.setViewName("member/checkPassword");
+		return view;
+	}
+	
+	@RequestMapping("/member/myPage/modify")
+	public ModelAndView viewModifyPage(@PathVariable String password, HttpSession session){
+		ModelAndView view = new ModelAndView();
+		
+		//임의로 정한 값 
+		//TODO 세션정보를 넘겨받기
+		MemberVO member = (MemberVO) session.getAttribute("_MEMBER_");
+		String sessionId = "aaaa";
+		String sessionPassword = "1234";
+		
+		if( password.equals(sessionPassword) ) {
+			/*
+			 * 1. MODIFY_FAIL_COUNT를 0 으로 초기화한다.
+			 * 2. IS_MODIFY_ACCOUNT_LOCK을 'N'으로 초기화한다.
+			 */
+			return memberService.modifySuccess(member.getId());
+		}
+		else {
+		
+			/*
+			 * 1. MODIFY_FAIL_COUNT 를 1 증가시킨다.
+			 *  
+			 */
+			
+			/*
+			 * 1. MODIFY_FAIL_COUNT 가 3 이상이라면 IS_MODIFY_ACCOUNT_LOCK 'Y'로 수정한다.
+			 */
+
+			
+			/*
+			 * 
+			 * 1. IS_ACCOUNT_LOCK이 'Y'라면 사용자의 이메일로 비밀번호가 3회 이상 틀려 접속이 차단되었음을 알린다.
+			 *  
+			 * 2. IS_ACCOUNT_LOCK이 'Y'라면 브라우저에게 'OVER' 라고 보낸다.
+			 * 'OVER'를 응답으로 받은 브라우저는 '다시 접속을 원할 경우 운영자 혹은 관리자에게 문의하세요' 를 출력한다.
+			 * 
+			 */
+		}
+		
+		return view;
+	}
+	
+	@RequestMapping("/member/myPage/doModifyAction")
+	public ModelAndView doModifyAction(@Valid MemberVO member, Errors errors){
+		return memberService.modifyMemberInfo(member, errors);
+	}
+	
 	
 }

@@ -17,7 +17,7 @@ public class MemberBizImpl implements MemberBiz{
 	public boolean addNewMember(MemberVO member) {
 		return memberDAO.addNewMember(member) > 0;
 	}
-	
+
 	/**
 	 * loginHistory
 	 * @author 김동규
@@ -43,5 +43,10 @@ public class MemberBizImpl implements MemberBiz{
 		return memberDAO.logoutHistory(loginHistoryVO) > 0;
 	}
 	
+	@Override
+	public MemberVO getOneMember(String id) {
+		return memberDAO.getOneMember(id);
+	}
 	
 }
+

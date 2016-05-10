@@ -33,5 +33,10 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 	public int logoutHistory(LoginHistoryVO loginHistoryVO) {
 		return getSqlSession().insert("MemberDAO.logoutHistory", loginHistoryVO);
 	}
+
+	@Override
+	public MemberVO getOneMember(String id) {
+		return getSqlSession().selectOne("MemberDAO.getOneMember", id);
+	}
 	
 }

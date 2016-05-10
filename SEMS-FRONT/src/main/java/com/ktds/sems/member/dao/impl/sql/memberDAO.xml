@@ -54,4 +54,9 @@
 		SET		LGO_DT = SYSDATE
 		WHERE	LGI_HTR_ID = #{ lgiHtrId }
 	</update>
+	<select id="getOneMember" parameterType="string">
+		SELECT	*
+		FROM	MBR
+		WHERE	ID = #{ id }
+	</select>
 </mapper>
