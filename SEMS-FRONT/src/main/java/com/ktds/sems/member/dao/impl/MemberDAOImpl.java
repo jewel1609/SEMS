@@ -13,22 +13,11 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 		return getSqlSession().insert("MemberDAO.addNewMember", member);
 	}
 	
-	/**
-	 * loginHistory
-	 * @author 김동규
-	 * @param loginHistoryVO
-	 * @return getSqlSession
-	 */
 	@Override
 	public int loginHistory(LoginHistoryVO loginHistoryVO) {
 		return getSqlSession().insert("MemberDAO.loginHistory", loginHistoryVO);
 	}
-	/**
-	 * logoutHistory
-	 * @author 김동규
-	 * @param loginHistoryVO
-	 * @return getSqlSession
-	 */
+
 	@Override
 	public int logoutHistory(LoginHistoryVO loginHistoryVO) {
 		return getSqlSession().insert("MemberDAO.logoutHistory", loginHistoryVO);

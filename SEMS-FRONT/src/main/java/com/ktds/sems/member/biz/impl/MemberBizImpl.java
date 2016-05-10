@@ -18,12 +18,6 @@ public class MemberBizImpl implements MemberBiz{
 		return memberDAO.addNewMember(member) > 0;
 	}
 
-	/**
-	 * loginHistory
-	 * @author 김동규
-	 * @param loginHistoryVO
-	 * @return memberDAO
-	 */
 	@Override
 	public boolean loginHistory(LoginHistoryVO loginHistoryVO) {
 		//id
@@ -31,12 +25,7 @@ public class MemberBizImpl implements MemberBiz{
 		
 		return memberDAO.loginHistory(loginHistoryVO) > 0;		
 	}
-	/**
-	 * logoutHistory
-	 * @author 김동규
-	 * @param loginHistoryVO
-	 * @return memberDAO
-	 */
+	
 	@Override
 	public boolean logoutHistory(LoginHistoryVO loginHistoryVO) {
 		

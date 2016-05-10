@@ -1,10 +1,5 @@
 package com.ktds.sems.member.vo;
 
-/**
- * [160509-16:40]
- * @author 김동규
- *
- */
 public class LoginHistoryVO extends MemberVO{
 
 	private int lgiHtrId;
