@@ -1,5 +1,6 @@
 package com.ktds.sems.member.vo;
 
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -17,6 +18,7 @@ public class MemberVO {
 	private String name;
 
 	@NotEmpty(message="이메일은 필수 입력 값 입니다!")
+	@Email
 	private String email;
 	
 	@NotEmpty(message="최종 학력는 필수 입력 값 입니다!")
@@ -43,7 +45,43 @@ public class MemberVO {
 	private String salt;
 	private int loginFailCount;
 	private String isAccountLock;
+	private String latestLoginDate;
+	private String resignDate;
+	private String isResign;
+	private int modifyFailCount;
+	private String isModifyLock;
 
+	
+	public String getResignDate() {
+		return resignDate;
+	}
+	public void setResignDate(String resignDate) {
+		this.resignDate = resignDate;
+	}
+	public String getIsResign() {
+		return isResign;
+	}
+	public void setIsResign(String isResign) {
+		this.isResign = isResign;
+	}
+	public String getLatestLoginDate() {
+		return latestLoginDate;
+	}
+	public void setLatestLoginDate(String latestLoginDate) {
+		this.latestLoginDate = latestLoginDate;
+	}
+	public int getModifyFailCount() {
+		return modifyFailCount;
+	}
+	public void setModifyFailCount(int modifyFailCount) {
+		this.modifyFailCount = modifyFailCount;
+	}
+	public String getIsModifyLock() {
+		return isModifyLock;
+	}
+	public void setIsModifyLock(String isModifyLock) {
+		this.isModifyLock = isModifyLock;
+	}
 	public String getId() {
 		return id;
 	}
