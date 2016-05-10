@@ -1,5 +1,8 @@
 package com.ktds.sems.member.service.impl;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
@@ -26,24 +29,50 @@ public class MemberServiceImpl implements MemberService {
 		MemberVO sessionMember = (MemberVO) session.getAttribute("_MEMBER_");
 
 		if (sessionMember != null) {
-
 			throw new RuntimeException("유효한 접근이 아닙니다.");
-
 		}
 		else if ( errors.hasErrors() ) {
 			view.setViewName("member/register");
 			view.addObject("member", member);
 		} else {
-
 			// TODO 비밀번호 암호화
 			// 1. salt 생성
+			
+			// 2. 암호화
+			boolean isVerifyId = isVerifyId(member.getId());
+			if ( !isVerifyId ) {
+				throw new RuntimeException("입력 값 오류 : ID");
+			}
+			
+			boolean isVerifyPassword = isVerifyPassword(member.getPassword());
+			if ( !isVerifyPassword ) {
+				throw new RuntimeException("입력 값 오류 : PASSWORD");
+			}
 
 			memberBiz.addNewMember(member);
+			
+			
 			// TODO 이동할 페이지
 			view.setViewName("");
 		}
 
 		return view;
+	}
+	
+	
+	
+	private boolean isVerifyId (String id) {
+		String idPolicy = "((?=.*[a-zA-Z])(?=.*[0-9]).{8,})";
+		Pattern pattern = Pattern.compile(idPolicy);
+		Matcher matcher = pattern.matcher(id);
+		return matcher.matches();
+	}
+	
+	private boolean isVerifyPassword (String password) {
+		String passwordPolicy = "((?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*()]).{8,})";
+		Pattern pattern = Pattern.compile(passwordPolicy);
+		Matcher matcher = pattern.matcher(password);
+		return matcher.matches();
 	}
 
 	@Override
