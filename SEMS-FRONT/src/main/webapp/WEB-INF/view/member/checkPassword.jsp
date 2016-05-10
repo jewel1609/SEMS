@@ -15,9 +15,23 @@
 				return;
 			}
 			
-			$("#checkPasswordForm").submit();
+			
+			$.post("/member/myPage/doCheckPassword", $("#checkPasswordForm").serialize(), function(data){
+				
+				 if ( data =="NO" ){
+			           alert("비밀번호 오류입니다. 비밀번호를 확인해 주세요.");
+			           location.href="/member/myPage/checkPassword";
+			        }
+				 else if ( data =="OK" ){
+					 $("#checkPasswordForm").submit();
+				 }
+			    else if(data == "OVER") {
+			       alert("비밀번호가 지속 실패하여, 계정이 잠겼습니다. 운영자에게 문의하세요.");
+			       location.href="/member/myPage";
+			    }		 
+			});
 		});	
-		
+
 	});
 
 </script>
