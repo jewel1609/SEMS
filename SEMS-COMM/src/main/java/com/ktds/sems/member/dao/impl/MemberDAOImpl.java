@@ -32,4 +32,10 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO{
 		getSqlSession().update("MemberDAO.doGrdtModify",grdtTpVO);
 		
 	}
+
+	@Override
+	public void doGrdtInsert(GrdtTpVO grdtTpVO) {
+		getSqlSession().insert("MemberDAO.doGrdtInsert",grdtTpVO);
+		
+	}
 }

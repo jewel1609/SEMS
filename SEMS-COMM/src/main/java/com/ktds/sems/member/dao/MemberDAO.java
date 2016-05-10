@@ -15,4 +15,6 @@ public interface MemberDAO {
 	
 	public void doGrdtModify(GrdtTpVO grdtTpVO);
 
+	public void doGrdtInsert(GrdtTpVO grdtTpVO);
+
 }

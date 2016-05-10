@@ -15,4 +15,6 @@ public interface MemberBiz {
 
 	public void doGrdtModify(GrdtTpVO grdtTpVO);
 
+	public void doGrdtInsert(GrdtTpVO grdtTpVO);
+
 }

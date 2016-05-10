@@ -33,5 +33,16 @@
 		SET		CD_NM = #{cdNm}
 		WHERE	CD_ID = #{cdId}
 	</update>
+	
+	<insert id="doGrdtInsert" parameterType="GrdtTpVO">
+		INSERT INTO GRDT_TP (
+				 			  CD_ID
+				 			  , CD_NM
+				 			  ) 
+		VALUES 				(
+								#{cdId}
+								, #{cdNm}
+							 )
+	</insert>
 
 </mapper>

@@ -12,4 +12,6 @@ public interface MemberService {
 
 	public String doGrdtModify(String cdId, String cdNm);
 
+	public String doGrdtInsert(String cdId, String cdNm);
+
 }
