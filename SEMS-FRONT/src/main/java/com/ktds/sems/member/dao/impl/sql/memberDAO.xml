@@ -69,7 +69,7 @@
 		FROM	MBR
 		WHERE	ID = #{id}
 	</select>
-	<insert id="loginHistory" parameterType="loginHistoryVO">
+	<insert id="loginHistory" parameterType="LoginHistoryVO">
 		INSERT INTO LGI_HTR	(
 								LGI_HTR_ID
 								, MBR_ID
@@ -85,7 +85,7 @@
 								, SYSDATE 
 		 					)
 	</insert>
-	<update id="logoutHistory" parameterType="loginHistoryVO">
+	<update id="logoutHistory" parameterType="LoginHistoryVO">
 		UPDATE	LGI_HTR
 		SET		LGO_DT = SYSDATE
 		WHERE	LGI_HTR_ID = #{ lgiHtrId }
