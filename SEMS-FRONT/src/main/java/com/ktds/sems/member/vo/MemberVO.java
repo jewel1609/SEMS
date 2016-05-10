@@ -50,7 +50,7 @@ public class MemberVO {
 	private String isResign;
 	private int modifyFailCount;
 	private String isModifyLock;
-
+	
 	public String getResignDate() {
 		return resignDate;
 	}
