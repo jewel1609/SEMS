@@ -4,34 +4,34 @@
 
 <mapper namespace="MemberDAO">
 	<insert id="addNewMember" parameterType="MemberVO">
-		INSERT INTO SEMS.MBR	(
-									ID
-									, PWD
-									, NM
-									, EMAIL
-									, HIGHEST_EDU_LV
-									, UNIV_NM
-									, MJR_NM
-									, GRDT_TP
-									, BRTH_DT
-									, PHONE_NMB
-									, MBR_TP
-									, SALT
-								)
-		VALUES 					( 
-									{id}
-									, {password}
-									, {name}
-									, {email}
-									, {highestEducationLevel}
-									, {universityName}
-									, {majorName}
-									, {graduationType}
-									, {brithDate}
-									, {phoneNumber}
-									, {memberType}
-									, {salt}
-								)
+		INSERT INTO MBR	(
+							ID
+							, PWD
+							, NM
+							, EMAIL
+							, HIGHEST_EDU_LV
+							, UNIV_NM
+							, MJR_NM
+							, GRDT_TP
+							, BRTH_DT
+							, PHONE_NMB
+							, MBR_TP
+							, SALT
+						)
+		VALUES 			( 
+							#{id}
+							, #{password}
+							, #{name}
+							, #{email}
+							, #{highestEducationLevel}
+							, #{universityName}
+							, #{majorName}
+							, #{graduationType}
+							, #{brithDate}
+							, #{phoneNumber}
+							, #{memberType}
+							, #{salt}
+						)
 	</insert>
 	<select id="increaseHistorySeq" resultType="_int">
 		SELECT	LGI_HTR_ID_SEQ.NEXTVAL
