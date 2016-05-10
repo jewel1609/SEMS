@@ -7,8 +7,10 @@ import com.ktds.sems.member.vo.MbrTpVO;
 
 public interface MemberBiz {
 
-	public GrdtTpVO getAllGrtdList();
+	public List<GrdtTpVO> getAllGrtdList();
 
 	public List<MbrTpVO> getAllMbrTpList();
+
+	public void doGrdtDelete(String cdId);
 
 }
