@@ -14,24 +14,6 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 	}
 	
 	/**
-	 * nowDate
-	 * @author 김동규
-	 * @return getSqlSession
-	 */
-	@Override
-	public String nowTime() {
-		return getSqlSession().selectOne("MemberDAO.nowTime");
-	}
-	/**
-	 * increaseHistorySeq
-	 * @author 김동규
-	 * @return getSqlSession
-	 */
-	@Override
-	public int increaseHistorySeq() {
-		return getSqlSession().selectOne("MemberDAO.increaseHistorySeq");
-	}
-	/**
 	 * loginHistory
 	 * @author 김동규
 	 * @param loginHistoryVO

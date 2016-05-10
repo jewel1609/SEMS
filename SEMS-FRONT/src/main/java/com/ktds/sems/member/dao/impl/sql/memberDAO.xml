@@ -33,14 +33,6 @@
 							, #{salt}
 						)
 	</insert>
-	<select id="increaseHistorySeq" resultType="_int">
-		SELECT	LGI_HTR_ID_SEQ.NEXTVAL
-		FROM	DUAL
-	</select>
-	<select id="nowTime" resultType="string">
-		SELECT	TO_CHAR(SYSDATE, 'YYYY-MM-DD')
-		FROM	DUAL
-	</select>
 	<insert id="loginHistory" parameterType="loginHistoryVO">
 		INSERT INTO LGI_HTR	(
 								LGI_HTR_ID
@@ -50,7 +42,7 @@
 								, LGO_DT
 							) 
 		VALUES				(
-								#{ lgiHtrId }
+								LGI_HTR_ID_SEQ.NEXTVAL
 								, #{ mbrId }
 								, #{ lgiIp }
 								, SYSDATE

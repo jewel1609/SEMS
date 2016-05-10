@@ -26,10 +26,6 @@ public class MemberBizImpl implements MemberBiz{
 	 */
 	@Override
 	public boolean loginHistory(LoginHistoryVO loginHistoryVO) {
-		int stampId = memberDAO.increaseHistorySeq();
-		String loginTime = memberDAO.nowTime();
-		
-		loginHistoryVO.setLgiHtrId(stampId);
 		//id
 		//ip
 		
@@ -43,7 +39,6 @@ public class MemberBizImpl implements MemberBiz{
 	 */
 	@Override
 	public boolean logoutHistory(LoginHistoryVO loginHistoryVO) {
-		String logoutTime = memberDAO.nowTime();
 		
 		return memberDAO.logoutHistory(loginHistoryVO) > 0;
 	}

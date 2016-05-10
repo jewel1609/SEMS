@@ -7,10 +7,6 @@ public interface MemberDAO {
 
 	public int addNewMember(MemberVO member);
 	
-	public String nowTime();
-	
-	public int increaseHistorySeq();
-	
 	public int loginHistory(LoginHistoryVO loginHistoryVO);
 
 	public int logoutHistory(LoginHistoryVO loginHistoryVO);
