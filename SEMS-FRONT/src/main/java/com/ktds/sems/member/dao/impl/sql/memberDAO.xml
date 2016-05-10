@@ -62,34 +62,4 @@
 		SET		LGO_DT = SYSDATE
 		WHERE	LGI_HTR_ID = #{ lgiHtrId }
 	</update>
-	<insert id="addNewMember" parameterType="MemberVO">
-		INSERT INTO SEMS.MBR	(
-									ID
-									, PWD
-									, NM
-									, EMAIL
-									, HIGHEST_EDU_LV
-									, UNIV_NM
-									, MJR_NM
-									, GRDT_TP
-									, BRTH_DT
-									, PHONE_NMB
-									, MBR_TP
-									, SALT
-								)
-		VALUES 					( 
-									{id}
-									, {password}
-									, {name}
-									, {email}
-									, {highestEducationLevel}
-									, {universityName}
-									, {majorName}
-									, {graduationType}
-									, {brithDate}
-									, {phoneNumber}
-									, {memberType}
-									, {salt}
-								)
-	</insert>
 </mapper>
