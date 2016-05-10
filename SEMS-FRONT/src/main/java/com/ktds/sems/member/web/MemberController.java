@@ -28,7 +28,7 @@ public class MemberController {
 	
 	@RequestMapping("/member/register")
 	public String viewRegisterPage () {
-		return "redirect:member/register";
+		return "member/register";
 	}
 	
 }
