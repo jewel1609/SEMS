@@ -16,18 +16,18 @@ public class EducationServiceImpl implements EducationService {
 	}
 
 	@Override
-	public ModelAndView writeNewEducation(EducationVO educationVO, Errors errors) {
+	public ModelAndView doSearchList(EducationVO educationVO, Errors errors) {
 		
 		ModelAndView view = new ModelAndView();
 		
 		if ( errors.hasErrors() ) {
-			view.setViewName("/education/write");
+			view.setViewName("/education/list");
 			view.addObject("educationVO", educationVO);
 			
 			return view;
 		}
 		else {
-			boolean result = educationBiz.writeNewEducation(educationVO);
+			boolean result = educationBiz.doSearchList(educationVO);
 			if ( result ) {
 				view.setViewName("redirect:/list");
 			} 

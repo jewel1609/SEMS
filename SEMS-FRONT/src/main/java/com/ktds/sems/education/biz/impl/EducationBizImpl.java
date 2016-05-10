@@ -13,8 +13,8 @@ public class EducationBizImpl implements EducationBiz {
 	}
 
 	@Override
-	public boolean writeNewEducation(EducationVO educationVO) {
-		return educationDAO.writeNewEducation(educationVO) > 0;
+	public boolean doSearchList(EducationVO educationVO) {
+		return educationDAO.doSearchList(educationVO) > 0;
 	}
 
 }

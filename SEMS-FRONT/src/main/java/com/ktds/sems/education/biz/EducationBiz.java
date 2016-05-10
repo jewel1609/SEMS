@@ -4,6 +4,6 @@ import com.ktds.sems.education.vo.EducationVO;
 
 public interface EducationBiz {
 
-	boolean writeNewEducation(EducationVO educationVO);
+	boolean doSearchList(EducationVO educationVO);
 
 }

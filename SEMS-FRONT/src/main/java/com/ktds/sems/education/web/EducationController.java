@@ -28,8 +28,8 @@ public class EducationController {
 	}
 	
 	@RequestMapping("/searchList")
-	public ModelAndView doSearchList(){
-		return null;
+	public ModelAndView doSearchList(@Valid EducationVO educationVO, Errors errors){
+		return educationService.doSearchList(educationVO, errors);
 	}
 	
 
