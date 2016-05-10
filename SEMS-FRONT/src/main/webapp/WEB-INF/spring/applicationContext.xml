@@ -26,4 +26,9 @@
 	
 	<bean id="sampleController" class="com.ktds.sems.sample.web.SampleController" />
 	
+	<bean id="educationController"
+			class="com.ktds.sems.education.web.EducationController">
+			<property name="educationService" ref="educationService"></property>
+	</bean>
+	
 </beans>
