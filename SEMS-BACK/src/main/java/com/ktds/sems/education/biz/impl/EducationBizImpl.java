@@ -1,21 +1,46 @@
 package com.ktds.sems.education.biz.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.ktds.sems.education.biz.EducationBiz;
 import com.ktds.sems.education.dao.EducationDAO;
 import com.ktds.sems.education.vo.EducationVO;
 
-
 public class EducationBizImpl implements EducationBiz {
-	
-	private EducationDAO educationDAO;
 
+	private EducationDAO educationDAO;
+	
 	public void setEducationDAO(EducationDAO educationDAO) {
 		this.educationDAO = educationDAO;
 	}
 
+	@Override
+	public boolean writeNewEducation(EducationVO educationVO) {
+		
+		int nextEducationId = educationDAO.nextEduSeq();
+		String nowDate = educationDAO.nowDate();
+		
+		/*
+		 * ArticleID의 형식
+		 * ED-20160421-000001
+		 */
+		
+		String educationId = "ED-" + nowDate + "-" + lpad(nextEducationId + "", 6, "0");
+		
+		educationVO.setEducationId(educationId);
+		
+		return educationDAO.insertNewEducation(educationVO) > 0;
+	}
+
+	private String lpad(String source, int length, String defValue) {
+		int sourceLength = source.length();
+		int needLength = length - sourceLength;
+		
+		for (int i = 0; i < needLength; i++) {
+			source = defValue + source;
+		}
+		return source;
+		
+	}
+	
 	@Override
 	public EducationVO getOneEducation(String educationId) {
 		return educationDAO.getOneEducation(educationId);
