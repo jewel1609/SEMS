@@ -12,6 +12,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.member.service.MemberService;
 
+import kr.co.hucloud.utilities.web.AjaxUtil;
+
 @Controller
 public class MemberController {
 
@@ -31,20 +33,21 @@ public class MemberController {
 		return memberService.doGrdtDelete(cdId);
 	}
 	@RequestMapping("doGrdtModify")
-	public String doGrdtModify(HttpServletRequest request, HttpServletResponse response){
+	public void doGrdtModify(HttpServletRequest request, HttpServletResponse response){
 		
 		String cdId = request.getParameter("cdId");
 		String cdNm = request.getParameter("cdNm");
 		
-		return memberService.doGrdtModify(cdId, cdNm);
+		memberService.doGrdtModify(cdId, cdNm);
 	}
 	
 	@RequestMapping("doGrdtInsert")
-	public String doGrdtInsert(HttpServletRequest request, HttpServletResponse response){
+	public void doGrdtInsert(HttpServletRequest request, HttpServletResponse response){
 		String cdId = request.getParameter("cdId");
 		String cdNm = request.getParameter("cdNm");
 		
-		return memberService.doGrdtInsert(cdId, cdNm);
+		String status = memberService.doGrdtInsert(cdId, cdNm);
+		AjaxUtil.sendResponse(response, status);
 	}
 	
 	/*Member Type*/

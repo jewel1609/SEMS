@@ -10,7 +10,7 @@ public interface MemberService {
 
 	public String doGrdtDelete(String cdId);
 
-	public String doGrdtModify(String cdId, String cdNm);
+	public void doGrdtModify(String cdId, String cdNm);
 
 	public String doGrdtInsert(String cdId, String cdNm);
 

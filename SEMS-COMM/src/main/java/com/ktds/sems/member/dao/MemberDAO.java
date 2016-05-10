@@ -13,14 +13,16 @@ public interface MemberDAO {
 
 	public void doGrdtDelete(String cdId);
 	
-	public void doGrdtModify(GrdtTpVO grdtTpVO);
+	public int doGrdtModify(GrdtTpVO grdtTpVO);
 
+	public int doGrdtInsert(GrdtTpVO grdtTpVO);
+
+	public int isExistData(GrdtTpVO grdtTpVO);
 	public void doInsertMbrTp(MbrTpVO newMbrTpVO);
 
 	public void doMbrTpDelete(String cdId);
 
 	public void doMbrTpModify(MbrTpVO mbrTpVO);
 
-	public void doGrdtInsert(GrdtTpVO grdtTpVO);
 
 }

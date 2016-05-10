@@ -39,11 +39,20 @@ public class MemberBizImpl implements MemberBiz{
 	}
 
 	@Override
-	public void doGrdtModify(GrdtTpVO grdtTpVO) {
-		memberDAO.doGrdtModify(grdtTpVO);
+	public int doGrdtModify(GrdtTpVO grdtTpVO) {
+		return memberDAO.doGrdtModify(grdtTpVO);
+		
 	}
 
 	@Override
+	public int doGrdtInsert(GrdtTpVO grdtTpVO) {
+		return memberDAO.doGrdtInsert(grdtTpVO);
+	}
+
+	@Override
+	public int isExistData(GrdtTpVO grdtTpVO) {
+		return memberDAO.isExistData(grdtTpVO);
+	}
 	public void doMbrTpDelete(String cdId) {
 		memberDAO.doMbrTpDelete(cdId);
 	}
@@ -51,11 +60,6 @@ public class MemberBizImpl implements MemberBiz{
 	@Override
 	public void doMbrTpModify(MbrTpVO mbrTpVO) {
 		memberDAO.doMbrTpModify(mbrTpVO);
-		
-	}
-	@Override
-	public void doGrdtInsert(GrdtTpVO grdtTpVO) {
-		memberDAO.doGrdtInsert(grdtTpVO);
 		
 	}
 }

@@ -39,12 +39,14 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public String doGrdtModify(String cdId, String cdNm) {
+	public void doGrdtModify(String cdId, String cdNm) {
 		GrdtTpVO grdtTpVO = new GrdtTpVO();
 		grdtTpVO.setCdId(cdId);
 		grdtTpVO.setCdNm(cdNm);
+		
 		memberBiz.doGrdtModify(grdtTpVO);
-		return "redirect:/grdtPage";
+			
+		
 	}
 
 	@Override
@@ -52,8 +54,20 @@ public class MemberServiceImpl implements MemberService{
 		GrdtTpVO grdtTpVO = new GrdtTpVO();
 		grdtTpVO.setCdId(cdId);
 		grdtTpVO.setCdNm(cdNm);
-		memberBiz.doGrdtInsert(grdtTpVO);
-		return "redirect:/grdtPage";
+		
+		if(memberBiz.isExistData(grdtTpVO) > 0){
+			return "FAIL";
+		}	
+		
+		else{	
+			boolean data = memberBiz.doGrdtInsert(grdtTpVO) > 0;
+				
+			if(!data){
+				return "FAIL";
+			}
+			return "OK";
+		}
+		
 	}
 	
 	/*MbrTp*/
