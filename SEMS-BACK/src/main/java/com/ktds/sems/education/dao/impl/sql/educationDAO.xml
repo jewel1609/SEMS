@@ -3,7 +3,7 @@
 
 <mapper namespace="EducationDAO" >
 
-	<select id="nextEduSeq" resultType="_int">
+<select id="nextEduSeq" resultType="_int">
 		SELECT	EDU_ID_SEQ.NEXTVAL
 		FROM	DUAL
 	</select>
@@ -17,19 +17,19 @@
 
 		INSERT INTO SEMS.EDU_INFO (
 									   EDU_ID 
-									   , EDU_CTGR 
-									   , EDU_TTL 
-									   , MBR_ID
+									   , EDU_CTGR  
+									   , EDU_TTL  
+									   , MBR_ID 
 									   , MAX_MBR 
 									   , EDU_LOC 
 									   , EDU_CLCM 
-									   , EDU_INTR
+									   , EDU_INTR 
 									   , SRT_DATE 
 									   , END_DATE 
 									   , START_TM 
 									   , END_TM 
-									   , EDU_TP
-									   , COST
+									   , EDU_TP 
+									   , COST 
 									) 
 		VALUES 					 (	#{educationId}
 									 , #{educationCategory}
