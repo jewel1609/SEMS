@@ -13,18 +13,6 @@ import com.ktds.sems.education.vo.EducationVO;
 public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationDAO {
 
 	@Override
-	public List<EducationVO> doSearchList(String startDate, String endDate, String eduName, String educationType, String cost) {
-		Map<String, String> paramMap = new HashMap<String, String>();
-		paramMap.put("startDate", startDate);
-		paramMap.put("endDate", endDate);
-		paramMap.put("eduName", eduName);
-		paramMap.put("educationType", educationType);
-		paramMap.put("cost", cost);
-		
-		return getSqlSession().selectList("EducationDAO.doSearchList", paramMap);
-	}
-
-	@Override
 	public int getTotalEducationCount() {
 		return getSqlSession().selectOne("EducationDAO.getTotalEducationCount");
 	}
@@ -37,6 +25,28 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 	@Override
 	public EducationVO getOneEducationDetail(String educationId) {
 		return getSqlSession().selectOne("EducationDAO.getOneEducationDetail", educationId);
+	}
+
+	@Override
+	public int getSearchedEducationCount(String startDate, String endDate, String eduName, String educationType, String cost) {
+		return getSqlSession().selectOne("EducationDAO.getSearchedEducationCount");
+	}
+
+	@Override
+	public List<EducationVO> doSearchList(String startDate, String endDate, String eduName, String educationType,
+			String cost, EducationSearchVO searchVO) {
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("startDate", startDate);
+		paramMap.put("endDate", endDate);
+		paramMap.put("eduName", eduName);
+		paramMap.put("educationType", educationType);
+		paramMap.put("cost", cost);
+	
+		paramMap.put("startIndex", String.valueOf(searchVO.getStartIndex()) );
+		paramMap.put("endIndex", String.valueOf(searchVO.getEndIndex()) );
+		
+		
+		return getSqlSession().selectList("EducationDAO.doSearchList", paramMap);
 	}
 
 }

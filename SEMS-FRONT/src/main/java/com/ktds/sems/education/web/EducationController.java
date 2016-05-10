@@ -27,8 +27,10 @@ public class EducationController {
 	}
 	
 	@RequestMapping("/searchList")
-	public ModelAndView doSearchList(@PathVariable String startYear, @PathVariable String startMonth, @PathVariable String endYear, @PathVariable String endMonth, @PathVariable String eduName, @PathVariable String educationType, @PathVariable String cost){
-		return educationService.doSearchList(startYear, startMonth, endYear, endMonth, eduName, educationType, cost );
+	public ModelAndView doSearchList(@PathVariable String startYear, @PathVariable String startMonth, 
+			@PathVariable String endYear, @PathVariable String endMonth, @PathVariable String eduName,
+			@PathVariable String educationType, @PathVariable String cost, @RequestParam(required=false, defaultValue="0") int pageNo){
+		return educationService.doSearchList(startYear, startMonth, endYear, endMonth, eduName, educationType, cost, pageNo );
 	}
 	
 	@RequestMapping("/eduDetail/{educationId}")
@@ -36,10 +38,5 @@ public class EducationController {
 		return educationService.getOneEducationDetail(educationId);
 	}
 }
-	/*@RequestMapping("/setEdu/${educationId}") 
-	public void showEducationDetail
-	*/
-	
 
-	// commit용
 

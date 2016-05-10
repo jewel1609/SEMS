@@ -31,14 +31,27 @@ public class EducationServiceImpl implements EducationService {
 	}
 
 	@Override
-	public ModelAndView doSearchList(String startYear, String startMonth, String endYear, String endMonth, String eduName, String educationType, String cost) {
+	public ModelAndView doSearchList(String startYear, String startMonth, String endYear, String endMonth, String eduName, String educationType, String cost, int pageNo) {
+
+		EducationListVO searchedListVO = new EducationListVO();
+		Paging paging = new Paging(15,15);
+		searchedListVO.setPaging(paging);
+		paging.setPageNumber(pageNo + "");
 
 		ModelAndView view = new ModelAndView();
 		String startDate = startYear + "/" + startMonth;
 		String endDate = endYear + "/" + endMonth;
 		
-		List<EducationVO> educations = educationBiz.doSearchList(startDate, endDate, eduName, educationType, cost);
-		view.addObject("educationList", educations);
+		int searchedEducationCount = educationBiz.getSearchedEducationCount(startDate, endDate, eduName, educationType, cost);
+		paging.setTotalArticleCount(searchedEducationCount);
+		
+		EducationSearchVO searchVO = new EducationSearchVO();
+		searchVO.setStartIndex(paging.getStartArticleNumber());
+		searchVO.setEndIndex(paging.getEndArticleNumber());
+		
+		List<EducationVO> searchedEducations = educationBiz.doSearchList(startDate, endDate, eduName, educationType, cost, searchVO);
+		searchedListVO.setEducationList(searchedEducations);
+		view.addObject("searchedEducations", searchedEducations);
 		view.setViewName("/education/list");
 
 		return view;
