@@ -111,5 +111,10 @@ public class MemberController {
 	public ModelAndView doModifyAction(@Valid MemberVO member, Errors errors) {
 		return memberService.modifyMemberInfo(member, errors);
 	}
-
+	
+	@RequestMapping("/member/loginHistory")
+	public ModelAndView viewLoginHistoryPage(@RequestParam(required=false, defaultValue="0") int pageNo) {
+		return memberService.viewLoginHistoryPage(pageNo);
+	}
+	
 }
