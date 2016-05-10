@@ -17,15 +17,23 @@
 			
 			if ( confirm("입력한 내용으로 수정하시겠습니까?") == true ) {
 				
-				if ( $("#cdNm").length() > 10 ) {
-					alert("10글자 이하로 입력해주세요.");
-					return;
-				}
+				var root =  $(this).parent().parent().children(":eq(0)");
+				var cdNm = $(this).parent().parent().children(":eq(2)").children();
 				
-				var form = $("#modiAndDelForm");
-				form.attr("method", "post");
-				form.attr("action","/doGrdtModify");
-				form.submit();
+				$.post("/comm/doGrdtModify", {
+					"cdId" : root.val(),
+					"cdNm" : cdNm.val()
+				}, function(data) {
+
+					var jsonData = {};
+
+					try {
+						jsonData = JSON.parse(data);
+					} catch (e) {
+						jsonData.result = false;
+					}
+					
+				});
 			}
 			else {
 				return;
@@ -64,7 +72,7 @@
 					<input type="hidden" id="${graduation.cdId}" name="cdId" value="${graduation.cdId}"/>
 					<td style="text-align:center">${graduation.cdId}</td>
 					<td>
-						<input style="text-align:center" type="text" id="cdNm" name="cdNm" value="${graduation.cdNm}"/>
+						<input style="text-align:center" type="text" id="${graduation.cdNm}" name="cdNm" value="${graduation.cdNm}"/>
 					</td>
 					
 					<td><input type="button" class="grdtModifyBtn" value="수정"/></td>
