@@ -14,12 +14,9 @@ public class MemberBizImpl implements MemberBiz{
 		this.memberDAO = memberDAO;
 	}
 
-
-
 	@Override
-	public GrdtTpVO getAllGrtdList() {
-		memberDAO.getAllGrtdList();
-		return null;
+	public List<GrdtTpVO> getAllGrtdList() {
+		return memberDAO.getAllGrtdList();
 	}
 
 
@@ -28,6 +25,12 @@ public class MemberBizImpl implements MemberBiz{
 	public List<MbrTpVO> getAllMbrTpList() {
 		List<MbrTpVO> mbrtpList = memberDAO.getAllMbrTpList();
 		return mbrtpList;
+	}
+
+	@Override
+	public void doGrdtDelete(String cdId) {
+		memberDAO.doGrdtDelete(cdId);
+		
 	}
 
 }
