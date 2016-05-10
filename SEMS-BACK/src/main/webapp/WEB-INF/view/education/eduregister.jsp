@@ -14,33 +14,35 @@
  
  <div style="width:30%; height:100%; border:thin; border-style:double; border-radius: 5px; padding:5px;">
 		<form:form commandName="educationVO" method="post"
-	     							 action="/backend/doWriteAction">
+	     							 action="/backend/doWriteAction" enctype="multipart/form-data">
 	     	
-	     educationCategory : <input type="text" id="educationCategory" name="educationCategory" value="${educationVO.educationCategory }"/>
+	     educationCategory : <input type="text" id="educationCategory" name="educationCategory" value="${educationVO.educationCategory }"/><br/>
 	     <form:errors path="educationCategory" /><br/>
-	     educationTitle : <input type="text" id="educationTitle" name="educationTitle" value="${educationVO.educationTitle }"/>   
+	     educationTitle : <input type="text" id="educationTitle" name="educationTitle" value="${educationVO.educationTitle }"/>   <br/>
 	     <form:errors path="educationTitle" /><br/>
-	     memberId :  <input type="text" id="memberId" name="memberId" value="${educationVO.memberId }"/>   
+	     memberId :  <input type="text" id="memberId" name="memberId" value="${educationVO.memberId }"/>   <br/>
 	     <form:errors path="memberId" /><br/>
-	     maxMember : <input type="text" id="maxMember" name="maxMember" value="${educationVO.maxMember }"/>   
+	     maxMember : <input type="text" id="maxMember" name="maxMember" value="${educationVO.maxMember }"/>   <br/>
 	     <br/>
-	     educationLocation : <input type="text" id="educationLocation" name="educationLocation" value="${educationVO.educationLocation }"/> 
+	     educationLocation : <input type="text" id="educationLocation" name="educationLocation" value="${educationVO.educationLocation }"/> <br/>
 	     <form:errors path="educationLocation" /><br/>
-	     educationCurriculum :  <input type="text" id="educationCurriculum" name="educationCurriculum" value="${educationVO.educationCurriculum }"/>   
+	     educationCurriculum : <input type="file" name="educationCurriculum" id="educationCurriculum" tabindex="2" style="height: 45px"
+	      value="${educationVO.educationCurriculum }"><br/>  
 	     <br/>
-	     educationIntroduce :  <input type="text" id="educationIntroduce" name="educationIntroduce" value="${educationVO.educationIntroduce }"/>
+	      <!--  <input type="text" id="educationCurriculum" name="educationCurriculum" value="${educationVO.educationCurriculum }"/> -->
+	     educationIntroduce :  <input type="text" id="educationIntroduce" name="educationIntroduce" value="${educationVO.educationIntroduce }"/><br/>
 	     <form:errors path="educationIntroduce" /><br/>
-	     startDate :  <input type="text" id="startDate" name="startDate" value="${educationVO.startDate }"/>   
+	     startDate :  <input type="text" id="startDate" name="startDate" value="${educationVO.startDate }"/>   <br/>
 	     <form:errors path="startDate" /><br/>
-	     endDate :  <input type="text" id="endDate" name="endDate" value="${educationVO.endDate }"/>   
+	     endDate :  <input type="text" id="endDate" name="endDate" value="${educationVO.endDate }"/>   <br/>
 	     <form:errors path="endDate" /><br/>
-	     startTime : <input type="text" id="startTime" name="startTime" value="${educationVO.startTime }"/>   
+	     startTime : <input type="text" id="startTime" name="startTime" value="${educationVO.startTime }"/>   <br/>
 	     <form:errors path="startTime" /><br/>
-	     endTime :  <input type="text" id="endTime" name="endTime" value="${educationVO.endTime }"/>   
+	     endTime :  <input type="text" id="endTime" name="endTime" value="${educationVO.endTime }"/>   <br/>
 	     <form:errors path="endTime" /><br/>
-	     educationType : <input type="text" id="educationType" name="educationType" value="${educationVO.educationType }"/>   
+	     educationType : <input type="text" id="educationType" name="educationType" value="${educationVO.educationType }"/>   <br/>
 	     <form:errors path="educationType" /><br/>
-	     cost : <input type="text" id="cost" name="cost" value="${educationVO.cost }"/>   
+	     cost : <input type="text" id="cost" name="cost" value="${educationVO.cost }"/>   <br/>
 	     <form:errors path="cost" /><br/>
 	      <input type="submit" value="등록하기" />
    		</form:form>
