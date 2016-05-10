@@ -6,10 +6,13 @@
 	<typeAliases>
 		<typeAlias type="com.ktds.sems.member.vo.MemberVO" alias="MemberVO"/>
 		<typeAlias type="com.ktds.sems.member.vo.LoginHistoryVO" alias="loginHistoryVO"/>
+		<typeAlias type="com.ktds.sems.education.vo.EducationVO" alias="EducationVO"/>
+		<typeAlias type="com.ktds.sems.education.vo.EducationSearchVO" alias="EducationSearchVO"/>
 	</typeAliases>
 
 	<mappers>
 		<mapper resource="com/ktds/sems/member/dao/impl/sql/memberDAO.xml"/>
+		<mapper resource="/com/ktds/sems/education/dao/impl/sql/educationDAO.xml" />
 	</mappers>
 	
 </configuration>

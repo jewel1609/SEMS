@@ -116,12 +116,27 @@
 
 <table border="1">
 	<tr>
-		<th>번호</th>
 		<th>교육 이름</th>
 		<th>교육분야</th>
 		<th>강의 기간</th>
 		<th>강의 형태</th>
 		<th>비용</th>
+	</tr>
+	<c:forEach items="${ educationListVO.educationList }" var="education">
+	<tr>
+		<td>${ education.educationTitle }</td>
+		<td>${ education.educationCategory }</td>
+		<td>${ education.educationCategory }</td>
+		<td>${ education.startDate } ~ ${ education.endDate }</td>
+		<td>${ education.cost }</td>
+	</tr>
+	</c:forEach>
+	<tr>
+		<td colspan="5">
+			<form id="pagingForm">
+				${ educationListVO.paging.getPagingList("pageNo", "[@]", "이전", "다음", pagingForm) }
+			</form>
+		</td>
 	</tr>
 </table>
 

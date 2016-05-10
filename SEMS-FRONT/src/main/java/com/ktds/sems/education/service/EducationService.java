@@ -10,4 +10,6 @@ public interface EducationService {
 	
 	public ModelAndView doSearchList(EducationVO educationVO, Errors errors);
 
+
+	public ModelAndView getAllEducationList(int pageNo);
 }

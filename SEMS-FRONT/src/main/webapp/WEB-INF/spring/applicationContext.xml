@@ -24,11 +24,12 @@
 		<property name="memberService" ref="memberService"/>
 	</bean>
 	
-	<bean id="sampleController" class="com.ktds.sems.sample.web.SampleController" />
-	
 	<bean id="educationController"
 			class="com.ktds.sems.education.web.EducationController">
-			<property name="educationService" ref="educationService"></property>
+			<property name="educationService" ref="educationService" />
 	</bean>
+	
+	<bean id="sampleController" class="com.ktds.sems.sample.web.SampleController" />
+	
 	
 </beans>

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.education.service.EducationService;
@@ -21,10 +22,8 @@ public class EducationController {
 	}
 	
 	@RequestMapping("/educationList")
-	public ModelAndView viewEducationListPage(){
-		ModelAndView view = new ModelAndView(); 
-		view.setViewName("education/list");
-		return view;
+	public ModelAndView viewEducationListPage(@RequestParam(required=false, defaultValue="0") int pageNo){
+		return educationService.getAllEducationList(pageNo);
 	}
 	
 	@RequestMapping("/searchList")

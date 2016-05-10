@@ -10,13 +10,13 @@ public class EducationListVO {
 	private List<EducationVO> educationList;
 	private Paging paging;
 	
-	public List<EducationVO> getArticleList() {
+	public List<EducationVO> getEducationList() {
 		List<EducationVO> educations = new ArrayList<EducationVO>();
 		educations.addAll(educationList);
 		return educations;
 	}
 	
-	public void setArticleList(List<EducationVO> articleList) {
+	public void setEducationList(List<EducationVO> articleList) {
 		List<EducationVO> educations = new ArrayList<EducationVO>();
 		educations.addAll(articleList);
 		

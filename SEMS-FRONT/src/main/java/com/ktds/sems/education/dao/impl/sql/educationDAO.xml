@@ -2,6 +2,36 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="EducationDAO" >
-
-
+	<select id="getTotalEducationCount" resultType="_int">
+		SELECT	COUNT(EDU_ID)
+		FROM	EDU_INFO
+	</select>
+	
+	<select id="getAllEducationList" parameterType="EducationSearchVO" resultType="EducationVO">
+		SELECT	EDU_ID educationId
+				, EDU_CTGR educationCategory
+				, EDU_TTL educationTitle
+				, MBR_ID memberId
+				, MAX_MBR maxMember
+				, EDU_LOC educationLocation
+				, EDU_CLCM educationCurriculum
+				, EDU_INTR educationIntroduce
+				, SRT_DATE startDate
+				, END_DATE endDate
+				, START_TM startTime
+				, END_TM endTime
+				, EDU_TP educationType
+				, COST cost
+		FROM	(
+					SELECT	ROWNUM AS RNUM
+							, EDU_INFO.*
+					FROM	(
+								SELECT	*
+								FROM	EDU_INFO
+								ORDER	BY EDU_ID DESC
+							) EDU_INFO
+					WHERE	ROWNUM <![CDATA[<=]]> #{endIndex}
+				)
+		WHERE	RNUM >= #{startIndex}		
+	</select>
 </mapper>
