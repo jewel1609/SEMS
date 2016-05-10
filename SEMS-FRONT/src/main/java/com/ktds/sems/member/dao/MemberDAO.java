@@ -11,6 +11,18 @@ public interface MemberDAO {
 
 	public int logoutHistory(LoginHistoryVO loginHistoryVO);
 
+	public String getSaltById(String id);
+
+	public MemberVO login(MemberVO loginVO);
+
+	public boolean isAccountLock(String id);
+
+	public int loginSuccess(String id);
+
+	public int plusLoginFailCount(String id);
+
+	public int updateAccountLock(String id);
+
 	public MemberVO getOneMember(String id);
 
 }

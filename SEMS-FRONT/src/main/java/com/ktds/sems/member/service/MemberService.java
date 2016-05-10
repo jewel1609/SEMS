@@ -11,6 +11,8 @@ public interface MemberService {
 
 	public ModelAndView addNewMember(MemberVO members , Errors errors, HttpSession session);
 
+	public String login(MemberVO memberVO, Errors errors, HttpSession session);
+
 	public ModelAndView modifySuccess(String id);
 
 	public ModelAndView modifyMemberInfo(MemberVO member, Errors errors);

@@ -1,5 +1,7 @@
 package com.ktds.sems.member.biz;
 
+import javax.servlet.http.HttpSession;
+
 import com.ktds.sems.member.vo.LoginHistoryVO;
 import com.ktds.sems.member.vo.MemberVO;
 
@@ -10,6 +12,16 @@ public interface MemberBiz {
 	public boolean loginHistory(LoginHistoryVO loginHistoryVO);
 	
 	public boolean logoutHistory(LoginHistoryVO loginHistoryVO);
+
+	public boolean isAccountLock(String id);
+
+	public boolean login(HttpSession session, MemberVO memberVO);
+
+	public boolean loginSuccess(String id);
+
+	public boolean plusLoginFailCount(String id);
+
+	public boolean updateAccountLock(String id);
 
 	public MemberVO getOneMember(String id);
 }

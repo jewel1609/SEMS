@@ -24,6 +24,36 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 	}
 
 	@Override
+	public String getSaltById(String id) {
+		return getSqlSession().selectOne("MemberDAO.getSaltById", id);
+	}
+
+	@Override
+	public MemberVO login(MemberVO loginVO) {
+		return getSqlSession().selectOne("MemberDAO.login", loginVO);
+	}
+
+	@Override
+	public boolean isAccountLock(String id) {
+		return getSqlSession().selectOne("MemberDAO.isAccountLock", id).equals("Y");
+	}
+
+	@Override
+	public int loginSuccess(String id) {
+		return getSqlSession().update("MemberDAO.loginSuccess", id);
+	}
+
+	@Override
+	public int plusLoginFailCount(String id) {
+		return getSqlSession().update("MemberDAO.plusLoginFailCount", id);
+	}
+
+	@Override
+	public int updateAccountLock(String id) {
+		return getSqlSession().update("MemberDAO.updateAccountLock", id);
+	}
+
+	@Override
 	public MemberVO getOneMember(String id) {
 		return getSqlSession().selectOne("MemberDAO.getOneMember", id);
 	}

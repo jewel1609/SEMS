@@ -1,5 +1,6 @@
 package com.ktds.sems.member.web;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -13,25 +14,32 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ktds.sems.member.service.MemberService;
 import com.ktds.sems.member.vo.MemberVO;
 
+import kr.co.hucloud.utilities.web.AjaxUtil;
+
 @Controller
 public class MemberController {
-	
+
 	private MemberService memberService;
-	
+
 	public void setMemberService(MemberService memberService) {
 		this.memberService = memberService;
 	}
 
-	@RequestMapping(value="/member/doRegisterAction", method=RequestMethod.POST)
-	public ModelAndView registerNewMember (@Valid MemberVO member, Errors errors, HttpSession session) {
+	@RequestMapping(value = "/member/doRegisterAction", method = RequestMethod.POST)
+	public ModelAndView registerNewMember(@Valid MemberVO member, Errors errors, HttpSession session) {
 		return memberService.addNewMember(member, errors, session);
 	}
-	
+
 	@RequestMapping("/member/register")
-	public String viewRegisterPage () {
+	public String viewRegisterPage() {
 		return "member/register";
 	}
-	
+
+	@RequestMapping(value = ("/member/login"), method = RequestMethod.POST)
+	public void login(@Valid MemberVO memberVO, Errors errors, HttpSession session, HttpServletResponse response) {
+		String loginStatus = memberService.login(memberVO, errors, session);
+		AjaxUtil.sendResponse(response, loginStatus);
+	}
 	@RequestMapping("/member/myPage")
 	public ModelAndView viewMyPage () { 
 		ModelAndView view = new ModelAndView();
