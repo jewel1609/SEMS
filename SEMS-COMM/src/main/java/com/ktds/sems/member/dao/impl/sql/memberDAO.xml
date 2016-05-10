@@ -16,4 +16,16 @@
 		FROM	MBR_TP
 	</select>
 
+	<select id="getAllGrtdList" resultType="GrdtTpVO">
+		SELECT	CD_ID	cdId
+				, CD_NM	cdNm
+		FROM	GRDT_TP
+	</select>
+
+	<delete id="doGrdtDelete" parameterType="string">
+		DELETE
+		FROM	GRDT_TP
+		WHERE	CD_ID = #{cdId}
+	</delete>
+
 </mapper>
