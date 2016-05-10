@@ -3,7 +3,6 @@
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="MemberDAO">
-
 	<insert id="addNewMember" parameterType="MemberVO">
 		INSERT INTO SEMS.MBR	(
 									ID
@@ -34,5 +33,63 @@
 									, {salt}
 								)
 	</insert>
-
+	<select id="increaseHistorySeq" resultType="_int">
+		SELECT	LGI_HTR_ID_SEQ.NEXTVAL
+		FROM	DUAL
+	</select>
+	<select id="nowTime" resultType="string">
+		SELECT	TO_CHAR(SYSDATE, 'YYYY-MM-DD')
+		FROM	DUAL
+	</select>
+	<insert id="loginHistory" parameterType="loginHistoryVO">
+		INSERT INTO LGI_HTR	(
+								LGI_HTR_ID
+								, MBR_ID
+								, LGI_IP
+								, LGI_DT
+								, LGO_DT
+							) 
+		VALUES				(
+								#{ lgiHtrId }
+								, #{ mbrId }
+								, #{ lgiIp }
+								, SYSDATE
+								, SYSDATE 
+		 					)
+	</insert>
+	<update id="logoutHistory" parameterType="loginHistoryVO">
+		UPDATE	LGI_HTR
+		SET		LGO_DT = SYSDATE
+		WHERE	LGI_HTR_ID = #{ lgiHtrId }
+	</update>
+	<insert id="addNewMember" parameterType="MemberVO">
+		INSERT INTO SEMS.MBR	(
+									ID
+									, PWD
+									, NM
+									, EMAIL
+									, HIGHEST_EDU_LV
+									, UNIV_NM
+									, MJR_NM
+									, GRDT_TP
+									, BRTH_DT
+									, PHONE_NMB
+									, MBR_TP
+									, SALT
+								)
+		VALUES 					( 
+									{id}
+									, {password}
+									, {name}
+									, {email}
+									, {highestEducationLevel}
+									, {universityName}
+									, {majorName}
+									, {graduationType}
+									, {brithDate}
+									, {phoneNumber}
+									, {memberType}
+									, {salt}
+								)
+	</insert>
 </mapper>
