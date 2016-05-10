@@ -15,6 +15,12 @@ public interface MemberBiz {
 
 	public void doGrdtModify(GrdtTpVO grdtTpVO);
 
+	public void doInsertMbrTp(MbrTpVO newMbrTpVO);
+
+	public void doMbrTpDelete(String cdId);
+
+	public void doMbrTpModify(MbrTpVO mbrTpVO);
+
 	public void doGrdtInsert(GrdtTpVO grdtTpVO);
 
 }

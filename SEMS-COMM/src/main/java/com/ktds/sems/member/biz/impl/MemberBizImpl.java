@@ -28,6 +28,11 @@ public class MemberBizImpl implements MemberBiz{
 	}
 
 	@Override
+	public void doInsertMbrTp(MbrTpVO newMbrTpVO) {
+		memberDAO.doInsertMbrTp(newMbrTpVO);
+	}
+
+	@Override
 	public void doGrdtDelete(String cdId) {
 		memberDAO.doGrdtDelete(cdId);
 		
@@ -36,13 +41,21 @@ public class MemberBizImpl implements MemberBiz{
 	@Override
 	public void doGrdtModify(GrdtTpVO grdtTpVO) {
 		memberDAO.doGrdtModify(grdtTpVO);
-		
 	}
 
+	@Override
+	public void doMbrTpDelete(String cdId) {
+		memberDAO.doMbrTpDelete(cdId);
+	}
+
+	@Override
+	public void doMbrTpModify(MbrTpVO mbrTpVO) {
+		memberDAO.doMbrTpModify(mbrTpVO);
+		
+	}
 	@Override
 	public void doGrdtInsert(GrdtTpVO grdtTpVO) {
 		memberDAO.doGrdtInsert(grdtTpVO);
 		
 	}
-
 }

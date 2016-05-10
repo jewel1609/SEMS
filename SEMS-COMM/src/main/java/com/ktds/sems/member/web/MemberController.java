@@ -1,5 +1,7 @@
 package com.ktds.sems.member.web;
 
+import javax.validation.Valid;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -19,13 +21,10 @@ public class MemberController {
 		this.memberService = memberService;
 	}
 	
+	/*Graduate*/
 	@RequestMapping("/grdtPage")
 	public ModelAndView viewGrdtPage () {
 		return memberService.viewGrdtPage();
-	}
-	@RequestMapping("/mbrTpPage")
-	public ModelAndView viewMbrTpPage () {
-		return memberService.viewMbrTpPage();
 	}
 	@RequestMapping("doGrdtDelete/{cdId}")
 	public String doGrdtDelete(@PathVariable String cdId){
@@ -38,6 +37,31 @@ public class MemberController {
 		String cdNm = request.getParameter("cdNm");
 		
 		return memberService.doGrdtModify(cdId, cdNm);
+	}
+	
+	/*Member Type*/
+	@RequestMapping("/mbrTpPage")
+	public ModelAndView viewMbrTpPage () {
+		return memberService.viewMbrTpPage();
+	}
+	
+	@RequestMapping("/doInsertMbrTp")
+	public String doInsertMbrTp (HttpServletRequest request, HttpServletResponse response) {
+		String cdId = request.getParameter("cdId");
+		String cdNm = request.getParameter("cdNm");
+		return memberService.doInsertMbrTp(cdId, cdNm);
+	}
+	@RequestMapping("doMbrTpDelete/{cdId}")
+	public String doMbrTpDelete(@PathVariable String cdId){
+		return memberService.doMbrTpDelete(cdId);
+	}
+	@RequestMapping("doMbrTpModify")
+	public String doMbrTpModify(HttpServletRequest request, HttpServletResponse response){
+		
+		String cdId = request.getParameter("cdId");
+		String cdNm = request.getParameter("cdNm");
+		
+		return memberService.doMbrTpModify(cdId, cdNm);
 	}
 	
 	@RequestMapping("doGrdtInsert")
