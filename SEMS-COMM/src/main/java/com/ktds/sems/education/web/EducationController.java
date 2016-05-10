@@ -37,14 +37,21 @@ public class EducationController {
 	}
 	
 	@RequestMapping("/education/validCategoryId")
-	public String validCategoryIdAction(@RequestParam String categoryId){
-		return educationService.validCategoryId(categoryId);
+	@ResponseBody
+	public String validCategoryIdAction(@RequestParam String categoryId, @RequestParam String categoryType){
+		return educationService.validCategoryId(categoryId, categoryType);
+	}
+	
+	@RequestMapping("/education/validCategoryName")
+	@ResponseBody
+	public String validCategoryNameAction(@RequestParam String categoryName, @RequestParam String categoryType){
+		return educationService.validCategoryName(categoryName, categoryType);
 	}
 	
 	@RequestMapping("/education/addCategory")
 	@ResponseBody
-	public JsonResponseVO addNewLargeCategoryAction(@Valid CategoryVO categoryVO, Errors errors){
-		return educationService.addNewLargeCategory(categoryVO, errors);
+	public JsonResponseVO addNewCategoryAction(@Valid CategoryVO categoryVO, Errors errors){
+		return educationService.addNewCategory(categoryVO, errors);
 	}
 	
 	@RequestMapping("/cost")

@@ -12,14 +12,14 @@ import com.ktds.sems.education.vo.CostVO;
 
 public interface EducationService {
 	
-	JsonResponseVO addNewLargeCategory(CategoryVO categoryVO, Errors errors);
+	JsonResponseVO addNewCategory(CategoryVO categoryVO, Errors errors);
 	
-	String validCategoryId(String categoryId);
-
-	public String addNewLargeCategory(CategoryVO categoryVO);
+	String validCategoryId(String categoryId, String categoryType);
 
 	public CostVO modifyEduCost(CostVO cost);
 
 	public List<CostVO> getAllEduCost();
+
+	String validCategoryName(String categoryName, String categoryType);
 
 }

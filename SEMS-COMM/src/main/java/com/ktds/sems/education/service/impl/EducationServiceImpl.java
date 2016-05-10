@@ -21,36 +21,14 @@ public class EducationServiceImpl implements EducationService {
 	}
 
 	@Override
-	public JsonResponseVO addNewLargeCategory(CategoryVO categoryVO, Errors errors) {
-		
-		JsonResponseVO jsonResponseVO = new JsonResponseVO();
-		
-		if ( errors.hasErrors() ) {
-			jsonResponseVO.setResult(false);
-			jsonResponseVO.setData(errors.getAllErrors());
-		}
-		else {
-			jsonResponseVO.setResult(true);
-			
-		}
-		
-		return jsonResponseVO;
-	}
-
-	@Override
-	public String validCategoryId(String categoryId) {
-		boolean isExist = educationBiz.validCategoryId(categoryId);
+	public String validCategoryId(String categoryId, String categoryType) {
+		boolean isExist = educationBiz.validCategoryId(categoryId, categoryType);
 		if ( isExist ) {
 			return "true";
 		}
 		else {
 			return "false";
 		}
-	}
-	
-	@Override
-	public String addNewLargeCategory(CategoryVO categoryVO) {
-		return "addNewLargeCategory success";
 	}
 
 	@Override
@@ -67,6 +45,33 @@ public class EducationServiceImpl implements EducationService {
 	@Override
 	public List<CostVO> getAllEduCost() {
 		return educationBiz.getAllEduCost();
+	}
+
+	@Override
+	public String validCategoryName(String categoryName, String categoryType) {
+		boolean isExist = educationBiz.validCategoryName(categoryName, categoryType);
+		if ( isExist ) {
+			return "true";
+		}
+		else {
+			return "false";
+		}
+	}
+
+	@Override
+	public JsonResponseVO addNewCategory(CategoryVO categoryVO, Errors errors) {
+		JsonResponseVO jsonResponseVO = new JsonResponseVO();
+		
+		if ( errors.hasErrors() ) {
+			jsonResponseVO.setResult(false);
+			jsonResponseVO.setData(errors.getAllErrors());
+		}
+		else {
+			boolean result = educationBiz.addNewCategory(categoryVO);
+			jsonResponseVO.setResult(true);
+		}
+		
+		return jsonResponseVO;
 	}
 
 }

@@ -7,7 +7,8 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class CategoryVO {
 	
 	private String parentCategoryId;
-	
+	private String categoryType;
+
 	@NotEmpty(message="카테고리 아이디를 작성해 주세요.")
 	@Size(min=2, max=4)
 	private String categoryId;
@@ -22,6 +23,14 @@ public class CategoryVO {
 
 	public void setParentCategoryId(String parentCategoryId) {
 		this.parentCategoryId = parentCategoryId;
+	}
+	
+	public String getCategoryType() {
+		return categoryType;
+	}
+	
+	public void setCategoryType(String categoryType) {
+		this.categoryType = categoryType;
 	}
 
 	public String getCategoryId() {

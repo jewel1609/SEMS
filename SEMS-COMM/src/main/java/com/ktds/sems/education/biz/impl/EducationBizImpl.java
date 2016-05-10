@@ -1,9 +1,12 @@
 package com.ktds.sems.education.biz.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.ktds.sems.education.biz.EducationBiz;
 import com.ktds.sems.education.dao.EducationDAO;
+import com.ktds.sems.education.vo.CategoryVO;
 import com.ktds.sems.education.vo.CostVO;
 
 public class EducationBizImpl implements EducationBiz {
@@ -15,8 +18,12 @@ public class EducationBizImpl implements EducationBiz {
 	}
 	
 	@Override
-	public boolean validCategoryId(String categoryId) {
-		return educationDAO.validCategoryId(categoryId) > 0;
+	public boolean validCategoryId(String categoryId, String categoryType) {
+		Map<String, String> category = new HashMap<String, String>();
+		category.put("categoryId", categoryId);
+		category.put("categoryType", categoryType);
+		
+		return educationDAO.validCategoryId(category) > 0;
 	}
 
 	@Override
@@ -44,6 +51,20 @@ public class EducationBizImpl implements EducationBiz {
 	@Override
 	public List<CostVO> getAllEduCost() {
 		return educationDAO.getAllEduCost();
+	}
+
+	@Override
+	public boolean validCategoryName(String categoryName, String categoryType) {
+		Map<String, String> category = new HashMap<String, String>();
+		category.put("categoryName", categoryName);
+		category.put("categoryType", categoryType);
+		
+		return educationDAO.validCategoryName(category) > 0;
+	}
+
+	@Override
+	public boolean addNewCategory(CategoryVO categoryVO) {
+		return educationDAO.addNewCategory(categoryVO) > 0;
 	}
 	
 	
