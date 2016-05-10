@@ -1,5 +1,7 @@
 package com.ktds.sems.education.service.impl;
 
+import java.util.List;
+
 import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -21,19 +23,13 @@ public class EducationServiceImpl implements EducationService {
 		ModelAndView view = new ModelAndView();
 		
 		if ( errors.hasErrors() ) {
-			view.setViewName("/education/list");
-			view.addObject("educationVO", educationVO);
-			
+			view.setViewName("redirect:/educationList");
 			return view;
 		}
 		else {
-			boolean result = educationBiz.doSearchList(educationVO);
-			if ( result ) {
-				view.setViewName("redirect:/list");
-			} 
-			else {
-				throw new RuntimeException("일시적인 장애가 발생하였습니다.");
-			}
+			List<EducationVO> educations = educationBiz.doSearchList(educationVO);
+			view.addObject("educationList", educations);
+			view.setViewName("/education/list");
 		}
 		
 		return view;

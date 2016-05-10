@@ -1,5 +1,7 @@
 package com.ktds.sems.education.biz.impl;
 
+import java.util.List;
+
 import com.ktds.sems.education.biz.EducationBiz;
 import com.ktds.sems.education.dao.EducationDAO;
 import com.ktds.sems.education.vo.EducationVO;
@@ -13,8 +15,8 @@ public class EducationBizImpl implements EducationBiz {
 	}
 
 	@Override
-	public boolean doSearchList(EducationVO educationVO) {
-		return educationDAO.doSearchList(educationVO) > 0;
+	public List<EducationVO> doSearchList(EducationVO educationVO) {
+		return educationDAO.doSearchList(educationVO);
 	}
 
 }
