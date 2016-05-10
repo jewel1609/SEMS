@@ -11,11 +11,11 @@
 		ORDER	BY CD_ID DESC
 	</select>
 
-	<select id="getEduCostByCdId" parameterType="_int" resultType="CostVO">
+	<select id="getEduCostByCdId" parameterType="string" resultType="CostVO">
 		SELECT	CD_ID cdId
 				, CD_NM cdNm
 		FROM	EDU_CST
-		WHERE	CD_ID = #{coId}
+		WHERE	CD_ID = #{cdId}
 	</select>
 	
 	<update id="modifyEduCost" parameterType="CostVO">
@@ -24,6 +24,23 @@
 		WHERE 	CD_ID = #{cdId}
 	</update>
 	
+	<delete id="deleteEduCost" parameterType="string">
+		DELETE	
+		FROM	EDU_CST
+		WHERE 	CD_ID = #{cdId}
+	</delete>
+	
+	<insert id="insertEduCost" parameterType="CostVO">
+		INSERT INTO		EDU_CST (
+									CD_ID
+   									, CD_NM
+   								) 
+		VALUES 					( 	
+									#{cdId}
+									, #{cdNm}
+								 )
+	</insert>
+
 	<select id="validCategoryId" parameterType="map" resultType="_int">
 		SELECT	COUNT(CD_ID)
 		<if test="categoryType == 'large'">
@@ -74,4 +91,5 @@
 						, #{ categoryName }
 				   	)
 	</insert>
+
 </mapper>
