@@ -27,8 +27,8 @@ public class EducationController {
 	}
 	
 	@RequestMapping("/searchList")
-	public ModelAndView doSearchList(@Valid EducationVO educationVO, Errors errors){
-		return educationService.doSearchList(educationVO, errors);
+	public ModelAndView doSearchList(@PathVariable String startYear, @PathVariable String startMonth, @PathVariable String endYear, @PathVariable String endMonth, @PathVariable String eduName, @PathVariable String educationType, @PathVariable String cost){
+		return educationService.doSearchList(startYear, startMonth, endYear, endMonth, eduName, educationType, cost );
 	}
 	
 	@RequestMapping("/eduDetail/{educationId}")

@@ -9,7 +9,7 @@ import com.ktds.sems.education.vo.EducationVO;
 
 public interface EducationDAO {
 
-	public List<EducationVO> doSearchList(EducationVO educationVO);
+	public List<EducationVO> doSearchList(String startDate, String endDate, String eduName, String educationType, String cost);
 
 	public int getTotalEducationCount();
 

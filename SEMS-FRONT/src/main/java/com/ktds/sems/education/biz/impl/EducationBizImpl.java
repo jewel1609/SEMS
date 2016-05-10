@@ -16,8 +16,8 @@ public class EducationBizImpl implements EducationBiz {
 	}
 
 	@Override
-	public List<EducationVO> doSearchList(EducationVO educationVO) {
-		return educationDAO.doSearchList(educationVO);
+	public List<EducationVO> doSearchList(String startDate, String endDate, String eduName, String educationType, String cost) {
+		return educationDAO.doSearchList(startDate, endDate, eduName, educationType, cost);
 	}
 
 	@Override

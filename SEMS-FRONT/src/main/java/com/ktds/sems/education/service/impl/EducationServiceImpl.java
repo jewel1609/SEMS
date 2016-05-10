@@ -31,18 +31,15 @@ public class EducationServiceImpl implements EducationService {
 	}
 
 	@Override
-	public ModelAndView doSearchList(EducationVO educationVO, Errors errors) {
+	public ModelAndView doSearchList(String startYear, String startMonth, String endYear, String endMonth, String eduName, String educationType, String cost) {
 
 		ModelAndView view = new ModelAndView();
-
-		if (errors.hasErrors()) {
-			view.setViewName("redirect:/educationList");
-			return view;
-		} else {
-			List<EducationVO> educations = educationBiz.doSearchList(educationVO);
-			view.addObject("educationList", educations);
-			view.setViewName("/education/list");
-		}
+		String startDate = startYear + "/" + startMonth;
+		String endDate = endYear + "/" + endMonth;
+		
+		List<EducationVO> educations = educationBiz.doSearchList(startDate, endDate, eduName, educationType, cost);
+		view.addObject("educationList", educations);
+		view.setViewName("/education/list");
 
 		return view;
 	}

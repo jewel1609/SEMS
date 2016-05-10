@@ -23,10 +23,10 @@
 			var startSearchDate = startYear + startMonth;
 			var endSearchDate = endYear + endMonth;
 			
-			startDate = parseInt(startDate);
-			endDate = parseInt(endDate);
+			startSearchDate = parseInt(startSearchDate);
+			endSearchDate = parseInt(endSearchDate);
 			
-			if(startDate > endDate) {
+			if(startSearchDate > endSearchDate) {
 				alert("기간 범위 오류");
 				return;
 			}

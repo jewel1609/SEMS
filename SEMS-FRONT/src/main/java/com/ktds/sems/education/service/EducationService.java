@@ -10,7 +10,7 @@ public interface EducationService {
 
 	ModelAndView getOneEducationDetail(String educationId);
 	
-	public ModelAndView doSearchList(EducationVO educationVO, Errors errors);
+	public ModelAndView doSearchList(String startYear, String startMonth, String endYear, String endMonth, String eduName, String educationType, String cost);
 
 	public ModelAndView getAllEducationList(int pageNo);
 }

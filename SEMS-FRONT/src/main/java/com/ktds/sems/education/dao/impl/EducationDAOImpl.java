@@ -1,6 +1,8 @@
 package com.ktds.sems.education.dao.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 
@@ -11,8 +13,15 @@ import com.ktds.sems.education.vo.EducationVO;
 public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationDAO {
 
 	@Override
-	public List<EducationVO> doSearchList(EducationVO educationVO) {
-		return getSqlSession().selectList("EducationDAO.doSearchList", educationVO);
+	public List<EducationVO> doSearchList(String startDate, String endDate, String eduName, String educationType, String cost) {
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("startDate", startDate);
+		paramMap.put("endDate", endDate);
+		paramMap.put("eduName", eduName);
+		paramMap.put("educationType", educationType);
+		paramMap.put("cost", cost);
+		
+		return getSqlSession().selectList("EducationDAO.doSearchList", paramMap);
 	}
 
 	@Override
