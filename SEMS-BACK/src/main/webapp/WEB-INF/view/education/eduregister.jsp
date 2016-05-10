@@ -10,7 +10,7 @@
 </head>
 <body>
  
- 테스터 입니다. 
+ 테스터 입니다...
  
  <div style="width:30%; height:100%; border:thin; border-style:double; border-radius: 5px; padding:5px;">
 		<form:form commandName="educationVO" method="post"
