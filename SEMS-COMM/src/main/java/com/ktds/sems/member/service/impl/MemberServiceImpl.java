@@ -1,27 +1,29 @@
 package com.ktds.sems.member.service.impl;
 
+import java.util.List;
+
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.member.biz.MemberBiz;
 import com.ktds.sems.member.service.MemberService;
+import com.ktds.sems.member.vo.GrdtTpVO;
 
 public class MemberServiceImpl implements MemberService{
 
 	private MemberBiz memberBiz;
-	
-	
-	
+		
 	public void setMemberBiz(MemberBiz memberBiz) {
 		this.memberBiz = memberBiz;
 	}
 
-
-
 	@Override
 	public ModelAndView viewGrdtPage() {
+		
+		List<GrdtTpVO> grdtTpList = memberBiz.getAllGrtdList();
+		
 		ModelAndView view = new ModelAndView();
-		view.setViewName("member/graduation/list");
-		view.addObject("grtdVO", memberBiz.getAllGrtdList());
+		view.setViewName("member/grdtPage");
+		view.addObject("grtdTpList", grdtTpList);
 		return view;
 	}
 
@@ -33,6 +35,14 @@ public class MemberServiceImpl implements MemberService{
 		view.setViewName("member/mbrTp");		
 		view.addObject("mbrTpVOList", memberBiz.getAllMbrTpList());
 		return view;
+	}
+
+	@Override
+	public String doGrdtDelete(String cdId) {
+		memberBiz.doGrdtDelete(cdId);
+		
+		//WEB-INF/view/member/grdtPage.jsp
+		return "redirect:/grdtPage";
 	}
 
 }
