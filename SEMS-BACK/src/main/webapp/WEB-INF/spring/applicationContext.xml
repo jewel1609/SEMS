@@ -15,11 +15,10 @@
 		<property name="suffix" value=".jsp" />		
 	</bean>
 	
-	<bean id="educationController"
+	<bean id="EducationController"
 			class="com.ktds.sems.education.web.EducationController">
-			<property name="educationService" ref="educationService"></property>
+			<property name="educationService" ref="educationService" />
 	</bean>
-	
 	<bean id="sampleController"
          class="com.ktds.sems.sample.web.SampleController" />
 	
