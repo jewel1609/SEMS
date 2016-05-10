@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -49,21 +50,43 @@ public class EducationController {
 	}
 	
 	@RequestMapping("/cost")
-	public String viewCostPage() {
-		return "/education/cost";
+	public ModelAndView viewCostPage() {
+		ModelAndView view = new ModelAndView();
+		view.addObject("costList", educationService.getAllEduCost());
+		view.setViewName("education/cost");
+		return view;
 	}
 	
 	@RequestMapping("/modifyEduCost")
 	@ResponseBody
-	public CostVO modifyEduCost(HttpServletRequest request, HttpServletResponse response) {
-		String coId = request.getParameter("coId");
-		String coNm = request.getParameter("coNm");
+	public CostVO modifyEduCost(HttpServletRequest request) {
+		String cdId = request.getParameter("cdId");
+		String cdNm = request.getParameter("cdNm");
 		
 		CostVO cost = new CostVO();
-		cost.setCoId(coId);
-		cost.setCoNm(coNm);
+		cost.setCdId(cdId);
+		cost.setCdNm(cdNm);
 		
 		return educationService.modifyEduCost(cost);
 	}
+	
+	@RequestMapping("/deleteEduCost/{cdId}")
+	public ModelAndView deleteEduCost(@PathVariable String cdId) {
+		return educationService.deleteEduCost(cdId);
+	}
+	
+	
+	@RequestMapping("/insertEduCost")
+	public ModelAndView insertEduCost(HttpServletRequest request) {
+		String cdId = request.getParameter("cdId");
+		String cdNm = request.getParameter("cdNm");
+		
+		CostVO cost = new CostVO();
+		cost.setCdId(cdId);
+		cost.setCdNm(cdNm);
+		
+		return educationService.insertEduCost(cost);
+	}
+
 
 }
