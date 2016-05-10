@@ -11,7 +11,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ktds.sems.education.service.EducationService;
 import com.ktds.sems.education.vo.EducationVO;
 
-
 @Controller
 public class EducationController {
 
@@ -20,7 +19,20 @@ public class EducationController {
 	public void setEducationService(EducationService educationService) {
 		this.educationService = educationService;
 	}
-
+	
+	@RequestMapping("/eduregister")
+	public ModelAndView viewEduWritePage() { 
+		ModelAndView view = new ModelAndView();
+		view.setViewName("education/eduregister");
+		
+		return view;
+	}
+	
+	@RequestMapping("/doWriteAction")
+	public ModelAndView doWriteAction(@Valid EducationVO educationVO, Errors errors) {
+		return educationService.writeNewEducation(educationVO, errors);
+	}
+	
 	@RequestMapping("/educationModify/{educationId}")
 	public ModelAndView viewEducationModifyPage(@PathVariable String educationId){
 		ModelAndView view = educationService.getOneEducation(educationId); 
@@ -32,6 +44,4 @@ public class EducationController {
 	public ModelAndView doEducationModifyAction(@Valid EducationVO educationVO, Errors errors){
 		return educationService.modifyNewEducation(educationVO, errors);
 	}
-	
-
 }
