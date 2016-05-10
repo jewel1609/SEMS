@@ -1,20 +1,44 @@
 package com.ktds.sems.education.vo;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 public class EducationVO {
 	
 	private String educationId;
+	
+	@NotEmpty(message="교육 분야을 선택 해주세요!")
 	private String educationCategory;
+	
+	@NotEmpty(message="교육 명을 입력 해주세요!")
 	private String educationTitle;
+	
+	@NotEmpty(message="강사 명을 선택 해주세요!")
 	private String memberId;
+	
 	private int maxMember;
+	
+	@NotEmpty(message="강의실 명을 입력 해주세요!")
 	private String educationLocation;
+	
 	private String educationCurriculum;
+	
+	@NotEmpty(message="강의소개를 입력 해주세요!")
 	private String educationIntroduce;
+	
+	@NotEmpty(message="강의시작을 선택 해주세요!")
 	private String startDate;
+	@NotEmpty(message="강의 종료을 선택 해주세요!")
 	private String endDate;
+	
+	@NotEmpty(message="강의 시작 시간을 선택 해주세요!")
 	private String startTime;
+	@NotEmpty(message="강의 종료 시간을 선택 해주세요!")
 	private String endTime;
+	
+	@NotEmpty(message="강의 형태를 선택 해주세요!")
 	private String educationType;
+	
+	@NotEmpty(message="강의 비용를 선택 해주세요!")
 	private String cost;
 	
 	public String getEducationId() {
