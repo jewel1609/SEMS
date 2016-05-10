@@ -13,11 +13,11 @@
 	
 	<table>
 		<tr>
-			<td>LGI_HTR_ID</td>
-			<td>MBR_ID(FK)</td>
-			<td>LGI_IP</td>
-			<td>LGI_DT</td>
-			<td>LGO_DT</td>
+			<td>번호</td>
+			<td>사용자 아이디</td>
+			<td>IP주소</td>
+			<td>로그인시간</td>
+			<td>로그아웃시간</td>
 		</tr>
 		<c:forEach items="${loginHistoryListVO.loginHistoryList}" var="loginHistory">
 			<tr>
