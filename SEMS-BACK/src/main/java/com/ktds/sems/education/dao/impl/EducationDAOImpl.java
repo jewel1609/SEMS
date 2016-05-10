@@ -8,6 +8,21 @@ import com.ktds.sems.education.vo.EducationVO;
 public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationDAO {
 
 	@Override
+	public int nextEduSeq() {
+		return getSqlSession().selectOne("EducationDAO.nextEduSeq");
+	}
+	
+	@Override
+	public String nowDate() {
+		return getSqlSession().selectOne("EducationDAO.nowDate");
+	}
+
+	@Override
+	public int insertNewEducation(EducationVO educationVO) {
+		return getSqlSession().insert("EducationDAO.insertNewEducation", educationVO);
+	}
+	
+	@Override
 	public EducationVO getOneEducation(String educationId) {
 		return getSqlSession().selectOne("EducationDAO.getOneEducation", educationId);
 	}
