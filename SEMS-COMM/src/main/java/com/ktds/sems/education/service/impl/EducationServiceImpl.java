@@ -47,6 +47,33 @@ public class EducationServiceImpl implements EducationService {
 		return educationBiz.getAllEduCost();
 	}
 
+
+	@Override
+	public ModelAndView deleteEduCost(String cdId) {
+		ModelAndView view = new ModelAndView();
+		
+		boolean delectResult = educationBiz.deleteEduCost(cdId);
+		
+		if (!delectResult) {
+			view.setViewName("redirect:/cost");
+		}
+		view.setViewName("redirect:/cost");
+		return view;
+	}
+
+	@Override
+	public ModelAndView insertEduCost(CostVO cost) {
+		ModelAndView view = new ModelAndView();
+		
+		boolean insertResult = educationBiz.insertEduCost(cost);
+		
+		if (!insertResult) {
+			view.setViewName("redirect:/cost");
+		}
+		view.setViewName("redirect:/cost");
+		return view;
+	}
+
 	@Override
 	public String validCategoryName(String categoryName, String categoryType) {
 		boolean isExist = educationBiz.validCategoryName(categoryName, categoryType);

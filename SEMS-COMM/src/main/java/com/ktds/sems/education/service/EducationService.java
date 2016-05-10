@@ -20,6 +20,10 @@ public interface EducationService {
 
 	public List<CostVO> getAllEduCost();
 
+	public ModelAndView deleteEduCost(String cdId);
+
+	public ModelAndView insertEduCost(CostVO cost);
+
 	String validCategoryName(String categoryName, String categoryType);
 
 }
