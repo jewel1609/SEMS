@@ -14,4 +14,6 @@ public interface EducationDAO {
 	public int getTotalEducationCount();
 
 	public List<EducationVO> getAllEducationList(EducationSearchVO searchVO);
+
+	public EducationVO getOneEducationDetail(String educationId);
 }

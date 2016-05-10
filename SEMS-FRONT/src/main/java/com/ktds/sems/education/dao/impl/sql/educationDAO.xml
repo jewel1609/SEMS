@@ -7,6 +7,25 @@
 		FROM	EDU_INFO
 	</select>
 	
+	<select id="getOneEducationDetail" parameterType="string" resultType="EducationVO">
+	SELECT	EDU_ID educationId
+				, EDU_CTGR educationCategory
+				, EDU_TTL educationTitle
+				, MBR_ID memberId
+				, MAX_MBR maxMember
+				, EDU_LOC educationLocation
+				, EDU_CLCM educationCurriculum
+				, EDU_INTR educationIntroduce
+				, SRT_DATE startDate
+				, END_DATE endDate
+				, START_TM startTime
+				, END_TM endTime
+				, EDU_TP educationType
+				, COST cost
+		FROM	EDU_INFO
+		WHERE	EDU_ID LIKE #{educationId}
+	</select>
+	
 	<select id="getAllEducationList" parameterType="EducationSearchVO" resultType="EducationVO">
 		SELECT	EDU_ID educationId
 				, EDU_CTGR educationCategory

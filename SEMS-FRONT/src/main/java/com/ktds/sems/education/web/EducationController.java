@@ -31,5 +31,15 @@ public class EducationController {
 		return educationService.doSearchList(educationVO, errors);
 	}
 	
-	// commit용
+	@RequestMapping("/eduDetail/{educationId}")
+	public ModelAndView getOneEducationDetail(@PathVariable String educationId){
+		return educationService.getOneEducationDetail(educationId);
+	}
 }
+	/*@RequestMapping("/setEdu/${educationId}") 
+	public void showEducationDetail
+	*/
+	
+
+	// commit용
+

@@ -30,4 +30,9 @@ public class EducationBizImpl implements EducationBiz {
 		return educationDAO.getTotalEducationCount();
 	}
 
+	@Override
+	public EducationVO getOneEducationDetail(String educationId) {
+		return educationDAO.getOneEducationDetail(educationId);
+	}
+
 }

@@ -1,7 +1,5 @@
 package com.ktds.sems.education.vo;
 
-import kr.co.hucloud.utilities.web.Paging;
-
 public class EducationSearchVO {
 	
 	private int pageNo;

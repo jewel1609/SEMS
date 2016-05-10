@@ -7,10 +7,12 @@ import com.ktds.sems.education.vo.EducationVO;
 
 public interface EducationBiz {
 
-	List<EducationVO> doSearchList(EducationVO educationVO);
+	public List<EducationVO> doSearchList(EducationVO educationVO);
 
 	public List<EducationVO> getAllEducationList(EducationSearchVO searchVO);
 
 	public int getTotalEducationCount();
+
+	public EducationVO getOneEducationDetail(String educationId);
 
 }

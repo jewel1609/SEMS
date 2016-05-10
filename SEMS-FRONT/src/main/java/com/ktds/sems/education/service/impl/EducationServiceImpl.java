@@ -14,7 +14,7 @@ import com.ktds.sems.education.vo.EducationVO;
 import kr.co.hucloud.utilities.web.Paging;
 
 public class EducationServiceImpl implements EducationService {
-	
+
 	private EducationBiz educationBiz;
 
 	public void setEducationBiz(EducationBiz educationBiz) {
@@ -22,20 +22,28 @@ public class EducationServiceImpl implements EducationService {
 	}
 
 	@Override
-	public ModelAndView doSearchList(EducationVO educationVO, Errors errors) {
-		
+	public ModelAndView getOneEducationDetail(String educationId) {
 		ModelAndView view = new ModelAndView();
-		
-		if ( errors.hasErrors() ) {
+		EducationVO education = educationBiz.getOneEducationDetail(educationId);
+		view.addObject("education", education);
+		view.setViewName("education/eduDetail");
+		return view;
+	}
+
+	@Override
+	public ModelAndView doSearchList(EducationVO educationVO, Errors errors) {
+
+		ModelAndView view = new ModelAndView();
+
+		if (errors.hasErrors()) {
 			view.setViewName("redirect:/educationList");
 			return view;
-		}
-		else {
+		} else {
 			List<EducationVO> educations = educationBiz.doSearchList(educationVO);
 			view.addObject("educationList", educations);
 			view.setViewName("/education/list");
 		}
-		
+
 		return view;
 	}
 

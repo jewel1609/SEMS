@@ -25,4 +25,9 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 		return getSqlSession().selectList("EducationDAO.getAllEducationList", searchVO);
 	}
 
+	@Override
+	public EducationVO getOneEducationDetail(String educationId) {
+		return getSqlSession().selectOne("EducationDAO.getOneEducationDetail", educationId);
+	}
+
 }
