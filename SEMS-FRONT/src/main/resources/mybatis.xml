@@ -5,6 +5,7 @@
 
 	<typeAliases>
 		<typeAlias type="com.ktds.sems.member.vo.MemberVO" alias="MemberVO"/>
+		<typeAlias type="com.ktds.sems.member.vo.LoginHistoryVO" alias="loginHistoryVO"/>
 	</typeAliases>
 
 	<mappers>
