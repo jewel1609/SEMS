@@ -26,7 +26,7 @@ public class MemberServiceImpl implements MemberService {
 			throw new RuntimeException("유효한 접근이 아닙니다.");
 		}
 		else if ( errors.hasErrors() ) {
-			view.setViewName("redirect:member/register");
+			view.setViewName("member/register");
 			view.addObject("member", member);
 		}
 		else {
