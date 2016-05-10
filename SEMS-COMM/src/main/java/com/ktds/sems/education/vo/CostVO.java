@@ -2,19 +2,20 @@ package com.ktds.sems.education.vo;
 
 public class CostVO {
 	
-	private String coId;
-	private String coNm;
+	private String cdId;
+	private String cdNm;
 	
-	public String getCoId() {
-		return coId;
+	public String getCdId() {
+		return cdId;
 	}
-	public void setCoId(String coId) {
-		this.coId = coId;
+	public void setCdId(String cdId) {
+		this.cdId = cdId;
 	}
-	public String getCoNm() {
-		return coNm;
+	public String getCdNm() {
+		return cdNm;
 	}
-	public void setCoNm(String coNm) {
-		this.coNm = coNm;
+	public void setCdNm(String cdNm) {
+		this.cdNm = cdNm;
 	}
+	
 }
