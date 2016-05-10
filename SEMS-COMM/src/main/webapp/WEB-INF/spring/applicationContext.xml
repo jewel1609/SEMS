@@ -22,6 +22,7 @@
 	</bean>
 	
 	<bean id="educationController" class="com.ktds.sems.education.web.EducationController">
+		<property name="educationService" ref="educationService" />
 	</bean>
 	
 </beans>
