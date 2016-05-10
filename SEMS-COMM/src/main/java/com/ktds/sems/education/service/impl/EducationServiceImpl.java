@@ -1,8 +1,11 @@
 package com.ktds.sems.education.service.impl;
 
+import org.springframework.web.servlet.ModelAndView;
+
 import com.ktds.sems.education.biz.EducationBiz;
 import com.ktds.sems.education.service.EducationService;
 import com.ktds.sems.education.vo.CategoryVO;
+import com.ktds.sems.education.vo.CostVO;
 
 public class EducationServiceImpl implements EducationService {
 	
@@ -15,6 +18,17 @@ public class EducationServiceImpl implements EducationService {
 	@Override
 	public String addNewLargeCategory(CategoryVO categoryVO) {
 		return "addNewLargeCategory success";
+	}
+
+	@Override
+	public CostVO modifyEduCost(CostVO cost) {
+		CostVO costVO = new CostVO();
+		
+		boolean isModify = educationBiz.modifyEduCost(cost);
+		if (isModify) {
+			costVO = educationBiz.getEduCostByCoId(cost.getCoId());
+		}
+		return costVO;
 	}
 
 }
