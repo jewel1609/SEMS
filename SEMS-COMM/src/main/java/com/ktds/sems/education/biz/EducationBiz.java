@@ -15,8 +15,15 @@ public interface EducationBiz {
 
 	public List<CostVO> getAllEduCost();
 
+
+	public boolean deleteEduCost(String cdId);
+
+	public boolean insertEduCost(CostVO cost);
+
+
 	boolean validCategoryName(String categoryName, String categoryType);
 
 	boolean addNewCategory(CategoryVO categoryVO);
+
 
 }

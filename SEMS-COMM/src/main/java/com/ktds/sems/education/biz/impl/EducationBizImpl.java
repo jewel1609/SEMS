@@ -53,6 +53,18 @@ public class EducationBizImpl implements EducationBiz {
 		return educationDAO.getAllEduCost();
 	}
 
+
+	@Override
+	public boolean deleteEduCost(String cdId) {
+		return educationDAO.deleteEduCost(cdId) > 0;
+	}
+
+	@Override
+	public boolean insertEduCost(CostVO cost) {
+		return educationDAO.insertEduCost(cost) > 0;
+	}
+
+
 	@Override
 	public boolean validCategoryName(String categoryName, String categoryType) {
 		Map<String, String> category = new HashMap<String, String>();
@@ -66,6 +78,7 @@ public class EducationBizImpl implements EducationBiz {
 	public boolean addNewCategory(CategoryVO categoryVO) {
 		return educationDAO.addNewCategory(categoryVO) > 0;
 	}
+
 	
 	
 	
