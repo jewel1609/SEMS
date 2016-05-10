@@ -41,6 +41,8 @@ public class MemberVO {
 	private String memberType;
 
 	private String salt;
+	private int loginFailCount;
+	private String isAccountLock;
 
 	public String getId() {
 		return id;
@@ -113,5 +115,17 @@ public class MemberVO {
 	}
 	public void setSalt(String salt) {
 		this.salt = salt;
+	}
+	public int getLoginFailCount() {
+		return loginFailCount;
+	}
+	public void setLoginFailCount(int loginFailCount) {
+		this.loginFailCount = loginFailCount;
+	}
+	public String getIsAccountLock() {
+		return isAccountLock;
+	}
+	public void setIsAccountLock(String isAccountLock) {
+		this.isAccountLock = isAccountLock;
 	}
 }
