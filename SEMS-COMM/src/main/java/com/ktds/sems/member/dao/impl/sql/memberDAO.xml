@@ -9,5 +9,11 @@
 		SELECT	SYSDATE
 		FROM	DUAL
 	</select>
+	
+	<select id="getAllMbrTp" parameterType="MbrTpVO" resultType="ArticleVO">
+		SELECT	CD_ID cdId
+				, CD_NM cdNm
+		FROM	MBR_TP
+	</select>
 
 </mapper>

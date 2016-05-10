@@ -6,4 +6,6 @@ public interface MemberService {
 
 	public ModelAndView viewGrdtPage();
 
+	public ModelAndView viewMbrTpPage();
+
 }

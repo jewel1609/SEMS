@@ -19,6 +19,10 @@ public class MemberController {
 	public ModelAndView viewGrdtPage () {
 		return memberService.viewGrdtPage();
 	}
+	@RequestMapping("/mbrTpPage")
+	public ModelAndView viewMbrTpPage () {
+		return memberService.viewMbrTpPage();
+	}
 	
 	
 }

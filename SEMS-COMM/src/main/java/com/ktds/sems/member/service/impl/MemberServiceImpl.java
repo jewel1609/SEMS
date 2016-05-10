@@ -25,4 +25,14 @@ public class MemberServiceImpl implements MemberService{
 		return view;
 	}
 
+
+
+	@Override
+	public ModelAndView viewMbrTpPage() {
+		ModelAndView view = new ModelAndView();
+		view.setViewName("member/mbrTp");		
+		view.addObject("mbrTpVOList", memberBiz.getAllMbrTpList());
+		return view;
+	}
+
 }
