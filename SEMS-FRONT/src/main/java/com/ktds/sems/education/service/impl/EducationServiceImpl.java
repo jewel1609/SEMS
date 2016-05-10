@@ -15,6 +15,28 @@ public class EducationServiceImpl implements EducationService {
 		this.educationBiz = educationBiz;
 	}
 
-
+	@Override
+	public ModelAndView writeNewEducation(EducationVO educationVO, Errors errors) {
+		
+		ModelAndView view = new ModelAndView();
+		
+		if ( errors.hasErrors() ) {
+			view.setViewName("/education/write");
+			view.addObject("educationVO", educationVO);
+			
+			return view;
+		}
+		else {
+			boolean result = educationBiz.writeNewEducation(educationVO);
+			if ( result ) {
+				view.setViewName("redirect:/list");
+			} 
+			else {
+				throw new RuntimeException("일시적인 장애가 발생하였습니다.");
+			}
+		}
+		
+		return view;
+	}
 
 }

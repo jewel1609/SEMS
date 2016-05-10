@@ -4,5 +4,5 @@ import com.ktds.sems.education.vo.EducationVO;
 
 public interface EducationDAO {
 
-
+	public int writeNewEducation(EducationVO educationVO);
 }

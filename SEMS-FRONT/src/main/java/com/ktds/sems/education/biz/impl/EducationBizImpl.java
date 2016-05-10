@@ -12,5 +12,9 @@ public class EducationBizImpl implements EducationBiz {
 		this.educationDAO = educationDAO;
 	}
 
+	@Override
+	public boolean writeNewEducation(EducationVO educationVO) {
+		return educationDAO.writeNewEducation(educationVO) > 0;
+	}
 
 }

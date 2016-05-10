@@ -7,4 +7,9 @@ import com.ktds.sems.education.vo.EducationVO;
 
 public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationDAO {
 
+	@Override
+	public int writeNewEducation(EducationVO educationVO) {
+		return getSqlSession().insert("EducationDAO.writeNewEducation", educationVO);
+	}
+
 }

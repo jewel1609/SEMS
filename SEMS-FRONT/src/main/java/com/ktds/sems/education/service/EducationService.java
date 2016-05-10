@@ -8,6 +8,5 @@ import com.ktds.sems.education.vo.EducationVO;
 
 public interface EducationService {
 	
-
-
+	public ModelAndView writeNewEducation(EducationVO educationVO, Errors errors);
 }
