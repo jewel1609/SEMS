@@ -22,20 +22,18 @@
   		<location>/WEB-INF/view/error/500.jsp</location>
   	</error-page>
   	
-	<context-param>
-	  <param-name>contextConfigLocation</param-name>
-	  <param-value>
-	    /WEB-INF/spring/*Context.xml
-	  </param-value>
-	</context-param>
-  
 	<listener>
 	  <listener-class>
 	    org.springframework.web.context.ContextLoaderListener
 	  </listener-class>
 	</listener>
 	
-	
+	<context-param>
+	  <param-name>contextConfigLocation</param-name>
+	  <param-value>
+	    /WEB-INF/spring/*Context.xml
+	  </param-value>
+	</context-param>
 	<servlet>
 		<servlet-name>dispatcherServlet</servlet-name>
 		<servlet-class>
