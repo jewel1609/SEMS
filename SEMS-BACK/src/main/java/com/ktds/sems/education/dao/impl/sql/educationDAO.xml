@@ -3,7 +3,7 @@
 
 <mapper namespace="EducationDAO" >
 
-<select id="nextEduSeq" resultType="_int">
+	<select id="nextEduSeq" resultType="_int">
 		SELECT	EDU_ID_SEQ.NEXTVAL
 		FROM	DUAL
 	</select>
