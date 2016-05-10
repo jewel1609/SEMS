@@ -35,7 +35,7 @@
 			
 			if ( confirm("입력한 내용으로 수정하시겠습니까?") == true ) {
 				
-				$.post("/comm/doGrdtModify", {
+				$.post("<c:url value="/doGrdtModify"/>", {
 					"cdId" : cdId.val(),
 					"cdNm" : cdNm.val()
 				}, function(data) {
@@ -94,7 +94,7 @@
 			
 			if ( confirm("등록하시겠습니까?") == true ) {
 				
-				$.post("/comm/doGrdtInsert", {
+				$.post("<c:url value="/doGrdtInsert"/>", {
 					"cdId" : cdId,
 					"cdNm" : cdNm
 				}, function(data) {
