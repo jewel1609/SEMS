@@ -30,82 +30,86 @@ public class MemberController {
 		return memberService.addNewMember(member, errors, session);
 	}
 
-	@RequestMapping("/member/changePassword")
-	public String viewChangePasswordPage() {
-		return "member/changePassword";
+	@RequestMapping("/main")
+	public String viewMainPage() {
+		return "/common/main";
 	}
-	
+
+	@RequestMapping("/changePassword")
+	public String viewChangePasswordPage() {
+		return "/member/changePassword";
+	}
+
 	@RequestMapping("/member/register")
 	public String viewRegisterPage() {
 		return "member/register";
 	}
 
-	@RequestMapping(value = ("/member/login"), method = RequestMethod.GET)
+	@RequestMapping(value = ("/login"), method = RequestMethod.GET)
 	public void login(@Valid MemberVO memberVO, Errors errors, HttpSession session, HttpServletResponse response) {
 		String loginStatus = memberService.login(memberVO, errors, session);
 		AjaxUtil.sendResponse(response, loginStatus);
 	}
+
 	@RequestMapping("/member/myPage")
-	public ModelAndView viewMyPage () { 
+	public ModelAndView viewMyPage() {
 		ModelAndView view = new ModelAndView();
 		view.setViewName("member/myPage");
 		return view;
 	}
-	
+
 	@RequestMapping("/member/myPage/checkPassword")
-	public ModelAndView viewCheckPasswordPage() { 
-		
+	public ModelAndView viewCheckPasswordPage() {
+
 		ModelAndView view = new ModelAndView();
 		view.setViewName("member/checkPassword");
 		return view;
 	}
-	
+
 	@RequestMapping("/member/myPage/modify")
-	public ModelAndView viewModifyPage(@RequestParam String password, HttpSession session){
+	public ModelAndView viewModifyPage(@RequestParam String password, HttpSession session) {
 		ModelAndView view = new ModelAndView();
-		
-		//임의로 정한 값 
-		//TODO 세션정보를 넘겨받기
+
+		// 임의로 정한 값
+		// TODO 세션정보를 넘겨받기
 		MemberVO member = (MemberVO) session.getAttribute("_MEMBER_");
 		String sessionId = "aaa";
 		String sessionPassword = "1234";
-		
-		if( password.equals(sessionPassword) ) {
+
+		if (password.equals(sessionPassword)) {
 			/*
-			 * 1. MODIFY_FAIL_COUNT를 0 으로 초기화한다.
-			 * 2. IS_MODIFY_ACCOUNT_LOCK을 'N'으로 초기화한다.
+			 * 1. MODIFY_FAIL_COUNT를 0 으로 초기화한다. 2. IS_MODIFY_ACCOUNT_LOCK을
+			 * 'N'으로 초기화한다.
 			 */
 			return memberService.modifySuccess(sessionId);
-		}
-		else {
-		
+		} else {
+
 			/*
 			 * 1. MODIFY_FAIL_COUNT 를 1 증가시킨다.
-			 *  
+			 * 
 			 */
-			
+
 			/*
 			 * 1. MODIFY_FAIL_COUNT 가 3 이상이라면 IS_MODIFY_ACCOUNT_LOCK 'Y'로 수정한다.
 			 */
 
-			
 			/*
 			 * 
-			 * 1. IS_ACCOUNT_LOCK이 'Y'라면 사용자의 이메일로 비밀번호가 3회 이상 틀려 접속이 차단되었음을 알린다.
-			 *  
-			 * 2. IS_ACCOUNT_LOCK이 'Y'라면 브라우저에게 'OVER' 라고 보낸다.
-			 * 'OVER'를 응답으로 받은 브라우저는 '다시 접속을 원할 경우 운영자 혹은 관리자에게 문의하세요' 를 출력한다.
+			 * 1. IS_ACCOUNT_LOCK이 'Y'라면 사용자의 이메일로 비밀번호가 3회 이상 틀려 접속이 차단되었음을
+			 * 알린다.
+			 * 
+			 * 2. IS_ACCOUNT_LOCK이 'Y'라면 브라우저에게 'OVER' 라고 보낸다. 'OVER'를 응답으로 받은
+			 * 브라우저는 '다시 접속을 원할 경우 운영자 혹은 관리자에게 문의하세요' 를 출력한다.
 			 * 
 			 */
 		}
-		
+
 		return view;
 	}
-	
+
 	@RequestMapping("/member/myPage/doModifyAction")
-	public ModelAndView doModifyAction(@Valid MemberVO member, Errors errors){
+	public ModelAndView doModifyAction(@Valid MemberVO member, Errors errors) {
 		return memberService.modifyMemberInfo(member, errors);
 	}
-	
-	
+
 }
