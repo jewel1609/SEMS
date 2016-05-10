@@ -35,7 +35,6 @@
 	  </listener-class>
 	</listener>
 	
-	
 	<servlet>
 		<servlet-name>dispatcherServlet</servlet-name>
 		<servlet-class>
@@ -48,7 +47,6 @@
 			</param-value>
 		</init-param>
 	</servlet>
-	
 	<servlet-mapping>
 		<servlet-name>dispatcherServlet</servlet-name>
 		<url-pattern>/</url-pattern>
