@@ -6,9 +6,8 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<mvc:annotation-driven/>
-	<mvc:resources location="/WEB-INF/resources/js/" mapping="/js/**" />
-	<mvc:resources location="/WEB-INF/resources/css/" mapping="/css/**" />
-	<mvc:resources location="/WEB-INF/resources/img/" mapping="/img/**" />
+	<mvc:resources	location="/WEB-INF/resources/" 
+					mapping="/resources/**" />
 	
 	<bean 	id="viewResolver"
 			class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -24,5 +23,7 @@
 	<bean id="memberController" class="com.ktds.sems.member.web.MemberController">
 		<property name="memberService" ref="memberService"/>
 	</bean>
+	
+	<bean id="sampleController" class="com.ktds.sems.sample.web.SampleController" />
 	
 </beans>
