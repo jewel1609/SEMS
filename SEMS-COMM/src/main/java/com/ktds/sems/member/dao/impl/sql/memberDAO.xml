@@ -10,7 +10,7 @@
 		FROM	DUAL
 	</select>
 	
-	<select id="getAllMbrTp" parameterType="MbrTpVO" resultType="ArticleVO">
+	<select id="getAllMbrTp" parameterType="MbrTpVO" resultType="MbrTpVO">
 		SELECT	CD_ID cdId
 				, CD_NM cdNm
 		FROM	MBR_TP

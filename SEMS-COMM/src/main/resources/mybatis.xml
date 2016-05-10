@@ -5,6 +5,7 @@
 
 	<typeAliases>
 		<typeAlias type="com.ktds.sems.member.vo.GrdtTpVO" alias="GrdtTpVO"/>
+		<typeAlias type="com.ktds.sems.member.vo.MbrTpVO" alias="MbrTpVO"/>
 	</typeAliases>
 
 	<mappers>
