@@ -12,6 +12,10 @@
 
 	$(document).ready(function() {
 		
+		$("#mainBtn").click(function(){
+			location.href="<c:url value="/"/>";
+		});
+		
 		$("#cancleBtn").click(function (){
 			$("#cdId").val("");
 			$("#cdNm").val("");
@@ -138,8 +142,10 @@
 			<td><input type="button" id="grdtInsertBtn" value="추가" /></td>
 			<td><input type="button" id="cancleBtn" value="취소" /></td>
 		</tr>
+		<br/>
 	</table>
 		
+		<input type="button" id="mainBtn" value="처음으로"/>
 	
 	
 	
