@@ -63,10 +63,10 @@
 	</table>
 		
 	<c:if test="">
-	<a href="">교육 참가 신청</a>
+	<a href="/doApplyEducation/${ education.educationId }">교육 참가 신청</a>
 	</c:if>
 	<c:if test="">
-	<a href="">교육 참가 취소</a>
+	<a href="/doCancelEducation/${ education.educationId }">교육 참가 취소</a>
 	</c:if>
 </body>
 </html>

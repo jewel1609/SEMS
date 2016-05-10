@@ -2,6 +2,8 @@ package com.ktds.sems.education.service.impl;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -25,6 +27,8 @@ public class EducationServiceImpl implements EducationService {
 	public ModelAndView getOneEducationDetail(String educationId) {
 		ModelAndView view = new ModelAndView();
 		EducationVO education = educationBiz.getOneEducationDetail(educationId);
+		//이미 신청된 회원인지 비교해서 boolean 값 보내기
+		
 		view.addObject("education", education);
 		view.setViewName("education/eduDetail");
 		return view;
@@ -52,7 +56,7 @@ public class EducationServiceImpl implements EducationService {
 		List<EducationVO> searchedEducations = educationBiz.doSearchList(startDate, endDate, eduName, educationType, cost, searchVO);
 		searchedListVO.setEducationList(searchedEducations);
 		view.addObject("searchedEducations", searchedEducations);
-		view.setViewName("/education/list");
+		view.setViewName("education/list");
 
 		return view;
 	}
@@ -81,6 +85,20 @@ public class EducationServiceImpl implements EducationService {
 		view.addObject("educationListVO", educationListVO);
 		
 		return view;
+	}
+
+	@Override
+	public ModelAndView doApplyEducation(String educationId, HttpSession session) {
+		ModelAndView view = new ModelAndView();
+		// 현재 로그인된 멤버가 가입한 educationId에 해당하는 주/야간 정도 가져오기
+		session.getAttribute("_MEMBER_");
+		// 버튼을 통해 가져온 educationId에 해당하는 주/야간 정보와 비교하기
+		
+		// 같으면 redirect
+		
+		// 다르면 insert시킨다.
+		
+		return null;
 	}
 
 }

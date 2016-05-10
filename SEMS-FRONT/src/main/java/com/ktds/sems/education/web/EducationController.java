@@ -1,5 +1,6 @@
 package com.ktds.sems.education.web;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
@@ -37,6 +38,12 @@ public class EducationController {
 	public ModelAndView getOneEducationDetail(@PathVariable String educationId){
 		return educationService.getOneEducationDetail(educationId);
 	}
+	
+	@RequestMapping("/doApplyEducation/${ education.educationId }")
+	public ModelAndView doApplyEducation(@PathVariable String educationId, HttpSession session){
+		return educationService.doApplyEducation(educationId, session);
+	}
+	
 }
 
 
