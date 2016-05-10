@@ -12,9 +12,15 @@
 
 	$(document).ready(function() {
 		
+		$("#cancleBtn").click(function (){
+			$("#cdId").val("");
+			$("#cdNm").val("");
+			
+		});
+		
 		//수정버튼 클릭시
 		$(".grdtModifyBtn").click(function (){
-			var root =  $(this).parent().parent().children(":eq(0)");
+			var cdId =  $(this).parent().parent().children(":eq(0)");
 			var cdNm = $(this).parent().parent().children(":eq(2)").children();
 			
 			if(cdNm.val()==""){
@@ -30,7 +36,7 @@
 			if ( confirm("입력한 내용으로 수정하시겠습니까?") == true ) {
 				
 				$.post("/comm/doGrdtModify", {
-					"cdId" : root.val(),
+					"cdId" : cdId.val(),
 					"cdNm" : cdNm.val()
 				}, function(data) {
 
@@ -38,6 +44,7 @@
 
 					try {
 						jsonData = JSON.parse(data);
+						
 					} catch (e) {
 						jsonData.result = false;
 					}
@@ -64,7 +71,48 @@
 		});
 		
 		//추가버튼 클릭시
-		
+		$("#grdtInsertBtn").click(function (){
+			var cdId =  $("#cdId").val();
+			var cdNm = $("#cdNm").val();
+			
+			if(cdId==""){
+				alert("CODE ID를 써주세요.");
+			}
+			if(cdId.length > 4){
+				alert("CODE ID는 4글자 이하로 써주세요.");
+			}
+			
+			if(cdNm==""){
+				alert("CODE NAME을 써주세요.");
+				return;
+			}
+			
+			if(cdNm.length > 10){
+				alert("CODE NAME은 10글자 이하로 써주세요.");
+				return;
+			}
+			
+			if ( confirm("등록하시겠습니까?") == true ) {
+				
+				$.post("/comm/doGrdtInsert", {
+					"cdId" : cdId,
+					"cdNm" : cdNm
+				}, function(data) {
+
+					var jsonData = {};
+
+					try {
+						jsonData = JSON.parse(data);
+						
+					} catch (e) {
+						jsonData.result = false;
+					}
+				});
+			}
+			else {
+				return;
+			}
+		});
 		
 	});
 	
@@ -90,20 +138,16 @@
 			</tr>
 		</c:forEach>
 	
-		<form:form commandName="GrdtTpVO"  method="post" action="/doInsertGrdt">
-				<tr>
-					<td>
-						<input type="text" id="cdId" name="newCdId" value=""/>
-						<form:errors path="newCdId"/><br/>
-					</td>
-					<td>
-						<input type="text" id="cdNm" name="newCdNm" value=""/>
-						<form:errors path="newCdNm"/><br/>
-					</td>
-					<td><input type="submit" id="grdtInsertBtn" value="추가" /></td>
-					<td><input type="reset" value="취소" /></td>
-				</tr>
-		</form:form>	
+		<tr>
+			<td>
+				<input type="text" id="cdId" name="newCdId" value=""/>
+			</td>
+			<td>
+				<input type="text" id="cdNm" name="newCdNm" value=""/>
+			</td>
+			<td><input type="button" id="grdtInsertBtn" value="추가" /></td>
+			<td><input type="button" id="cancleBtn" value="취소" /></td>
+		</tr>
 	</table>
 		
 	
