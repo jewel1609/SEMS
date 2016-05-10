@@ -22,19 +22,18 @@ public class MemberServiceImpl implements MemberService {
 		ModelAndView view = new ModelAndView();
 		MemberVO sessionMember = (MemberVO) session.getAttribute("_MEMBER_");
 		
-		
 		if ( sessionMember != null ) {
-			throw new RuntimeException("À¯È¿ÇÑ Á¢±ÙÀÌ ¾Æ´Õ´Ï´Ù.");
+			throw new RuntimeException("ìœ íš¨í•œ ì ‘ê·¼ì´ ì•„ë‹™ë‹ˆë‹¤.");
 		}
 		else if ( errors.hasErrors() ) {
 			view.setViewName("redirect:member/register");
 			view.addObject("member", member);
 		}
 		else {
-			// TODO ºñ¹Ğ¹øÈ£ ¾ÏÈ£È­
-			// 1. salt »ı¼º
+			// TODO ë¹„ë°€ë²ˆí˜¸ ì•”í˜¸í™”
+			// 1. salt ìƒì„±
 			memberBiz.addNewMember(member);
-			// TODO È¸¿ø °¡ÀÔ ÈÄ º¸¿©Áú ÆäÀÌÁö
+			// TODO ì´ë™í•  í˜ì´ì§€
 			view.setViewName("");
 		}
 		
