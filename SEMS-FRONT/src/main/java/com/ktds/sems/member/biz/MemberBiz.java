@@ -28,4 +28,6 @@ public interface MemberBiz {
 	public String getNowDate();
 
 	public boolean needToChangPassword(MemberVO loginVO);
+
+	public int getTotalLoginHisotryCount();
 }

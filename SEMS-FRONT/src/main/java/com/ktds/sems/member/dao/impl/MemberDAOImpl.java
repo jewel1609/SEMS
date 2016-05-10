@@ -87,5 +87,10 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 	public int needToChangPassword(MemberVO loginVO) {
 		return getSqlSession().selectOne("MemberDAO.needToChangPassword", loginVO);
 	}
+
+	@Override
+	public int getTotalLoginHisotryCount() {
+		return getSqlSession().selectOne("MemberDAO.getTotalLoginHisotryCount");
+	}
 	
 }

@@ -1,5 +1,7 @@
 package com.ktds.sems.member.service.impl;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -12,7 +14,12 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ktds.sems.common.Session;
 import com.ktds.sems.member.biz.MemberBiz;
 import com.ktds.sems.member.service.MemberService;
+import com.ktds.sems.member.vo.LoginHistoryListVO;
+import com.ktds.sems.member.vo.LoginHistorySearchVO;
+import com.ktds.sems.member.vo.LoginHistoryVO;
 import com.ktds.sems.member.vo.MemberVO;
+
+import kr.co.hucloud.utilities.web.Paging;
 
 public class MemberServiceImpl implements MemberService {
 
@@ -153,4 +160,29 @@ public class MemberServiceImpl implements MemberService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public ModelAndView viewLoginHistoryPage(int pageNo) {
+		ModelAndView view = new ModelAndView();
+		LoginHistoryListVO loginHistoryListVO = new LoginHistoryListVO();
+		Paging paging = new Paging();
+		loginHistoryListVO.setPaging(paging);
+		paging.setPageNumber(pageNo + "");
+		
+		int totalLoginHisotryCount = memberBiz.getTotalLoginHisotryCount();
+		paging.setTotalArticleCount(totalLoginHisotryCount);
+		
+		LoginHistorySearchVO loginHistorySearchVO = new LoginHistorySearchVO();
+		loginHistorySearchVO.setStartIndex(paging.getStartArticleNumber());
+		loginHistorySearchVO.setEndIndex(paging.getEndArticleNumber());
+		
+		List<LoginHistoryVO> loginHistoryList = new ArrayList<LoginHistoryVO>();
+		loginHistoryListVO.setLoginHistoryList(loginHistoryList);
+		
+		view.setViewName("member/loginHistory");
+		view.addObject("loginHistoryListVO", loginHistoryListVO);
+		
+		return view;
+	}
+
 }

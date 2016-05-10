@@ -157,4 +157,9 @@
 		WHERE	ID = #{id}
 		AND		(SYSDATE - #{latestLoginDate}) >= 30
 	</select>
+	<select id="getTotalLoginHisotryCount" resultType="_int">
+		SELECT	COUNT(LGI_HTR_ID)
+		FROM	LGI_HTR		
+	</select>
+	
 </mapper>

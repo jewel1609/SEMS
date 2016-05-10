@@ -16,5 +16,7 @@ public interface MemberService {
 	public ModelAndView modifySuccess(String id);
 
 	public ModelAndView modifyMemberInfo(MemberVO member, Errors errors);
+
+	public ModelAndView viewLoginHistoryPage(int pageNo);
 	
 }

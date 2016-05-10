@@ -37,5 +37,7 @@ public interface MemberDAO {
 
 	public int needToChangPassword(MemberVO loginVO);
 
+	public int getTotalLoginHisotryCount();
+
 	
 }

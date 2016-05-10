@@ -103,5 +103,10 @@ public class MemberBizImpl implements MemberBiz {
 	public boolean needToChangPassword(MemberVO loginVO) {
 		return memberDAO.needToChangPassword(loginVO) > 0;
 	}
+
+	@Override
+	public int getTotalLoginHisotryCount() {
+		return memberDAO.getTotalLoginHisotryCount();
+	}
 }
 

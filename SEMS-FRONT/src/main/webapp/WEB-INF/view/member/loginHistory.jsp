@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,7 +19,7 @@
 			<td>LGI_DT</td>
 			<td>LGO_DT</td>
 		</tr>
-		<c:forEach var="${LoginHistoryListVO.loginHistoryList}" items="loginHistory">
+		<c:forEach items="${loginHistoryListVO.loginHistoryList}" var="loginHistory">
 			<tr>
 				<td>${loginHistory.lgiHtrId}</td>
 				<td>${loginHistory.id}</td>
