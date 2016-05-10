@@ -13,6 +13,11 @@ public class EducationBizImpl implements EducationBiz {
 	public void setEducationDAO(EducationDAO educationDAO) {
 		this.educationDAO = educationDAO;
 	}
+	
+	@Override
+	public boolean validCategoryId(String categoryId) {
+		return educationDAO.validCategoryId(categoryId) > 0;
+	}
 
 	@Override
 	public boolean modifyEduCost(CostVO cost) {

@@ -8,6 +8,11 @@ import com.ktds.sems.education.dao.EducationDAO;
 import com.ktds.sems.education.vo.CostVO;
 
 public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationDAO{
+	
+	@Override
+	public int validCategoryId(String categoryId) {
+		return getSqlSession().selectOne("");
+	}
 
 	@Override
 	public CostVO getEduCostByCdId(String cdId) {

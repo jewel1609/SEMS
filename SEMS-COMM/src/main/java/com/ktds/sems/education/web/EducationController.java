@@ -9,21 +9,22 @@ import javax.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ktds.sems.education.service.EducationService;
-
-import org.springframework.web.bind.annotation.ResponseBody;
+import com.ktds.sems.education.vo.CategoryVO;
+import com.ktds.sems.education.vo.JsonResponseVO;
 
 import com.ktds.sems.education.vo.CategoryVO;
 import com.ktds.sems.education.vo.CostVO;
 
-
 @Controller
 public class EducationController {
 	
-
 	private EducationService educationService;
 	
 	public void setEducationService(EducationService educationService) {
@@ -31,11 +32,20 @@ public class EducationController {
 	}
 
 	@RequestMapping("/education/category")
-
 	public String viewCategoryPage(){
-		return "/education/category";
+		return "education/category";
 	}
-
+	
+	@RequestMapping("/education/validCategoryId")
+	public String validCategoryIdAction(@RequestParam String categoryId){
+		return educationService.validCategoryId(categoryId);
+	}
+	
+	@RequestMapping("/education/addCategory")
+	@ResponseBody
+	public JsonResponseVO addNewLargeCategoryAction(@Valid CategoryVO categoryVO, Errors errors){
+		return educationService.addNewLargeCategory(categoryVO, errors);
+	}
 	
 	@RequestMapping("/cost")
 	public String viewCostPage() {
@@ -54,12 +64,5 @@ public class EducationController {
 		
 		return educationService.modifyEduCost(cost);
 	}
-	
-	@RequestMapping("/education/addLargeCategory")
-	@ResponseBody
-	public String  addNewLargeCategory(@Valid CategoryVO categoryVO, Errors erros){
-		return educationService.addNewLargeCategory(categoryVO);
-	}
-
 
 }

@@ -5,6 +5,8 @@ import java.util.List;
 import com.ktds.sems.education.vo.CostVO;
 
 public interface EducationBiz {
+	
+	boolean validCategoryId(String categoryId);
 
 	public boolean modifyEduCost(CostVO cost);
 	

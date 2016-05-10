@@ -1,28 +1,43 @@
 package com.ktds.sems.education.vo;
 
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotEmpty;
+
 public class CategoryVO {
 	
-	private String parentCodeId;
-	private String codeId;
-	private String codeName;
+	private String parentCategoryId;
 	
-	public String getParentCodeId() {
-		return parentCodeId;
+	@NotEmpty(message="카테고리 아이디를 작성해 주세요.")
+	@Size(min=2, max=4)
+	private String categoryId;
+	
+	@NotEmpty(message="카테고리 이름을 작성해 주세요.")
+	@Size(max=30)
+	private String categoryName;
+
+	public String getParentCategoryId() {
+		return parentCategoryId;
 	}
-	public void setParentCodeId(String parentCodeId) {
-		this.parentCodeId = parentCodeId;
+
+	public void setParentCategoryId(String parentCategoryId) {
+		this.parentCategoryId = parentCategoryId;
 	}
-	public String getCodeId() {
-		return codeId;
+
+	public String getCategoryId() {
+		return categoryId;
 	}
-	public void setCodeId(String codeId) {
-		this.codeId = codeId;
+
+	public void setCategoryId(String categoryId) {
+		this.categoryId = categoryId;
 	}
-	public String getCodeName() {
-		return codeName;
+
+	public String getCategoryName() {
+		return categoryName;
 	}
-	public void setCodeName(String codeName) {
-		this.codeName = codeName;
+
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
 	}
 
 }
