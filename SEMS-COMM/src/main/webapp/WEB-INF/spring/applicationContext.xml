@@ -17,4 +17,7 @@
 		<property name="suffix" value=".jsp" />		
 	</bean>
 	
+	<bean id="educationController" class="com.ktds.sems.education.web.EducationController">
+	</bean>
+	
 </beans>
