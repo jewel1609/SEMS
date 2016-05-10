@@ -12,5 +12,7 @@ public interface MemberDAO {
 	public List<MbrTpVO> getAllMbrTpList();
 
 	public void doGrdtDelete(String cdId);
+	
+	public void doGrdtModify(GrdtTpVO grdtTpVO);
 
 }

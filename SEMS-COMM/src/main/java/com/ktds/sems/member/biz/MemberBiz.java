@@ -13,4 +13,6 @@ public interface MemberBiz {
 
 	public void doGrdtDelete(String cdId);
 
+	public void doGrdtModify(GrdtTpVO grdtTpVO);
+
 }

@@ -26,4 +26,10 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO{
 	public void doGrdtDelete(String cdId) {
 		getSqlSession().delete("MemberDAO.doGrdtDelete", cdId);
 	}
+
+	@Override
+	public void doGrdtModify(GrdtTpVO grdtTpVO) {
+		getSqlSession().update("MemberDAO.doGrdtModify",grdtTpVO);
+		
+	}
 }

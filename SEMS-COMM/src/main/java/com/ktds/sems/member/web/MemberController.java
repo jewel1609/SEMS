@@ -1,5 +1,8 @@
 package com.ktds.sems.member.web;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,5 +31,12 @@ public class MemberController {
 	public String doGrdtDelete(@PathVariable String cdId){
 		return memberService.doGrdtDelete(cdId);
 	}
-	
+	@RequestMapping("doGrdtModify")
+	public String doGrdtModify(HttpServletRequest request, HttpServletResponse response){
+		
+		String cdId = request.getParameter("cdId");
+		String cdNm = request.getParameter("cdNm");
+		
+		return memberService.doGrdtModify(cdId, cdNm);
+	}
 }

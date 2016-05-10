@@ -33,4 +33,10 @@ public class MemberBizImpl implements MemberBiz{
 		
 	}
 
+	@Override
+	public void doGrdtModify(GrdtTpVO grdtTpVO) {
+		memberDAO.doGrdtModify(grdtTpVO);
+		
+	}
+
 }

@@ -8,4 +8,8 @@ public interface MemberService {
 
 	public ModelAndView viewMbrTpPage();
 
+	public String doGrdtDelete(String cdId);
+
+	public String doGrdtModify(String cdId, String cdNm);
+
 }

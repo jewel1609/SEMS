@@ -28,4 +28,9 @@
 		WHERE	CD_ID = #{cdId}
 	</delete>
 
+	<update id="doGrdtModify" parameterType="GrdtTpVO">
+		UPDATE	GRDT_TP
+		SET		
+	</update>
+
 </mapper>

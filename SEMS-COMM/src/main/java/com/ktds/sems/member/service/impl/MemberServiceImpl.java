@@ -45,4 +45,13 @@ public class MemberServiceImpl implements MemberService{
 		return "redirect:/grdtPage";
 	}
 
+	@Override
+	public String doGrdtModify(String cdId, String cdNm) {
+		GrdtTpVO grdtTpVO = new GrdtTpVO();
+		grdtTpVO.setCdId(cdId);
+		grdtTpVO.setCdNm(cdNm);
+		memberBiz.doGrdtModify(grdtTpVO);
+		return "redirect:/grdtPage";
+	}
+
 }
