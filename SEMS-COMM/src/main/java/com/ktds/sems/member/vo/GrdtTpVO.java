@@ -17,4 +17,5 @@ public class GrdtTpVO {
 	public void setCdNm(String cdNm) {
 		this.cdNm = cdNm;
 	}
+	public dddd
 }
