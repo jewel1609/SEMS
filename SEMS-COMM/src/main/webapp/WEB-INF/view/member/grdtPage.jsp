@@ -39,15 +39,9 @@
 					"cdId" : cdId.val(),
 					"cdNm" : cdNm.val()
 				}, function(data) {
-
-					var jsonData = {};
-
-					try {
-						jsonData = JSON.parse(data);
-						
-					} catch (e) {
-						jsonData.result = false;
-					}
+					
+					location.href="<c:url value="/grdtPage"/>";
+					
 				});
 			}
 			else {
@@ -77,9 +71,11 @@
 			
 			if(cdId==""){
 				alert("CODE ID를 써주세요.");
+				return;
 			}
 			if(cdId.length > 4){
 				alert("CODE ID는 4글자 이하로 써주세요.");
+				return;
 			}
 			
 			if(cdNm==""){
@@ -99,14 +95,8 @@
 					"cdNm" : cdNm
 				}, function(data) {
 
-					var jsonData = {};
-
-					try {
-						jsonData = JSON.parse(data);
-						
-					} catch (e) {
-						jsonData.result = false;
-					}
+					location.href="<c:url value="/grdtPage"/>";
+					
 				});
 			}
 			else {
