@@ -9,7 +9,7 @@ public class SampleController {
 	@RequestMapping("/sample")
 	public String viewSamplePage(){
 		
-		return "sample/index";
+		return "index";
 		
 	}
 	

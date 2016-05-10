@@ -6,10 +6,8 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<mvc:annotation-driven/>
-	
-	<mvc:resources location="/WEB-INF/resources/js/" mapping="/js/**" />
-	<mvc:resources location="/WEB-INF/resources/css/" mapping="/css/**" />
-	<mvc:resources location="/WEB-INF/resources/img/" mapping="/img/**" />
+		<mvc:resources	location="/WEB-INF/resources/" 
+					mapping="/resources/**" />
 	
 	<bean 	id="viewResolver"
 			class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -21,5 +19,8 @@
 			class="com.ktds.sems.education.web.EducationController">
 			<property name="educationService" ref="educationService"></property>
 	</bean>
+	
+	<bean id="sampleController"
+         class="com.ktds.sems.sample.web.SampleController" />
 	
 </beans>

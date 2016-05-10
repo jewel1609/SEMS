@@ -2,27 +2,17 @@
     pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
-<!--
-Template Name: Gravity
-Author: <a href="http://www.os-templates.com/">OS Templates</a>
-Author URI: http://www.os-templates.com/
-Licence: Free to use under our free template licence terms
-Licence URI: http://www.os-templates.com/template-terms
--->
 <html>
 <head>
 <title>Gravity</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<link href="layout/styles/layout.css" rel="stylesheet" type="text/css" media="all">
+
+<link rel="stylesheet" href="/backend/resources/css/layout.css" />
 </head>
 <body id="top">
-<!-- ################################################################################################ --> 
-<!-- ################################################################################################ --> 
-<!-- ################################################################################################ -->
 <div class="wrapper row1">
   <header id="header" class="clear"> 
-    <!-- ################################################################################################ -->
     <div id="logo" class="fl_left">
       <h1><a href="index.html">Gravity</a></h1>
     </div>
@@ -32,15 +22,10 @@ Licence URI: http://www.os-templates.com/template-terms
         <li><i class="fa fa-envelope-o"></i> info@domain.com</li>
       </ul>
     </div>
-    <!-- ################################################################################################ --> 
   </header>
 </div>
-<!-- ################################################################################################ --> 
-<!-- ################################################################################################ --> 
-<!-- ################################################################################################ -->
 <div class="wrapper row2">
   <nav id="mainav" class="clear"> 
-    <!-- ################################################################################################ -->
     <ul class="clear">
       <li class="active"><a href="index.html">Home</a></li>
       <li><a class="drop" href="#">Pages</a>
@@ -66,15 +51,10 @@ Licence URI: http://www.os-templates.com/template-terms
       <li><a href="#">Link Text</a></li>
       <li><a href="#">Link Text</a></li>
     </ul>
-    <!-- ################################################################################################ --> 
   </nav>
 </div>
-<!-- ################################################################################################ --> 
-<!-- ################################################################################################ --> 
-<!-- ################################################################################################ -->
 <div class="wrapper row3">
   <div id="slider" class="clear"> 
-    <!-- ################################################################################################ -->
     <div class="flexslider basicslider">
       <ul class="slides">
         <li><a href="#"><img class="radius-10" src="images/demo/slides/01.png" alt=""></a></li>
@@ -82,16 +62,11 @@ Licence URI: http://www.os-templates.com/template-terms
         <li><a href="#"><img class="radius-10" src="images/demo/slides/03.png" alt=""></a></li>
       </ul>
     </div>
-    <!-- ################################################################################################ --> 
   </div>
 </div>
-<!-- ################################################################################################ --> 
-<!-- ################################################################################################ --> 
-<!-- ################################################################################################ -->
 <div class="wrapper row3">
   <main class="container clear"> 
     <!-- main body --> 
-    <!-- ################################################################################################ -->
     <ul class="nospace group btmspace-80">
       <li class="one_third first">
         <article class="service"><i class="icon fa fa-ambulance"></i>
@@ -115,9 +90,7 @@ Licence URI: http://www.os-templates.com/template-terms
         </article>
       </li>
     </ul>
-    <!-- ################################################################################################ -->
     <h2 class="sectiontitle">Lorem Ipsum Dolor</h2>
-    <!-- ################################################################################################ -->
     <div class="flexslider carousel basiccarousel btmspace-80">
       <ul class="slides">
         <li>
@@ -147,9 +120,7 @@ Licence URI: http://www.os-templates.com/template-terms
         </li>
       </ul>
     </div>
-    <!-- ################################################################################################ -->
     <h2 class="sectiontitle">Lorem Ipsum Dolor</h2>
-    <!-- ################################################################################################ -->
     <ul class="nospace group">
       <li class="one_half first">
         <article><img class="imgl radius-10" src="images/demo/100x100.gif" alt="">
@@ -164,17 +135,12 @@ Licence URI: http://www.os-templates.com/template-terms
         </article>
       </li>
     </ul>
-    <!-- ################################################################################################ --> 
     <!-- / main body -->
     <div class="clear"></div>
   </main>
 </div>
-<!-- ################################################################################################ --> 
-<!-- ################################################################################################ --> 
-<!-- ################################################################################################ -->
 <div class="wrapper row4">
   <footer id="footer" class="clear"> 
-    <!-- ################################################################################################ -->
     <div class="one_quarter first">
       <h6 class="title">Company Details</h6>
       <address class="btmspace-15">
@@ -224,28 +190,19 @@ Licence URI: http://www.os-templates.com/template-terms
         <li><a class="faicon-tumblr" href="#"><i class="fa fa-tumblr"></i></a></li>
       </ul>
     </div>
-    <!-- ################################################################################################ --> 
   </footer>
 </div>
-<!-- ################################################################################################ --> 
-<!-- ################################################################################################ --> 
-<!-- ################################################################################################ -->
 <div class="wrapper row5">
   <div id="copyright" class="clear"> 
-    <!-- ################################################################################################ -->
     <p class="fl_left">Copyright &copy; 2015 - All Rights Reserved - <a href="#">Domain Name</a></p>
     <p class="fl_right">Template by <a target="_blank" href="http://www.os-templates.com/" title="Free Website Templates">OS Templates</a></p>
-    <!-- ################################################################################################ --> 
   </div>
 </div>
-<!-- ################################################################################################ --> 
-<!-- ################################################################################################ --> 
-<!-- ################################################################################################ --> 
 <a id="backtotop" href="#top"><i class="fa fa-chevron-up"></i></a> 
 <!-- JAVASCRIPTS --> 
-<script src="layout/scripts/jquery.min.js"></script> 
-<script src="layout/scripts/jquery.backtotop.js"></script> 
-<script src="layout/scripts/jquery.mobilemenu.js"></script> 
-<script src="layout/scripts/jquery.flexslider-min.js"></script>
+<script type="text/javascript" src="/backend/scripts/jquery.min.js"></script>
+<script type="text/javascript" src="/backend/scripts/jquery.backtop.js"></script>
+<script type="text/javascript" src="/backend/scripts/jquery.mobilemenu.js"></script>
+<script type="text/javascript" src="/backend/scripts/jquery.flexslider-min.js"></script>
 </body>
 </html>
