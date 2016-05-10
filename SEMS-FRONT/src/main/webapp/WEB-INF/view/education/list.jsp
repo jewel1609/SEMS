@@ -13,8 +13,12 @@
 			var startYear = $("#startYear").val();
 			var startMonth = $("#startMonth").val();
 			
+			startMonth = fillString(startMonth);
+			
 			var endYear = $("#endYear").val();
 			var endMonth = $("#endMonth").val();
+
+			endMonth = fillString(endMonth);
 			
 			var startSearchDate = startYear + startMonth;
 			var endSearchDate = endYear + endMonth;
@@ -31,8 +35,17 @@
 			$("#searchForm").attr("method", "POST");
 			$("#searchForm").submit();
 		});
-		
 	});
+	
+			function fillString(str) {
+				
+				if(str.length == 1) {
+					str = "0" + str;
+				}
+				
+				return str;
+			}
+
 </script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
