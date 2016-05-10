@@ -7,18 +7,45 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>졸업 구분 코드 설정 페이지</title>
-<script type="text/javascript" src="<c:url value="/resources/js/query-1.12.1.js"/>"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 <script type="text/javascript">
 
-	$(document).ready(function (){
+	$(document).ready(function() {
 		
-		$("#grdtModifyBtn").click(function (){
+		//수정버튼 클릭시
+		$(".grdtModifyBtn").click(function (){
 			
-			var modiAndDelForm = $("#modiAndDelForm").
-			form.
-			
+			if ( confirm("입력한 내용으로 수정하시겠습니까?") == true ) {
+				
+				if ( $("#cdNm").length() > 10 ) {
+					alert("10글자 이하로 입력해주세요.");
+					return;
+				}
+				
+				var form = $("#modiAndDelForm");
+				form.attr("method", "post");
+				form.attr("action","/doGrdtModify");
+				form.submit();
+			}
+			else {
+				return;
+			}
 		});
 		
+		
+		//삭제버튼 클릭시
+		$(".grdtDeleteBtn").click(function (){
+			
+			var root = $(this).parent().parent().children(":eq(0)");
+			console.log(root.val());
+			
+			if ( confirm("삭제하시겠습니까?") == true ) {
+				location.href = "/comm/doGrdtDelete/"+ root.val();
+			}
+			else {
+				return;
+			} 
+		});
 	});
 	
 </script>
@@ -34,15 +61,14 @@
 			
 			<c:forEach items="${grtdTpList}" var="graduation">
 				<tr>
-					<input type="hidden" name="cdId" value="${graduation.cdId}"/>
+					<input type="hidden" id="${graduation.cdId}" name="cdId" value="${graduation.cdId}"/>
 					<td style="text-align:center">${graduation.cdId}</td>
 					<td>
-						<input style="text-align:center" type="text" class="cdNm" name="cdNm" value="${graduation.cdNm}"/>
-						<form:errors path="cdNm"/><br/>
+						<input style="text-align:center" type="text" id="cdNm" name="cdNm" value="${graduation.cdNm}"/>
 					</td>
 					
-					<td><input type="submit" id="grdtModifyBtn" value="수정"/></td>
-					<td><input type="submit" id="grdtDeleteBtn" value="삭제"/></td>
+					<td><input type="button" class="grdtModifyBtn" value="수정"/></td>
+					<td><input type="button" class="grdtDeleteBtn" value="삭제"/></td>
 				</tr>
 			</c:forEach>
 		
