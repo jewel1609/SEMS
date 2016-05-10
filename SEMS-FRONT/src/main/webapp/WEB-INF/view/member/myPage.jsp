@@ -15,7 +15,6 @@
 <body>
 		
 <a href="/member/myPage/checkPassword">내 정보 수정</a>		
-<a href="/member/myPage/saveAsExcel">로그인 내역 엑셀파일로 저장</a>		
 
 </body>
 </html>

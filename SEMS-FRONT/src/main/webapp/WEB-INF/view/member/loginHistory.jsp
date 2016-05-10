@@ -8,6 +8,8 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<a href="/member/myPage/saveAsExcel">로그인 내역 엑셀파일로 저장</a>	
+	
 	<table>
 		<tr>
 			<td>LGI_HTR_ID</td>
