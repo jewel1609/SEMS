@@ -45,7 +45,7 @@ public class MemberController {
 		return "member/register";
 	}
 
-	@RequestMapping(value = ("/login"), method = RequestMethod.GET)
+	@RequestMapping(value = ("/login"), method = RequestMethod.POST)
 	public void login(@Valid MemberVO memberVO, Errors errors, HttpSession session, HttpServletResponse response) {
 		String loginStatus = memberService.login(memberVO, errors, session);
 		AjaxUtil.sendResponse(response, loginStatus);

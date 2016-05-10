@@ -49,7 +49,7 @@
 				, PWD password
 				, NM name
 				, EMAIL email
-				, HIGEST_EDU_LV highestEducationLevel
+				, HIGHEST_EDU_LV highestEducationLevel
 				, UNIV_NM universityName
 				, MJR_NM majorName
 				, GRDT_TP graduationType
