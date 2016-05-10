@@ -5,39 +5,39 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 public class MemberVO {
 
-	@NotEmpty(message="¾ÆÀÌµð´Â ÇÊ¼ö ÀÔ·Â°ª ÀÔ´Ï´Ù.")
-	@Length(min=5, message="¾ÆÀÌµð´Â 4ÀÚ¸® ÀÌÇÏ¸¦ ÀûÀ» ¼ö ¾ø½À´Ï´Ù.")
+	@NotEmpty(message="ï¿½ï¿½ï¿½Ìµï¿½ï¿½ ï¿½Ê¼ï¿½ ï¿½Ô·Â°ï¿½ ï¿½Ô´Ï´ï¿½.")
+	@Length(min=5, message="ï¿½ï¿½ï¿½Ìµï¿½ï¿½ 4ï¿½Ú¸ï¿½ ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.")
 	private String id;
 	
-	@NotEmpty(message="ºñ¹Ð¹øÈ£´Â ÇÊ¼ö ÀÔ·Â°ª ÀÔ´Ï´Ù.")
-	@Length(min=10, message="Password´Â 9ÀÚ¸® ÀÌÇÏ¸¦ ÀûÀ» ¼ö ¾ø½À´Ï´Ù.")
+	@NotEmpty(message="ï¿½ï¿½Ð¹ï¿½È£ï¿½ï¿½ ï¿½Ê¼ï¿½ ï¿½Ô·Â°ï¿½ ï¿½Ô´Ï´ï¿½.")
+	@Length(min=10, message="Passwordï¿½ï¿½ 9ï¿½Ú¸ï¿½ ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.")
 	private String password;
 	
-	@NotEmpty(message="ÀÌ¸§´Â ÇÊ¼ö ÀÔ·Â°ª ÀÔ´Ï´Ù.")
+	@NotEmpty(message="ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½Ê¼ï¿½ ï¿½Ô·Â°ï¿½ ï¿½Ô´Ï´ï¿½.")
 	private String name;
 	
-	@NotEmpty(message="ÀÌ¸ÞÀÏ´Â ÇÊ¼ö ÀÔ·Â°ª ÀÔ´Ï´Ù.")
+	@NotEmpty(message="ï¿½Ì¸ï¿½ï¿½Ï´ï¿½ ï¿½Ê¼ï¿½ ï¿½Ô·Â°ï¿½ ï¿½Ô´Ï´ï¿½.")
 	private String email;
 	
-	@NotEmpty(message="ÃÖÁ¾ ÇÐ·ÂÀº ÇÊ¼ö ÀÔ·Â°ª ÀÔ´Ï´Ù.")
+	@NotEmpty(message="ï¿½ï¿½ï¿½ï¿½ ï¿½Ð·ï¿½ï¿½ï¿½ ï¿½Ê¼ï¿½ ï¿½Ô·Â°ï¿½ ï¿½Ô´Ï´ï¿½.")
 	private String highestEducationLevel;
 	
-	@NotEmpty(message="ÇÐ±³´Â ÇÊ¼ö ÀÔ·Â°ª ÀÔ´Ï´Ù.")
+	@NotEmpty(message="ï¿½Ð±ï¿½ï¿½ï¿½ ï¿½Ê¼ï¿½ ï¿½Ô·Â°ï¿½ ï¿½Ô´Ï´ï¿½.")
 	private String universityName;
 	
-	@NotEmpty(message="ÇÐ°ú´Â ÇÊ¼ö ÀÔ·Â°ª ÀÔ´Ï´Ù.")
+	@NotEmpty(message="ï¿½Ð°ï¿½ï¿½ï¿½ ï¿½Ê¼ï¿½ ï¿½Ô·Â°ï¿½ ï¿½Ô´Ï´ï¿½.")
 	private String majorName;
 	
-	@NotEmpty(message="Á¹¾÷ ±¸ºÐ´Â ÇÊ¼ö ÀÔ·Â°ª ÀÔ´Ï´Ù.")
+	@NotEmpty(message="ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ð´ï¿½ ï¿½Ê¼ï¿½ ï¿½Ô·Â°ï¿½ ï¿½Ô´Ï´ï¿½.")
 	private String graduationType;
 	
-	@NotEmpty(message="»ý³â¿ùÀÏÀº ÇÊ¼ö ÀÔ·Â°ª ÀÔ´Ï´Ù.")
-	private String brithDate;
+	@NotEmpty(message="ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¼ï¿½ ï¿½Ô·Â°ï¿½ ï¿½Ô´Ï´ï¿½.")
+	private String birthDate;
 	
-	@NotEmpty(message="ÀüÈ­¹øÈ£´Â ÇÊ¼ö ÀÔ·Â°ª ÀÔ´Ï´Ù.")
+	@NotEmpty(message="ï¿½ï¿½È­ï¿½ï¿½È£ï¿½ï¿½ ï¿½Ê¼ï¿½ ï¿½Ô·Â°ï¿½ ï¿½Ô´Ï´ï¿½.")
 	private String phoneNumber;
 	
-	@NotEmpty(message="ºñ¹Ð¹øÈ£´Â ÇÊ¼ö ÀÔ·Â°ª ÀÔ´Ï´Ù.")
+	@NotEmpty(message="ï¿½ï¿½Ð¹ï¿½È£ï¿½ï¿½ ï¿½Ê¼ï¿½ ï¿½Ô·Â°ï¿½ ï¿½Ô´Ï´ï¿½.")
 	private String memberType;
 
 	private String salt;
@@ -91,10 +91,10 @@ public class MemberVO {
 		this.graduationType = graduationType;
 	}
 	public String getBrithDate() {
-		return brithDate;
+		return birthDate;
 	}
-	public void setBrithDate(String brithDate) {
-		this.brithDate = brithDate;
+	public void setBrithDate(String birthDate) {
+		this.birthDate = birthDate;
 	}
 	public String getPhoneNumber() {
 		return phoneNumber;
