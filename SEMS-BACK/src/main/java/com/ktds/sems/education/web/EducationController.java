@@ -22,14 +22,14 @@ public class EducationController {
 	}
 
 	@RequestMapping("/educationModify/{educationId}")
-	public ModelAndView viewModifyPage(@PathVariable String educationId){
+	public ModelAndView viewEducationModifyPage(@PathVariable String educationId){
 		ModelAndView view = educationService.getOneEducation(educationId); 
 		view.setViewName("education/update");
 		return view;
 	}
 	
 	@RequestMapping("/doEducationModifyAction")
-	public ModelAndView doModifyAction(@Valid EducationVO educationVO, Errors errors){
+	public ModelAndView doEducationModifyAction(@Valid EducationVO educationVO, Errors errors){
 		return educationService.modifyNewEducation(educationVO, errors);
 	}
 	
