@@ -31,5 +31,5 @@ public class EducationController {
 		return educationService.doSearchList(educationVO, errors);
 	}
 	
-
+	// commit용
 }

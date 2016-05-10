@@ -42,8 +42,7 @@ public class EducationServiceImpl implements EducationService {
 	@Override
 	public ModelAndView getAllEducationList(int pageNo) {
 		EducationListVO educationListVO = new EducationListVO();
-//		Paging paging = new Paging(15,15);
-		Paging paging = new Paging();
+		Paging paging = new Paging(15,15);
 			
 		educationListVO.setPaging(paging);
 		
