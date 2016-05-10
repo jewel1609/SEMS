@@ -20,19 +20,21 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public ModelAndView addNewMember(MemberVO member, Errors errors, HttpSession session) {
 		ModelAndView view = new ModelAndView();
-		
 		MemberVO sessionMember = (MemberVO) session.getAttribute("_MEMBER_");
+		
 		
 		if ( sessionMember != null ) {
 			throw new RuntimeException("유효한 접근이 아닙니다.");
 		}
 		else if ( errors.hasErrors() ) {
-			view.setViewName("member/register");
+			view.setViewName("redirect:member/register");
 			view.addObject("member", member);
 		}
 		else {
-			// TODO 회원 가입 후 보여질 페이지
+			// TODO 비밀번호 암호화
+			// 1. salt 생성
 			memberBiz.addNewMember(member);
+			// TODO 회원 가입 후 보여질 페이지
 			view.setViewName("");
 		}
 		

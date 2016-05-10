@@ -1,9 +1,38 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-		
+
 <mapper namespace="MemberDAO">
 
-	
+	<insert id="addNewMember" parameterType="MemberVO">
+		INSERT INTO SEMS.MBR	(
+									ID
+									, PWD
+									, NM
+									, EMAIL
+									, HIGHEST_EDU_LV
+									, UNIV_NM
+									, MJR_NM
+									, GRDT_TP
+									, BRTH_DT
+									, PHONE_NMB
+									, MBR_TP
+									, SALT
+								)
+		VALUES 					( 
+									{id}
+									, {password}
+									, {name}
+									, {email}
+									, {highestEducationLevel}
+									, {universityName}
+									, {majorName}
+									, {graduationType}
+									, {brithDate}
+									, {phoneNumber}
+									, {memberType}
+									, {salt}
+								)
+	</insert>
 
 </mapper>

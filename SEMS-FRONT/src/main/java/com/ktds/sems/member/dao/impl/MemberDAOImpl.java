@@ -9,7 +9,7 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 
 	@Override
 	public int addNewMember(MemberVO member) {
-		return getSqlSession().insert("MemberDAO.", member);
+		return getSqlSession().insert("MemberDAO.addNewMember", member);
 	}
 	
 }
