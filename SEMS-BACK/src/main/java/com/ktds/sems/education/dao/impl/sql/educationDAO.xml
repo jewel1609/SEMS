@@ -3,6 +3,50 @@
 
 <mapper namespace="EducationDAO" >
 
+<select id="nextEduSeq" resultType="_int">
+		SELECT	EDU_ID_SEQ.NEXTVAL
+		FROM	DUAL
+	</select>
+	
+	<select id="nowDate" resultType="string">
+		SELECT	TO_CHAR(SYSDATE, 'YYYYMMDD')
+		FROM	DUAL
+	</select>
+	
+	<insert id="insertNewEducation" parameterType="educationVO">
+
+		INSERT INTO SEMS.EDU_INFO (
+									   EDU_ID 
+									   , EDU_CTGR 
+									   , EDU_TTL 
+									   , MBR_ID
+									   , MAX_MBR 
+									   , EDU_LOC 
+									   , EDU_CLCM 
+									   , EDU_INTR
+									   , SRT_DATE 
+									   , END_DATE 
+									   , START_TM 
+									   , END_TM 
+									   , EDU_TP
+									   , COST
+									) 
+		VALUES 					 (	#{educationId}
+									 , #{educationCategory}
+									 , #{educationTitle}
+									 , #{memberId}
+									 , #{maxMember}
+									 , #{educationLocation}
+									 , #{educationCurriculum}
+									 , #{educationIntroduce}
+									 , #{startDate}
+									 , #{endDate }
+									 , #{startTime}
+									 , #{endTime}
+									 , #{educationType}
+									 , #{cost}
+								)
+	</insert>
 	<select id="getOneEducation" parameterType="string" resultType="EducationVO">
 		SELECT	EDU_ID educationId
 				, EDU_CTGR educationCategory
