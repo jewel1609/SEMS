@@ -85,11 +85,16 @@
 					)
 		VALUES 		( 
 						<if test="categoryType != 'large'">
-						#{ categoryType } ,
+						#{ parentCategoryId } ,
 						</if>
 						#{ categoryId }
 						, #{ categoryName }
 				   	)
 	</insert>
-
+	
+	<select id="getAllLargeCategory" resultType="CategoryVO">
+		SELECT	CD_ID categoryId
+				, CD_NM categoryName
+		FROM	LRG_CTGR
+	</select>
 </mapper>

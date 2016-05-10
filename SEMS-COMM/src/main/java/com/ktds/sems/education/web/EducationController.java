@@ -1,9 +1,7 @@
 package com.ktds.sems.education.web;
 
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
@@ -11,16 +9,12 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ktds.sems.education.service.EducationService;
 import com.ktds.sems.education.vo.CategoryVO;
-import com.ktds.sems.education.vo.JsonResponseVO;
-
-import com.ktds.sems.education.vo.CategoryVO;
 import com.ktds.sems.education.vo.CostVO;
+import com.ktds.sems.education.vo.JsonResponseVO;
 
 @Controller
 public class EducationController {
@@ -32,8 +26,8 @@ public class EducationController {
 	}
 
 	@RequestMapping("/education/category")
-	public String viewCategoryPage(){
-		return "education/category";
+	public ModelAndView viewCategoryPage(){
+		return educationService.viewCategoryPage();
 	}
 	
 	@RequestMapping("/education/validCategoryId")

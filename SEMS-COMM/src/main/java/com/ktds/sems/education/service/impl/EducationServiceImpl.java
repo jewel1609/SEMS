@@ -1,16 +1,16 @@
 package com.ktds.sems.education.service.impl;
 
-import org.springframework.validation.Errors;
-
+import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.education.biz.EducationBiz;
 import com.ktds.sems.education.service.EducationService;
 import com.ktds.sems.education.vo.CategoryVO;
-import com.ktds.sems.education.vo.JsonResponseVO;
 import com.ktds.sems.education.vo.CostVO;
+import com.ktds.sems.education.vo.JsonResponseVO;
 
 public class EducationServiceImpl implements EducationService {
 	
@@ -95,10 +95,26 @@ public class EducationServiceImpl implements EducationService {
 		}
 		else {
 			boolean result = educationBiz.addNewCategory(categoryVO);
-			jsonResponseVO.setResult(true);
+			if ( result ) {
+				jsonResponseVO.setResult(true);
+			}
+			else {
+				throw new RuntimeException("카테고리를 추가중 장애가 발생했습니다. 잠시후 다시 시도해주세요.");
+			}
 		}
 		
 		return jsonResponseVO;
+	}
+
+	@Override
+	public ModelAndView viewCategoryPage() {
+		ModelAndView view = new ModelAndView();
+		view.setViewName("education/category");
+		
+		List<CategoryVO> largeCategoryList = educationBiz.getAllLargeCategory();
+		view.addObject("largeCategoryList", largeCategoryList);
+		
+		return view;
 	}
 
 }

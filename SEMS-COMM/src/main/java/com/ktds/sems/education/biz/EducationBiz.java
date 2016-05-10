@@ -25,5 +25,6 @@ public interface EducationBiz {
 
 	boolean addNewCategory(CategoryVO categoryVO);
 
+	List<CategoryVO> getAllLargeCategory();
 
 }

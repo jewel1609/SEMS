@@ -31,7 +31,6 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 		return getSqlSession().selectList("EducationDAO.getAllEduCost");
 	}
 
-
 	@Override
 	public int deleteEduCost(String cdId) {
 		return getSqlSession().delete("EducationDAO.deleteEduCost", cdId);
@@ -41,7 +40,6 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 	public int insertEduCost(CostVO cost) {
 		return getSqlSession().insert("EducationDAO.insertEduCost", cost);
 	}
-
 
 	@Override
 	public int validCategoryName(Map<String, String> category) {
@@ -53,4 +51,8 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 		return getSqlSession().insert("EducationDAO.addNewCategory", categoryVO);
 	}
 
+	@Override
+	public List<CategoryVO> getAllLargeCategory() {
+		return getSqlSession().selectList("EducationDAO.getAllLargeCategory");
+	}
 }

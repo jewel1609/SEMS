@@ -123,22 +123,26 @@
 <style type="text/css">
 	#newLargeCategoryContainer {
 	}
+	
+	select {
+		size: "10";
+	}
 </style>
 </head>
 <body>
 
 	<div id="largeCategoryListContainer">
-		<ul>
+		<select id="largeCategoryList" size="10">
 			<c:if test="${ not empty largeCategoryList }">
-				<c:forEach items="${ largeCategoryList }">
-					<li></li>
+				<c:forEach items="${ largeCategoryList }" var="category">
+					<option value="${ category.categoryId }"> ${ category.categoryName } </option>
 				</c:forEach>
 			</c:if>
-		</ul>
+		</select>
 		<input type="button" id="newLargeCategoryBtn" value="추가">
 		<div id="newCategoryContainer">
 			<form:form commandName="newCategoryForm" method="post">
-				<input type="hidden" id="parentCategoryId" name="parentCategoryId" value="" >
+				<input type="hidden" id="parentCategoryId" name="parentCategoryId" >
 				<input type="hidden" id="categoryType" name="categoryType" value="large" >
 				<input type="text" id="categoryId" name="categoryId" placeholder="category id" maxlength="4">
 				<span id="categoryIdError"></span>
@@ -150,24 +154,14 @@
 	</div>
 	
 	<div id="mediumCategoryListContainer">
-		<ul>
-			<c:if test="${ not empty mediumCategoryList }">
-				<c:forEach items="${ mediumCategoryList }">
-					<li></li>
-				</c:forEach>
-			</c:if>
-		</ul>
+		<select id="mediumCategoryList">
+		</select>
 		<input type="button" id="newMediumCategoryBtn" value="추가">
 	</div>
 	
 	<div id="smallCategoryListContainer">
-		<ul>
-			<c:if test="${ not empty smallCategoryList }">
-				<c:forEach items="${ smallCategoryList }">
-					<li></li>
-				</c:forEach>
-			</c:if>
-		</ul>
+		<select id="smallCategoryList">
+		</select>
 		<input type="button" id="newSmallCategoryBtn" value="추가">
 	</div>
 

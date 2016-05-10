@@ -24,4 +24,6 @@ public interface EducationDAO {
 
 	public int insertEduCost(CostVO cost);
 
+	List<CategoryVO> getAllLargeCategory();
+
 }

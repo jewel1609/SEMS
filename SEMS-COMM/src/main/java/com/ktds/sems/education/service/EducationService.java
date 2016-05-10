@@ -26,4 +26,6 @@ public interface EducationService {
 
 	String validCategoryName(String categoryName, String categoryType);
 
+	ModelAndView viewCategoryPage();
+
 }

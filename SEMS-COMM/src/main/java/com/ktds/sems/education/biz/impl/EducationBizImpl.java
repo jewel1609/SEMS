@@ -53,7 +53,6 @@ public class EducationBizImpl implements EducationBiz {
 		return educationDAO.getAllEduCost();
 	}
 
-
 	@Override
 	public boolean deleteEduCost(String cdId) {
 		return educationDAO.deleteEduCost(cdId) > 0;
@@ -79,8 +78,9 @@ public class EducationBizImpl implements EducationBiz {
 		return educationDAO.addNewCategory(categoryVO) > 0;
 	}
 
-	
-	
-	
+	@Override
+	public List<CategoryVO> getAllLargeCategory() {
+		return educationDAO.getAllLargeCategory();
+	}
 
 }
