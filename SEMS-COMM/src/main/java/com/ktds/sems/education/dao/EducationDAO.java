@@ -16,8 +16,12 @@ public interface EducationDAO {
 
 	public List<CostVO> getAllEduCost();
 
-	int validCategoryName(Map<String, String> category);
+	public int validCategoryName(Map<String, String> category);
 
-	int addNewCategory(CategoryVO categoryVO);
+	public int addNewCategory(CategoryVO categoryVO);
+
+	public int deleteEduCost(String cdId);
+
+	public int insertEduCost(CostVO cost);
 
 }
