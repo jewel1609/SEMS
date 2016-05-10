@@ -1,5 +1,7 @@
 package com.ktds.sems.education.service.impl;
 
+import java.util.List;
+
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.education.biz.EducationBiz;
@@ -26,9 +28,14 @@ public class EducationServiceImpl implements EducationService {
 		
 		boolean isModify = educationBiz.modifyEduCost(cost);
 		if (isModify) {
-			costVO = educationBiz.getEduCostByCoId(cost.getCoId());
+			costVO = educationBiz.getEduCostByCdId(cost.getCdId());
 		}
 		return costVO;
+	}
+
+	@Override
+	public List<CostVO> getAllEduCost() {
+		return educationBiz.getAllEduCost();
 	}
 
 }
