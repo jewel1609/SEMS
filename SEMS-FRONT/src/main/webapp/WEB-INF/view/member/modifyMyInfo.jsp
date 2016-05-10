@@ -20,8 +20,8 @@
  -->
 <body>
 
-<form:form commandName="memberVO" method="post" action="/member/myPage/doModifyAction">
-
+<form:form commandName="member" method="post" action="/member/myPage/doModifyAction">
+${member.name}
 	memberId : ${member.id}  <br/>
 	password : <input type="text" name="password" id="password" />
 	<br />
@@ -38,6 +38,7 @@
 	<input type="text" name="birthDate" id="birthDate"  value="${member.birthDate}" placeholder="생년월일을 입력하세요." /> 
 	<br />
 	<input type="text" name="phoneNumber" id="phoneNumber"  value="${member.phoneNumber}" placeholder="전화번호를 입력하세요." /> 
+	<br />
 	memberType : ${member.memberType} <br />
 	
 	<input type="submit"  value="수정 완료" />

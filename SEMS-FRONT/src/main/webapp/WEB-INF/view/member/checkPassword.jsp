@@ -5,21 +5,20 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript" src="/resources/js/jquery.min.js"></script>
 <script type="text/javascript">
-$(document).ready(function() {
-	$("#checkPasswordBtn").click(function() {
-		if($("#password").val() == "") {
-			alert("비밀번호를 입력하세요!");
-			$("#password").focus();
-			return;
-		}
+	$(document).ready(function() {
+		$("#checkPasswordBtn").click(function() {
+			if($("#password").val() == "") {
+				alert("비밀번호를 입력하세요!");
+				$("#password").focus();
+				return;
+			}
+			
+			$("#checkPasswordForm").submit();
+		});	
 		
-		//세번 틀렸을 시 자동 로그아웃 처리
-		
-		$("#checkPasswordForm").submit();
-	});	
-	
-});
+	});
 
 </script>
 </head>
