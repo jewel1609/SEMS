@@ -12,6 +12,7 @@ import com.ktds.sems.education.service.EducationService;
 import com.ktds.sems.education.vo.EducationListVO;
 import com.ktds.sems.education.vo.EducationSearchVO;
 import com.ktds.sems.education.vo.EducationVO;
+import com.ktds.sems.education.vo.QNAVO;
 
 import kr.co.hucloud.utilities.web.Paging;
 
@@ -99,6 +100,26 @@ public class EducationServiceImpl implements EducationService {
 		// 다르면 insert시킨다.
 		
 		return null;
+	}
+	
+	@Override
+	public ModelAndView writeNewComment(QNAVO qnaVO, Errors errors) {
+		ModelAndView view = new ModelAndView();
+		
+		if( errors.hasErrors() ){ 
+			view.setViewName("redirect:/eduDetail");
+			view.addObject("qnaVO", qnaVO );
+			return view;
+		}else {
+			boolean result = educationBiz.writeNewComment(qnaVO);
+			if ( result ){
+				view.setViewName("redirect:/eduDetail");
+			} else {
+				throw new RuntimeException("일시적인 장애가 발생했습니다. 잠시 후 다시 시도해주세요.");
+			}
+		}
+		
+		return view;
 	}
 
 }

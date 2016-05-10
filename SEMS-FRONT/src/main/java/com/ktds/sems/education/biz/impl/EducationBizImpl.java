@@ -6,6 +6,7 @@ import com.ktds.sems.education.biz.EducationBiz;
 import com.ktds.sems.education.dao.EducationDAO;
 import com.ktds.sems.education.vo.EducationSearchVO;
 import com.ktds.sems.education.vo.EducationVO;
+import com.ktds.sems.education.vo.QNAVO;
 
 public class EducationBizImpl implements EducationBiz {
 
@@ -41,4 +42,8 @@ public class EducationBizImpl implements EducationBiz {
 		return educationDAO.doSearchList(startDate, endDate, eduName, educationType, cost, searchVO);
 	}
 
+	@Override
+	public boolean writeNewComment(QNAVO qnaVO) {
+		return educationDAO.insertNewComment(qnaVO) > 0;
+	}
 }

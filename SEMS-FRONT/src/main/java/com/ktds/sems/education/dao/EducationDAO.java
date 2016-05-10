@@ -6,6 +6,7 @@ import com.ktds.sems.education.vo.EducationSearchVO;
 import java.util.List;
 
 import com.ktds.sems.education.vo.EducationVO;
+import com.ktds.sems.education.vo.QNAVO;
 
 public interface EducationDAO {
 
@@ -19,4 +20,5 @@ public interface EducationDAO {
 
 	public List<EducationVO> doSearchList(String startDate, String endDate, String eduName, String educationType,
 			String cost, EducationSearchVO searchVO);
+	public int insertNewComment(QNAVO qnaVO);
 }

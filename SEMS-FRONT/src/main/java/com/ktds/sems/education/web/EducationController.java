@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.education.service.EducationService;
 import com.ktds.sems.education.vo.EducationVO;
+import com.ktds.sems.education.vo.QNAVO;
 
 @Controller
 public class EducationController {
@@ -44,6 +45,10 @@ public class EducationController {
 		return educationService.doApplyEducation(educationId, session);
 	}
 	
+	@RequestMapping("/doWriteComment")
+	public ModelAndView doWriteAction(@Valid QNAVO qnaVO, Errors errors){
+		return educationService.writeNewComment(qnaVO, errors);
+	}
 }
 
 

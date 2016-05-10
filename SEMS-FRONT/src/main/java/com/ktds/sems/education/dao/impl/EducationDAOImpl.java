@@ -9,6 +9,7 @@ import org.mybatis.spring.support.SqlSessionDaoSupport;
 import com.ktds.sems.education.dao.EducationDAO;
 import com.ktds.sems.education.vo.EducationSearchVO;
 import com.ktds.sems.education.vo.EducationVO;
+import com.ktds.sems.education.vo.QNAVO;
 
 public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationDAO {
 
@@ -47,6 +48,12 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 		
 		
 		return getSqlSession().selectList("EducationDAO.doSearchList", paramMap);
+	}
+	
+	@Override
+	public int insertNewComment(QNAVO qnaVO) {
+		// <!-- Not Null 상태의 Columns 들의 데이터 전달 필요 ( 현재 고정 입력 값 지정 상태 )-->
+		return getSqlSession().insert("EducationDAO.insertNewComment", qnaVO);
 	}
 
 }

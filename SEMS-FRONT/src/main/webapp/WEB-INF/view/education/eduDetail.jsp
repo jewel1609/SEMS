@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -61,6 +62,15 @@
 			<td>${ education.cost }</td>
 		</tr>
 	</table>
+	
+	<form:form commandName="qnaVO" method="post" action="/doWriteComment">
+	<input type="text" id="replyId" name="replyId" placeholder="글쓴이를 입력." value="${qnaVO.replyId}"/><br/>	
+	<form:errors path="replyId"/><br/>
+	<textarea id="description" name="description" placeholder="내용을 입력하세요." >${qnaVO.description}</textarea><br/>
+	<form:errors path="description"/><br/>
+	
+	<input type="submit" value="댓글쓰기"/>
+	</form:form>
 		
 	<c:if test="">
 	<a href="/doApplyEducation/${ education.educationId }">교육 참가 신청</a>

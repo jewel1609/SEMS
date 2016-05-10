@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.ktds.sems.education.vo.EducationSearchVO;
 import com.ktds.sems.education.vo.EducationVO;
+import com.ktds.sems.education.vo.QNAVO;
 
 public interface EducationBiz {
 
@@ -17,4 +18,5 @@ public interface EducationBiz {
 
 	public int getSearchedEducationCount(String startDate, String endDate, String eduName, String educationType,String cost);
 
+	public boolean writeNewComment(QNAVO qnaVO);
 }
