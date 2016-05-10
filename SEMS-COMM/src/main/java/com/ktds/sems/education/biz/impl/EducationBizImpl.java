@@ -1,5 +1,7 @@
 package com.ktds.sems.education.biz.impl;
 
+import java.util.List;
+
 import com.ktds.sems.education.biz.EducationBiz;
 import com.ktds.sems.education.dao.EducationDAO;
 import com.ktds.sems.education.vo.CostVO;
@@ -15,14 +17,14 @@ public class EducationBizImpl implements EducationBiz {
 	@Override
 	public boolean modifyEduCost(CostVO cost) {
 		CostVO modifyCost = new CostVO();
-		
 		CostVO orignCost = new CostVO();
-		orignCost = educationDAO.getEduCostByCoId(cost.getCoId());
-		if ( cost.getCoId().equals(orignCost.getCoId())) {
-			modifyCost.setCoId(orignCost.getCoId());
+		
+		orignCost = educationDAO.getEduCostByCdId(cost.getCdId());
+		if ( cost.getCdId().equals(orignCost.getCdId())) {
+			modifyCost.setCdId(orignCost.getCdId());
 			
-			if ( !cost.getCoNm().equals(orignCost.getCoNm()) ) {
-				modifyCost.setCoNm(cost.getCoNm());
+			if ( !cost.getCdNm().equals(orignCost.getCdNm()) ) {
+				modifyCost.setCdNm(cost.getCdNm());
 			}
 		}
 		
@@ -30,8 +32,13 @@ public class EducationBizImpl implements EducationBiz {
 	}
 
 	@Override
-	public CostVO getEduCostByCoId(String coId) {
-		return educationDAO.getEduCostByCoId(coId);
+	public CostVO getEduCostByCdId(String coId) {
+		return educationDAO.getEduCostByCdId(coId);
+	}
+
+	@Override
+	public List<CostVO> getAllEduCost() {
+		return educationDAO.getAllEduCost();
 	}
 	
 	
