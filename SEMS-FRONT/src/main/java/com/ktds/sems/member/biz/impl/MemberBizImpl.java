@@ -56,6 +56,9 @@ public class MemberBizImpl implements MemberBiz {
 				loginStore.logout(loginVO.getId());
 			}
 			session.setAttribute(Session.MEMBER, memberVO);
+			
+			// 로그인 세션 유지 시간 10분
+			session.setMaxInactiveInterval(10 * 60);
 
 			// 새로운 로그인 세션 입력
 			loginStore.add(loginVO.getId(), session);
@@ -90,6 +93,15 @@ public class MemberBizImpl implements MemberBiz {
 	public MemberVO getOneMember(String id) {
 		return memberDAO.getOneMember(id);
 	}
-	
+
+	@Override
+	public String getNowDate() {
+		return memberDAO.getNowDate();
+	}
+
+	@Override
+	public boolean needToChangPassword(MemberVO loginVO) {
+		return memberDAO.needToChangPassword(loginVO) > 0;
+	}
 }
 

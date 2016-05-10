@@ -24,4 +24,8 @@ public interface MemberBiz {
 	public boolean updateAccountLock(String id);
 
 	public MemberVO getOneMember(String id);
+
+	public String getNowDate();
+
+	public boolean needToChangPassword(MemberVO loginVO);
 }

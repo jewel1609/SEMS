@@ -33,4 +33,9 @@ public interface MemberDAO {
 
 	public int isModifyAccountLock(String id);
 
+	public String getNowDate();
+
+	public int needToChangPassword(MemberVO loginVO);
+
+	
 }

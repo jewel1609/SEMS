@@ -3,6 +3,10 @@
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="MemberDAO">
+	<select id="getNowDate">
+		SELECT	TO_CHAR(SYSDATE, 'YYYY-MM-DD')
+		FROM	DUAL
+	</select>
 	<insert id="addNewMember" parameterType="MemberVO">
 		INSERT INTO MBR	(
 							ID
@@ -124,31 +128,33 @@
 		FROM	MBR
 		WHERE	ID = #{id}
 	</select>
-	
 	<update id="resetModifyLockAndcount" parameterType="string">
 		UPDATE	MBR
 		SET		MDF_F_CT = 0
 				, IS_MDF_LCK = 'N'
 		WHERE  ID  = #{id}
 	</update>
-	
 	<update id="plusModifyFailCount" parameterType="string">
 		UPDATE	MBR
 		SET		MDF_F_CT = MDF_F_CT + 1
 		WHERE	ID = #{id}
 	</update>
-	
 	<update id="updateModifyAccountLock" parameterType="string">
 		UPDATE	MBR
 		SET		IS_MDF_LCK = 'Y'
 		WHERE	ID = #{id}
 		AND		MDF_F_CT <![CDATA[>=]]> 3
 	</update>
-	
 	<select id="isModifyAccountLock" parameterType="string" resultType="_int">
 		SELECT	COUNT(IS_MDF_LCK)
 		FROM	MBR
 		WHERE	ID = #{id}
 		AND		IS_MDF_LCK = 'Y'
+	</select>
+	<select id="needToChangPassword">
+		SELECT	1
+		FROM	MBR
+		WHERE	ID = #{id}
+		AND		(SYSDATE - #{latestLoginDate}) >= 30
 	</select>
 </mapper>

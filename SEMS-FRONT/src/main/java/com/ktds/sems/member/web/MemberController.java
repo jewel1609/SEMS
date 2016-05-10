@@ -30,12 +30,17 @@ public class MemberController {
 		return memberService.addNewMember(member, errors, session);
 	}
 
+	@RequestMapping("/member/changePassword")
+	public String viewChangePasswordPage() {
+		return "member/changePassword";
+	}
+	
 	@RequestMapping("/member/register")
 	public String viewRegisterPage() {
 		return "member/register";
 	}
 
-	@RequestMapping(value = ("/member/login"), method = RequestMethod.POST)
+	@RequestMapping(value = ("/member/login"), method = RequestMethod.GET)
 	public void login(@Valid MemberVO memberVO, Errors errors, HttpSession session, HttpServletResponse response) {
 		String loginStatus = memberService.login(memberVO, errors, session);
 		AjaxUtil.sendResponse(response, loginStatus);

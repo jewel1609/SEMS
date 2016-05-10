@@ -1,9 +1,8 @@
 package com.ktds.sems.member.service.impl;
 
+import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
@@ -92,9 +91,18 @@ public class MemberServiceImpl implements MemberService {
 			 */
 			// Token 값 생성 및 등록 코드 작성
 			if (memberBiz.loginSuccess(loginVO.getId())) {
+				/*
+				 * 로그인한 회원이 글을 작성하는 write.jsp 에 아래 코드를 추가해야함!
+				 * <input type="hidden" name="csrfToken" value="${sessionScope._CSRF_TOKEN_}" />
+				 */
 				String csrfToken = UUID.randomUUID().toString();
 				session.setAttribute(Session.CSRF_TOKEN, csrfToken);
-				return "OK";
+				
+				if(memberBiz.needToChangPassword(loginVO)) {
+					return "CNGPW";
+				} else {
+					return "OK";
+				}
 			} else {
 				return "NO";
 			}

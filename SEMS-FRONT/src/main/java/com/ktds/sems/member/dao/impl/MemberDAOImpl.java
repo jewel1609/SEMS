@@ -77,5 +77,15 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 	public int isModifyAccountLock(String id) {
 		return getSqlSession().selectOne("MemberDAO.isModifyAccountLock", id);
 	}
+
+	@Override
+	public String getNowDate() {
+		return getSqlSession().selectOne("MemberDAO.getNowDate");
+	}
+
+	@Override
+	public int needToChangPassword(MemberVO loginVO) {
+		return getSqlSession().selectOne("MemberDAO.needToChangPassword", loginVO);
+	}
 	
 }
