@@ -28,7 +28,6 @@ public class MemberBizImpl implements MemberBiz{
 	
 	@Override
 	public boolean logoutHistory(LoginHistoryVO loginHistoryVO) {
-		
 		return memberDAO.logoutHistory(loginHistoryVO) > 0;
 	}
 	
