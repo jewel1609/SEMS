@@ -30,7 +30,8 @@
 
 	<update id="doGrdtModify" parameterType="GrdtTpVO">
 		UPDATE	GRDT_TP
-		SET		
+		SET		CD_NM = #{cdNm}
+		WHERE	CD_ID = #{cdId}
 	</update>
 
 </mapper>
