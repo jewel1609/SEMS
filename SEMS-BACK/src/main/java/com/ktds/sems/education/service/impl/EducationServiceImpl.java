@@ -21,7 +21,7 @@ public class EducationServiceImpl implements EducationService {
 		EducationVO educationVO = educationBiz.getOneEducation(educationId);
 		
 		ModelAndView view = new ModelAndView();
-		view.setViewName("education/update");
+		view.setViewName("");
 		view.addObject("educationVO", educationVO);
 		return view;
 	}
