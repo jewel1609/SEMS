@@ -11,11 +11,10 @@ import com.ktds.sems.member.vo.MbrTpVO;
 public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO{
 
 	
-	
 	@Override
-	public GrdtTpVO getAllGrtdList() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<GrdtTpVO> getAllGrtdList() {
+		
+		return  getSqlSession().selectList("MemberDAO.getAllGrtdList");
 	}
 
 	@Override
@@ -23,4 +22,8 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO{
 		return getSqlSession().selectList("MemberDAO.getAllMbrTp");
 	}
 
+	@Override
+	public void doGrdtDelete(String cdId) {
+		getSqlSession().delete("MemberDAO.doGrdtDelete", cdId);
+	}
 }
