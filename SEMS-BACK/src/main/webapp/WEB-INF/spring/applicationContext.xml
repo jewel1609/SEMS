@@ -30,9 +30,7 @@
 			class="com.ktds.sems.education.web.EducationController">
 			<property name="educationService" ref="educationService" />
 	</bean>
-	<bean id="sampleController"
-         class="com.ktds.sems.sample.web.SampleController" />
-         
+
     <bean id="memberController"
     		class="com.ktds.sems.member.web.MemberController" >
     		<property name="memberService" ref="memberService"></property>
