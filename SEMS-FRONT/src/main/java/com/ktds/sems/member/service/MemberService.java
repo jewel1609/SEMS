@@ -30,9 +30,10 @@ public interface MemberService {
 
 	public void saveLoginHistoryAsExcel(HttpSession session);
 
+	public void sendBlockAccountEmail(String sessionId);
+
 	public String getSaltById(String id);
 
 	public String getPasswordById(String id);
-
 	
 }
