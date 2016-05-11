@@ -8,12 +8,24 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Properties;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMessage.RecipientType;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.mail.MailException;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMessageHelper;
+
 import com.ktds.sems.common.LoginStore;
+import com.ktds.sems.common.SendMail;
 import com.ktds.sems.common.Session;
+import com.ktds.sems.common.vo.MailVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.member.biz.MemberBiz;
 import com.ktds.sems.member.dao.MemberDAO;
@@ -27,8 +39,14 @@ import kr.co.hucloud.utilities.excel.option.WriteOption;
 import kr.co.hucloud.utilities.excel.write.ExcelWrite;
 
 public class MemberBizImpl implements MemberBiz {
-
+	
+	private JavaMailSender mailSender;
 	private MemberDAO memberDAO;
+	
+
+	public void setMailSender(JavaMailSender mailSender) {
+		this.mailSender = mailSender;
+	}
 
 	public void setMemberDAO(MemberDAO memberDAO) {
 		this.memberDAO = memberDAO;
