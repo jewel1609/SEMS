@@ -16,6 +16,11 @@ public class FileBizImpl implements FileBiz {
 	public boolean doWriteFile(FileVO fileVO) {
 		return fileDAO.doWriteFile(fileVO) > 0  ;
 	}
+
+	@Override
+	public boolean updateFile(FileVO fileVO) {
+		return fileDAO.updateFile(fileVO) > 0;
+	}
 	
 	
 }
