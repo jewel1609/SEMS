@@ -11,9 +11,10 @@
 				, URL url
 				, SRT sort
 		FROM	MENU_MNG
+		ORDER 	BY SRT ASC
 	</select>
 	
-	<select id="getOneMenuCategory" parameterType="String" resultType="MenuManageVO">
+	<select id="getOneMenuCategory" parameterType="string" resultType="MenuManageVO">
 		SELECT	CD_ID codeId
 				, CD_NM codeName
 				, URL url
@@ -26,6 +27,30 @@
 		UPDATE	MENU_MNG
 		SET		SRT = #{sort}
 		WHERE	CD_ID = #{codeId}
+	</update>
+	
+	<update id="upMenuList" parameterType="map">
+		UPDATE	MENU_MNG
+		SET		SRT = SRT - 1
+		<if test="next != null">
+			WHERE	SRT = #{next}
+		</if>
+		<if test="next == null">
+			WHERE	SRT = #{sortNumber}
+			AND		CD_ID = #{codeId}
+		</if>
+	</update>
+	
+	<update id="downMenuList" parameterType="map">
+		UPDATE	MENU_MNG
+		SET		SRT = SRT + 1
+		<if test="prev != null">
+			WHERE	SRT = #{prev}	
+		</if>
+		<if test="prev == null">
+			WHERE	SRT = #{sortNumber}
+			AND		CD_ID = #{codeId}
+		</if>
 	</update>
 	
 </mapper>

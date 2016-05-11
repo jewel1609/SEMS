@@ -1,6 +1,8 @@
 package com.ktds.sems.menu.biz.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.ktds.sems.menu.biz.MenuBiz;
 import com.ktds.sems.menu.dao.MenuDAO;
@@ -30,6 +32,32 @@ public class MenuBizImpl implements MenuBiz{
 	@Override
 	public MenuManageVO getOneMenuCategory(String codeId) {
 		return menuDAO.getOneMenuCategory(codeId);
+	}
+
+
+	@Override
+	public void upMenuList(int sortNumber, int codeId) {
+		
+		Map<String, Integer> sortNo = new HashMap<String, Integer>();
+		sortNo.put("sortNumber", sortNumber);
+		sortNo.put("codeId", codeId);
+		sortNo.put("prev", sortNumber-1);
+		
+		menuDAO.downMenuList(sortNo);
+		menuDAO.upMenuList(sortNo);
+	}
+
+
+	@Override
+	public void downMenuList(int sortNumber, int codeId) {
+
+		Map<String, Integer> sortNo = new HashMap<String, Integer>();
+		sortNo.put("sortNumber", sortNumber);
+		sortNo.put("next", sortNumber+1);
+		sortNo.put("codeId", codeId);
+		
+		menuDAO.upMenuList(sortNo);
+		menuDAO.downMenuList(sortNo);
 	}
 
 }

@@ -69,4 +69,25 @@ public class MenuServiceImpl implements MenuService{
 		return view;
 	}
 
+
+	@Override
+	public String upMenuList(int sortNumber, int codeId) {
+		
+		menuBiz.upMenuList(sortNumber, codeId);
+		
+		return "redirect:/menu";
+	}
+
+
+	@Override
+	public String downMenuList(int sortNumber, int codeId) {
+
+		menuBiz.downMenuList(sortNumber, codeId);
+		
+		return "redirect:/menu";
+		
+	}
+
+
+
 }

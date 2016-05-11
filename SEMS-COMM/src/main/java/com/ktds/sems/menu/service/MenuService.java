@@ -15,4 +15,8 @@ public interface MenuService {
 
 	public ModelAndView doMenuUpdate(MenuManageVO menuManageVO, Errors errors, HttpServletRequest request);
 
+	public String upMenuList(int sortNumber, int codeId);
+
+	public String downMenuList(int sortNumber, int codeId);
+
 }

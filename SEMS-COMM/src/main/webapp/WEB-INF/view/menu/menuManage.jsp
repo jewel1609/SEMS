@@ -23,25 +23,49 @@
 			
 		}); */
 		
+		$(".up").click(function() {
+			
+			form.attr("method","POST")
+			form.attr("action")
+			
+		});
+		
 	});
 	
 </script>
 <body>
 
-	<form:form commandName="MenuManageVO" method="post" action="/comm/doMenuUpdate">
-		<table>
-			<c:forEach items="${menuList }" var="menuList" >
-				<tr>
-					<td><input type="hidden" class="codeId${menuList.codeId}" name="codeId" value="${menuList.codeId }" /> ${menuList.codeId }</td>
-					<td><input type="hidden" class="codeName${menuList.codeName}" name="codeName" value="${menuList.codeName }" />${menuList.codeName }</td>
-					<td><input type="hidden" class="url${menuList.url}" name="url" value="${menuList.url }" />${menuList.url }</td>
-					<td><input type="text" id="sort" name="sort" value="${menuList.sort }"/></td>
-					<td><form:errors path="sort" /></td>
-				</tr>
-			</c:forEach>
-			
-		</table>
-		<input type="submit" id="updateBtn" value="수정" />
-	</form:form>
+	<table border="1">
+		<tr>
+			<th>메뉴 순서</th>
+			<th>메뉴 명</th>
+			<th>메뉴 링크</th>
+			<th>메뉴 변경</th>
+		</tr>
+		<c:forEach items="${menuList }" var="menuList" >
+			<tr align="center">
+				<td>${menuList.sort}</td>
+				<td>${menuList.codeName}</td>
+				<td>${menuList.url}</td>
+				<td>
+					<div>
+						<c:if test="${menuList.sort gt 1}">
+							<a href="/comm/upMenuList/${menuList.sort}/${menuList.codeId}">
+								<input type="button" class="up" value="▲" />
+							</a>
+						</c:if>
+					</div>
+					<div>
+						<c:if test="${menuList.sort lt 5}">
+							<a href="/comm/downMenuList/${menuList.sort}/${menuList.codeId}">
+								<input type="button" class="down" value="▼" />
+							</a>
+						</c:if>
+					</div>						
+				</td>
+			</tr>
+		</c:forEach>
+	</table>
+
 </body>
 </html>

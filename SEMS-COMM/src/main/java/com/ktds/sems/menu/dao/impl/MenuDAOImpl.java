@@ -1,6 +1,7 @@
 package com.ktds.sems.menu.dao.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 
@@ -23,6 +24,20 @@ public class MenuDAOImpl extends SqlSessionDaoSupport implements MenuDAO{
 	public MenuManageVO getOneMenuCategory(String codeId) {
 		return getSqlSession().selectOne("MenuDAO.getOneMenuCategory", codeId);
 	}
+
+
+	@Override
+	public void downMenuList(Map<String, Integer> sortNo) {
+		getSqlSession().update("MenuDAO.downMenuList", sortNo);
+		
+	}
+
+	@Override
+	public void upMenuList(Map<String, Integer> sortNo) {
+		getSqlSession().update("MenuDAO.upMenuList", sortNo);
+		
+	}
+
 	
 	
 

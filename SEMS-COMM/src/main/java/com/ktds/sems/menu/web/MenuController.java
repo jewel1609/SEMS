@@ -1,12 +1,11 @@
 package com.ktds.sems.menu.web;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -31,6 +30,18 @@ public class MenuController {
 	public ModelAndView doMenuUpdate(@Valid MenuManageVO menuManageVO, Errors errors, HttpServletRequest request) {
 	
 		return menuService.doMenuUpdate(menuManageVO, errors, request);
+	}
+	
+	@RequestMapping("/upMenuList/{sortNumber}/{codeId}")
+	public String upMenuList(@PathVariable int sortNumber, @PathVariable int codeId) {
+		
+		return menuService.upMenuList(sortNumber, codeId);
+	}
+	
+	@RequestMapping("/downMenuList/{sortNumber}/{codeId}")
+	public String downMenuList(@PathVariable int sortNumber, @PathVariable int codeId) {
+		
+		return menuService.downMenuList(sortNumber, codeId);
 	}
 	
 }
