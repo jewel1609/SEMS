@@ -72,6 +72,11 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 		// <!-- Not Null 상태의 Columns 들의 데이터 전달 필요 ( 현재 고정 입력 값 지정 상태 )-->
 		return getSqlSession().insert("EducationDAO.insertNewComment", qnaVO);
 	}
+	
+	@Override
+	public int deleteEducation(String educationId) {
+		return getSqlSession().delete("educationDAO.deleteEducation", educationId);
+	}
 
 
 

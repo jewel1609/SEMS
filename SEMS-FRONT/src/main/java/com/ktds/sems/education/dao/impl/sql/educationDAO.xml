@@ -172,5 +172,11 @@
 								 '91/11/10' 
 								 )			
  	</insert>
+ 	
+ 		<delete id="deleteEducation" parameterType="string">
+		DELETE	
+		FROM	EDU_INFO
+		WHERE	EDU_ID = #{educationId}
+	</delete>
     
 </mapper>

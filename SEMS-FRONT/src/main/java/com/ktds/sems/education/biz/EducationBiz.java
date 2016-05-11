@@ -17,6 +17,10 @@ public interface EducationBiz {
 	public EducationVO getOneEducationDetail(String educationId);
 
 	public boolean writeNewComment(QNAVO qnaVO);
+	
+	public boolean deleteEducation(String educationId);
+	
+	
 
 	public int getSearchedEducationCount(EducationVO educationVO, EducationSearchVO searchVO);
 }

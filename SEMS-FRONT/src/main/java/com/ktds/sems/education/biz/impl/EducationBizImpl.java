@@ -41,9 +41,19 @@ public class EducationBizImpl implements EducationBiz {
 	public boolean writeNewComment(QNAVO qnaVO) {
 		return educationDAO.insertNewComment(qnaVO) > 0;
 	}
+	
+	@Override
+	public boolean deleteEducation(String educationId) {
+		return educationDAO.deleteEducation(educationId) > 0;
+	}
+	
+	
+	
 
 	@Override
 	public int getSearchedEducationCount(EducationVO educationVO, EducationSearchVO searchVO) {
 		return educationDAO.getSearchedEducationCount( educationVO ,searchVO);
 	}
 }
+
+
