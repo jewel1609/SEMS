@@ -66,11 +66,7 @@ public class EducationController {
 	
 	@RequestMapping("/doApplyEducation")
 	public void doApplyEducation(@RequestParam String educationId, @RequestParam String educationType, HttpSession session, HttpServletResponse response){
-		System.out.println("어디까지왔니....");
-		System.out.println(educationId);
-		System.out.println(educationType);
 		String applyStatus = educationService.doApplyEducation(educationId, educationType, session);
-		System.out.println(applyStatus);
 		AjaxUtil.sendResponse(response, applyStatus);
 	}
 	
