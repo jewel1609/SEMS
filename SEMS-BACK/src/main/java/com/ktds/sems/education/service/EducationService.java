@@ -1,6 +1,7 @@
 package com.ktds.sems.education.service;
 
-import javax.servlet.http.HttpSession;
+
+
 
 import org.springframework.validation.Errors;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -15,8 +16,7 @@ public interface EducationService {
 
 	public ModelAndView getOneEducation(String educationId);
 
-	public ModelAndView modifyNewEducation(EducationVO educationVO, Errors errors, HttpSession session);
+	public ModelAndView modifyNewEducation(EducationVO educationVO, Errors errors, MultipartHttpServletRequest request);
 
 	public ModelAndView getAllEduCode();
-
 }
