@@ -45,6 +45,8 @@ public interface MemberBiz {
 
 	public int getTotalLoginHisotryCount();
 
+	public void attend(MemberVO loginVO);
+
 	public List<LoginHistoryVO> getAllLoginHistory(LoginHistorySearchVO loginHistorySearchVO);
 
 	public void modifyMemberInfo(MemberVO member);

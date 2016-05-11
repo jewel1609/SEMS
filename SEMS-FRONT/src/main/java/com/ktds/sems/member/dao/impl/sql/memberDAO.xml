@@ -240,4 +240,50 @@
 		WHERE	ID = #{id}
 	</update>
 	
+	<select id="getEduListByMember" parameterType="MemberVO" resultType="EducationVO">
+		SELECT	EDU_ID educationId
+				, EDU_CTGR educationCategory
+				, EDU_TTL educationTitle
+				, MBR_ID memberId 
+				, MAX_MBR maxMember
+				, EDU_LOC educationLocation
+				, EDU_CLCM educationCurriculum
+				, EDU_INTR educationIntroduce
+				, SRT_DATE startDate
+				, END_DATE endDate
+				, START_TM startTime
+				, END_TM endTime
+				, EDU_TP educationType
+				, COST cost
+		FROM	EDU_INFO
+		WHERE   MBR_ID = #{id}
+	</select>
+	
+	<insert id="insertAttendByMember" parameterType="AttendVO">
+		INSERT INTO ATD (
+   							ID
+   							, MBR_ID
+   							, ATD_TM
+   							, EDU_ID
+   						) 
+				VALUES 	( 
+							ATD_ID_SEQ.NEXTVAL
+							, #{memberId}
+				 			, #{attendTime}
+				 			, #{educationId}
+				  		)
+	</insert>
+	
+	<select id="getLastDate" parameterType="EducationVO" resultType="string">
+		SELECT	*
+		FROM	(
+		            SELECT  SUBSTR(ATD_TM, 1,10) ATD1
+		            FROM    ATD
+		            WHERE	MBR_ID = #{memberId}
+		            AND		EDU_ID = #{educationId}
+		            ORDER	BY ATD1 DESC
+		        )
+		WHERE  ROWNUM = 1
+	</select>
+	
 </mapper>

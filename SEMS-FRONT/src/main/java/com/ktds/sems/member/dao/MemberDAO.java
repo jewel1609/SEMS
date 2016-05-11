@@ -2,6 +2,10 @@ package com.ktds.sems.member.dao;
 
 import java.util.List;
 
+import com.ktds.sems.education.vo.EducationVO;
+import com.ktds.sems.member.vo.AttendVO;
+import java.util.List;
+
 import com.ktds.sems.member.vo.LoginHistorySearchVO;
 import com.ktds.sems.member.vo.LoginHistoryVO;
 import com.ktds.sems.member.vo.MemberVO;
@@ -43,6 +47,12 @@ public interface MemberDAO {
 	public List<LoginHistoryVO> saveLoginHistoryAsExcel(String memberId);
 
 	public int getTotalLoginHisotryCount();
+
+	public List<EducationVO> getEduListByMember(MemberVO loginVO);
+
+	public void insertAttendByMember(AttendVO attendVO);
+
+	public String getLastDate(EducationVO educationVO);
 
 	public void modifyMemberInfo(MemberVO member);
 

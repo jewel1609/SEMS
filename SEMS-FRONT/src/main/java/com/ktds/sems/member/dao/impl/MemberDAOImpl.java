@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 
+import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.member.dao.MemberDAO;
+import com.ktds.sems.member.vo.AttendVO;
 import com.ktds.sems.member.vo.LoginHistorySearchVO;
 import com.ktds.sems.member.vo.LoginHistoryVO;
 import com.ktds.sems.member.vo.MemberVO;
@@ -102,6 +104,21 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 	@Override
 	public int getTotalLoginHisotryCount() {
 		return getSqlSession().selectOne("MemberDAO.getTotalLoginHisotryCount");
+	}
+
+	@Override
+	public List<EducationVO> getEduListByMember(MemberVO loginVO) {
+		return getSqlSession().selectList("MemberDAO.getEduListByMember", loginVO);
+	}
+
+	@Override
+	public void insertAttendByMember(AttendVO attendVO) {
+		getSqlSession().insert("MemberDAO.insertAttendByMember", attendVO);
+	}
+
+	@Override
+	public String getLastDate(EducationVO educationVO) {
+		return getSqlSession().selectOne("MemberDAO.getLastDate", educationVO ) == null ? "" : this.getSqlSession().selectOne("MemberDAO.getLastDate", educationVO );
 	}
 
 	/**

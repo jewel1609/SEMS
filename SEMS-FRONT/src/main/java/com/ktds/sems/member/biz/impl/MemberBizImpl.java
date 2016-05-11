@@ -1,5 +1,12 @@
 package com.ktds.sems.member.biz.impl;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -10,8 +17,10 @@ import javax.servlet.http.HttpSession;
 
 import com.ktds.sems.common.LoginStore;
 import com.ktds.sems.common.Session;
+import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.member.biz.MemberBiz;
 import com.ktds.sems.member.dao.MemberDAO;
+import com.ktds.sems.member.vo.AttendVO;
 import com.ktds.sems.member.vo.LoginHistorySearchVO;
 import com.ktds.sems.member.vo.LoginHistoryVO;
 import com.ktds.sems.member.vo.MemberVO;
@@ -218,6 +227,96 @@ public class MemberBizImpl implements MemberBiz {
 	public int getTotalLoginHisotryCount() {
 		return memberDAO.getTotalLoginHisotryCount();
 	}
+
+	@Override
+	public void attend(MemberVO loginVO) {
+		
+		
+		/*회원별 강의*/
+		List<EducationVO> eduListByMember = new ArrayList<EducationVO>();		
+		eduListByMember = memberDAO.getEduListByMember(loginVO);
+		Calendar cal = Calendar.getInstance();
+		Calendar cal2 = Calendar.getInstance();
+		
+		/*현재 시간*/
+		Date date = new Date();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		SimpleDateFormat onlyDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+		Calendar cal3 = Calendar.getInstance();
+		cal3.setTime(date);
+		long calTodayTime = cal3.getTimeInMillis();
+		String nowTime = dateFormat.format(date);
+		
+		// 강의 리스트에서 StartDate ~ EndDate 맞는 강의 가져옴
+		for (EducationVO educationVO : eduListByMember) {
+			
+			String startDate = educationVO.getStartDate() + " " + educationVO.getStartTime();
+			String endDate = educationVO.getEndDate() +" "+ educationVO.getEndTime();
+			
+			String lastNowDate = memberDAO.getLastDate(educationVO);
+			String nowDate = onlyDateFormat.format(date);
+			
+			try {
+				Date eduStartDate = dateFormat.parse(startDate);
+				Date eduEndDate = dateFormat.parse(endDate);
+				
+				cal.setTime(eduStartDate);
+				long calEduStartDate = cal.getTimeInMillis();
+				cal2.setTime(eduEndDate);
+				long calEduEndDate = cal2.getTimeInMillis();
+				
+				if (calEduStartDate < calTodayTime && calTodayTime < calEduEndDate) {
+					
+					// 시간 체크 StartTime-1 ~ (EndTime-StartTime)/2 맞는지 체크
+					
+					Calendar cal4 = Calendar.getInstance();
+					Date eduStartTime = timeFormat.parse(educationVO.getStartTime());
+					cal4.setTime(eduStartTime);
+					long calEduStartTime = cal4.getTimeInMillis();
+					
+					Calendar cal5 = Calendar.getInstance();
+					Date eduEndTime = timeFormat.parse(educationVO.getEndTime());
+					cal5.setTime(eduEndTime);
+					long calEduEndTime = cal5.getTimeInMillis();
+					
+					cal4.add(Calendar.HOUR, -1);
+					long calEduBeforeOneHour = cal4.getTimeInMillis();
+					long calEduHalfTime = calEduEndTime - ((calEduEndTime-calEduStartTime)/2);
+					
+					Date todayTime = timeFormat.parse(timeFormat.format(date));
+					cal3.setTime(todayTime);
+					long calNowTime = cal3.getTimeInMillis();
+					
+					if ( calEduBeforeOneHour < calNowTime && calNowTime < calEduHalfTime ) {
+						
+						if ( !lastNowDate.equals(nowDate) ) {
+							AttendVO attendVO = new AttendVO();
+							attendVO.setEducationId(educationVO.getEducationId());
+							attendVO.setMemberId(educationVO.getMemberId());
+							attendVO.setAttendTime(nowTime);
+							
+							memberDAO.insertAttendByMember(attendVO);
+							
+						}
+						
+						break;
+						
+					}
+					
+				}
+				
+			} catch (ParseException e) {}
+			
+		}
+		
+		
+		
+		
+	}
+
+	
+
 
 	@Override
 	public List<LoginHistoryVO> getAllLoginHistory(LoginHistorySearchVO loginHistorySearchVO) {
