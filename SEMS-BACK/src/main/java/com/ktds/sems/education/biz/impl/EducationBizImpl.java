@@ -1,7 +1,12 @@
 package com.ktds.sems.education.biz.impl;
 
+import java.util.List;
+
 import com.ktds.sems.education.biz.EducationBiz;
 import com.ktds.sems.education.dao.EducationDAO;
+import com.ktds.sems.education.vo.CategoryVO;
+import com.ktds.sems.education.vo.CostVO;
+import com.ktds.sems.education.vo.EducationTypeVO;
 import com.ktds.sems.education.vo.EducationVO;
 
 public class EducationBizImpl implements EducationBiz {
@@ -14,7 +19,7 @@ public class EducationBizImpl implements EducationBiz {
 
 	@Override
 	public boolean writeNewEducation(EducationVO educationVO) {
-		
+
 		int nextEducationId = educationDAO.nextEduSeq();
 		String nowDate = educationDAO.nowDate();
 		
@@ -125,5 +130,21 @@ public class EducationBizImpl implements EducationBiz {
 
 		return educationDAO.modifyNewEducation(changedEducationVO) > 0;
 	}
+
+	@Override
+	public List<CostVO> costCodeList() {
+		return educationDAO.costCodeList();
+	}
+
+	@Override
+	public List<EducationTypeVO> typeCodeList() {
+		return educationDAO.typeCodeList();
+	}
+
+	@Override
+	public List<CategoryVO> categoryCodeList() {
+		return educationDAO.categoryCodeList();
+	}
+
 
 }
