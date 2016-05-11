@@ -51,8 +51,8 @@
 						alert("수정되었습니다.");
 						location.href="<c:url value="/grdtPage"/>";
 					}
-					else {
-						alert("중복된 데이터를 넣을 수 없습니다.");
+					else if(data == "FAIL"){
+						alert("중복된 데이터로 수정할 수 없습니다.");
 						location.href="<c:url value="/grdtPage"/>";
 					}
 				});
