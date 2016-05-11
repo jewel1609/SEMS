@@ -17,6 +17,7 @@ import com.ktds.sems.common.Session;
 import com.ktds.sems.common.vo.MailVO;
 import com.ktds.sems.member.biz.MemberBiz;
 import com.ktds.sems.member.service.MemberService;
+import com.ktds.sems.member.vo.GraduationTypeVO;
 import com.ktds.sems.member.vo.LoginHistoryListVO;
 import com.ktds.sems.member.vo.LoginHistorySearchVO;
 import com.ktds.sems.member.vo.LoginHistoryVO;
@@ -162,7 +163,10 @@ public class MemberServiceImpl implements MemberService {
 		
 		MemberVO member = memberBiz.getOneMember(id);
 		
+		//대학구분, 최종학력 구분을 가져온다.
+		List<String> graduationTypeCodeNameList = memberBiz.getGraduationType();
 		view.addObject("member", member);
+		view.addObject("graduationTypeList", graduationTypeCodeNameList);
 		view.setViewName("member/modifyMyInfo");
 		return view;
 		
