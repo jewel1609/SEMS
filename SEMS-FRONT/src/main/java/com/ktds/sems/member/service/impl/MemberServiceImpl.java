@@ -12,7 +12,9 @@ import javax.servlet.http.HttpSession;
 import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ktds.sems.common.SendMail;
 import com.ktds.sems.common.Session;
+import com.ktds.sems.common.vo.MailVO;
 import com.ktds.sems.member.biz.MemberBiz;
 import com.ktds.sems.member.service.MemberService;
 import com.ktds.sems.member.vo.LoginHistoryListVO;
@@ -156,7 +158,6 @@ public class MemberServiceImpl implements MemberService {
 		
 		ModelAndView view = new ModelAndView();
 		
-		// memberVO를 가져온다.
 		MemberVO member = memberBiz.getOneMember(id);
 		
 		view.addObject("member", member);
@@ -294,6 +295,24 @@ public class MemberServiceImpl implements MemberService {
 		
 		return view;
 	}
+	
+
+	@Override
+	public void sendBlockAccountEmail(String id) {
+		
+		 SendMail sendMail = new SendMail();
+		 MailVO mail = new MailVO();
+		 MemberVO member = memberBiz.getOneMember(id);
+		 
+		 mail.setFromId("showil2001@gmail.com");
+		 mail.setFromPassword("whrudwns1355!");
+		 mail.setSubject("[SEMS] 계정 차단 알림");
+		 mail.setText("비밀번호 3회 이상 오류로, 계정이 차단되었습니다. 문의사항은 관리자에게 연락하세요.");
+		 mail.setToId(member.getEmail());
+		 
+		 sendMail.sendMailToCustomer(mail);
+	}
+
 
 	@Override
 	public String getSaltById(String id) {
@@ -304,4 +323,14 @@ public class MemberServiceImpl implements MemberService {
 	public String getPasswordById(String id) {
 		return memberBiz.getPasswordById(id);
 	}
+
+	
+//	public static void main(String[] args) {
+//		
+//		MemberServiceImpl memberService = new MemberServiceImpl();
+//		System.out.println("성공!!");
+//		memberService.sendBlockAccountEmail("shinmi0315@naver.com");
+//		System.out.println("성공!!");
+//		
+//	}
 }
