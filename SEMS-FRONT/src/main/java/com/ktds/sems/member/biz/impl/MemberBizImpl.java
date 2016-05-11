@@ -1,14 +1,11 @@
 package com.ktds.sems.member.biz.impl;
 
+import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
-
-import java.io.File;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -60,7 +57,7 @@ public class MemberBizImpl implements MemberBiz {
 			HttpSession loginedSession = loginStore.get(loginVO.getId());
 			if (loginedSession != null) {
 				loginStore.logout(loginVO.getId());
-//				stampLogoutTime(session);
+				stampLogoutTime(session);
 			}
 			session.setAttribute(Session.MEMBER, memberVO);
 			session.setAttribute(Session.MEMBER_TYPE, memberVO.getMemberType());
@@ -220,6 +217,9 @@ public class MemberBizImpl implements MemberBiz {
 		LoginHistoryVO newLoginHistoryVO = new LoginHistoryVO();
 		newLoginHistoryVO = (LoginHistoryVO) session.getAttribute("_LOGIN_HISTORY_");
 
+		// 찍고 세션 없애기 
+		session.removeAttribute("_LOGIN_HISTORY_");
+		
 		return memberDAO.stampLogoutTime(newLoginHistoryVO) > 0;
 	}
 

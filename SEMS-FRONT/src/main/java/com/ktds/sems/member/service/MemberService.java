@@ -10,7 +10,7 @@ import com.ktds.sems.member.vo.MemberVO;
 
 public interface MemberService {
 
-	public ModelAndView addNewMember(MemberVO members , Errors errors, HttpSession session);
+	public ModelAndView addNewMember(MemberVO members, Errors errors, HttpSession session);
 
 	public String login(MemberVO memberVO, Errors errors, HttpSession session, HttpServletRequest request);
 
@@ -35,5 +35,7 @@ public interface MemberService {
 	public String getSaltById(String id);
 
 	public String getPasswordById(String id);
-	
+
+	public void logout(HttpSession session);
+
 }

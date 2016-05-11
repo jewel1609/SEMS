@@ -55,6 +55,12 @@ public class MemberController {
 		AjaxUtil.sendResponse(response, loginStatus);
 	}
 
+	@RequestMapping("/logout")
+	public String logout (HttpSession session) {
+		memberService.logout(session);
+		return "redirect:/";
+	}
+	
 	@RequestMapping("/member/myPage")
 	public ModelAndView viewMyPage() {
 		ModelAndView view = new ModelAndView();
