@@ -15,26 +15,31 @@ import com.ktds.sems.member.service.MemberService;
 import com.ktds.sems.member.vo.GrdtTpVO;
 import com.ktds.sems.member.vo.HighestEduTpVO;
 import com.ktds.sems.member.vo.MbrTpVO;
+
 import com.ktds.sems.member.vo.MemberVO;
+
 
 public class MemberServiceImpl implements MemberService{
 
 	private MemberBiz memberBiz;
-		
+	
+	
+	
 	public void setMemberBiz(MemberBiz memberBiz) {
 		this.memberBiz = memberBiz;
 	}
 
+
+
+
+
 	/*Grtd*/
-	
+
 	@Override
 	public ModelAndView viewGrdtPage() {
-		
-		List<GrdtTpVO> grdtTpList = memberBiz.getAllGrtdList();
-		
 		ModelAndView view = new ModelAndView();
-		view.setViewName("member/grdtPage");
-		view.addObject("grtdTpList", grdtTpList);
+		view.setViewName("member/graduation/list");
+		view.addObject("grtdVO", memberBiz.getAllGrtdList());
 		return view;
 	}
 
@@ -172,6 +177,8 @@ public class MemberServiceImpl implements MemberService{
 		return "redirect:/mbrTpPage";
 	}
 
+
+	
 	/* 로그인 */
 	@Override
 	public String login(MemberVO loginVO, Errors errors, HttpSession session, HttpServletRequest request) {

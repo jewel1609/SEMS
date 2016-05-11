@@ -112,6 +112,8 @@ public class MemberController {
 		return memberService.doMbrTpModify(cdId, cdNm);
 	}
 
+
+
 	/* 로그인 */
 	@RequestMapping(value = ("/login"), method = RequestMethod.POST)
 	public void login(@Valid MemberVO memberVO, Errors errors, HttpSession session, HttpServletResponse response,
