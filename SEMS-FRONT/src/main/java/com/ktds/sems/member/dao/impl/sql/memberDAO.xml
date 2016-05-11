@@ -59,7 +59,7 @@
 				, SALT salt
 				, LGI_F_CT loginFailCount
 				, IS_ACC_LCK isAccountLock
-				, LATEST_LGI_DT latestLoginDate
+				, TO_CHAR(LATEST_LGI_DT, 'YYYY-MM-DD') latestLoginDate
 				, RSN_DT resignDate
 				, RSN isResign
 				, MDF_F_CT modifyFailCount
@@ -152,11 +152,11 @@
 		WHERE	ID = #{id}
 		AND		IS_MDF_LCK = 'Y'
 	</select>
-	<select id="needToChangPassword">
-		SELECT	1
+	<select id="needToChangPassword" resultType="string">
+		SELECT	'Y'
 		FROM	MBR
 		WHERE	ID = #{id}
-		AND		(SYSDATE - #{latestLoginDate}) >= 30
+		AND		(SYSDATE - LATEST_LGI_DT) >= 30
 	</select>
 	<select id="getTotalLoginHisotryCount" resultType="_int">
 		SELECT	COUNT(LGI_HTR_ID)

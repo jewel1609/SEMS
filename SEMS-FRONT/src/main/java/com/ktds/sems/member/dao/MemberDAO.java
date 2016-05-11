@@ -35,7 +35,7 @@ public interface MemberDAO {
 
 	public String getNowDate();
 
-	public int needToChangPassword(MemberVO loginVO);
+	public String needToChangPassword(String id);
 
 	public int getTotalLoginHisotryCount();
 

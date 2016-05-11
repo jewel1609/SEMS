@@ -35,7 +35,7 @@ public interface MemberBiz {
 
 	public String getNowDate();
 
-	public boolean needToChangPassword(MemberVO loginVO);
+	public boolean needToChangPassword(String id);
 
 	public int getTotalLoginHisotryCount();
 

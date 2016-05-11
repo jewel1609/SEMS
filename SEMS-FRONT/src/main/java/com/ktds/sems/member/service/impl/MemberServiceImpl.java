@@ -105,7 +105,7 @@ public class MemberServiceImpl implements MemberService {
 				String csrfToken = UUID.randomUUID().toString();
 				session.setAttribute(Session.CSRF_TOKEN, csrfToken);
 				
-				if(memberBiz.needToChangPassword(loginVO)) {
+				if(memberBiz.needToChangPassword(loginVO.getId())) {
 					return "CNGPW";
 				} else {
 					return "OK";

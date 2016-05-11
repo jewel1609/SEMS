@@ -84,8 +84,8 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 	}
 
 	@Override
-	public int needToChangPassword(MemberVO loginVO) {
-		return getSqlSession().selectOne("MemberDAO.needToChangPassword", loginVO);
+	public String needToChangPassword(String id) {
+		return getSqlSession().selectOne("MemberDAO.needToChangPassword", id);
 	}
 
 	@Override
