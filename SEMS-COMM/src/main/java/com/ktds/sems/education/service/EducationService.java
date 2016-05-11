@@ -30,4 +30,8 @@ public interface EducationService {
 
 	JsonResponseVO getChildCategory(String parentCategoryId, String categoryType);
 
+	String deleteCategory(String categoryId, String categoryType);
+
+	JsonResponseVO modifyCategory(CategoryVO categoryVO, Errors errors);
+
 }

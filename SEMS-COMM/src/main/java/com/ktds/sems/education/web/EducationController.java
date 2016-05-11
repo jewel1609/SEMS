@@ -93,5 +93,17 @@ public class EducationController {
 	public JsonResponseVO getChildCategory(@RequestParam String parentCategoryId,@RequestParam String categoryType){
 		return educationService.getChildCategory(parentCategoryId, categoryType);
 	}
+	
+	@RequestMapping("/education/deleteCategory")
+	@ResponseBody
+	public String deleteCategoryAction(@RequestParam String categoryId, @RequestParam String categoryType){
+		return educationService.deleteCategory(categoryId, categoryType);
+	}
+
+	@RequestMapping("/education/modifyCategory")
+	@ResponseBody
+	public JsonResponseVO modifyCategoryAction(@Valid CategoryVO categoryVO, Errors errors){
+		return educationService.modifyCategory(categoryVO, errors);
+	}
 
 }

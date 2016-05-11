@@ -80,4 +80,14 @@ public class EducationBizImpl implements EducationBiz {
 		return educationDAO.getChildCategory(categoryVO);
 	}
 
+	@Override
+	public boolean deleteCategory(CategoryVO categoryVO) {
+		return educationDAO.deleteCategory(categoryVO) > 0;
+	}
+
+	@Override
+	public boolean modifyCategory(CategoryVO categoryVO) {
+		return educationDAO.modifyCategory(categoryVO) > 0;
+	}
+
 }

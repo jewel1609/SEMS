@@ -151,4 +151,37 @@ public class EducationServiceImpl implements EducationService {
 		
 	}
 
+	@Override
+	public String deleteCategory(String categoryId, String categoryType) {
+
+		CategoryVO categoryVO = new CategoryVO();
+		categoryVO.setCategoryId(categoryId);
+		categoryVO.setCategoryType(categoryType);
+		
+		return educationBiz.deleteCategory(categoryVO) + "";
+		
+	}
+
+	@Override
+	public JsonResponseVO modifyCategory(CategoryVO categoryVO, Errors errors) {
+		
+		JsonResponseVO jsonResponseVO = new JsonResponseVO();
+		
+		if ( errors.hasErrors() ) {
+			jsonResponseVO.setResult(false);
+			jsonResponseVO.setData(errors.getAllErrors());
+		}
+		else {
+			boolean result = educationBiz.modifyCategory(categoryVO);
+			if ( result ) {
+				jsonResponseVO.setResult(true);
+			}
+			else {
+				throw new RuntimeException("카테고리를 수정중 장애가 발생했습니다. 잠시후 다시 시도해주세요.");
+			}
+		}
+		
+		return jsonResponseVO;
+	}
+
 }

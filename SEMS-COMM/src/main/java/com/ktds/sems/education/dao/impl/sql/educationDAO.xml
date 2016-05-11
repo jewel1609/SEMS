@@ -118,4 +118,33 @@
 						  #{ parentCategoryId }
 	</select>
 	
+	<delete id="deleteCategory" parameterType="CategoryVO">
+		DELETE	FROM
+		<if test="categoryType == 'large'">
+			LRG_CTGR
+		</if>
+		<if test="categoryType == 'medium'">
+			MED_CTGR
+		</if>
+		<if test="categoryType == 'small'">
+			SML_CTGR
+		</if>
+		WHERE	CD_ID = #{ categoryId }
+	</delete>
+	
+	<update id="modifyCategory" parameterType="CategoryVO">
+		UPDATE
+			<if test="categoryType == 'large'">
+				LRG_CTGR
+			</if>
+			<if test="categoryType == 'medium'">
+				MED_CTGR
+			</if>
+			<if test="categoryType == 'small'">
+				SML_CTGR
+			</if>
+		SET		CD_NM = #{ categoryName }
+		WHERE	CD_ID = #{ categoryId }
+	</update>
+	
 </mapper>

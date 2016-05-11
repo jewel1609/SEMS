@@ -29,4 +29,8 @@ public interface EducationBiz {
 
 	List<CategoryVO> getChildCategory(CategoryVO categoryVO);
 
+	boolean deleteCategory(CategoryVO categoryVO);
+
+	boolean modifyCategory(CategoryVO categoryVO);
+
 }

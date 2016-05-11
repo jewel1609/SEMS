@@ -28,4 +28,8 @@ public interface EducationDAO {
 
 	List<CategoryVO> getChildCategory(CategoryVO categoryVO);
 
+	int deleteCategory(CategoryVO categoryVO);
+
+	int modifyCategory(CategoryVO categoryVO);
+
 }

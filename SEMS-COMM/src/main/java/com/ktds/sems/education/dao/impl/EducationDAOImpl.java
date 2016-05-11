@@ -60,4 +60,14 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 	public List<CategoryVO> getChildCategory(CategoryVO categoryVO) {
 		return getSqlSession().selectList("EducationDAO.getChildCategory", categoryVO);
 	}
+
+	@Override
+	public int deleteCategory(CategoryVO categoryVO) {
+		return getSqlSession().delete("EducationDAO.deleteCategory", categoryVO);
+	}
+
+	@Override
+	public int modifyCategory(CategoryVO categoryVO) {
+		return getSqlSession().update("EducationDAO.modifyCategory", categoryVO);
+	}
 }
