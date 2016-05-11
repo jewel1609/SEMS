@@ -19,4 +19,8 @@ public interface EducationService {
 	public ModelAndView writeNewComment(QNAVO qnaVO, Errors errors);
 
 	public ModelAndView doSearchList(EducationVO educationVO, int pageNo);
+
+	public String doCancelEducation(String educationId);
+	
+	
 }

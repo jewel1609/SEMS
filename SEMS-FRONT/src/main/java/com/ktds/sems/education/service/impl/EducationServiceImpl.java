@@ -129,6 +129,16 @@ public class EducationServiceImpl implements EducationService {
 
 		return view;
 	}
+	
+	@Override
+	public String doCancelEducation(String educationId) {
+		boolean result = educationBiz.doCancelEducation(educationId);
+		if( result ) {
+			return "redirect:/eduDetail";
+		}else{
+			throw new RuntimeException("	실패하였습니다.	");
+		}
+	}
 
 
 }

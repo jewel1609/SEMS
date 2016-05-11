@@ -47,10 +47,15 @@ public class EducationBizImpl implements EducationBiz {
 	}
 	
 	@Override
-	public boolean deleteEducation(String educationId) {
-		return educationDAO.deleteEducation(educationId) > 0;
+	public boolean doCancelEducation(String educationId) {
+		return educationDAO.doCancelEducation(educationId) > 0;
 	}
 	
+
+	@Override
+	public int getSearchedEducationCount(EducationVO educationVO) {
+		return educationDAO.getSearchedEducationCount( educationVO);
+	}
 }
 
 

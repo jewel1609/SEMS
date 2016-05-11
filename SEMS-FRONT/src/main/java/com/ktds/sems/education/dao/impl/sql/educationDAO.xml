@@ -176,7 +176,7 @@
 								 )			
  	</insert>
  	
- 		<delete id="deleteEducation" parameterType="string">
+ 		<delete id="doCancelEducation" parameterType="string">
 		DELETE	
 		FROM	EDU_INFO
 		WHERE	EDU_ID = #{educationId}
