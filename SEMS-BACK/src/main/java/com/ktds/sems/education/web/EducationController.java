@@ -33,14 +33,14 @@ public class EducationController {
 	
 	@RequestMapping("/doWriteAction")
 	public ModelAndView doWriteAction(@Valid EducationVO educationVO, Errors errors, MultipartHttpServletRequest request) {
-
+		System.out.println(request.getFileNames());
+		
 		return educationService.writeNewEducation(educationVO, errors, request);
 	}
 	
 	@RequestMapping("/educationModify/{educationId}")
 	public ModelAndView viewEducationModifyPage(@PathVariable String educationId){
-		ModelAndView view = educationService.getOneEducation(educationId); 
-		view.setViewName("education/update");
+		ModelAndView view = educationService.getOneEducationForUpdate(educationId); 
 		return view;
 	}
 	
