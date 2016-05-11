@@ -1,13 +1,24 @@
 package com.ktds.sems.education.biz;
 
+import java.util.List;
+
+import com.ktds.sems.education.vo.CategoryVO;
+import com.ktds.sems.education.vo.CostVO;
+import com.ktds.sems.education.vo.EducationTypeVO;
 import com.ktds.sems.education.vo.EducationVO;
 
 public interface EducationBiz {
 
-	boolean writeNewEducation(EducationVO educationVO);
+	boolean writeNewEducation(EducationVO educationVO );
 
 	EducationVO getOneEducation(String educationId);
 
 	boolean modifyNewEducation(EducationVO educationVO);
+	
+	public List<CostVO> costCodeList();
+
+	public List<EducationTypeVO> typeCodeList();
+
+	public List<CategoryVO> categoryCodeList();
 
 }
