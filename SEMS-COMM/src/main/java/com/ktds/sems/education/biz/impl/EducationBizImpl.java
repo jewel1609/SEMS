@@ -8,6 +8,7 @@ import com.ktds.sems.education.biz.EducationBiz;
 import com.ktds.sems.education.dao.EducationDAO;
 import com.ktds.sems.education.vo.CategoryVO;
 import com.ktds.sems.education.vo.CostVO;
+import com.ktds.sems.education.vo.TimeVO;
 
 public class EducationBizImpl implements EducationBiz {
 	
@@ -25,23 +26,22 @@ public class EducationBizImpl implements EducationBiz {
 	@Override
 	public boolean modifyEduCost(CostVO cost) {
 		CostVO modifyCost = new CostVO();
-		CostVO orignCost = new CostVO();
+		CostVO origCost = new CostVO();
 		
-		orignCost = educationDAO.getEduCostByCdId(cost.getCdId());
-		if ( cost.getCdId().equals(orignCost.getCdId())) {
-			modifyCost.setCdId(orignCost.getCdId());
+		origCost = educationDAO.getEduCostByCdId(cost.getCdId());
+		if ( cost.getCdId().equals(origCost.getCdId())) {
+			modifyCost.setCdId(origCost.getCdId());
 			
-			if ( !cost.getCdNm().equals(orignCost.getCdNm()) ) {
+			if ( !cost.getCdNm().equals(origCost.getCdNm()) ) {
 				modifyCost.setCdNm(cost.getCdNm());
 			}
 		}
-		
 		return educationDAO.modifyEduCost(modifyCost) > 0;
 	}
 
 	@Override
-	public CostVO getEduCostByCdId(String coId) {
-		return educationDAO.getEduCostByCdId(coId);
+	public CostVO getEduCostByCdId(String cdId) {
+		return educationDAO.getEduCostByCdId(cdId);
 	}
 
 	@Override
@@ -73,6 +73,86 @@ public class EducationBizImpl implements EducationBiz {
 	@Override
 	public List<CategoryVO> getAllLargeCategory() {
 		return educationDAO.getAllLargeCategory();
+	}
+
+	@Override
+	public boolean isExistCost(CostVO cost) {
+		int isExistCost = educationDAO.isExistCost(cost);
+		
+		if ( isExistCost > 0 ) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	@Override
+	public boolean isExistCostNm(CostVO cost) {
+		int isExistCostNm = educationDAO.isExistCostNm(cost);
+		
+		if ( isExistCostNm > 0 ) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	@Override
+	public List<TimeVO> getAllEduTime() {
+		return educationDAO.getAllEduTime();
+	}
+
+	@Override
+	public boolean deleteEduTime(String cdId) {
+		return educationDAO.deleteEduTime(cdId) > 0;
+	}
+
+	@Override
+	public boolean isExistTimeNm(TimeVO time) {
+		int isExistTimeNm = educationDAO.isExistTimeNm(time);
+		
+		if ( isExistTimeNm > 0 ) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	@Override
+	public boolean modifyEduTime(TimeVO time) {
+		TimeVO modifyTime = new TimeVO();
+		TimeVO origTime = new TimeVO();
+		
+		origTime = educationDAO.getEduTimeByCdId(time.getCdId());
+		if ( time.getCdId().equals(origTime.getCdId())) {
+			modifyTime.setCdId(origTime.getCdId());
+			
+			if ( !time.getCdNm().equals(origTime.getCdNm()) ) {
+				modifyTime.setCdNm(time.getCdNm());
+			}
+		}
+		
+		return educationDAO.modifyEduTime(time) > 0;
+	}
+
+	@Override
+	public boolean isExistTime(TimeVO time) {
+		int isExistTime = educationDAO.isExistTime(time);
+		
+		if ( isExistTime > 0 ) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	@Override
+	public boolean insertEduTime(TimeVO time) {
+		return educationDAO.insertEduTime(time) > 0;
 	}
 
 	@Override
