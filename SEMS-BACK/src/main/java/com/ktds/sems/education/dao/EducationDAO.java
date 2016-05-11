@@ -16,6 +16,6 @@ public interface EducationDAO {
 	public List<EducationTypeVO> typeCodeList();
 	public List<CategoryVO> categoryCodeList();
 	
-	EducationVO getOneEducation(String educationId);
+	public EducationVO getOneEducation(String educationId);
 	int modifyNewEducation(EducationVO changedEducationVO);
 }
