@@ -1,12 +1,12 @@
 package com.ktds.sems.education.web;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -16,6 +16,9 @@ import com.ktds.sems.education.service.EducationService;
 import com.ktds.sems.education.vo.CategoryVO;
 import com.ktds.sems.education.vo.CostVO;
 import com.ktds.sems.education.vo.JsonResponseVO;
+import com.ktds.sems.education.vo.TimeVO;
+
+import kr.co.hucloud.utilities.web.AjaxUtil;
 
 @Controller
 public class EducationController {
@@ -49,35 +52,33 @@ public class EducationController {
 		return educationService.addNewCategory(categoryVO, errors);
 	}
 	
-	@RequestMapping("/cost")
+	@RequestMapping("/education/cost")
 	public ModelAndView viewCostPage() {
-		ModelAndView view = new ModelAndView();
-		view.addObject("costList", educationService.getAllEduCost());
-		view.setViewName("education/cost");
-		return view;
+		return educationService.getAllEduCost();
 	}
 	
-	@RequestMapping("/modifyEduCost")
+	@RequestMapping("/education/modifyEduCost")
 	@ResponseBody
-	public CostVO modifyEduCost(HttpServletRequest request) {
+	public void modifyEduCost(HttpServletRequest request, HttpServletResponse response) {
 		String cdId = request.getParameter("cdId");
 		String cdNm = request.getParameter("cdNm");
 		
 		CostVO cost = new CostVO();
 		cost.setCdId(cdId);
 		cost.setCdNm(cdNm);
-		
-		return educationService.modifyEduCost(cost);
+		String status = educationService.modifyEduCost(cost);
+		AjaxUtil.sendResponse(response, status);
 	}
 	
-	@RequestMapping("/deleteEduCost/{cdId}")
+	@RequestMapping("/education/deleteEduCost/{cdId}")
 	public ModelAndView deleteEduCost(@PathVariable String cdId) {
 		return educationService.deleteEduCost(cdId);
 	}
 	
 	
-	@RequestMapping("/insertEduCost")
-	public ModelAndView insertEduCost(HttpServletRequest request) {
+	@RequestMapping("/education/insertEduCost")
+	@ResponseBody
+	public void insertEduCost(HttpServletRequest request, HttpServletResponse response) {
 		String cdId = request.getParameter("cdId");
 		String cdNm = request.getParameter("cdNm");
 		
@@ -85,8 +86,48 @@ public class EducationController {
 		cost.setCdId(cdId);
 		cost.setCdNm(cdNm);
 		
-		return educationService.insertEduCost(cost);
+		String status = educationService.insertEduCost(cost);
+		AjaxUtil.sendResponse(response, status);
 	}
+	
+	@RequestMapping("/education/time")
+	public ModelAndView viewTimePage() {
+		return educationService.getAllEduTime();
+	}
+	
+	@RequestMapping("/education/deleteEduTime/{cdId}")
+	public ModelAndView deleteEduTime(@PathVariable String cdId) {
+		return educationService.deleteEduTime(cdId);
+	}
+	
+	@RequestMapping("/education/modifyEduTime")
+	@ResponseBody
+	public void modityEduTime(HttpServletRequest request, HttpServletResponse response) {
+		String cdId = request.getParameter("cdId");
+		String cdNm = request.getParameter("cdNm");
+		
+		TimeVO time = new TimeVO();
+		time.setCdId(cdId);
+		time.setCdNm(cdNm);
+		
+		String status = educationService.modifyEduTime(time);
+		AjaxUtil.sendResponse(response, status);
+	}
+	
+	@RequestMapping("/education/insertEduTime")
+	@ResponseBody
+	public void insertEduTime(HttpServletRequest request, HttpServletResponse response) {
+		String cdId = request.getParameter("cdId");
+		String cdNm = request.getParameter("cdNm");
+		
+		TimeVO time = new TimeVO();
+		time.setCdId(cdId);
+		time.setCdNm(cdNm);
+		
+		String status = educationService.insertEduTime(time);
+		AjaxUtil.sendResponse(response, status);
+	}
+	
 
 	@RequestMapping("/education/getChildCategory")
 	@ResponseBody
