@@ -6,6 +6,7 @@ import org.mybatis.spring.support.SqlSessionDaoSupport;
 
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.member.dao.MemberDAO;
+import com.ktds.sems.member.vo.GraduationTypeVO;
 import com.ktds.sems.member.vo.AttendVO;
 import com.ktds.sems.member.vo.LoginHistorySearchVO;
 import com.ktds.sems.member.vo.LoginHistoryVO;
@@ -161,6 +162,11 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 	@Override
 	public String getPasswordById(String id) {
 		return getSqlSession().selectOne("MemberDAO.getPasswordById", id);
+	}
+
+	@Override
+	public List<String> getGraduationType() {
+		return getSqlSession().selectList("MemberDAO.getGraduationType");
 	}
 
 }
