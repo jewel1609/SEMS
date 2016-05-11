@@ -47,6 +47,7 @@
 									 , #{cost}
 								)
 	</insert>
+	
 	<select id="getOneEducation" parameterType="string" resultType="EducationVO">
 		SELECT	EDU_ID educationId
 				, EDU_CTGR educationCategory
@@ -110,5 +111,23 @@
 	 	</if>
 	 	WHERE	EDU_ID = #{educationId}
 	</update>
+
+	<select id="costCodeList" resultType="CostVO">
+		SELECT	CD_ID cdId
+				, CD_NM cdNm
+		FROM	EDU_CST
+	</select>
+		<select id="typeCodeList"  resultType="EducationTypeVO">
+		SELECT	CD_ID cdId
+				, CD_NM cdNm
+		FROM 	EDU_TIME
+	</select>
+	
+	<select id="categoryCodeList" resultType="CategoryVO">
+		SELECT	CD_ID cdId
+				, CD_NM cdNm
+				, M_CD_ID
+		FROM	SML_CTGR
+	</select>
 
 </mapper>
