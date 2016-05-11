@@ -1,16 +1,23 @@
 package com.ktds.sems.education.web;
 
+
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.education.service.EducationService;
 import com.ktds.sems.education.vo.EducationVO;
+
+
 
 @Controller
 public class EducationController {
@@ -30,8 +37,9 @@ public class EducationController {
 	}
 	
 	@RequestMapping("/doWriteAction")
-	public ModelAndView doWriteAction(@Valid EducationVO educationVO, Errors errors) {
-		return educationService.writeNewEducation(educationVO, errors);
+	public ModelAndView doWriteAction(@Valid EducationVO educationVO, Errors errors, MultipartHttpServletRequest request) {
+
+		return educationService.writeNewEducation(educationVO, errors, request);
 	}
 	
 	@RequestMapping("/educationModify/{educationId}")
@@ -42,7 +50,7 @@ public class EducationController {
 	}
 	
 	@RequestMapping("/doEducationModifyAction")
-	public ModelAndView doEducationModifyAction(@Valid EducationVO educationVO, Errors errors){
-		return educationService.modifyNewEducation(educationVO, errors);
+	public ModelAndView doEducationModifyAction(@Valid EducationVO educationVO, Errors errors, HttpSession session){
+		return educationService.modifyNewEducation(educationVO, errors, session);
 	}
 }
