@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,6 +36,13 @@ $(document).ready(function() {
 	<input type="text" name="phoneNumber" id="phoneNumber"  value="${member.phoneNumber}" placeholder="전화번호를 입력하세요." /> 
 	<br />
 	memberType : ${member.memberType} <br />
+	
+	<c:forEach items="${graduationTypeList}" var="graduationTypeCodeName">
+				<c:if test="${ graduationTypeList ne null }">
+				<input type="radio" class="graduationType" name="graduationType" value="${graduationTypeCodeName}" /> ${ graduationTypeCodeName }<br/><br/>
+				</c:if>
+	</c:forEach>
+	
 	
 	<input type="hidden" name="id" id="id" value="${member.id}"/>
 	<input type="submit"  value="수정 완료" />
