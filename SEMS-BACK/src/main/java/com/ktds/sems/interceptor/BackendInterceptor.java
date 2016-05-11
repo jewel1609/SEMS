@@ -23,7 +23,7 @@ public class BackendInterceptor extends HandlerInterceptorAdapter {
 		System.out.println("컨트롤러 실행한 이후");
 		String userType = (String) request.getSession().getAttribute(Session.MEMBER_TYPE);
 		if(userType == null || !userType.equals("ADM")) {
-//			response.sendRedirect("/backend");
+			return;
 		}
 	}
 
