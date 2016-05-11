@@ -46,8 +46,6 @@
 		<property name="educationService" ref="educationService" />
 	</bean>
 
-	<bean id="sampleController" class="com.ktds.sems.sample.web.SampleController" />
-	
 	<bean id="loggingListener" class="com.ktds.sems.common.LoggingListener" >
 		<property name="memberDAO" ref="memberDAO" />
 	</bean>

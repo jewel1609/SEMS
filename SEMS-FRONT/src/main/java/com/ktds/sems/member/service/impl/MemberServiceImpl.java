@@ -1,6 +1,5 @@
 package com.ktds.sems.member.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.regex.Matcher;
@@ -17,7 +16,6 @@ import com.ktds.sems.common.Session;
 import com.ktds.sems.common.vo.MailVO;
 import com.ktds.sems.member.biz.MemberBiz;
 import com.ktds.sems.member.service.MemberService;
-import com.ktds.sems.member.vo.GraduationTypeVO;
 import com.ktds.sems.member.vo.LoginHistoryListVO;
 import com.ktds.sems.member.vo.LoginHistorySearchVO;
 import com.ktds.sems.member.vo.LoginHistoryVO;
@@ -92,6 +90,11 @@ public class MemberServiceImpl implements MemberService {
 		// 아이디 있는지 확인
 		if ( memberBiz.isExistId(loginVO.getId()) ) {
 			return "NO";
+		}
+		
+		// 탈퇴한 회원인지 확인
+		if (memberBiz.isResign(loginVO.getId())) {
+			return "RSN";
 		}
 		
 		// 잠긴 계정은 로그인 못하도록 막는다.

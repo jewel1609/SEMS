@@ -2,11 +2,8 @@ package com.ktds.sems.member.dao;
 
 import java.util.List;
 
-import com.ktds.sems.member.vo.GraduationTypeVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.member.vo.AttendVO;
-import java.util.List;
-
 import com.ktds.sems.member.vo.LoginHistorySearchVO;
 import com.ktds.sems.member.vo.LoginHistoryVO;
 import com.ktds.sems.member.vo.MemberVO;
@@ -14,7 +11,7 @@ import com.ktds.sems.member.vo.MemberVO;
 public interface MemberDAO {
 
 	public int addNewMember(MemberVO member);
-	
+
 	public int loginHistory(LoginHistoryVO loginHistoryVO);
 
 	public int logoutHistory(LoginHistoryVO loginHistoryVO);
@@ -64,10 +61,12 @@ public interface MemberDAO {
 	public int stampLogoutTime(LoginHistoryVO newLoginHistoryVO);
 
 	public int nextLoginHistorySeq();
-	
+
 	public List<LoginHistoryVO> getAllLoginHistory(LoginHistorySearchVO loginHistorySearchVO);
 
 	public String getPasswordById(String id);
+
+	public String isResign(String id);
 
 	public List<String> getGraduationType();
 

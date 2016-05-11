@@ -86,6 +86,12 @@
 		FROM	MBR
 		WHERE	ID = #{id}
 	</select>
+	<select id="isResign" parameterType="string" resultType="string">
+		SELECT	ID
+		FROM	MBR
+		WHERE	ID = #{id}
+		AND		RSN = 'Y'
+	</select>
 	<insert id="loginHistory" parameterType="LoginHistoryVO">
 	</insert>
 	<insert id="stampLoginTime" parameterType="LoginHistoryVO">

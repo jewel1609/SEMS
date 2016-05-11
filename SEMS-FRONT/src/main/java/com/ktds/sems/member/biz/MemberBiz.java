@@ -57,4 +57,6 @@ public interface MemberBiz {
 
 	public String getPasswordById(String id);
 
+	public boolean isResign(String id);
+
 }

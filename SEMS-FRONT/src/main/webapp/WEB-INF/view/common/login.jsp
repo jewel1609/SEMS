@@ -27,12 +27,16 @@
 					$("#id").focus();
 				} else if (data == "OVER") {
 					alert("로그인이 지속 실패하여, 계정이 잠겼습니다. 운영자에게 문의하세요!");
+					$("#id").focus();
 				} else if (data == "CNGPW") {
 					alert("비밀번호를 설정한지 30일이 지났습니다. 비밀번호를 변경해주세요!");
 					location.href="/changePassword";
+					$("#id").focus();
+				} else if (data == "RSN") {
+					alert("탈퇴한 회원입니다. 60일 뒤에 같은 아이디로 가입 가능합니다.");
+					$("#id").focus();
 				}
 			});
-			
 		});
 		
 		$(".register .registButton").click(function() {

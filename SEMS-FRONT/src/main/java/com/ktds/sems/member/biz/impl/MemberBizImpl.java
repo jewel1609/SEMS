@@ -17,7 +17,6 @@ import com.ktds.sems.common.Session;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.member.biz.MemberBiz;
 import com.ktds.sems.member.dao.MemberDAO;
-import com.ktds.sems.member.vo.GraduationTypeVO;
 import com.ktds.sems.member.vo.AttendVO;
 import com.ktds.sems.member.vo.LoginHistorySearchVO;
 import com.ktds.sems.member.vo.LoginHistoryVO;
@@ -350,6 +349,17 @@ public class MemberBizImpl implements MemberBiz {
 	@Override
 	public String getPasswordById(String id) {
 		return memberDAO.getPasswordById(id);
+	}
+
+	@Override
+	public boolean isResign(String id) {
+		String memberId = memberDAO.isResign(id);
+		
+		if ( memberId == null ) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	@Override
