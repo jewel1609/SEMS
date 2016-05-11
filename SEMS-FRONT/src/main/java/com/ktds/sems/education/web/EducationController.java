@@ -29,10 +29,11 @@ public class EducationController {
 	}
 	
 	@RequestMapping("/searchList")
-	public ModelAndView doSearchList(@PathVariable String startYear, @PathVariable String startMonth, 
-			@PathVariable String endYear, @PathVariable String endMonth, @PathVariable String eduName,
-			@PathVariable String educationType, @PathVariable String cost, @RequestParam(required=false, defaultValue="0") int pageNo){
-		return educationService.doSearchList(startYear, startMonth, endYear, endMonth, eduName, educationType, cost, pageNo );
+	public ModelAndView doSearchList(@RequestParam String startYear, @RequestParam String startMonth, 
+			@RequestParam String endYear, @RequestParam String endMonth, @RequestParam String eduName,
+			@RequestParam String educationType, @RequestParam String cost, @RequestParam(required=false, defaultValue="0") int pageNo){
+	
+		return educationService.doSearchList(	startYear, startMonth, endYear, endMonth, eduName, educationType, cost, pageNo );
 	}
 	
 	@RequestMapping("/eduDetail/{educationId}")

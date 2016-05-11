@@ -71,7 +71,7 @@
 		WHERE	RNUM >= #{startIndex}		
 	</select>
 
-	
+	<!-- 
 	<select id="searchEducation" parameterType="map" resultType="EducationVO">
 	   SELECT   EDU_ID educationId
 	            , EDU_CTGR educationCategory
@@ -108,6 +108,40 @@
           <if test="educationType != null">
              AND EDU_TP = #{educationType} 
           </if>
+          <if test="educationTitle != null">
+             AND EDU_TTL = #{eduName}
+          </if>
+    </select>
+     -->
+    <select id="searchEducation" parameterType="map" resultType="EducationVO">
+		   SELECT   EDU_ID educationId
+		            , EDU_CTGR educationCategory
+		            , EDU_TTL educationTitle
+		            , MBR_ID memberId
+		            , MAX_MBR maxMember
+		            , EDU_LOC educationLocation
+		            , EDU_CLCM educationCurriculum
+		            , EDU_INTR educationIntroduce
+		            , SRT_DATE startDate
+		            , END_DATE endDate
+		            , START_TM startTime
+		            , END_TM endTime
+		            , EDU_TP educationType
+		            , COST cost
+	         FROM  EDU_INFO
+		     WHERE  1 =1 
+        <!-- 
+         <if test="startDate != null">
+             AND TO_CHAR(SRT_DATE, 'YYYY/MM') <![CDATA[ >= ]]> #{startDate} 
+             AND TO_CHAR(SRT_DATE, 'YYYY/MM') <![CDATA[ <= ]]> #{endDate}
+          </if>
+          <if test="cost != null">
+             AND COST = #{cost} 
+          </if>
+          <if test="educationType != null">
+             AND EDU_TP = #{educationType} 
+          </if> 
+          -->
           <if test="educationTitle != null">
              AND EDU_TTL = #{eduName}
           </if>
