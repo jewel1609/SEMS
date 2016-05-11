@@ -20,6 +20,7 @@ import com.ktds.sems.member.vo.LoginHistorySearchVO;
 import com.ktds.sems.member.vo.LoginHistoryVO;
 import com.ktds.sems.member.vo.MemberVO;
 
+import kr.co.hucloud.utilities.SHA256Util;
 import kr.co.hucloud.utilities.web.Paging;
 
 public class MemberServiceImpl implements MemberService {
@@ -166,8 +167,23 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public ModelAndView modifyMemberInfo(MemberVO member, Errors errors) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		
+		//TODO 세션 암호를 받아와서 변경했는지 유무를 체크하기
+		//if ( sessionPassword.eqauls(member.getPassword()) {
+		//암호를 변경했다면 SHA256-암호화
+		String salt = SHA256Util.generateSalt();
+		String newPassword = SHA256Util.getEncrypt(member.getPassword(), salt);
+		member.setPassword(newPassword);
+		member.setSalt(salt);
+		
+		//회원정보 수정
+		memberBiz.modifyMemberInfo(member);
+		
+		ModelAndView view = new ModelAndView();
+		view.setViewName("member/myPage");
+		
+		return view;
 	}
 
 	/**
