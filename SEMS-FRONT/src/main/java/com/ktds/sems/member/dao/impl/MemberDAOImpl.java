@@ -103,6 +103,11 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 		return getSqlSession().selectOne("MemberDAO.getTotalLoginHisotryCount");
 	}
 
+	@Override
+	public void modifyMemberInfo(MemberVO member) {
+		getSqlSession().update("MemberDAO.modifyMemberInfo", member);
+	}
+
 
 	@Override
 	public String isExistId(String id) {

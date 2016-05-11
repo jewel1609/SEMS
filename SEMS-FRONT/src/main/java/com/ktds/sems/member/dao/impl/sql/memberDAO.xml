@@ -179,4 +179,17 @@
 		FROM	LGI_HTR		
 	</select>
 	
+	<update id="modifyMemberInfo" parameterType="MemberVO" >
+		UPDATE	MBR
+		SET		NM = #{name}
+				, PWD = #{password}
+				, EMAIL = #{email}
+				, HIGHEST_EDU_LV = #{highestEducationLevel}
+				, GRDT_TP = #{graduationType}
+				, BRTH_DT = #{birthDate}
+				, PHONE_NMB = #{phoneNumber}
+				, SALT = #{salt}
+		WHERE	ID = #{id}
+	</update>
+	
 </mapper>
