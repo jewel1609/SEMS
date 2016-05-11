@@ -8,6 +8,7 @@ import org.mybatis.spring.support.SqlSessionDaoSupport;
 import com.ktds.sems.education.dao.EducationDAO;
 import com.ktds.sems.education.vo.CategoryVO;
 import com.ktds.sems.education.vo.CostVO;
+import com.ktds.sems.education.vo.TimeVO;
 
 public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationDAO{
 	
@@ -54,6 +55,51 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 	@Override
 	public List<CategoryVO> getAllLargeCategory() {
 		return getSqlSession().selectList("EducationDAO.getAllLargeCategory");
+	}
+
+	@Override
+	public int isExistCost(CostVO cost) {
+		return getSqlSession().selectOne("EducationDAO.isExistCost", cost);
+	}
+
+	@Override
+	public int isExistCostNm(CostVO cost) {
+		return getSqlSession().selectOne("EducationDAO.isExistCostNm", cost);
+	}
+
+	@Override
+	public List<TimeVO> getAllEduTime() {
+		return getSqlSession().selectList("EducationDAO.getAllEduTime");
+	}
+
+	@Override
+	public int deleteEduTime(String cdId) {
+		return getSqlSession().delete("EducationDAO.deleteEduTime", cdId);
+	}
+
+	@Override
+	public int isExistTimeNm(TimeVO time) {
+		return getSqlSession().selectOne("EducationDAO.isExistTimeNm", time);
+	}
+
+	@Override
+	public int modifyEduTime(TimeVO time) {
+		return getSqlSession().update("EducationDAO.modifyEduTime", time);
+	}
+
+	@Override
+	public TimeVO getEduTimeByCdId(String cdId) {
+		return getSqlSession().selectOne("EducationDAO.getEduTimeByCdId", cdId);
+	}
+
+	@Override
+	public int isExistTime(TimeVO time) {
+		return getSqlSession().selectOne("EducationDAO.isExistTime", time);
+	}
+
+	@Override
+	public int insertEduTime(TimeVO time) {
+		return getSqlSession().insert("EducationDAO.insertEduTime", time);
 	}
 
 	@Override
