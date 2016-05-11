@@ -14,7 +14,11 @@
 				<!-- 회원가입 및 로그인은 인터셉터에서 제외 시킨다. -->
 				<mvc:exclude-mapping path="/login"/>
 				<mvc:exclude-mapping path="/register"/>
-			<bean id="frontIntereptor" class="com.ktds.sems.interceptor.FrontInterceptor"/>
+			<bean id="sessionCheckInterceptor" class="com.ktds.sems.interceptor.SessionCheckInterceptor"/>
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/login"/>
+			<bean id="loginCheckInterceptor" class="com.ktds.sems.interceptor.LoginCheckInterceptor"/>
 		</mvc:interceptor>
 	</mvc:interceptors>
 	
