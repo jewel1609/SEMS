@@ -2,6 +2,7 @@ package com.ktds.sems.member.dao;
 
 import java.util.List;
 
+import com.ktds.sems.member.vo.GraduationTypeVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.member.vo.AttendVO;
 import java.util.List;
@@ -67,5 +68,7 @@ public interface MemberDAO {
 	public List<LoginHistoryVO> getAllLoginHistory(LoginHistorySearchVO loginHistorySearchVO);
 
 	public String getPasswordById(String id);
+
+	public List<String> getGraduationType();
 
 }
