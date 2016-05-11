@@ -5,6 +5,7 @@
 
 	<typeAliases>
 		<typeAlias type="com.ktds.sems.member.vo.GrdtTpVO" alias="GrdtTpVO"/>
+		<typeAlias type="com.ktds.sems.member.vo.MemberVO" alias="MemberVO"/>
 		<typeAlias type="com.ktds.sems.member.vo.HighestEduTpVO" alias="HighestEduTpVO"/>
 		<typeAlias type="com.ktds.sems.member.vo.MbrTpVO" alias="MbrTpVO"/>
 		<typeAlias type="com.ktds.sems.education.vo.CostVO" alias="CostVO"/>
