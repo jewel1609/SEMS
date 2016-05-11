@@ -15,5 +15,10 @@ public class FileDAOImpl  extends SqlSessionDaoSupport implements FileDAO {
 				
 	}
 
+	@Override
+	public int updateFile(FileVO fileVO) {
+		return getSqlSession().update("FileDAO.updateFile", fileVO);
+	}
+
 	
 }
