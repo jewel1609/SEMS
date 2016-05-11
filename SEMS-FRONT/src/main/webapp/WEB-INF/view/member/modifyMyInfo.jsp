@@ -37,7 +37,6 @@ $(document).ready(function() {
 	memberType : ${member.memberType} <br />
 	
 	<input type="hidden" name="id" id="id" value="${member.id}"/>
-	
 	<input type="submit"  value="수정 완료" />
 	
 </form:form>
