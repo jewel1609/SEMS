@@ -172,7 +172,6 @@ public class MemberServiceImpl implements MemberService {
 	 */
 	@Override
 	public void saveLoginHistoryAsExcel(HttpSession session) {
-		// TODO Auto-generated method stub
 		MemberVO sessionMember = (MemberVO) session.getAttribute("_MEMBER_");
 		String memberId = sessionMember.getId();
 		

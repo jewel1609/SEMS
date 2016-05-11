@@ -79,14 +79,12 @@
 								, MBR_ID
 								, LGI_IP
 								, LGI_DT
-								, LGO_DT
 							) 
 		VALUES				(
 								LGI_HTR_ID_SEQ.NEXTVAL
 								, #{ id }
 								, #{ lgiIp }
 								, SYSDATE
-								, SYSDATE 
 		 					)
 	</insert>
 	<update id="logoutHistory" parameterType="LoginHistoryVO">
