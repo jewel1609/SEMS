@@ -74,6 +74,10 @@ public class MemberController {
 		
 		ModelAndView view = new ModelAndView();
 
+		//TODO 입력한 패스워드와
+				//테이블의 member.getPassword() 혹은 세션패스워드 를 해독했을때의 암호가
+				//일치한다면 SendMessage.send(response, "OK");
+		
 		//TODO 세션정보를 넘겨받기
 		MemberVO member = (MemberVO) session.getAttribute("_MEMBER_");
 		String sessionId = "aaa";
@@ -103,10 +107,6 @@ public class MemberController {
 
 	@RequestMapping("/member/myPage/modify")
 	public ModelAndView viewModifyPage(HttpSession session){
-		
-		//TODO 입력한 패스워드와
-		//테이블의 member.getPassword() 혹은 세션패스워드 를 해독했을때의 암호가
-		//일치한다면 수정페이지로 접속
 		
 		//TODO session Id로 바꾸기
 		String sessionId = "aaa";
