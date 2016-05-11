@@ -8,6 +8,16 @@
 	<mvc:annotation-driven/>
 	<mvc:resources	location="/WEB-INF/resources/" 	mapping="/resources/**" />
 	
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**"/>
+				<!-- 회원가입 및 로그인은 인터셉터에서 제외 시킨다. -->
+				<mvc:exclude-mapping path="/login"/>
+				<mvc:exclude-mapping path="/register"/>
+			<bean id="frontIntereptor" class="com.ktds.sems.interceptor.FrontInterceptor"/>
+		</mvc:interceptor>
+	</mvc:interceptors>
+	
 	<bean 	id="viewResolver"
 			class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/view/" />
