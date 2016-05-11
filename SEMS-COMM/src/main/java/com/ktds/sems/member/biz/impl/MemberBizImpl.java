@@ -156,6 +156,7 @@ public class MemberBizImpl implements MemberBiz{
 			if (loginStore.get(loginVO.getId()) != null) {
 				loginStore.logout(loginVO.getId());
 			}
+			
 			session.setAttribute(Session.MEMBER, memberVO);
 			session.setAttribute(Session.MEMBER_TYPE, memberVO.getMemberType());
 			

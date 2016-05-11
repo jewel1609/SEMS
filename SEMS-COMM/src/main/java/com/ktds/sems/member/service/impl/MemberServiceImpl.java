@@ -176,11 +176,6 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public String login(MemberVO loginVO, Errors errors, HttpSession session, HttpServletRequest request) {
 
-		// 관리자 체크
-		if ( loginVO.getMemberType() == null || !loginVO.getMemberType().equals("ADM") ) {
-			return "NOADMIN";
-		}
-		
 		// 아이디 있는지 확인
 		if ( memberBiz.isExistId(loginVO.getId()) ) {
 			return "NO";
@@ -213,6 +208,11 @@ public class MemberServiceImpl implements MemberService{
 				if(memberBiz.needToChangPassword(loginVO.getId())) {
 					return "CNGPW";
 				} else {
+					
+					String memberType = (String) session.getAttribute(Session.MEMBER_TYPE);
+					if(memberType != null && !memberType.equals("ADM")) {
+						return "NOADM";
+					}
 					return "OK";
 				}
 			} else {
