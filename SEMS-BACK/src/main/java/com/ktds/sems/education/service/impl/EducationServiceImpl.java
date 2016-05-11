@@ -5,25 +5,20 @@ package com.ktds.sems.education.service.impl;
 import java.io.File;
 import java.io.IOException;
 
-
 import javax.servlet.http.HttpSession;
-
 
 import org.springframework.validation.Errors;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-
 import com.ktds.sems.education.biz.EducationBiz;
 import com.ktds.sems.education.service.EducationService;
 import com.ktds.sems.education.vo.EducationVO;
-import com.ktds.sems.member.vo.MemberVO;
-
-
-
 import com.ktds.sems.file.biz.FileBiz;
 import com.ktds.sems.file.vo.FileVO;
+
+import kr.co.hucloud.utilities.SHA256Util;
 
 
 
@@ -56,6 +51,12 @@ public class EducationServiceImpl implements EducationService {
 				return view;
 				
 			} else {
+				
+				String salt = SHA256Util.generateSalt();
+				String newFileName = SHA256Util.getEncrypt(educationVO.getEducationCurriculum(), salt);
+				educationVO.setEducationCurriculum(newFileName);
+				educationVO.setSalt(salt);
+				
 				boolean result = educationBiz.writeNewEducation(educationVO);
 
 				if (file.getOriginalFilename() != "" && result) {
@@ -77,6 +78,7 @@ public class EducationServiceImpl implements EducationService {
 				} else {
 					throw new RuntimeException("일시적인 장애가 발생했습니다. 잠시후 다시 시도해주세요.");
 				}
+				
 			}
 		}
 
@@ -118,6 +120,17 @@ public class EducationServiceImpl implements EducationService {
 		
 		view.addObject("educationVO", educationVO);
 		return view;
+		}
+
 	}
 
+	@Override
+	public ModelAndView getAllEduCode() {
+		ModelAndView view = new ModelAndView();
+		view.addObject("costList", educationBiz.costCodeList());
+		view.addObject("typeList", educationBiz.typeCodeList());
+		view.addObject("categoryList", educationBiz.categoryCodeList());
+		view.setViewName("education/eduregister");
+		return view;
+	}
 }
