@@ -216,7 +216,7 @@ public class EducationServiceImpl implements EducationService {
 		JsonResponseVO jsonResponseVO = new JsonResponseVO();
 		
 		CategoryVO categoryVO = new CategoryVO();
-		categoryVO.setParentCategoryId(parentCategoryId);
+		categoryVO.setCategoryId(parentCategoryId);
 		categoryVO.setCategoryType(categoryType);
 		
 		List<CategoryVO> childCategories = educationBiz.getChildCategory(categoryVO);

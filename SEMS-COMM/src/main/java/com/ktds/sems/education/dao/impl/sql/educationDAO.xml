@@ -162,7 +162,15 @@
 	
 	
 	<select id="getChildCategory" parameterType="CategoryVO" resultType="CategoryVO">
-		SELECT	CD_ID categoryId
+		SELECT	
+			<if test="categoryType == 'large'">
+				L_CD_ID
+			</if>
+			<if test="categoryType == 'medium'">
+				M_CD_ID
+			</if>
+				parentCategoryId
+				,CD_ID categoryId
 				, CD_NM categoryName
 		FROM	
 			<if test="categoryType == 'large'">
@@ -178,7 +186,7 @@
 			<if test="categoryType == 'medium'">
 				M_CD_ID = 
 			</if>
-						  #{ parentCategoryId }
+						  #{ categoryId }
 	</select>
 	
 	<delete id="deleteCategory" parameterType="CategoryVO">

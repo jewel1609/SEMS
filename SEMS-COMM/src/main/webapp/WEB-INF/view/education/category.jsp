@@ -178,6 +178,13 @@
 						
 						if ( response == 'true' ) {
 							$('#'+categoryType+'CategoryList :selected').remove();
+							if ( categoryType == 'large' ) {
+								$('#mediumCategoryList').empty();
+								$('#smallCategoryList').empty();
+							}
+							else if ( categoryType == 'medium' ) {
+								$('#smallCategoryList').empty();
+							}
 						}
 						else {
 							alert('카테고리 삭제중 장애가 발생했습니다.');
@@ -274,8 +281,6 @@
 		
 		$("#largeCategoryList").change(function(){
 			
-			//console.log($('#largeCategoryList :selected').length);
-
 			parentCategoryId.val($(this).val());
 			
 			$.post(
@@ -293,7 +298,7 @@
 							}
 						}
 						else {
-							console.log(response.data);
+							alert('하위 카테고리를 가져오지 못했습니다. 다시 시도해 주세요.');
 						}
 					}
 			);
@@ -302,8 +307,6 @@
 		
 		$("#mediumCategoryList").change(function(){
 			
-			//console.log($('#largeCategoryList :selected').length);
-
 			parentCategoryId.val($(this).val());
 			
 			$.post(
@@ -320,7 +323,7 @@
 							}
 						}
 						else {
-							console.log(response.data);
+							alert('하위 카테고리를 가져오지 못했습니다. 다시 시도해 주세요.');
 						}
 					}
 			);
@@ -330,9 +333,6 @@
 	});
 </script>
 <style type="text/css">
-	#newLargeCategoryContainer {
-	}
-	
 	div {
 		float: left;
 	}

@@ -187,12 +187,13 @@ public class EducationBizImpl implements EducationBiz {
 		List<CategoryVO> childCategories = getChildCategory(categoryVO);
 
 		for (CategoryVO tmpCategoryVO : childCategories) {
+			tmpCategoryVO.setCategoryType("medium");
 			if ( !deleteMediumCategory(tmpCategoryVO) ) {
 				return false;
 			}
 		}
 		
-		return deleteCategory(categoryVO);
+		return educationDAO.deleteCategory(categoryVO) > 0;
 	}
 
 	@Override
@@ -200,17 +201,18 @@ public class EducationBizImpl implements EducationBiz {
 		List<CategoryVO> childCategories = getChildCategory(categoryVO);
 
 		for (CategoryVO tmpCategoryVO : childCategories) {
+			tmpCategoryVO.setCategoryType("small");
 			if ( !deleteSmallCategory(tmpCategoryVO) ) {
 				return false;
 			}
 		}
-		
-		return deleteCategory(categoryVO);
+
+		return educationDAO.deleteCategory(categoryVO) > 0;
 	}
 
 	@Override
 	public boolean deleteSmallCategory(CategoryVO categoryVO) {
-		return deleteCategory(categoryVO);
+		return educationDAO.deleteCategory(categoryVO) > 0;
 	}
 	
 }
