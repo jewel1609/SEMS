@@ -145,4 +145,5 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 	public String getPasswordById(String id) {
 		return getSqlSession().selectOne("MemberDAO.getPasswordById", id);
 	}
+
 }
