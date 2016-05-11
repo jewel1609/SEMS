@@ -61,32 +61,48 @@
 
 		$("#insertMbrTpBtn").click(function() {
 			
-			alert('등록하시겠습니까?');
-			var cdId = $("#cdId").val();
+			var cdId =  $("#cdId").val();
 			var cdNm = $("#cdNm").val();
-
-			if (cdId == "") {
-				alert("CODE Id를 써주세요.");
+			
+			if(cdId==""){
+				alert("CODE ID를 써주세요.");
 				return;
 			}
-			else if (cdId.length > 10) {
-				alert("CODE Id는 10글자 이하로 써주세요.");
+			if(cdId.length > 4){
+				alert("CODE ID는 4글자 이하로 써주세요.");
 				return;
 			}
-			else if (cdNm == "") {
+			
+			if(cdNm==""){
 				alert("CODE NAME을 써주세요.");
 				return;
 			}
-			else if (cdNm.length > 10) {
+			
+			if(cdNm.length > 10){
 				alert("CODE NAME은 10글자 이하로 써주세요.");
 				return;
 			}
-			else {
-			var form = $("#addMbrTpForm");
-			form.attr("method", "post");
-			form.attr("action", "/comm/doInsertMbrTp");
-			form.submit();
+			
+			if ( confirm("등록하시겠습니까?") == true ) {
+				
+				$.post("<c:url value="/doInsertMbrTp"/>", {
+					"cdId" : cdId,
+					"cdNm" : cdNm
+				}, function(data) {
+					if(data == "OK") {
+						alert("등록되었습니다.");
+						location.href="<c:url value="/mbrTpPage"/>";
+					}
+					else if(data == "FAIL"){
+						alert("중복된 데이터를 넣을 수 없습니다.");
+						location.href="<c:url value="/mbrTpPage"/>";
+					}
+				});
 			}
+			else {
+				return;
+			}
+			
 		});
 
 	});
@@ -114,14 +130,12 @@
 			</tr>
 		</c:forEach>
 		<tr>
-			<form:form id="addMbrTpForm" commandName="mbrTpVO">
 				<td><input type="text" id="cdId" name="cdId"
 					placeholder="코드를 입력하세요." value="${mbrTpVO.cdId}" /></td>
 				<td><input type="text" id="cdNm" name="cdNm"
 					placeholder="등급 이름을 입력하세요." value="${mbrTpVO.cdNm}" /></td>
 				<td colspan="2"><input type="submit" id="insertMbrTpBtn"
 					value="submit" /></td>
-			</form:form>
 		</tr>
 	</table>
 
