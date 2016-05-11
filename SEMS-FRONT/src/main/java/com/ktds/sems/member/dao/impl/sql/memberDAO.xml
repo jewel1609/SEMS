@@ -97,16 +97,20 @@
 								, LGI_DT
 							) 
 		VALUES				(
-								LGI_HTR_ID_SEQ.NEXTVAL
+								#{ lgiHtrId }
 								, #{ id }
 								, #{ lgiIp }
 								, SYSDATE
 		 					)
 	</insert>
-	<update id="logoutHistory" parameterType="LoginHistoryVO">
-		UPDATE	LGI_HTR
+	<select id="nextLoginHistorySeq" resultType="_int">
+		SELECT	LGI_HTR_ID_SEQ.NEXTVAL
+		FROM	DUAL
+	</select>
+	<update id="stampLogoutTime" parameterType="LoginHistoryVO">
+		UPDATE	LGI_HTR	
 		SET		LGO_DT = SYSDATE
-		WHERE	LGI_HTR_ID = #{ lgiHtrId }
+		WHERE	LGI_HTR_ID = #{lgiHtrId}
 	</update>
 	<select id="saveLoginHistoryAsExcel" resultType="LoginHistoryVO" parameterType="string">
 		SELECT	LGI_HTR_ID lgiHtrId
@@ -116,6 +120,7 @@
 				, LGO_DT lgoDt
 		FROM	LGI_HTR
 		WHERE	MBR_ID = #{memberId}
+		ORDER	BY LGI_HTR_ID ASC
 	</select>
 	<update id="loginSuccess" parameterType="string">
 		UPDATE	MBR

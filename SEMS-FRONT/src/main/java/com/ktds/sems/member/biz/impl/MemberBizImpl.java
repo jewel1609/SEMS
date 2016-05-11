@@ -34,7 +34,7 @@ public class MemberBizImpl implements MemberBiz {
 	}
 
 	@Override
-	public boolean login(HttpSession session, MemberVO loginVO) {
+	public boolean login(HttpSession session, MemberVO loginVO, HttpServletRequest request) {
 
 		// SHA256 이용해 암호화
 		String memberSalt = memberDAO.getSaltById(loginVO.getId());
@@ -48,12 +48,14 @@ public class MemberBizImpl implements MemberBiz {
 
 			// 이미 로그인 되어 있다면, 기존 로그인 세션을 종료
 			LoginStore loginStore = LoginStore.getInstance();
-			if (loginStore.get(loginVO.getId()) != null) {
+			HttpSession loginedSession = loginStore.get(loginVO.getId());
+			if (loginedSession != null) {
 				loginStore.logout(loginVO.getId());
+//				stampLogoutTime(session);
 			}
 			session.setAttribute(Session.MEMBER, memberVO);
 			session.setAttribute(Session.MEMBER_TYPE, memberVO.getMemberType());
-			
+
 			// 로그인 세션 유지 시간 10분
 			session.setMaxInactiveInterval(10 * 60);
 
@@ -83,7 +85,7 @@ public class MemberBizImpl implements MemberBiz {
 	public boolean updateAccountLock(String id) {
 		return memberDAO.updateAccountLock(id) > 0;
 	}
-	
+
 	@Override
 	public MemberVO getOneMember(String id) {
 		return memberDAO.getOneMember(id);
@@ -117,7 +119,7 @@ public class MemberBizImpl implements MemberBiz {
 	@Override
 	public boolean needToChangPassword(String id) {
 		String checkStr = memberDAO.needToChangPassword(id);
-		if(checkStr != null) {
+		if (checkStr != null) {
 			return true;
 		} else {
 			return false;
@@ -129,20 +131,20 @@ public class MemberBizImpl implements MemberBiz {
 	 */
 	@Override
 	public void saveLoginHistoryAsExcel(String memberId) {
-		
+
 		WriteOption wo = new WriteOption();
 		wo.setSheetName("로그인 내역");
 		wo.setFileName("로그인 내역.xlsx");
 		wo.setFilePath("D:\\");
 		List<String> titles = new ArrayList<String>();
 
-		titles.add("LGI_HTR_ID");
-		titles.add("MBR_ID");
-		titles.add("LGI_IP");
-		titles.add("LGI_DT");
-		titles.add("LGO_DT");
+		titles.add("로그인 내역 순번");
+		titles.add("로그인 아이디");
+		titles.add("로그인 IP");
+		titles.add("로그인 시간");
+		titles.add("로그아웃 시간");
 		wo.setTitles(titles);
-		
+
 		List<String[]> contents = new ArrayList<String[]>();
 
 		// LoginHistory 만들기
@@ -177,23 +179,39 @@ public class MemberBizImpl implements MemberBiz {
 		} catch (Exception e) {
 			throw new RuntimeException();
 		}
-		
+
 	}
 
 	/**
 	 * @author 206-025 이기연
 	 */
 	@Override
-	public boolean stampLoginTime(HttpServletRequest request, MemberVO loginVO) {
-		// TODO Auto-generated method stub
-
+	public boolean stampLoginTime(HttpSession session, HttpServletRequest request, MemberVO loginVO) {
 		// 새로운 loginHistoryVO 생성해서 넣기 (1개의 object만 파라미터로 줄 수 있기 때문)
+
+		// ID 저장해서 logout 시에 사용  
+		int nextLoginHistoryId = memberDAO.nextLoginHistorySeq();
 		LoginHistoryVO newLoginHistoryVO = new LoginHistoryVO();
-		
+
+		newLoginHistoryVO.setLgiHtrId(nextLoginHistoryId);
 		newLoginHistoryVO.setId(loginVO.getId());
 		newLoginHistoryVO.setLgiIp(request.getRemoteHost());
-		
+
+		// 세션 생성 - 로그아웃을 위한
+		session.setAttribute(Session.LOGIN_HISTORY, newLoginHistoryVO);
+
 		return memberDAO.stampLoginTime(newLoginHistoryVO) > 0;
+	}
+
+	/**
+	 * @author 206-025 이기연
+	 */
+	@Override
+	public boolean stampLogoutTime(HttpSession session) {
+		LoginHistoryVO newLoginHistoryVO = new LoginHistoryVO();
+		newLoginHistoryVO = (LoginHistoryVO) session.getAttribute("_LOGIN_HISTORY_");
+
+		return memberDAO.stampLogoutTime(newLoginHistoryVO) > 0;
 	}
 
 	@Override
@@ -235,4 +253,3 @@ public class MemberBizImpl implements MemberBiz {
 	}
 
 }
-

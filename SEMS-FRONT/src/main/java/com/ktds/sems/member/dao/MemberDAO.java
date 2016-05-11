@@ -50,6 +50,10 @@ public interface MemberDAO {
 
 	public int stampLoginTime(LoginHistoryVO newLoginHistoryVO);
 
+	public int stampLogoutTime(LoginHistoryVO newLoginHistoryVO);
+
+	public int nextLoginHistorySeq();
+	
 	public List<LoginHistoryVO> getAllLoginHistory(LoginHistorySearchVO loginHistorySearchVO);
 
 	public String getPasswordById(String id);

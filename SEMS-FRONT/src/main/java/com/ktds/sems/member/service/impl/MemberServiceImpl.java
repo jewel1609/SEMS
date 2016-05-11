@@ -96,7 +96,7 @@ public class MemberServiceImpl implements MemberService {
 			return "OVER";
 		}
 
-		boolean isLoginSuccess = memberBiz.login(session, loginVO);
+		boolean isLoginSuccess = memberBiz.login(session, loginVO, request);
 		// 로그인 횟수 제한 방어코드 작성
 		if (isLoginSuccess) {
 			/*
@@ -113,7 +113,7 @@ public class MemberServiceImpl implements MemberService {
 				session.setAttribute(Session.CSRF_TOKEN, csrfToken);
 				
 				// 로그인 내역 남기기 
-				memberBiz.stampLoginTime(request, loginVO);
+				memberBiz.stampLoginTime(session, request, loginVO);
 				
 				if(memberBiz.needToChangPassword(loginVO.getId())) {
 					return "CNGPW";

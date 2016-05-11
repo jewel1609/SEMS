@@ -104,6 +104,9 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 		return getSqlSession().selectOne("MemberDAO.getTotalLoginHisotryCount");
 	}
 
+	/**
+	 * @author 이기연
+	 */
 	@Override
 	public void modifyMemberInfo(MemberVO member) {
 		getSqlSession().update("MemberDAO.modifyMemberInfo", member);
@@ -118,6 +121,19 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 	@Override
 	public int stampLoginTime(LoginHistoryVO newLoginHistoryVO) {
 		return getSqlSession().insert("MemberDAO.stampLoginTime", newLoginHistoryVO);
+	}
+
+	/**
+	 * @author 이기연
+	 */
+	@Override
+	public int stampLogoutTime(LoginHistoryVO newLoginHistoryVO) {
+		return getSqlSession().update("MemberDAO.stampLogoutTime", newLoginHistoryVO);
+	}
+
+	@Override
+	public int nextLoginHistorySeq() {
+		return getSqlSession().selectOne("MemberDAO.nextLoginHistorySeq");
 	}
 
 	@Override
