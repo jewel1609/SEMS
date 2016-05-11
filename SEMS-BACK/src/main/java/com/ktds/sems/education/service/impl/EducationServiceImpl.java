@@ -1,21 +1,34 @@
 package com.ktds.sems.education.service.impl;
 
-import javax.servlet.http.HttpServletRequest;
+
+
+import java.io.File;
+import java.io.IOException;
+
+
+import javax.servlet.http.HttpSession;
+
 
 import org.springframework.validation.Errors;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
+
 
 import com.ktds.sems.education.biz.EducationBiz;
 import com.ktds.sems.education.service.EducationService;
 import com.ktds.sems.education.vo.EducationVO;
+import com.ktds.sems.member.vo.MemberVO;
+
+
+
 import com.ktds.sems.file.biz.FileBiz;
 import com.ktds.sems.file.vo.FileVO;
 
-import kr.co.hucloud.utilities.web.MultipartHttpServletRequest;
-import kr.co.hucloud.utilities.web.MultipartHttpServletRequest.MultipartFile;
+
 
 public class EducationServiceImpl implements EducationService {
-
+	
 	private EducationBiz educationBiz;
 	private FileBiz fileBiz;
 
@@ -26,14 +39,16 @@ public class EducationServiceImpl implements EducationService {
 	public void setFileBiz(FileBiz fileBiz) {
 		this.fileBiz = fileBiz;
 	}
-
+	
 	@Override
-	public ModelAndView writeNewEducation(EducationVO educationVO, Errors errors, HttpServletRequest request) {
+	public ModelAndView writeNewEducation(EducationVO educationVO, Errors errors, MultipartHttpServletRequest request) {
 
 		ModelAndView view = new ModelAndView();
-		MultipartHttpServletRequest multipartRequest = new MultipartHttpServletRequest(request);
-		MultipartFile file = multipartRequest.getFile("file");
 
+		MultipartFile file = request.getFile("file");
+		String path ="D:\\"+file.getOriginalFilename();
+		File files = new File(path);
+		
 		if (educationVO.getEducationId() == null) {
 			if (errors.hasErrors()) {
 				view.setViewName("education/eduregister");
@@ -43,12 +58,18 @@ public class EducationServiceImpl implements EducationService {
 			} else {
 				boolean result = educationBiz.writeNewEducation(educationVO);
 
-				if (file.getFileName() != "" && result) {
-
+				if (file.getOriginalFilename() != "" && result) {
+					
+					try {
+						file.transferTo(files);
+					} catch (IllegalStateException | IOException e) {
+						e.printStackTrace();
+					}
+					
 					FileVO fileVO = new FileVO();
 					fileVO.setArticleId(educationVO.getEducationId());
-					fileVO.setFileName(file.getFileName());
-					fileVO.setFileLocation("D:\\???");
+					fileVO.setFileName(file.getOriginalFilename());
+					fileVO.setFileLocation(path);
 					fileBiz.doWriteFile(fileVO);
 
 					view.setViewName("redirect:/list");
@@ -65,32 +86,43 @@ public class EducationServiceImpl implements EducationService {
 
 	@Override
 	public ModelAndView getOneEducation(String educationId) {
-
+		
 		EducationVO educationVO = educationBiz.getOneEducation(educationId);
-
+		
 		ModelAndView view = new ModelAndView();
-		view.setViewName("");
+		view.setViewName("education/detail");
 		view.addObject("educationVO", educationVO);
 		return view;
 	}
 
 	@Override
-	public ModelAndView modifyNewEducation(EducationVO educationVO, Errors errors) {
-
+	public ModelAndView modifyNewEducation(EducationVO educationVO, Errors errors, HttpSession session) {
+		
 		ModelAndView view = new ModelAndView();
-		if (errors.hasErrors()) {
-			view.setViewName("");
-			view.addObject("educationVO", educationVO);
-			return view;
-		} else {
-			boolean result = educationBiz.modifyNewEducation(educationVO);
-			String educationId = educationVO.getEducationId();
-			if (result) {
-				view.setViewName("redirect:/detail/" + educationId);
-			} else {
-				throw new RuntimeException("에러가 발생했습니다. 잠시 후 다시 시도해주세요.");
+		
+		MemberVO sessionMember = (MemberVO) session.getAttribute("_MEMBER_");
+		
+		//if ( sessionMember.getMemberType().equals("admin") ) {
+			if ( errors.hasErrors() ) {
+				view.setViewName("education/update");
+				view.addObject("educationVO", educationVO);
+				return view;
 			}
-		}
+			else{
+				boolean result = educationBiz.modifyNewEducation(educationVO);
+				String educationId = educationVO.getEducationId();
+				if ( result ) {
+					view.setViewName("redirect:/detail/" + educationId);
+				}
+				else {
+					throw new RuntimeException("에러가 발생했습니다. 잠시 후 다시 시도해주세요.");
+				}
+			}
+		//}
+		//else {
+			//throw new RuntimeException("접근 가능한 권한이 아닙니다.");
+		//}
+		
 		view.addObject("educationVO", educationVO);
 		return view;
 	}
