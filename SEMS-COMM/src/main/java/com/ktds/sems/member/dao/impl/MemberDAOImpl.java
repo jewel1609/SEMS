@@ -13,15 +13,18 @@ import com.ktds.sems.member.vo.MemberVO;
 public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO{
 
 	
+	
 	@Override
 	public List<GrdtTpVO> getAllGrtdList() {
 		return  getSqlSession().selectList("MemberDAO.getAllGrtdList");
 	}
 
+
 	@Override
 	public List<MbrTpVO> getAllMbrTpList() {
 		return getSqlSession().selectList("MemberDAO.getAllMbrTp");
 	}
+
 
 	@Override
 	public void doInsertMbrTp(MbrTpVO newMbrTpVO) {
@@ -32,6 +35,7 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO{
 	public void doGrdtDelete(String cdId) {
 		getSqlSession().delete("MemberDAO.doGrdtDelete", cdId);
 	}
+
 
 	@Override
 	public int doGrdtModify(GrdtTpVO grdtTpVO) {

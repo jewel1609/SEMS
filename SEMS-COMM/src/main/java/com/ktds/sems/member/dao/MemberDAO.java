@@ -20,6 +20,7 @@ public interface MemberDAO {
 	public int doGrdtInsert(GrdtTpVO grdtTpVO);
 
 	public int isExistData(GrdtTpVO grdtTpVO);
+	
 	public void doInsertMbrTp(MbrTpVO newMbrTpVO);
 
 	public void doMbrTpDelete(String cdId);
