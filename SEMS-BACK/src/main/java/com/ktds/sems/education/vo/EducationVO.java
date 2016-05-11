@@ -42,6 +42,8 @@ public class EducationVO {
 	@NotEmpty(message="강의 비용를 선택 해주세요!")
 	private String cost;
 	
+	private String salt; 
+	
 	public String getEducationId() {
 		return educationId;
 	}
@@ -126,4 +128,11 @@ public class EducationVO {
 	public void setCost(String cost) {
 		this.cost = cost;
 	}
+	public String getSalt() {
+		return salt;
+	}
+	public void setSalt(String salt) {
+		this.salt = salt;
+	}
+	
 }
