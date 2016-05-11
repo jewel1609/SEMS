@@ -43,9 +43,14 @@
 					"cdId" : cdId.val(),
 					"cdNm" : cdNm.val()
 				}, function(data) {
-					
-					location.href="<c:url value="/grdtPage"/>";
-					
+					if(data == "OK") {
+						alert("수정되었습니다.");
+						location.href="<c:url value="/grdtPage"/>";
+					}
+					else {
+						alert("중복된 데이터를 넣을 수 없습니다.");
+						location.href="<c:url value="/grdtPage"/>";
+					}
 				});
 			}
 			else {
@@ -98,9 +103,14 @@
 					"cdId" : cdId,
 					"cdNm" : cdNm
 				}, function(data) {
-
-					location.href="<c:url value="/grdtPage"/>";
-					
+					if(data == "OK") {
+						alert("등록되었습니다.");
+						location.href="<c:url value="/grdtPage"/>";
+					}
+					else if(data == "FAIL"){
+						alert("중복된 데이터를 넣을 수 없습니다.");
+						location.href="<c:url value="/grdtPage"/>";
+					}
 				});
 			}
 			else {
