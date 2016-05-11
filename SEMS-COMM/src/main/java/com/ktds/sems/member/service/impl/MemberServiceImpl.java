@@ -39,14 +39,23 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public void doGrdtModify(String cdId, String cdNm) {
+	public String doGrdtModify(String cdId, String cdNm) {
 		GrdtTpVO grdtTpVO = new GrdtTpVO();
 		grdtTpVO.setCdId(cdId);
 		grdtTpVO.setCdNm(cdNm);
-		
-		memberBiz.doGrdtModify(grdtTpVO);
 			
+		if(memberBiz.isExistCdNmData(grdtTpVO) > 0){
+			return "FAIL";
+		}	
 		
+		else{	
+			boolean data = memberBiz.doGrdtModify(grdtTpVO) > 0;
+				
+			if(!data){
+				return "FAIL";
+			}
+			return "OK";
+		}
 	}
 
 	@Override

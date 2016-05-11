@@ -24,5 +24,7 @@ public interface MemberBiz {
 
 	public void doMbrTpModify(MbrTpVO mbrTpVO);
 
+	public int isExistCdNmData(GrdtTpVO grdtTpVO);
+
 
 }

@@ -24,5 +24,7 @@ public interface MemberDAO {
 
 	public void doMbrTpModify(MbrTpVO mbrTpVO);
 
+	public int isExistCdNmData(GrdtTpVO grdtTpVO);
+
 
 }

@@ -62,4 +62,9 @@ public class MemberBizImpl implements MemberBiz{
 		memberDAO.doMbrTpModify(mbrTpVO);
 		
 	}
+
+	@Override
+	public int isExistCdNmData(GrdtTpVO grdtTpVO) {
+		return memberDAO.isExistCdNmData(grdtTpVO);
+	}
 }

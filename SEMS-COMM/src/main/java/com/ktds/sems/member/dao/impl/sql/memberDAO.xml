@@ -5,6 +5,12 @@
 <!-- 현재 articleDAO의 이름 앞에 첫 글자는 대문자로 적는다. 패키지의 일종이다 -->
 <mapper namespace="MemberDAO">
 
+	<select id="isExistCdNmData" resultType="_int">
+		SELECT	COUNT(CD_ID)
+		FROM	GRDT_TP
+		WHERE	CD_NM = #{cdNm}
+	</select>
+
 	<select id="isExistData" resultType="_int">
 		SELECT	COUNT(CD_ID)
 		FROM	GRDT_TP

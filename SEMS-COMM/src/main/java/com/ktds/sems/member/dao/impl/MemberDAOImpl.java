@@ -57,4 +57,9 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO{
 	public int isExistData(GrdtTpVO grdtTpVO) {
 		return getSqlSession().selectOne("MemberDAO.isExistData", grdtTpVO);
 	}
+
+	@Override
+	public int isExistCdNmData(GrdtTpVO grdtTpVO) {
+		return getSqlSession().selectOne("MemberDAO.isExistCdNmData", grdtTpVO);
+	}
 }
