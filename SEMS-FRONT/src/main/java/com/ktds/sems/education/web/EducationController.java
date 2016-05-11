@@ -69,8 +69,14 @@ public class EducationController {
 	public ModelAndView doWriteAction(@Valid QNAVO qnaVO, Errors errors){
 		return educationService.writeNewComment(qnaVO, errors);
 	}
+
+	@RequestMapping("/calendar")
+	public String viewCalendarPage() {
+		return "/education/calendar";
+	}
+
 	
-	@RequestMapping("/doCancelEducation/${/{educationId}")
+	@RequestMapping("/doCancelEducation/${educationId}")
 	public String doCancelEducation(@PathVariable String educationId) {
 		return educationService.doCancelEducation(educationId);
 	}

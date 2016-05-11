@@ -23,7 +23,7 @@ public class LoggingListener implements HttpSessionListener {
 	public void sessionDestroyed(HttpSessionEvent hse) {
 		HttpSession session = hse.getSession();
 		LoginHistoryVO loginHistoryForlogout = (LoginHistoryVO) session.getAttribute(Session.LOGIN_HISTORY);
-		memberDAO.stampLogoutTime(loginHistoryForlogout);
+	//	memberDAO.stampLogoutTime(loginHistoryForlogout);
 	}
 
 }
