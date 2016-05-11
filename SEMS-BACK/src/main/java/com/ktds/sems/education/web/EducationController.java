@@ -1,6 +1,8 @@
 package com.ktds.sems.education.web;
 
-import javax.servlet.http.HttpSession;
+
+
+
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
@@ -15,7 +17,6 @@ import com.ktds.sems.education.vo.EducationVO;
 
 
 
-
 @Controller
 public class EducationController {
 
@@ -24,7 +25,7 @@ public class EducationController {
 	public void setEducationService(EducationService educationService) {
 		this.educationService = educationService;
 	}
-
+	
 	@RequestMapping("/eduregister")
 	public ModelAndView viewEduWritePage() { 
 		return educationService.getAllEduCode();
@@ -44,7 +45,7 @@ public class EducationController {
 	}
 	
 	@RequestMapping("/doEducationModifyAction")
-	public ModelAndView doEducationModifyAction(@Valid EducationVO educationVO, Errors errors, HttpSession session){
-		return educationService.modifyNewEducation(educationVO, errors, session);
+	public ModelAndView doEducationModifyAction(@Valid EducationVO educationVO, Errors errors, MultipartHttpServletRequest request){
+		return educationService.modifyNewEducation(educationVO, errors, request);
 	}
 }
