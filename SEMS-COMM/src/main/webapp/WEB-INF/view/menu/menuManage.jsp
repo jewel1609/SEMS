@@ -14,22 +14,6 @@
 
 	$(document).ready(function(){
 		
-		/* $("#updateBtn").click(function(){
-			if ( $(".sort").val() == "" ) {
-				alert("값을 입력해주세요.");
-				$(".sort").focus();
-				return;
-			}
-			
-		}); */
-		
-		$(".up").click(function() {
-			
-			form.attr("method","POST")
-			form.attr("action")
-			
-		});
-		
 	});
 	
 </script>
@@ -47,7 +31,7 @@
 				<td>${menuList.sort}</td>
 				<td>${menuList.codeName}</td>
 				<td>${menuList.url}</td>
-				<td>
+				<td height="60px">
 					<div>
 						<c:if test="${menuList.sort gt 1}">
 							<a href="/comm/upMenuList/${menuList.sort}/${menuList.codeId}">
@@ -56,7 +40,7 @@
 						</c:if>
 					</div>
 					<div>
-						<c:if test="${menuList.sort lt 5}">
+						<c:if test="${menuList.sort lt listSize}">
 							<a href="/comm/downMenuList/${menuList.sort}/${menuList.codeId}">
 								<input type="button" class="down" value="▼" />
 							</a>

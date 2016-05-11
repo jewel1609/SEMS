@@ -29,6 +29,7 @@ public class MenuServiceImpl implements MenuService{
 		List<MenuManageVO> menuList = menuBiz.getMenuCategoryList();
 		view.setViewName("menu/menuManage");
 		view.addObject("menuList",menuList);
+		view.addObject("listSize", menuList.size());
 		
 		return view;	
 		
