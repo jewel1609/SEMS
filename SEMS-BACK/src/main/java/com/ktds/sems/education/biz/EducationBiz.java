@@ -11,7 +11,7 @@ public interface EducationBiz {
 
 	boolean writeNewEducation(EducationVO educationVO );
 
-	EducationVO getOneEducation(String educationId);
+	public EducationVO getOneEducation(String educationId);
 
 	boolean modifyNewEducation(EducationVO educationVO);
 	
