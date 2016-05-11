@@ -9,7 +9,7 @@ public class LoginStore {
 
 	private static volatile LoginStore loginStore;
 	private Map<String, HttpSession> loginSessions;
-
+	
 	private LoginStore() {
 		loginSessions = new HashMap<String, HttpSession>();
 	}
@@ -40,4 +40,5 @@ public class LoginStore {
 			loginSessions.remove(memberId);
 		}
 	}
+
 }
