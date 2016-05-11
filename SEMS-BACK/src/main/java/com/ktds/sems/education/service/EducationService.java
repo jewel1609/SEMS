@@ -14,7 +14,7 @@ public interface EducationService {
 	
 	public ModelAndView writeNewEducation(EducationVO educationVO, Errors errors , MultipartHttpServletRequest request);
 
-	public ModelAndView getOneEducation(String educationId);
+	public ModelAndView getOneEducationForUpdate(String educationId);
 
 	public ModelAndView modifyNewEducation(EducationVO educationVO, Errors errors, MultipartHttpServletRequest request);
 
