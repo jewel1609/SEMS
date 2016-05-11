@@ -6,4 +6,6 @@ public interface FileDAO {
 
 	public int doWriteFile(FileVO fileVO);
 
+	public int updateFile(FileVO fileVO);
+
 }
