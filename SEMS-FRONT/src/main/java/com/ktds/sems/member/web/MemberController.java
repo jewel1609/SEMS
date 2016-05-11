@@ -22,6 +22,7 @@ public class MemberController {
 
 	private MemberService memberService;
 
+
 	public void setMemberService(MemberService memberService) {
 		this.memberService = memberService;
 	}
@@ -67,9 +68,8 @@ public class MemberController {
 		return view;
 	}
 
-
 	@RequestMapping("/member/myPage/doCheckPassword")
-	public ModelAndView doCheckPassword(@RequestParam String password, HttpSession session, HttpServletResponse response){
+	public ModelAndView doCheckPassword(@RequestParam String password, HttpSession session, HttpServletResponse response) {
 		
 		ModelAndView view = new ModelAndView();
 
@@ -83,21 +83,49 @@ public class MemberController {
 		String sessionPassword = "1234";
 
 		if (password.equals(sessionPassword)) {
-
+			/*
+			 * 1. MODIFY_FAIL_COUNT를 0 으로 초기화한다. 2. IS_MODIFY_ACCOUNT_LOCK을
+			 * 'N'으로 초기화한다.
+			 */
 			memberService.resetModifyLockAndCount(sessionId);
-		//	SendMessage.send(response, "OK");
+
+			AjaxUtil.sendResponse(response, "OK");
+
 			memberService.modifySuccess(sessionId);
 			return null;
-			
 		} else {
-			
-			memberService.plusModifyFailCount(sessionId);
-			
-			memberService.updateModifyAccountLock(sessionId);
 
+			/*
+			 * 1. MODIFY_FAIL_COUNT 를 1 증가시킨다.
+			 * 
+			 */
+			memberService.plusModifyFailCount(sessionId);
+
+			/*
+			 * 1. MODIFY_FAIL_COUNT 가 3 이상이라면 IS_MODIFY_ACCOUNT_LOCK 'Y'로 수정한다.
+			 */
+			memberService.updateModifyAccountLock(sessionId);
+			/*
+			 * 
+			 * 1. IS_ACCOUNT_LOCK이 'Y'라면 사용자의 이메일로 비밀번호가 3회 이상 틀려 접속이 차단되었음을
+			 * 알린다.
+			 */
 			boolean isLock = memberService.isModifyAccountLock(sessionId);
+
+			 /* 
+			  * 
+			  * 2. 메일을 보낸다.
+			  * 
+			  */
 			
-		//	SendMessage.send(response, isLock ? "OVER" : "NO");
+
+			 /* 
+			  * 
+			  * 3. IS_ACCOUNT_LOCK이 'Y'라면 브라우저에게 'OVER' 라고 보낸다. 
+			  * 
+			  */
+			AjaxUtil.sendResponse(response, isLock ? "OVER" : "NO");
+
 			view.setViewName("/member/checkPassword");
 		}
 
