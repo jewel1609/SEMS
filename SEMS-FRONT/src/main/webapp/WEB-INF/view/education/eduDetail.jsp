@@ -9,6 +9,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+
 	<table border="1">
 		<tr>
 			<th colspan="2">교육 상세 조회</th>
@@ -62,9 +63,24 @@
 			<td>${ education.cost }</td>
 		</tr>
 	</table>
+	<br/>
+	<table border="1">
+	<tr>
+		<th colspan="4">문의사항</th>
+	</tr>
+	<c:forEach items="${qna}" var="qna">
+	<tr>
+		<td>작성자</td>
+		<td>${ qna.mbrId }</td>
+		<td>내용</td>
+		<td>${ qna.description }</td>
+	</tr>
+	<tr colspan="4"></tr>
+	</c:forEach>
 	
 	<form:form commandName="qnaVO" method="post" action="/doWriteComment">
-	<input type="text" id="replyId" name="replyId" placeholder="글쓴이를 입력." value="${qnaVO.replyId}"/><br/>	
+	<input type="text" id="replyId" name="replyId" placeholder="글쓴이를 입력." value="${qnaVO.replyId}"/><br/>
+	<input type="hidden" name="educationId" value="${ education.educationId }">	
 	<form:errors path="replyId"/><br/>
 	<textarea id="description" name="description" placeholder="내용을 입력하세요." >${qnaVO.description}</textarea><br/>
 	<form:errors path="description"/><br/>

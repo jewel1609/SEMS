@@ -32,8 +32,14 @@ public class EducationServiceImpl implements EducationService {
 	public ModelAndView getOneEducationDetail(String educationId) {
 		ModelAndView view = new ModelAndView();
 		EducationVO education = educationBiz.getOneEducationDetail(educationId);
+		List<QNAVO> qna = educationBiz.getAllCommentByEducationId(educationId);
 		//이미 신청된 회원인지 비교해서 boolean 값 보내기
 		
+		for (QNAVO qnavo : qna) {
+			System.out.println("================가져온 QNA"+qnavo.getDescription());
+		}
+		
+		view.addObject("qna", qna);
 		view.addObject("education", education);
 		view.setViewName("education/eduDetail");
 		return view;

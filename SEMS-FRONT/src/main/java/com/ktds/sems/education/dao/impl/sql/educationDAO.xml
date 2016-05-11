@@ -31,6 +31,7 @@
 	           AND EDU_TTL = #{educationTitle}
            </if>
 	</select> 
+	
 	<select id="getOneEducationDetail" parameterType="string" resultType="EducationVO">
 	SELECT	EDU_ID educationId
 				, EDU_CTGR educationCategory
@@ -47,6 +48,21 @@
 				, EDU_TP educationType
 				, COST cost
 		FROM	EDU_INFO
+		WHERE	EDU_ID LIKE #{educationId}
+	</select>
+	
+	
+	<select id="getAllCommentByEducationId" parameterType="string" resultType="QNAVO">
+		SELECT	REPLY_ID replyId
+				, EDU_ID eduId
+				, PARENT_REPLY_ID parentReplyId
+				, ORDER_NO orderNo
+				, DESCRIPTION description
+				, MBR_ID mbrId
+				, LIKE_CNT likeCnt
+				, DISLIKE_CNT dislikeCnt
+				, CREATED_DATE createdDate
+		FROM 	QNA
 		WHERE	EDU_ID LIKE #{educationId}
 	</select>
 	

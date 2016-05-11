@@ -25,4 +25,6 @@ public interface EducationDAO {
 	public int insertNewComment(QNAVO qnaVO);
 	
 	public int deleteEducation(String educationId);
+
+	public List<QNAVO> getAllCommentByEducationId(String educationId);
 }

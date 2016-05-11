@@ -21,4 +21,6 @@ public interface EducationBiz {
 	public int getSearchedEducationCount(EducationVO educationVO);
 
 	public List<EducationVO> doSearchList(EducationVO educationVO, EducationSearchVO searchVO);
+
+	public List<QNAVO> getAllCommentByEducationId(String educationId);
 }

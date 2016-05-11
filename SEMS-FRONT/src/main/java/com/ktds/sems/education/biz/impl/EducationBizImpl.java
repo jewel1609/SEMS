@@ -51,6 +51,11 @@ public class EducationBizImpl implements EducationBiz {
 		return educationDAO.doCancelEducation(educationId) > 0;
 	}
 
+	@Override
+	public List<QNAVO> getAllCommentByEducationId(String educationId) {
+		return educationDAO.getAllCommentByEducationId(educationId);
+	}
+
 }
 
 
