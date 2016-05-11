@@ -45,7 +45,6 @@ public class EducationServiceImpl implements EducationService {
 		Paging paging = new Paging(15,15);
 			
 		educationListVO.setPaging(paging);
-		
 		paging.setPageNumber(pageNo + "");
 		
 		int totalEducationCount = educationBiz.getTotalEducationCount();
@@ -113,7 +112,6 @@ public class EducationServiceImpl implements EducationService {
 		searchVO.setStartIndex(paging.getStartArticleNumber());
 		searchVO.setEndIndex(paging.getEndArticleNumber());	
 
-
 		logger.info("StartDate"+educationVO.getStartDate());
 		logger.info("EndDate"+ educationVO.getEndDate());
 		
@@ -124,10 +122,10 @@ public class EducationServiceImpl implements EducationService {
 		
 		logger.info("서치 카운트 확인"+ searchedEducations.size());
 
-		/*searchedListVO.setEducationList(searchedEducations);
-		view.addObject("searchedEducations", searchedEducations);
-		view.setViewName("education/list");*/
-
+		searchedListVO.setEducationList(searchedEducations);
+		
+		view.addObject("searchedListVO", searchedListVO);
+		view.setViewName("education/list");
 		return view;
 	}
 	

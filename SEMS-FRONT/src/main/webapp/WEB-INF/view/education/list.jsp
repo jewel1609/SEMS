@@ -122,7 +122,7 @@
 		<th>강의 형태</th>
 		<th>비용</th>
 	</tr>
-	<c:forEach items="${ educationListVO.educationList }" var="education">
+	 <c:forEach items="${ educationListVO.educationList }" var="education">
 	<tr>
 		<td>${ education.educationTitle }</td>
 		<td>${ education.educationCategory }</td>
@@ -130,15 +130,32 @@
 		<td>${ education.educationType }</td>
 		<td>${ education.cost }</td>
 	</tr>
+	</c:forEach> 
+	
+	<c:forEach items="${ searchedListVO.educationList }" var="searchedEducation">
+	<tr>
+		<td>${ searchedEducation.educationTitle }</td>
+		<td>${ searchedEducation.educationCategory }</td>
+		<td>${ searchedEducation.startDate } ~ ${ searchedEducation.endDate }</td>
+		<td>${ searchedEducation.educationType }</td>
+		<td>${ searchedEducation.cost }</td>
+	</tr>
 	</c:forEach>
 
- 	<tr>
+  	<tr>
 		<td colspan="5">
 			<form id="pagingForm">
+				<c:if test="${ searchedListVO ne null }">
+				${searchedListVO.paging.getPagingList("pageNo", "[@]", "이전", "다음", "pagingForm")}
+				</c:if>
+				<c:if test="${ educationListVO ne null }">
 				${educationListVO.paging.getPagingList("pageNo", "[@]", "이전", "다음", "pagingForm")}
+				</c:if>
 			</form>
 		</td>
-	</tr> 
+	</tr>  
+
 </table>
+
 </body>
 </html>
