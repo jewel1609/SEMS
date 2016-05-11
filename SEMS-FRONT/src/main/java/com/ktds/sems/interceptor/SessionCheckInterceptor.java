@@ -19,6 +19,7 @@ public class SessionCheckInterceptor extends HandlerInterceptorAdapter {
 			System.out.println("세션 있음");
 		} else {
 			System.out.println("세션 없음");
+			response.sendRedirect("/");
 		}
 		
 		return true;
