@@ -30,13 +30,17 @@ public class EducationBizImpl implements EducationBiz {
 	public EducationVO getOneEducationDetail(String educationId) {
 		return educationDAO.getOneEducationDetail(educationId);
 	}
-
+	
 	@Override
-	public List<EducationVO> doSearchList(String startDate, String endDate, String eduName, String educationType,
-			String cost, EducationSearchVO searchVO) {
-		return educationDAO.doSearchList(startDate, endDate, eduName, educationType, cost, searchVO);
+	public int getSearchedEducationCount(EducationVO educationVO) {
+		return educationDAO.getSearchedEducationCount( educationVO);
 	}
 
+	@Override
+	public List<EducationVO> doSearchList(EducationVO educationVO, EducationSearchVO searchVO) {
+		return educationDAO.doSearchList( educationVO , searchVO);
+	}
+	
 	@Override
 	public boolean writeNewComment(QNAVO qnaVO) {
 		return educationDAO.insertNewComment(qnaVO) > 0;
@@ -47,13 +51,6 @@ public class EducationBizImpl implements EducationBiz {
 		return educationDAO.deleteEducation(educationId) > 0;
 	}
 	
-	
-	
-
-	@Override
-	public int getSearchedEducationCount(EducationVO educationVO) {
-		return educationDAO.getSearchedEducationCount( educationVO);
-	}
 }
 
 

@@ -8,8 +8,6 @@ import com.ktds.sems.education.vo.QNAVO;
 
 public interface EducationBiz {
 
-	public List<EducationVO> doSearchList(String startDate, String endDate, String eduName, String educationType, String cost, EducationSearchVO searchVO);
-
 	public List<EducationVO> getAllEducationList(EducationSearchVO searchVO);
 
 	public int getTotalEducationCount();
@@ -19,8 +17,8 @@ public interface EducationBiz {
 	public boolean writeNewComment(QNAVO qnaVO);
 	
 	public boolean deleteEducation(String educationId);
-	
-	
 
 	public int getSearchedEducationCount(EducationVO educationVO);
+
+	public List<EducationVO> doSearchList(EducationVO educationVO, EducationSearchVO searchVO);
 }

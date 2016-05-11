@@ -40,25 +40,16 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 	}
 
 	@Override
-	public List<EducationVO> doSearchList(String startDate, String endDate, String eduName, String educationType,
-			String cost, EducationSearchVO searchVO) {
+	public List<EducationVO> doSearchList(EducationVO educationVO, EducationSearchVO searchVO) {
 		/*
-		logger.warn("TEST" + searchVO.getStartIndex());
 		logger.info("TEST2" + searchVO.getEndIndex());
 		*/
-		Map<String, String> paramMap = new HashMap<String, String>();
-/*		paramMap.put("startDate", startDate);
-		paramMap.put("endDate", endDate);
-		paramMap.put("eduName", eduName);*/
-		paramMap.put("educationType", educationType);
-//		paramMap.put("cost", cost);
-		
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("educationVO", educationVO);
+		paramMap.put("searchVO", searchVO );
+
 /*		paramMap.put("startIndex", String.valueOf(searchVO.getStartIndex()));
 		paramMap.put("endIndex", String.valueOf(searchVO.getEndIndex()));*/
-	
-		
-/*		logger.info("TEST" + searchVO.getStartIndex());
-		logger.info("TEST2" + searchVO.getEndIndex());*/
 		
 		return getSqlSession().selectList("EducationDAO.doSearchList", paramMap);
 	}
@@ -73,13 +64,5 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 	public int deleteEducation(String educationId) {
 		return getSqlSession().delete("educationDAO.deleteEducation", educationId);
 	}
-
-	@Override
-	public int getSearchedEducationCount(EducationVO educationVO, EducationSearchVO searchVO) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-
 
 }

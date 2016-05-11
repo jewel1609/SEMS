@@ -34,6 +34,13 @@ public class EducationController {
 			@RequestParam String educationType, @RequestParam String cost, @RequestParam(required=false, defaultValue="0") int pageNo){
 	
 		EducationVO educationVO = new EducationVO();
+		if(startMonth.length() == 1) {
+			startMonth = "0" + startMonth;
+		}
+		if(endMonth.length() == 1) {
+			endMonth = "0" + endMonth;
+		}
+		
 		educationVO.setStartDate(startYear + "/" + startMonth);
 		educationVO.setEndDate(endYear + "/" + endMonth);
 		educationVO.setEducationTitle(eduName);

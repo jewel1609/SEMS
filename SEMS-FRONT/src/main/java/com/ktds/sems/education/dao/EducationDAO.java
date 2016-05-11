@@ -16,12 +16,11 @@ public interface EducationDAO {
 
 	public EducationVO getOneEducationDetail(String educationId);
 
-	public List<EducationVO> doSearchList(String startDate, String endDate, String eduName, String educationType,
-			String cost, EducationSearchVO searchVO);
-	public int insertNewComment(QNAVO qnaVO);
-
 	public int getSearchedEducationCount(EducationVO educationVO);
-	public int deleteEducation(String educationId);
 
-	public int getSearchedEducationCount(EducationVO educationVO, EducationSearchVO searchVO);
+	public List<EducationVO> doSearchList(EducationVO educationVO, EducationSearchVO searchVO);
+
+	public int insertNewComment(QNAVO qnaVO);
+	
+	public int deleteEducation(String educationId);
 }

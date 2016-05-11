@@ -133,7 +133,7 @@
 	<tr>
 		<td colspan="5">
 			<form id="pagingForm">
-				${ educationListVO.paging.getPagingList("pageNo", "[@]", "이전", "다음", pagingForm) }
+				${educationListVO.paging.getPagingList("pageNo", "[@]", "이전", "다음", pagingForm)}
 			</form>
 		</td>
 	</tr>
