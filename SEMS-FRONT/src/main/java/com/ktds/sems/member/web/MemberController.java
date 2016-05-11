@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ktds.sems.member.service.MemberService;
 import com.ktds.sems.member.vo.MemberVO;
 
+import kr.co.hucloud.utilities.SHA256Util;
 import kr.co.hucloud.utilities.web.AjaxUtil;
 
 @Controller
@@ -81,9 +82,17 @@ public class MemberController {
 		// TODO 세션정보를 넘겨받기
 		MemberVO member = (MemberVO) session.getAttribute("_MEMBER_");
 		String sessionId = "aaa";
+		String originSalt = memberService.getSaltById(sessionId);
+		String inputPassword = SHA256Util.getEncrypt(password, originSalt);
+		
+		String originPassword = memberService.getPasswordById(sessionId);
+		
 		String sessionPassword = "1234";
 
-		if (password.equals(sessionPassword)) {
+		
+		
+		//if (password.equals(sessionPassword)) {
+		if ( inputPassword.equals(originPassword)) {
 			/*
 			 * 1. MODIFY_FAIL_COUNT를 0 으로 초기화한다. 2. IS_MODIFY_ACCOUNT_LOCK을
 			 * 'N'으로 초기화한다.

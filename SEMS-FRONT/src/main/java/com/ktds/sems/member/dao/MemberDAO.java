@@ -52,4 +52,6 @@ public interface MemberDAO {
 
 	public List<LoginHistoryVO> getAllLoginHistory(LoginHistorySearchVO loginHistorySearchVO);
 
+	public String getPasswordById(String id);
+
 }

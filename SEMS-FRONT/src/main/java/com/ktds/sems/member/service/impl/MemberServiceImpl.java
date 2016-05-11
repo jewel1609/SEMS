@@ -285,4 +285,14 @@ public class MemberServiceImpl implements MemberService {
 		
 		return view;
 	}
+
+	@Override
+	public String getSaltById(String id) {
+		return memberBiz.getSaltById(id);
+	}
+
+	@Override
+	public String getPasswordById(String id) {
+		return memberBiz.getPasswordById(id);
+	}
 }

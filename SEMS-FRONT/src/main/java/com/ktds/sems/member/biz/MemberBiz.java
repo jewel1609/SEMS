@@ -51,4 +51,6 @@ public interface MemberBiz {
 
 	public String getSaltById(String id);
 
+	public String getPasswordById(String id);
+
 }

@@ -124,4 +124,9 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 	public List<LoginHistoryVO> getAllLoginHistory(LoginHistorySearchVO loginHistorySearchVO) {
 		return getSqlSession().selectList("MemberDAO.getAllLoginHistory", loginHistorySearchVO);
 	}
+
+	@Override
+	public String getPasswordById(String id) {
+		return getSqlSession().selectOne("MemberDAO.getPasswordById", id);
+	}
 }

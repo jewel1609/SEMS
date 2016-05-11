@@ -229,5 +229,10 @@ public class MemberBizImpl implements MemberBiz {
 		return memberDAO.getSaltById(id);
 	}
 
+	@Override
+	public String getPasswordById(String id) {
+		return memberDAO.getPasswordById(id);
+	}
+
 }
 
