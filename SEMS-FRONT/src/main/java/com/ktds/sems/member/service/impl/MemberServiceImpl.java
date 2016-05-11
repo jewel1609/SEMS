@@ -305,9 +305,7 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public void sendBlockAccountEmail(String id) {
-		
-		System.out.println("메일 보내기 전 ");
-		
+				
 		 SendMail sendMail = new SendMail();
 		 MailVO mail = new MailVO();
 		 MemberVO member = memberBiz.getOneMember(id);
@@ -319,7 +317,6 @@ public class MemberServiceImpl implements MemberService {
 		 mail.setToId(member.getEmail());
 		 
 		 sendMail.sendMailToCustomer(mail);
-		 System.out.println("메일 성공");
 	}
 
 
