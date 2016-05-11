@@ -22,5 +22,13 @@ public interface MemberService {
 
 	public String doMbrTpModify(String cdId, String cdNm);
 
+	public ModelAndView viewHighestEduPage();
+
+	public String doHighestEduDelete(String cdId);
+
+	public void doHighestEduModify(String cdId, String cdNm);
+
+	public String doHighestEduInsert(String cdId, String cdNm);
+
 
 }

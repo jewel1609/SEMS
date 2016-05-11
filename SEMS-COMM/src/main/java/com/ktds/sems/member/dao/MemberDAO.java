@@ -3,6 +3,7 @@ package com.ktds.sems.member.dao;
 import java.util.List;
 
 import com.ktds.sems.member.vo.GrdtTpVO;
+import com.ktds.sems.member.vo.HighestEduTpVO;
 import com.ktds.sems.member.vo.MbrTpVO;
 
 public interface MemberDAO {
@@ -23,6 +24,16 @@ public interface MemberDAO {
 	public void doMbrTpDelete(String cdId);
 
 	public void doMbrTpModify(MbrTpVO mbrTpVO);
+
+	public List<HighestEduTpVO> getAllHighestEduList();
+
+	public int doHighestEduDelete(String cdId);
+
+	public int isExistHighestEduData(HighestEduTpVO highestEduTpVO);
+
+	public int doHighestEduInsert(HighestEduTpVO highestEduTpVO);
+
+	public int doHighestEduModify(HighestEduTpVO highestEduTpVO);
 
 	public int isExistCdNmData(GrdtTpVO grdtTpVO);
 

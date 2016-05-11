@@ -6,8 +6,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.member.biz.MemberBiz;
 import com.ktds.sems.member.service.MemberService;
-import com.ktds.sems.member.vo.MbrTpVO;
 import com.ktds.sems.member.vo.GrdtTpVO;
+import com.ktds.sems.member.vo.HighestEduTpVO;
+import com.ktds.sems.member.vo.MbrTpVO;
 
 public class MemberServiceImpl implements MemberService{
 
@@ -76,11 +77,60 @@ public class MemberServiceImpl implements MemberService{
 			}
 			return "OK";
 		}
+	}
+	
+	/* Highest Edu */
+	@Override
+	public ModelAndView viewHighestEduPage() {
+		List<HighestEduTpVO> highestEduTpList = memberBiz.getAllHighestEduList();
 		
+		ModelAndView view = new ModelAndView();
+		view.setViewName("member/highestEduLv");
+		view.addObject("highestEduTpList", highestEduTpList);
+		return view;
+	}
+
+	@Override
+	public String doHighestEduDelete(String cdId) {
+		if(memberBiz.doHighestEduDelete(cdId) ) {
+			return "redirect:/highestEduPage";
+		} else {
+			throw new RuntimeException("일시적인 오류가 발생했습니다.");
+		}
+	}
+
+	@Override
+	public void doHighestEduModify(String cdId, String cdNm) {
+		HighestEduTpVO highestEduTpVO = new HighestEduTpVO();
+		highestEduTpVO.setCdId(cdId);
+		highestEduTpVO.setCdNm(cdNm);
+		
+		if (!memberBiz.doHighestEduModify(highestEduTpVO) ) {
+			throw new RuntimeException("일시적인 오류가 발생했습니다.");
+		}
+	}
+
+	@Override
+	public String doHighestEduInsert(String cdId, String cdNm) {
+		HighestEduTpVO highestEduTpVO = new HighestEduTpVO();
+		highestEduTpVO.setCdId(cdId);
+		highestEduTpVO.setCdNm(cdNm);
+		
+		if(memberBiz.isExistHighestEduData(highestEduTpVO) > 0){
+			return "FAIL";
+		}	
+		
+		else{	
+			boolean data = memberBiz.doHighestEduInsert(highestEduTpVO) > 0;
+				
+			if(!data){
+				return "FAIL";
+			}
+			return "OK";
+		}
 	}
 	
 	/*MbrTp*/
-	
 	@Override
 	public ModelAndView viewMbrTpPage() {
 		ModelAndView view = new ModelAndView();

@@ -3,6 +3,7 @@ package com.ktds.sems.member.biz;
 import java.util.List;
 
 import com.ktds.sems.member.vo.GrdtTpVO;
+import com.ktds.sems.member.vo.HighestEduTpVO;
 import com.ktds.sems.member.vo.MbrTpVO;
 
 public interface MemberBiz {
@@ -24,7 +25,16 @@ public interface MemberBiz {
 
 	public void doMbrTpModify(MbrTpVO mbrTpVO);
 
-	public int isExistCdNmData(GrdtTpVO grdtTpVO);
+	public List<HighestEduTpVO> getAllHighestEduList();
 
+	public boolean doHighestEduDelete(String cdId);
+
+	public boolean doHighestEduModify(HighestEduTpVO highestEduTpVO);
+
+	public int isExistHighestEduData(HighestEduTpVO highestEduTpVO);
+
+	public int doHighestEduInsert(HighestEduTpVO highestEduTpVO);
+
+	public int isExistCdNmData(GrdtTpVO grdtTpVO);
 
 }

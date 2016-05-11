@@ -17,6 +17,13 @@
 		WHERE	CD_ID = #{cdId}
 		OR		CD_NM = #{cdNm}
 	</select>
+	
+	<select id="isExistHighestEduData" resultType="_int">
+		SELECT	COUNT(CD_ID)
+		FROM	HIGHEST_EDU_LV
+		WHERE	CD_ID = #{cdId}
+		OR		CD_NM = #{cdNm}
+	</select>
 
 	<select id="getNowSystemDate" resultType="string">
 		SELECT	SYSDATE
@@ -60,6 +67,12 @@
 				, CD_NM	cdNm
 		FROM	GRDT_TP
 	</select>
+	
+	<select id="getAllHighestEduList" resultType="HighestEduTpVO">
+		SELECT	CD_ID	cdId
+				, CD_NM	cdNm
+		FROM	HIGHEST_EDU_LV
+	</select>
 
 	<delete id="doGrdtDelete" parameterType="string">
 		DELETE
@@ -75,6 +88,29 @@
 	
 	<insert id="doGrdtInsert" parameterType="GrdtTpVO">
 		INSERT INTO GRDT_TP (
+				 			  CD_ID
+				 			  , CD_NM
+				 			  ) 
+		VALUES 				(
+								#{cdId}
+								, #{cdNm}
+							 )
+	</insert>
+	
+	<delete id="doHighestEduDelete" parameterType="string">
+		DELETE
+		FROM	HIGHEST_EDU_LV
+		WHERE	CD_ID = #{cdId}
+	</delete>
+
+	<update id="doHighestEduModify" parameterType="HighestEduTpVO">
+		UPDATE	HIGHEST_EDU_LV
+		SET		CD_NM = #{cdNm}
+		WHERE	CD_ID = #{cdId}
+	</update>
+	
+	<insert id="doHighestEduInsert" parameterType="HighestEduTpVO">
+		INSERT INTO HIGHEST_EDU_LV (
 				 			  CD_ID
 				 			  , CD_NM
 				 			  ) 
