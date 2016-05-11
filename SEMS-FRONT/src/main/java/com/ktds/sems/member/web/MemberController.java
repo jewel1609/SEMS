@@ -23,7 +23,6 @@ public class MemberController {
 
 	private MemberService memberService;
 
-
 	public void setMemberService(MemberService memberService) {
 		this.memberService = memberService;
 	}
@@ -152,11 +151,28 @@ public class MemberController {
 
 	}
 
+	
+
+//	
+//	@RequestMapping("/member/resign")
+//	public String viewResignPage() {
+//		return "redirect:member/resign";
+//	}
+
+//	@RequestMapping("/member/myPage/sendResignMail")
+//	public ModelAndView sendResignMail(@Valid MemberVO memberVO, HttpSession session) {
+//		return memberService.sendResignMail(memberVO, session);
+//	}
+//	
+//	@RequestMapping("/member/myPage/{resignCode}")
+//	public ModelAndView loginForResign(@PathVariable String resignCode, HttpSession session, MemberVO memberVO){
+//		return memberService.loginForResign(resignCode, session, memberVO);
+//	}
+	
 	@RequestMapping("/member/myPage/doModifyAction")
 	public ModelAndView doModifyAction(@Valid MemberVO member, Errors errors) {
 		return memberService.modifyMemberInfo(member, errors);
 	}
-
 	/**
 	 * @author 이기연
 	 * @param session
@@ -170,5 +186,4 @@ public class MemberController {
 	public ModelAndView viewLoginHistoryPage(@RequestParam(required = false, defaultValue = "0") int pageNo) {
 		return memberService.viewLoginHistoryPage(pageNo);
 	}
-
 }
