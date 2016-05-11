@@ -26,10 +26,11 @@
 	     <br/>
 	     educationLocation : <input type="text" id="educationLocation" name="educationLocation" value="${educationVO.educationLocation }"/> <br/>
 	     <form:errors path="educationLocation" /><br/>
-	     educationCurriculum : <input type="file" name="educationCurriculum" id="educationCurriculum" tabindex="2" style="height: 45px"
-	      value="${educationVO.educationCurriculum }"><br/>  
+	     educationCurriculum : 
+	     <input type="text" id="educationCurriculum" name="educationCurriculum" value="${educationVO.educationCurriculum }"/>
+	     <input type="file" id="file" name="file" />
+	      <form:errors path="educationCurriculum" /><br/>  
 	     <br/>
-	      <!--  <input type="text" id="educationCurriculum" name="educationCurriculum" value="${educationVO.educationCurriculum }"/> -->
 	     educationIntroduce :  <input type="text" id="educationIntroduce" name="educationIntroduce" value="${educationVO.educationIntroduce }"/><br/>
 	     <form:errors path="educationIntroduce" /><br/>
 	     startDate :  <input type="text" id="startDate" name="startDate" value="${educationVO.startDate }"/>   <br/>
