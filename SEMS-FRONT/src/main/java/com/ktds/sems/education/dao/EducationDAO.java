@@ -16,9 +16,9 @@ public interface EducationDAO {
 
 	public EducationVO getOneEducationDetail(String educationId);
 
-	public int getSearchedEducationCount(String startDate, String endDate, String eduName, String educationType, String cost);
-
 	public List<EducationVO> doSearchList(String startDate, String endDate, String eduName, String educationType,
 			String cost, EducationSearchVO searchVO);
 	public int insertNewComment(QNAVO qnaVO);
+
+	public int getSearchedEducationCount(EducationVO educationVO, EducationSearchVO searchVO);
 }

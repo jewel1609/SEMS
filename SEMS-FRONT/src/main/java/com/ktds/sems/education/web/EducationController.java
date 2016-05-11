@@ -33,7 +33,14 @@ public class EducationController {
 			@RequestParam String endYear, @RequestParam String endMonth, @RequestParam String eduName,
 			@RequestParam String educationType, @RequestParam String cost, @RequestParam(required=false, defaultValue="0") int pageNo){
 	
-		return educationService.doSearchList(	startYear, startMonth, endYear, endMonth, eduName, educationType, cost, pageNo );
+		EducationVO educationVO = new EducationVO();
+		educationVO.setStartDate(startYear + "/" + startMonth);
+		educationVO.setEndDate(endYear + "/" + endMonth);
+		educationVO.setEducationTitle(eduName);
+		educationVO.setEducationType(educationType);
+		educationVO.setCost(cost);
+		
+		return educationService.doSearchList(	educationVO , pageNo );
 	}
 	
 	@RequestMapping("/eduDetail/{educationId}")

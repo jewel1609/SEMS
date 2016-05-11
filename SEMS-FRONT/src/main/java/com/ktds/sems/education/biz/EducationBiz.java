@@ -16,7 +16,7 @@ public interface EducationBiz {
 
 	public EducationVO getOneEducationDetail(String educationId);
 
-	public int getSearchedEducationCount(String startDate, String endDate, String eduName, String educationType,String cost);
-
 	public boolean writeNewComment(QNAVO qnaVO);
+
+	public int getSearchedEducationCount(EducationVO educationVO, EducationSearchVO searchVO);
 }

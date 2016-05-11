@@ -8,6 +8,11 @@
 	</select>
 	<select id="getSearchedEducationCount" parameterType="EducationSearchVO" resultType="_int" >
 		SELECT	COUNT
+		FROM	EDU_INFO
+		WHERE 	EDU_TTL = #{eduName} 
+	</select>
+<!-- 	<select id="getSearchedEducationCount" parameterType="EducationSearchVO" resultType="_int" >
+		SELECT	COUNT
 				( 
 						SELECT *
 						FROM	(
@@ -23,7 +28,7 @@
 						WHERE	RNUM >= #{startIndex}		
 				)
 		FROM	EDU_INFO
-	</select>
+	</select> -->
 	<select id="getOneEducationDetail" parameterType="string" resultType="EducationVO">
 	SELECT	EDU_ID educationId
 				, EDU_CTGR educationCategory
@@ -113,7 +118,7 @@
           </if>
     </select>
      -->
-    <select id="searchEducation" parameterType="map" resultType="EducationVO">
+    <select id="doSearchList" parameterType="map" resultType="EducationVO">
 		   SELECT   EDU_ID educationId
 		            , EDU_CTGR educationCategory
 		            , EDU_TTL educationTitle

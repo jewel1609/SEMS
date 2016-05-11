@@ -33,8 +33,14 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 	}
 
 	@Override
-	public int getSearchedEducationCount(String startDate, String endDate, String eduName, String educationType, String cost) {
-		return getSqlSession().selectOne("EducationDAO.getSearchedEducationCount");
+	public int getSearchedEducationCount(EducationVO educationVO, EducationSearchVO searchVO) {
+		logger.debug("어디서 에러나는지 확인");
+		HashMap params = new HashMap();
+		params.put("educationVO", educationVO);
+		params.put("searchVO", searchVO);
+
+		return getSqlSession().selectOne("EducationDAO.getSearchedEducationCount", params);
+		
 	}
 
 	@Override
@@ -45,11 +51,11 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 		logger.info("TEST2" + searchVO.getEndIndex());
 		*/
 		Map<String, String> paramMap = new HashMap<String, String>();
-		paramMap.put("startDate", startDate);
+/*		paramMap.put("startDate", startDate);
 		paramMap.put("endDate", endDate);
-		paramMap.put("eduName", eduName);
+		paramMap.put("eduName", eduName);*/
 		paramMap.put("educationType", educationType);
-		paramMap.put("cost", cost);
+//		paramMap.put("cost", cost);
 		
 /*		paramMap.put("startIndex", String.valueOf(searchVO.getStartIndex()));
 		paramMap.put("endIndex", String.valueOf(searchVO.getEndIndex()));*/
@@ -66,5 +72,7 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 		// <!-- Not Null 상태의 Columns 들의 데이터 전달 필요 ( 현재 고정 입력 값 지정 상태 )-->
 		return getSqlSession().insert("EducationDAO.insertNewComment", qnaVO);
 	}
+
+
 
 }

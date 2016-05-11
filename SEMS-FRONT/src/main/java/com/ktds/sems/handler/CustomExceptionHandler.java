@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
 
 // 아래 패키지아래 발생된 예외들을 모두 이컨트롤러에서 확인하겠다.
-@ControllerAdvice("com.ktds.yjh")
+@ControllerAdvice("com.ktds.sems")
 public class CustomExceptionHandler {
 	
 	//{}은 배열이라는 뜻 여러개 적을려면 {, }일케함 됌

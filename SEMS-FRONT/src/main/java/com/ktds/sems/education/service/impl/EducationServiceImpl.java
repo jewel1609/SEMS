@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -17,7 +19,9 @@ import com.ktds.sems.education.vo.QNAVO;
 import kr.co.hucloud.utilities.web.Paging;
 
 public class EducationServiceImpl implements EducationService {
-
+	
+	private Logger logger = LoggerFactory.getLogger(EducationServiceImpl.class);	
+	
 	private EducationBiz educationBiz;
 
 	public void setEducationBiz(EducationBiz educationBiz) {
@@ -32,33 +36,6 @@ public class EducationServiceImpl implements EducationService {
 		
 		view.addObject("education", education);
 		view.setViewName("education/eduDetail");
-		return view;
-	}
-
-	@Override
-	public ModelAndView doSearchList(String startYear, String startMonth, String endYear, String endMonth, String eduName, String educationType, String cost, int pageNo) {
-
-		EducationListVO searchedListVO = new EducationListVO();
-		Paging paging = new Paging(15,15);
-		searchedListVO.setPaging(paging);
-		paging.setPageNumber(pageNo + "");
-
-		ModelAndView view = new ModelAndView();
-		String startDate = startYear + "/" + startMonth;
-		String endDate = endYear + "/" + endMonth;
-		
-		int searchedEducationCount = educationBiz.getSearchedEducationCount(startDate, endDate, eduName, educationType, cost);
-		paging.setTotalArticleCount(searchedEducationCount);
-		
-		EducationSearchVO searchVO = new EducationSearchVO();
-		searchVO.setStartIndex(paging.getStartArticleNumber());
-		searchVO.setEndIndex(paging.getEndArticleNumber());
-		
-		List<EducationVO> searchedEducations = educationBiz.doSearchList(startDate, endDate, eduName, educationType, cost, searchVO);
-		searchedListVO.setEducationList(searchedEducations);
-		view.addObject("searchedEducations", searchedEducations);
-		view.setViewName("education/list");
-
 		return view;
 	}
 
@@ -119,6 +96,31 @@ public class EducationServiceImpl implements EducationService {
 			}
 		}
 		
+		return view;
+	}
+
+	@Override
+	public ModelAndView doSearchList(EducationVO educationVO, int pageNo) {
+		EducationListVO searchedListVO = new EducationListVO();
+		Paging paging = new Paging(15,15);
+		searchedListVO.setPaging(paging);
+		paging.setPageNumber(pageNo + "");
+
+		ModelAndView view = new ModelAndView();
+		
+		EducationSearchVO searchVO = new EducationSearchVO();
+		searchVO.setStartIndex(paging.getStartArticleNumber());
+		searchVO.setEndIndex(paging.getEndArticleNumber());
+
+		int searchedEducationCount = educationBiz.getSearchedEducationCount(educationVO, searchVO);
+		paging.setTotalArticleCount(searchedEducationCount);
+
+		/*		
+		List<EducationVO> searchedEducations = educationBiz.doSearchList(startDate, endDate, eduName, educationType, cost, searchVO);
+		searchedListVO.setEducationList(searchedEducations);
+		view.addObject("searchedEducations", searchedEducations);
+		view.setViewName("education/list");*/
+
 		return view;
 	}
 
