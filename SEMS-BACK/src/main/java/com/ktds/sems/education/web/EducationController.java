@@ -1,9 +1,5 @@
 package com.ktds.sems.education.web;
 
-
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -19,6 +15,7 @@ import com.ktds.sems.education.vo.EducationVO;
 
 
 
+
 @Controller
 public class EducationController {
 
@@ -27,13 +24,10 @@ public class EducationController {
 	public void setEducationService(EducationService educationService) {
 		this.educationService = educationService;
 	}
-	
+
 	@RequestMapping("/eduregister")
 	public ModelAndView viewEduWritePage() { 
-		ModelAndView view = new ModelAndView();
-		view.setViewName("education/eduregister");
-		
-		return view;
+		return educationService.getAllEduCode();
 	}
 	
 	@RequestMapping("/doWriteAction")
