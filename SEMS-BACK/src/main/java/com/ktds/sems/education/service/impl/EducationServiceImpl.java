@@ -99,24 +99,17 @@ public class EducationServiceImpl implements EducationService {
 	public ModelAndView modifyNewEducation(EducationVO educationVO, Errors errors, HttpSession session) {
 		
 		ModelAndView view = new ModelAndView();
-		
-		MemberVO sessionMember = (MemberVO) session.getAttribute("_MEMBER_");
-		
-		//if ( sessionMember.getMemberType().equals("admin") ) {
-			if ( errors.hasErrors() ) {
-				view.setViewName("education/update");
-				view.addObject("educationVO", educationVO);
-				return view;
-			}
-			else{
-				boolean result = educationBiz.modifyNewEducation(educationVO);
-				String educationId = educationVO.getEducationId();
-				if ( result ) {
-					view.setViewName("redirect:/detail/" + educationId);
-				}
-				else {
-					throw new RuntimeException("에러가 발생했습니다. 잠시 후 다시 시도해주세요.");
-				}
+		if (errors.hasErrors()) {
+			view.setViewName("");
+			view.addObject("educationVO", educationVO);
+			return view;
+		} else {
+			boolean result = educationBiz.modifyNewEducation(educationVO);
+			String educationId = educationVO.getEducationId();
+			if (result) {
+				view.setViewName("redirect:/detail/" + educationId);
+			} else {
+				throw new RuntimeException("에러가 발생했습니다. 잠시 후 다시 시도해주세요.");
 			}
 		//}
 		//else {
