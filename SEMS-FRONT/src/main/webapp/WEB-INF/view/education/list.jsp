@@ -5,7 +5,6 @@
 <html>
 <head>
 <script type="text/javascript" src="/resources/js/jquery.min.js"></script>
-
 <script type="text/javascript">
 	$(document).ready(function() {
 		
@@ -58,26 +57,26 @@
 		<th>기간</th>
 		<td>
 			<select id="startYear" name="startYear">
-				<c:forEach var="year" begin="2010" end="2016" step="1">
-					<option value="${ year }">${ year }</option>
+				<c:forEach var="startYear" begin="2010" end="2016" step="1">
+					<option value="${ startYear }">${ startYear }</option>
 				</c:forEach>
 			</select>년
 			
 			<select id="startMonth" name="startMonth">
-				<c:forEach var="month" begin="01" end="12" step="1">
-					<option value="${ month }">${ month }</option>
+				<c:forEach var="startMonth" begin="01" end="12" step="1">
+					<option value="${ startMonth }">${ startMonth }</option>
 				</c:forEach>
 			</select>월
 			~
 			<select id="endYear" name="endYear">
-				<c:forEach var="year" begin="2010" end="2016" step="1">
-					<option value="${ year }">${ year }</option>
+				<c:forEach var="endYear" begin="2010" end="2016" step="1">
+					<option value="${ endYear }">${ endYear }</option>
 				</c:forEach>
 			</select>년
 			-
 			<select id="endMonth" name="endMonth">
-				<c:forEach var="month" begin="01" end="12" step="1">
-					<option value="${ month }">${ month }</option>
+				<c:forEach var="endMonth" begin="01" end="12" step="1">
+					<option value="${ endMonth }">${ endMonth }</option>
 				</c:forEach>
 			</select>월
 		</td>
@@ -124,7 +123,7 @@
 	</tr>
 	 <c:forEach items="${ educationListVO.educationList }" var="education">
 	<tr>
-		<td>${ education.educationTitle }</td>
+		<td><a href="/eduDetail/${education.educationId}">${ education.educationTitle }</a></td>
 		<td>${ education.educationCategory }</td>
 		<td>${ education.startDate } ~ ${ education.endDate }</td>
 		<td>${ education.educationType }</td>

@@ -1,8 +1,10 @@
 package com.ktds.sems.education.web;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.apache.poi.util.SystemOutLogger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -15,6 +17,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ktds.sems.education.service.EducationService;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.QNAVO;
+
+import kr.co.hucloud.utilities.web.AjaxUtil;
 
 @Controller
 public class EducationController {
@@ -52,7 +56,7 @@ public class EducationController {
 		educationVO.setEducationType(educationType);
 		educationVO.setCost(cost);
 		
-		return educationService.doSearchList(	educationVO , pageNo );
+		return educationService.doSearchList( educationVO , pageNo );
 	}
 	
 	@RequestMapping("/eduDetail/{educationId}")
@@ -60,9 +64,14 @@ public class EducationController {
 		return educationService.getOneEducationDetail(educationId);
 	}
 	
-	@RequestMapping("/doApplyEducation/${ education.educationId }")
-	public ModelAndView doApplyEducation(@PathVariable String educationId, HttpSession session){
-		return educationService.doApplyEducation(educationId, session);
+	@RequestMapping("/doApplyEducation")
+	public void doApplyEducation(@RequestParam String educationId, @RequestParam String educationType, HttpSession session, HttpServletResponse response){
+		System.out.println("어디까지왔니....");
+		System.out.println(educationId);
+		System.out.println(educationType);
+		String applyStatus = educationService.doApplyEducation(educationId, educationType, session);
+		System.out.println(applyStatus);
+		AjaxUtil.sendResponse(response, applyStatus);
 	}
 	
 	@RequestMapping("/doWriteComment")

@@ -5,6 +5,28 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script type="text/javascript" src="/resources/js/jquery.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#applyEdu").click(function(){
+			alert("눌림!!!");
+			$.post("/doApplyEducation"
+					, { "educationId" : $("#eduId").val(),
+						"educationType" : $("#eduType").val() }
+					, function(data){
+						if (data == "OK") {
+							alert("신청완료!");
+							location.href="/educationList";
+							document.getElementById("#applyEdu").disabled=true;
+						}
+						else if( data == "FAIL"){
+							alert("주간/야간 교육은 각 하나씩 신청할 수 있습니다. 이미 신청하신 교육타입(주간/야간)입니다.");
+							location.href="/educationList";
+						}
+					});
+		});
+	});
+</script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
@@ -48,6 +70,7 @@
 		</tr>
 		<tr>
 			<td>강의 시작 날짜</td>
+			
 			<td>${ education.startDate }</td>
 		</tr>
 		<tr>
@@ -77,6 +100,7 @@
 	</tr>
 	<tr colspan="4"></tr>
 	</c:forEach>
+	</table>
 	
 	<form:form commandName="qnaVO" method="post" action="/doWriteComment">
 	<input type="text" id="replyId" name="replyId" placeholder="글쓴이를 입력." value="${qnaVO.replyId}"/><br/>
@@ -87,12 +111,12 @@
 	
 	<input type="submit" value="댓글쓰기"/>
 	</form:form>
-		
-	<c:if test="">
-	<a href="/doApplyEducation/${ education.educationId }">교육 참가 신청</a>
-	</c:if>
-	<c:if test="">
+	
+	
+	<input type="hidden" value="${ education.educationId }" id="eduId" />
+	<input type="hidden" value="${ education.educationType }" id="eduType" />
+	<input type="button" id="applyEdu" name="applyEdu" value="교육 참가 신청" />
+	
 	<a href="/doCancelEducation/${ education.educationId }">교육 참가 취소</a>
-	</c:if>
 </body>
 </html>

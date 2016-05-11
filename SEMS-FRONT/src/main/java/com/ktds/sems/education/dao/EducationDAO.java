@@ -17,6 +17,10 @@ public interface EducationDAO {
 	public EducationVO getOneEducationDetail(String educationId);
 
 	public int doCancelEducation(String educationId);
+	
+	public List<String> getMemberRegInfo(String id);
+
+	public int doApplyEducation(String educationId, String id);
 
 	public int getSearchedEducationCount(EducationVO educationVO);
 
@@ -24,7 +28,6 @@ public interface EducationDAO {
 
 	public int insertNewComment(QNAVO qnaVO);
 	
-	public int deleteEducation(String educationId);
 
 	public List<QNAVO> getAllCommentByEducationId(String educationId);
 }

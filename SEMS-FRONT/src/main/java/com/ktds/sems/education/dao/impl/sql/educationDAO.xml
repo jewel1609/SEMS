@@ -194,10 +194,32 @@
 								 )			
  	</insert>
  	
- 		<delete id="doCancelEducation" parameterType="string">
+    <select id="getMemberRegInfo" parameterType="string" resultType="string">
+    	SELECT 	 DISTINCT EDU_TP
+		FROM 	 EDU_INFO
+		WHERE    EDU_ID IN (
+						    SELECT  EDU_ID
+						    FROM    EDU_REG
+						    WHERE   MBR_ID = #{id}
+							)
+    </select>
+ 	
+	<delete id="doCancelEducation" parameterType="string">
 		DELETE	
 		FROM	EDU_INFO
 		WHERE	EDU_ID = #{educationId}
 	</delete>
     
+    <insert id="doApplyEducation" parameterType="map">
+    	INSERT INTO SEMS.EDU_REG (
+				   					EDU_ID
+				   					, EDU_REG_ID
+				   					, MBR_ID
+				   				  ) 
+					VALUES (
+							 #{educationId}
+							 , EDU_REG_ID_SEQ.NEXTVAL
+							 , #{id} 
+						    )
+    </insert>
 </mapper>

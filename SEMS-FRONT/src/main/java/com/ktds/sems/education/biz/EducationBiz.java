@@ -14,8 +14,12 @@ public interface EducationBiz {
 
 	public EducationVO getOneEducationDetail(String educationId);
 
+	public List<String> getMemberRegInfo(String id);
+
 	public boolean writeNewComment(QNAVO qnaVO);
-	
+
+	public boolean doApplyEducation(String educationId, String id);
+
 	public boolean doCancelEducation(String educationId);
 
 	public int getSearchedEducationCount(EducationVO educationVO);

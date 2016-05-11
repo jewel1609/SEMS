@@ -1,5 +1,7 @@
 package com.ktds.sems.education.service.impl;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -14,6 +16,7 @@ import com.ktds.sems.education.service.EducationService;
 import com.ktds.sems.education.vo.EducationListVO;
 import com.ktds.sems.education.vo.EducationSearchVO;
 import com.ktds.sems.education.vo.EducationVO;
+import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.education.vo.QNAVO;
 
 import kr.co.hucloud.utilities.web.Paging;
@@ -72,17 +75,23 @@ public class EducationServiceImpl implements EducationService {
 	}
 
 	@Override
-	public ModelAndView doApplyEducation(String educationId, HttpSession session) {
-		ModelAndView view = new ModelAndView();
-		// 현재 로그인된 멤버가 가입한 educationId에 해당하는 주/야간 정도 가져오기
-		session.getAttribute("_MEMBER_");
-		// 버튼을 통해 가져온 educationId에 해당하는 주/야간 정보와 비교하기
-		
-		// 같으면 redirect
-		
-		// 다르면 insert시킨다.
-		
-		return null;
+	public String doApplyEducation(String educationId, String educationType, HttpSession session) {
+		// 현재 로그인된 멤버가 가입한 educationId에 해당하는 주/야간 정보 가져오기
+		MemberVO loginMember = (MemberVO)session.getAttribute("_MEMBER_");
+		List<String> eduType = educationBiz.getMemberRegInfo(loginMember.getId());
+		// 버튼을 통해 가져온 educationType에 해당하는 주/야간 정보와 비교하기
+		for (String eduTp : eduType) {
+			if( eduTp.equals(educationType) ){
+				return "FAIL";
+			}
+		}
+		// 다르다면  for 문을 빠져나와서 insert시킨다.
+		boolean isResult = educationBiz.doApplyEducation(educationId, loginMember.getId());
+		if( isResult ){
+			return "OK";
+		} else{
+			throw new RuntimeException("일시적인 장애가 발생했습니다. 잠시 후 다시 시도해주세요.");
+		}
 	}
 	
 	@Override

@@ -66,16 +66,21 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 	}
 
 	@Override
-	public int deleteEducation(String educationId) {
-		// TODO Auto-generated method stub
-		return 0;
+	public List<String> getMemberRegInfo(String id) {
+		return getSqlSession().selectList("EducationDAO.getMemberRegInfo", id);
 	}
 
+	@Override
+	public int doApplyEducation(String educationId, String id) {
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("educationId", educationId);
+		paramMap.put("id", id);
+		
+		return getSqlSession().insert("EducationDAO.doApplyEducation", paramMap);
+	}
 	@Override
 	public List<QNAVO> getAllCommentByEducationId(String educationId) {
 		return getSqlSession().selectList("EducationDAO.getAllCommentByEducationId", educationId);
 	}
-
-
 
 }

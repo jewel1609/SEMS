@@ -37,6 +37,12 @@ public class EducationBizImpl implements EducationBiz {
 	}
 
 	@Override
+	public List<String> getMemberRegInfo(String id) {
+		return educationDAO.getMemberRegInfo(id);
+
+	}
+
+	@Override
 	public List<EducationVO> doSearchList(EducationVO educationVO, EducationSearchVO searchVO) {
 		return educationDAO.doSearchList( educationVO , searchVO);
 	}
@@ -45,12 +51,16 @@ public class EducationBizImpl implements EducationBiz {
 	public boolean writeNewComment(QNAVO qnaVO) {
 		return educationDAO.insertNewComment(qnaVO) > 0;
 	}
+
+	@Override
+	public boolean doApplyEducation(String educationId, String id) {
+		return educationDAO.doApplyEducation(educationId, id) > 0;
+	}
 	
 	@Override
 	public boolean doCancelEducation(String educationId) {
 		return educationDAO.doCancelEducation(educationId) > 0;
 	}
-
 	@Override
 	public List<QNAVO> getAllCommentByEducationId(String educationId) {
 		return educationDAO.getAllCommentByEducationId(educationId);
