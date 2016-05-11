@@ -54,5 +54,11 @@ public interface EducationBiz {
 	boolean deleteCategory(CategoryVO categoryVO);
 
 	boolean modifyCategory(CategoryVO categoryVO);
+	
+	boolean deleteLargeCategory(CategoryVO categoryVO);
+	
+	boolean deleteMediumCategory(CategoryVO categoryVO);
+	
+	boolean deleteSmallCategory(CategoryVO categoryVO);
 
 }
