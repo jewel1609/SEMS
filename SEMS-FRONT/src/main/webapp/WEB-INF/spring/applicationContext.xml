@@ -10,6 +10,10 @@
 	
 	<mvc:interceptors>
 		<mvc:interceptor>
+			<mvc:mapping path="/"/>
+			<bean id="firstInterceptor" class="com.ktds.sems.interceptor.FirstInterceptor"/>
+		</mvc:interceptor>
+		<mvc:interceptor>
 			<mvc:mapping path="/**"/>
 				<!-- 회원가입 및 로그인은 인터셉터에서 제외 시킨다. -->
 				<mvc:exclude-mapping path="/"/>
