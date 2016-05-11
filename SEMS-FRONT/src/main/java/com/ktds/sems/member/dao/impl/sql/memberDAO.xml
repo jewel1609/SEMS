@@ -73,7 +73,16 @@
 		FROM	MBR
 		WHERE	ID = #{id}
 	</select>
+
+	<select id="isExistId" parameterType="string" resultType="string">
+		SELECT	ID
+		FROM	MBR
+		WHERE	ID = #{id}
+	</select>
+	<insert id="loginHistory" parameterType="LoginHistoryVO">
+	</insert>
 	<insert id="stampLoginTime" parameterType="LoginHistoryVO">
+
 		INSERT INTO LGI_HTR	(
 								LGI_HTR_ID
 								, MBR_ID

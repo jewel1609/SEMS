@@ -43,6 +43,8 @@ public interface MemberDAO {
 
 	public int getTotalLoginHisotryCount();
 
+	public String isExistId(String id);
+
 	public int stampLoginTime(LoginHistoryVO newLoginHistoryVO);
 
 }

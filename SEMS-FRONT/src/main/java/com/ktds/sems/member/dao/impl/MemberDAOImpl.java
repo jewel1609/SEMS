@@ -103,9 +103,18 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 		return getSqlSession().selectOne("MemberDAO.getTotalLoginHisotryCount");
 	}
 
+
+	@Override
+	public String isExistId(String id) {
+		return getSqlSession().selectOne("MemberDAO.isExistId", id);
+	}
+	
+
+
 	@Override
 	public int stampLoginTime(LoginHistoryVO newLoginHistoryVO) {
 		return getSqlSession().insert("MemberDAO.stampLoginTime", newLoginHistoryVO);
 	}
+
 
 }

@@ -203,6 +203,18 @@ public class MemberBizImpl implements MemberBiz {
 		return memberDAO.getTotalLoginHisotryCount();
 	}
 
+	@Override
+	public boolean isExistId(String id) {
+		
+		String memberId = memberDAO.isExistId(id);
+		
+		if ( memberId == null ) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
 
 }
 
