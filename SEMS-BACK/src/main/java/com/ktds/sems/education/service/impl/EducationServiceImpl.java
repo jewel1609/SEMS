@@ -5,16 +5,23 @@ package com.ktds.sems.education.service.impl;
 import java.io.File;
 import java.io.IOException;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpSession;
+
 
 import org.springframework.validation.Errors;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+
 import com.ktds.sems.education.biz.EducationBiz;
 import com.ktds.sems.education.service.EducationService;
 import com.ktds.sems.education.vo.EducationVO;
+import com.ktds.sems.member.vo.MemberVO;
+
+
+
 import com.ktds.sems.file.biz.FileBiz;
 import com.ktds.sems.file.vo.FileVO;
 
@@ -41,8 +48,15 @@ public class EducationServiceImpl implements EducationService {
 		ModelAndView view = new ModelAndView();
 
 		MultipartFile file = request.getFile("file");
-		String path ="D:\\"+file.getOriginalFilename();
-		File files = new File(path);
+		
+		String salt = SHA256Util.generateSalt();
+		String saltFileName = SHA256Util.getEncrypt(educationVO.getEducationCurriculum(), salt)+".xlsx";
+		educationVO.setSalt(salt);
+		
+		String fileName = file.getOriginalFilename();
+		String filePath = "D:\\"+saltFileName;
+		
+		educationVO.setEducationCurriculum(fileName);
 		
 		if (educationVO.getEducationId() == null) {
 			if (errors.hasErrors()) {
@@ -52,29 +66,32 @@ public class EducationServiceImpl implements EducationService {
 				
 			} else {
 				
-				
 				boolean result = educationBiz.writeNewEducation(educationVO);
 
-				if (file.getOriginalFilename() != "" && result) {
+				if ( !file.isEmpty() && result) {
 					
-					try {
-						file.transferTo(files);
-					} catch (IllegalStateException | IOException e) {
-						e.printStackTrace();
-					}
-					
-					FileVO fileVO = new FileVO();
-					fileVO.setArticleId(educationVO.getEducationId());
-					fileVO.setFileName(file.getOriginalFilename());
-					fileVO.setFileLocation(path);
-					fileBiz.doWriteFile(fileVO);
-
+					if ( fileName.toLowerCase().endsWith(".xlsx") ) {
+						
+						File files = new File(filePath);
+						
+						try {
+							file.transferTo(files);
+							
+							FileVO fileVO = new FileVO();
+							fileVO.setArticleId(educationVO.getEducationId());
+							fileVO.setFileName(saltFileName);
+							fileVO.setFileLocation(filePath);
+							fileBiz.doWriteFile(fileVO);
+							
+						} catch (IllegalStateException | IOException e) {
+							e.printStackTrace();
+						}
+					} 
 					view.setViewName("redirect:/list");
 					
 				} else {
 					throw new RuntimeException("일시적인 장애가 발생했습니다. 잠시후 다시 시도해주세요.");
 				}
-				
 			}
 		}
 
@@ -94,20 +111,28 @@ public class EducationServiceImpl implements EducationService {
 	}
 
 	@Override
-	public ModelAndView modifyNewEducation(EducationVO educationVO, Errors errors, HttpSession session) {
+	public ModelAndView modifyNewEducation(EducationVO educationVO, Errors errors, MultipartHttpServletRequest request) {
 		
 		ModelAndView view = new ModelAndView();
-		if (errors.hasErrors()) {
-			view.setViewName("");
-			view.addObject("educationVO", educationVO);
-			return view;
-		} else {
-			boolean result = educationBiz.modifyNewEducation(educationVO);
-			String educationId = educationVO.getEducationId();
-			if (result) {
-				view.setViewName("redirect:/detail/" + educationId);
-			} else {
-				throw new RuntimeException("에러가 발생했습니다. 잠시 후 다시 시도해주세요.");
+		
+		HttpSession session = request.getSession();
+		MemberVO sessionMember = (MemberVO) session.getAttribute("_MEMBER_");
+		
+		//if ( sessionMember.getMemberType().equals("admin") ) {
+			if ( errors.hasErrors() ) {
+				view.setViewName("education/update");
+				view.addObject("educationVO", educationVO);
+				return view;
+			}
+			else{
+				boolean result = educationBiz.modifyNewEducation(educationVO);
+				String educationId = educationVO.getEducationId();
+				if ( result ) {
+					view.setViewName("redirect:/detail/" + educationId);
+				}
+				else {
+					throw new RuntimeException("에러가 발생했습니다. 잠시 후 다시 시도해주세요.");
+				}
 			}
 		//}
 		//else {
@@ -116,10 +141,8 @@ public class EducationServiceImpl implements EducationService {
 		
 		view.addObject("educationVO", educationVO);
 		return view;
-		}
-
 	}
-
+	
 	@Override
 	public ModelAndView getAllEduCode() {
 		ModelAndView view = new ModelAndView();
@@ -129,4 +152,5 @@ public class EducationServiceImpl implements EducationService {
 		view.setViewName("education/eduregister");
 		return view;
 	}
+
 }
