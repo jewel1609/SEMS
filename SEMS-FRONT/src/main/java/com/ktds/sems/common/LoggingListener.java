@@ -17,10 +17,8 @@ public class LoggingListener implements HttpSessionListener {
 
 	@Override
 	public void sessionCreated(HttpSessionEvent hse) {
-		// TODO Auto-generated method stub
 		HttpSession session = hse.getSession();
 		session.setMaxInactiveInterval(60 * 30);// 초단위로 세션유지 시간을 설정합니다
-		System.out.println(session.getId() + ": 세션이 생성되었습니다.");
 	}
 
 	@Override
