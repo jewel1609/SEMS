@@ -227,5 +227,10 @@ public class MemberBizImpl implements MemberBiz {
 		}
 	}
 
+	@Override
+	public String getSaltById(String id) {
+		return memberDAO.getSaltById(id);
+	}
+
 }
 

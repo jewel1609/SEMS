@@ -199,14 +199,31 @@
 	
 	<update id="modifyMemberInfo" parameterType="MemberVO" >
 		UPDATE	MBR
-		SET		NM = #{name}
-				, PWD = #{password}
-				, EMAIL = #{email}
-				, HIGHEST_EDU_LV = #{highestEducationLevel}
-				, GRDT_TP = #{graduationType}
-				, BRTH_DT = #{birthDate}
-				, PHONE_NMB = #{phoneNumber}
-				, SALT = #{salt}
+		SET		
+				<if test="name != null">
+				NM = #{name},
+				</if>
+				<if test="password != null">
+				PWD = #{password},
+				</if>
+				<if test="email != null">
+				EMAIL = #{email},
+				</if>
+				<if test="highestEducationLevel != null">
+				HIGHEST_EDU_LV = #{highestEducationLevel},
+				</if>
+				<if test="graduationType != null">
+				GRDT_TP = #{graduationType},
+				</if>
+				<if test="birthDate != null">
+				BRTH_DT = #{birthDate},
+				</if>
+				<if test="phoneNumber">
+				PHONE_NMB = #{phoneNumber},
+				</if>
+				<if test="salt != null">
+				SALT = #{salt}
+				</if>
 		WHERE	ID = #{id}
 	</update>
 	

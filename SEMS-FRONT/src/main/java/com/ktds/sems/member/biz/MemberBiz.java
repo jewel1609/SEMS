@@ -49,4 +49,6 @@ public interface MemberBiz {
 
 	public boolean isExistId(String id);
 
+	public String getSaltById(String id);
+
 }

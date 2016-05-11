@@ -168,17 +168,59 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public ModelAndView modifyMemberInfo(MemberVO member, Errors errors) {
 		
+		int changeCount = 0;
+		MemberVO changeMember = new MemberVO();
 		
-		//TODO 세션 암호를 받아와서 변경했는지 유무를 체크하기
-		//if ( sessionPassword.eqauls(member.getPassword()) {
-		//암호를 변경했다면 SHA256-암호화
-		String salt = SHA256Util.generateSalt();
-		String newPassword = SHA256Util.getEncrypt(member.getPassword(), salt);
-		member.setPassword(newPassword);
-		member.setSalt(salt);
+		String inputPassword = member.getPassword();
 		
-		//회원정보 수정
-		memberBiz.modifyMemberInfo(member);
+		MemberVO originMember = memberBiz.getOneMember(member.getId());
+		if ( inputPassword != ""){
+			changeCount++;
+			String salt = SHA256Util.generateSalt();
+			String newPassword = SHA256Util.getEncrypt(inputPassword, salt);
+			changeMember.setPassword(newPassword);
+			changeMember.setSalt(salt);
+		}
+		
+		
+		if ( !originMember.getName().equals(member.getName()) ) {
+			changeCount++;
+			changeMember.setName(member.getName());
+		}
+
+		if ( !originMember.getEmail().equals(member.getEmail()) ) {
+			changeCount++;
+			changeMember.setEmail(member.getEmail());
+		}
+		
+		if ( !originMember.getHighestEducationLevel().equals(member.getHighestEducationLevel()) ) {
+			changeCount++;
+			changeMember.setHighestEducationLevel(member.getHighestEducationLevel());
+		}
+		
+		if ( !originMember.getGraduationType().equals(member.getGraduationType()) ) {
+			changeCount++;
+			changeMember.setGraduationType(member.getGraduationType());
+		}
+		
+		if ( !originMember.getPhoneNumber().equals(member.getPhoneNumber()) ) {
+			changeCount++;
+			changeMember.setPhoneNumber(member.getPhoneNumber());
+		}
+		
+		if ( !originMember.getBirthDate().equals(member.getBirthDate()) ) {
+			changeCount++;
+			changeMember.setBirthDate(member.getBirthDate());
+		}
+		
+		if( changeCount == 0 ) {
+			System.out.println("변경사항 없음");
+		}
+		else {
+			changeMember.setId(member.getId());
+			//회원정보 수정
+			memberBiz.modifyMemberInfo(changeMember);
+		}
 		
 		ModelAndView view = new ModelAndView();
 		view.setViewName("member/myPage");
