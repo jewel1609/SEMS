@@ -40,6 +40,8 @@ public interface MemberBiz {
 
 	public int getTotalLoginHisotryCount();
 
+	public void modifyMemberInfo(MemberVO member);
+
 	public boolean isExistId(String id);
 
 }

@@ -204,6 +204,11 @@ public class MemberBizImpl implements MemberBiz {
 	}
 
 	@Override
+	public void modifyMemberInfo(MemberVO member) {
+		memberDAO.modifyMemberInfo(member);
+	}
+
+	@Override
 	public boolean isExistId(String id) {
 		
 		String memberId = memberDAO.isExistId(id);
