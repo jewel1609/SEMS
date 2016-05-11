@@ -71,7 +71,7 @@
 	<c:forEach items="${qna}" var="qna">
 	<tr>
 		<td>작성자</td>
-		<td>${ qna.mbrId }</td>
+		<td>${ qna.replyId }</td>
 		<td>내용</td>
 		<td>${ qna.description }</td>
 	</tr>

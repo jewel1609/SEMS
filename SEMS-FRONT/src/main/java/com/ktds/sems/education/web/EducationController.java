@@ -66,8 +66,8 @@ public class EducationController {
 	}
 	
 	@RequestMapping("/doWriteComment")
-	public ModelAndView doWriteAction(@Valid QNAVO qnaVO, Errors errors){
-		return educationService.writeNewComment(qnaVO, errors);
+	public ModelAndView doWriteAction(@Valid QNAVO qnaVO, Errors errors, String educationId){
+		return educationService.writeNewComment(qnaVO, errors, educationId);
 	}
 
 	@RequestMapping("/calendar")

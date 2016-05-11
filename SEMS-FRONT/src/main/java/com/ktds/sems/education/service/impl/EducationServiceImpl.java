@@ -86,17 +86,18 @@ public class EducationServiceImpl implements EducationService {
 	}
 	
 	@Override
-	public ModelAndView writeNewComment(QNAVO qnaVO, Errors errors) {
+	public ModelAndView writeNewComment(QNAVO qnaVO, Errors errors, String educationId) {
 		ModelAndView view = new ModelAndView();
+		qnaVO.setEduId(educationId);
 		
 		if( errors.hasErrors() ){ 
-			view.setViewName("redirect:/eduDetail");
+			view.setViewName("redirect:/eduDetail/" + educationId);
 			view.addObject("qnaVO", qnaVO );
 			return view;
 		}else {
 			boolean result = educationBiz.writeNewComment(qnaVO);
 			if ( result ){
-				view.setViewName("redirect:/eduDetail");
+				view.setViewName("redirect:/eduDetail/" + educationId);
 			} else {
 				throw new RuntimeException("일시적인 장애가 발생했습니다. 잠시 후 다시 시도해주세요.");
 			}

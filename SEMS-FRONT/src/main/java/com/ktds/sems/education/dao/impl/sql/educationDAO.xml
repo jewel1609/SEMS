@@ -173,23 +173,24 @@
           </if>
     </select>
  -->    
-     <insert id="insertNewComment" parameterType="QNAVO">
+ <insert id="insertNewComment" parameterType="QNAVO">
+						
 			INSERT INTO SEMS.QNA (
-								   REPLY_ID
-								   , EDU_ID
-								   , PARENT_REPLY_ID
-								   , ORDER_NO
-								   , DESCRIPTION
-								   , MBR_ID
+								   REPLY_ID 
+								   , EDU_ID 
+								   , PARENT_REPLY_ID 
+								   , ORDER_NO 
+								   , DESCRIPTION 
+								   , MBR_ID 
 								   , CREATED_DATE
 								   ) 
 						VALUES ( #{replyId} ,
-								'b',
+								#{eduId},
 								'c',
 								'4',
 								 #{description},
 								 'f',
-								 '91/11/10' 
+								 SYSDATE
 								 )			
  	</insert>
  	
