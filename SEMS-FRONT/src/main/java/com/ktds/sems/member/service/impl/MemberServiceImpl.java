@@ -174,12 +174,20 @@ public class MemberServiceImpl implements MemberService {
 		String inputPassword = member.getPassword();
 		
 		MemberVO originMember = memberBiz.getOneMember(member.getId());
+		
+		System.out.println(inputPassword+"수정원하는 암호");
+		System.out.println(originMember.getPassword()+"원래암호");
+		
 		if ( inputPassword != ""){
+			System.out.println("들어오나?");
 			changeCount++;
+			
 			String salt = SHA256Util.generateSalt();
 			String newPassword = SHA256Util.getEncrypt(inputPassword, salt);
+			
 			changeMember.setPassword(newPassword);
 			changeMember.setSalt(salt);
+			System.out.println(newPassword + "<>>" + salt);
 		}
 		
 		
@@ -218,6 +226,7 @@ public class MemberServiceImpl implements MemberService {
 		}
 		else {
 			changeMember.setId(member.getId());
+			System.out.println(changeMember.getSalt()+"---"+changeMember.getPassword()+"---"+changeMember.getId());
 			//회원정보 수정
 			memberBiz.modifyMemberInfo(changeMember);
 		}

@@ -211,7 +211,7 @@
 	
 	<update id="modifyMemberInfo" parameterType="MemberVO" >
 		UPDATE	MBR
-		SET		
+		<set>
 				<if test="name != null">
 				NM = #{name},
 				</if>
@@ -230,12 +230,13 @@
 				<if test="birthDate != null">
 				BRTH_DT = #{birthDate},
 				</if>
-				<if test="phoneNumber">
+				<if test="phoneNumber != null">
 				PHONE_NMB = #{phoneNumber},
 				</if>
 				<if test="salt != null">
-				SALT = #{salt}
+				SALT = #{salt},
 				</if>
+		</set>
 		WHERE	ID = #{id}
 	</update>
 	

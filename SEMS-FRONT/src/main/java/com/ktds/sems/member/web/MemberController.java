@@ -79,20 +79,14 @@ public class MemberController {
 		// 테이블의 member.getPassword() 혹은 세션패스워드 를 해독했을때의 암호가
 		// 일치한다면 SendMessage.send(response, "OK");
 
-		// TODO 세션정보를 넘겨받기
 		MemberVO member = (MemberVO) session.getAttribute("_MEMBER_");
-		String sessionId = "aaa";
+		String sessionId = member.getId();
 		String originSalt = memberService.getSaltById(sessionId);
 		String inputPassword = SHA256Util.getEncrypt(password, originSalt);
 		
 		String originPassword = memberService.getPasswordById(sessionId);
-		
-		String sessionPassword = "1234";
-
-		
-		
-		//if (password.equals(sessionPassword)) {
-		if ( inputPassword.equals(originPassword)) {
+		if (inputPassword.equals(originPassword)) {
+		//if ( inputPassword.equals(originPassword)) {
 			/*
 			 * 1. MODIFY_FAIL_COUNT를 0 으로 초기화한다. 2. IS_MODIFY_ACCOUNT_LOCK을
 			 * 'N'으로 초기화한다.
@@ -148,7 +142,9 @@ public class MemberController {
 	public ModelAndView viewModifyPage(HttpSession session) {
 
 		// TODO session Id로 바꾸기
-		String sessionId = "aaa";
+		MemberVO member = (MemberVO) session.getAttribute("_MEMBER_");
+				
+		String sessionId = member.getId();
 		return memberService.modifySuccess(sessionId);
 
 	}
