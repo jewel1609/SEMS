@@ -8,9 +8,7 @@ public class SampleController {
 
 	@RequestMapping("/sample")
 	public String viewSamplePage(){
-		
 		return "index";
-		
 	}
 	
 }

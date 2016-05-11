@@ -110,13 +110,19 @@ public class EducationServiceImpl implements EducationService {
 		
 		EducationSearchVO searchVO = new EducationSearchVO();
 		searchVO.setStartIndex(paging.getStartArticleNumber());
-		searchVO.setEndIndex(paging.getEndArticleNumber());
+		searchVO.setEndIndex(paging.getEndArticleNumber());	
 
-		int searchedEducationCount = educationBiz.getSearchedEducationCount(educationVO, searchVO);
+
+		logger.info("ㅁㅇㄴㅁㄴ어ㅐㅑㅇㅁ너ㅐㅑ");
+		logger.info("StartDate"+educationVO.getStartDate());
+		logger.info("EndDate"+ educationVO.getEndDate());
+		
+		int searchedEducationCount = educationBiz.getSearchedEducationCount(educationVO);
 		paging.setTotalArticleCount(searchedEducationCount);
 
-		/*		
-		List<EducationVO> searchedEducations = educationBiz.doSearchList(startDate, endDate, eduName, educationType, cost, searchVO);
+		logger.info("서치 카운트 확인"+ searchedEducationCount);
+			
+		/*List<EducationVO> searchedEducations = educationBiz.doSearchList(educationVO, searchVO);
 		searchedListVO.setEducationList(searchedEducations);
 		view.addObject("searchedEducations", searchedEducations);
 		view.setViewName("education/list");*/

@@ -51,8 +51,8 @@ public class EducationBizImpl implements EducationBiz {
 	
 
 	@Override
-	public int getSearchedEducationCount(EducationVO educationVO, EducationSearchVO searchVO) {
-		return educationDAO.getSearchedEducationCount( educationVO ,searchVO);
+	public int getSearchedEducationCount(EducationVO educationVO) {
+		return educationDAO.getSearchedEducationCount( educationVO);
 	}
 }
 

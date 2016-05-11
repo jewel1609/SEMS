@@ -22,5 +22,5 @@ public interface EducationBiz {
 	
 	
 
-	public int getSearchedEducationCount(EducationVO educationVO, EducationSearchVO searchVO);
+	public int getSearchedEducationCount(EducationVO educationVO);
 }

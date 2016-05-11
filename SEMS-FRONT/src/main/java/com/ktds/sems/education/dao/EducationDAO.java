@@ -20,6 +20,7 @@ public interface EducationDAO {
 			String cost, EducationSearchVO searchVO);
 	public int insertNewComment(QNAVO qnaVO);
 
+	public int getSearchedEducationCount(EducationVO educationVO);
 	public int deleteEducation(String educationId);
 
 	public int getSearchedEducationCount(EducationVO educationVO, EducationSearchVO searchVO);

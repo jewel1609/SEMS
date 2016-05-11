@@ -33,13 +33,9 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 	}
 
 	@Override
-	public int getSearchedEducationCount(EducationVO educationVO, EducationSearchVO searchVO) {
+	public int getSearchedEducationCount(EducationVO educationVO) {
 		logger.debug("어디서 에러나는지 확인");
-		HashMap params = new HashMap();
-		params.put("educationVO", educationVO);
-		params.put("searchVO", searchVO);
-
-		return getSqlSession().selectOne("EducationDAO.getSearchedEducationCount", params);
+		return getSqlSession().selectOne("EducationDAO.getSearchedEducationCount", educationVO);
 		
 	}
 
@@ -76,6 +72,12 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 	@Override
 	public int deleteEducation(String educationId) {
 		return getSqlSession().delete("educationDAO.deleteEducation", educationId);
+	}
+
+	@Override
+	public int getSearchedEducationCount(EducationVO educationVO, EducationSearchVO searchVO) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 
