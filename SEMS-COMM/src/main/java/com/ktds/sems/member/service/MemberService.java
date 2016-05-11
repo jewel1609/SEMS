@@ -1,8 +1,13 @@
 package com.ktds.sems.member.service;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.member.vo.MbrTpVO;
+import com.ktds.sems.member.vo.MemberVO;
 
 public interface MemberService {
 
@@ -29,6 +34,8 @@ public interface MemberService {
 	public void doHighestEduModify(String cdId, String cdNm);
 
 	public String doHighestEduInsert(String cdId, String cdNm);
+
+	public String login(MemberVO memberVO, Errors errors, HttpSession session, HttpServletRequest request);
 
 
 }
