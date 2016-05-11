@@ -7,7 +7,7 @@
 
 	<mvc:annotation-driven/>
 	
-	<mvc:resources   location="/WEB-INF/resources/"  mapping="/resources/**" />
+	<mvc:resources   location="/WEB-INF/resources/" mapping="/resources/**" />
 	
 	<mvc:interceptors>
 		<mvc:interceptor>
