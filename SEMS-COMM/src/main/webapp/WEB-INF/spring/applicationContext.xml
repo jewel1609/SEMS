@@ -7,9 +7,8 @@
 
 	<mvc:annotation-driven/>
 	
-	<mvc:resources location="/WEB-INF/resources/js/" mapping="/js/**" />
-	<mvc:resources location="/WEB-INF/resources/css/" mapping="/css/**" />
-	<mvc:resources location="/WEB-INF/resources/img/" mapping="/img/**" />
+	<mvc:resources	location="/WEB-INF/resources/" 
+					mapping="/resources/**" />
 	<mvc:resources   location="/WEB-INF/resources/"  mapping="/resources/**" />
 	
 	<bean 	id="viewResolver"
@@ -24,6 +23,10 @@
 	
 	<bean id="educationController" class="com.ktds.sems.education.web.EducationController">
 		<property name="educationService" ref="educationService" />
+	</bean>
+	
+	<bean id="menuController" class="com.ktds.sems.menu.web.MenuController">
+		<property name="menuService" ref="menuService" />
 	</bean>
 	
 </beans>

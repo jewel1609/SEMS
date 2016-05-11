@@ -10,18 +10,26 @@ public class MenuBizImpl implements MenuBiz{
 
 	private MenuDAO menuDAO;
 	
-	public void setMenuDao(MenuDAO menuDAO) {
+	public void setMenuDAO(MenuDAO menuDAO) {
 		this.menuDAO = menuDAO;
 	}
 
-	@Override
-	public boolean doMenuUpdate() {
-		return menuDAO.doMenuUpdate() > 0;
-	}
 
 	@Override
-	public List<MenuManageVO> getMenuCategory() {
-		return menuDAO.getMenuCategory();
+	public List<MenuManageVO> getMenuCategoryList() {
+		return menuDAO.getMenuCategoryList();
+	}
+
+
+	@Override
+	public boolean doMenuUpdate(MenuManageVO menuManageVO) {
+		return menuDAO.doMenuUpdate(menuManageVO) > 0;
+	}
+
+
+	@Override
+	public MenuManageVO getOneMenuCategory(String codeId) {
+		return menuDAO.getOneMenuCategory(codeId);
 	}
 
 }
