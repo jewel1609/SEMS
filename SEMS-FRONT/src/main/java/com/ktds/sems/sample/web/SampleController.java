@@ -6,9 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class SampleController {
 
-	@RequestMapping("/sample")
+	@RequestMapping("/")
 	public String viewSamplePage(){
 		return "index";
 	}
-	
 }
