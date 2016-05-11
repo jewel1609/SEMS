@@ -5,6 +5,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.education.vo.CategoryVO;
 import com.ktds.sems.education.vo.JsonResponseVO;
+import com.ktds.sems.education.vo.TimeVO;
+
 import java.util.List;
 
 import com.ktds.sems.education.vo.CategoryVO;
@@ -12,21 +14,29 @@ import com.ktds.sems.education.vo.CostVO;
 
 public interface EducationService {
 	
-	JsonResponseVO addNewCategory(CategoryVO categoryVO, Errors errors);
+	public JsonResponseVO addNewCategory(CategoryVO categoryVO, Errors errors);
 	
-	String validCategoryId(String categoryId, String categoryType);
+	public String validCategoryId(String categoryId, String categoryType);
 
-	public CostVO modifyEduCost(CostVO cost);
+	public String modifyEduCost(CostVO cost);
 
-	public List<CostVO> getAllEduCost();
+	public ModelAndView getAllEduCost();
 
 	public ModelAndView deleteEduCost(String cdId);
 
-	public ModelAndView insertEduCost(CostVO cost);
+	public String insertEduCost(CostVO cost);
 
-	String validCategoryName(String categoryName, String categoryType);
+	public String validCategoryName(String categoryName, String categoryType);
 
-	ModelAndView viewCategoryPage();
+	public ModelAndView viewCategoryPage();
+
+	public ModelAndView getAllEduTime();
+
+	public ModelAndView deleteEduTime(String cdId);
+
+	public String modifyEduTime(TimeVO time);
+
+	public String insertEduTime(TimeVO time);
 
 	JsonResponseVO getChildCategory(String parentCategoryId, String categoryType);
 
