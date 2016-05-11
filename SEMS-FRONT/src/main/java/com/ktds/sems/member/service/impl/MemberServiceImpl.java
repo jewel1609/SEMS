@@ -84,6 +84,8 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public String login(MemberVO loginVO, Errors errors, HttpSession session) {
 
+		//TODO 아이디 있는지 확인
+		
 		// 잠긴 계정은 로그인 못하도록 막는다.
 		if (memberBiz.isAccountLock(loginVO.getId())) {
 			return "OVER";

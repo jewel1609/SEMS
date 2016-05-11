@@ -35,7 +35,7 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 
 	@Override
 	public boolean isAccountLock(String id) {
-		return getSqlSession().selectOne("MemberDAO.isAccountLock", id).equals("Y");
+		return ("Y").equals(getSqlSession().selectOne("MemberDAO.isAccountLock", id));
 	}
 
 	@Override
