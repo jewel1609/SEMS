@@ -58,6 +58,15 @@
 		SET		CD_NM = #{cdNm}
 		WHERE	CD_ID = #{cdId}
 	</update>
+	
+	<select id="isExistMbrTpData" resultType="_int">
+		SELECT	COUNT(CD_ID)
+		FROM	MBR_TP
+		WHERE	CD_ID = #{cdId}
+		OR		CD_NM = #{cdNm}
+	</select>
+
+
 
 
 

@@ -34,8 +34,8 @@ public class MemberBizImpl implements MemberBiz{
 	}
 
 	@Override
-	public void doInsertMbrTp(MbrTpVO newMbrTpVO) {
-		memberDAO.doInsertMbrTp(newMbrTpVO);
+	public int doInsertMbrTp(MbrTpVO newMbrTpVO) {
+		return memberDAO.doInsertMbrTp(newMbrTpVO);
 	}
 
 	@Override
@@ -168,5 +168,10 @@ public class MemberBizImpl implements MemberBiz{
 		}
 
 		return memberVO != null;
+	}
+
+	@Override
+	public int isExistMbrTpData(MbrTpVO newMbrTpVO) {
+		return memberDAO.isExistMbrTpData(newMbrTpVO);
 	}
 }

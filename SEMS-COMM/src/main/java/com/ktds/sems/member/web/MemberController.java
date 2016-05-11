@@ -92,10 +92,11 @@ public class MemberController {
 	}
 
 	@RequestMapping("/doInsertMbrTp")
-	public String doInsertMbrTp(HttpServletRequest request, HttpServletResponse response) {
+	public void doInsertMbrTp(HttpServletRequest request, HttpServletResponse response) {
 		String cdId = request.getParameter("cdId");
 		String cdNm = request.getParameter("cdNm");
-		return memberService.doInsertMbrTp(cdId, cdNm);
+		String status = memberService.doInsertMbrTp(cdId, cdNm);
+		AjaxUtil.sendResponse(response, status);
 	}
 
 	@RequestMapping("doMbrTpDelete/{cdId}")

@@ -27,8 +27,8 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO{
 
 
 	@Override
-	public void doInsertMbrTp(MbrTpVO newMbrTpVO) {
-		getSqlSession().insert("MemberDAO.doInsertMbrTp", newMbrTpVO);
+	public int doInsertMbrTp(MbrTpVO newMbrTpVO) {
+		return getSqlSession().insert("MemberDAO.doInsertMbrTp", newMbrTpVO);
 	}
 
 	@Override
@@ -47,6 +47,12 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO{
 	public int doGrdtInsert(GrdtTpVO grdtTpVO) {
 		return getSqlSession().insert("MemberDAO.doGrdtInsert",grdtTpVO);
 	}
+	
+	@Override
+	public int isExistMbrTpData(MbrTpVO newMbrTpVO) {
+		return getSqlSession().selectOne("MemberDAO.isExistMbrTpData", newMbrTpVO);
+	}
+	
 	public void doMbrTpDelete(String cdId) {
 		getSqlSession().delete("MemberDAO.doMbrTpDelete", cdId);
 		
@@ -135,4 +141,6 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO{
 	public MemberVO login(MemberVO loginVO) {
 		return getSqlSession().selectOne("MemberDAO.login", loginVO);
 	}
+
+
 }

@@ -158,8 +158,19 @@ public class MemberServiceImpl implements MemberService{
 		MbrTpVO newMbrTpVO = new MbrTpVO();
 		newMbrTpVO.setCdId(cdId);
 		newMbrTpVO.setCdNm(cdNm);
-		memberBiz.doInsertMbrTp(newMbrTpVO);
-		return "redirect:/mbrTpPage";
+		
+		if(memberBiz.isExistMbrTpData(newMbrTpVO) > 0){
+			return "FAIL";
+		}	
+		
+		else{	
+			boolean data = memberBiz.doInsertMbrTp(newMbrTpVO) > 0;
+				
+			if(!data){
+				return "FAIL";
+			}
+			return "OK";
+		}
 	}
 	
 	@Override

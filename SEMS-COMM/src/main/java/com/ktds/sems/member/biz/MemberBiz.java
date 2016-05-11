@@ -22,7 +22,8 @@ public interface MemberBiz {
 	public int doGrdtInsert(GrdtTpVO grdtTpVO);
 
 	public int isExistData(GrdtTpVO grdtTpVO);
-	public void doInsertMbrTp(MbrTpVO newMbrTpVO);
+	
+	public int doInsertMbrTp(MbrTpVO newMbrTpVO);
 
 	public void doMbrTpDelete(String cdId);
 
@@ -53,5 +54,7 @@ public interface MemberBiz {
 	public boolean updateAccountLock(String id);
 
 	public boolean login(HttpSession session, MemberVO loginVO);
+
+	public int isExistMbrTpData(MbrTpVO newMbrTpVO);
 
 }

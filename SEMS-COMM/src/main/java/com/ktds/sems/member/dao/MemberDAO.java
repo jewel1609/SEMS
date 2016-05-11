@@ -21,7 +21,7 @@ public interface MemberDAO {
 
 	public int isExistData(GrdtTpVO grdtTpVO);
 	
-	public void doInsertMbrTp(MbrTpVO newMbrTpVO);
+	public int doInsertMbrTp(MbrTpVO newMbrTpVO);
 
 	public void doMbrTpDelete(String cdId);
 
@@ -54,6 +54,8 @@ public interface MemberDAO {
 	public String getSaltById(String id);
 
 	public MemberVO login(MemberVO loginVO);
+
+	public int isExistMbrTpData(MbrTpVO newMbrTpVO);
 
 
 }
