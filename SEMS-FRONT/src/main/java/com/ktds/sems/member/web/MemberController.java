@@ -86,7 +86,6 @@ public class MemberController {
 		
 		String originPassword = memberService.getPasswordById(sessionId);
 		if (inputPassword.equals(originPassword)) {
-		//if ( inputPassword.equals(originPassword)) {
 			/*
 			 * 1. MODIFY_FAIL_COUNT를 0 으로 초기화한다. 2. IS_MODIFY_ACCOUNT_LOCK을
 			 * 'N'으로 초기화한다.
@@ -119,16 +118,15 @@ public class MemberController {
 			boolean isLock = memberService.isModifyAccountLock(sessionId);
 
 			 /* 
-			  * 
 			  * 2. 메일을 보낸다.
-			  * 
 			  */
+			//FIXME 이메일 테스트 시 주석처리 삭제
+//			if( isLock ){
+//				memberService.sendBlockAccountEmail(sessionId);
+//			}
 			
-
 			 /* 
-			  * 
 			  * 3. IS_ACCOUNT_LOCK이 'Y'라면 브라우저에게 'OVER' 라고 보낸다. 
-			  * 
 			  */
 			AjaxUtil.sendResponse(response, isLock ? "OVER" : "NO");
 
@@ -141,7 +139,6 @@ public class MemberController {
 	@RequestMapping("/member/myPage/modify")
 	public ModelAndView viewModifyPage(HttpSession session) {
 
-		// TODO session Id로 바꾸기
 		MemberVO member = (MemberVO) session.getAttribute("_MEMBER_");
 				
 		String sessionId = member.getId();
