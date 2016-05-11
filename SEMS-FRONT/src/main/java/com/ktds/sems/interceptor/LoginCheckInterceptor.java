@@ -22,10 +22,11 @@ public class LoginCheckInterceptor extends HandlerInterceptorAdapter {
 			if (authority.equals("MBR") || authority.equals("TR") || authority.equals("ADM")) {
 				System.out.println("접근 가능");
 				response.sendRedirect("/main");
+				return;
 			} else {
 				request.getSession().invalidate();
 				System.out.println("접근 불가능");
-				response.sendRedirect("/");
+				return;
 			}
 		}
 	}

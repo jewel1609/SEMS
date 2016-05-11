@@ -16,10 +16,7 @@ public class FirstInterceptor extends HandlerInterceptorAdapter {
 		boolean wasLogin = request.getSession().getAttribute(Session.MEMBER) != null;
 		
 		if ( wasLogin ) {
-			System.out.println("세션 있음");
 			response.sendRedirect("/main");
-		} else {
-			System.out.println("세션 없음");
 		}
 		
 		return true;
