@@ -52,10 +52,6 @@ public class EducationServiceImpl implements EducationService {
 				
 			} else {
 				
-				String salt = SHA256Util.generateSalt();
-				String newFileName = SHA256Util.getEncrypt(educationVO.getEducationCurriculum(), salt);
-				educationVO.setEducationCurriculum(newFileName);
-				educationVO.setSalt(salt);
 				
 				boolean result = educationBiz.writeNewEducation(educationVO);
 
