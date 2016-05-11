@@ -16,4 +16,17 @@
 								, #{articleId }
 							)
 	</insert>
+	
+	<update id="updateFile" parameterType="fileVO">
+	UPDATE	FILES
+	SET		ATC_ID = #{articleId}
+	<if test="fileName != null">
+	 		, FILE_NM = #{fileName}
+	</if>
+	<if test="fileLocation != null">
+	 		, FILE_LOC = #{fileLocation}
+	</if>
+	WHERE	ATC_ID = #{articleId}
+		
+	</update>
 </mapper>
