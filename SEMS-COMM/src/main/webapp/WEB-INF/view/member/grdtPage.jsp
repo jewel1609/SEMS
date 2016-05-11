@@ -68,7 +68,7 @@
 			if ( confirm("삭제하시겠습니까?") == true ) {
 				location.href = "/comm/doGrdtDelete/"+ root.val();
 			}
-			else {
+			else  {
 				return;
 			} 
 		});
