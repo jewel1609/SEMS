@@ -25,9 +25,18 @@ public interface MemberBiz {
 
 	public MemberVO getOneMember(String id);
 
+	public void resetModifyLockAndCount(String id);
+
+	public void plusModifyFailCount(String sessionId);
+
+	public void updateModifyAccountLock(String sessionId);
+
+	public boolean isModifyAccountLock(String sessionId);
+
 	public String getNowDate();
 
 	public boolean needToChangPassword(MemberVO loginVO);
 
 	public int getTotalLoginHisotryCount();
+
 }

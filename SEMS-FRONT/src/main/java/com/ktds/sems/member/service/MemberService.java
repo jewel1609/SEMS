@@ -17,6 +17,17 @@ public interface MemberService {
 
 	public ModelAndView modifyMemberInfo(MemberVO member, Errors errors);
 
+
+	public void plusModifyFailCount(String sessionId);
+
+	public void updateModifyAccountLock(String sessionId);
+
+	public void resetModifyLockAndCount(String sessionId);
+
+	public boolean isModifyAccountLock(String sessionId);
+
+
 	public ModelAndView viewLoginHistoryPage(int pageNo);
+
 	
 }

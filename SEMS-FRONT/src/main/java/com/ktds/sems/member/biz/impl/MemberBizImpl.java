@@ -95,6 +95,26 @@ public class MemberBizImpl implements MemberBiz {
 	}
 
 	@Override
+	public void resetModifyLockAndCount(String id) {
+		memberDAO.resetModifyLockAndCount(id);
+	}
+
+	@Override
+	public void plusModifyFailCount(String sessionId) {
+		memberDAO.plusModifyFailCount(sessionId);
+	}
+
+	@Override
+	public void updateModifyAccountLock(String sessionId) {
+		memberDAO.updateModifyAccountLock(sessionId);
+	}
+
+	@Override
+	public boolean isModifyAccountLock(String sessionId) {
+		return memberDAO.isModifyAccountLock(sessionId) > 0;
+	}
+
+	@Override
 	public String getNowDate() {
 		return memberDAO.getNowDate();
 	}

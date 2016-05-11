@@ -59,8 +59,8 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 	}
 
 	@Override
-	public void resetModifyLockAndcount(String id) {
-		getSqlSession().update("MemberDAO.resetModifyLockAndcount", id);
+	public void resetModifyLockAndCount(String id) {
+		getSqlSession().update("MemberDAO.resetModifyLockAndCount", id);
 	}
 
 	@Override

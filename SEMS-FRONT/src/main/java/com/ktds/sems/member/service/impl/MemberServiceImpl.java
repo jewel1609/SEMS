@@ -150,7 +150,7 @@ public class MemberServiceImpl implements MemberService {
 		MemberVO member = memberBiz.getOneMember(id);
 		
 		view.addObject("member", member);
-		view.setViewName("/member/modifyMyInfo");
+		view.setViewName("member/modifyMyInfo");
 		return view;
 		
 	}
@@ -160,6 +160,27 @@ public class MemberServiceImpl implements MemberService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public void plusModifyFailCount(String sessionId) {
+		memberBiz.plusModifyFailCount(sessionId);
+	}
+
+	@Override
+	public void updateModifyAccountLock(String sessionId) {
+		memberBiz.updateModifyAccountLock(sessionId);
+	}
+
+	@Override
+	public void resetModifyLockAndCount(String sessionId) {
+		memberBiz.resetModifyLockAndCount(sessionId);
+	}
+
+	@Override
+	public boolean isModifyAccountLock(String sessionId) {
+		return memberBiz.isModifyAccountLock(sessionId);
+	}
+
 
 	@Override
 	public ModelAndView viewLoginHistoryPage(int pageNo) {
@@ -184,5 +205,4 @@ public class MemberServiceImpl implements MemberService {
 		
 		return view;
 	}
-
 }

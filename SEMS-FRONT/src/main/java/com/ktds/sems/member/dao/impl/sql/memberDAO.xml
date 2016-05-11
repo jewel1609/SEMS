@@ -113,6 +113,7 @@
 		WHERE	ID = #{id}
 		AND		LGI_F_CT >= 5
 	</update>
+	
 	<select id="getOneMember" parameterType="string" resultType="MemberVO">
 		SELECT	ID id
 				, PWD password 
@@ -128,7 +129,7 @@
 		FROM	MBR
 		WHERE	ID = #{id}
 	</select>
-	<update id="resetModifyLockAndcount" parameterType="string">
+	<update id="resetModifyLockAndCount" parameterType="string">
 		UPDATE	MBR
 		SET		MDF_F_CT = 0
 				, IS_MDF_LCK = 'N'

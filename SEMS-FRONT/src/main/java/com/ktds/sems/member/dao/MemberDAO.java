@@ -25,7 +25,7 @@ public interface MemberDAO {
 
 	public MemberVO getOneMember(String id);
 
-	public void resetModifyLockAndcount(String id);
+	public void resetModifyLockAndCount(String id);
 
 	public void plusModifyFailCount(String id);
 

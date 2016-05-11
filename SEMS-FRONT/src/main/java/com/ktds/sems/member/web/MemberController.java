@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ktds.sems.common.SendMessage;
 import com.ktds.sems.member.service.MemberService;
 import com.ktds.sems.member.vo.MemberVO;
 
@@ -66,33 +67,40 @@ public class MemberController {
 		return view;
 	}
 
-	@RequestMapping("/member/myPage/modify")
-	public ModelAndView viewModifyPage(@RequestParam String password, HttpSession session) {
-		ModelAndView view = new ModelAndView();
 
-		// 임의로 정한 값
-		// TODO 세션정보를 넘겨받기
+	@RequestMapping("/member/myPage/doCheckPassword")
+	public ModelAndView doCheckPassword(@RequestParam String password, HttpSession session, HttpServletResponse response){
+		
+		ModelAndView view = new ModelAndView();
+		//임의로 정한 값 
+		//TODO 세션정보를 넘겨받기
+
 		MemberVO member = (MemberVO) session.getAttribute("_MEMBER_");
 		String sessionId = "aaa";
 		String sessionPassword = "1234";
 
 		if (password.equals(sessionPassword)) {
+			System.out.println("실행은 됩니까???");
 			/*
 			 * 1. MODIFY_FAIL_COUNT를 0 으로 초기화한다. 2. IS_MODIFY_ACCOUNT_LOCK을
 			 * 'N'으로 초기화한다.
 			 */
-			return memberService.modifySuccess(sessionId);
+			memberService.resetModifyLockAndCount(sessionId);
+			SendMessage.send(response, "OK");
+			memberService.modifySuccess(sessionId);
+			return null;
 		} else {
 
 			/*
 			 * 1. MODIFY_FAIL_COUNT 를 1 증가시킨다.
 			 * 
 			 */
+			memberService.plusModifyFailCount(sessionId);
 
 			/*
 			 * 1. MODIFY_FAIL_COUNT 가 3 이상이라면 IS_MODIFY_ACCOUNT_LOCK 'Y'로 수정한다.
 			 */
-
+			memberService.updateModifyAccountLock(sessionId);
 			/*
 			 * 
 			 * 1. IS_ACCOUNT_LOCK이 'Y'라면 사용자의 이메일로 비밀번호가 3회 이상 틀려 접속이 차단되었음을
@@ -102,11 +110,26 @@ public class MemberController {
 			 * 브라우저는 '다시 접속을 원할 경우 운영자 혹은 관리자에게 문의하세요' 를 출력한다.
 			 * 
 			 */
+			
+			
+			boolean isLock = memberService.isModifyAccountLock(sessionId);
+			
+			SendMessage.send(response, isLock ? "OVER" : "NO");
+			view.setViewName("/member/checkPassword");
 		}
 
 		return view;
 	}
 
+	@RequestMapping("/member/myPage/modify")
+	public ModelAndView viewModifyPage(HttpSession session){
+		
+		//TODO session Id로 바꾸기
+		String sessionId = "aaa";
+		return memberService.modifySuccess(sessionId);
+		
+	}
+	
 	@RequestMapping("/member/myPage/doModifyAction")
 	public ModelAndView doModifyAction(@Valid MemberVO member, Errors errors) {
 		return memberService.modifyMemberInfo(member, errors);
