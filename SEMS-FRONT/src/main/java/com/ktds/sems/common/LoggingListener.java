@@ -10,6 +10,10 @@ import com.ktds.sems.member.vo.LoginHistoryVO;
 public class LoggingListener implements HttpSessionListener {
 
 	private MemberDAO memberDAO;
+	
+	public void setMemberDAO(MemberDAO memberDAO) {
+		this.memberDAO = memberDAO;
+	}
 
 	@Override
 	public void sessionCreated(HttpSessionEvent hse) {
@@ -22,8 +26,10 @@ public class LoggingListener implements HttpSessionListener {
 	@Override
 	public void sessionDestroyed(HttpSessionEvent hse) {
 		HttpSession session = hse.getSession();
-		LoginHistoryVO loginHistoryForlogout = (LoginHistoryVO) session.getAttribute(Session.LOGIN_HISTORY);
-	//	memberDAO.stampLogoutTime(loginHistoryForlogout);
+		LoginHistoryVO loginHistoryForlogout = (LoginHistoryVO) session.getAttribute("_LOGIN_HISTORY_");
+		if (loginHistoryForlogout != null) {
+			memberDAO.stampLogoutTime(loginHistoryForlogout);
+		} 
 	}
 
 }
