@@ -7,11 +7,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>졸업 구분 코드 설정 페이지</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script type="text/javascript" src="<c:url value="/resources/js/query-1.12.1.js"/>"></script>
 <script type="text/javascript">
 
-	$(document).ready(function() {
+	$(document).ready(function (){
 		
+
+
 		$("#mainBtn").click(function(){
 			location.href="<c:url value="/"/>";
 		});
@@ -24,6 +26,7 @@
 		
 		//수정버튼 클릭시
 		$(".grdtModifyBtn").click(function (){
+
 			var cdId =  $(this).parent().parent().children(":eq(0)");
 			var cdNm = $(this).parent().parent().children(":eq(2)").children();
 			
@@ -37,6 +40,7 @@
 				return;
 			}
 			
+
 			if ( confirm("입력한 내용으로 수정하시겠습니까?") == true ) {
 				
 				$.post("<c:url value="/doGrdtModify"/>", {
@@ -61,17 +65,17 @@
 		
 		//삭제버튼 클릭시
 		$(".grdtDeleteBtn").click(function (){
-			
-			var root = $(this).parent().parent().children(":eq(0)");
-			console.log(root.val());
-			
+
 			if ( confirm("삭제하시겠습니까?") == true ) {
 				location.href = "/comm/doGrdtDelete/"+ root.val();
 			}
 			else  {
 				return;
 			} 
+
 		});
+
+
 		
 		//추가버튼 클릭시
 		$("#grdtInsertBtn").click(function (){
@@ -118,6 +122,7 @@
 			}
 		});
 		
+
 	});
 	
 </script>
