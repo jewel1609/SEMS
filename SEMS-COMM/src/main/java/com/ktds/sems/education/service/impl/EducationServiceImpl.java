@@ -11,6 +11,7 @@ import com.ktds.sems.education.service.EducationService;
 import com.ktds.sems.education.vo.CategoryVO;
 import com.ktds.sems.education.vo.CostVO;
 import com.ktds.sems.education.vo.JsonResponseVO;
+import com.ktds.sems.education.vo.TimeVO;
 
 public class EducationServiceImpl implements EducationService {
 	
@@ -37,19 +38,31 @@ public class EducationServiceImpl implements EducationService {
 	}
 
 	@Override
-	public CostVO modifyEduCost(CostVO cost) {
-		CostVO costVO = new CostVO();
+	public String modifyEduCost(CostVO cost) {
+		String result = "";
+		boolean isExistCostNm = educationBiz.isExistCostNm(cost);
 		
-		boolean isModify = educationBiz.modifyEduCost(cost);
-		if (isModify) {
-			costVO = educationBiz.getEduCostByCdId(cost.getCdId());
+		if (isExistCostNm) {
+			result = "FAIL_V";
 		}
-		return costVO;
+		else {
+			boolean isModify = educationBiz.modifyEduCost(cost);
+			if (isModify) {
+				result = "OK";
+			}
+			else {
+				result = "FAIL_M";
+			}
+		}
+		return result;
 	}
 
 	@Override
-	public List<CostVO> getAllEduCost() {
-		return educationBiz.getAllEduCost();
+	public ModelAndView getAllEduCost() {
+		ModelAndView view = new ModelAndView();
+		view.addObject("costList", educationBiz.getAllEduCost());
+		view.setViewName("education/cost");
+		return view;
 	}
 
 
@@ -60,23 +73,31 @@ public class EducationServiceImpl implements EducationService {
 		boolean delectResult = educationBiz.deleteEduCost(cdId);
 		
 		if (!delectResult) {
-			view.setViewName("redirect:/cost");
+			view.setViewName("redirect:/education/cost");
 		}
-		view.setViewName("redirect:/cost");
+		view.setViewName("redirect:/education/cost");
 		return view;
 	}
 
 	@Override
-	public ModelAndView insertEduCost(CostVO cost) {
-		ModelAndView view = new ModelAndView();
-		
-		boolean insertResult = educationBiz.insertEduCost(cost);
-		
-		if (!insertResult) {
-			view.setViewName("redirect:/cost");
+	public String insertEduCost(CostVO cost) {
+		String result = "";
+		boolean isExistCost = educationBiz.isExistCost(cost);
+				
+		if (isExistCost) {
+			result = "FAIL_V";
 		}
-		view.setViewName("redirect:/cost");
-		return view;
+		else {
+			boolean insertResult = educationBiz.insertEduCost(cost);
+			if (insertResult) {
+				result = "OK";
+			}
+			else {
+				result = "FAIL_I";
+			}
+		}
+		
+		return result;
 	}
 
 	@Override
@@ -125,6 +146,68 @@ public class EducationServiceImpl implements EducationService {
 		view.addObject("largeCategoryList", largeCategoryList);
 		
 		return view;
+	}
+
+	@Override
+	public ModelAndView getAllEduTime() {
+		ModelAndView view = new ModelAndView();
+		view.addObject("timeList", educationBiz.getAllEduTime());
+		view.setViewName("education/time");
+		return view;
+	}
+
+	@Override
+	public ModelAndView deleteEduTime(String cdId) {
+		ModelAndView view = new ModelAndView();
+		boolean result = educationBiz.deleteEduTime(cdId);
+		
+		if (!result) {
+			view.setViewName("redirect:/education/time");
+		}
+		view.setViewName("redirect:/education/time");
+		
+		return view;
+	}
+
+	@Override
+	public String modifyEduTime(TimeVO time) {
+		String result = "";
+		boolean isExistTimeNm = educationBiz.isExistTimeNm(time);
+		
+		if (isExistTimeNm) {
+			result = "FAIL_V";
+		}
+		else {
+			boolean isModify = educationBiz.modifyEduTime(time);
+			if (isModify) {
+				result = "OK";
+			}
+			else {
+				result = "FAIL_M";
+			}
+		}
+		return result;
+	}
+
+	@Override
+	public String insertEduTime(TimeVO time) {
+		String result = "";
+		boolean isExistTime = educationBiz.isExistTime(time);
+				
+		if (isExistTime) {
+			result = "FAIL_V";
+		}
+		else {
+			boolean insertResult = educationBiz.insertEduTime(time);
+			if (insertResult) {
+				result = "OK";
+			}
+			else {
+				result = "FAIL_I";
+			}
+		}
+		
+		return result;
 	}
 
 	@Override
