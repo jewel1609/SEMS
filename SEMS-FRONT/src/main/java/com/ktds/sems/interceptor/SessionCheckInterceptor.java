@@ -21,6 +21,6 @@ public class SessionCheckInterceptor extends HandlerInterceptorAdapter {
 			System.out.println("세션 없음");
 		}
 		
-		return wasLogin;
+		return true;
 	}
 }
