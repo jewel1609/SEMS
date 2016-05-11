@@ -240,6 +240,11 @@
 		WHERE	ID = #{id}
 	</update>
 	
+	<select id="getGraduationType" resultType="string">
+		SELECT	CD_NM cdNm	
+		FROM	GRDT_TP
+	</select>
+	
 	<select id="getEduListByMember" parameterType="MemberVO" resultType="EducationVO">
 		SELECT	EDU_ID educationId
 				, EDU_CTGR educationCategory
