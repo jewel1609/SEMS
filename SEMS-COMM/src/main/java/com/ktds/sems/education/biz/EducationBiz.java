@@ -8,10 +8,7 @@ import com.ktds.sems.education.vo.TimeVO;
 
 public interface EducationBiz {
 	
-
-	public boolean validCategoryId(String categoryId, String categoryType);
 	boolean validCategoryId(CategoryVO categoryVO);
-
 
 	public boolean modifyEduCost(CostVO cost);
 	
@@ -23,18 +20,13 @@ public interface EducationBiz {
 
 	public boolean insertEduCost(CostVO cost);
 
-	public boolean validCategoryName(String categoryName, String categoryType);
-
 	public boolean addNewCategory(CategoryVO categoryVO);
 
 	public List<CategoryVO> getAllLargeCategory();
 
 	public boolean isExistCost(CostVO cost);
 
-
 	public boolean isExistCostNm(CostVO cost);
-
-
 
 	public List<TimeVO> getAllEduTime();
 
@@ -43,6 +35,7 @@ public interface EducationBiz {
 	public boolean isExistTimeNm(TimeVO time);
 
 	public boolean modifyEduTime(TimeVO time);
+	
 	boolean validCategoryName(CategoryVO categoryVO);
 
 	public boolean isExistTime(TimeVO time);
