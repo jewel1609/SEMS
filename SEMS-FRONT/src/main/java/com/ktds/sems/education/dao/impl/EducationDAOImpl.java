@@ -66,12 +66,6 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 	}
 
 	@Override
-	public int getSearchedEducationCount(EducationVO educationVO, EducationSearchVO searchVO) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
 	public int deleteEducation(String educationId) {
 		// TODO Auto-generated method stub
 		return 0;

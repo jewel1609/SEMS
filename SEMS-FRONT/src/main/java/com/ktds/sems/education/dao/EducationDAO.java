@@ -17,6 +17,7 @@ public interface EducationDAO {
 	public EducationVO getOneEducationDetail(String educationId);
 
 	public int doCancelEducation(String educationId);
+
 	public int getSearchedEducationCount(EducationVO educationVO);
 
 	public List<EducationVO> doSearchList(EducationVO educationVO, EducationSearchVO searchVO);

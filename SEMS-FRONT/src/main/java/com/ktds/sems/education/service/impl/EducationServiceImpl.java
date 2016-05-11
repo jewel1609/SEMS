@@ -50,18 +50,19 @@ public class EducationServiceImpl implements EducationService {
 		
 		int totalEducationCount = educationBiz.getTotalEducationCount();
 		paging.setTotalArticleCount(totalEducationCount);
-		
 		EducationSearchVO searchVO = new EducationSearchVO();
 		searchVO.setStartIndex(paging.getStartArticleNumber());
 		searchVO.setEndIndex(paging.getEndArticleNumber());
 
 		List<EducationVO> educationList = educationBiz.getAllEducationList(searchVO);
 		educationListVO.setEducationList(educationList);
-		
+
 		ModelAndView view = new ModelAndView();
 		view.setViewName("education/list");
-		view.addObject("educationListVO", educationListVO);
 		
+		if(educationList.size() > 0 ){
+			view.addObject("educationListVO", educationListVO);
+		}
 		return view;
 	}
 

@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.ktds.sems.common.SendMessage;
 import com.ktds.sems.member.service.MemberService;
 import com.ktds.sems.member.vo.MemberVO;
 
@@ -86,7 +85,7 @@ public class MemberController {
 		if (password.equals(sessionPassword)) {
 
 			memberService.resetModifyLockAndCount(sessionId);
-			SendMessage.send(response, "OK");
+		//	SendMessage.send(response, "OK");
 			memberService.modifySuccess(sessionId);
 			return null;
 			
@@ -98,7 +97,7 @@ public class MemberController {
 
 			boolean isLock = memberService.isModifyAccountLock(sessionId);
 			
-			SendMessage.send(response, isLock ? "OVER" : "NO");
+		//	SendMessage.send(response, isLock ? "OVER" : "NO");
 			view.setViewName("/member/checkPassword");
 		}
 

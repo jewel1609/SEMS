@@ -5,6 +5,7 @@
 <html>
 <head>
 <script type="text/javascript" src="/resources/js/jquery.min.js"></script>
+
 <script type="text/javascript">
 	$(document).ready(function() {
 		
@@ -125,19 +126,19 @@
 	<tr>
 		<td>${ education.educationTitle }</td>
 		<td>${ education.educationCategory }</td>
-		<td>${ education.educationCategory }</td>
 		<td>${ education.startDate } ~ ${ education.endDate }</td>
+		<td>${ education.educationType }</td>
 		<td>${ education.cost }</td>
 	</tr>
 	</c:forEach>
-	<tr>
+
+ 	<tr>
 		<td colspan="5">
 			<form id="pagingForm">
-				${educationListVO.paging.getPagingList("pageNo", "[@]", "이전", "다음", pagingForm)}
+				${educationListVO.paging.getPagingList("pageNo", "[@]", "이전", "다음", "pagingForm")}
 			</form>
 		</td>
-	</tr>
+	</tr> 
 </table>
-
 </body>
 </html>

@@ -3,6 +3,8 @@ package com.ktds.sems.education.web;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.education.service.EducationService;
+import com.ktds.sems.education.service.impl.EducationServiceImpl;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.QNAVO;
 
@@ -18,13 +21,15 @@ import com.ktds.sems.education.vo.QNAVO;
 public class EducationController {
 
 	private EducationService educationService;
-
+	private Logger logger = LoggerFactory.getLogger(EducationController.class);	
+	
 	public void setEducationService(EducationService educationService) {
 		this.educationService = educationService;
 	}
 	
 	@RequestMapping("/educationList")
 	public ModelAndView viewEducationListPage(@RequestParam(required=false, defaultValue="0") int pageNo){
+		logger.debug("실행");
 		return educationService.getAllEducationList(pageNo);
 	}
 	
