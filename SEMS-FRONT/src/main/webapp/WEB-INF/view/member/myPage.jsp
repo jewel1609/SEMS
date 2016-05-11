@@ -6,6 +6,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<link rel="stylesheet" href="/backend/resources/css/layout.css" />
 <script type="text/javascript">
 
 
@@ -15,6 +17,6 @@
 <body>
 		
 <a href="/member/myPage/checkPassword">내 정보 수정</a>		
-
+<a href="/member/myPage/emailTest">이메일 보내기 체크 </a>
 </body>
 </html>
