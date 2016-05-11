@@ -12,6 +12,7 @@ import com.ktds.sems.common.LoginStore;
 import com.ktds.sems.common.Session;
 import com.ktds.sems.member.biz.MemberBiz;
 import com.ktds.sems.member.dao.MemberDAO;
+import com.ktds.sems.member.vo.LoginHistorySearchVO;
 import com.ktds.sems.member.vo.LoginHistoryVO;
 import com.ktds.sems.member.vo.MemberVO;
 
@@ -201,6 +202,11 @@ public class MemberBizImpl implements MemberBiz {
 	@Override
 	public int getTotalLoginHisotryCount() {
 		return memberDAO.getTotalLoginHisotryCount();
+	}
+
+	@Override
+	public List<LoginHistoryVO> getAllLoginHistory(LoginHistorySearchVO loginHistorySearchVO) {
+		return memberDAO.getAllLoginHistory(loginHistorySearchVO);
 	}
 
 	@Override

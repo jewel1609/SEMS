@@ -28,7 +28,7 @@ public interface MemberService {
 
 	public ModelAndView viewLoginHistoryPage(int pageNo);
 
-	void saveLoginHistoryAsExcel(HttpSession session);
+	public void saveLoginHistoryAsExcel(HttpSession session);
 
 	
 }

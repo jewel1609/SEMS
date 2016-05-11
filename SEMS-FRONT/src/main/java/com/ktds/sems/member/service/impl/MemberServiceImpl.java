@@ -235,7 +235,7 @@ public class MemberServiceImpl implements MemberService {
 		loginHistorySearchVO.setStartIndex(paging.getStartArticleNumber());
 		loginHistorySearchVO.setEndIndex(paging.getEndArticleNumber());
 		
-		List<LoginHistoryVO> loginHistoryList = new ArrayList<LoginHistoryVO>();
+		List<LoginHistoryVO> loginHistoryList = memberBiz.getAllLoginHistory(loginHistorySearchVO);
 		loginHistoryListVO.setLoginHistoryList(loginHistoryList);
 		
 		view.setViewName("member/loginHistory");

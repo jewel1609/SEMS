@@ -178,6 +178,24 @@
 		SELECT	COUNT(LGI_HTR_ID)
 		FROM	LGI_HTR		
 	</select>
+	<select id="getAllLoginHistory" parameterType="LoginHistorySearchVO" resultType="LoginHistoryVO">
+		SELECT	LGI_HTR_ID lgiHtrId
+				, MBR_ID id
+				, LGI_IP lgiIp
+				,LGI_DT lgiDt
+				, LGO_DT lgoDt
+		FROM	(
+					SELECT	ROWNUM AS RNUM
+							, LOGIN_HISTORY.*
+					FROM	(
+								SELECT	*
+								FROM	LGI_HTR
+								ORDER BY LGI_HTR_ID DESC
+							) LOGIN_HISTORY
+					WHERE	ROWNUM <![CDATA[<=]]> #{endIndex}
+				)
+		WHERE	RNUM <![CDATA[>=]]> #{startIndex}
+	</select>
 	
 	<update id="modifyMemberInfo" parameterType="MemberVO" >
 		UPDATE	MBR

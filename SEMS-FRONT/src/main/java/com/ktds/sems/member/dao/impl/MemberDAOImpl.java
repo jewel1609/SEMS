@@ -5,6 +5,7 @@ import java.util.List;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 
 import com.ktds.sems.member.dao.MemberDAO;
+import com.ktds.sems.member.vo.LoginHistorySearchVO;
 import com.ktds.sems.member.vo.LoginHistoryVO;
 import com.ktds.sems.member.vo.MemberVO;
 
@@ -114,12 +115,13 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 		return getSqlSession().selectOne("MemberDAO.isExistId", id);
 	}
 	
-
-
 	@Override
 	public int stampLoginTime(LoginHistoryVO newLoginHistoryVO) {
 		return getSqlSession().insert("MemberDAO.stampLoginTime", newLoginHistoryVO);
 	}
 
-
+	@Override
+	public List<LoginHistoryVO> getAllLoginHistory(LoginHistorySearchVO loginHistorySearchVO) {
+		return getSqlSession().selectList("MemberDAO.getAllLoginHistory", loginHistorySearchVO);
+	}
 }

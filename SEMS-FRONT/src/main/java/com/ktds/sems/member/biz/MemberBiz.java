@@ -1,8 +1,11 @@
 package com.ktds.sems.member.biz;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.ktds.sems.member.vo.LoginHistorySearchVO;
 import com.ktds.sems.member.vo.LoginHistoryVO;
 import com.ktds.sems.member.vo.MemberVO;
 
@@ -39,6 +42,8 @@ public interface MemberBiz {
 	public boolean stampLoginTime(HttpServletRequest request, MemberVO loginVO);
 
 	public int getTotalLoginHisotryCount();
+
+	public List<LoginHistoryVO> getAllLoginHistory(LoginHistorySearchVO loginHistorySearchVO);
 
 	public void modifyMemberInfo(MemberVO member);
 
