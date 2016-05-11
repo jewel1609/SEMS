@@ -103,26 +103,26 @@ public class EducationServiceImpl implements EducationService {
 	public ModelAndView doSearchList(EducationVO educationVO, int pageNo) {
 		EducationListVO searchedListVO = new EducationListVO();
 		Paging paging = new Paging(15,15);
+		
 		searchedListVO.setPaging(paging);
 		paging.setPageNumber(pageNo + "");
-
-		ModelAndView view = new ModelAndView();
+		
+		int searchedEducationCount = educationBiz.getSearchedEducationCount(educationVO);
+		paging.setTotalArticleCount(searchedEducationCount);
 		
 		EducationSearchVO searchVO = new EducationSearchVO();
 		searchVO.setStartIndex(paging.getStartArticleNumber());
 		searchVO.setEndIndex(paging.getEndArticleNumber());	
-
-		logger.info("StartDate"+educationVO.getStartDate());
-		logger.info("EndDate"+ educationVO.getEndDate());
-		
-		int searchedEducationCount = educationBiz.getSearchedEducationCount(educationVO);
-		paging.setTotalArticleCount(searchedEducationCount);
+	
+		logger.info("searchedEducationCount" + searchedEducationCount);
+		logger.info("pageNo" + pageNo);
+		logger.info("paging.getStartArticleNumber()" + paging.getStartArticleNumber());
+		logger.info("paging.getEndArticleNumber()" + paging.getEndArticleNumber());
 
 		List<EducationVO> searchedEducations = educationBiz.doSearchList(educationVO, searchVO);
-		
-		logger.info("서치 카운트 확인"+ searchedEducations.size());
-
 		searchedListVO.setEducationList(searchedEducations);
+	
+		ModelAndView view = new ModelAndView();
 		
 		view.addObject("searchedListVO", searchedListVO);
 		view.setViewName("education/list");

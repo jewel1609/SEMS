@@ -29,7 +29,7 @@ public class EducationController {
 	
 	@RequestMapping("/educationList")
 	public ModelAndView viewEducationListPage(@RequestParam(required=false, defaultValue="0") int pageNo){
-		logger.debug("실행");
+		logger.info("실행");
 		return educationService.getAllEducationList(pageNo);
 	}
 	
@@ -37,7 +37,8 @@ public class EducationController {
 	public ModelAndView doSearchList(@RequestParam String startYear, @RequestParam String startMonth, 
 			@RequestParam String endYear, @RequestParam String endMonth, @RequestParam String eduName,
 			@RequestParam String educationType, @RequestParam String cost, @RequestParam(required=false, defaultValue="0") int pageNo){
-	
+		logger.info("검색");
+		
 		EducationVO educationVO = new EducationVO();
 		if(startMonth.length() == 1) {
 			startMonth = "0" + startMonth;
