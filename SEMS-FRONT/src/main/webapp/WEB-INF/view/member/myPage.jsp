@@ -17,6 +17,6 @@
 <body>
 		
 <a href="/member/myPage/checkPassword">내 정보 수정</a>		
-<a href="/member/myPage/emailTest">이메일 보내기 체크 </a>
+
 </body>
 </html>
