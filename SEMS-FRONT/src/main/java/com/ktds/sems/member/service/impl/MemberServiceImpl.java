@@ -6,6 +6,7 @@ import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.validation.Errors;
@@ -82,7 +83,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public String login(MemberVO loginVO, Errors errors, HttpSession session) {
+	public String login(MemberVO loginVO, Errors errors, HttpSession session, HttpServletRequest request) {
 
 		//TODO 아이디 있는지 확인
 		
@@ -106,6 +107,9 @@ public class MemberServiceImpl implements MemberService {
 				 */
 				String csrfToken = UUID.randomUUID().toString();
 				session.setAttribute(Session.CSRF_TOKEN, csrfToken);
+				
+				// 로그인 내역 남기기 
+				memberBiz.stampLoginTime(request, loginVO);
 				
 				if(memberBiz.needToChangPassword(loginVO.getId())) {
 					return "CNGPW";
@@ -161,6 +165,20 @@ public class MemberServiceImpl implements MemberService {
 	public ModelAndView modifyMemberInfo(MemberVO member, Errors errors) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	/**
+	 * @author 이기연
+	 */
+	@Override
+	public void saveLoginHistoryAsExcel(HttpSession session) {
+		// TODO Auto-generated method stub
+		MemberVO sessionMember = (MemberVO) session.getAttribute("_MEMBER_");
+		String memberId = sessionMember.getId();
+		
+		// 로그인된 멤버의 로그인 내역만 저장시키기 위해서 보낸다. 
+		// boolean 값으로 받아와 excel 변환 여부를 체크한다.
+		memberBiz.saveLoginHistoryAsExcel(memberId);
 	}
 
 	@Override

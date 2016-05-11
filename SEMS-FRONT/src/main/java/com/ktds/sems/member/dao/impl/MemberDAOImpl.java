@@ -1,5 +1,7 @@
 package com.ktds.sems.member.dao.impl;
 
+import java.util.List;
+
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 
 import com.ktds.sems.member.dao.MemberDAO;
@@ -88,9 +90,22 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 		return getSqlSession().selectOne("MemberDAO.needToChangPassword", id);
 	}
 
+	/**
+	 * @author 이기연
+	 */
+	@Override
+	public List<LoginHistoryVO> saveLoginHistoryAsExcel(String memberId) {
+		return getSqlSession().selectList("MemberDAO.saveLoginHistoryAsExcel", memberId);
+	}
+
 	@Override
 	public int getTotalLoginHisotryCount() {
 		return getSqlSession().selectOne("MemberDAO.getTotalLoginHisotryCount");
 	}
-	
+
+	@Override
+	public int stampLoginTime(LoginHistoryVO newLoginHistoryVO) {
+		return getSqlSession().insert("MemberDAO.stampLoginTime", newLoginHistoryVO);
+	}
+
 }

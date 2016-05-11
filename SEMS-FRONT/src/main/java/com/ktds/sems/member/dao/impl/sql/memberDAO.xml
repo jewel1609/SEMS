@@ -73,7 +73,7 @@
 		FROM	MBR
 		WHERE	ID = #{id}
 	</select>
-	<insert id="loginHistory" parameterType="LoginHistoryVO">
+	<insert id="stampLoginTime" parameterType="LoginHistoryVO">
 		INSERT INTO LGI_HTR	(
 								LGI_HTR_ID
 								, MBR_ID
@@ -83,7 +83,7 @@
 							) 
 		VALUES				(
 								LGI_HTR_ID_SEQ.NEXTVAL
-								, #{ mbrId }
+								, #{ id }
 								, #{ lgiIp }
 								, SYSDATE
 								, SYSDATE 
@@ -94,6 +94,15 @@
 		SET		LGO_DT = SYSDATE
 		WHERE	LGI_HTR_ID = #{ lgiHtrId }
 	</update>
+	<select id="saveLoginHistoryAsExcel" resultType="LoginHistoryVO" parameterType="string">
+		SELECT	LGI_HTR_ID lgiHtrId
+				, MBR_ID id
+				, LGI_IP lgiIp
+				, LGI_DT lgiDt
+				, LGO_DT lgoDt
+		FROM	LGI_HTR
+		WHERE	MBR_ID = #{memberId}
+	</select>
 	<update id="loginSuccess" parameterType="string">
 		UPDATE	MBR
 		SET		LGI_F_CT = 0

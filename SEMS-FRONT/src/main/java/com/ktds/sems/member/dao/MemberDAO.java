@@ -1,5 +1,7 @@
 package com.ktds.sems.member.dao;
 
+import java.util.List;
+
 import com.ktds.sems.member.vo.LoginHistoryVO;
 import com.ktds.sems.member.vo.MemberVO;
 
@@ -37,7 +39,10 @@ public interface MemberDAO {
 
 	public String needToChangPassword(String id);
 
+	public List<LoginHistoryVO> saveLoginHistoryAsExcel(String memberId);
+
 	public int getTotalLoginHisotryCount();
 
-	
+	public int stampLoginTime(LoginHistoryVO newLoginHistoryVO);
+
 }

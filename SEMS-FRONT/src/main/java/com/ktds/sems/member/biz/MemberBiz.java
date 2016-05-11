@@ -1,5 +1,6 @@
 package com.ktds.sems.member.biz;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import com.ktds.sems.member.vo.LoginHistoryVO;
@@ -9,10 +10,6 @@ public interface MemberBiz {
 
 	public boolean addNewMember(MemberVO member);
 	
-	public boolean loginHistory(LoginHistoryVO loginHistoryVO);
-	
-	public boolean logoutHistory(LoginHistoryVO loginHistoryVO);
-
 	public boolean isAccountLock(String id);
 
 	public boolean login(HttpSession session, MemberVO memberVO);
@@ -36,6 +33,10 @@ public interface MemberBiz {
 	public String getNowDate();
 
 	public boolean needToChangPassword(String id);
+
+	public void saveLoginHistoryAsExcel(String memberId);
+
+	public boolean stampLoginTime(HttpServletRequest request, MemberVO loginVO);
 
 	public int getTotalLoginHisotryCount();
 
