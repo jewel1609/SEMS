@@ -20,6 +20,7 @@ public class EducationVO {
 	@NotEmpty(message="강의실 명을 입력 해주세요!")
 	private String educationLocation;
 	
+	@NotEmpty(message="커리큘럼을 입력 해주세요!")
 	private String educationCurriculum;
 	
 	@NotEmpty(message="강의소개를 입력 해주세요!")
