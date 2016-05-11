@@ -12,7 +12,7 @@ import com.ktds.sems.member.vo.MemberVO;
 public interface MemberBiz {
 
 	public boolean addNewMember(MemberVO member);
-	
+
 	public boolean isAccountLock(String id);
 
 	public boolean login(HttpSession session, MemberVO memberVO);
@@ -39,8 +39,6 @@ public interface MemberBiz {
 
 	public void saveLoginHistoryAsExcel(String memberId);
 
-	public boolean stampLoginTime(HttpServletRequest request, MemberVO loginVO);
-
 	public int getTotalLoginHisotryCount();
 
 	public List<LoginHistoryVO> getAllLoginHistory(LoginHistorySearchVO loginHistorySearchVO);
@@ -48,6 +46,8 @@ public interface MemberBiz {
 	public void modifyMemberInfo(MemberVO member);
 
 	public boolean isExistId(String id);
+
+	public boolean stampLoginTime(HttpServletRequest request, MemberVO loginVO);
 
 	public String getSaltById(String id);
 

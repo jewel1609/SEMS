@@ -48,7 +48,8 @@ public class MemberController {
 	}
 
 	@RequestMapping(value = ("/login"), method = RequestMethod.POST)
-	public void login(@Valid MemberVO memberVO, Errors errors, HttpSession session, HttpServletResponse response, HttpServletRequest request) {
+	public void login(@Valid MemberVO memberVO, Errors errors, HttpSession session, HttpServletResponse response,
+			HttpServletRequest request) {
 		String loginStatus = memberService.login(memberVO, errors, session, request);
 		AjaxUtil.sendResponse(response, loginStatus);
 	}
@@ -73,11 +74,11 @@ public class MemberController {
 		
 		ModelAndView view = new ModelAndView();
 
-		//TODO 입력한 패스워드와
-				//테이블의 member.getPassword() 혹은 세션패스워드 를 해독했을때의 암호가
-				//일치한다면 SendMessage.send(response, "OK");
-		
-		//TODO 세션정보를 넘겨받기
+		// TODO 입력한 패스워드와
+		// 테이블의 member.getPassword() 혹은 세션패스워드 를 해독했을때의 암호가
+		// 일치한다면 SendMessage.send(response, "OK");
+
+		// TODO 세션정보를 넘겨받기
 		MemberVO member = (MemberVO) session.getAttribute("_MEMBER_");
 		String sessionId = "aaa";
 		String sessionPassword = "1234";
@@ -100,6 +101,8 @@ public class MemberController {
 			 * 
 			 */
 			memberService.plusModifyFailCount(sessionId);
+
+			memberService.updateModifyAccountLock(sessionId);
 
 			/*
 			 * 1. MODIFY_FAIL_COUNT 가 3 이상이라면 IS_MODIFY_ACCOUNT_LOCK 'Y'로 수정한다.
@@ -133,19 +136,19 @@ public class MemberController {
 	}
 
 	@RequestMapping("/member/myPage/modify")
-	public ModelAndView viewModifyPage(HttpSession session){
-		
-		//TODO session Id로 바꾸기
+	public ModelAndView viewModifyPage(HttpSession session) {
+
+		// TODO session Id로 바꾸기
 		String sessionId = "aaa";
 		return memberService.modifySuccess(sessionId);
-		
+
 	}
-	
+
 	@RequestMapping("/member/myPage/doModifyAction")
 	public ModelAndView doModifyAction(@Valid MemberVO member, Errors errors) {
 		return memberService.modifyMemberInfo(member, errors);
 	}
-	
+
 	/**
 	 * @author 이기연
 	 * @param session
@@ -156,8 +159,8 @@ public class MemberController {
 	}
 
 	@RequestMapping("/member/loginHistory")
-	public ModelAndView viewLoginHistoryPage(@RequestParam(required=false, defaultValue="0") int pageNo) {
+	public ModelAndView viewLoginHistoryPage(@RequestParam(required = false, defaultValue = "0") int pageNo) {
 		return memberService.viewLoginHistoryPage(pageNo);
 	}
-	
+
 }

@@ -77,13 +77,11 @@ public class MemberBizImpl implements MemberBiz {
 	@Override
 	public boolean plusLoginFailCount(String id) {
 		return memberDAO.plusLoginFailCount(id) > 0;
-
 	}
 
 	@Override
 	public boolean updateAccountLock(String id) {
 		return memberDAO.updateAccountLock(id) > 0;
-
 	}
 	
 	@Override
@@ -196,7 +194,6 @@ public class MemberBizImpl implements MemberBiz {
 		newLoginHistoryVO.setLgiIp(request.getRemoteHost());
 		
 		return memberDAO.stampLoginTime(newLoginHistoryVO) > 0;
-		
 	}
 
 	@Override
