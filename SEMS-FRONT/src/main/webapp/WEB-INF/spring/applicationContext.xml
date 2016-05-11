@@ -39,5 +39,4 @@
 	
 	<bean id="sampleController" class="com.ktds.sems.sample.web.SampleController" />
 	
-	
 </beans>

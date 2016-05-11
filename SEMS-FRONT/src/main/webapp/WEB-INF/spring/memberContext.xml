@@ -14,5 +14,5 @@
 	<bean id="memberService" class="com.ktds.sems.member.service.impl.MemberServiceImpl">
 		<property name="memberBiz" ref="memberBiz" />
 	</bean>
-
+	
 </beans>
