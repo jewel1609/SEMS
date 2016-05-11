@@ -34,7 +34,7 @@
 		});
 		
 		$(".register .registButton").click(function() {
-			location.href = "/register";
+			location.href = "/comm/register";
 		});
 	});
 </script>
