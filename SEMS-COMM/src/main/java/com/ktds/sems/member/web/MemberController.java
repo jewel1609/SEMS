@@ -38,7 +38,8 @@ public class MemberController {
 		String cdId = request.getParameter("cdId");
 		String cdNm = request.getParameter("cdNm");
 		
-		memberService.doGrdtModify(cdId, cdNm);
+		String status = memberService.doGrdtModify(cdId, cdNm);
+		AjaxUtil.sendResponse(response, status);
 	}
 	
 	@RequestMapping("doGrdtInsert")
