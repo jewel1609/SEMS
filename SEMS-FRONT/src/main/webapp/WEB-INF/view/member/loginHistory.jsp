@@ -43,10 +43,10 @@
 		</c:forEach>
 	</table>
 	<div align="center">
-		<form id="pagingForm">${ LoginHistoryListVO.paging.getPagingList("pageNo","[@]","이전","다음","pagingForm") }
+		<form id="pagingForm">${ loginHistoryListVO.paging.getPagingList("pageNo","[@]","이전","다음","pagingForm") }
 		</form>
 	</div>
-	<div align="center" style="margin-top: 50%;">
+	<div align="center" style="margin-top: 150px;">
 		<form id="searchForm">
 			<select name="searchType">
 				<c:if test="${loginHistoryVO.searchType eq '1'}">
