@@ -41,7 +41,7 @@
 								 )
 	</insert>
 
-	<select id="validCategoryId" parameterType="map" resultType="_int">
+	<select id="validCategoryId" parameterType="CategoryVO" resultType="_int">
 		SELECT	COUNT(CD_ID)
 		<if test="categoryType == 'large'">
 		FROM	LRG_CTGR
@@ -55,7 +55,7 @@
 		WHERE	CD_ID = #{ categoryId }
 	</select>
 	
-	<select id="validCategoryName" parameterType="map" resultType="_int">
+	<select id="validCategoryName" parameterType="CategoryVO" resultType="_int">
 		SELECT	COUNT(CD_NM)
 		<if test="categoryType == 'large'">
 		FROM	LRG_CTGR
@@ -97,4 +97,25 @@
 				, CD_NM categoryName
 		FROM	LRG_CTGR
 	</select>
+	
+	<select id="getChildCategory" parameterType="CategoryVO" resultType="CategoryVO">
+		SELECT	CD_ID categoryId
+				, CD_NM categoryName
+		FROM	
+			<if test="categoryType == 'large'">
+				MED_CTGR
+			</if>
+			<if test="categoryType == 'medium'">
+				SML_CTGR
+			</if>
+		WHERE	
+			<if test="categoryType == 'large'">
+				L_CD_ID = 
+			</if>
+			<if test="categoryType == 'medium'">
+				M_CD_ID = 
+			</if>
+						  #{ parentCategoryId }
+	</select>
+	
 </mapper>

@@ -10,6 +10,7 @@
 <script type="text/javascript" src="<c:url value="/js/jquery-1.12.1.js"/> "></script>
 <script type="text/javascript">
 	$(document).ready(function(){
+		var parentCategoryId = $("#parentCategoryId");
 		var categoryId = $("#categoryId");
 		var categoryName = $("#categoryName");
 		var categoryType = $("#categoryType");
@@ -80,15 +81,38 @@
 		});
 		
 		$("#newMediumCategoryBtn").click(function(){
-			initCategoryIdAndName();
-			categoryType.val('medium');
-			$("#mediumCategoryListContainer").append($("#newCategoryContainer").detach());
+			console.log(parentCategoryId.val());
+			if ( parentCategoryId.val() != null && parentCategoryId.val() != '' ) {
+				var isParentCategorySelected = $('#largeCategoryList option[value='+parentCategoryId.val()+']').length > 0;
+				if (  isParentCategorySelected ){
+					initCategoryIdAndName();
+					categoryType.val('medium');
+					$("#mediumCategoryListContainer").append($("#newCategoryContainer").detach());
+				}
+				else {
+					alert('대분류를 선택해 주세요.');
+				}
+			}
+			else {
+				alert('대분류를 선택해 주세요.');
+			}
 		});
 		
 		$("#newSmallCategoryBtn").click(function(){
-			initCategoryIdAndName();
-			categoryType.val('small');
-			$("#smallCategoryListContainer").append($("#newCategoryContainer").detach());
+			if ( parentCategoryId != null && parentCategoryId.val() != '' ) {
+				var isParentCategorySelected = $('#mediumCategoryList option[value='+parentCategoryId.val()+']').length > 0;
+				if ( isParentCategorySelected ){
+					initCategoryIdAndName();
+					categoryType.val('small');
+					$("#smallCategoryListContainer").append($("#newCategoryContainer").detach());
+				}
+				else {
+					alert('중분류를 선택해 주세요.');
+				}
+			}
+			else {
+				alert('중분류를 선택해 주세요.');
+			}
 		});
 		
 		$("#categoryId").keyup(function(){
@@ -106,7 +130,16 @@
 						, $("#newCategoryForm").serialize()
 						, function(response){
 							if ( response.result ) {
+								/*
+								* 새로운 카테고리를 바로 리스트에 추가?
+								* 카테고리를 모두 새로 받아옴?
+								*/
 								
+								$('#'+categoryType.val()+'CategoryList').append($("<option></option>")
+											                    		.attr("value",categoryId.val())
+											                    		.text(categoryName.val())); 
+								
+								initCategoryIdAndName();
 							}
 							else {
 								for ( var i = 0; i < response.data.length; i++ ) {
@@ -120,8 +153,56 @@
 		
 		$("#largeCategoryList").change(function(){
 			
-			console.log($(this).val());
-			console.log($('#largeCategoryList :selected').length);
+			//console.log($('#largeCategoryList :selected').length);
+
+			parentCategoryId.val($(this).val());
+			
+			$.post(
+					'<c:url value="/education/getChildCategory"/>'
+					, 'parentCategoryId=' + parentCategoryId.val() + '&categoryType=large'
+					, function(response){
+						if ( response.result ) {
+							$("#smallCategoryList").empty();
+							var mediumCategoryList = $("#mediumCategoryList");
+							mediumCategoryList.empty();
+							for ( var i = 0; i < response.data.length; i++ ) {
+								mediumCategoryList.append($("<option></option>")
+						                    		.attr("value",response.data[i].categoryId)
+						                    		.text(response.data[i].categoryName)); 
+							}
+						}
+						else {
+							console.log(response.data);
+						}
+					}
+			);
+			
+		});
+		
+		$("#mediumCategoryList").change(function(){
+			
+			//console.log($('#largeCategoryList :selected').length);
+
+			parentCategoryId.val($(this).val());
+			
+			$.post(
+					'<c:url value="/education/getChildCategory"/>'
+					, 'parentCategoryId=' + parentCategoryId.val() + '&categoryType=medium'
+					, function(response){
+						if ( response.result ) {
+							var smallCategoryList = $("#smallCategoryList");
+							smallCategoryList.empty();
+							for ( var i = 0; i < response.data.length; i++ ) {
+								smallCategoryList.append($("<option></option>")
+						                    		.attr("value",response.data[i].categoryId)
+						                    		.text(response.data[i].categoryName)); 
+							}
+						}
+						else {
+							console.log(response.data);
+						}
+					}
+			);
 			
 		});
 		
@@ -167,6 +248,7 @@
 		</select>
 		<br/>
 		<input type="button" id="newMediumCategoryBtn" value="추가">
+		<br/>
 	</div>
 	
 	<div id="smallCategoryListContainer">
@@ -174,6 +256,7 @@
 		</select>
 		<br/>
 		<input type="button" id="newSmallCategoryBtn" value="추가">
+		<br/>
 	</div>
 
 </body>

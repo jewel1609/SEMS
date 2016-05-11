@@ -8,7 +8,7 @@ import com.ktds.sems.education.vo.CostVO;
 
 public interface EducationDAO {
 	
-	int validCategoryId(Map<String, String> category);
+	int validCategoryId(CategoryVO categoryVO);
 
 	public CostVO getEduCostByCdId(String cdId);
 
@@ -16,7 +16,7 @@ public interface EducationDAO {
 
 	public List<CostVO> getAllEduCost();
 
-	public int validCategoryName(Map<String, String> category);
+	public int validCategoryName(CategoryVO categoryVO);
 
 	public int addNewCategory(CategoryVO categoryVO);
 
@@ -25,5 +25,7 @@ public interface EducationDAO {
 	public int insertEduCost(CostVO cost);
 
 	List<CategoryVO> getAllLargeCategory();
+
+	List<CategoryVO> getChildCategory(CategoryVO categoryVO);
 
 }

@@ -6,6 +6,7 @@ import javax.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -87,5 +88,10 @@ public class EducationController {
 		return educationService.insertEduCost(cost);
 	}
 
+	@RequestMapping("/education/getChildCategory")
+	@ResponseBody
+	public JsonResponseVO getChildCategory(@RequestParam String parentCategoryId,@RequestParam String categoryType){
+		return educationService.getChildCategory(parentCategoryId, categoryType);
+	}
 
 }

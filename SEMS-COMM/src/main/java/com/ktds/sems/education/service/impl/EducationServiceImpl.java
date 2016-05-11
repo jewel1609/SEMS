@@ -22,7 +22,12 @@ public class EducationServiceImpl implements EducationService {
 
 	@Override
 	public String validCategoryId(String categoryId, String categoryType) {
-		boolean isExist = educationBiz.validCategoryId(categoryId, categoryType);
+		
+		CategoryVO categoryVO = new CategoryVO();
+		categoryVO.setCategoryId(categoryId);
+		categoryVO.setCategoryType(categoryType);
+		
+		boolean isExist = educationBiz.validCategoryId(categoryVO);
 		if ( isExist ) {
 			return "true";
 		}
@@ -76,7 +81,12 @@ public class EducationServiceImpl implements EducationService {
 
 	@Override
 	public String validCategoryName(String categoryName, String categoryType) {
-		boolean isExist = educationBiz.validCategoryName(categoryName, categoryType);
+
+		CategoryVO categoryVO = new CategoryVO();
+		categoryVO.setCategoryName(categoryName);
+		categoryVO.setCategoryType(categoryType);
+		
+		boolean isExist = educationBiz.validCategoryName(categoryVO);
 		if ( isExist ) {
 			return "true";
 		}
@@ -115,6 +125,30 @@ public class EducationServiceImpl implements EducationService {
 		view.addObject("largeCategoryList", largeCategoryList);
 		
 		return view;
+	}
+
+	@Override
+	public JsonResponseVO getChildCategory(String parentCategoryId, String categoryType) {
+		
+		JsonResponseVO jsonResponseVO = new JsonResponseVO();
+		
+		CategoryVO categoryVO = new CategoryVO();
+		categoryVO.setParentCategoryId(parentCategoryId);
+		categoryVO.setCategoryType(categoryType);
+		
+		List<CategoryVO> childCategories = educationBiz.getChildCategory(categoryVO);
+		
+		if ( childCategories != null ) {
+			jsonResponseVO.setResult(true);
+			jsonResponseVO.setData(childCategories);
+		}
+		else {
+			jsonResponseVO.setResult(false);
+			jsonResponseVO.setData("에러 발생");
+		}
+		
+		return jsonResponseVO;
+		
 	}
 
 }

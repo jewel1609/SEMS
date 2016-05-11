@@ -28,4 +28,6 @@ public interface EducationService {
 
 	ModelAndView viewCategoryPage();
 
+	JsonResponseVO getChildCategory(String parentCategoryId, String categoryType);
+
 }

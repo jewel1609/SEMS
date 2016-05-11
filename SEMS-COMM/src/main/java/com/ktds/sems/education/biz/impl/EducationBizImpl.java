@@ -18,12 +18,8 @@ public class EducationBizImpl implements EducationBiz {
 	}
 	
 	@Override
-	public boolean validCategoryId(String categoryId, String categoryType) {
-		Map<String, String> category = new HashMap<String, String>();
-		category.put("categoryId", categoryId);
-		category.put("categoryType", categoryType);
-		
-		return educationDAO.validCategoryId(category) > 0;
+	public boolean validCategoryId(CategoryVO categoryVO) {
+		return educationDAO.validCategoryId(categoryVO) > 0;
 	}
 
 	@Override
@@ -65,12 +61,8 @@ public class EducationBizImpl implements EducationBiz {
 
 
 	@Override
-	public boolean validCategoryName(String categoryName, String categoryType) {
-		Map<String, String> category = new HashMap<String, String>();
-		category.put("categoryName", categoryName);
-		category.put("categoryType", categoryType);
-		
-		return educationDAO.validCategoryName(category) > 0;
+	public boolean validCategoryName(CategoryVO categoryVO) {
+		return educationDAO.validCategoryName(categoryVO) > 0;
 	}
 
 	@Override
@@ -81,6 +73,11 @@ public class EducationBizImpl implements EducationBiz {
 	@Override
 	public List<CategoryVO> getAllLargeCategory() {
 		return educationDAO.getAllLargeCategory();
+	}
+
+	@Override
+	public List<CategoryVO> getChildCategory(CategoryVO categoryVO) {
+		return educationDAO.getChildCategory(categoryVO);
 	}
 
 }

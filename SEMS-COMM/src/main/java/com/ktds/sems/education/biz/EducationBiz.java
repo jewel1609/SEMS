@@ -7,7 +7,7 @@ import com.ktds.sems.education.vo.CostVO;
 
 public interface EducationBiz {
 	
-	boolean validCategoryId(String categoryId, String categoryType);
+	boolean validCategoryId(CategoryVO categoryVO);
 
 	public boolean modifyEduCost(CostVO cost);
 	
@@ -21,10 +21,12 @@ public interface EducationBiz {
 	public boolean insertEduCost(CostVO cost);
 
 
-	boolean validCategoryName(String categoryName, String categoryType);
+	boolean validCategoryName(CategoryVO categoryVO);
 
 	boolean addNewCategory(CategoryVO categoryVO);
 
 	List<CategoryVO> getAllLargeCategory();
+
+	List<CategoryVO> getChildCategory(CategoryVO categoryVO);
 
 }

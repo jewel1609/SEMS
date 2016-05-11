@@ -12,8 +12,8 @@ import com.ktds.sems.education.vo.CostVO;
 public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationDAO{
 	
 	@Override
-	public int validCategoryId(Map<String, String> category) {
-		return getSqlSession().selectOne("EducationDAO.validCategoryId", category);
+	public int validCategoryId(CategoryVO categoryVO) {
+		return getSqlSession().selectOne("EducationDAO.validCategoryId", categoryVO);
 	}
 
 	@Override
@@ -42,8 +42,8 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 	}
 
 	@Override
-	public int validCategoryName(Map<String, String> category) {
-		return getSqlSession().selectOne("EducationDAO.validCategoryName", category);
+	public int validCategoryName(CategoryVO categoryVO) {
+		return getSqlSession().selectOne("EducationDAO.validCategoryName", categoryVO);
 	}
 
 	@Override
@@ -54,5 +54,10 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 	@Override
 	public List<CategoryVO> getAllLargeCategory() {
 		return getSqlSession().selectList("EducationDAO.getAllLargeCategory");
+	}
+
+	@Override
+	public List<CategoryVO> getChildCategory(CategoryVO categoryVO) {
+		return getSqlSession().selectList("EducationDAO.getChildCategory", categoryVO);
 	}
 }
