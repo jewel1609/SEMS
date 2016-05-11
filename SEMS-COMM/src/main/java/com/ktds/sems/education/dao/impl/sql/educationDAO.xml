@@ -98,6 +98,69 @@
 		FROM	LRG_CTGR
 	</select>
 	
+	<select id="isExistCost" parameterType="CostVO" resultType="_int">
+		SELECT	COUNT(CD_ID)
+		FROM	EDU_CST
+		WHERE	CD_ID = #{cdId}
+		OR		CD_NM = #{cdNm}
+	</select>
+	
+	<select id="isExistCostNm" parameterType="CostVO" resultType="_int">
+		SELECT	COUNT(CD_ID)
+		FROM	EDU_CST
+		WHERE	CD_NM = #{cdNm}
+	</select>
+	
+	<select id="getAllEduTime" resultType="TimeVO">
+		SELECT	CD_ID cdId
+				, CD_NM cdNm
+		FROM	EDU_TIME
+	</select>
+	
+	<delete id="deleteEduTime" parameterType="string">
+		DELETE
+		FROM	EDU_TIME
+		WHERE	CD_ID = #{cdId}
+	</delete>
+	
+	<select id="isExistTimeNm" parameterType="TimeVO" resultType="_int">
+		SELECT	COUNT(CD_ID)
+		FROM	EDU_TIME
+		WHERE	CD_NM = #{cdNm}
+	</select>
+	
+	<update id="modifyEduTime" parameterType="TimeVO">
+		UPDATE	EDU_TIME 
+		SET		CD_NM = #{cdNm}
+		WHERE 	CD_ID = #{cdId}
+	</update>
+	
+	<select id="getEduTimeByCdId" parameterType="string" resultType="TimeVO">
+		SELECT	CD_ID cdId
+				, CD_NM cdNm
+		FROM	EDU_TIME
+		WHERE	CD_ID = #{cdId}
+	</select>
+	
+	<select id="isExistTime" parameterType="TimeVO" resultType="_int">
+		SELECT	COUNT(CD_ID)
+		FROM	EDU_TIME
+		WHERE	CD_ID = #{cdId}
+		OR		CD_NM = #{cdNm}
+	</select>
+	
+	<insert id="insertEduTime" parameterType="TimeVO">
+		INSERT INTO		EDU_TIME (
+									CD_ID
+   									, CD_NM
+   								) 
+		VALUES 					( 	
+									#{cdId}
+									, #{cdNm}
+								 )
+	</insert>
+	
+	
 	<select id="getChildCategory" parameterType="CategoryVO" resultType="CategoryVO">
 		SELECT	CD_ID categoryId
 				, CD_NM categoryName
