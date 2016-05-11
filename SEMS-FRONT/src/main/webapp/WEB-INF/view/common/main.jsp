@@ -8,7 +8,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-<link rel="stylesheet" href="/backend/resources/css/layout.css" />
+<link rel="stylesheet" href="/resources/css/layout.css" />
 </head>
 <body id="top">
 <div class="wrapper row1">
@@ -18,8 +18,8 @@
     </div>
     <div class="fl_right">
       <ul class="inline">
-        <li><i class="fa fa-phone"></i> +00 (123) 456 7890</li>
-        <li><i class="fa fa-envelope-o"></i> info@domain.com</li>
+        <li><i class="fa fa-phone"></i> +00 (123) 456 1316</li>
+        <li><i class="fa fa-envelope-o"></i> cocomo@ktds.com</li>
       </ul>
     </div>
   </header>
