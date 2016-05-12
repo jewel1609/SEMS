@@ -46,9 +46,6 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 
 	@Override
 	public List<EducationVO> doSearchList(EducationVO educationVO, EducationSearchVO searchVO) {
-		/*
-		logger.info("TEST2" + searchVO.getEndIndex());
-		*/
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("educationVO", educationVO);
 		paramMap.put("searchVO", searchVO );
