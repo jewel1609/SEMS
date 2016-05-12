@@ -17,7 +17,7 @@ public class MemberVO {
 	@NotEmpty(message = "필수 정보입니다.")
 	@Email
 	private String email;
-
+	
 	private String highestEducationLevel;
 
 	private String universityName;
