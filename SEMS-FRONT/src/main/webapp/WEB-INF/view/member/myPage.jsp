@@ -17,7 +17,7 @@
 <body>
 
 <a href="/member/myPage/checkPassword">내 정보 수정</a>	<br />
-<a href="/member/myPage/resignMember">회원 탈퇴</a>
+<a href="<c:url value="/member/myPage/resignMember" />">삭제</a>
 
 </body>
 </html>
