@@ -56,23 +56,25 @@ public class MemberController {
 	public String viewRegisterTeacherPage() {
 		return "member/registerTeacher";
 	}
+
 	@RequestMapping("/checkValidationById")
-	public void checkValidationById (@RequestParam String id, HttpServletResponse response) {
+	public void checkValidationById(@RequestParam String id, HttpServletResponse response) {
 		memberService.checkValidationById(id, response);
 	}
-	
+
 	@RequestMapping("/checkValidationByPassword")
-	public void checkValidationByPassword (@RequestParam String password, HttpServletResponse response) {
+	public void checkValidationByPassword(@RequestParam String password, HttpServletResponse response) {
 		memberService.checkValidationByPassword(password, response);
 	}
 
 	@RequestMapping("/checkValidationByRepeatPassword")
-	public void checkValidationByRepeatPassword (@RequestParam String password, @RequestParam String repeatPassword, HttpServletResponse response) {
+	public void checkValidationByRepeatPassword(@RequestParam String password, @RequestParam String repeatPassword,
+			HttpServletResponse response) {
 		memberService.checkValidationByRepeatPassword(password, repeatPassword, response);
 	}
 
 	@RequestMapping("/checkExistionByEmail")
-	public void checkExistionByEmail (@RequestParam String email, HttpServletResponse response) {
+	public void checkExistionByEmail(@RequestParam String email, HttpServletResponse response) {
 		memberService.checkExistionByEmail(email, response);
 	}
 
@@ -84,11 +86,11 @@ public class MemberController {
 	}
 
 	@RequestMapping("/logout")
-	public String logout (HttpSession session) {
+	public String logout(HttpSession session) {
 		memberService.logout(session);
 		return "redirect:/";
 	}
-	
+
 	@RequestMapping("/member/myPage")
 	public ModelAndView viewMyPage() {
 		ModelAndView view = new ModelAndView();
@@ -105,8 +107,9 @@ public class MemberController {
 	}
 
 	@RequestMapping("/member/myPage/doCheckPassword")
-	public ModelAndView doCheckPassword(@RequestParam String password, HttpSession session, HttpServletResponse response) {
-		
+	public ModelAndView doCheckPassword(@RequestParam String password, HttpSession session,
+			HttpServletResponse response) {
+
 		ModelAndView view = new ModelAndView();
 
 		// TODO 입력한 패스워드와
@@ -117,7 +120,7 @@ public class MemberController {
 		String sessionId = member.getId();
 		String originSalt = memberService.getSaltById(sessionId);
 		String inputPassword = SHA256Util.getEncrypt(password, originSalt);
-		
+
 		String originPassword = memberService.getPasswordById(sessionId);
 		if (inputPassword.equals(originPassword)) {
 			/*
@@ -151,17 +154,17 @@ public class MemberController {
 			 */
 			boolean isLock = memberService.isModifyAccountLock(sessionId);
 
-			 /* 
-			  * 2. 메일을 보낸다.
-			  */
-			//FIXME 이메일 테스트 시 주석처리 삭제
-//			if( isLock ){
-//				memberService.sendBlockAccountEmail(sessionId);
-//			}
-			
-			 /* 
-			  * 3. IS_ACCOUNT_LOCK이 'Y'라면 브라우저에게 'OVER' 라고 보낸다. 
-			  */
+			/*
+			 * 2. 메일을 보낸다.
+			 */
+			// FIXME 이메일 테스트 시 주석처리 삭제
+			// if( isLock ){
+			// memberService.sendBlockAccountEmail(sessionId);
+			// }
+
+			/*
+			 * 3. IS_ACCOUNT_LOCK이 'Y'라면 브라우저에게 'OVER' 라고 보낸다.
+			 */
 			AjaxUtil.sendResponse(response, isLock ? "OVER" : "NO");
 
 			view.setViewName("/member/checkPassword");
@@ -174,34 +177,36 @@ public class MemberController {
 	public ModelAndView viewModifyPage(HttpSession session) {
 
 		MemberVO member = (MemberVO) session.getAttribute("_MEMBER_");
-				
+
 		String sessionId = member.getId();
 		return memberService.modifySuccess(sessionId);
 
 	}
 
-	
+	//
+	// @RequestMapping("/member/resign")
+	// public String viewResignPage() {
+	// return "redirect:member/resign";
+	// }
 
-//	
-//	@RequestMapping("/member/resign")
-//	public String viewResignPage() {
-//		return "redirect:member/resign";
-//	}
+	// @RequestMapping("/member/myPage/sendResignMail")
+	// public ModelAndView sendResignMail(@Valid MemberVO memberVO, HttpSession
+	// session) {
+	// return memberService.sendResignMail(memberVO, session);
+	// }
+	//
+	// @RequestMapping("/member/myPage/{resignCode}")
+	// public ModelAndView loginForResign(@PathVariable String resignCode,
+	// HttpSession session, MemberVO memberVO){
+	// return memberService.loginForResign(resignCode, session, memberVO);
+	// }
 
-//	@RequestMapping("/member/myPage/sendResignMail")
-//	public ModelAndView sendResignMail(@Valid MemberVO memberVO, HttpSession session) {
-//		return memberService.sendResignMail(memberVO, session);
-//	}
-//	
-//	@RequestMapping("/member/myPage/{resignCode}")
-//	public ModelAndView loginForResign(@PathVariable String resignCode, HttpSession session, MemberVO memberVO){
-//		return memberService.loginForResign(resignCode, session, memberVO);
-//	}
-	
 	@RequestMapping("/member/myPage/doModifyAction")
-	public ModelAndView doModifyAction(@Valid MemberVO member, Errors errors, @RequestParam String graduationType, @RequestParam String helCodeName ) {
+	public ModelAndView doModifyAction(@Valid MemberVO member, Errors errors, @RequestParam String graduationType,
+			@RequestParam String helCodeName) {
 		return memberService.modifyMemberInfo(member, errors, graduationType, helCodeName);
 	}
+
 	/**
 	 * @author 이기연
 	 * @param session
