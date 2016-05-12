@@ -226,11 +226,15 @@ public class MemberServiceImpl implements MemberService {
 		List<String> highestEducationLevelCodeNameList = memberBiz.getHighestEducationLevelCodeNames();
 		String selectedHighestEducationLevelCodeName = memberBiz.getSelectedHighestEducationLevelCodeName(id);
 		
+		//회원구분을 조인해서 한글로 보여준다.
+		String memberTypeCodeName = memberBiz.memberTypeCodeName(id);
+		
 		view.addObject("member", member);
 		view.addObject("graduationTypeList", graduationTypeCodeNameList);
 		view.addObject("selectedGraduationTypeCodeName", selectedGraduationTypeCodeName);
 		view.addObject("highestEducationLevelCodeNameList", highestEducationLevelCodeNameList);
 		view.addObject("selectedHighestEducationLevelCodeName", selectedHighestEducationLevelCodeName);
+		view.addObject("memberTypeCodeName", memberTypeCodeName);
 		view.setViewName("member/modifyMyInfo");
 		return view;
 		
