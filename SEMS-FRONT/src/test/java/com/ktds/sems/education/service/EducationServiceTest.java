@@ -85,8 +85,10 @@ public class EducationServiceTest {
 	public void getOneEducationDetailTest(){
 		EducationVO educationVO = new EducationVO();
 		String educationId= "ED-20160510-000011";
-		educationVO.setEducationId(educationId);
 		educationBiz.getOneEducationDetail(educationId);
+	}
+	public void getAllCommentByEducationIdTest(){
+		
 	}
 	
 }
