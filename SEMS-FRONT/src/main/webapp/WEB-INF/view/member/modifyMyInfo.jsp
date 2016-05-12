@@ -9,7 +9,16 @@
 <title>Insert title here</title>
 <script type="text/javascript" src="/resources/js/jquery.min.js"></script>
 <script type="text/javascript">
+
+
 $(document).ready(function() {
+	
+	$("#modifyBtn").click(function(){
+		var form = $("#member");
+		form.attr("action", "<c:url value='/member/myPage/doModifyAction'/>");
+		form.submit();
+	});
+	
 	
 	$('#years, #months, #days').change(function () {
         $("#birthDate").val();
@@ -119,7 +128,7 @@ function daysInMonth(month, year) {
 </head>
 <body>
 
-<form:form commandName="member" method="post" action="/member/myPage/doModifyAction">
+<form:form commandName="member" method="post">
 
 	아이디 : ${member.id}  <br/>
 	비밀번호 : <input type="text" name="password" id="password" />
@@ -169,7 +178,7 @@ function daysInMonth(month, year) {
 	
 	
 	<input type="hidden" name="id" id="id" value="${member.id}"/> <br/><br/>
-	<input type="submit"  value="수정 완료" />
+	<input type="button" id="modifyBtn" value="수정 완료" />
 	
 </form:form>
 </body>
