@@ -196,14 +196,8 @@ public class EducationServiceImpl implements EducationService {
 		searchVO.setStartIndex(paging.getStartArticleNumber());
 		searchVO.setEndIndex(paging.getEndArticleNumber());	
 	
-		logger.info("searchedEducationCount" + searchedEducationCount);
-		logger.info("pageNo" + pageNo);
-		logger.info("paging.getStartArticleNumber()" + paging.getStartArticleNumber());
-		logger.info("paging.getEndArticleNumber()" + paging.getEndArticleNumber());
-
 		List<EducationVO> searchedEducations = educationBiz.doSearchList(educationVO, searchVO);
 		searchedListVO.setEducationList(searchedEducations);
-	
 		ModelAndView view = new ModelAndView();
 		
 		view.addObject("searchedListVO", searchedListVO);
