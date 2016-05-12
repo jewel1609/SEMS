@@ -51,6 +51,13 @@
 		WHERE	ID = #{id}
 	</update>
 	
+	<update id="doDeleteMember" parameterType="string">
+		UPDATE	MBR
+		SET		RSN = 'Y'
+				RSN_DT = SYSDATE
+		WHERE	ID = #{id}
+	</update>
+	
 	<select id="getSaltById" parameterType="string" resultType="string">
 		SELECT	SALT salt
 		FROM	MBR
