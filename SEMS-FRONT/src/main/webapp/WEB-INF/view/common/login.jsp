@@ -40,7 +40,7 @@
 		});
 		
 		$(".registButton").click(function() {
-			location.href = "/register/policy";
+			location.href = "<c:url value="/register/policy" />";
 		});
 		
 		$(".login .loginButton, .login .registButton").keypress(function (e) {
