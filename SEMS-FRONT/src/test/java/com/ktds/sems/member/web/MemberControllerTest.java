@@ -13,5 +13,4 @@ public class MemberControllerTest {
 	@Autowired
 	private MemberController memberController;
 
-
 }
