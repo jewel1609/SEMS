@@ -38,7 +38,7 @@
 		});
 		
 		$(".register .registButton").click(function() {
-			location.href = "/register";
+			location.href = "<c:url value='/register'/>";
 		});
 	});
 </script>
