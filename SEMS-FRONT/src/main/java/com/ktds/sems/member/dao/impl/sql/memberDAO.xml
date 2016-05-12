@@ -176,6 +176,7 @@
 				, BRTH_DT birthDate
 				, PHONE_NMB phoneNumber
 				, MBR_TP memberType
+				, UUID uuid
 		FROM	MBR
 		WHERE	ID = #{id}
 	</select>
