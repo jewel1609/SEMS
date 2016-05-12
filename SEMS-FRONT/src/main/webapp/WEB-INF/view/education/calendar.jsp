@@ -10,24 +10,24 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Education Calendar</title>
-<script type="text/javascript" src="/resources/js/jquery.min.js"></script>
-<script type="text/javascript" src="/resources/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="/resources/vendors/auto-size/jquery.autosize.min.js"></script>
-<script type="text/javascript" src="/resources/vendors/fileinput/fileinput.min.js"></script>
-<script type="text/javascript" src="/resources/vendors/input-mask/input-mask.min.js"></script>
-<script type="text/javascript" src="/resources/vendors/farbtastic/farbtastic.min.js"></script>
-<script type="text/javascript" src="/resources/vendors/summernote/summernote.min.js"></script>
-<script type="text/javascript" src="/resources/vendors/noUiSlider/jquery.nouislider.all.min.js"></script>
-<script type="text/javascript" src="/resources/vendors/chosen/chosen.jquery.min.js"></script>
-<script type="text/javascript" src="/resources/vendors/bootstrap-select/bootstrap-select.min.js"></script>
-<script type="text/javascript" src="/resources/vendors/moment/moment.min.js"></script>
-<script type="text/javascript" src="/resources/vendors/nicescroll/jquery.nicescroll.min.js"></script>
-<script type="text/javascript" src="/resources/vendors/fullcalendar/lib/moment.min.js"></script>
-<script type="text/javascript" src="/resources/vendors/fullcalendar/fullcalendar.min.js"></script>
-<script type="text/javascript" src="/resources/vendors/waves/waves.min.js"></script>
-<script type="text/javascript" src="/resources/vendors/bootstrap-growl/bootstrap-growl.min.js"></script>
-<script type="text/javascript" src="/resources/vendors/sweet-alert/sweet-alert.min.js"></script>
-<script type="text/javascript" src="/resources/vendors/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript" src="<c:url value='/resources/js/jquery.min.js' />"></script>
+<script type="text/javascript" src="<c:url value='/resources/js/bootstrap.min.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/resources/vendors/auto-size/jquery.autosize.min.js' />"></script>
+<script type="text/javascript" src="<c:url value='/resources/vendors/fileinput/fileinput.min.js' />"></script>
+<script type="text/javascript" src="<c:url value='/resources/vendors/input-mask/input-mask.min.js' />"></script>
+<script type="text/javascript" src="<c:url value='/resources/vendors/farbtastic/farbtastic.min.js' />"></script>
+<script type="text/javascript" src="<c:url value='/resources/vendors/summernote/summernote.min.js' />"></script>
+<script type="text/javascript" src="<c:url value='/resources/vendors/noUiSlider/jquery.nouislider.all.min.js' />"></script>
+<script type="text/javascript" src="<c:url value='/resources/vendors/chosen/chosen.jquery.min.js' />"></script>
+<script type="text/javascript" src="<c:url value='/resources/vendors/bootstrap-select/bootstrap-select.min.js' />"></script>
+<script type="text/javascript" src="<c:url value='/resources/vendors/moment/moment.min.js' />"></script>
+<script type="text/javascript" src="<c:url value='/resources/vendors/nicescroll/jquery.nicescroll.min.js' />"></script>
+<script type="text/javascript" src="<c:url value='/resources/vendors/fullcalendar/lib/moment.min.js' />"></script>
+<script type="text/javascript" src="<c:url value='/resources/vendors/fullcalendar/fullcalendar.min.js' />"></script>
+<script type="text/javascript" src="<c:url value='/resources/vendors/waves/waves.min.js' />"></script>
+<script type="text/javascript" src="<c:url value='/resources/vendors/bootstrap-growl/bootstrap-growl.min.js' />"></script>
+<script type="text/javascript" src="<c:url value='/resources/vendors/sweet-alert/sweet-alert.min.js' />"></script>
+<script type="text/javascript" src="<c:url value='/resources/vendors/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js' />"></script>
 <script type="text/javascript">
 	$(document).ready(
 					function() {
@@ -42,23 +42,19 @@
 						var cId = $('#calendar'); //Change the name if you want. I'm also using thsi add button for more actions
 
 						var calNotices = new Array();
-						<c:forEach items="${ calNotice }" var="notice" >
+						<c:forEach items="${ educationListVO.educationList }" var="education" >
 						var calNotice = {};
-						calNotice.id = "${notice.calendarId}"
-						calNotice.title = "${notice.title}";
-						calNotice.description = "${notice.description}";
-						calNotice.start = "${notice.startDate}";
-						calNotice.end = "${notice.endDate}";
-						calNotice.className = "${notice.className}";
+						calNotice.id = "${education.educationId}";
+						calNotice.title = "${education.educationTitle}";
+						calNotice.start = "${education.startDate}";
+						calNotice.end = "${education.endDate}";
 						calNotices.push(calNotice);
 						</c:forEach>
-						/* 		console.log(calNotices[0].title)
-								console.log(calNotices[0].description)
+						
+								console.log(calNotices[0].id)
 								console.log(calNotices[0].start)
 								console.log(calNotices[0].end)
-								console.log(calNotices[0].className)
-								console.log(calNotices[0].id)
-						 */
+						 
 						//Generate the Calendar
 						cId.fullCalendar({
 									header : {
@@ -283,21 +279,21 @@
 </script>
 
 <!-- Vendor CSS -->
-<link href="/resources/vendors/animate-css/animate.min.css" rel="stylesheet">
-<link href="/resources/vendors/fullcalendar/fullcalendar.css" rel="stylesheet">
-<link href="/resources/vendors/sweet-alert/sweet-alert.min.css" rel="stylesheet">
-<link href="/resources/vendors/material-icons/material-design-iconic-font.min.css" rel="stylesheet">
-<link href="/resources/vendors/socicon/socicon.min.css" rel="stylesheet">
-<link href="/resources/vendors/noUiSlider/jquery.nouislider.min.css" rel="stylesheet">
-<link href="/resources/vendors/farbtastic/farbtastic.css" rel="stylesheet">
-<link href="/resources/vendors/summernote/summernote.css" rel="stylesheet">
+<link href="<c:url value='/resources/vendors/animate-css/animate.min.css' rel="stylesheet" />">
+<link href="<c:url value='/resources/vendors/fullcalendar/fullcalendar.css' rel="stylesheet" />">
+<link href="<c:url value='/resources/vendors/sweet-alert/sweet-alert.min.css" rel="stylesheet' />">
+<link href="<c:url value='/resources/vendors/material-icons/material-design-iconic-font.min.css' rel="stylesheet" />">
+<link href="<c:url value='/resources/vendors/socicon/socicon.min.css' rel="stylesheet" />">
+<link href="<c:url value='/resources/vendors/noUiSlider/jquery.nouislider.min.css' rel="stylesheet" />">
+<link href="<c:url value='/resources/vendors/farbtastic/farbtastic.css' rel="stylesheet" />">
+<link href="<c:url value='/resources/vendors/summernote/summernote.css' rel="stylesheet" />">
 <!-- CSS -->
-<link href="/resources/css/app.min.1.css" rel="stylesheet">
-<link href="/resources/css/app.min.2.css" rel="stylesheet">
-<link href="/resources/css/bottom.css" rel="stylesheet">
+<link href="<c:url value='/resources/css/app.min.1.css' rel="stylesheet" />">
+<link href="<c:url value='/resources/css/app.min.2.css' rel="stylesheet" />">
+<link href="<c:url value='/resources/css/bottom.css' rel="stylesheet" />">
+<link href="<c:url value='/resources/css/eduDetail.css' rel="stylesheet" />">
 
 </head>
-
 <body>
 	<section id="main">
 		<section id="cal_content">
@@ -313,7 +309,12 @@
 							<div class="modal-body">
 								<form class="addEvent" role="form">
 									<div class="form-group">
-										<div>
+									<form action="action_page.php">
+									  date:
+									  <input type="date" name="bday">
+									  <!-- <input type="submit" value="Send"> -->
+									</form>
+										<!-- <div>
 											<label class="input-group-add" style="font-weight: bold; float: left;">Date</label><br />
 											<div class="row" style="float: left; padding-left: 3px;">
 												<div class="input-group form-group">
@@ -324,7 +325,7 @@
 													</div>
 												</div>
 											</div>
-										</div>
+										</div> -->
 									</div>
 									<div class="form-group">
 										<label for="eventName">Event Name</label>
