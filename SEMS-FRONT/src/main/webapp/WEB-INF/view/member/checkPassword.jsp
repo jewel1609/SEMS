@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,14 +21,14 @@
 				
 				 if ( data =="NO" ){
 			           alert("비밀번호 오류입니다. 비밀번호를 확인해 주세요.");
-			           location.href="/member/myPage/checkPassword";
+			           location.href="<c:url value="/member/myPage/checkPassword"/>";
 			        }
 				 else if ( data =="OK" ){
 					 $("#checkPasswordForm").submit();
 				 }
 			    else if(data == "OVER") {
 			       alert("비밀번호가 지속 실패하여, 계정이 잠겼습니다. 운영자에게 문의하세요.");
-			       location.href="/member/myPage";
+			       location.href="<c:url value="/member/myPage"/>";
 			    }		 
 			});
 		});	
@@ -39,7 +40,7 @@
 <body>
 비밀번호 확인하기
 
-<form id="checkPasswordForm" name="checkPasswordForm" method="post" action="/member/myPage/modify" >
+<form id="checkPasswordForm" name="checkPasswordForm" method="post" action="<c:url value="/member/myPage/modify"/>">
 
 	<input type="text" name="password" id="password" size="50" placeholder="비밀번호를 입력하세요" />
 	<input type="button" id="checkPasswordBtn" value="확인" />
