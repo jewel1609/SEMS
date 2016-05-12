@@ -57,4 +57,6 @@ public interface MemberBiz {
 
 	public int isExistMbrTpData(MbrTpVO newMbrTpVO);
 
+	public boolean isResign(String id);
+
 }

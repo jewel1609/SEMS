@@ -143,4 +143,10 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO{
 	}
 
 
+	@Override
+	public String isResign(String id) {
+		return getSqlSession().selectOne("MemberDAO.isResign", id);
+	}
+
+
 }

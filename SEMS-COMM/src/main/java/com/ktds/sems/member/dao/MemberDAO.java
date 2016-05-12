@@ -57,5 +57,6 @@ public interface MemberDAO {
 
 	public int isExistMbrTpData(MbrTpVO newMbrTpVO);
 
+	public String isResign(String id);
 
 }

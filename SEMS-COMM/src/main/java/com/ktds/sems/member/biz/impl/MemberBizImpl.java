@@ -174,4 +174,15 @@ public class MemberBizImpl implements MemberBiz{
 	public int isExistMbrTpData(MbrTpVO newMbrTpVO) {
 		return memberDAO.isExistMbrTpData(newMbrTpVO);
 	}
+
+	@Override
+	public boolean isResign(String id) {
+		
+		String checkStr = memberDAO.isResign(id);
+		
+		if(checkStr != null) {
+			return true;
+		}
+		return false;
+	}
 }
