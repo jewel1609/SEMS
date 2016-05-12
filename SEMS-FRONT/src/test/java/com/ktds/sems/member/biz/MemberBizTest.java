@@ -29,7 +29,7 @@ public class MemberBizTest {
 	public void isAccountLock() {
 
 		String id = "cocomo";
-		boolean isSuccess = memberBiz.isAccountLock(id);
+		boolean isSuccess = !memberBiz.isAccountLock(id);
 		assertTrue(isSuccess);
 	}
 
@@ -83,7 +83,7 @@ public class MemberBizTest {
 	public void updateAccountLock() {
 
 		String id = "cocomo";
-		boolean isSuccess = memberBiz.updateAccountLock(id);
+		boolean isSuccess = !memberBiz.updateAccountLock(id);
 		assertTrue(isSuccess);
 	}
 
@@ -128,7 +128,7 @@ public class MemberBizTest {
 	@Test
 	public void isResign() {
 		String id = "cocomo";
-		boolean isSuccess = memberBiz.isResign(id);
+		boolean isSuccess = !memberBiz.isResign(id);
 		assertTrue(isSuccess);
 	}
 
