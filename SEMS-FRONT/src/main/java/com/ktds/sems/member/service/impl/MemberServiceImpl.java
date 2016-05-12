@@ -349,95 +349,29 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public ModelAndView viewLoginHistoryPage(int pageNo, HttpSession session, HttpServletRequest request) {
+	public ModelAndView viewLoginHistoryPage(LoginHistorySearchVO loginHistorySearchVO, int pageNo, HttpSession session, HttpServletRequest request) {
 		ModelAndView view = new ModelAndView();
 		MemberVO memberVO = (MemberVO) session.getAttribute(Session.MEMBER);
-		LoginHistorySearchVO loginHistorySearchVO = (LoginHistorySearchVO) session.getAttribute(Session.SEARCH);
-		HistorySearchStore searchStore = HistorySearchStore.getInstance();
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
-		try {
-			pageNo = Integer.parseInt(request.getParameter("pageNo"));
-			loginHistorySearchVO.setSearchKeyWord(request.getParameter("searchKeyWord"));
-			loginHistorySearchVO.setSearchType(request.getParameter("searchType"));
-			loginHistorySearchVO.setBeginDate(request.getParameter("beginDate"));
-			loginHistorySearchVO.setCloseDate(request.getParameter("closeDate"));
-			
-		} catch (RuntimeException re) {
-			loginHistorySearchVO = (LoginHistorySearchVO) searchStore.get(loginHistorySearchVO);
-			if (loginHistorySearchVO == null) {
-				loginHistorySearchVO.setPageNo(0);
-				loginHistorySearchVO.setSearchKeyWord("");
-				loginHistorySearchVO.setSearchType("1");
-				loginHistorySearchVO.setBeginDate("");
-				loginHistorySearchVO.setCloseDate("");
-			}
-		}
-				
-		searchStore.add(loginHistorySearchVO, session);
-
-		String beginDate = dateFormat.format(loginHistorySearchVO.getBeginDate());
-		String closeDate = dateFormat.format(loginHistorySearchVO.getCloseDate());
-		
-		
-		// if(loginHistorySearchVO.getSearchKeyWord() == null) {
-		//
-		// } else if(loginHistorySearchVO.getSearchKeyWord() != null) {
-		// searchStore.init(loginHistorySearchVO);
-		// }
-
-		int totalLoginHisotryCount = 0;
-		List<LoginHistoryVO> loginHistoryList = null;
-
-		if (loginHistorySearchVO.getBeginDate() !=null && loginHistorySearchVO.getCloseDate() != null) {
-			if(beginDate.compareTo(closeDate) > 0) {
-				//beginDate가 closeDate보다 작게 설정되어 정상
-				if (loginHistorySearchVO.getSearchType().equals("1") || loginHistorySearchVO.getSearchType().equals("2")
-						|| loginHistorySearchVO.getSearchType().equals("3")) {
-					totalLoginHisotryCount = memberBiz.getDateSearchLoginHistoryCount(memberVO.getId());
-				}
-			} else {
-				beginDate= null;
-				closeDate= null;
-				loginHistorySearchVO.setBeginDate(beginDate);
-				loginHistorySearchVO.setCloseDate(closeDate);
-			}
-		} else {
-			if (loginHistorySearchVO.getSearchType().equals("1") || loginHistorySearchVO.getSearchType().equals("2")
-					|| loginHistorySearchVO.getSearchType().equals("3")) {
-				totalLoginHisotryCount = memberBiz.getTotalLoginHistoryCount(memberVO.getId());
-			}
-		}
-
+		LoginHistoryListVO loginHistoryListVO = new LoginHistoryListVO();
 		Paging paging = new Paging();
-		paging.setTotalArticleCount(totalLoginHisotryCount);
+		loginHistoryListVO.setPaging(paging);
 		paging.setPageNumber(pageNo + "");
-		
+
+		int totalLoginHisotryCount = memberBiz.getTotalLoginHistoryCount(memberVO.getId());
+		paging.setTotalArticleCount(totalLoginHisotryCount);
+
+		// 검색
 		loginHistorySearchVO.setStartIndex(paging.getStartArticleNumber());
 		loginHistorySearchVO.setEndIndex(paging.getEndArticleNumber());
 		loginHistorySearchVO.setMemberId(memberVO.getId());
-
-		if (loginHistorySearchVO.getBeginDate() !=null && loginHistorySearchVO.getCloseDate() != null) {
-			if (loginHistorySearchVO.getSearchType().equals("1") || loginHistorySearchVO.getSearchType().equals("2")
-					|| loginHistorySearchVO.getSearchType().equals("3")) {
-				loginHistoryList = memberBiz.getDateSearchLoginHistory(loginHistorySearchVO);
-			}
-		}else {
-			if (loginHistorySearchVO.getSearchType().equals("1") || loginHistorySearchVO.getSearchType().equals("2")
-					|| loginHistorySearchVO.getSearchType().equals("3")) {
-				loginHistoryList = memberBiz.getAllLoginHistory(loginHistorySearchVO);
-			}
-		}
-
-		LoginHistoryListVO loginHistoryListVO = new LoginHistoryListVO();
+		
+		List<LoginHistoryVO> loginHistoryList = memberBiz.getAllLoginHistory(loginHistorySearchVO);
 		loginHistoryListVO.setLoginHistoryList(loginHistoryList);
-		loginHistoryListVO.setPaging(paging);
 
 		view.setViewName("member/loginHistory");
 		view.addObject("loginHistoryListVO", loginHistoryListVO);
 		view.addObject("loginHistorySearchVO", loginHistorySearchVO);
-
 		return view;
-
 	}
 
 	@Override
@@ -466,15 +400,15 @@ public class MemberServiceImpl implements MemberService {
 		return memberBiz.getPasswordById(id);
 	}
 
-	// public static void main(String[] args) {
-	//
-	// MemberServiceImpl memberService = new MemberServiceImpl();
-	// System.out.println("성공!!");
-	// memberService.sendBlockAccountEmail("shinmi0315@naver.com");
-	// System.out.println("성공!!");
-	//
-	// }
-
+//	public static void main(String[] args) {
+//		
+//		MemberServiceImpl memberService = new MemberServiceImpl();
+//		System.out.println("성공!!");
+//		memberService.sendBlockAccountEmail("shinmi0315@naver.com");
+//		System.out.println("성공!!");
+//		
+//	}
+	
 	@Override
 	public void logout(HttpSession session) {
 		// 세션 없애기
@@ -497,130 +431,4 @@ public class MemberServiceImpl implements MemberService {
 		
 		return view;
 	}
-
-	@Override
-	public String insertUuidForResign(HttpSession session) {
-		
-		MemberVO memeber = (MemberVO) session.getAttribute("_MEMBER_");
-		String uuid = UUID.randomUUID().toString();
-
-		memeber.setUuid(uuid);
-
-		memberBiz.insertUuidForResign(memeber);
-		
-		return uuid;
-	}
-
-	@Override
-	public ModelAndView sendEmailForResign(HttpSession session, String uuid) {
-		ModelAndView view = new ModelAndView();
-		
-		MemberVO member = (MemberVO) session.getAttribute("_MEMBER_");
-		
-		member = memberBiz.getOneMember(member.getId());
-		memberBiz.sendEmailForResign(member.getEmail(), member.getId(), uuid);
-//		memberBiz.sendEmailForResign("abonno@naver.com", uuid);
-		
-		
-		view.setViewName("member/myPage");
-
-		return view;
-	}
-
-	@Override
-	public ModelAndView loginForResign(String resignCode, String id) {
-		ModelAndView view = new ModelAndView();
-		
-		view.addObject("resignCode", resignCode);
-		view.addObject("id", id);
-		
-		view.setViewName("member/loginForResign");
-		
-		return view;
-	}
-
-	@Override
-	public String doResign(MemberVO loginVO, Errors errors, HttpSession session, HttpServletRequest request, String resignCode) {
-	
-		// 아이디 있는지 확인
-		if ( memberBiz.isExistId(loginVO.getId()) ) {
-			return "NO";
-		}
-
-		// 탈퇴한 회원인지 확인
-		if (memberBiz.isResign(loginVO.getId())) {
-			return "RSN";
-		}
-
-		// 잠긴 계정은 로그인 못하도록 막는다.
-		if (memberBiz.isAccountLock(loginVO.getId())) {
-			return "OVER";
-		}
-
-		boolean isLoginSuccess = memberBiz.login(session, loginVO, request);
-		// 로그인 횟수 제한 방어코드 작성
-		if (isLoginSuccess) {
-			
-			//RSN, RSN_DT 업데이트 
-			MemberVO member = (MemberVO) session.getAttribute("_MEMBER_");
-			member = memberBiz.getOneMember(member.getId());
-			
-			if( member.getUuid() == resignCode ){
-				memberBiz.doDeleteMember(member.getId());
-			}
-
-			/*
-			 * 1. LOGIN_FAIL_COUNT를 0으로 초기화한다. 2. IS_ACCOUNT_LOCK을 'N'으로 초기화 한다.
-			 * 3. LATEST_LOGIN_DATE를 현재시간으로 수정한다.
-			 */
-			// Token 값 생성 및 등록 코드 작성
-			if (memberBiz.loginSuccess(loginVO.getId())) {
-				/*
-				 * 로그인한 회원이 글을 작성하는 write.jsp 에 아래 코드를 추가해야함!
-				 * <input type="hidden" name="csrfToken" value="${sessionScope._CSRF_TOKEN_}" />
-				 */
-				String csrfToken = UUID.randomUUID().toString();
-				session.setAttribute(Session.CSRF_TOKEN, csrfToken);
-
-				memberBiz.attendCheck(loginVO);
-
-				// 로그인 내역 남기기 
-				memberBiz.stampLoginTime(session, request, loginVO);
-
-				if(memberBiz.needToChangPassword(loginVO.getId())) {
-					return "CNGPW";
-				} else {
-					return "OK";
-				}
-			} else {
-				return "NO";
-			}
-
-		} else {
-
-			/*
-			 * 1. LOGIN_FAIL_COUNT를 1 증가 시킨다.
-			 */
-			if (!memberBiz.plusLoginFailCount(loginVO.getId())) {
-				return "NO";
-			}
-			/*
-			 * 1. LOGIN_FAIL_COUNT를 5 이상이면 IS_ACCOUNT_LOCK을 'Y'로 수정한다.
-			 */
-			if (!memberBiz.updateAccountLock(loginVO.getId())) {
-				return "NO";
-			}
-			/*
-			 * 1. IS_ACCOUNT_LOCK이 'Y'라면 브라우저에게 'OVER'라고 보낸다. 'OVER'를 응답으로 받은
-			 * 브라우저는 "로그인이 지속 실패하여, 계정이 잠겼습니다. 운영자에게 문의하세요!" 를 출력한다.
-			 */
-			boolean isLock = memberBiz.isAccountLock(loginVO.getId());
-
-			if (isLock) {
-				return "OVER";
-			}
-			return "NO";
-		}
-	}
-	
 }
