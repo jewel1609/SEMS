@@ -56,8 +56,6 @@ public class EducationServiceImpl implements EducationService {
 		String fileName = file.getOriginalFilename();
 		String filePath = "D:\\"+saltFileName;
 		
-		educationVO.setEducationCurriculum(fileName);
-		
 		if (educationVO.getEducationId() == null) {
 			if (errors.hasErrors()) {
 				view.setViewName("education/eduregister");
@@ -133,11 +131,7 @@ public class EducationServiceImpl implements EducationService {
 		educationVO.setSalt(salt);
 		
 		String fileName = file.getOriginalFilename();
-		String filePath = "D:\\"+saltFileName;
-		
-		if ( !file.isEmpty() ) {
-			educationVO.setEducationCurriculum(fileName);
-		}		
+		String filePath = "D:\\"+saltFileName;	
 		
 		String educationId = educationVO.getEducationId();
 		
