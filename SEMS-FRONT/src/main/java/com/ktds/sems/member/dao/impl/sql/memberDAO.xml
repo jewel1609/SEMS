@@ -45,6 +45,12 @@
 						)
 	</insert>
 	
+	<update id="insertUuidForResign" parameterType="MemberVO">
+		UPDATE	MBR
+		SET		UUID = #{uuid}
+		WHERE	ID = #{id}
+	</update>
+	
 	<select id="getSaltById" parameterType="string" resultType="string">
 		SELECT	SALT salt
 		FROM	MBR
