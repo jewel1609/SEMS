@@ -145,7 +145,7 @@ function daysInMonth(month, year) {
 	<br />
 	전화번호 : <input type="text" name="phoneNumber" id="phoneNumber"  value="${member.phoneNumber}" placeholder="전화번호를 입력하세요." tabindex="8" /> 
 	<br />
-	회원구분 : ${member.memberType} <br />
+	회원구분 : ${memberTypeCodeName} <br />
 	졸업구분 : 
 	<c:forEach items="${graduationTypeList}" var="graduationTypeCodeName">
 				<c:if test="${graduationTypeCodeName eq selectedGraduationTypeCodeName}">
