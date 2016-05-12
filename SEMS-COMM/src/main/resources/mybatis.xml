@@ -7,6 +7,7 @@
 		<typeAlias type="com.ktds.sems.member.vo.GrdtTpVO" alias="GrdtTpVO"/>
 		<typeAlias type="com.ktds.sems.member.vo.MemberVO" alias="MemberVO"/>
 		<typeAlias type="com.ktds.sems.member.vo.HighestEduTpVO" alias="HighestEduTpVO"/>
+		<typeAlias type="com.ktds.sems.member.vo.LoginHistoryVO" alias="LoginHistoryVO"/>
 		<typeAlias type="com.ktds.sems.member.vo.MbrTpVO" alias="MbrTpVO"/>
 		<typeAlias type="com.ktds.sems.education.vo.CostVO" alias="CostVO"/>
 		<typeAlias type="com.ktds.sems.education.vo.TimeVO" alias="TimeVO"/>
