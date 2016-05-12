@@ -20,6 +20,7 @@
       <ul class="inline">
         <li><i class="fa fa-phone"></i> +00 (123) 456 1316</li>
         <li><i class="fa fa-envelope-o"></i> cocomo@ktds.com</li>
+         <li><i class="fa fa-power-off"></i> <a href="/comm/logout"> logout </a> </li>
       </ul>
     </div>
   </header>
