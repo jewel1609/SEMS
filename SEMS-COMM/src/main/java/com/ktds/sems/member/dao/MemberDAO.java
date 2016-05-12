@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.ktds.sems.member.vo.GrdtTpVO;
 import com.ktds.sems.member.vo.HighestEduTpVO;
+import com.ktds.sems.member.vo.LoginHistoryVO;
 import com.ktds.sems.member.vo.MbrTpVO;
 import com.ktds.sems.member.vo.MemberVO;
 
@@ -14,13 +15,13 @@ public interface MemberDAO {
 	public List<MbrTpVO> getAllMbrTpList();
 
 	public void doGrdtDelete(String cdId);
-	
+
 	public int doGrdtModify(GrdtTpVO grdtTpVO);
 
 	public int doGrdtInsert(GrdtTpVO grdtTpVO);
 
 	public int isExistData(GrdtTpVO grdtTpVO);
-	
+
 	public int doInsertMbrTp(MbrTpVO newMbrTpVO);
 
 	public void doMbrTpDelete(String cdId);
@@ -58,5 +59,11 @@ public interface MemberDAO {
 	public int isExistMbrTpData(MbrTpVO newMbrTpVO);
 
 	public String isResign(String id);
+
+	public int stampLoginTime(LoginHistoryVO newLoginHistoryVO);
+
+	public int stampLogoutTime(LoginHistoryVO newLoginHistoryVO);
+
+	public int nextLoginHistorySeq();
 
 }

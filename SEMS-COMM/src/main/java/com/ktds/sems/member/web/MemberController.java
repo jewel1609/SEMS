@@ -123,6 +123,12 @@ public class MemberController {
 		AjaxUtil.sendResponse(response, loginStatus);
 	}
 
+	@RequestMapping("/logout")
+	public String logout (HttpSession session) {
+		memberService.logout(session);
+		return "redirect:/";
+	}
+	
 	@RequestMapping("/main")
 	public String viewMainPage() {
 		return "/common/main";

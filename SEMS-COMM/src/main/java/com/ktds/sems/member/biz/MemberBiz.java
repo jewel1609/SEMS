@@ -2,6 +2,7 @@ package com.ktds.sems.member.biz;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import com.ktds.sems.member.vo.GrdtTpVO;
@@ -58,5 +59,9 @@ public interface MemberBiz {
 	public int isExistMbrTpData(MbrTpVO newMbrTpVO);
 
 	public boolean isResign(String id);
+
+	public boolean stampLoginTime(HttpSession session, HttpServletRequest request, MemberVO loginVO);
+
+	public boolean stampLogoutTime(HttpSession session);
 
 }

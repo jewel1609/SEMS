@@ -7,24 +7,21 @@ import org.mybatis.spring.support.SqlSessionDaoSupport;
 import com.ktds.sems.member.dao.MemberDAO;
 import com.ktds.sems.member.vo.GrdtTpVO;
 import com.ktds.sems.member.vo.HighestEduTpVO;
+import com.ktds.sems.member.vo.LoginHistoryVO;
 import com.ktds.sems.member.vo.MbrTpVO;
 import com.ktds.sems.member.vo.MemberVO;
 
-public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO{
+public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 
-	
-	
 	@Override
 	public List<GrdtTpVO> getAllGrtdList() {
-		return  getSqlSession().selectList("MemberDAO.getAllGrtdList");
+		return getSqlSession().selectList("MemberDAO.getAllGrtdList");
 	}
-
 
 	@Override
 	public List<MbrTpVO> getAllMbrTpList() {
 		return getSqlSession().selectList("MemberDAO.getAllMbrTp");
 	}
-
 
 	@Override
 	public int doInsertMbrTp(MbrTpVO newMbrTpVO) {
@@ -36,32 +33,31 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO{
 		getSqlSession().delete("MemberDAO.doGrdtDelete", cdId);
 	}
 
-
 	@Override
 	public int doGrdtModify(GrdtTpVO grdtTpVO) {
-		return getSqlSession().update("MemberDAO.doGrdtModify",grdtTpVO);
-		
+		return getSqlSession().update("MemberDAO.doGrdtModify", grdtTpVO);
+
 	}
 
 	@Override
 	public int doGrdtInsert(GrdtTpVO grdtTpVO) {
-		return getSqlSession().insert("MemberDAO.doGrdtInsert",grdtTpVO);
+		return getSqlSession().insert("MemberDAO.doGrdtInsert", grdtTpVO);
 	}
-	
+
 	@Override
 	public int isExistMbrTpData(MbrTpVO newMbrTpVO) {
 		return getSqlSession().selectOne("MemberDAO.isExistMbrTpData", newMbrTpVO);
 	}
-	
+
 	public void doMbrTpDelete(String cdId) {
 		getSqlSession().delete("MemberDAO.doMbrTpDelete", cdId);
-		
+
 	}
 
 	@Override
 	public void doMbrTpModify(MbrTpVO mbrTpVO) {
 		getSqlSession().update("MemberDAO.doMbrTpModify", mbrTpVO);
-		
+
 	}
 
 	@Override
@@ -89,7 +85,7 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO{
 	public int doHighestEduModify(HighestEduTpVO highestEduTpVO) {
 		return getSqlSession().update("MemberDAO.doHighestEduModify", highestEduTpVO);
 	}
-	
+
 	@Override
 	public int doHighestEduDelete(String cdId) {
 		return getSqlSession().delete("MemberDAO.doHighestEduDelete", cdId);
@@ -99,7 +95,7 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO{
 	public int isExistCdNmData(GrdtTpVO grdtTpVO) {
 		return getSqlSession().selectOne("MemberDAO.isExistCdNmData", grdtTpVO);
 	}
-	
+
 	/* 로그인 */
 
 	@Override
@@ -142,11 +138,24 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO{
 		return getSqlSession().selectOne("MemberDAO.login", loginVO);
 	}
 
-
 	@Override
 	public String isResign(String id) {
 		return getSqlSession().selectOne("MemberDAO.isResign", id);
 	}
-
+	
+	@Override
+	public int stampLogoutTime(LoginHistoryVO newLoginHistoryVO) {
+		return getSqlSession().update("MemberDAO.stampLogoutTime", newLoginHistoryVO);
+	}
+	
+	@Override
+	public int stampLoginTime(LoginHistoryVO newLoginHistoryVO) {
+		return getSqlSession().insert("MemberDAO.stampLoginTime", newLoginHistoryVO);
+	}
+	
+	@Override
+	public int nextLoginHistorySeq() {
+		return getSqlSession().selectOne("MemberDAO.nextLoginHistorySeq");
+	}
 
 }

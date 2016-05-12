@@ -22,7 +22,7 @@ public interface MemberService {
 	public ModelAndView viewMbrTpPage();
 
 	public String doInsertMbrTp(String cdId, String cdNm);
-	
+
 	public String doMbrTpDelete(String cdId);
 
 	public String doMbrTpModify(String cdId, String cdNm);
@@ -37,5 +37,6 @@ public interface MemberService {
 
 	public String login(MemberVO memberVO, Errors errors, HttpSession session, HttpServletRequest request);
 
+	public void logout(HttpSession session);
 
 }

@@ -227,7 +227,7 @@ public class MemberServiceImpl implements MemberService{
 				session.setAttribute(Session.CSRF_TOKEN, csrfToken);
 				
 				// 로그인 내역 남기기 
-				// memberBiz.stampLoginTime(request, loginVO);
+				memberBiz.stampLoginTime(session, request, loginVO);
 				
 				if(memberBiz.needToChangPassword(loginVO.getId())) {
 					return "CNGPW";
@@ -269,6 +269,15 @@ public class MemberServiceImpl implements MemberService{
 			}
 			return "NO";
 		}
+	}
+	
+	@Override
+	public void logout(HttpSession session) {
+		// 세션 없애기
+		session.removeAttribute("_MEMBER_");
+		
+		//로그아웃 stamp 찍기 위해서.. 
+		memberBiz.stampLogoutTime(session);
 	}
 
 }
