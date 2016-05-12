@@ -7,10 +7,16 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script type="text/javascript" src="<c:url value="/resources/js/jquery-1.12.1.js"/> "></script>
 <script type="text/javascript">
 
 	$(document).ready(function () {
+		
+		var message = $("#message").val();
+		if ( message == "FAIL" ) {
+			alert("삭제 실패 했습니다.");
+		}
+
 		
 		$(".modifyEduCostBtn").click(function () {
 			
@@ -58,7 +64,9 @@
 			
 			if ( confirm("해당 교육 비용 코드를 삭제 하시겠습니까?") == true ) {
 				location.href = "<c:url value="/education/deleteEduCost/"/>"+cdId;
+				checkDelete = "T";
 			}
+			
 		});
 		
 		$("#insertEduBtn").click( function () {
@@ -104,6 +112,7 @@
 <body>
 
 <div>
+	<input type="hidden" id="message" name="message" value="${message}" />
 	<table>
 		<c:forEach items="${costList}" var="cost">
 			<tr>
