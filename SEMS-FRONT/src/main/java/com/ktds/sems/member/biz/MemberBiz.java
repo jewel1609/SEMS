@@ -44,7 +44,7 @@ public interface MemberBiz {
 
 	public boolean stampLogoutTime(HttpSession session);
 
-	public int getTotalLoginHisotryCount();
+	public int getTotalLoginHistoryCount(String memberId);
 
 	public boolean isVerifyId(String id);
 	

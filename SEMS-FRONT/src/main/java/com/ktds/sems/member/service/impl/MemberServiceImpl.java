@@ -344,19 +344,22 @@ public class MemberServiceImpl implements MemberService {
 
 
 	@Override
-	public ModelAndView viewLoginHistoryPage(int pageNo) {
+	public ModelAndView viewLoginHistoryPage(int pageNo, HttpSession session) {
 		ModelAndView view = new ModelAndView();
+		MemberVO memberVO = (MemberVO) session.getAttribute(Session.MEMBER);
+		
 		LoginHistoryListVO loginHistoryListVO = new LoginHistoryListVO();
 		Paging paging = new Paging();
 		loginHistoryListVO.setPaging(paging);
 		paging.setPageNumber(pageNo + "");
 		
-		int totalLoginHisotryCount = memberBiz.getTotalLoginHisotryCount();
+		int totalLoginHisotryCount = memberBiz.getTotalLoginHistoryCount(memberVO.getId());
 		paging.setTotalArticleCount(totalLoginHisotryCount);
 		
 		LoginHistorySearchVO loginHistorySearchVO = new LoginHistorySearchVO();
 		loginHistorySearchVO.setStartIndex(paging.getStartArticleNumber());
 		loginHistorySearchVO.setEndIndex(paging.getEndArticleNumber());
+		loginHistorySearchVO.setMemberId(memberVO.getId());
 		
 		List<LoginHistoryVO> loginHistoryList = memberBiz.getAllLoginHistory(loginHistorySearchVO);
 		loginHistoryListVO.setLoginHistoryList(loginHistoryList);
@@ -395,7 +398,6 @@ public class MemberServiceImpl implements MemberService {
 		return memberBiz.getPasswordById(id);
 	}
 
-	
 //	public static void main(String[] args) {
 //		
 //		MemberServiceImpl memberService = new MemberServiceImpl();

@@ -96,8 +96,7 @@
 		WHERE	ID = #{id}
 		AND		RSN = 'Y'
 	</select>
-	<insert id="loginHistory" parameterType="LoginHistoryVO">
-	</insert>
+
 	<insert id="stampLoginTime" parameterType="LoginHistoryVO">
 
 		INSERT INTO LGI_HTR	(
@@ -196,9 +195,10 @@
 		WHERE	ID = #{id}
 		AND		(SYSDATE - LATEST_LGI_DT) >= 30
 	</select>
-	<select id="getTotalLoginHisotryCount" resultType="_int">
+	<select id="getTotalLoginHistoryCount" parameterType="string" resultType="_int">
 		SELECT	COUNT(LGI_HTR_ID)
-		FROM	LGI_HTR		
+		FROM	LGI_HTR
+		WHERE	MBR_ID = #{id}
 	</select>
 	<select id="getAllLoginHistory" parameterType="LoginHistorySearchVO" resultType="LoginHistoryVO">
 		SELECT	LGI_HTR_ID lgiHtrId
@@ -212,6 +212,7 @@
 					FROM	(
 								SELECT	*
 								FROM	LGI_HTR
+								WHERE	MBR_ID = #{memberId}
 								ORDER BY LGI_HTR_ID DESC
 							) LOGIN_HISTORY
 					WHERE	ROWNUM <![CDATA[<=]]> #{endIndex}

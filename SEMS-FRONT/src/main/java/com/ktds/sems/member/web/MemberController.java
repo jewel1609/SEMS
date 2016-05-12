@@ -212,7 +212,7 @@ public class MemberController {
 	}
 
 	@RequestMapping("/member/loginHistory")
-	public ModelAndView viewLoginHistoryPage(@RequestParam(required = false, defaultValue = "0") int pageNo) {
-		return memberService.viewLoginHistoryPage(pageNo);
+	public ModelAndView viewLoginHistoryPage(@RequestParam(required = false, defaultValue = "0") int pageNo, HttpSession session) {
+		return memberService.viewLoginHistoryPage(pageNo, session);
 	}
 }
