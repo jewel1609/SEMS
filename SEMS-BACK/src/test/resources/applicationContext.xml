@@ -26,7 +26,7 @@
 		<property name="maxInMemorySize" value="100000000" />
 	</bean>
 	
-	<bean id="EducationController"
+	<bean id="educationController"
 			class="com.ktds.sems.education.web.EducationController">
 			<property name="educationService" ref="educationService" />
 	</bean>
