@@ -26,7 +26,7 @@ public class MemberBizTest {
 	 * 
 	 */
 	@Test
-	public void isAccountLock() {
+	public void isAccountLockTest() {
 
 		String id = "cocomo";
 		boolean isSuccess = !memberBiz.isAccountLock(id);
@@ -38,7 +38,7 @@ public class MemberBizTest {
 	 * 
 	 */
 	@Test
-	public void login() {
+	public void loginTest() {
 
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		MockHttpSession session = new MockHttpSession();
@@ -56,7 +56,7 @@ public class MemberBizTest {
 	 * 
 	 */
 	@Test
-	public void loginSuccess() {
+	public void loginSuccessTest() {
 
 		String id = "cocomo";
 		boolean isSuccess = memberBiz.loginSuccess(id);
@@ -68,7 +68,7 @@ public class MemberBizTest {
 	 * 
 	 */
 	@Test
-	public void plusLoginFailCount() {
+	public void plusLoginFailCountTest() {
 
 		String id = "cocomo";
 		boolean isSuccess = memberBiz.plusLoginFailCount(id);
@@ -80,7 +80,7 @@ public class MemberBizTest {
 	 * 
 	 */
 	@Test
-	public void updateAccountLock() {
+	public void updateAccountLockTest() {
 
 		String id = "cocomo";
 		boolean isSuccess = !memberBiz.updateAccountLock(id);
@@ -92,7 +92,7 @@ public class MemberBizTest {
 	 * 
 	 */
 	@Test
-	public void needToChangPassword() {
+	public void needToChangPasswordTest() {
 
 		String id = "cocomo";
 		boolean isSuccess = memberBiz.needToChangPassword(id);
@@ -104,7 +104,7 @@ public class MemberBizTest {
 	 * 
 	 */
 	@Test
-	public void isExistId() {
+	public void isExistIdTest() {
 		String id = "cocomo";
 		boolean isSuccess = memberBiz.isExistId(id);
 		assertTrue(isSuccess);
@@ -115,7 +115,7 @@ public class MemberBizTest {
 	 * 
 	 */
 	@Test
-	public void getSaltById() {
+	public void getSaltByIdTest() {
 		String id = "cocomo";
 		String salt = memberBiz.getSaltById(id);
 		assertNotNull(salt);
@@ -126,7 +126,7 @@ public class MemberBizTest {
 	 * 
 	 */
 	@Test
-	public void isResign() {
+	public void isResignTest() {
 		String id = "cocomo";
 		boolean isSuccess = !memberBiz.isResign(id);
 		assertTrue(isSuccess);
