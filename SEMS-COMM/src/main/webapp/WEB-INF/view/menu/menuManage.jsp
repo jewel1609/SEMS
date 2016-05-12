@@ -34,14 +34,14 @@
 				<td height="60px">
 					<div>
 						<c:if test="${menuList.sort gt 1}">
-							<a href="/comm/upMenuList/${menuList.sort}/${menuList.codeId}">
+							<a href="<c:url value="/upMenuList/${menuList.sort}/${menuList.codeId}" />">
 								<input type="button" class="up" value="▲" />
 							</a>
 						</c:if>
 					</div>
 					<div>
 						<c:if test="${menuList.sort lt listSize}">
-							<a href="/comm/downMenuList/${menuList.sort}/${menuList.codeId}">
+							<a href="<c:url value="/downMenuList/${menuList.sort}/${menuList.codeId}" />">
 								<input type="button" class="down" value="▼" />
 							</a>
 						</c:if>
