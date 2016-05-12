@@ -115,13 +115,6 @@
 	</table>
 	
 	<form:form commandName="qnaVO" method="post" action="/doWriteComment">
-<<<<<<< .mine
-=======
-	  
-	<input type="text" id="replyId" name="replyId" placeholder="글쓴이를 입력." value="${qnaVO.replyId}"/><br/>
-	<input type="text" id="mbrId" name="mbrId" placeholder="글쓴이를 입력." value="${qnaVO.mbrId}"/><br/>
->>>>>>> .r419
-	
 	<input type="hidden" name="educationId" value="${ education.educationId }">	
 	<textarea id="description" name="description" placeholder="내용을 입력하세요." >${qnaVO.description}</textarea><br/>
 	<form:errors path="description"/><br/>

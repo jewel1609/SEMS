@@ -206,10 +206,6 @@
 								   , MBR_ID 
 								   , CREATED_DATE
 								   ) 
-						VALUES (  ,
-								#{eduId},
-								'c',
-								'4',
 						VALUES ( 
 								 #{replyId},
 								 #{eduId},
