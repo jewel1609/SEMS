@@ -235,10 +235,11 @@ public class MemberController {
 //		return memberService.viewLoginHistoryPage(pageNo, session);
 //	}
 	
-	@RequestMapping("/sems/member/loginForResign/{resignCode}/{id}")
+	@RequestMapping("/member/loginForResign/{resignCode}/{id}")
 	public ModelAndView loginForResine(@PathVariable String resignCode, @PathVariable String id){
 		return memberService.loginForResign(resignCode, id);
 	}
+
 	
 	@RequestMapping(value = ("/member/doResign"), method = RequestMethod.POST)
 	public void doResign(@RequestParam String resignCode, @Valid MemberVO memberVO, Errors errors, HttpSession session, HttpServletResponse response,
