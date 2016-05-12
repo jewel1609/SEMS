@@ -98,6 +98,7 @@ public class EducationServiceImpl implements EducationService {
 
 	@Override
 	public String doApplyEducation(String educationId, String educationType, HttpSession session) {
+		
 		// 현재 로그인된 멤버가 가입한 educationId에 해당하는 주/야간 정보 가져오기
 		MemberVO loginMember = (MemberVO)session.getAttribute("_MEMBER_");
 		List<String> eduType = educationBiz.getMemberRegInfo(loginMember.getId());
