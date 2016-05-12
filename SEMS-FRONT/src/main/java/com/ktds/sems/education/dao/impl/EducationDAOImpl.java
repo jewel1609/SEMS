@@ -89,10 +89,14 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 		return getSqlSession().insert("EducationDAO.doApplyEducation", paramMap);
 	}
 	@Override
-	public List<QNAVO> getAllCommentByEducationId(String educationId) {
-		return getSqlSession().selectList("EducationDAO.getAllCommentByEducationId", educationId);
+	public List<QNAVO> getAllCommentByEducationId(String educationId, EducationSearchVO searchVO) {
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("educationId", educationId);
+		paramMap.put("startIndex", searchVO.getStartIndex()+"");
+		paramMap.put("endIndex", searchVO.getEndIndex()+"");
+		
+		return getSqlSession().selectList("EducationDAO.getAllCommentByEducationId", paramMap);
 	}
-
 	@Override
 	public String getNowDate() {
 		return getSqlSession().selectOne("EducationDAO.getNowDate");
@@ -111,5 +115,12 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 		
 		return getSqlSession().selectOne("EducationDAO.isApplyMemberByEducationId", paramMap);
 	}
+
+	@Override
+	public int getEduReplyCount(String educationId) {
+		return getSqlSession().selectOne("EducationDAO.getEduReplyCount", educationId);
+	}
+
+
 
 }

@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ktds.sems.common.Session;
 import com.ktds.sems.education.biz.EducationBiz;
 import com.ktds.sems.education.service.EducationService;
+import com.ktds.sems.education.vo.EduReplyListVO;
 import com.ktds.sems.education.vo.EducationListVO;
 import com.ktds.sems.education.vo.EducationSearchVO;
 import com.ktds.sems.education.vo.EducationVO;
@@ -31,10 +32,26 @@ public class EducationServiceImpl implements EducationService {
 	}
 
 	@Override
-	public ModelAndView getOneEducationDetail(String educationId, HttpSession session) {
+	public ModelAndView getOneEducationDetail(String educationId, HttpSession session, int pageNo) {
+		EduReplyListVO eduReplyListVO = new EduReplyListVO();
+		Paging paging = new Paging(10,10);
+	
+		eduReplyListVO.setPaging(paging);
+		paging.setPageNumber(pageNo + "");
+		
+		int totalEduReplyCount = educationBiz.getEduReplyCount(educationId);
+		logger.info("totalEduReplyCount" +totalEduReplyCount);
+		paging.setTotalArticleCount(totalEduReplyCount);
+		
+		EducationSearchVO searchVO = new EducationSearchVO();
+		searchVO.setStartIndex(paging.getStartArticleNumber());
+		searchVO.setEndIndex(paging.getEndArticleNumber());
+
 		ModelAndView view = new ModelAndView();
 		EducationVO education = educationBiz.getOneEducationDetail(educationId);
-		List<QNAVO> qna = educationBiz.getAllCommentByEducationId(educationId);
+		List<QNAVO> qnas = educationBiz.getAllCommentByEducationId(educationId, searchVO);
+		
+		eduReplyListVO.setQnaList(qnas);
 		
 		//이미 신청된 회원인지 비교해서 boolean 값 보내기
 		MemberVO loginMember = (MemberVO)session.getAttribute("_MEMBER_");
@@ -47,7 +64,7 @@ public class EducationServiceImpl implements EducationService {
 		}
 		
 		view.addObject("isApply", isApply);
-		view.addObject("qna", qna);
+		view.addObject("eduReplyListVO", eduReplyListVO);
 		view.addObject("education", education);
 		view.setViewName("education/eduDetail");
 		return view;
@@ -103,8 +120,6 @@ public class EducationServiceImpl implements EducationService {
 	public ModelAndView writeNewComment(HttpSession session, QNAVO qnaVO, Errors errors, String educationId) {
 		ModelAndView view = new ModelAndView();
 		MemberVO memberVO = (MemberVO) session.getAttribute(Session.MEMBER);
-		
-		
 		
 		String nowDate = educationBiz.getNowDate();
 		int nextSeq = educationBiz.getNextReplySeq();
@@ -188,7 +203,6 @@ public class EducationServiceImpl implements EducationService {
 		} else{
 			return "redirect:/";
 		}
-		
 
 	}
 

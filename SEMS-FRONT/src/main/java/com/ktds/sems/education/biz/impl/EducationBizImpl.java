@@ -62,10 +62,6 @@ public class EducationBizImpl implements EducationBiz {
 	public boolean doCancelEducation(String educationId, String id) {
 		return educationDAO.doCancelEducation(educationId, id) > 0;
 	}
-	@Override
-	public List<QNAVO> getAllCommentByEducationId(String educationId) {
-		return educationDAO.getAllCommentByEducationId(educationId);
-	}
 
 	@Override
 	public String getNowDate() {
@@ -82,6 +78,15 @@ public class EducationBizImpl implements EducationBiz {
 		return educationDAO.isApplyMemberByEducationId(educationId, id);
 	}
 
+	@Override
+	public int getEduReplyCount(String educationId) {
+		return educationDAO.getEduReplyCount(educationId);
+	}
+
+	@Override
+	public List<QNAVO> getAllCommentByEducationId(String educationId, EducationSearchVO searchVO) {
+		return educationDAO.getAllCommentByEducationId(educationId, searchVO);
+	}
 }
 
 

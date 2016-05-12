@@ -67,8 +67,8 @@ public class EducationController {
 	}
 	
 	@RequestMapping("/eduDetail/{educationId}")
-	public ModelAndView getOneEducationDetail(@PathVariable String educationId, HttpSession session){
-		return educationService.getOneEducationDetail(educationId, session);
+	public ModelAndView getOneEducationDetail(@PathVariable String educationId, HttpSession session, @RequestParam(required=false, defaultValue="0") int pageNo){
+		return educationService.getOneEducationDetail(educationId, session, pageNo);
 	}
 	
 	@RequestMapping("/doApplyEducation")

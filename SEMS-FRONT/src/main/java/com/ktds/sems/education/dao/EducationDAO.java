@@ -27,7 +27,7 @@ public interface EducationDAO {
 	public int insertNewComment(QNAVO qnaVO);
 	
 
-	public List<QNAVO> getAllCommentByEducationId(String educationId);
+	public List<QNAVO> getAllCommentByEducationId(String educationId, EducationSearchVO searchVO);
 
 	public String getNowDate();
 
@@ -36,4 +36,7 @@ public interface EducationDAO {
 	public int doCancelEducation(String educationId, String id);
 
 	public int isApplyMemberByEducationId(String educationId, String id);
+
+	public int getEduReplyCount(String educationId);
+
 }

@@ -26,11 +26,13 @@ public interface EducationBiz {
 
 	public List<EducationVO> doSearchList(EducationVO educationVO, EducationSearchVO searchVO);
 
-	public List<QNAVO> getAllCommentByEducationId(String educationId);
+	public List<QNAVO> getAllCommentByEducationId(String educationId, EducationSearchVO searchVO);
 
 	public String getNowDate();
 
 	public int getNextReplySeq();
 
 	public int isApplyMemberByEducationId(String educationId, String id);
+
+	public int getEduReplyCount(String educationId);
 }

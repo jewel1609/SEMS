@@ -94,7 +94,8 @@
 	<tr>
 		<th colspan="6">문의사항</th>
 	</tr>
-	<c:forEach items="${qna}" var="qna">
+
+	<c:forEach items="${eduReplyListVO.qnaList}" var="qna">
 	<tr>
 		<td>작성자</td>
 		<td>${ qna.mbrId }</td>
@@ -110,8 +111,19 @@
 		<td>싫어요</td>
 		<td>${ qna.dislikeCnt }</td>
 	</tr>
-	<tr colspan="6" width="5px"></tr>
+	
+
 	</c:forEach>
+	 <tr>
+		<td colspan="5" >
+			<form id="pagingForm">
+					<c:if test="${ eduReplyListVO ne null }">
+						${eduReplyListVO.paging.getPagingList("pageNo", "[@]", "이전", "다음", "pagingForm")}
+					</c:if>
+			</form>
+		</td>
+	</tr>
+	
 	</table>
 	
 	<form:form commandName="qnaVO" method="post" action="/doWriteComment">
