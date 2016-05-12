@@ -7,7 +7,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<script type="text/javascript" src="/resources/js/jquery.min.js"></script>
+<script type="text/javascript" src="<c:url value="/resources/js/jquery.min.js" />"></script>
 <script type="text/javascript">
 
 
