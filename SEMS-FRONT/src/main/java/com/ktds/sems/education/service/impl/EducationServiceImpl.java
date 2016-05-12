@@ -1,7 +1,5 @@
 package com.ktds.sems.education.service.impl;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -11,13 +9,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ktds.sems.common.Session;
 import com.ktds.sems.education.biz.EducationBiz;
 import com.ktds.sems.education.service.EducationService;
 import com.ktds.sems.education.vo.EducationListVO;
 import com.ktds.sems.education.vo.EducationSearchVO;
 import com.ktds.sems.education.vo.EducationVO;
-import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.education.vo.QNAVO;
+import com.ktds.sems.member.vo.MemberVO;
 
 import kr.co.hucloud.utilities.web.Paging;
 
@@ -91,26 +90,26 @@ public class EducationServiceImpl implements EducationService {
 	}
 	
 	@Override
-	public ModelAndView writeNewComment(QNAVO qnaVO, Errors errors, String educationId) {
+	public ModelAndView writeNewComment(HttpSession session, QNAVO qnaVO, Errors errors, String educationId) {
 		ModelAndView view = new ModelAndView();
+		MemberVO memberVO = (MemberVO) session.getAttribute(Session.MEMBER);
+		
+		
 		
 		String nowDate = educationBiz.getNowDate();
 		int nextSeq = educationBiz.getNextReplySeq();
 		String realReplyId = "RP-" + nowDate + "-" + lpad(nextSeq + "", 6, "0");
 		
-		System.out.println(qnaVO.getMbrId());
-		System.out.println(realReplyId);
-		
 		qnaVO.setEduId(educationId);
 		qnaVO.setReplyId(realReplyId);
+		// 댓글 쓴 아이디를 집어넣음
+		qnaVO.setMbrId(memberVO.getId());
 		
 		if( errors.hasErrors() ){ 
 			view.setViewName("redirect:/eduDetail/" + educationId);
 			view.addObject("qnaVO", qnaVO );
 			return view;
 		}else {
-			
-			
 			boolean result = educationBiz.writeNewComment(qnaVO);
 			if ( result ){
 				view.setViewName("redirect:/eduDetail/" + educationId);

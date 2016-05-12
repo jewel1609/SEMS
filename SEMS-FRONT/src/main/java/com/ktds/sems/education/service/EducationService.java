@@ -16,7 +16,7 @@ public interface EducationService {
 
 	public String doApplyEducation(String educationId, String educationType, HttpSession session);
 	
-	public ModelAndView writeNewComment(QNAVO qnaVO, Errors errors, String educationId);
+	public ModelAndView writeNewComment(HttpSession session, QNAVO qnaVO, Errors errors, String educationId);
 
 	public ModelAndView doSearchList(EducationVO educationVO, int pageNo);
 

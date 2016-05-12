@@ -4,7 +4,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-import org.apache.poi.util.SystemOutLogger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -71,8 +70,8 @@ public class EducationController {
 	}
 	
 	@RequestMapping("/doWriteComment")
-	public ModelAndView doWriteAction(@Valid QNAVO qnaVO, Errors errors, String educationId){
-		return educationService.writeNewComment(qnaVO, errors, educationId);
+	public ModelAndView doWriteAction(@Valid QNAVO qnaVO, Errors errors, String educationId, HttpSession session){
+		return educationService.writeNewComment(session, qnaVO, errors, educationId);
 	}
 
 	@RequestMapping("/calendar")
@@ -85,7 +84,6 @@ public class EducationController {
 	public String doCancelEducation(@PathVariable String educationId) {
 		return educationService.doCancelEducation(educationId);
 	}
-	
 	
 }
 
