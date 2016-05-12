@@ -62,7 +62,7 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 	
 	@Override
 	public int doCancelEducation(String educationId) {
-		return getSqlSession().delete("EducationDAO.deleteEducation", educationId);
+		return getSqlSession().delete("EducationDAO.doCancelEducation", educationId);
 	}
 
 	@Override

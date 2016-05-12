@@ -166,8 +166,9 @@ public class EducationServiceImpl implements EducationService {
 	@Override
 	public String doCancelEducation(String educationId) {
 		boolean result = educationBiz.doCancelEducation(educationId);
+		
 		if( result ) {
-			return "redirect:/eduDetail/" + educationId;
+			return "redirect:/educationList";
 		}else{
 			throw new RuntimeException("	실패하였습니다.	");
 		}
@@ -175,3 +176,5 @@ public class EducationServiceImpl implements EducationService {
 
 
 }
+
+

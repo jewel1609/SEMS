@@ -81,7 +81,7 @@ public class EducationController {
 	}
 
 	
-	@RequestMapping("/doCancelEducation/${educationId}")
+	@RequestMapping("/doCancelEducation/{educationId}")
 	public String doCancelEducation(@PathVariable String educationId) {
 		return educationService.doCancelEducation(educationId);
 	}
