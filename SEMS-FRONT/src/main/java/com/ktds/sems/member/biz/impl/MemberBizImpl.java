@@ -449,15 +449,15 @@ public class MemberBizImpl implements MemberBiz {
 		memberDAO.insertUuidForResign(member);
 	}
 
-	@Override
-	public int getDateSearchLoginHistoryCount(String memberId) {
-		return memberDAO.getDateSearchLoginHistoryCount(memberId);
-	}
-
-	@Override
-	public List<LoginHistoryVO> getDateSearchLoginHistory(LoginHistorySearchVO loginHistorySearchVO) {
-		return memberDAO.getDateSearchLoginHistory(loginHistorySearchVO);
-	}
+//	@Override
+//	public int getDateSearchLoginHistoryCount(String memberId) {
+//		return memberDAO.getDateSearchLoginHistoryCount(memberId);
+//	}
+//
+//	@Override
+//	public List<LoginHistoryVO> getDateSearchLoginHistory(LoginHistorySearchVO loginHistorySearchVO) {
+//		return memberDAO.getDateSearchLoginHistory(loginHistorySearchVO);
+//	}
 
 	@Override
 	public void sendEmailForResign(String email, String id, String uuid) {
@@ -468,7 +468,7 @@ public class MemberBizImpl implements MemberBiz {
 		mailVO.setFromId("testForSendEmailKtds@gmail.com");
 		mailVO.setFromPassword("123qwe!@#qwe");
 		mailVO.setSubject("탈퇴기능 테스트입니다.");
-		mailVO.setText("<html><body>탈퇴하시겠습니까? <a href='http://localhost:8080/member/loginForResign/" + uuid + "/"+ id +"'>예</a></body></html>");
+		mailVO.setText("<html><body>탈퇴하시겠습니까? <a href='http://localhost/sems/member/loginForResign/" + uuid + "/"+ id +"'>예</a></body></html>");
 		
 		mailVO.setToId(email);
 		
