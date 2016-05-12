@@ -283,29 +283,30 @@
 		전화 번호 : <input type="text" name="phoneNumber" value="${ member.phoneNumber }" tabindex="9"/>
 		<br/><form:errors path="phoneNumber" /><br/>
 
-		최종 학력 : <input type="text" name="highestEducationLevel" value="${ member.highestEducationLevel }" />
-		<br/><form:errors path="highestEducationLevel" /><br/>
-		
 		학교 : <input type="text" name="universityName" value="${ member.universityName }" />
 		<br/><span id="messageByUniversityName"></span><br/>
 		
 		학과 : <input type="text" name="majorName" value="${ member.majorName }" />
 		<br/><span id="messageByMajorName"></span><br/>
 		
-		졸업 구분 : 
+		졸업구분 : 
 		<c:forEach items="${graduationTypeList}" var="graduationTypeCodeName">
-			<c:if test="${ graduationTypeList ne null }">
-			<input type="radio" class="graduationType" name="graduationType" value="${graduationTypeCodeName}" /> ${ graduationTypeCodeName } &nbsp;&nbsp;
+			<c:if test="${graduationTypeCodeName eq selectedGraduationTypeCodeName}">
+			<input type="radio" class="graduationType" name="graduationType" value="${graduationTypeCodeName}" checked="checked"/>${graduationTypeCodeName}
+			</c:if>
+			<c:if test="${graduationTypeCodeName ne selectedGraduationTypeCodeName}">
+			<input type="radio" class="graduationType" name="graduationType" value="${graduationTypeCodeName}"/>${graduationTypeCodeName}
 			</c:if>
 		</c:forEach>
+		<br/><br/>
 		
 		최종학력 : 
 		<c:forEach items="${highestEducationLevelCodeNameList}" var="helCodeName">
 			<c:if test="${helCodeName eq selectedHighestEducationLevelCodeName}">
-			<input type="radio" class="helCodeName" name="helCodeName" value="${helCodeName}" checked="checked"/>${helCodeName}
+			<input type="radio" class="highestEducationLevel" name="highestEducationLevel" value="${helCodeName}" checked="checked"/>${helCodeName}
 			</c:if>
 			<c:if test="${helCodeName ne selectedHighestEducationLevelCodeName}">
-			<input type="radio" class="helCodeName" name="helCodeName" value="${helCodeName}"/>${helCodeName}
+			<input type="radio" class="highestEducationLevel" name="highestEducationLevel" value="${helCodeName}"/>${helCodeName}
 			</c:if>
 		</c:forEach>
 		
