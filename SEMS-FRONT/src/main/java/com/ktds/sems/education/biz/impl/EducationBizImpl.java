@@ -49,6 +49,7 @@ public class EducationBizImpl implements EducationBiz {
 	
 	@Override
 	public boolean writeNewComment(QNAVO qnaVO) {
+		//qnaVO.getReplyId();
 		return educationDAO.insertNewComment(qnaVO) > 0;
 	}
 

@@ -126,18 +126,18 @@
 		<td><a href="/eduDetail/${education.educationId}">${ education.educationTitle }</a></td>
 		<td>${ education.educationCategory }</td>
 		<td>${ education.startDate } ~ ${ education.endDate }</td>
-		<td>${ education.educationType }</td>
-		<td>${ education.cost }</td>
+		<td>${ education.typeName }</td>
+		<td>${ education.costName }</td>
 	</tr>
 	</c:forEach> 
 	
 	<c:forEach items="${ searchedListVO.educationList }" var="education">
 	<tr>
-		<td>${ education.educationTitle }</td>
+		<td><a href="/eduDetail/${education.educationId}">${ education.educationTitle }</a></td>
 		<td>${ education.educationCategory }</td>
 		<td>${ education.startDate } ~ ${ education.endDate }</td>
-		<td>${ education.educationType }</td>
-		<td>${ education.cost }</td>
+		<td>${ education.typeName }</td>
+		<td>${ education.costName }</td>
 	</tr>
 	</c:forEach>
 

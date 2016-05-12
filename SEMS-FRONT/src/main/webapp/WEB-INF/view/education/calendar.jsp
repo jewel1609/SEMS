@@ -10,7 +10,6 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Education Calendar</title>
-
 <script type="text/javascript" src="/resources/js/jquery.min.js"></script>
 <script type="text/javascript" src="/resources/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/resources/vendors/auto-size/jquery.autosize.min.js"></script>

@@ -79,11 +79,15 @@
 		</tr>
 		<tr>
 			<td>강의 형태</td>
-			<td>${ education.educationType }</td>
+			<td>${ education.typeName }</td>
 		</tr>
 		<tr>
 			<td>비용</td>
 			<td>${ education.cost }</td>
+		</tr>
+		<tr>
+			<td>유료/무료</td>
+			<td>${ education.costName }</td>
 		</tr>
 	</table>
 	<br/>
@@ -111,14 +115,16 @@
 	</table>
 	
 	<form:form commandName="qnaVO" method="post" action="/doWriteComment">
+	  
+	<input type="text" id="replyId" name="replyId" placeholder="글쓴이를 입력." value="${qnaVO.replyId}"/><br/>
 	<input type="text" id="mbrId" name="mbrId" placeholder="글쓴이를 입력." value="${qnaVO.mbrId}"/><br/>
+	
 	<input type="hidden" name="educationId" value="${ education.educationId }">	
 	<form:errors path="replyId"/><br/>
 	<textarea id="description" name="description" placeholder="내용을 입력하세요." >${qnaVO.description}</textarea><br/>
 	<form:errors path="description"/><br/>
 	<input type="submit" value="댓글쓰기"/>
 	</form:form>
-	
 	
 	<input type="hidden" value="${ education.educationId }" id="eduId" />
 	<input type="hidden" value="${ education.educationType }" id="eduType" />

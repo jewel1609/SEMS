@@ -43,22 +43,26 @@
 	</select> 
 	
 	<select id="getOneEducationDetail" parameterType="string" resultType="EducationVO">
-	SELECT	EDU_ID educationId
-				, EDU_CTGR educationCategory
-				, EDU_TTL educationTitle
-				, MBR_ID memberId
-				, MAX_MBR maxMember
-				, EDU_LOC educationLocation
-				, EDU_CLCM educationCurriculum
-				, EDU_INTR educationIntroduce
-				, SRT_DATE startDate
-				, END_DATE endDate
-				, START_TM startTime
-				, END_TM endTime
-				, EDU_TP educationType
-				, COST cost
-		FROM	EDU_INFO
+		SELECT	EDU.EDU_ID educationId
+				, EDU.EDU_CTGR educationCategory
+				, EDU.EDU_TTL educationTitle
+				, EDU.MBR_ID memberId
+				, EDU.MAX_MBR maxMember
+				, EDU.EDU_LOC educationLocation
+				, EDU.EDU_CLCM educationCurriculum
+				, EDU.EDU_INTR educationIntroduce
+				, EDU.SRT_DATE startDate
+				, EDU.END_DATE endDate
+				, EDU.START_TM startTime
+				, EDU.END_TM endTime
+				, EDU_TIME.CD_NM typeName
+				, EDU_CST.CD_NM costName
+		FROM	EDU_INFO EDU
+				, EDU_CST
+				, EDU_TIME
 		WHERE	EDU_ID LIKE #{educationId}
+		AND		EDU.COST = EDU_CST.CD_ID
+		AND		EDU.EDU_TP = EDU_TIME.CD_ID
 	</select>
 	
 	
@@ -77,20 +81,20 @@
 	</select>
 	
 	<select id="getAllEducationList" parameterType="EducationSearchVO" resultType="EducationVO">
-		SELECT	EDU_ID educationId
-				, EDU_CTGR educationCategory
-				, EDU_TTL educationTitle
-				, MBR_ID memberId
-				, MAX_MBR maxMember
-				, EDU_LOC educationLocation
-				, EDU_CLCM educationCurriculum
-				, EDU_INTR educationIntroduce
-				, SRT_DATE startDate
-				, END_DATE endDate
-				, START_TM startTime
-				, END_TM endTime
-				, EDU_TP educationType
-				, COST cost
+		SELECT	EDU.EDU_ID educationId
+				, EDU.EDU_CTGR educationCategory
+				, EDU.EDU_TTL educationTitle
+				, EDU.MBR_ID memberId
+				, EDU.MAX_MBR maxMember
+				, EDU.EDU_LOC educationLocation
+				, EDU.EDU_CLCM educationCurriculum
+				, EDU.EDU_INTR educationIntroduce
+				, EDU.SRT_DATE startDate
+				, EDU.END_DATE endDate
+				, EDU.START_TM startTime
+				, EDU.END_TM endTime
+				, EDU_TIME.CD_NM typeName
+				, EDU_CST.CD_NM costName
 		FROM	(
 					SELECT	ROWNUM AS RNUM
 							, EDU_INFO.*
@@ -100,26 +104,30 @@
 								ORDER	BY EDU_ID DESC
 							) EDU_INFO
 					WHERE	ROWNUM <![CDATA[<=]]> #{endIndex}
-				)
-		WHERE	RNUM >= #{startIndex}		
+				) EDU
+				, EDU_CST
+				, EDU_TIME
+		WHERE	EDU.COST = EDU_CST.CD_ID
+		AND		EDU.EDU_TP = EDU_TIME.CD_ID
+		AND		RNUM >= #{startIndex}		
 	</select>
 
 
 	<select id="doSearchList" parameterType="map" resultType="EducationVO">
-	   SELECT   EDU_ID educationId
-	            , EDU_CTGR educationCategory
-	            , EDU_TTL educationTitle
-	            , MBR_ID memberId
-	            , MAX_MBR maxMember
-	            , EDU_LOC educationLocation
-	            , EDU_CLCM educationCurriculum
-	            , EDU_INTR educationIntroduce
-	            , SRT_DATE startDate
-	            , END_DATE endDate
-	            , START_TM startTime
-	            , END_TM endTime
-	            , EDU_TP educationType
-	            , COST cost
+		SELECT	EDU.EDU_ID educationId
+				, EDU.EDU_CTGR educationCategory
+				, EDU.EDU_TTL educationTitle
+				, EDU.MBR_ID memberId
+				, EDU.MAX_MBR maxMember
+				, EDU.EDU_LOC educationLocation
+				, EDU.EDU_CLCM educationCurriculum
+				, EDU.EDU_INTR educationIntroduce
+				, EDU.SRT_DATE startDate
+				, EDU.END_DATE endDate
+				, EDU.START_TM startTime
+				, EDU.END_TM endTime
+				, EDU_TIME.CD_NM typeName
+				, EDU_CST.CD_NM costName
          FROM   (
                SELECT   ROWNUM   AS RNUM
                      , EDU_INFO.*
@@ -133,8 +141,12 @@
                         ORDER   BY EDU_ID DESC
                      ) EDU_INFO
                WHERE   ROWNUM <![CDATA[<=]]> #{searchVO.endIndex}
-            )
+            ) EDU
+            , EDU_CST
+			, EDU_TIME
       WHERE   RNUM >= #{searchVO.startIndex}
+	  AND     EDU.COST = EDU_CST.CD_ID
+	  AND	  EDU.EDU_TP = EDU_TIME.CD_ID
       <!-- 
          <if test="startDate != null">
              AND TO_CHAR(SRT_DATE, 'YYYY/MM') <![CDATA[ >= ]]> #{startDate} 
@@ -194,6 +206,10 @@
 								   , MBR_ID 
 								   , CREATED_DATE
 								   ) 
+						VALUES (  ,
+								#{eduId},
+								'c',
+								'4',
 						VALUES ( 
 								 #{replyId},
 								 #{eduId},
@@ -205,32 +221,10 @@
 								 )			
  	</insert>
  	
-    <select id="getMemberRegInfo" parameterType="string" resultType="string">
-    	SELECT 	 DISTINCT EDU_TP
-		FROM 	 EDU_INFO
-		WHERE    EDU_ID IN (
-						    SELECT  EDU_ID
-						    FROM    EDU_REG
-						    WHERE   MBR_ID = #{id}
-							)
-    </select>
- 	
-	<delete id="doCancelEducation" parameterType="string">
+ 		<delete id="doCancelEducation" parameterType="string">
 		DELETE	
 		FROM	EDU_INFO
 		WHERE	EDU_ID = #{educationId}
 	</delete>
     
-    <insert id="doApplyEducation" parameterType="map">
-    	INSERT INTO SEMS.EDU_REG (
-				   					EDU_ID
-				   					, EDU_REG_ID
-				   					, MBR_ID
-				   				  ) 
-					VALUES (
-							 #{educationId}
-							 , EDU_REG_ID_SEQ.NEXTVAL
-							 , #{id} 
-						    )
-    </insert>
 </mapper>

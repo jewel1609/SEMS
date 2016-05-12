@@ -17,6 +17,9 @@ public class EducationVO {
 	private String educationType;
 	private String cost;
 	
+	private String costName;
+	private String typeName;
+	
 	public String getEducationId() {
 		return educationId;
 	}
@@ -100,5 +103,17 @@ public class EducationVO {
 	}
 	public void setCost(String cost) {
 		this.cost = cost;
+	}
+	public String getCostName() {
+		return costName;
+	}
+	public void setCostName(String costName) {
+		this.costName = costName;
+	}
+	public String getTypeName() {
+		return typeName;
+	}
+	public void setTypeName(String typeName) {
+		this.typeName = typeName;
 	}
 }
