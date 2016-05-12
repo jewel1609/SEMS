@@ -30,6 +30,9 @@
 				} else if (data = "NOADMIN") {
 					alert("관리자만 접속 가능합니다.");
 					location.href = "/backend";
+				} else if (data = "RSN") {
+					alert("탈퇴한 회원입니다.");
+					location.href = "/backend";
 				}
 			});
 			
