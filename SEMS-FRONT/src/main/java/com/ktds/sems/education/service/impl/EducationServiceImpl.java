@@ -37,11 +37,7 @@ public class EducationServiceImpl implements EducationService {
 		EducationVO education = educationBiz.getOneEducationDetail(educationId);
 		List<QNAVO> qna = educationBiz.getAllCommentByEducationId(educationId);
 		//이미 신청된 회원인지 비교해서 boolean 값 보내기
-		
-		for (QNAVO qnavo : qna) {
-			System.out.println("================가져온 QNA"+qnavo.getDescription());
-		}
-		
+	
 		view.addObject("qna", qna);
 		view.addObject("education", education);
 		view.setViewName("education/eduDetail");
@@ -97,13 +93,24 @@ public class EducationServiceImpl implements EducationService {
 	@Override
 	public ModelAndView writeNewComment(QNAVO qnaVO, Errors errors, String educationId) {
 		ModelAndView view = new ModelAndView();
+		
+		String nowDate = educationBiz.getNowDate();
+		int nextSeq = educationBiz.getNextReplySeq();
+		String realReplyId = "RP-" + nowDate + "-" + lpad(nextSeq + "", 6, "0");
+		
+		System.out.println(qnaVO.getMbrId());
+		System.out.println(realReplyId);
+		
 		qnaVO.setEduId(educationId);
+		qnaVO.setReplyId(realReplyId);
 		
 		if( errors.hasErrors() ){ 
 			view.setViewName("redirect:/eduDetail/" + educationId);
 			view.addObject("qnaVO", qnaVO );
 			return view;
 		}else {
+			
+			
 			boolean result = educationBiz.writeNewComment(qnaVO);
 			if ( result ){
 				view.setViewName("redirect:/eduDetail/" + educationId);
@@ -113,6 +120,17 @@ public class EducationServiceImpl implements EducationService {
 		}
 		
 		return view;
+	}
+	
+	private String lpad(String source, int length, String defValue) {
+		int sourceLength = source.length();
+		int needLength = length - sourceLength;
+		
+		for (int i = 0; i < needLength; i++) {
+			source = defValue + source;
+		}
+		return source;
+		
 	}
 
 	@Override
@@ -149,7 +167,7 @@ public class EducationServiceImpl implements EducationService {
 	public String doCancelEducation(String educationId) {
 		boolean result = educationBiz.doCancelEducation(educationId);
 		if( result ) {
-			return "redirect:/eduDetail";
+			return "redirect:/eduDetail/" + educationId;
 		}else{
 			throw new RuntimeException("	실패하였습니다.	");
 		}

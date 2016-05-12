@@ -83,4 +83,14 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 		return getSqlSession().selectList("EducationDAO.getAllCommentByEducationId", educationId);
 	}
 
+	@Override
+	public String getNowDate() {
+		return getSqlSession().selectOne("EducationDAO.getNowDate");
+	}
+
+	@Override
+	public int getNextReplySeq() {
+		return getSqlSession().selectOne("EducationDAO.getNextReplySeq");
+	}
+
 }

@@ -2,6 +2,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="EducationDAO" >
+	<select id="getNextReplySeq" resultType="_int">
+		SELECT 	REPLY_ID_SEQ.NEXTVAL
+		FROM	DUAL
+	</select>
+	
+	<select id="getNowDate" resultType="string">
+		SELECT	TO_CHAR(SYSDATE, 'YYYYMMDD')
+		FROM	DUAL
+	</select>
+
 	<select id="getTotalEducationCount" resultType="_int">
 		SELECT	COUNT(EDU_ID)
 		FROM	EDU_INFO
@@ -184,12 +194,13 @@
 								   , MBR_ID 
 								   , CREATED_DATE
 								   ) 
-						VALUES ( #{replyId} ,
-								#{eduId},
-								'c',
-								'4',
+						VALUES ( 
+								 #{replyId},
+								 #{eduId},
+								 '0',
+								 '4',
 								 #{description},
-								 'f',
+								 #{mbrId},
 								 SYSDATE
 								 )			
  	</insert>

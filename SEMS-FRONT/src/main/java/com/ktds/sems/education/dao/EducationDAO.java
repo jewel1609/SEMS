@@ -30,4 +30,8 @@ public interface EducationDAO {
 	
 
 	public List<QNAVO> getAllCommentByEducationId(String educationId);
+
+	public String getNowDate();
+
+	public int getNextReplySeq();
 }

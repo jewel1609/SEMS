@@ -89,26 +89,33 @@
 	<br/>
 	<table border="1">
 	<tr>
-		<th colspan="4">문의사항</th>
+		<th colspan="6">문의사항</th>
 	</tr>
 	<c:forEach items="${qna}" var="qna">
 	<tr>
 		<td>작성자</td>
-		<td>${ qna.replyId }</td>
+		<td>${ qna.mbrId }</td>
 		<td>내용</td>
 		<td>${ qna.description }</td>
+		<td>날짜</td>
+		<td>${ qna.createdDate } </td>
 	</tr>
-	<tr colspan="4"></tr>
+	<tr>
+		<td>좋아요</td>
+		<td>${ qna.likeCnt }
+		<td>싫어요</td>
+		<td>${ qna.dislikeCnt }</td>
+	</tr>
+	<tr colspan="6" width="5px"></tr>
 	</c:forEach>
 	</table>
 	
 	<form:form commandName="qnaVO" method="post" action="/doWriteComment">
-	<input type="text" id="replyId" name="replyId" placeholder="글쓴이를 입력." value="${qnaVO.replyId}"/><br/>
+	<input type="text" id="mbrId" name="mbrId" placeholder="글쓴이를 입력." value="${qnaVO.mbrId}"/><br/>
 	<input type="hidden" name="educationId" value="${ education.educationId }">	
 	<form:errors path="replyId"/><br/>
 	<textarea id="description" name="description" placeholder="내용을 입력하세요." >${qnaVO.description}</textarea><br/>
 	<form:errors path="description"/><br/>
-	
 	<input type="submit" value="댓글쓰기"/>
 	</form:form>
 	

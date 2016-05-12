@@ -27,4 +27,8 @@ public interface EducationBiz {
 	public List<EducationVO> doSearchList(EducationVO educationVO, EducationSearchVO searchVO);
 
 	public List<QNAVO> getAllCommentByEducationId(String educationId);
+
+	public String getNowDate();
+
+	public int getNextReplySeq();
 }

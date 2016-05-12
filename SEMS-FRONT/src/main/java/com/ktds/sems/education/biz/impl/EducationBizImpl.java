@@ -66,6 +66,16 @@ public class EducationBizImpl implements EducationBiz {
 		return educationDAO.getAllCommentByEducationId(educationId);
 	}
 
+	@Override
+	public String getNowDate() {
+		return educationDAO.getNowDate();
+	}
+
+	@Override
+	public int getNextReplySeq() {
+		return educationDAO.getNextReplySeq();
+	}
+
 }
 
 

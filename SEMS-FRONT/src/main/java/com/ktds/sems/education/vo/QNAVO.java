@@ -10,6 +10,8 @@ public class QNAVO {
 	private String mbrId;
 	private int likeCnt;
 	private int dislikeCnt;
+	private String createdDate;
+	
 	public String getReplyId() {
 		return replyId;
 	}
@@ -64,6 +66,6 @@ public class QNAVO {
 	public void setCreatedDate(String createdDate) {
 		this.createdDate = createdDate;
 	}
-	private String createdDate;
+	
 	
 }
