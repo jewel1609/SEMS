@@ -32,8 +32,7 @@ public class EducationController {
 	}
 	
 	@RequestMapping("/doWriteAction")
-	public ModelAndView doWriteAction(@Valid EducationVO educationVO, Errors errors, MultipartHttpServletRequest request) {
-
+	public ModelAndView doWriteAction(@Valid EducationVO educationVO, Errors errors, MultipartHttpServletRequest request) {		
 		return educationService.writeNewEducation(educationVO, errors, request);
 	}
 	
