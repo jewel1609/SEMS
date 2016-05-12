@@ -16,6 +16,7 @@ import com.ktds.sems.common.Session;
 import com.ktds.sems.common.vo.MailVO;
 import com.ktds.sems.member.biz.MemberBiz;
 import com.ktds.sems.member.service.MemberService;
+import com.ktds.sems.member.vo.GraduationTypeVO;
 import com.ktds.sems.member.vo.LoginHistoryListVO;
 import com.ktds.sems.member.vo.LoginHistorySearchVO;
 import com.ktds.sems.member.vo.LoginHistoryVO;
@@ -37,41 +38,52 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public ModelAndView addNewMember(MemberVO member, Errors errors, HttpSession session) {
 		ModelAndView view = new ModelAndView();
-		
 		MemberVO sessionMember = (MemberVO) session.getAttribute("_MEMBER_");
+		
 		if (sessionMember != null) {
 			throw new RuntimeException("유효한 접근이 아닙니다.");
 		}
-		else if ( errors.hasErrors() && member.getMemberType().equals("TR") ) {
-			view.setViewName("member/registerTeacher");
+		else if (errors.hasErrors()) {
+			if ( member.getMemberType().equals("TR") ) {
+				view.setViewName("member/registerTeacher");
+			}
+			else if ( member.getMemberType().equals("MBR") ) {
+				view.setViewName("member/registerStudent");
+			}
+			
 			view.addObject("member", member);
 		}
-		else if ( errors.hasErrors() && member.getMemberType().equals("MBR") ) {
-			view.setViewName("member/registerStudent");
-			view.addObject("member", member);
+		else if ( member.getMemberType().equals("MBR") || member.getMemberType().equals("TR") ){
+			boolean isVerify = checkVerify(member);
+
+			if ( isVerify ) {
+				setSaltAndPassword(member);
+				memberBiz.addNewMember(member);
+				view.setViewName("redirect:/");
+			}
 		}
 		else {
-			boolean isVerifyId = memberBiz.isVerifyId(member.getId());
-			boolean isVerifyPassword = memberBiz.isVerifyPassword(member.getPassword());
-			
-			if ( !isVerifyId || !isVerifyPassword ) {
-				throw new RuntimeException("입력 값 오류 아이디 혹은 비밀번호");
-			}
-
-			String salt = SHA256Util.generateSalt();
-			member.setSalt(salt);
-			
-			String newPassword = SHA256Util.getEncrypt(member.getPassword(), salt);
-			member.setPassword(newPassword);
-
-			memberBiz.addNewMember(member);
-			
-			view.setViewName("redirect:/");
+			throw new RuntimeException ("잘 못 된 입력 : 회원 종류"); 
 		}
 
 		return view;
 	}
 		
+	private boolean checkVerify(MemberVO member) {
+		boolean isVerifyId = memberBiz.isVerifyId(member.getId());
+		boolean isVerifyPassword = memberBiz.isVerifyPassword(member.getPassword());
+		
+		return isVerifyId && isVerifyPassword;
+	}
+
+	private void setSaltAndPassword(MemberVO member) {
+		String salt = SHA256Util.generateSalt();
+		member.setSalt(salt);
+		
+		String newPassword = SHA256Util.getEncrypt(member.getPassword(), salt);
+		member.setPassword(newPassword);
+	}
+
 	@Override
 	public void checkValidationById(String id, HttpServletResponse response) {
 		String message = "OK";
@@ -390,5 +402,15 @@ public class MemberServiceImpl implements MemberService {
 		
 		//로그아웃 stamp 찍기 위해서.. 
 		memberBiz.stampLogoutTime(session);
+	}
+
+	@Override
+	public ModelAndView registerStudent() {
+		ModelAndView view = new ModelAndView();
+		List<String> graduationTypeList = memberBiz.getGraduationType();
+		view.setViewName("member/registerStudent");
+		view.addObject("graduationTypeList", graduationTypeList);
+		
+		return view;
 	}
 }
