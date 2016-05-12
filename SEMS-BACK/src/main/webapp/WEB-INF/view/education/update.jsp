@@ -7,7 +7,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Education 수정 페이지</title>
-<script type="text/javascript" src="/backend/resources/js/jquery.min.js"></script>
+<script type="text/javascript" src="<c:url value="/backend/resources/js/jquery.min.js" /> "></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 
