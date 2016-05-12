@@ -6,6 +6,7 @@
 	<typeAliases>
 		<typeAlias type="com.ktds.sems.education.vo.EducationVO" alias="EducationVO"/>
 		<typeAlias type="com.ktds.sems.file.vo.FileVO" alias="FileVO"/>
+		<typeAlias type="com.ktds.sems.member.vo.LoginHistoryVO" alias="LoginHistoryVO"/>
 		<typeAlias type="com.ktds.sems.education.vo.CostVO" alias="CostVO"/>
 		<typeAlias type="com.ktds.sems.education.vo.EducationTypeVO" alias="EducationTypeVO"/>
 		<typeAlias type="com.ktds.sems.education.vo.CategoryVO" alias="CategoryVO"/>
