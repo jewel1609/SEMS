@@ -81,4 +81,6 @@ public interface MemberDAO {
 
 	public String gethelCodeId(String helCodeName);
 
+	public String memberTypeCodeName(String id);
+
 }
