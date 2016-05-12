@@ -34,4 +34,6 @@ public interface EducationDAO {
 	public String getNowDate();
 
 	public int getNextReplySeq();
+
+	public int isApplyMemberByEducationId(String educationId, String id);
 }

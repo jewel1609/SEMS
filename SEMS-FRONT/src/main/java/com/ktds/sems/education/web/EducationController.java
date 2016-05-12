@@ -48,9 +48,17 @@ public class EducationController {
 		if(endMonth.length() == 1) {
 			endMonth = "0" + endMonth;
 		}
-		
-		educationVO.setStartDate(startYear + "/" + startMonth);
-		educationVO.setEndDate(endYear + "/" + endMonth);
+		educationVO.setStartDate(startYear + "-" + startMonth);
+		educationVO.setEndDate(endYear + "-" + endMonth);
+		if(eduName.equals("")) {
+			eduName = null;
+		}
+		if(educationType.equals("")){
+			educationType = null;
+		}
+		if(cost.equals("")){
+			cost = null;
+		}
 		educationVO.setEducationTitle(eduName);
 		educationVO.setEducationType(educationType);
 		educationVO.setCost(cost);
@@ -59,8 +67,8 @@ public class EducationController {
 	}
 	
 	@RequestMapping("/eduDetail/{educationId}")
-	public ModelAndView getOneEducationDetail(@PathVariable String educationId){
-		return educationService.getOneEducationDetail(educationId);
+	public ModelAndView getOneEducationDetail(@PathVariable String educationId, HttpSession session){
+		return educationService.getOneEducationDetail(educationId, session);
 	}
 	
 	@RequestMapping("/doApplyEducation")

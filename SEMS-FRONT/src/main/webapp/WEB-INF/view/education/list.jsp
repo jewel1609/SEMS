@@ -57,24 +57,28 @@
 		<th>기간</th>
 		<td>
 			<select id="startYear" name="startYear">
+				<option value="" selected="selected"></option>
 				<c:forEach var="startYear" begin="2010" end="2016" step="1">
 					<option value="${ startYear }">${ startYear }</option>
 				</c:forEach>
 			</select>년
 			
 			<select id="startMonth" name="startMonth">
+				<option value="" selected="selected"></option>
 				<c:forEach var="startMonth" begin="01" end="12" step="1">
 					<option value="${ startMonth }">${ startMonth }</option>
 				</c:forEach>
 			</select>월
 			~
 			<select id="endYear" name="endYear">
+				<option value="" selected="selected"></option>
 				<c:forEach var="endYear" begin="2010" end="2016" step="1">
 					<option value="${ endYear }">${ endYear }</option>
 				</c:forEach>
 			</select>년
 			-
 			<select id="endMonth" name="endMonth">
+				<option value="" selected="selected"></option>
 				<c:forEach var="endMonth" begin="01" end="12" step="1">
 					<option value="${ endMonth }">${ endMonth }</option>
 				</c:forEach>
@@ -91,7 +95,8 @@
 		<th>교육 형태</th>
 		<td>
 			<select name="educationType" id="educationType">
-				<option value="주간" selected="selected">주간</option>
+				<option value="" selected="selected"></option>
+				<option value="주간">주간</option>
 				<option value="야간">야간</option>
 			</select>
 		</td>
@@ -100,6 +105,7 @@
 		<th>비용</th>
 		<td>
 			<select name="cost" id="cost">
+			<option value="" selected="selected"></option>
 				<option value="무료">무료</option>
 				<option value="유료">유료</option>
 			</select>

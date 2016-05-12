@@ -10,7 +10,7 @@ import com.ktds.sems.education.vo.QNAVO;
 
 public interface EducationService {
 
-	public ModelAndView getOneEducationDetail(String educationId);
+	public ModelAndView getOneEducationDetail(String educationId, HttpSession session);
 	
 	public ModelAndView getAllEducationList(int pageNo);
 

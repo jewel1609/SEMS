@@ -34,7 +34,12 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 
 	@Override
 	public int getSearchedEducationCount(EducationVO educationVO) {
-		logger.debug("어디서 에러나는지 확인");
+		logger.info(educationVO.getStartDate());
+		logger.info(educationVO.getEndDate());
+		logger.info("타이틀"+educationVO.getEducationTitle());
+		logger.info("COST"+educationVO.getCost());
+		logger.info("교육타입"+educationVO.getEducationType());
+		
 		return getSqlSession().selectOne("EducationDAO.getSearchedEducationCount", educationVO);
 		
 	}
@@ -91,6 +96,15 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 	@Override
 	public int getNextReplySeq() {
 		return getSqlSession().selectOne("EducationDAO.getNextReplySeq");
+	}
+
+	@Override
+	public int isApplyMemberByEducationId(String educationId, String id) {
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("educationId", educationId);
+		paramMap.put("id", id);
+		
+		return getSqlSession().selectOne("EducationDAO.isApplyMemberByEducationId", paramMap);
 	}
 
 }

@@ -77,6 +77,11 @@ public class EducationBizImpl implements EducationBiz {
 		return educationDAO.getNextReplySeq();
 	}
 
+	@Override
+	public int isApplyMemberByEducationId(String educationId, String id) {
+		return educationDAO.isApplyMemberByEducationId(educationId, id);
+	}
+
 }
 
 

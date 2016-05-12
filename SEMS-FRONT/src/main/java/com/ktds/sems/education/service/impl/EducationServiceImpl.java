@@ -31,12 +31,22 @@ public class EducationServiceImpl implements EducationService {
 	}
 
 	@Override
-	public ModelAndView getOneEducationDetail(String educationId) {
+	public ModelAndView getOneEducationDetail(String educationId, HttpSession session) {
 		ModelAndView view = new ModelAndView();
 		EducationVO education = educationBiz.getOneEducationDetail(educationId);
 		List<QNAVO> qna = educationBiz.getAllCommentByEducationId(educationId);
+		
 		//이미 신청된 회원인지 비교해서 boolean 값 보내기
-	
+		MemberVO loginMember = (MemberVO)session.getAttribute("_MEMBER_");
+		boolean isApply =  true;
+		if (educationBiz.isApplyMemberByEducationId(educationId, loginMember.getId()) > 0 ){
+			isApply = false;
+		}
+		else{
+			isApply = true;
+		}
+		
+		view.addObject("isApply", isApply);
 		view.addObject("qna", qna);
 		view.addObject("education", education);
 		view.setViewName("education/eduDetail");

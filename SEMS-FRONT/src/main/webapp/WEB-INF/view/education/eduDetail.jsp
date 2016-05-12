@@ -9,7 +9,6 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		$("#applyEdu").click(function(){
-			alert("눌림!!!");
 			$.post("/doApplyEducation"
 					, { "educationId" : $("#eduId").val(),
 						"educationType" : $("#eduType").val() }
@@ -122,10 +121,11 @@
 	<input type="submit" value="댓글쓰기"/>
 	</form:form>
 	
+	<c:if test="${ isApply }">
 	<input type="hidden" value="${ education.educationId }" id="eduId" />
 	<input type="hidden" value="${ education.educationType }" id="eduType" />
 	<input type="button" id="applyEdu" name="applyEdu" value="교육 참가 신청" />
-	
+	</c:if>
 	<a href="/doCancelEducation/${ education.educationId }">교육 참가 취소</a>
 </body>
 </html>

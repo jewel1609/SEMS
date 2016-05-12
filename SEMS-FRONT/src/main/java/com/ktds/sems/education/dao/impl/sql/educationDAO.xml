@@ -25,18 +25,16 @@
 			SELECT	COUNT(*)
 			FROM	EDU_INFO
 			WHERE	1 = 1
-			<!--
 			<if test="startDate != null">
-	           AND TO_CHAR(SYSDATE, 'YYYY/MM') <![CDATA[ >= ]]> #{startDate} 
-	           AND TO_CHAR(SYSDATE, 'YYYY/MM') <![CDATA[ <= ]]> #{endDate}
+	           AND SUBSTR(SRT_DATE, 1, 7) <![CDATA[ >= ]]> #{startDate} 
+	           AND SUBSTR(SRT_DATE, 1, 7) <![CDATA[ <= ]]> #{endDate}
 	        </if>
 	        <if test="cost != null">
 	           AND COST = #{cost} 
 	        </if>
 		    <if test="educationType != null">
-		           AND EDU_TP = #{educationType} 
-	        </if> 
-	  		 -->	     
+	           AND EDU_TP = #{educationType} 
+	        </if>      
  		   <if test="educationTitle != null">
 	           AND EDU_TTL = #{educationTitle}
            </if>
@@ -157,8 +155,7 @@
           </if>
           <if test="educationType != null">
              AND EDU_TP = #{educationType} 
-          </if>
-           -->
+          </if> -->
     </select>
 <!--    
     <select id="doSearchList" parameterType="map" resultType="EducationVO">
@@ -196,7 +193,6 @@
     </select>
  -->    
  <insert id="insertNewComment" parameterType="QNAVO">
-						
 			INSERT INTO SEMS.QNA (
 								   REPLY_ID 
 								   , EDU_ID 
@@ -223,4 +219,11 @@
 		WHERE	EDU_ID = #{educationId}
 	</delete>
     
+    
+    <select id="isApplyMemberByEducationId" parameterType="map" resultType="_int">
+    	SELECT  COUNT(EDU_REG_ID)
+    	FROM	EDU_REG
+    	WHERE	EDU_ID = #{educationId}
+    	AND		MBR_ID = #{id}
+    </select>
 </mapper>
