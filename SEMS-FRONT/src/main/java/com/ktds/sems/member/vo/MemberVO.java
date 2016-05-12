@@ -43,6 +43,7 @@ public class MemberVO {
 	private String isResign;
 	private int modifyFailCount;
 	private String isModifyLock;
+	private String uuid;
 	
 	public String getResignDate() {
 		return resignDate;
@@ -195,4 +196,14 @@ public class MemberVO {
 	public void setLatestLoginDate(String latestLoginDate) {
 		this.latestLoginDate = latestLoginDate;
 	}
+
+	public String getUuid() {
+		return uuid;
+	}
+
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
+	
+	
 }
