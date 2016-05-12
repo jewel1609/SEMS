@@ -1,6 +1,10 @@
 package com.ktds.sems.member.biz;
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -119,5 +123,102 @@ public class MemberBizTest {
 		boolean isSuccess = !memberBiz.isResign(id);
 		assertTrue(isSuccess);
 	}
+	
+	@Test
+	public void memberTypeCodeName(){
+		String id = "aaa";
+		String result = memberBiz.memberTypeCodeName(id);
+		if ( result != null ) {
+			assertNotNull(result);
+		}
+		else {
+			fail("result is null");
+		}
+	}
+	
+	@Test
+	public void getGraduationTypeCodeIdTest(){
+		String graduationType = "JUNIT졸업";
+		String result = memberBiz.getGraduationTypeCodeId(graduationType);
+		if ( result != null ) {
+			assertNotNull(result);
+		}
+		else {
+			fail("result is null");
+		}
+	}
+	
+	@Test
+	public void getSelectedHighestEducationLevelCodeNameTest(){
+		String id = "aaa";
+		String result = memberBiz.getSelectedHighestEducationLevelCodeName(id);
+		if ( result != null ) {
+			assertNotNull(result);
+		}
+		else {
+			fail("result is null");
+		}
+	}
+	
+	@Test
+	public void getHighestEducationLevelCodeNamesTest(){
+		
+		List<String> result = memberBiz.getHighestEducationLevelCodeNames();
+		if ( result != null ) {
+			assertNotNull(result);
+		}
+		else {
+			fail("result is null");
+		}
+	}
+	
+	@Test
+	public void getGraduationTypeTest(){
+		
+		List<String> result = memberBiz.getGraduationType();
+		if ( result != null ) {
+			assertNotNull(result);
+		}
+		else {
+			fail("result is null");
+		}
+	}
+	
+	@Test
+	public void selectedGraduationTypeCodeNameTest(){
+		String id = "aaa";
+		String result = memberBiz.selectedGraduationTypeCodeName(id);
+		if ( result != null ) {
+			assertNotNull(result);
+		}
+		else {
+			fail("result is null");
+		}
+	}
+	
+	@Test
+	public void getSaltByIdTest(){
+		String id = "aaa";
+		String result = memberBiz.getSaltById(id);
+		if ( result != null ) {
+			assertNotNull(result);
+		}
+		else {
+			fail("result is null");
+		}
+	}
+	
+	@Test
+	public void getPasswordByIdTest(){
+		String id = "aaa";
+		String result = memberBiz.getPasswordById(id);
+		if ( result != null ) {
+			assertNotNull(result);
+		}
+		else {
+			fail("result is null");
+		}
+	}
+	
 
 }
