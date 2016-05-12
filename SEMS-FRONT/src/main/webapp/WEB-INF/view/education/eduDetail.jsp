@@ -5,22 +5,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script type="text/javascript" src="/resources/js/jquery.min.js"></script>
+<script type="text/javascript" src="<c:url value='/resources/js/jquery.min.js"'/>"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
 		$("#applyEdu").click(function(){
-			$.post("/doApplyEducation"
+			$.post("<c:url value='/doApplyEducation'/>"
 					, { "educationId" : $("#eduId").val(),
 						"educationType" : $("#eduType").val() }
 					, function(data){
 						if (data == "OK") {
 							alert("신청완료!");
-							location.href="/educationList";
+							location.href="<c:url value='/educationList'/>";
 							document.getElementById("#applyEdu").disabled=true;
 						}
 						else if( data == "FAIL"){
 							alert("주간/야간 교육은 각 하나씩 신청할 수 있습니다. 이미 신청하신 교육타입(주간/야간)입니다.");
-							location.href="/educationList";
+							location.href="<c:url value='/educationList'/>";
 						}
 					});
 		});
