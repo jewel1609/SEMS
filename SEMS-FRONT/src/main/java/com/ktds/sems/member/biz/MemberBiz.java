@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.ktds.sems.member.vo.GraduationTypeVO;
 import com.ktds.sems.member.vo.LoginHistorySearchVO;
 import com.ktds.sems.member.vo.LoginHistoryVO;
 import com.ktds.sems.member.vo.MemberVO;
@@ -56,6 +57,8 @@ public interface MemberBiz {
 	public String getSaltById(String id);
 
 	public String getPasswordById(String id);
+
+	public List<String> getGraduationType();
 
 	public boolean isResign(String id);
 
