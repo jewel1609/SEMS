@@ -7,7 +7,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Education 등록 페이지</title>
-<script type="text/javascript" src="<c:url value= "/backend/resources/js/jquery.min.js" /> "></script>
+<script type="text/javascript" src="/backend/resources/js/jquery.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 
@@ -113,7 +113,7 @@
 	<div
 		style="width: 30%; height: 100%; border: thin; border-style: double; border-radius: 5px; padding: 5px;">
 		<form:form commandName="educationVO" method="post"
-			action="<c:url value="/backend/doWriteAction" />" enctype="multipart/form-data">
+			action="/backend/doWriteAction" enctype="multipart/form-data">
 	     	
 	     교육 카테고리 : 
 	       <select id="educationCategory" name="educationCategory">
