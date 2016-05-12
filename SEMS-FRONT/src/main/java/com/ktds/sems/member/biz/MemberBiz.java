@@ -78,4 +78,6 @@ public interface MemberBiz {
 
 	public String gethelCodeId(String helCodeName);
 
+	public String memberTypeCodeName(String id);
+
 }

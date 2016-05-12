@@ -427,4 +427,9 @@ public class MemberBizImpl implements MemberBiz {
 		return memberDAO.gethelCodeId(helCodeName);
 	}
 
+	@Override
+	public String memberTypeCodeName(String id) {
+		return memberDAO.memberTypeCodeName(id);
+	}
+
 }
