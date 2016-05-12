@@ -324,6 +324,14 @@
 		AND		ID = #{id}
 	</select>
 	
+	<select id="memberTypeCodeName" parameterType="string" resultType="string">
+		SELECT	CD_NM cdNm
+		FROM	MBR M
+				, MBR_TP MT
+		WHERE	M.MBR_TP = MT.CD_ID
+		AND		ID = #{id}
+	</select>
+	
 	<select id="getGraduationTypeCodeId" parameterType="string" resultType="string">
 		SELECT	CD_ID cdId
 		FROM	GRDT_TP
@@ -339,5 +347,6 @@
 		FROM	MBR
 		WHERE	EMAIL = #{email}
 	</select>
+	
 	
 </mapper>
