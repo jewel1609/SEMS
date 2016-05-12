@@ -14,7 +14,7 @@
 $(document).ready(function() {
 	
 	$("#modifyBtn").click(function(){
-		var form = $("#member");
+		var form = $("#memberInfoForm");
 		form.attr("action", "<c:url value="/member/myPage/doModifyAction" />");
 		form.submit();
 	});
@@ -128,7 +128,7 @@ function daysInMonth(month, year) {
 </head>
 <body>
 
-<form:form commandName="member" method="post">
+<form:form commandName="memberInfoForm" method="post">
 
 	아이디 : ${member.id}  <br/>
 	비밀번호 : <input type="text" name="password" id="password" />
