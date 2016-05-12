@@ -520,7 +520,7 @@ public class MemberServiceImpl implements MemberService {
 //		view.addObject("resignCode", resignCode);
 //		view.addObject("id", id);
 		
-		view.setViewName("redirect:/member/loginForResign/" + resignCode +"/"+ id);
+		view.setViewName("member/loginForResign/" + resignCode +"/"+ id);
 		
 		return view;
 	}
