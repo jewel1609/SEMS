@@ -31,7 +31,7 @@
 				$("#messageById").text("");
 				return;
 			}
-			$.post("/checkValidationById", { "id" : $("#id").val() }, function(data) {
+			$.post("<c:url value="/checkValidationById" />", { "id" : $("#id").val() }, function(data) {
 				if (!data) {
 					alert("통신 실패");
 				} else if (data == "OK") {
@@ -52,7 +52,7 @@
 		});
 		
 		$("#password").blur(function () {
-			$.post("/checkValidationByPassword", { "password" : $("#password").val() }, function(data) {
+			$.post("<c:url value="/checkValidationByPassword" />", { "password" : $("#password").val() }, function(data) {
 				if($("#password").val()=="") {
 					$("#messageByPassword").text("");
 					return;
@@ -75,7 +75,7 @@
 		});
 		
 		$("#repeatPassword").blur(function () {
-			$.post("/checkValidationByRepeatPassword", { "password" : $("#password").val(), "repeatPassword" : $("#repeatPassword").val() }, function(data) {
+			$.post("<c:url value="/checkValidationByRepeatPassword" />", { "password" : $("#password").val(), "repeatPassword" : $("#repeatPassword").val() }, function(data) {
 				if($("#repeatPassword").val()=="") {
 					$("#messageByRepeatPassword").text("");
 					return;
@@ -100,7 +100,7 @@
 				$("#messageByEmail").text("");
 				return;
 			}
-			$.post("/checkExistionByEmail", { "email" : $("#email").val() }, function(data) {
+			$.post("<c:url value="/checkExistionByEmail" />", { "email" : $("#email").val() }, function(data) {
 				if (!data) {
 					alert("통신 실패");
 				} else if (data == "NO") {
@@ -130,6 +130,7 @@
 			}
 			
 			var form = $("#registerForm");
+			form.attr("action", "<c:url value="/doRegisterAction" />");
 			form.submit();
 		});
 		
@@ -242,7 +243,7 @@
 </head>
 <body>
 
-	<form:form id="registerForm" commandName="memberVO" method="post" action="/doRegisterAction">
+	<form:form id="registerForm" commandName="memberVO" method="post">
 		아이디 : <input type="text" id="id" name="id" value="${ member.id }" tabindex="1"/>
 		<br/><span id="messageById"></span>
 		<form:errors path="id" /><br/>
