@@ -68,4 +68,14 @@ public interface MemberBiz {
 
 	public boolean isResign(String id);
 
+	public String selectedGraduationTypeCodeName(String id);
+
+	public List<String> getHighestEducationLevelCodeNames();
+
+	public String getSelectedHighestEducationLevelCodeName(String id);
+
+	public String getGraduationTypeCodeId(String graduationType);
+
+	public String gethelCodeId(String helCodeName);
+
 }
