@@ -363,7 +363,7 @@ public class MemberBizImpl implements MemberBiz {
 	public boolean isResign(String id) {
 		String memberId = memberDAO.isResign(id);
 		
-		if ( memberId == null ) {
+		if ( memberId != null ) {
 			return true;
 		} else {
 			return false;
