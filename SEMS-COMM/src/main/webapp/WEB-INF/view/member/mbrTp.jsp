@@ -29,17 +29,17 @@
 
 			if (confirm("입력한 내용으로 수정하시겠습니까?") == true) {
 
-				$.post("/comm/doMbrTpModify", {
+				$.post("<c:url value="/doMbrTpModify"/>", {
 					"cdId" : root.val(),
 					"cdNm" : cdNm.val()
 				}, function(data) {
-
-					var jsonData = {};
-
-					try {
-						jsonData = JSON.parse(data);
-					} catch (e) {
-						jsonData.result = false;
+					if(data == "OK") {
+						alert("수정되었습니다.");
+						location.href="<c:url value="/mbrTpPage"/>";
+					}
+					else if(data == "FAIL"){
+						alert("중복된 데이터로 수정할 수 없습니다.");
+						location.href="<c:url value="/mbrTpPage"/>";
 					}
 				});
 			} else {
