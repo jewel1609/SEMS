@@ -73,6 +73,11 @@ public interface MemberDAO {
 	public String isResign(String id);
 
 	public List<String> getGraduationType();
+
+	public void insertUuidForResign(MemberVO member);
+
+	public void doDeleteMember(String id);
+
 	public String selectedGraduationTypeCodeName(String id);
 
 	public List<String> getHighestEducationLevelCodeNames();
