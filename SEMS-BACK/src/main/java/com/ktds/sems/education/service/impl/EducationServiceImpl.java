@@ -46,7 +46,7 @@ public class EducationServiceImpl implements EducationService {
 	public ModelAndView writeNewEducation(EducationVO educationVO, Errors errors, MultipartHttpServletRequest request) {
 
 		ModelAndView view = new ModelAndView();
-
+		
 		MultipartFile file = request.getFile("file");
 		
 		String salt = SHA256Util.generateSalt();
