@@ -199,8 +199,8 @@ public class MemberController {
 //	}
 	
 	@RequestMapping("/member/myPage/doModifyAction")
-	public ModelAndView doModifyAction(@Valid MemberVO member, Errors errors) {
-		return memberService.modifyMemberInfo(member, errors);
+	public ModelAndView doModifyAction(@Valid MemberVO member, Errors errors, @RequestParam String graduationType, @RequestParam String helCodeName ) {
+		return memberService.modifyMemberInfo(member, errors, graduationType, helCodeName);
 	}
 	/**
 	 * @author 이기연
