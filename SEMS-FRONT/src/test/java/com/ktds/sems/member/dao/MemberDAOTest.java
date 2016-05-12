@@ -60,7 +60,7 @@ public class MemberDAOTest {
 	public void isAccountLock() {
 		String id = "cocomo";
 		boolean isSuccess = memberDAO.isAccountLock(id);
-		assertTrue(isSuccess);
+		assertTrue(!isSuccess);
 	}
 
 	@Test
@@ -88,7 +88,7 @@ public class MemberDAOTest {
 	public void needToChangPassword() {
 		String id = "cocomo";
 		String checkStr = memberDAO.needToChangPassword(id);
-		assertNotNull(checkStr);
+		assertNull(checkStr);
 	}
 
 	@Test
@@ -102,6 +102,6 @@ public class MemberDAOTest {
 	public void isResign() {
 		String id = "cocomo";
 		String checkStr = memberDAO.isResign(id);
-		assertNotNull(checkStr);
+		assertNull(checkStr);
 	}
 }
