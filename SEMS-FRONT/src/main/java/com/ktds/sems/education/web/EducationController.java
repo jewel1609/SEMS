@@ -1,9 +1,5 @@
 package com.ktds.sems.education.web;
 
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -21,8 +17,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ktds.sems.education.service.EducationService;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.QNAVO;
-import com.ktds.sems.file.vo.FileVO;
-import com.ktds.sems.education.util.DownloadUtil;
 
 import kr.co.hucloud.utilities.web.AjaxUtil;
 
@@ -49,14 +43,22 @@ public class EducationController {
 		logger.info("검색");
 		
 		EducationVO educationVO = new EducationVO();
-		if(startMonth.length() == 1) {
-			startMonth = "0" + startMonth;
+		
+		if(startMonth.length() > 0 && endMonth.length() > 0 ){
+			if(startMonth.length() == 1) {
+				startMonth = "0" + startMonth;
+			}
+			if(endMonth.length() == 1) {
+				endMonth = "0" + endMonth;
+			}
+			educationVO.setStartDate(startYear + "-" + startMonth);
+			educationVO.setEndDate(endYear + "-" + endMonth);
+		}else{
+			educationVO.setStartDate(null);
+			educationVO.setEndDate(null);
 		}
-		if(endMonth.length() == 1) {
-			endMonth = "0" + endMonth;
-		}
-		educationVO.setStartDate(startYear + "-" + startMonth);
-		educationVO.setEndDate(endYear + "-" + endMonth);
+		
+
 		if(eduName.equals("")) {
 			eduName = null;
 		}
