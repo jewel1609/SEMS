@@ -35,6 +35,16 @@
 	  </listener-class>
 	</listener>
 
+	<session-config>
+		<session-timeout>30</session-timeout>
+	</session-config>
+
+	<listener>
+	  <listener-class>
+	    com.ktds.sems.common.LoggingListener
+	  </listener-class>
+	</listener>
+
 	<servlet>
 		<servlet-name>dispatcherServlet</servlet-name>
 		<servlet-class>

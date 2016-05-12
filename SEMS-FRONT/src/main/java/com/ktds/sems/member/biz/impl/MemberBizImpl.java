@@ -75,7 +75,7 @@ public class MemberBizImpl implements MemberBiz {
 			session.setAttribute(Session.MEMBER_TYPE, memberVO.getMemberType());
 
 			// 로그인 세션 유지 시간 10분
-			session.setMaxInactiveInterval(10 * 60);
+			//session.setMaxInactiveInterval(10 * 60);
 
 			// 새로운 로그인 세션 입력
 			loginStore.add(loginVO.getId(), session);

@@ -153,6 +153,14 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 	public int stampLogoutTime(LoginHistoryVO newLoginHistoryVO) {
 		return getSqlSession().update("MemberDAO.stampLogoutTime", newLoginHistoryVO);
 	}
+	
+	/**
+	 * @author 이기연
+	 */
+	@Override
+	public int stampLogoutTimeByMemberId(String memberId) {
+		return getSqlSession().update("MemberDAO.stampLogoutTimeByMemberId", memberId);
+	}
 
 	@Override
 	public int nextLoginHistorySeq() {

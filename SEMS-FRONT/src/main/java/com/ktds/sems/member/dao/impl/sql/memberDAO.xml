@@ -7,6 +7,7 @@
 		SELECT	TO_CHAR(SYSDATE, 'YYYY-MM-DD')
 		FROM	DUAL
 	</select>
+	
 	<insert id="addNewMember" parameterType="MemberVO">
 		INSERT INTO MBR	(
 							ID
@@ -43,6 +44,7 @@
 							, SYSDATE
 						)
 	</insert>
+	
 	<select id="getSaltById" parameterType="string" resultType="string">
 		SELECT	SALT salt
 		FROM	MBR
@@ -121,6 +123,17 @@
 		SET		LGO_DT = SYSDATE
 		WHERE	LGI_HTR_ID = #{lgiHtrId}
 	</update>
+	
+	<update id="stampLogoutTimeByMemberId" parameterType="string">
+		UPDATE	LGI_HTR	
+		SET		LGO_DT = SYSDATE
+		WHERE	LGI_HTR_ID = 	(
+									SELECT 	MAX(LGI_HTR_ID)
+									FROM	LGI_HTR
+									WHERE	MBR_ID = #{memberId}
+								)
+	</update>
+	
 	<select id="saveLoginHistoryAsExcel" resultType="LoginHistoryVO" parameterType="string">
 		SELECT	LGI_HTR_ID lgiHtrId
 				, MBR_ID id
