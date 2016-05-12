@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.member.dao.MemberDAO;
@@ -185,6 +186,16 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 	@Override
 	public List<String> getGraduationType() {
 		return getSqlSession().selectList("MemberDAO.getGraduationType");
+	}
+
+	@Override
+	public void insertUuidForResign(MemberVO member) {
+		getSqlSession().update("MemberDAO.insertUuidForResign", member);
+	}
+
+	@Override
+	public void doDeleteMember(String id) {
+		getSqlSession().update("MemberDAO.doDeleteMember", id);
 	}
 
 	@Override
