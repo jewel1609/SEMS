@@ -15,8 +15,9 @@
 <title>회원 정보</title>
 </head>
 <body>
+		
+<a href="<c:url value="/member/myPage/checkPassword"/>">내 정보 수정</a>		
 
-<a href="/member/myPage/checkPassword">내 정보 수정</a>	<br />
 <a href="<c:url value="/member/myPage/resignMember" />">삭제</a>
 
 </body>
