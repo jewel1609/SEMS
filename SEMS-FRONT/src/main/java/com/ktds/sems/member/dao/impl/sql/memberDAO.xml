@@ -190,7 +190,7 @@
 		WHERE	ID = #{id}
 		AND		IS_MDF_LCK = 'Y'
 	</select>
-	<select id="needToChangPassword" resultType="string">
+	<select id="needToChangPassword" parameterType="string" resultType="string">
 		SELECT	'Y'
 		FROM	MBR
 		WHERE	ID = #{id}
