@@ -128,12 +128,10 @@ function daysInMonth(month, year) {
 	<br/>
 	이메일 : <input type="text" name="email" id="email"  value="${member.email}" placeholder="이메일을 입력하세요. " tabindex="2" /> 
 	<br />
-	최종학력 : <input type="text" name="highestEducationLevel" id="highestEducationLevel"  value="${member.highestEducationLevel}" placeholder="최종학력을 입력하세요." tabindex="3"/>
-	<br />
+	
 	대학교 : ${member.universityName}  <br />
 	전공 : ${member.majorName} <br /> 
-	졸업구분 : <input type="text" name="graduationType" id="graduationType"  value="${member.graduationType}" placeholder="졸업 구분을 입력하세요." tabindex="4" />
-	<br />
+	
 	생년월일 : 
 	<select id="years" name="years" tabindex="5"></select>&nbsp;년
 	<select id="months" name="months" tabindex="6"></select>&nbsp;월
@@ -148,15 +146,29 @@ function daysInMonth(month, year) {
 	전화번호 : <input type="text" name="phoneNumber" id="phoneNumber"  value="${member.phoneNumber}" placeholder="전화번호를 입력하세요." tabindex="8" /> 
 	<br />
 	회원구분 : ${member.memberType} <br />
-	
+	졸업구분 : 
 	<c:forEach items="${graduationTypeList}" var="graduationTypeCodeName">
-				<c:if test="${ graduationTypeList ne null }">
-				<input type="radio" class="graduationType" name="graduationType" value="${graduationTypeCodeName}" /> ${ graduationTypeCodeName }<br/><br/>
+				<c:if test="${graduationTypeCodeName eq selectedGraduationTypeCodeName}">
+				<input type="radio" class="graduationType" name="graduationType" value="${graduationTypeCodeName}" checked="checked"/>${graduationTypeCodeName}
+				</c:if>
+				<c:if test="${graduationTypeCodeName ne selectedGraduationTypeCodeName}">
+				<input type="radio" class="graduationType" name="graduationType" value="${graduationTypeCodeName}"/>${graduationTypeCodeName}
+				</c:if>
+	</c:forEach>
+	<br/>
+	최종학력 : 
+	<c:forEach items="${highestEducationLevelCodeNameList}" var="helCodeName">
+				<c:if test="${helCodeName eq selectedHighestEducationLevelCodeName}">
+				<input type="radio" class="helCodeName" name="helCodeName" value="${helCodeName}" checked="checked"/>${helCodeName}
+				</c:if>
+				<c:if test="${helCodeName ne selectedHighestEducationLevelCodeName}">
+				<input type="radio" class="helCodeName" name="helCodeName" value="${helCodeName}"/>${helCodeName}
 				</c:if>
 	</c:forEach>
 	
 	
-	<input type="hidden" name="id" id="id" value="${member.id}"/>
+	
+	<input type="hidden" name="id" id="id" value="${member.id}"/> <br/><br/>
 	<input type="submit"  value="수정 완료" />
 	
 </form:form>
