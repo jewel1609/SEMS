@@ -11,7 +11,7 @@ import com.ktds.sems.member.vo.MemberVO;
 
 public interface MemberService {
 
-	public ModelAndView addNewMember(MemberVO members, Errors errors, HttpSession session);
+	public ModelAndView addNewMember(MemberVO member, Errors errors, HttpSession session);
 
 	public String login(MemberVO memberVO, Errors errors, HttpSession session, HttpServletRequest request);
 
