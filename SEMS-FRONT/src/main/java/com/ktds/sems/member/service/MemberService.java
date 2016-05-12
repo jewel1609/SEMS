@@ -47,6 +47,15 @@ public interface MemberService {
 
 	public void logout(HttpSession session);
 
+	public String insertUuidForResign(HttpSession session);
+
+	public ModelAndView sendEmailForResign(HttpSession session, String uuid);
+
+	public ModelAndView loginForResign(String resignCode, String id);
+
+	public String doResign(MemberVO memberVO, Errors errors, HttpSession session, HttpServletRequest request, String resignCode);
+
 	public ModelAndView registerStudent();
+
 
 }
