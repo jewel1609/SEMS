@@ -1,5 +1,8 @@
 package com.ktds.sems.member.biz.impl;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -139,6 +142,22 @@ public class MemberBizImpl implements MemberBiz {
 			return false;
 		}
 	}
+	
+	@Override
+	public boolean isVerifyId (String id) {
+		String idPolicy = "((?=.*[a-zA-Z])(?=.*[0-9]).{5,20})";
+		Pattern pattern = Pattern.compile(idPolicy);
+		Matcher matcher = pattern.matcher(id);
+		return matcher.matches();
+	}
+	
+	@Override
+	public boolean isVerifyPassword (String password) {
+		String passwordPolicy = "((?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*()]).{10,20})";
+		Pattern pattern = Pattern.compile(passwordPolicy);
+		Matcher matcher = pattern.matcher(password);
+		return matcher.matches();
+	}
 
 	/**
 	 * @author 이기연
@@ -234,6 +253,12 @@ public class MemberBizImpl implements MemberBiz {
 	@Override
 	public int getTotalLoginHisotryCount() {
 		return memberDAO.getTotalLoginHisotryCount();
+	}
+
+
+	@Override
+	public boolean isExistEmail(String email) {
+		return memberDAO.isExistEmail(email) != null;
 	}
 
 	@Override
