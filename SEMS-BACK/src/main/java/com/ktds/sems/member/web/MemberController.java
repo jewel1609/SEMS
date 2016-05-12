@@ -35,4 +35,10 @@ public class MemberController {
 	public String viewMainPage() {
 		return "/common/main";
 	}
+	
+	@RequestMapping("/logout")
+	public String logout (HttpSession session) {
+		memberService.logout(session);
+		return "redirect:/";
+	}
 }

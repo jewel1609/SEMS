@@ -11,4 +11,6 @@ public interface MemberService {
 
 	public String login(MemberVO memberVO, Errors errors, HttpSession session, HttpServletRequest request);
 
+	public void logout(HttpSession session);
+
 }

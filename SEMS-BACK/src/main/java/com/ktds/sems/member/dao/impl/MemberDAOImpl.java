@@ -3,9 +3,10 @@ package com.ktds.sems.member.dao.impl;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 
 import com.ktds.sems.member.dao.MemberDAO;
+import com.ktds.sems.member.vo.LoginHistoryVO;
 import com.ktds.sems.member.vo.MemberVO;
 
-public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO{
+public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 
 	@Override
 	public String isExistId(String id) {
@@ -50,5 +51,20 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO{
 	@Override
 	public String isResign(String id) {
 		return getSqlSession().selectOne("MemberDAO.isResign", id);
+	}
+
+	@Override
+	public int stampLogoutTime(LoginHistoryVO newLoginHistoryVO) {
+		return getSqlSession().update("MemberDAO.stampLogoutTime", newLoginHistoryVO);
+	}
+
+	@Override
+	public int stampLoginTime(LoginHistoryVO newLoginHistoryVO) {
+		return getSqlSession().insert("MemberDAO.stampLoginTime", newLoginHistoryVO);
+	}
+
+	@Override
+	public int nextLoginHistorySeq() {
+		return getSqlSession().selectOne("MemberDAO.nextLoginHistorySeq");
 	}
 }

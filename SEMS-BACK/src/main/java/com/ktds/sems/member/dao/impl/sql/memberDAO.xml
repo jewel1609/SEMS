@@ -76,4 +76,28 @@
 		WHERE	ID = #{id}
 		AND		RSN = 'Y'
 	</select>
+	<insert id="stampLoginTime" parameterType="LoginHistoryVO">
+
+		INSERT INTO LGI_HTR	(
+								LGI_HTR_ID
+								, MBR_ID
+								, LGI_IP
+								, LGI_DT
+							) 
+		VALUES				(
+								#{ lgiHtrId }
+								, #{ id }
+								, #{ lgiIp }
+								, SYSDATE
+		 					)
+	</insert>
+	<select id="nextLoginHistorySeq" resultType="_int">
+		SELECT	LGI_HTR_ID_SEQ.NEXTVAL
+		FROM	DUAL
+	</select>
+	<update id="stampLogoutTime" parameterType="LoginHistoryVO">
+		UPDATE	LGI_HTR	
+		SET		LGO_DT = SYSDATE
+		WHERE	LGI_HTR_ID = #{lgiHtrId}
+	</update>
 </mapper>

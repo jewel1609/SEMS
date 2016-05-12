@@ -1,5 +1,6 @@
 package com.ktds.sems.member.biz;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import com.ktds.sems.member.vo.MemberVO;
@@ -21,5 +22,9 @@ public interface MemberBiz {
 	public boolean login(HttpSession session, MemberVO loginVO);
 
 	public boolean isResign(String id);
+
+	public boolean stampLogoutTime(HttpSession session);
+
+	public boolean stampLoginTime(HttpSession session, HttpServletRequest request, MemberVO loginVO);
 
 }

@@ -1,5 +1,6 @@
 package com.ktds.sems.member.dao;
 
+import com.ktds.sems.member.vo.LoginHistoryVO;
 import com.ktds.sems.member.vo.MemberVO;
 
 public interface MemberDAO {
@@ -21,6 +22,12 @@ public interface MemberDAO {
 	public MemberVO login(MemberVO loginVO);
 
 	public String isResign(String id);
+
+	public int stampLoginTime(LoginHistoryVO newLoginHistoryVO);
+
+	public int nextLoginHistorySeq();
+
+	public int stampLogoutTime(LoginHistoryVO newLoginHistoryVO);
 
 
 }
