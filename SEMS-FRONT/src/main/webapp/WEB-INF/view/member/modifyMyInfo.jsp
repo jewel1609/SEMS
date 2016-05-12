@@ -15,7 +15,7 @@ $(document).ready(function() {
 	
 	$("#modifyBtn").click(function(){
 		var form = $("#member");
-		form.attr("action", "<c:url value='/member/myPage/doModifyAction'/>");
+		form.attr("action", "<c:url value="/member/myPage/doModifyAction" />");
 		form.submit();
 	});
 	
