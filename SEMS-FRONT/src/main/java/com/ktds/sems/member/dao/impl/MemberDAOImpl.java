@@ -203,4 +203,9 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 		return getSqlSession().selectOne("MemberDAO.gethelCodeId", helCodeName);
 	}
 
+	@Override
+	public String memberTypeCodeName(String id) {
+		return getSqlSession().selectOne("MemberDAO.memberTypeCodeName", id);
+	}
+
 }
