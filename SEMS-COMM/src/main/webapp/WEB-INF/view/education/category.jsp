@@ -79,6 +79,7 @@
 		}
 		
 		$("#newLargeCategoryBtn").click(function(){
+			console.log($.contains($('#largeCategoryListContainer'), $('#newCategoryContainer')));
 			initCategoryIdAndName();
 			categoryType.val('large');
 			$("#addCategoryBtn").show();

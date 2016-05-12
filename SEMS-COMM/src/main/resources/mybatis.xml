@@ -15,8 +15,8 @@
 	</typeAliases>
 
 	<mappers>
-		<mapper resource="/com/ktds/sems/member/dao/impl/sql/memberDAO.xml"/>
-		<mapper resource="/com/ktds/sems/education/dao/impl/sql/educationDAO.xml"/>
-		<mapper resource="/com/ktds/sems/menu/dao/impl/sql/menuDAO.xml"/>
+		<mapper resource="com/ktds/sems/member/dao/impl/sql/memberDAO.xml"/>
+		<mapper resource="com/ktds/sems/education/dao/impl/sql/educationDAO.xml"/>
+		<mapper resource="com/ktds/sems/menu/dao/impl/sql/menuDAO.xml"/>
 	</mappers>
 </configuration>
