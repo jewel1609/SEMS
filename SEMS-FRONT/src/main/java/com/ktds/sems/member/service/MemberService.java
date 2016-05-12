@@ -1,9 +1,11 @@
 package com.ktds.sems.member.service;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.member.vo.MemberVO;
@@ -17,6 +19,10 @@ public interface MemberService {
 	public ModelAndView modifySuccess(String id);
 
 	public ModelAndView modifyMemberInfo(MemberVO member, Errors errors);
+
+	public void checkValidationById(String id, HttpServletResponse response);
+
+	public void checkValidationByPassword(String password, HttpServletResponse response);
 
 	public void plusModifyFailCount(String sessionId);
 
@@ -35,6 +41,10 @@ public interface MemberService {
 	public String getSaltById(String id);
 
 	public String getPasswordById(String id);
+
+	public void checkExistionByEmail(String email, HttpServletResponse response);
+
+	public void checkValidationByRepeatPassword(String password, String repeatPassword, HttpServletResponse response);
 
 	public void logout(HttpSession session);
 

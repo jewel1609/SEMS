@@ -27,7 +27,7 @@ public class MemberController {
 		this.memberService = memberService;
 	}
 
-	@RequestMapping(value = "/member/doRegisterAction", method = RequestMethod.POST)
+	@RequestMapping(value = "/doRegisterAction", method = RequestMethod.POST)
 	public ModelAndView registerNewMember(@Valid MemberVO member, Errors errors, HttpSession session) {
 		return memberService.addNewMember(member, errors, session);
 	}
@@ -42,9 +42,38 @@ public class MemberController {
 		return "/member/changePassword";
 	}
 
-	@RequestMapping("/member/register")
+	@RequestMapping("/register/policy")
 	public String viewRegisterPage() {
-		return "member/register";
+		return "member/registerPolicy";
+	}
+
+	@RequestMapping("/register/student")
+	public String viewRegisterStudentPage() {
+		return "member/registerStudent";
+	}
+
+	@RequestMapping("/register/teacher")
+	public String viewRegisterTeacherPage() {
+		return "member/registerTeacher";
+	}
+	@RequestMapping("/checkValidationById")
+	public void checkValidationById (@RequestParam String id, HttpServletResponse response) {
+		memberService.checkValidationById(id, response);
+	}
+	
+	@RequestMapping("/checkValidationByPassword")
+	public void checkValidationByPassword (@RequestParam String password, HttpServletResponse response) {
+		memberService.checkValidationByPassword(password, response);
+	}
+
+	@RequestMapping("/checkValidationByRepeatPassword")
+	public void checkValidationByRepeatPassword (@RequestParam String password, @RequestParam String repeatPassword, HttpServletResponse response) {
+		memberService.checkValidationByRepeatPassword(password, repeatPassword, response);
+	}
+
+	@RequestMapping("/checkExistionByEmail")
+	public void checkExistionByEmail (@RequestParam String email, HttpServletResponse response) {
+		memberService.checkExistionByEmail(email, response);
 	}
 
 	@RequestMapping(value = ("/login"), method = RequestMethod.POST)

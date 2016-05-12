@@ -140,6 +140,11 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 		return getSqlSession().insert("MemberDAO.stampLoginTime", newLoginHistoryVO);
 	}
 
+	@Override
+	public String isExistEmail(String email) {
+		return getSqlSession().selectOne("MemberDAO.isExistEmail", email);
+	}
+
 	/**
 	 * @author 이기연
 	 */

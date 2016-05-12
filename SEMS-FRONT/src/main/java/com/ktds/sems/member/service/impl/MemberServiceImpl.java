@@ -2,13 +2,13 @@ package com.ktds.sems.member.service.impl;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.common.SendMail;
@@ -20,6 +20,8 @@ import com.ktds.sems.member.vo.LoginHistoryListVO;
 import com.ktds.sems.member.vo.LoginHistorySearchVO;
 import com.ktds.sems.member.vo.LoginHistoryVO;
 import com.ktds.sems.member.vo.MemberVO;
+
+import kr.co.hucloud.utilities.web.AjaxUtil;
 
 import kr.co.hucloud.utilities.SHA256Util;
 import kr.co.hucloud.utilities.web.Paging;
@@ -35,53 +37,90 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public ModelAndView addNewMember(MemberVO member, Errors errors, HttpSession session) {
 		ModelAndView view = new ModelAndView();
+		
 		MemberVO sessionMember = (MemberVO) session.getAttribute("_MEMBER_");
-
 		if (sessionMember != null) {
 			throw new RuntimeException("유효한 접근이 아닙니다.");
 		}
-		else if ( errors.hasErrors() ) {
-			view.setViewName("member/register");
+		else if ( errors.hasErrors() && member.getMemberType().equals("TR") ) {
+			view.setViewName("member/registerTeacher");
 			view.addObject("member", member);
-		} else {
-			// TODO 비밀번호 암호화
-			// 1. salt 생성
+		}
+		else if ( errors.hasErrors() && member.getMemberType().equals("MBR") ) {
+			view.setViewName("member/registerStudent");
+			view.addObject("member", member);
+		}
+		else {
+			boolean isVerifyId = memberBiz.isVerifyId(member.getId());
+			boolean isVerifyPassword = memberBiz.isVerifyPassword(member.getPassword());
 			
-			// 2. 암호화
-			boolean isVerifyId = isVerifyId(member.getId());
-			if ( !isVerifyId ) {
-				throw new RuntimeException("입력 값 오류 : ID");
+			if ( !isVerifyId || !isVerifyPassword ) {
+				throw new RuntimeException("입력 값 오류 아이디 혹은 비밀번호");
 			}
+
+			String salt = SHA256Util.generateSalt();
+			member.setSalt(salt);
 			
-			boolean isVerifyPassword = isVerifyPassword(member.getPassword());
-			if ( !isVerifyPassword ) {
-				throw new RuntimeException("입력 값 오류 : PASSWORD");
-			}
+			String newPassword = SHA256Util.getEncrypt(member.getPassword(), salt);
+			member.setPassword(newPassword);
 
 			memberBiz.addNewMember(member);
 			
-			
-			// TODO 이동할 페이지
-			view.setViewName("");
+			view.setViewName("redirect:/");
 		}
 
 		return view;
 	}
-	
-	
-	
-	private boolean isVerifyId (String id) {
-		String idPolicy = "((?=.*[a-zA-Z])(?=.*[0-9]).{8,})";
-		Pattern pattern = Pattern.compile(idPolicy);
-		Matcher matcher = pattern.matcher(id);
-		return matcher.matches();
+		
+	@Override
+	public void checkValidationById(String id, HttpServletResponse response) {
+		String message = "OK";
+		boolean isVerifyId = memberBiz.isVerifyId(id);
+		if (!isVerifyId){
+			message = "NO";
+			AjaxUtil.sendResponse(response, message);
+			return;
+		}
+		
+		boolean isExistId = memberBiz.isExistId(id);
+		if (isExistId){
+			message = "EXIST";
+		}
+		AjaxUtil.sendResponse(response, message);
+		return;
 	}
 	
-	private boolean isVerifyPassword (String password) {
-		String passwordPolicy = "((?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*()]).{8,})";
-		Pattern pattern = Pattern.compile(passwordPolicy);
-		Matcher matcher = pattern.matcher(password);
-		return matcher.matches();
+	@Override
+	public void checkValidationByPassword(String password, HttpServletResponse response) {
+		String message = "NO";
+		boolean isVerifyPassword = memberBiz.isVerifyPassword(password);
+		if (isVerifyPassword){
+			message = "OK";
+		}
+		AjaxUtil.sendResponse(response, message);
+		return;
+	}
+
+	@Override
+	public void checkValidationByRepeatPassword(String password, String repeatPassword, HttpServletResponse response) {
+		String message = "NO";
+		boolean isEquals = password.equals(repeatPassword);
+		if (isEquals){
+			message = "OK";
+		}
+		AjaxUtil.sendResponse(response, message);
+		return;
+	}
+	
+	@Override
+	public void checkExistionByEmail(String email, HttpServletResponse response) {
+		String message = "EXIST";
+		boolean isExistEmail = memberBiz.isExistEmail(email);
+		if (!isExistEmail){
+			message = "NO";
+		}
+		AjaxUtil.sendResponse(response, message);
+		return;
 	}
 
 	@Override

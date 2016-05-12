@@ -13,10 +13,12 @@
 							, PWD
 							, NM
 							, EMAIL
+							<if test="memberType == 'MBR'">
 							, HIGHEST_EDU_LV
 							, UNIV_NM
 							, MJR_NM
 							, GRDT_TP
+							</if>
 							, BRTH_DT
 							, PHONE_NMB
 							, MBR_TP
@@ -28,10 +30,12 @@
 							, #{password}
 							, #{name}
 							, #{email}
+							<if test="memberType == 'MBR'">
 							, #{highestEducationLevel}
 							, #{universityName}
 							, #{majorName}
 							, #{graduationType}
+							</if>
 							, #{birthDate}
 							, #{phoneNumber}
 							, #{memberType}
@@ -295,6 +299,12 @@
 		            ORDER	BY ATD1 DESC
 		        )
 		WHERE  ROWNUM = 1
+	</select>
+	
+	<select id="isExistEmail" parameterType="string" resultType="string">
+		SELECT	ID
+		FROM	MBR
+		WHERE	EMAIL = #{email}
 	</select>
 	
 </mapper>
