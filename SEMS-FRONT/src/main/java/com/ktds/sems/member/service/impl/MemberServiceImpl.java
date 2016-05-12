@@ -301,12 +301,9 @@ public class MemberServiceImpl implements MemberService {
 		}
 
 		if (changeCount == 0) {
-			System.out.println("변경사항 없음");
 		} else {
 			changeMember.setId(member.getId());
-			System.out.println(
-					changeMember.getSalt() + "---" + changeMember.getPassword() + "---" + changeMember.getId());
-			// 회원정보 수정
+			//회원정보 수정
 			memberBiz.modifyMemberInfo(changeMember);
 		}
 
