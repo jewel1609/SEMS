@@ -21,11 +21,12 @@ import com.ktds.sems.member.service.MemberService;
 public class MemberControllerTest {
 
 	@Autowired
-	private MemberService memberService;
+	private MemberController memberController;
+	
 	
 	@Test
 	public void viewGrdtPageTest(){
-		ModelAndView view = memberService.viewGrdtPage();
+		ModelAndView view = memberController.viewGrdtPage();
 		assertNotNull(view.getViewName());
 	}
 
