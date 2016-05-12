@@ -53,7 +53,7 @@
 			console.log(root.val());
 
 			if (confirm("삭제하시겠습니까?") == true) {
-				location.href = "/comm/doMbrTpDelete/" + root.val();
+				location.href = "<c:url value="/doMbrTpDelete/"/>" + root.val();
 			} else {
 				return;
 			}
