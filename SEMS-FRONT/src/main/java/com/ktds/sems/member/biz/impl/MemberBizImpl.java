@@ -17,9 +17,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.common.LoginStore;
+import com.ktds.sems.common.SendMail;
 import com.ktds.sems.common.Session;
+import com.ktds.sems.common.vo.MailVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.member.biz.MemberBiz;
 import com.ktds.sems.member.dao.MemberDAO;
@@ -75,7 +78,7 @@ public class MemberBizImpl implements MemberBiz {
 			session.setAttribute(Session.MEMBER_TYPE, memberVO.getMemberType());
 
 			// 로그인 세션 유지 시간 10분
-			//session.setMaxInactiveInterval(10 * 60);
+			session.setMaxInactiveInterval(10 * 60);
 
 			// 새로운 로그인 세션 입력
 			loginStore.add(loginVO.getId(), session);
@@ -404,6 +407,13 @@ public class MemberBizImpl implements MemberBiz {
 		return memberDAO.getGraduationType();
 	}
 
+
+
+	@Override
+	public void doDeleteMember(String id) {
+		memberDAO.doDeleteMember(id);
+	}
+
 	@Override
 	public String selectedGraduationTypeCodeName(String id) {
 		return memberDAO.selectedGraduationTypeCodeName(id);
@@ -432,6 +442,27 @@ public class MemberBizImpl implements MemberBiz {
 	@Override
 	public String memberTypeCodeName(String id) {
 		return memberDAO.memberTypeCodeName(id);
+	}
+	
+	@Override
+	public void insertUuidForResign(MemberVO member) {
+		memberDAO.insertUuidForResign(member);
+	}
+
+	@Override
+	public void sendEmailForResign(String email, String id, String uuid) {
+		
+		SendMail sendMail = new SendMail();
+		MailVO mailVO = new MailVO();
+		
+		mailVO.setFromId("testForSendEmailKtds@gmail.com");
+		mailVO.setFromPassword("123qwe!@#qwe");
+		mailVO.setSubject("탈퇴기능 테스트입니다.");
+		mailVO.setText("<html><body>탈퇴하시겠습니까? <a href='http://localhost:8080/member/loginForResign/" + uuid + "/"+ id +"'>예</a></body></html>");
+		
+		mailVO.setToId(email);
+		
+		sendMail.sendMailToCustomer(mailVO);
 	}
 
 }
