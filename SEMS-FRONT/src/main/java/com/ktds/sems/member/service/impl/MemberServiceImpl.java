@@ -342,4 +342,13 @@ public class MemberServiceImpl implements MemberService {
 //		System.out.println("성공!!");
 //		
 //	}
+	
+	@Override
+	public void logout(HttpSession session) {
+		// 세션 없애기
+		session.removeAttribute("_MEMBER_");
+		
+		//로그아웃 stamp 찍기 위해서.. 
+		memberBiz.stampLogoutTime(session);
+	}
 }
