@@ -402,4 +402,29 @@ public class MemberBizImpl implements MemberBiz {
 		return memberDAO.getGraduationType();
 	}
 
+	@Override
+	public String selectedGraduationTypeCodeName(String id) {
+		return memberDAO.selectedGraduationTypeCodeName(id);
+	}
+
+	@Override
+	public List<String> getHighestEducationLevelCodeNames() {
+		return memberDAO.getHighestEducationLevelCodeNames();
+	}
+
+	@Override
+	public String getSelectedHighestEducationLevelCodeName(String id) {
+		return memberDAO.getSelectedHighestEducationLevelCodeName(id);
+	}
+
+	@Override
+	public String getGraduationTypeCodeId(String graduationType) {
+		return memberDAO.getGraduationTypeCodeId(graduationType);
+	}
+
+	@Override
+	public String gethelCodeId(String helCodeName) {
+		return memberDAO.gethelCodeId(helCodeName);
+	}
+
 }
