@@ -6,7 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title></title>
-<script type="text/javascript" src="/comm/resources/js/jquery-1.12.1.js"></script>
+<script type="text/javascript" src="<c:url value='/resources/js/jquery-1.12.1.js'/>"></script>
 </head>
 <body>
 
