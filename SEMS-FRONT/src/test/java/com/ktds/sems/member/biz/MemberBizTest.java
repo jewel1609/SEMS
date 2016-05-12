@@ -149,6 +149,18 @@ public class MemberBizTest {
 	}
 	
 	@Test
+	public void gethelCodeIdTest(){
+		String helCodeName = "초졸";
+		String result = memberBiz.gethelCodeId(helCodeName);
+		if ( result != null ) {
+			assertNotNull(result);
+		}
+		else {
+			fail("result is null");
+		}
+	}
+	
+	@Test
 	public void getSelectedHighestEducationLevelCodeNameTest(){
 		String id = "aaa";
 		String result = memberBiz.getSelectedHighestEducationLevelCodeName(id);
@@ -219,6 +231,13 @@ public class MemberBizTest {
 			fail("result is null");
 		}
 	}
+	
+	@Test
+	public void isModifyAccountLockTest(){
+		String id = "aaa";
+		boolean isSuccess = !memberBiz.isModifyAccountLock(id);
+		assertTrue(isSuccess);
+ 	}
 	
 
 }
