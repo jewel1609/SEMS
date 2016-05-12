@@ -66,4 +66,6 @@ public interface MemberDAO {
 
 	public int nextLoginHistorySeq();
 
+	int stampLogoutTimeByMemberId(String memberId);
+
 }
