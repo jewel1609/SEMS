@@ -5,6 +5,9 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+	<mvc:annotation-driven />
+	<mvc:resources location="/WEB-INF/resources/" mapping="/resources/**" />
+
 	<mvc:annotation-driven/>
 	<mvc:resources location="/WEB-INF/resources/" mapping="/resources/**" />
 	
@@ -37,7 +40,8 @@
 			<mvc:mapping path="/login"/>
 			<bean id="loginCheckInterceptor" class="com.ktds.sems.interceptor.LoginCheckInterceptor"/>
 		</mvc:interceptor>
-	</mvc:interceptors>
+	</mvc:interceptors> 
+	
 	 
 	<bean 	id="viewResolver"
 			class="org.springframework.web.servlet.view.InternalResourceViewResolver">
