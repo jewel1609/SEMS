@@ -38,9 +38,14 @@ public class MemberController {
 		return "/common/main";
 	}
 
-	@RequestMapping("/changePassword")
-	public String viewChangePasswordPage() {
-		return "/member/changePassword";
+	@RequestMapping("/changePassword/{id}")
+	public ModelAndView viewChangePasswordPage(@PathVariable String id) {
+		
+		ModelAndView view = new ModelAndView();
+		view.setViewName("member/changePassword");
+		view.addObject("id", id);
+		
+		return view;
 	}
 
 	@RequestMapping("/register/policy")
@@ -181,7 +186,14 @@ public class MemberController {
 		return memberService.modifySuccess(sessionId);
 
 	}
+	
+	@RequestMapping("/doChangePasswordAction")
+	public ModelAndView doChangePasswordAction(@Valid MemberVO memberVO, Errors errors) {
 
+		return memberService.changePassword(memberVO, errors);
+	}
+
+	
 	//
 	// @RequestMapping("/member/resign")
 	// public String viewResignPage() {

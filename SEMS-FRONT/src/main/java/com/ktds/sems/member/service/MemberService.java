@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ktds.sems.member.vo.LoginHistorySearchVO;
 import com.ktds.sems.member.vo.MemberVO;
 
 public interface MemberService {
@@ -31,7 +32,7 @@ public interface MemberService {
 
 	public boolean isModifyAccountLock(String sessionId);
 
-	public ModelAndView viewLoginHistoryPage(int pageNo, HttpSession session, HttpServletRequest request);
+	public ModelAndView viewLoginHistoryPage(LoginHistorySearchVO loginHistorySearchVO, int pageNo, HttpSession session, HttpServletRequest request);
 
 	public void saveLoginHistoryAsExcel(HttpSession session);
 
@@ -46,6 +47,8 @@ public interface MemberService {
 	public void checkValidationByRepeatPassword(String password, String repeatPassword, HttpServletResponse response);
 
 	public void logout(HttpSession session);
+
+	public ModelAndView changePassword(MemberVO memberVO, Errors errors);
 
 	public String insertUuidForResign(HttpSession session);
 

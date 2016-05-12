@@ -80,6 +80,8 @@ public interface MemberBiz {
 
 	public String memberTypeCodeName(String id);
 
+	public boolean changePassword(MemberVO memberVO);
+
 	public int getDateSearchLoginHistoryCount(String memberId);
 
 	public List<LoginHistoryVO> getDateSearchLoginHistory(LoginHistorySearchVO loginHistorySearchVO);

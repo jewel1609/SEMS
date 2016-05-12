@@ -229,6 +229,11 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 	}
 
 	@Override
+	public int changePassword(MemberVO memberVO) {
+		return getSqlSession().update("MemberDAO.changePassword", memberVO);
+	}
+
+	@Override
 	public int getDateSearchLoginHistoryCount(String memberId) {
 		return getSqlSession().selectOne("MemberDAO.getDateSearchLoginHistoryCount", memberId);
 	}

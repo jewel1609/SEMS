@@ -444,6 +444,11 @@ public class MemberBizImpl implements MemberBiz {
 	}
 
 	@Override
+	public boolean changePassword(MemberVO memberVO) {
+		return memberDAO.changePassword(memberVO) > 0;
+	}
+
+	@Override
 	public int getDateSearchLoginHistoryCount(String memberId) {
 		return memberDAO.getDateSearchLoginHistoryCount(memberId);
 	}

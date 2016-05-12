@@ -147,7 +147,7 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public String login(MemberVO loginVO, Errors errors, HttpSession session, HttpServletRequest request) {
-
+		
 		// 아이디 있는지 확인
 		if (!memberBiz.isExistId(loginVO.getId())) {
 			return "NO";
@@ -161,6 +161,11 @@ public class MemberServiceImpl implements MemberService {
 		// 잠긴 계정은 로그인 못하도록 막는다.
 		if (memberBiz.isAccountLock(loginVO.getId())) {
 			return "OVER";
+		}
+		
+		// 로그인 30일 경과 계정
+		if(memberBiz.needToChangPassword(loginVO.getId())) {
+			return "CNGPW";
 		}
 
 		boolean isLoginSuccess = memberBiz.login(session, loginVO, request);
@@ -185,12 +190,9 @@ public class MemberServiceImpl implements MemberService {
 
 				// 로그인 내역 남기기
 				memberBiz.stampLoginTime(session, request, loginVO);
-
-				if (memberBiz.needToChangPassword(loginVO.getId())) {
-					return "CNGPW";
-				} else {
-					return "OK";
-				}
+				
+				return "OK";
+				
 			} else {
 				return "NO";
 			}
@@ -350,6 +352,7 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public ModelAndView viewLoginHistoryPage(LoginHistorySearchVO loginHistorySearchVO, int pageNo, HttpSession session, HttpServletRequest request) {
+		
 		ModelAndView view = new ModelAndView();
 		MemberVO memberVO = (MemberVO) session.getAttribute(Session.MEMBER);
 		LoginHistoryListVO loginHistoryListVO = new LoginHistoryListVO();
@@ -371,6 +374,7 @@ public class MemberServiceImpl implements MemberService {
 		view.setViewName("member/loginHistory");
 		view.addObject("loginHistoryListVO", loginHistoryListVO);
 		view.addObject("loginHistorySearchVO", loginHistorySearchVO);
+		
 		return view;
 	}
 
@@ -417,6 +421,52 @@ public class MemberServiceImpl implements MemberService {
 		// 로그아웃 stamp 찍기 위해서..
 		memberBiz.stampLogoutTime(session);
 	}
+
+	@Override
+	public ModelAndView changePassword(MemberVO memberVO, Errors errors) {
+		
+		ModelAndView view = new ModelAndView();
+		
+		if ( errors.hasErrors() ) {
+			
+			view.setViewName("/changePassword/" + memberVO.getId());
+			view.addObject("member", memberVO);
+			
+			return view;
+		}
+		else {
+			
+			System.out.println("에러가 없는 경우************");
+			
+			String originSalt = memberBiz.getSaltById(memberVO.getId());
+			String inputPassword = SHA256Util.getEncrypt(memberVO.getPrevPassword(), originSalt);
+			
+			String originPassword = memberBiz.getPasswordById(memberVO.getId());
+			
+			if ( inputPassword.equals(originPassword) ) {
+				
+				// 입력한 현재 비밀번호가 맞은 경우
+				String newSalt = SHA256Util.generateSalt();
+				memberVO.setSalt(newSalt);
+				
+				String newPassword = SHA256Util.getEncrypt(memberVO.getPassword(), newSalt);
+				memberVO.setPassword(newPassword);
+				
+				memberBiz.changePassword(memberVO);
+
+				view.setViewName("/");
+				
+				return view;
+			}
+				
+			
+			// 입력한 현재 비밀번호가 틀렸을 경우
+			view.setViewName("/changePassword/" + memberVO.getId());
+			return view;
+		}
+		
+	}
+	
 
 	@Override
 	public ModelAndView registerStudent() {
@@ -556,4 +606,5 @@ public class MemberServiceImpl implements MemberService {
 			return "NO";
 		}
 	}
+
 }

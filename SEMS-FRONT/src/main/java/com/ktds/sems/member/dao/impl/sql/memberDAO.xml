@@ -376,5 +376,11 @@
 		WHERE	EMAIL = #{email}
 	</select>
 	
+	<update id="changePassword" parameterType="MemberVO">
+		UPDATE	MBR
+		SET		SALT = #{salt}
+				, PWD = #{password}
+		WHERE	ID = #{id}
+	</update>	
 	
 </mapper>

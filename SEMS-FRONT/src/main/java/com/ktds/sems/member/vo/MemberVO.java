@@ -10,6 +10,9 @@ public class MemberVO {
 
 	@NotEmpty(message = "필수 정보입니다.")
 	private String password;
+	
+	@NotEmpty(message = "필수 정보입니다.")
+	private String prevPassword;
 
 	@NotEmpty(message = "필수 정보입니다.")
 	private String name;
@@ -45,6 +48,14 @@ public class MemberVO {
 	private String isModifyLock;
 	private String uuid;
 	
+	public String getPrevPassword() {
+		return prevPassword;
+	}
+
+	public void setPrevPassword(String prevPassword) {
+		this.prevPassword = prevPassword;
+	}
+
 	public String getResignDate() {
 		return resignDate;
 	}
