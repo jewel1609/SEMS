@@ -49,7 +49,22 @@ public class MemberServiceImpl implements MemberService {
 			view.addObject("member", member);
 		} else if (member.getMemberType().equals("MBR") || member.getMemberType().equals("TR")) {
 			boolean isVerify = checkVerify(member);
-
+			
+			String graduationType = member.getGraduationType(); 
+			String highestEducationLevel = member.getHighestEducationLevel();
+			String selectGraduationTypeCodeId = null;
+			String selecthelCodeId = null;
+			
+			if ( graduationType != null ) {
+				selectGraduationTypeCodeId = memberBiz.getGraduationTypeCodeId(graduationType);
+			}
+			if ( highestEducationLevel != null ) {
+				selecthelCodeId = memberBiz.gethelCodeId(highestEducationLevel);
+			}
+			
+			member.setGraduationType(selectGraduationTypeCodeId);
+			member.setHighestEducationLevel(selecthelCodeId);
+			
 			if (isVerify) {
 				setSaltAndPassword(member);
 				memberBiz.addNewMember(member);
@@ -408,10 +423,14 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public ModelAndView registerStudent() {
 		ModelAndView view = new ModelAndView();
+		
+		List<String> highestEducationLevelCodeNameList = memberBiz.getHighestEducationLevelCodeNames();
 		List<String> graduationTypeList = memberBiz.getGraduationType();
+		
 		view.setViewName("member/registerStudent");
 		view.addObject("graduationTypeList", graduationTypeList);
-
+		view.addObject("highestEducationLevelCodeNameList", highestEducationLevelCodeNameList);
+		
 		return view;
 	}
 }
