@@ -37,9 +37,10 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public ModelAndView viewGrdtPage() {
+		
 		ModelAndView view = new ModelAndView();
-		view.setViewName("member/graduation/list");
-		view.addObject("grtdVO", memberBiz.getAllGrtdList());
+		view.setViewName("member/grdtPage");
+		view.addObject("grtdTpList", memberBiz.getAllGrtdList());
 		return view;
 	}
 
