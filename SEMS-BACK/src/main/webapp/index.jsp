@@ -6,7 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title></title>
-<script type="text/javascript" src="/backend/resources/js/jquery.min.js"></script>
+<script type="text/javascript" src="<c:url value='/resources/js/jquery.min.js'/>"></script>
 </head>
 <body>
 
