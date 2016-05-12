@@ -33,8 +33,7 @@ public class EducationController {
 	
 	@RequestMapping("/doWriteAction")
 	public ModelAndView doWriteAction(@Valid EducationVO educationVO, Errors errors, MultipartHttpServletRequest request) {
-		System.out.println(request.getFileNames());
-		
+
 		return educationService.writeNewEducation(educationVO, errors, request);
 	}
 	
