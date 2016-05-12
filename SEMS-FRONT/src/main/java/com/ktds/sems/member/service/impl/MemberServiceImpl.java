@@ -218,30 +218,37 @@ public class MemberServiceImpl implements MemberService {
 		
 		MemberVO member = memberBiz.getOneMember(id);
 		
-		//대학구분, 최종학력 구분을 가져온다.
+		//졸업 구분 값들을 보낸다. 유저가 회원가입시 선택한 졸업구분을 보낸다.
 		List<String> graduationTypeCodeNameList = memberBiz.getGraduationType();
+		String selectedGraduationTypeCodeName = memberBiz.selectedGraduationTypeCodeName(id);
+		
+		//최종학력 구분 값들을 보낸다. 유저가 회원가입시 선택한 최종학력을 보낸다.
+		List<String> highestEducationLevelCodeNameList = memberBiz.getHighestEducationLevelCodeNames();
+		String selectedHighestEducationLevelCodeName = memberBiz.getSelectedHighestEducationLevelCodeName(id);
+		
 		view.addObject("member", member);
 		view.addObject("graduationTypeList", graduationTypeCodeNameList);
+		view.addObject("selectedGraduationTypeCodeName", selectedGraduationTypeCodeName);
+		view.addObject("highestEducationLevelCodeNameList", highestEducationLevelCodeNameList);
+		view.addObject("selectedHighestEducationLevelCodeName", selectedHighestEducationLevelCodeName);
 		view.setViewName("member/modifyMyInfo");
 		return view;
 		
 	}
 
 	@Override
-	public ModelAndView modifyMemberInfo(MemberVO member, Errors errors) {
+	public ModelAndView modifyMemberInfo(MemberVO member, Errors errors, String graduationType, String helCodeName) {
 		
 		int changeCount = 0;
 		MemberVO changeMember = new MemberVO();
-		
 		String inputPassword = member.getPassword();
+		String selectGraduationTypeCodeId = memberBiz.getGraduationTypeCodeId(graduationType);
+		String selecthelCodeId = memberBiz.gethelCodeId(helCodeName);
+		
 		
 		MemberVO originMember = memberBiz.getOneMember(member.getId());
 		
-		System.out.println(inputPassword+"수정원하는 암호");
-		System.out.println(originMember.getPassword()+"원래암호");
-		
 		if ( inputPassword != ""){
-			System.out.println("들어오나?");
 			changeCount++;
 			
 			String salt = SHA256Util.generateSalt();
@@ -249,7 +256,6 @@ public class MemberServiceImpl implements MemberService {
 			
 			changeMember.setPassword(newPassword);
 			changeMember.setSalt(salt);
-			System.out.println(newPassword + "<>>" + salt);
 		}
 		
 		
@@ -263,14 +269,14 @@ public class MemberServiceImpl implements MemberService {
 			changeMember.setEmail(member.getEmail());
 		}
 		
-		if ( !originMember.getHighestEducationLevel().equals(member.getHighestEducationLevel()) ) {
+		if ( !originMember.getHighestEducationLevel().equals(selecthelCodeId) ) {
 			changeCount++;
-			changeMember.setHighestEducationLevel(member.getHighestEducationLevel());
+			changeMember.setHighestEducationLevel(selecthelCodeId);
 		}
 		
-		if ( !originMember.getGraduationType().equals(member.getGraduationType()) ) {
+		if ( !originMember.getGraduationType().equals(selectGraduationTypeCodeId) ) {
 			changeCount++;
-			changeMember.setGraduationType(member.getGraduationType());
+			changeMember.setGraduationType(selectGraduationTypeCodeId);
 		}
 		
 		if ( !originMember.getPhoneNumber().equals(member.getPhoneNumber()) ) {

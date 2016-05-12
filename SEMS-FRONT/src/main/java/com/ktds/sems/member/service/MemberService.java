@@ -18,7 +18,7 @@ public interface MemberService {
 
 	public ModelAndView modifySuccess(String id);
 
-	public ModelAndView modifyMemberInfo(MemberVO member, Errors errors);
+	public ModelAndView modifyMemberInfo(MemberVO member, Errors errors, String graduationType, String helCodeName);
 
 	public void checkValidationById(String id, HttpServletResponse response);
 
