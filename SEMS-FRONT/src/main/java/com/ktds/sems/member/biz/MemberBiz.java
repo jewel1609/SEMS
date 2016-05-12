@@ -80,4 +80,9 @@ public interface MemberBiz {
 
 	public String memberTypeCodeName(String id);
 
+	public void insertUuidForResign(MemberVO member);
+
+	public void sendEmailForResign(String email, String id, String uuid);
+
+	public void doDeleteMember(String id);
 }
