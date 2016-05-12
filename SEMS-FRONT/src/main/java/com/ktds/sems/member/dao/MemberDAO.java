@@ -71,4 +71,14 @@ public interface MemberDAO {
 	public String isResign(String id);
 
 	public List<String> getGraduationType();
+	public String selectedGraduationTypeCodeName(String id);
+
+	public List<String> getHighestEducationLevelCodeNames();
+
+	public String getSelectedHighestEducationLevelCodeName(String id);
+
+	public String getGraduationTypeCodeId(String graduationType);
+
+	public String gethelCodeId(String helCodeName);
+
 }
