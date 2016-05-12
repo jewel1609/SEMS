@@ -450,6 +450,16 @@ public class MemberBizImpl implements MemberBiz {
 	}
 
 	@Override
+	public int getDateSearchLoginHistoryCount(String memberId) {
+		return memberDAO.getDateSearchLoginHistoryCount(memberId);
+	}
+
+	@Override
+	public List<LoginHistoryVO> getDateSearchLoginHistory(LoginHistorySearchVO loginHistorySearchVO) {
+		return memberDAO.getDateSearchLoginHistory(loginHistorySearchVO);
+	}
+
+	@Override
 	public void sendEmailForResign(String email, String id, String uuid) {
 		
 		SendMail sendMail = new SendMail();

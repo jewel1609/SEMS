@@ -90,4 +90,8 @@ public interface MemberDAO {
 
 	public String memberTypeCodeName(String id);
 
+	public int getDateSearchLoginHistoryCount(String memberId);
+
+	public List<LoginHistoryVO> getDateSearchLoginHistory(LoginHistorySearchVO loginHistorySearchVO);
+
 }

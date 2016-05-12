@@ -30,7 +30,7 @@ public class HistorySearchStore {
 		return historySessions.get(historySearchVO);
 	}
 
-	public void logout(LoginHistorySearchVO historySearchVO) {
+	public void init(LoginHistorySearchVO historySearchVO) {
 		if (historySessions.containsKey(historySearchVO)) {
 			try {
 				historySessions.get(historySearchVO).invalidate();

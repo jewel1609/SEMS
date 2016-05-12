@@ -10,6 +10,9 @@ public class LoginHistorySearchVO {
 	private String searchKeyWord;
 	
 	private String memberId;
+	
+	private String beginDate;
+	private String closeDate;
 
 	public int getPageNo() {
 		return pageNo;
@@ -58,6 +61,20 @@ public class LoginHistorySearchVO {
 	public void setMemberId(String memberId) {
 		this.memberId = memberId;
 	}
-	
 
+	public String getBeginDate() {
+		return beginDate;
+	}
+
+	public void setBeginDate(String beginDate) {
+		this.beginDate = beginDate;
+	}
+
+	public String getCloseDate() {
+		return closeDate;
+	}
+
+	public void setCloseDate(String closeDate) {
+		this.closeDate = closeDate;
+	}
 }

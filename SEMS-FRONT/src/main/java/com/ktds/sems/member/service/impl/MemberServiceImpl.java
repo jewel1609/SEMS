@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ktds.sems.common.HistorySearchStore;
 import com.ktds.sems.common.SendMail;
 import com.ktds.sems.common.Session;
 import com.ktds.sems.common.vo.MailVO;
@@ -347,30 +348,82 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public ModelAndView viewLoginHistoryPage(int pageNo, HttpSession session) {
+	public ModelAndView viewLoginHistoryPage(int pageNo, HttpSession session, HttpServletRequest request) {
 		ModelAndView view = new ModelAndView();
 		MemberVO memberVO = (MemberVO) session.getAttribute(Session.MEMBER);
-		
-		LoginHistoryListVO loginHistoryListVO = new LoginHistoryListVO();
+		LoginHistorySearchVO loginHistorySearchVO = (LoginHistorySearchVO) session.getAttribute(Session.SEARCH);
+		HistorySearchStore searchStore = HistorySearchStore.getInstance();
+
+		try {
+			pageNo = Integer.parseInt(request.getParameter("pageNo"));
+			loginHistorySearchVO.setSearchKeyWord(request.getParameter("searchKeyWord"));
+			loginHistorySearchVO.setSearchType(request.getParameter("searchType"));
+			loginHistorySearchVO.setBeginDate(request.getParameter("beginDate"));
+			loginHistorySearchVO.setCloseDate(request.getParameter("closeDate"));
+
+		} catch (RuntimeException re) {
+			loginHistorySearchVO = (LoginHistorySearchVO) searchStore.get(loginHistorySearchVO);
+			if (loginHistorySearchVO == null) {
+				loginHistorySearchVO.setPageNo(0);
+				loginHistorySearchVO.setSearchKeyWord("");
+				loginHistorySearchVO.setSearchType("1");
+				loginHistorySearchVO.setBeginDate("");
+				loginHistorySearchVO.setCloseDate("");
+			}
+		}
+		searchStore.add(loginHistorySearchVO, session);
+
+		// if(loginHistorySearchVO.getSearchKeyWord() == null) {
+		//
+		// } else if(loginHistorySearchVO.getSearchKeyWord() != null) {
+		// searchStore.init(loginHistorySearchVO);
+		// }
+
+		int totalLoginHisotryCount = 0;
+		List<LoginHistoryVO> loginHistoryList = null;
+
+		if (loginHistorySearchVO.getBeginDate() !=null && loginHistorySearchVO.getCloseDate() != null) {
+			if (loginHistorySearchVO.getSearchType().equals("1") || loginHistorySearchVO.getSearchType().equals("2")
+					|| loginHistorySearchVO.getSearchType().equals("3")) {
+				totalLoginHisotryCount = memberBiz.getDateSearchLoginHistoryCount(memberVO.getId());
+			}
+		} else {
+			if (loginHistorySearchVO.getSearchType().equals("1") || loginHistorySearchVO.getSearchType().equals("2")
+					|| loginHistorySearchVO.getSearchType().equals("3")) {
+				totalLoginHisotryCount = memberBiz.getTotalLoginHistoryCount(memberVO.getId());
+			}
+		}
+
 		Paging paging = new Paging();
-		loginHistoryListVO.setPaging(paging);
-		paging.setPageNumber(pageNo + "");
-
-		int totalLoginHisotryCount = memberBiz.getTotalLoginHistoryCount(memberVO.getId());
 		paging.setTotalArticleCount(totalLoginHisotryCount);
-
-		LoginHistorySearchVO loginHistorySearchVO = new LoginHistorySearchVO();
+		paging.setPageNumber(pageNo + "");
+		
 		loginHistorySearchVO.setStartIndex(paging.getStartArticleNumber());
 		loginHistorySearchVO.setEndIndex(paging.getEndArticleNumber());
 		loginHistorySearchVO.setMemberId(memberVO.getId());
-		
-		List<LoginHistoryVO> loginHistoryList = memberBiz.getAllLoginHistory(loginHistorySearchVO);
+
+		if (loginHistorySearchVO.getBeginDate() !=null && loginHistorySearchVO.getCloseDate() != null) {
+			if (loginHistorySearchVO.getSearchType().equals("1") || loginHistorySearchVO.getSearchType().equals("2")
+					|| loginHistorySearchVO.getSearchType().equals("3")) {
+				loginHistoryList = memberBiz.getDateSearchLoginHistory(loginHistorySearchVO);
+			}
+		}else {
+			if (loginHistorySearchVO.getSearchType().equals("1") || loginHistorySearchVO.getSearchType().equals("2")
+					|| loginHistorySearchVO.getSearchType().equals("3")) {
+				loginHistoryList = memberBiz.getAllLoginHistory(loginHistorySearchVO);
+			}
+		}
+
+		LoginHistoryListVO loginHistoryListVO = new LoginHistoryListVO();
 		loginHistoryListVO.setLoginHistoryList(loginHistoryList);
+		loginHistoryListVO.setPaging(paging);
 
 		view.setViewName("member/loginHistory");
 		view.addObject("loginHistoryListVO", loginHistoryListVO);
+		view.addObject("loginHistorySearchVO", loginHistorySearchVO);
 
 		return view;
+
 	}
 
 	@Override
@@ -399,15 +452,15 @@ public class MemberServiceImpl implements MemberService {
 		return memberBiz.getPasswordById(id);
 	}
 
-//	public static void main(String[] args) {
-//		
-//		MemberServiceImpl memberService = new MemberServiceImpl();
-//		System.out.println("성공!!");
-//		memberService.sendBlockAccountEmail("shinmi0315@naver.com");
-//		System.out.println("성공!!");
-//		
-//	}
-	
+	// public static void main(String[] args) {
+	//
+	// MemberServiceImpl memberService = new MemberServiceImpl();
+	// System.out.println("성공!!");
+	// memberService.sendBlockAccountEmail("shinmi0315@naver.com");
+	// System.out.println("성공!!");
+	//
+	// }
+
 	@Override
 	public void logout(HttpSession session) {
 		// 세션 없애기

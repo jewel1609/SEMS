@@ -228,4 +228,14 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 		return getSqlSession().selectOne("MemberDAO.memberTypeCodeName", id);
 	}
 
+	@Override
+	public int getDateSearchLoginHistoryCount(String memberId) {
+		return getSqlSession().selectOne("MemberDAO.getDateSearchLoginHistoryCount", memberId);
+	}
+
+	@Override
+	public List<LoginHistoryVO> getDateSearchLoginHistory(LoginHistorySearchVO loginHistorySearchVO) {
+		return getSqlSession().selectList("MemberDAO.getDateSearchLoginHistory", loginHistorySearchVO);
+	}
+
 }
