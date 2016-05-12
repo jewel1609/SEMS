@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -69,31 +70,22 @@
 		<form id="pagingForm">${loginHistoryListVO.paging.getPagingList("pageNo","[@]","이전","다음","pagingForm")}
 		</form>
 	</div>
-	<div align="center" style="margin-top: 150px;">
-		<form id="searchForm">
-			<select name="searchType">
-				<c:if test="${loginHistorySearchVO.searchType eq '1'}">
-					<option value="1" selected="selected">통합검색</option>
-					<option value="2">IP</option>
-					<option value="3">시간</option>
-				</c:if>
-				<c:if test="${loginHistorySearchVO.searchType eq '2'}">
-					<option value="1">통합검색</option>
-					<option value="2" selected="selected">IP</option>
-					<option value="3">시간</option>
-				</c:if>
-				<c:if test="${loginHistorySearchVO.searchType eq '3'}">
-					<option value="1">통합검색</option>
-					<option value="2">IP</option>
-					<option value="3" selected="selected">시간</option>
-				</c:if>
-			</select> <input type="date" id="beginDate" name="beginDate" /> <input
-				type="date" id="closeDate" name="closeDate" /> <input type="search"
-				name="searchKeyWord" id="searchKeyWord"
-				value="${loginHistorySearchVO.searchKeyWord}" placeholder="#search" />
-			<input type="button" name="searchBtn" id="searchBtn" value="검색" />
-		</form>
-		<a href="<c:url value="/member/myPage/saveAsExcel"/>">로그인 내역 엑셀파일로 저장</a>
-	</div>
+
+	<form:form commandName="loginHistorySearchVO" method="post" id="loginHistorySearchForm">
+		<div align="center" style="margin-top: 150px;">
+			로그인 기간 검색 <br/>
+			<input type="date" name="beginDate" id="beginDate" value="${loginHistorySearchVO.beginDate}">
+			<input type="date" name="closeDate" id="closeDate" value="${loginHistorySearchVO.closeDate}">
+			<br/>
+			
+			로그인 IP 검색 <br/>
+			<input type="text" name="searchKeyWord" id="searchKeyWord" value="${loginHistorySearchVO.searchKeyWord}" placeholder="검색할 IP 입력하시오. ">
+			
+			<input type="submit" name="searchBtn" name="searchBtn" value="검색">
+		</div>
+	</form:form>
+
+	<a href="<c:url value="/member/myPage/saveAsExcel"/>">로그인 내역 엑셀파일로 저장</a>
+	
 </body>
 </html>
