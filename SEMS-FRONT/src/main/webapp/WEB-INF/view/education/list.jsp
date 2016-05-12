@@ -129,7 +129,7 @@
 	</tr>
 	 <c:forEach items="${ educationListVO.educationList }" var="education">
 	<tr>
-		<td><a href="/eduDetail/${education.educationId}">${ education.educationTitle }</a></td>
+		<td><a href="<c:url value='/eduDetail/${education.educationId}'/>">${ education.educationTitle }</a></td>
 		<td>${ education.educationCategory }</td>
 		<td>${ education.startDate } ~ ${ education.endDate }</td>
 		<td>${ education.typeName }</td>
@@ -139,7 +139,7 @@
 	
 	<c:forEach items="${ searchedListVO.educationList }" var="education">
 	<tr>
-		<td><a href="/eduDetail/${education.educationId}">${ education.educationTitle }</a></td>
+		<td><a href="<c:url value='/eduDetail/${education.educationId}'/>">${ education.educationTitle }</a></td>
 		<td>${ education.educationCategory }</td>
 		<td>${ education.startDate } ~ ${ education.endDate }</td>
 		<td>${ education.typeName }</td>
