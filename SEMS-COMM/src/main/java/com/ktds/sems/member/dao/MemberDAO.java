@@ -26,7 +26,7 @@ public interface MemberDAO {
 
 	public void doMbrTpDelete(String cdId);
 
-	public void doMbrTpModify(MbrTpVO mbrTpVO);
+	public int doMbrTpModify(MbrTpVO mbrTpVO);
 
 	public List<HighestEduTpVO> getAllHighestEduList();
 

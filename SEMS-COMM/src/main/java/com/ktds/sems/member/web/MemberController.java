@@ -105,12 +105,12 @@ public class MemberController {
 	}
 
 	@RequestMapping("doMbrTpModify")
-	public String doMbrTpModify(HttpServletRequest request, HttpServletResponse response) {
+	public void doMbrTpModify(HttpServletRequest request, HttpServletResponse response) {
 
 		String cdId = request.getParameter("cdId");
 		String cdNm = request.getParameter("cdNm");
-
-		return memberService.doMbrTpModify(cdId, cdNm);
+		String status = memberService.doMbrTpModify(cdId, cdNm);
+		AjaxUtil.sendResponse(response, status);
 	}
 
 

@@ -55,8 +55,8 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 	}
 
 	@Override
-	public void doMbrTpModify(MbrTpVO mbrTpVO) {
-		getSqlSession().update("MemberDAO.doMbrTpModify", mbrTpVO);
+	public int doMbrTpModify(MbrTpVO mbrTpVO) {
+		return getSqlSession().update("MemberDAO.doMbrTpModify", mbrTpVO);
 
 	}
 

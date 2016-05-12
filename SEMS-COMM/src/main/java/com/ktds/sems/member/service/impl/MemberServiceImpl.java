@@ -183,10 +183,21 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public String doMbrTpModify(String cdId, String cdNm) {
 		MbrTpVO mbrTpVO = new MbrTpVO();
-		mbrTpVO.setCdId(cdId);
+		mbrTpVO.setCdId(" ");
 		mbrTpVO.setCdNm(cdNm);
-		memberBiz.doMbrTpModify(mbrTpVO);
-		return "redirect:/mbrTpPage";
+		
+		if(memberBiz.isExistMbrTpData(mbrTpVO) > 0){
+			return "FAIL";
+		}	
+		else{	
+			mbrTpVO.setCdId(cdId);
+			boolean data = memberBiz.doMbrTpModify(mbrTpVO) > 0;
+				
+			if(!data){
+				return "FAIL";
+			}
+			return "OK";
+		}
 	}
 
 

@@ -66,8 +66,8 @@ public class MemberBizImpl implements MemberBiz{
 	}
 
 	@Override
-	public void doMbrTpModify(MbrTpVO mbrTpVO) {
-		memberDAO.doMbrTpModify(mbrTpVO);
+	public int doMbrTpModify(MbrTpVO mbrTpVO) {
+		return memberDAO.doMbrTpModify(mbrTpVO);
 		
 	}
 	/* Highest Edu */
