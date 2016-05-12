@@ -48,8 +48,8 @@ public class MemberController {
 	}
 
 	@RequestMapping("/register/student")
-	public String viewRegisterStudentPage() {
-		return "member/registerStudent";
+	public ModelAndView viewRegisterStudentPage() {
+		return memberService.registerStudent();
 	}
 
 	@RequestMapping("/register/teacher")
