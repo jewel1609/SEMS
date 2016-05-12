@@ -1,16 +1,17 @@
 package com.ktds.sems.member.biz.impl;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -264,6 +265,7 @@ public class MemberBizImpl implements MemberBiz {
 	@Override
 	public void attendCheck(MemberVO loginVO) {
 		
+		Map<String,String> eduIdAndMemberId = new HashMap<String,String>();
 		
 		/*회원별 강의*/
 		List<EducationVO> eduListByMember = new ArrayList<EducationVO>();		
@@ -287,7 +289,10 @@ public class MemberBizImpl implements MemberBiz {
 			String startDate = educationVO.getStartDate() + " " + educationVO.getStartTime();
 			String endDate = educationVO.getEndDate() +" "+ educationVO.getEndTime();
 			
-			String lastDate = memberDAO.getLastDate(educationVO);
+			eduIdAndMemberId.put("educationId" ,educationVO.getEducationId());
+			eduIdAndMemberId.put("memberId" ,loginVO.getId());
+			
+			String lastDate = memberDAO.getLastDate(eduIdAndMemberId);
 			String nowDate = onlyDateFormat.format(date);
 			
 			try {
@@ -300,7 +305,7 @@ public class MemberBizImpl implements MemberBiz {
 				long calEduEndDate = cal2.getTimeInMillis();
 				
 				// 출석시간 체크하기 위한 변수 선언
-				/*Calendar cal4 = Calendar.getInstance();
+				Calendar cal4 = Calendar.getInstance();
 				Date eduStartTime = timeFormat.parse(educationVO.getStartTime());
 				cal4.setTime(eduStartTime);
 				long calEduStartTime = cal4.getTimeInMillis();
@@ -316,19 +321,19 @@ public class MemberBizImpl implements MemberBiz {
 				
 				Date todayTime = timeFormat.parse(timeFormat.format(date));
 				cal3.setTime(todayTime);
-				long calNowTime = cal3.getTimeInMillis();*/
+				long calNowTime = cal3.getTimeInMillis();
 				
 				// 현재 날짜와 강의 기간 날짜 체크
 				if (calEduStartDate < calTodayTime && calTodayTime < calEduEndDate) {
 					
 					// 시간 체크 StartTime-1 ~ (EndTime-StartTime)/2 맞는지 체크
-//					if ( calEduBeforeOneHour < calNowTime && calNowTime < calEduHalfTime ) {
+					if ( calEduBeforeOneHour < calNowTime ) {
 						
 						// 하루에 한 번만 출석 체크
 						if ( !lastDate.equals(nowDate) ) {
 							AttendVO attendVO = new AttendVO();
 							attendVO.setEducationId(educationVO.getEducationId());
-							attendVO.setMemberId(educationVO.getMemberId());
+							attendVO.setMemberId(loginVO.getId());
 							attendVO.setAttendTime(nowTime);
 							
 							memberDAO.insertAttendByMember(attendVO);
@@ -337,7 +342,7 @@ public class MemberBizImpl implements MemberBiz {
 						
 						break;
 						
-//					}
+					}
 					
 				}	
 				

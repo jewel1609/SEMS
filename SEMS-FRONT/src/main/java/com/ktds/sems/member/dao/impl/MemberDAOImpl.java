@@ -1,6 +1,7 @@
 package com.ktds.sems.member.dao.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 
@@ -117,8 +118,8 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 	}
 
 	@Override
-	public String getLastDate(EducationVO educationVO) {
-		return getSqlSession().selectOne("MemberDAO.getLastDate", educationVO ) == null ? "" : this.getSqlSession().selectOne("MemberDAO.getLastDate", educationVO );
+	public String getLastDate(Map<String,String> eduIdAndMemberId) {
+		return getSqlSession().selectOne("MemberDAO.getLastDate", eduIdAndMemberId ) == null ? "" : this.getSqlSession().selectOne("MemberDAO.getLastDate", eduIdAndMemberId);
 	}
 
 	/**

@@ -1,6 +1,7 @@
 package com.ktds.sems.member.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.member.vo.AttendVO;
@@ -50,7 +51,7 @@ public interface MemberDAO {
 
 	public void insertAttendByMember(AttendVO attendVO);
 
-	public String getLastDate(EducationVO educationVO);
+	public String getLastDate(Map<String,String> eduIdAndMemberId);
 
 	public void modifyMemberInfo(MemberVO member);
 

@@ -296,7 +296,7 @@
 				  		)
 	</insert>
 	
-	<select id="getLastDate" parameterType="EducationVO" resultType="string">
+	<select id="getLastDate" parameterType="map" resultType="string">
 		SELECT	*
 		FROM	(
 		            SELECT  SUBSTR(ATD_TM, 1,10) ATD1
