@@ -20,5 +20,7 @@ public interface MemberDAO {
 
 	public MemberVO login(MemberVO loginVO);
 
+	public String isResign(String id);
+
 
 }

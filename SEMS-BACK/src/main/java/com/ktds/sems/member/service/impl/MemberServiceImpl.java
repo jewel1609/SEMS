@@ -29,6 +29,11 @@ public class MemberServiceImpl implements MemberService{
 			return "NO";
 		}
 		
+		// 탈퇴한 회원인지 확인
+		if (memberBiz.isResign(loginVO.getId())) {
+			return "RSN";
+		}
+		
 		// 잠긴 계정은 로그인 못하도록 막는다.
 		if (memberBiz.isAccountLock(loginVO.getId())) {
 			return "OVER";

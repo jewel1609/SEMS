@@ -20,4 +20,6 @@ public interface MemberBiz {
 
 	public boolean login(HttpSession session, MemberVO loginVO);
 
+	public boolean isResign(String id);
+
 }

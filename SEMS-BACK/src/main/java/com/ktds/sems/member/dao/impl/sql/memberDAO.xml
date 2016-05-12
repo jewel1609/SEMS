@@ -70,4 +70,10 @@
 		WHERE	ID = #{id}
 		AND		PWD = #{password}
 	</select>
+	<select id="isResign" parameterType="string" resultType="string">
+		SELECT	ID
+		FROM	MBR
+		WHERE	ID = #{id}
+		AND		RSN = 'Y'
+	</select>
 </mapper>

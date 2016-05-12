@@ -89,4 +89,15 @@ public class MemberBizImpl implements MemberBiz {
 
 		return memberVO != null;
 	}
+
+	@Override
+	public boolean isResign(String id) {
+		
+		String checkStr = memberDAO.isResign(id);
+		
+		if (checkStr != null) {
+			return true;
+		}
+		return false;
+	}
 }

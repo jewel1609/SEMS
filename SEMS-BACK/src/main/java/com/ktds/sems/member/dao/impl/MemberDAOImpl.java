@@ -46,4 +46,9 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO{
 	public MemberVO login(MemberVO loginVO) {
 		return getSqlSession().selectOne("MemberDAO.login", loginVO);
 	}
+
+	@Override
+	public String isResign(String id) {
+		return getSqlSession().selectOne("MemberDAO.isResign", id);
+	}
 }
