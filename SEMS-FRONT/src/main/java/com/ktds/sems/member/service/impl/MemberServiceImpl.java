@@ -518,7 +518,7 @@ public class MemberServiceImpl implements MemberService {
 				String csrfToken = UUID.randomUUID().toString();
 				session.setAttribute(Session.CSRF_TOKEN, csrfToken);
 
-				memberBiz.attend(loginVO);
+				//memberBiz.attend(loginVO);
 
 				// 로그인 내역 남기기 
 				memberBiz.stampLoginTime(session, request, loginVO);
