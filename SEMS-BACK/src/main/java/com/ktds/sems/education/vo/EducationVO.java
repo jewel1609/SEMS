@@ -2,7 +2,9 @@ package com.ktds.sems.education.vo;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-public class EducationVO {
+import com.ktds.sems.file.vo.FileVO;
+
+public class EducationVO extends FileVO{
 	
 	private String educationId;
 	
