@@ -51,7 +51,7 @@ public class EducationControllerTest {
 	public void doEducationModifyTest() {
 		EducationVO educationVO = new EducationVO();
 		
-		educationVO.setEducationId("ED-20160512-000063");
+		educationVO.setEducationId("ED-20160512-000066");
 		educationVO.setEducationCategory("ZCS");
 		educationVO.setEducationTitle("JUNIT...");
 		educationVO.setMemberId("JUNIT...");
@@ -73,8 +73,8 @@ public class EducationControllerTest {
 		MockMultipartHttpServletRequest request = new MockMultipartHttpServletRequest();
 		
 		Path path = Paths.get("");
-		String name = "text";
-		String originalFileName = "text";
+		String name = "file";
+		String originalFileName = "file";
 		String contentType = "text/plain";
 		
 		byte[] content = null;
@@ -95,7 +95,7 @@ public class EducationControllerTest {
 		if (view != null) {
 			String viewName = view.getViewName();
 			assertNotNull(viewName);
-			assertEquals(viewName, "redirect:/detail/ED-20160512-000063");
+			assertEquals(viewName, "redirect:/detail/ED-20160512-000066");
 		} else {
 			fail("fail...");
 		}
