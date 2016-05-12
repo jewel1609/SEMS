@@ -22,7 +22,7 @@ public class MemberDAOTest {
 	 * SALT 얻어오기
 	 */
 	@Test
-	public void getSaltById() {
+	public void getSaltByIdTest() {
 		String id = "cocomo";
 		String salt = memberDAO.getSaltById(id);
 		assertNotNull(salt);
@@ -32,7 +32,7 @@ public class MemberDAOTest {
 	 * 로그인
 	 */
 	@Test
-	public void login() {
+	public void loginTest() {
 		MemberVO loginVO = new MemberVO();
 		loginVO.setId("cocomo");
 		loginVO.setPassword("123qwe!@#qwe");
@@ -56,50 +56,71 @@ public class MemberDAOTest {
 		}
 	}
 
+	/**
+	 * 계정 잠겼는지 확인
+	 */
 	@Test
-	public void isAccountLock() {
+	public void isAccountLockTest() {
 		String id = "cocomo";
 		boolean isSuccess = memberDAO.isAccountLock(id);
 		assertTrue(!isSuccess);
 	}
 
+	/**
+	 * 로그인 성공 확인
+	 */
 	@Test
-	public void loginSuccess() {
+	public void loginSuccessTest() {
 		String id = "cocomo";
 		int executeQuery = memberDAO.loginSuccess(id);
 		assertTrue(executeQuery > 0);
 	}
 
+	/**
+	 * 로그인 실패 횟수 증가
+	 */
 	@Test
-	public void plusLoginFailCount() {
+	public void plusLoginFailCountTest() {
 		String id = "cocomo";
 		int executeQuery = memberDAO.plusLoginFailCount(id);
 		assertTrue(executeQuery > 0);
 	}
 
+	/**
+	 * 계정 잠금 상태 최신화
+	 */
 	@Test
-	public void updateAccountLock() {
+	public void updateAccountLockTest() {
 		String id = "cocomo";
 		int executeQuery = memberDAO.updateAccountLock(id);
 		assertTrue(executeQuery > 0);
 	}
 
+	/**
+	 * 로그인한지 30일 지났는지 확인
+	 */
 	@Test
-	public void needToChangPassword() {
+	public void needToChangPasswordTest() {
 		String id = "cocomo";
 		String checkStr = memberDAO.needToChangPassword(id);
 		assertNull(checkStr);
 	}
 
+	/**
+	 * 존재하는 아이디인지 확인
+	 */
 	@Test
-	public void isExistId() {
+	public void isExistIdTest() {
 		String id = "cocomo";
 		String checkStr = memberDAO.isExistId(id);
 		assertNotNull(checkStr);
 	}
 
+	/**
+	 * 탈퇴한 회원인지 확인
+	 */
 	@Test
-	public void isResign() {
+	public void isResignTest() {
 		String id = "cocomo";
 		String checkStr = memberDAO.isResign(id);
 		assertNull(checkStr);
