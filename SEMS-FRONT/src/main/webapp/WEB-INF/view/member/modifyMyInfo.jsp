@@ -120,7 +120,7 @@ function daysInMonth(month, year) {
 <body>
 
 <form:form commandName="member" method="post" action="/member/myPage/doModifyAction">
-이름, 비밀번호, 이메일, 최종학력, 졸업구분, 나이, 전화번호만
+
 	아이디 : ${member.id}  <br/>
 	비밀번호 : <input type="text" name="password" id="password" />
 	<br />

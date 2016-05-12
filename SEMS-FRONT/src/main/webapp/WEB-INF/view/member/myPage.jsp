@@ -15,7 +15,7 @@
 <title>회원 정보</title>
 </head>
 <body>
-		
+
 <a href="/member/myPage/checkPassword">내 정보 수정</a>		
 
 </body>
