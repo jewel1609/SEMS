@@ -1,8 +1,6 @@
 package com.ktds.sems.education.web;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.util.List;
 
@@ -51,7 +49,9 @@ public class EducationControllerTest {
 			List<CostVO> costList = (List<CostVO>) view.getModelMap().get("costList");
 			assertNotNull(costList);
 			assertTrue(costList.size() > 0);
-			
+		}
+		else {
+			fail("view is null");
 		}
 	}
 	
@@ -66,6 +66,9 @@ public class EducationControllerTest {
 			String viewName = view.getViewName();
 			assertNotNull(viewName);
 			assertEquals(viewName, "redirect:/education/cost");
+		}
+		else {
+			fail("view is null");
 		}
 	}
 	
@@ -82,7 +85,9 @@ public class EducationControllerTest {
 			List<TimeVO> timeList = (List<TimeVO>) view.getModelMap().get("timeList");
 			assertNotNull(timeList);
 			assertTrue(timeList.size() > 0);
-			
+		}
+		else {
+			fail("view is null");
 		}
 	}
 	
@@ -97,6 +102,9 @@ public class EducationControllerTest {
 			String viewName = view.getViewName();
 			assertNotNull(viewName);
 			assertEquals(viewName, "redirect:/education/time");
+		}
+		else {
+			fail("view is null");
 		}
 	}
 
