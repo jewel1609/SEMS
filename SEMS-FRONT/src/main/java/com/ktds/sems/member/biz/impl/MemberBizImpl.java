@@ -287,7 +287,7 @@ public class MemberBizImpl implements MemberBiz {
 			String startDate = educationVO.getStartDate() + " " + educationVO.getStartTime();
 			String endDate = educationVO.getEndDate() +" "+ educationVO.getEndTime();
 			
-			String lastNowDate = memberDAO.getLastDate(educationVO);
+			String lastDate = memberDAO.getLastDate(educationVO);
 			String nowDate = onlyDateFormat.format(date);
 			
 			try {
@@ -299,31 +299,30 @@ public class MemberBizImpl implements MemberBiz {
 				cal2.setTime(eduEndDate);
 				long calEduEndDate = cal2.getTimeInMillis();
 				
+				Calendar cal4 = Calendar.getInstance();
+				Date eduStartTime = timeFormat.parse(educationVO.getStartTime());
+				cal4.setTime(eduStartTime);
+				long calEduStartTime = cal4.getTimeInMillis();
+				
+				Calendar cal5 = Calendar.getInstance();
+				Date eduEndTime = timeFormat.parse(educationVO.getEndTime());
+				cal5.setTime(eduEndTime);
+				long calEduEndTime = cal5.getTimeInMillis();
+				
+				cal4.add(Calendar.HOUR, -1);
+				long calEduBeforeOneHour = cal4.getTimeInMillis();
+				long calEduHalfTime = calEduEndTime - ((calEduEndTime-calEduStartTime)/2);
+				
+				Date todayTime = timeFormat.parse(timeFormat.format(date));
+				cal3.setTime(todayTime);
+				long calNowTime = cal3.getTimeInMillis();
+				
+				// 시간 체크 StartTime-1 ~ (EndTime-StartTime)/2 맞는지 체크
 				if (calEduStartDate < calTodayTime && calTodayTime < calEduEndDate) {
 					
-					// 시간 체크 StartTime-1 ~ (EndTime-StartTime)/2 맞는지 체크
-					
-					Calendar cal4 = Calendar.getInstance();
-					Date eduStartTime = timeFormat.parse(educationVO.getStartTime());
-					cal4.setTime(eduStartTime);
-					long calEduStartTime = cal4.getTimeInMillis();
-					
-					Calendar cal5 = Calendar.getInstance();
-					Date eduEndTime = timeFormat.parse(educationVO.getEndTime());
-					cal5.setTime(eduEndTime);
-					long calEduEndTime = cal5.getTimeInMillis();
-					
-					cal4.add(Calendar.HOUR, -1);
-					long calEduBeforeOneHour = cal4.getTimeInMillis();
-					long calEduHalfTime = calEduEndTime - ((calEduEndTime-calEduStartTime)/2);
-					
-					Date todayTime = timeFormat.parse(timeFormat.format(date));
-					cal3.setTime(todayTime);
-					long calNowTime = cal3.getTimeInMillis();
-					
-					if ( calEduBeforeOneHour < calNowTime && calNowTime < calEduHalfTime ) {
+//					if ( calEduBeforeOneHour < calNowTime && calNowTime < calEduHalfTime ) {
 						
-						if ( !lastNowDate.equals(nowDate) ) {
+						if ( !lastDate.equals(nowDate) ) {
 							AttendVO attendVO = new AttendVO();
 							attendVO.setEducationId(educationVO.getEducationId());
 							attendVO.setMemberId(educationVO.getMemberId());
@@ -335,9 +334,9 @@ public class MemberBizImpl implements MemberBiz {
 						
 						break;
 						
-					}
+//					}
 					
-				}
+				}	
 				
 			} catch (ParseException e) {}
 			

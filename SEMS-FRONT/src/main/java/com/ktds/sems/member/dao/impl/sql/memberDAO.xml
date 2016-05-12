@@ -256,10 +256,10 @@
 	</select>
 	
 	<select id="getEduListByMember" parameterType="MemberVO" resultType="EducationVO">
-		SELECT	EDU_ID educationId
+		SELECT	E_I.EDU_ID educationId
 				, EDU_CTGR educationCategory
 				, EDU_TTL educationTitle
-				, MBR_ID memberId 
+				, E_I.MBR_ID memberId 
 				, MAX_MBR maxMember
 				, EDU_LOC educationLocation
 				, EDU_CLCM educationCurriculum
@@ -270,8 +270,9 @@
 				, END_TM endTime
 				, EDU_TP educationType
 				, COST cost
-		FROM	EDU_INFO
-		WHERE   MBR_ID = #{id}
+		FROM	EDU_INFO E_I, EDU_REG E_R
+		WHERE   E_I.EDU_ID = E_R.EDU_ID
+		AND		E_R.MBR_ID = #{id}
 	</select>
 	
 	<insert id="insertAttendByMember" parameterType="AttendVO">
