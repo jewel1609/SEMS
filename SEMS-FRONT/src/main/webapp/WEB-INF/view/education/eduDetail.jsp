@@ -99,12 +99,13 @@
 	<tr>
 		<td>작성자</td>
 		<td>${ qna.mbrId }</td>
-		<td>내용</td>
+		<td colspan="2">내용</td>
 		<td>${ qna.description }</td>
-		<td>날짜</td>
-		<td>${ qna.createdDate } </td>
+		
 	</tr>
 	<tr>
+		<td>날짜</td>
+		<td>${ qna.createdDate } </td>
 		<td>좋아요</td>
 		<td>${ qna.likeCnt }
 		<td>싫어요</td>
