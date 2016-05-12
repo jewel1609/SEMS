@@ -6,7 +6,7 @@
 
     <mappers>
         
-        <mapper resource="./mybatis/memberDAO.xml"/>
+        <mapper resource="mybatis/memberDAO.xml"/>
         
     </mappers>
     
