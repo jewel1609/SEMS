@@ -126,7 +126,7 @@
 	
 	</table>
 	
-	<form:form commandName="qnaVO" method="post" action="/doWriteComment">
+	<form:form commandName="qnaVO" method="post" action="<c:url value='/doWriteComment'/>">
 	<input type="hidden" name="educationId" value="${ education.educationId }">	
 	<textarea id="description" name="description" placeholder="내용을 입력하세요." >${qnaVO.description}</textarea><br/>
 	<form:errors path="description"/><br/>
@@ -138,6 +138,6 @@
 	<input type="hidden" value="${ education.educationType }" id="eduType" />
 	<input type="button" id="applyEdu" name="applyEdu" value="교육 참가 신청" />
 	</c:if>
-	<a href="/doCancelEducation/${ education.educationId }">교육 참가 취소</a>
+	<a href="<c:url value='/doCancelEducation/${ education.educationId }'/>">교육 참가 취소</a>
 </body>
 </html>
