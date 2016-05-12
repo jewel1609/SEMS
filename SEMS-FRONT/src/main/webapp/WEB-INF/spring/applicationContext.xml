@@ -18,7 +18,14 @@
 				<!-- 회원가입 및 로그인은 인터셉터에서 제외 시킨다. -->
 				<mvc:exclude-mapping path="/"/>
 				<mvc:exclude-mapping path="/login"/>
-				<mvc:exclude-mapping path="/register"/>
+				<mvc:exclude-mapping path="/register/policy"/>
+				<mvc:exclude-mapping path="/register/teacher"/>
+				<mvc:exclude-mapping path="/register/student"/>
+				<mvc:exclude-mapping path="/checkValidationById"/>
+				<mvc:exclude-mapping path="/checkValidationByPassword"/>
+				<mvc:exclude-mapping path="/checkValidationByRepeatPassword"/>
+				<mvc:exclude-mapping path="/checkExistionByEmail"/>
+				<mvc:exclude-mapping path="/doRegisterAction"/>
 				<mvc:exclude-mapping path="/resources/**"/>
 			<bean id="sessionCheckInterceptor" class="com.ktds.sems.interceptor.SessionCheckInterceptor"/>
 		</mvc:interceptor>
@@ -47,6 +54,5 @@
 			<property name="educationService" ref="educationService" />
 	</bean>
 	
-	<bean id="sampleController" class="com.ktds.sems.sample.web.SampleController" />
 	
 </beans>
