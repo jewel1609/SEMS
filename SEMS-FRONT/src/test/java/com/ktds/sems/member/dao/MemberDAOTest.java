@@ -1,6 +1,11 @@
 package com.ktds.sems.member.dao;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -124,5 +129,106 @@ public class MemberDAOTest {
 		String id = "cocomo12";
 		String checkStr = memberDAO.isResign(id);
 		assertNull(checkStr);
+	}
+	
+	/**
+	 * 한명의 회원 정보 가져오기 
+	 */
+	@Test
+	public void getOneMemberTest(){
+		
+		String id = "test02";
+		MemberVO memberVO = memberDAO.getOneMember(id);
+		
+		if( memberVO != null ){
+			assertNotNull(memberVO.getId());
+			assertNotNull(memberVO.getPassword());
+			assertNotNull(memberVO.getName());
+			assertNotNull(memberVO.getEmail());
+			assertNotNull(memberVO.getHighestEducationLevel());
+			assertNotNull(memberVO.getUniversityName());
+			assertNotNull(memberVO.getMajorName());
+			assertNotNull(memberVO.getGraduationType());
+			assertNotNull(memberVO.getBirthDate());
+			assertNotNull(memberVO.getPhoneNumber());
+			assertNotNull(memberVO.getMemberType());
+			assertNotNull(memberVO.getUuid());
+		}
+		else {
+			fail("fail");
+		}
+	}
+
+	
+	/**
+	 * 계정 잠겨있는지 확인
+	 */
+	@Test
+	public void isModifyAccountLockTest(){
+		String id = "aaa";
+		int executeQuery = memberDAO.isModifyAccountLock(id);
+			assertTrue(executeQuery == 0); 
+	}
+	
+	/**
+	 * 졸업 유형 이름 가져오기
+	 */
+	@Test
+	public void selectedGraduationTypeCodeNameTest(){
+		String id = "aaa";
+		String checkStr = memberDAO.selectedGraduationTypeCodeName(id);
+		assertNotNull(checkStr);
+	}
+	
+	/**
+	 * 최종학력 리스트 가져오기 
+	 */
+	@Test
+	public void getHighestEducationLevelCodeNamesTest(){
+		
+		List<String> checkList = memberDAO.getHighestEducationLevelCodeNames();
+		assertNotNull(checkList);
+		assertTrue(checkList.size() >= 0 );
+
+	}
+	
+	/**
+	 * 최종학력 이름 가져오기
+	 */
+	@Test
+	public void getSelectedHighestEducationLevelCodeNameTest(){
+		String id = "aaa";
+		String checkStr = memberDAO.getSelectedHighestEducationLevelCodeName(id);
+		assertNotNull(checkStr);
+	}
+	
+	/**
+	 * 졸업유형 이름을 코드 아이디로 변환
+	 */
+	@Test
+	public void getGraduationTypeCodeIdTest(){
+		String graduationType = "졸업";
+		String checkStr = memberDAO.getGraduationTypeCodeId(graduationType);
+		assertNotNull(checkStr);
+	}
+	
+	/**
+	 * 최종학력 이름을 코드 아이디로 변환
+	 */
+	@Test
+	public void gethelCodeIdTest(){
+		String helCodeName = "대졸";
+		String checkStr = memberDAO.gethelCodeId(helCodeName);
+		assertNotNull(checkStr);		
+	}
+	
+	/**
+	 * 회원 코드 이름 가져오기
+	 */
+	@Test
+	public void memberTypeCodeNameTest(){
+		String id = "aaa";
+		String checkStr = memberDAO.memberTypeCodeName(id);
+		assertNotNull(checkStr);
 	}
 }
