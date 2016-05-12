@@ -23,7 +23,7 @@
 				, LATEST_LGI_DT = SYSDATE
 		WHERE	ID = #{id}
 	</update>
-	<select id="needToChangPassword" resultType="string">
+	<select id="needToChangPassword" parameterType="string" resultType="string">
 		SELECT	'Y'
 		FROM	MBR
 		WHERE	ID = #{id}
