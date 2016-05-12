@@ -299,6 +299,16 @@
 			</c:if>
 		</c:forEach>
 		
+		최종학력 : 
+		<c:forEach items="${highestEducationLevelCodeNameList}" var="helCodeName">
+			<c:if test="${helCodeName eq selectedHighestEducationLevelCodeName}">
+			<input type="radio" class="helCodeName" name="helCodeName" value="${helCodeName}" checked="checked"/>${helCodeName}
+			</c:if>
+			<c:if test="${helCodeName ne selectedHighestEducationLevelCodeName}">
+			<input type="radio" class="helCodeName" name="helCodeName" value="${helCodeName}"/>${helCodeName}
+			</c:if>
+		</c:forEach>
+		
 		<br/><br/>
 		<input type="hidden" name="memberType" value="MBR" />
 		<input id="registerButton" class="inputButton" type="button" value="가입"/>
