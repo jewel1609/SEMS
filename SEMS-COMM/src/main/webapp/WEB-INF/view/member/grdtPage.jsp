@@ -12,8 +12,6 @@
 
 	$(document).ready(function (){
 		
-
-
 		$("#mainBtn").click(function(){
 			location.href="<c:url value="/"/>";
 		});
@@ -69,7 +67,7 @@
 			var cdId =  $(this).parent().parent().children(":eq(0)");
 			
 			if ( confirm("삭제하시겠습니까?") == true ) {
-				location.href = "/comm/doGrdtDelete/"+ cdId.val();
+				location.href = "<c:url value="/doGrdtDelete/"/>"+ cdId.val();
 			}
 			else  {
 				return;
