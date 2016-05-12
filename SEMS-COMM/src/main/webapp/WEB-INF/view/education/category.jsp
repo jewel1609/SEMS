@@ -79,13 +79,19 @@
 		}
 		
 		$("#newLargeCategoryBtn").click(function(){
-			console.log($.contains($('#largeCategoryListContainer'), $('#newCategoryContainer')));
 			initCategoryIdAndName();
 			categoryType.val('large');
-			$("#addCategoryBtn").show();
-			$("#modifyCategoryBtn").hide();
 			categoryId.attr('readonly', false);
-			$("#largeCategoryListContainer").append($("#newCategoryContainer").detach());
+			var hasNewCategoryContainer = $('#largeCategoryListContainer #newCategoryContainer').length > 0;
+			if ( !hasNewCategoryContainer ) {
+				$("#addCategoryBtn").show();
+				$("#modifyCategoryBtn").hide();
+				$("#largeCategoryListContainer").append($("#newCategoryContainer").detach());
+				$("#newCategoryContainer").show();
+			}
+			else {
+				$("#newCategoryContainer").toggle();
+			}
 		});
 		
 		$("#newMediumCategoryBtn").click(function(){
@@ -94,10 +100,17 @@
 				initCategoryIdAndName();
 				categoryType.val('medium');
 				parentCategoryId.val($('#largeCategoryList').val());
-				$("#addCategoryBtn").show();
-				$("#modifyCategoryBtn").hide();
 				categoryId.attr('readonly', false);
-				$("#mediumCategoryListContainer").append($("#newCategoryContainer").detach());
+				var hasNewCategoryContainer = $('#mediumCategoryListContainer #newCategoryContainer').length > 0;
+				if ( !hasNewCategoryContainer ) {
+					$("#addCategoryBtn").show();
+					$("#modifyCategoryBtn").hide();
+					$("#mediumCategoryListContainer").append($("#newCategoryContainer").detach());
+					$("#newCategoryContainer").show();
+				}
+				else {
+					$("#newCategoryContainer").toggle();
+				}
 			}
 			else {
 				alert('대분류를 선택해 주세요.');
@@ -110,10 +123,17 @@
 				initCategoryIdAndName();
 				categoryType.val('small');
 				parentCategoryId.val($('#mediumCategoryList').val());
-				$("#addCategoryBtn").show();
-				$("#modifyCategoryBtn").hide();
 				categoryId.attr('readonly', false);
-				$("#smallCategoryListContainer").append($("#newCategoryContainer").detach());
+				var hasNewCategoryContainer = $('#smallCategoryListContainer #newCategoryContainer').length > 0;
+				if ( !hasNewCategoryContainer ) {
+					$("#addCategoryBtn").show();
+					$("#modifyCategoryBtn").hide();
+					$("#smallCategoryListContainer").append($("#newCategoryContainer").detach());
+					$("#newCategoryContainer").show();
+				}
+				else {
+					$("#newCategoryContainer").toggle();
+				}
 			}
 			else {
 				alert('중분류를 선택해 주세요.');
@@ -124,13 +144,21 @@
 			isCategorySelected = $('#largeCategoryList :selected').length > 0;
 			if ( isCategorySelected ) {
 				initCategoryIdAndName();
-				$("#addCategoryBtn").hide();
-				$("#modifyCategoryBtn").show();
 				categoryType.val('large');
 				categoryId.val($("#largeCategoryList").val());
 				categoryId.attr('readonly', true);
 				categoryName.val($("#largeCategoryList option:selected").text());
-				$("#largeCategoryListContainer").append($("#newCategoryContainer").detach());
+				
+				var hasNewCategoryContainer = $('#largeCategoryListContainer #newCategoryContainer').length > 0;
+				if ( !hasNewCategoryContainer ) {
+					$("#addCategoryBtn").hide();
+					$("#modifyCategoryBtn").show();
+					$("#largeCategoryListContainer").append($("#newCategoryContainer").detach());
+					$("#newCategoryContainer").show();
+				}
+				else {
+					$("#newCategoryContainer").toggle();
+				}
 			}
 			else {
 				alert('수정할 카테고리를 선택해 주세요.');
@@ -141,13 +169,20 @@
 			isCategorySelected = $('#mediumCategoryList :selected').length > 0;
 			if ( isCategorySelected ) {
 				initCategoryIdAndName();
-				$("#addCategoryBtn").hide();
-				$("#modifyCategoryBtn").show();
 				categoryType.val('medium');
 				categoryId.val($("#mediumCategoryList").val());
 				categoryId.attr('readonly', true);
 				categoryName.val($("#mediumCategoryList option:selected").text());
-				$("#mediumCategoryListContainer").append($("#newCategoryContainer").detach());
+				var hasNewCategoryContainer = $('#mediumCategoryListContainer #newCategoryContainer').length > 0;
+				if ( !hasNewCategoryContainer ) {
+					$("#addCategoryBtn").hide();
+					$("#modifyCategoryBtn").show();
+					$("#mediumCategoryListContainer").append($("#newCategoryContainer").detach());
+					$("#newCategoryContainer").show();
+				}
+				else {
+					$("#newCategoryContainer").toggle();
+				}
 			}
 			else {
 				alert('수정할 카테고리를 선택해 주세요.');
@@ -158,13 +193,20 @@
 			isCategorySelected = $('#smallCategoryList :selected').length > 0;
 			if ( isCategorySelected ) {
 				initCategoryIdAndName();
-				$("#addCategoryBtn").hide();
-				$("#modifyCategoryBtn").show();
 				categoryType.val('small');
 				categoryId.val($("#smallCategoryList").val());
 				categoryId.attr('readonly', true);
 				categoryName.val($("#smallCategoryList option:selected").text());
-				$("#smallCategoryListContainer").append($("#newCategoryContainer").detach());
+				var hasNewCategoryContainer = $('#smallCategoryListContainer #newCategoryContainer').length > 0;
+				if ( !hasNewCategoryContainer ) {
+					$("#addCategoryBtn").hide();
+					$("#modifyCategoryBtn").show();
+					$("#smallCategoryListContainer").append($("#newCategoryContainer").detach());
+					$("#newCategoryContainer").show();
+				}
+				else {
+					$("#newCategoryContainer").toggle();
+				}
 			}
 			else {
 				alert('수정할 카테고리를 선택해 주세요.');
@@ -281,6 +323,8 @@
 		});
 		
 		$("#largeCategoryList").change(function(){
+
+			$("#newCategoryContainer").hide();
 			
 			parentCategoryId.val($(this).val());
 			
@@ -308,6 +352,8 @@
 		
 		$("#mediumCategoryList").change(function(){
 			
+			$("#newCategoryContainer").hide();
+			
 			parentCategoryId.val($(this).val());
 			
 			$.post(
@@ -331,11 +377,21 @@
 			
 		});
 		
+		$("#smallCategoryList").change(function(){
+			
+			$("#newCategoryContainer").hide();
+			
+		});
+		
 	});
 </script>
 <style type="text/css">
 	div {
 		float: left;
+	}
+	
+	#newCategoryContainer {
+		display: none;
 	}
 </style>
 </head>

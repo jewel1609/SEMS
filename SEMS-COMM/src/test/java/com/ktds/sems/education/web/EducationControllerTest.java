@@ -1,6 +1,7 @@
 package com.ktds.sems.education.web;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,12 +22,14 @@ import com.ktds.sems.education.service.EducationService;
 public class EducationControllerTest {
 
 	@Autowired
-	private EducationService educationService;
+	private EducationController educationConroller;
 	
 	@Test
 	public void viewCategoryPageTest(){
-		ModelAndView view = educationService.viewCategoryPage();
-		assertNotNull(view.getViewName());
+		ModelAndView view = educationConroller.viewCategoryPage();
+		String viewName = view.getViewName();
+		assertNotNull(viewName);
+		assertTrue(viewName == "education/category");
 	}
 
 }
