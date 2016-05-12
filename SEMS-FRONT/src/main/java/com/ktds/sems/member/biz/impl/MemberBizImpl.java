@@ -36,10 +36,9 @@ import kr.co.hucloud.utilities.excel.option.WriteOption;
 import kr.co.hucloud.utilities.excel.write.ExcelWrite;
 
 public class MemberBizImpl implements MemberBiz {
-	
+
 	private JavaMailSender mailSender;
 	private MemberDAO memberDAO;
-	
 
 	public void setMailSender(JavaMailSender mailSender) {
 		this.mailSender = mailSender;
@@ -146,17 +145,17 @@ public class MemberBizImpl implements MemberBiz {
 			return false;
 		}
 	}
-	
+
 	@Override
-	public boolean isVerifyId (String id) {
+	public boolean isVerifyId(String id) {
 		String idPolicy = "((?=.*[a-zA-Z])(?=.*[0-9]).{5,20})";
 		Pattern pattern = Pattern.compile(idPolicy);
 		Matcher matcher = pattern.matcher(id);
 		return matcher.matches();
 	}
-	
+
 	@Override
-	public boolean isVerifyPassword (String password) {
+	public boolean isVerifyPassword(String password) {
 		String passwordPolicy = "((?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*()]).{10,20})";
 		Pattern pattern = Pattern.compile(passwordPolicy);
 		Matcher matcher = pattern.matcher(password);
@@ -226,7 +225,7 @@ public class MemberBizImpl implements MemberBiz {
 	public boolean stampLoginTime(HttpSession session, HttpServletRequest request, MemberVO loginVO) {
 		// 새로운 loginHistoryVO 생성해서 넣기 (1개의 object만 파라미터로 줄 수 있기 때문)
 
-		// ID 저장해서 logout 시에 사용  
+		// ID 저장해서 logout 시에 사용
 		int nextLoginHistoryId = memberDAO.nextLoginHistorySeq();
 		LoginHistoryVO newLoginHistoryVO = new LoginHistoryVO();
 
@@ -248,9 +247,9 @@ public class MemberBizImpl implements MemberBiz {
 		LoginHistoryVO newLoginHistoryVO = new LoginHistoryVO();
 		newLoginHistoryVO = (LoginHistoryVO) session.getAttribute("_LOGIN_HISTORY_");
 
-		// 찍고 세션 없애기 
+		// 찍고 세션 없애기
 		session.removeAttribute("_LOGIN_HISTORY_");
-		
+
 		return memberDAO.stampLogoutTime(newLoginHistoryVO) > 0;
 	}
 
@@ -259,7 +258,6 @@ public class MemberBizImpl implements MemberBiz {
 		return memberDAO.getTotalLoginHistoryCount(memberId);
 	}
 
-
 	@Override
 	public boolean isExistEmail(String email) {
 		return memberDAO.isExistEmail(email) != null;
@@ -267,16 +265,16 @@ public class MemberBizImpl implements MemberBiz {
 
 	@Override
 	public void attendCheck(MemberVO loginVO) {
-		
-		Map<String,String> eduIdAndMemberId = new HashMap<String,String>();
-		
-		/*회원별 강의*/
-		List<EducationVO> eduListByMember = new ArrayList<EducationVO>();		
+
+		Map<String, String> eduIdAndMemberId = new HashMap<String, String>();
+
+		/* 회원별 강의 */
+		List<EducationVO> eduListByMember = new ArrayList<EducationVO>();
 		eduListByMember = memberDAO.getEduListByMember(loginVO);
 		Calendar cal = Calendar.getInstance();
 		Calendar cal2 = Calendar.getInstance();
-		
-		/*현재 시간*/
+
+		/* 현재 시간 */
 		Date date = new Date();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		SimpleDateFormat onlyDateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -285,77 +283,75 @@ public class MemberBizImpl implements MemberBiz {
 		cal3.setTime(date);
 		long calTodayTime = cal3.getTimeInMillis();
 		String nowTime = dateFormat.format(date);
-		
+
 		// 강의 리스트에서 StartDate ~ EndDate 맞는 강의 가져옴
 		for (EducationVO educationVO : eduListByMember) {
-			
+
 			String startDate = educationVO.getStartDate() + " " + educationVO.getStartTime();
-			String endDate = educationVO.getEndDate() +" "+ educationVO.getEndTime();
-			
-			eduIdAndMemberId.put("educationId" ,educationVO.getEducationId());
-			eduIdAndMemberId.put("memberId" ,loginVO.getId());
-			
+			String endDate = educationVO.getEndDate() + " " + educationVO.getEndTime();
+
+			eduIdAndMemberId.put("educationId", educationVO.getEducationId());
+			eduIdAndMemberId.put("memberId", loginVO.getId());
+
 			String lastDate = memberDAO.getLastDate(eduIdAndMemberId);
 			String nowDate = onlyDateFormat.format(date);
-			
+
 			try {
 				Date eduStartDate = dateFormat.parse(startDate);
 				Date eduEndDate = dateFormat.parse(endDate);
-				
+
 				cal.setTime(eduStartDate);
 				long calEduStartDate = cal.getTimeInMillis();
 				cal2.setTime(eduEndDate);
 				long calEduEndDate = cal2.getTimeInMillis();
-				
+
 				// 출석시간 체크하기 위한 변수 선언
 				Calendar cal4 = Calendar.getInstance();
 				Date eduStartTime = timeFormat.parse(educationVO.getStartTime());
 				cal4.setTime(eduStartTime);
 				long calEduStartTime = cal4.getTimeInMillis();
-				
+
 				Calendar cal5 = Calendar.getInstance();
 				Date eduEndTime = timeFormat.parse(educationVO.getEndTime());
 				cal5.setTime(eduEndTime);
 				long calEduEndTime = cal5.getTimeInMillis();
-				
+
 				cal4.add(Calendar.HOUR, -1);
 				long calEduBeforeOneHour = cal4.getTimeInMillis();
-				long calEduHalfTime = calEduEndTime - ((calEduEndTime-calEduStartTime)/2);
-				
+				long calEduHalfTime = calEduEndTime - ((calEduEndTime - calEduStartTime) / 2);
+
 				Date todayTime = timeFormat.parse(timeFormat.format(date));
 				cal3.setTime(todayTime);
 				long calNowTime = cal3.getTimeInMillis();
-				
+
 				// 현재 날짜와 강의 기간 날짜 체크
 				if (calEduStartDate < calTodayTime && calTodayTime < calEduEndDate) {
-					
+
 					// 시간 체크 StartTime-1 ~ (EndTime-StartTime)/2 맞는지 체크
-					if ( calEduBeforeOneHour < calNowTime ) {
-						
+					if (calEduBeforeOneHour < calNowTime) {
+
 						// 하루에 한 번만 출석 체크
-						if ( !lastDate.equals(nowDate) ) {
+						if (!lastDate.equals(nowDate)) {
 							AttendVO attendVO = new AttendVO();
 							attendVO.setEducationId(educationVO.getEducationId());
 							attendVO.setMemberId(loginVO.getId());
 							attendVO.setAttendTime(nowTime);
-							
+
 							memberDAO.insertAttendByMember(attendVO);
-							
+
 						}
-						
+
 						break;
-						
+
 					}
-					
-				}	
-				
-			} catch (ParseException e) {}
-			
+
+				}
+
+			} catch (ParseException e) {
+			}
+
 		}
-		
-		
-		
-		
+
 	}
 
 	@Override
@@ -370,12 +366,12 @@ public class MemberBizImpl implements MemberBiz {
 
 	@Override
 	public boolean isExistId(String id) {
-		
+
 		String memberId = memberDAO.isExistId(id);
-		
-		if ( memberId != null ) {
+
+		if (memberId != null) {
 			return true;
-		}
+		} 
 		else {
 			return false;
 		}
@@ -394,8 +390,8 @@ public class MemberBizImpl implements MemberBiz {
 	@Override
 	public boolean isResign(String id) {
 		String memberId = memberDAO.isResign(id);
-		
-		if ( memberId != null ) {
+
+		if (memberId != null) {
 			return true;
 		} else {
 			return false;
@@ -406,8 +402,6 @@ public class MemberBizImpl implements MemberBiz {
 	public List<String> getGraduationType() {
 		return memberDAO.getGraduationType();
 	}
-
-
 
 	@Override
 	public void doDeleteMember(String id) {
@@ -443,7 +437,7 @@ public class MemberBizImpl implements MemberBiz {
 	public String memberTypeCodeName(String id) {
 		return memberDAO.memberTypeCodeName(id);
 	}
-	
+
 	@Override
 	public void insertUuidForResign(MemberVO member) {
 		memberDAO.insertUuidForResign(member);
@@ -461,17 +455,18 @@ public class MemberBizImpl implements MemberBiz {
 
 	@Override
 	public void sendEmailForResign(String email, String id, String uuid) {
-		
+
 		SendMail sendMail = new SendMail();
 		MailVO mailVO = new MailVO();
-		
+
 		mailVO.setFromId("testForSendEmailKtds@gmail.com");
 		mailVO.setFromPassword("123qwe!@#qwe");
 		mailVO.setSubject("탈퇴기능 테스트입니다.");
-		mailVO.setText("<html><body>탈퇴하시겠습니까? <a href='http://localhost/sems/member/loginForResign/" + uuid + "/"+ id +"'>예</a></body></html>");
-		
+		mailVO.setText("<html><body>탈퇴하시겠습니까? <a href='http://localhost/sems/member/loginForResign/" + uuid + "/" + id
+				+ "'>예</a></body></html>");
+
 		mailVO.setToId(email);
-		
+
 		sendMail.sendMailToCustomer(mailVO);
 	}
 
