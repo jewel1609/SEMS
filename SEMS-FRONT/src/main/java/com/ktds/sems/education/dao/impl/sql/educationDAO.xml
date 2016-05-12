@@ -25,12 +25,20 @@
 	           AND SUBSTR(SRT_DATE, 1, 7) <![CDATA[ >= ]]> #{startDate} 
 	           AND SUBSTR(SRT_DATE, 1, 7) <![CDATA[ <= ]]> #{endDate}
 	        </if>
-	        <if test="cost != null">
-	           AND COST = #{cost} 
+	       <if test="cost != null">
+	           AND COST = (
+	           					SELECT	CD_ID
+	           					FROM	EDU_CST
+	           					WHERE	CD_NM =  #{cost} 
+	           				)
 	        </if>
-		    <if test="educationType != null">
-	           AND EDU_TP = #{educationType} 
-	        </if>      
+            <if test="educationType != null">
+	           AND EDU_TP = (
+		           				SELECT	CD_ID
+		           				FROM	EDU_TIME
+		           				WHERE	CD_NM = #{educationType} 
+		           			)
+	        </if>   
  		   <if test="educationTitle != null">
 	           AND EDU_TTL = #{educationTitle}
            </if>
@@ -151,9 +159,27 @@
                         SELECT   *
                         FROM   EDU_INFO
                         WHERE  1=1	 
-                        <if test="educationVO.educationTitle != null">
-			             AND EDU_TTL = #{educationVO.educationTitle}
-			          	</if>
+			          	<if test="educationVO.startDate != null">
+				           AND SUBSTR(SRT_DATE, 1, 7) <![CDATA[ >= ]]> #{educationVO.startDate} 
+				           AND SUBSTR(SRT_DATE, 1, 7) <![CDATA[ <= ]]> #{educationVO.endDate}
+				        </if>
+				        <if test="educationVO.cost != null">
+				           AND COST = (
+				           					SELECT	CD_ID
+				           					FROM	EDU_CST
+				           					WHERE	CD_NM =  #{educationVO.cost} 
+				           				)
+				        </if>
+ 					    <if test="educationVO.educationType != null">
+				           AND EDU_TP = (
+					           				SELECT	CD_ID
+					           				FROM	EDU_TIME
+					           				WHERE	CD_NM = #{educationVO.educationType} 
+					           			)
+				        </if>      
+			 		   <if test="educationVO.educationTitle != null">
+				           AND EDU_TTL = #{educationVO.educationTitle}
+			           </if>
                         ORDER   BY EDU_ID DESC
                      ) EDU_INFO
                WHERE   ROWNUM <![CDATA[<=]]> #{searchVO.endIndex}
@@ -163,17 +189,6 @@
       WHERE   RNUM >= #{searchVO.startIndex}
 	  AND     EDU.COST = EDU_CST.CD_ID
 	  AND	  EDU.EDU_TP = EDU_TIME.CD_ID
-      <!-- 
-         <if test="startDate != null">
-             AND TO_CHAR(SRT_DATE, 'YYYY/MM') <![CDATA[ >= ]]> #{startDate} 
-             AND TO_CHAR(SRT_DATE, 'YYYY/MM') <![CDATA[ <= ]]> #{endDate}
-          </if>
-          <if test="cost != null">
-             AND COST = #{cost} 
-          </if>
-          <if test="educationType != null">
-             AND EDU_TP = #{educationType} 
-          </if> -->
     </select>
 
 	 <insert id="insertNewComment" parameterType="QNAVO">
