@@ -131,7 +131,7 @@
 	<div
 		style="width: 30%; height: 100%; border: thin; border-style: double; border-radius: 5px; padding: 5px;">
 		<form:form commandName="educationVO" method="post"
-			action="/backend/doEducationModifyAction"
+			action="<c:url value="/backend/doEducationModifyAction" />"
 			enctype="multipart/form-data">
 	     	
 	     교육 카테고리 : 
