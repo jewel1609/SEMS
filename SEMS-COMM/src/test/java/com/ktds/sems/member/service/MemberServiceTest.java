@@ -26,7 +26,7 @@ public class MemberServiceTest {
 	 * 로그인
 	 */
 	@Test
-	public void login() {
+	public void loginTest() {
 
 		MemberVO memberVO = new MemberVO();
 		memberVO.setId("cocomo");
