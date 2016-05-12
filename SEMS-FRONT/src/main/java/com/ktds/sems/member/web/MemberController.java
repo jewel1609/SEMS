@@ -130,9 +130,7 @@ public class MemberController {
 			 * 'N'으로 초기화한다.
 			 */
 			memberService.resetModifyLockAndCount(sessionId);
-
 			AjaxUtil.sendResponse(response, "OK");
-
 			memberService.modifySuccess(sessionId);
 			return null;
 		} else {

@@ -1,7 +1,12 @@
 package com.ktds.sems.education.service.impl;
 
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -12,11 +17,19 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ktds.sems.common.Session;
 import com.ktds.sems.education.biz.EducationBiz;
 import com.ktds.sems.education.service.EducationService;
+
+import com.ktds.sems.education.util.DownloadUtil;
+
 import com.ktds.sems.education.vo.EduReplyListVO;
+
 import com.ktds.sems.education.vo.EducationListVO;
 import com.ktds.sems.education.vo.EducationSearchVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.QNAVO;
+
+import com.ktds.sems.file.biz.FileBiz;
+import com.ktds.sems.file.vo.FileVO;
+
 import com.ktds.sems.member.vo.MemberVO;
 
 import kr.co.hucloud.utilities.web.Paging;
@@ -26,6 +39,11 @@ public class EducationServiceImpl implements EducationService {
 	private Logger logger = LoggerFactory.getLogger(EducationServiceImpl.class);	
 	
 	private EducationBiz educationBiz;
+	private FileBiz fileBiz;
+	
+	public void setFileBiz(FileBiz fileBiz) {
+		this.fileBiz = fileBiz;
+	}
 
 	public void setEducationBiz(EducationBiz educationBiz) {
 		this.educationBiz = educationBiz;
@@ -49,9 +67,13 @@ public class EducationServiceImpl implements EducationService {
 
 		ModelAndView view = new ModelAndView();
 		EducationVO education = educationBiz.getOneEducationDetail(educationId);
+		
+		List<FileVO> fileList = fileBiz.getOneFileId(educationId);
+		
 		List<QNAVO> qnas = educationBiz.getAllCommentByEducationId(educationId, searchVO);
 		
 		eduReplyListVO.setQnaList(qnas);
+		
 		
 		//이미 신청된 회원인지 비교해서 boolean 값 보내기
 		MemberVO loginMember = (MemberVO)session.getAttribute("_MEMBER_");
@@ -66,6 +88,7 @@ public class EducationServiceImpl implements EducationService {
 		view.addObject("isApply", isApply);
 		view.addObject("eduReplyListVO", eduReplyListVO);
 		view.addObject("education", education);
+		view.addObject("fileList", fileList);
 		view.setViewName("education/eduDetail");
 		return view;
 	}
@@ -207,6 +230,30 @@ public class EducationServiceImpl implements EducationService {
 
 	}
 
+	
+	@Override
+	public ModelAndView doDownloadFile(String educationId, HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView view = new ModelAndView();
+		List<FileVO> fileList = fileBiz.getOneFileId(educationId);
+		
+		
+		for (FileVO fileVO : fileList){
+			if ( fileVO.getArticleId() == educationId ){
+//			if ( fileList.get(0). == educationId ){
+				DownloadUtil downloadUtil = DownloadUtil.getInstance("D:\\");
+				try {
+					downloadUtil.download(request, response, fileVO.getFileName(), fileVO.getFileName());
+				} catch (UnsupportedEncodingException e) {}
+			}
+			System.out.println("fileVO.getArticleId() ==" + fileVO.getArticleId());
+			System.out.println("educationId ==" + educationId);
+		}
+		
+		
+		view.setViewName("redirect:/eduDetail/"+educationId );
+
+		return view;
+	}
 
 }
 

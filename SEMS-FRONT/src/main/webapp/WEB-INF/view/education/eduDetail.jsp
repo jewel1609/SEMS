@@ -27,6 +27,9 @@
 	});
 </script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type="text/javascript">
+	
+</script>
 <title>Insert title here</title>
 </head>
 <body>
@@ -139,5 +142,10 @@
 	<input type="button" id="applyEdu" name="applyEdu" value="교육 참가 신청" />
 	</c:if>
 	<a href="<c:url value='/doCancelEducation/${ education.educationId }'/>">교육 참가 취소</a>
+	
+	<br/>
+	<c:forEach items="${fileList}" var="fileVO">
+	파일다운로드: <a href="/downloadFile/${ education.educationId }">${fileVO.fileName}</a>
+	</c:forEach>
 </body>
 </html>

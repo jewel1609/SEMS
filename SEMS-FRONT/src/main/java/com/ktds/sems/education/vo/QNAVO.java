@@ -1,5 +1,7 @@
 package com.ktds.sems.education.vo;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 public class QNAVO {
 
 	private String replyId; 

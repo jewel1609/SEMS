@@ -1,5 +1,10 @@
 package com.ktds.sems.education.web;
 
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -16,6 +21,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ktds.sems.education.service.EducationService;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.QNAVO;
+import com.ktds.sems.file.vo.FileVO;
+import com.ktds.sems.education.util.DownloadUtil;
 
 import kr.co.hucloud.utilities.web.AjaxUtil;
 
@@ -87,7 +94,12 @@ public class EducationController {
 		return "/education/calendar";
 	}
 
+	@RequestMapping("/downloadFile/{educationId}")
+	public ModelAndView doDownloadFile(@PathVariable String educationId, HttpServletRequest request, HttpServletResponse response){
+		return educationService.doDownloadFile(educationId, request, response);
+	}
 	
+
 	@RequestMapping("/doCancelEducation/{educationId}")
 	public String doCancelEducation(@PathVariable String educationId,  HttpSession session) {
 		return educationService.doCancelEducation(educationId, session);
