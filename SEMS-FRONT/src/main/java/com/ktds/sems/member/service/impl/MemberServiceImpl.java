@@ -517,10 +517,10 @@ public class MemberServiceImpl implements MemberService {
 	public ModelAndView loginForResign(String resignCode, String id) {
 		ModelAndView view = new ModelAndView();
 		
-		view.addObject("resignCode", resignCode);
-		view.addObject("id", id);
+//		view.addObject("resignCode", resignCode);
+//		view.addObject("id", id);
 		
-		view.setViewName("member/loginForResign");
+		view.setViewName("redirect:/member/loginForResign/" + resignCode +"/"+ id);
 		
 		return view;
 	}
