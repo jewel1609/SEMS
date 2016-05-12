@@ -46,13 +46,19 @@ public interface MemberBiz {
 
 	public int getTotalLoginHisotryCount();
 
+	public boolean isVerifyId(String id);
+	
+	public boolean isVerifyPassword(String password);
+
+	public boolean isExistEmail(String email);
+	
+	public boolean isExistId(String id);
+
 	public void attend(MemberVO loginVO);
 
 	public List<LoginHistoryVO> getAllLoginHistory(LoginHistorySearchVO loginHistorySearchVO);
 
 	public void modifyMemberInfo(MemberVO member);
-
-	public boolean isExistId(String id);
 
 	public String getSaltById(String id);
 
