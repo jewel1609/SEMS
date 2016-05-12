@@ -56,6 +56,9 @@ public class MemberDAOTest {
 		}
 	}
 
+	/**
+	 * 계정 잠금 상태 확인
+	 */
 	@Test
 	public void isAccountLockTest() {
 		String id = "cocomo";
@@ -63,6 +66,9 @@ public class MemberDAOTest {
 		assertTrue(!isSuccess);
 	}
 
+	/**
+	 * 로그인 성공 확인
+	 */
 	@Test
 	public void loginSuccessTest() {
 		String id = "cocomo";
@@ -70,6 +76,9 @@ public class MemberDAOTest {
 		assertTrue(executeQuery > 0);
 	}
 
+	/**
+	 * 로그인 실패 횟수 증가
+	 */
 	@Test
 	public void plusLoginFailCountTest() {
 		String id = "cocomo";
@@ -77,6 +86,9 @@ public class MemberDAOTest {
 		assertTrue(executeQuery > 0);
 	}
 
+	/**
+	 * 계정 잠금 상태 최신화
+	 */
 	@Test
 	public void updateAccountLockTest() {
 		String id = "cocomo";
@@ -84,6 +96,9 @@ public class MemberDAOTest {
 		assertTrue(executeQuery > 0);
 	}
 
+	/**
+	 * 로그인한지 30일 지났는지 확인
+	 */
 	@Test
 	public void needToChangPasswordTest() {
 		String id = "cocomo";
@@ -91,6 +106,9 @@ public class MemberDAOTest {
 		assertNull(checkStr);
 	}
 
+	/**
+	 * 존재하는 아이디인지 확인
+	 */
 	@Test
 	public void isExistIdTest() {
 		String id = "cocomo";
@@ -98,6 +116,9 @@ public class MemberDAOTest {
 		assertNotNull(checkStr);
 	}
 
+	/**
+	 * 탈퇴한 회원인지 확인
+	 */
 	@Test
 	public void isResignTest() {
 		String id = "cocomo";
