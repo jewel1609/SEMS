@@ -1,5 +1,6 @@
 package com.ktds.sems.member.service.impl;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.UUID;
 
@@ -353,14 +354,14 @@ public class MemberServiceImpl implements MemberService {
 		MemberVO memberVO = (MemberVO) session.getAttribute(Session.MEMBER);
 		LoginHistorySearchVO loginHistorySearchVO = (LoginHistorySearchVO) session.getAttribute(Session.SEARCH);
 		HistorySearchStore searchStore = HistorySearchStore.getInstance();
-
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
 		try {
 			pageNo = Integer.parseInt(request.getParameter("pageNo"));
 			loginHistorySearchVO.setSearchKeyWord(request.getParameter("searchKeyWord"));
 			loginHistorySearchVO.setSearchType(request.getParameter("searchType"));
 			loginHistorySearchVO.setBeginDate(request.getParameter("beginDate"));
 			loginHistorySearchVO.setCloseDate(request.getParameter("closeDate"));
-
+			
 		} catch (RuntimeException re) {
 			loginHistorySearchVO = (LoginHistorySearchVO) searchStore.get(loginHistorySearchVO);
 			if (loginHistorySearchVO == null) {
@@ -371,8 +372,13 @@ public class MemberServiceImpl implements MemberService {
 				loginHistorySearchVO.setCloseDate("");
 			}
 		}
+				
 		searchStore.add(loginHistorySearchVO, session);
 
+		String beginDate = dateFormat.format(loginHistorySearchVO.getBeginDate());
+		String closeDate = dateFormat.format(loginHistorySearchVO.getCloseDate());
+		
+		
 		// if(loginHistorySearchVO.getSearchKeyWord() == null) {
 		//
 		// } else if(loginHistorySearchVO.getSearchKeyWord() != null) {
@@ -383,9 +389,17 @@ public class MemberServiceImpl implements MemberService {
 		List<LoginHistoryVO> loginHistoryList = null;
 
 		if (loginHistorySearchVO.getBeginDate() !=null && loginHistorySearchVO.getCloseDate() != null) {
-			if (loginHistorySearchVO.getSearchType().equals("1") || loginHistorySearchVO.getSearchType().equals("2")
-					|| loginHistorySearchVO.getSearchType().equals("3")) {
-				totalLoginHisotryCount = memberBiz.getDateSearchLoginHistoryCount(memberVO.getId());
+			if(beginDate.compareTo(closeDate) > 0) {
+				//beginDate가 closeDate보다 작게 설정되어 정상
+				if (loginHistorySearchVO.getSearchType().equals("1") || loginHistorySearchVO.getSearchType().equals("2")
+						|| loginHistorySearchVO.getSearchType().equals("3")) {
+					totalLoginHisotryCount = memberBiz.getDateSearchLoginHistoryCount(memberVO.getId());
+				}
+			} else {
+				beginDate= null;
+				closeDate= null;
+				loginHistorySearchVO.setBeginDate(beginDate);
+				loginHistorySearchVO.setCloseDate(closeDate);
 			}
 		} else {
 			if (loginHistorySearchVO.getSearchType().equals("1") || loginHistorySearchVO.getSearchType().equals("2")

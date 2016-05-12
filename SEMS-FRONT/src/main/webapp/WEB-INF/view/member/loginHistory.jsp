@@ -24,7 +24,18 @@
 		            $("#closeDate").focus();
 		            return;	
 				}
-			} else	if($("#searchKeyWord").val() == "") {
+			}
+			
+			var beginDate = $("#beginDate").val();
+			beginDate = $.trim(beginDate).replace("/", " ");
+			var closeDate = $("#closeDate").val();
+			closeDate = $.trim(beginDate).replace("/", " ");
+			
+			if(beginDate > closeDate){
+				alert("검색 설정 날짜가 잘못 되었습니다. 다시 셋팅해주세요");
+				$("#beginDate").focus;
+				return;
+			} else if($("#searchKeyWord").val() == "") {
 				alert("검색어를 입력해 주세요.");
 				return
 			}
