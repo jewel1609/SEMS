@@ -58,6 +58,8 @@ public interface MemberDAO {
 
 	public int stampLoginTime(LoginHistoryVO newLoginHistoryVO);
 
+	public String isExistEmail(String email);
+
 	public int stampLogoutTime(LoginHistoryVO newLoginHistoryVO);
 
 	public int nextLoginHistorySeq();
@@ -69,5 +71,4 @@ public interface MemberDAO {
 	public String isResign(String id);
 
 	public List<String> getGraduationType();
-
 }
