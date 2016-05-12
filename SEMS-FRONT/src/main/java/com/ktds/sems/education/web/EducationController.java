@@ -89,8 +89,8 @@ public class EducationController {
 
 	
 	@RequestMapping("/doCancelEducation/{educationId}")
-	public String doCancelEducation(@PathVariable String educationId) {
-		return educationService.doCancelEducation(educationId);
+	public String doCancelEducation(@PathVariable String educationId,  HttpSession session) {
+		return educationService.doCancelEducation(educationId, session);
 	}
 	
 }

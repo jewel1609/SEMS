@@ -215,8 +215,9 @@
  	
  		<delete id="doCancelEducation" parameterType="string">
 		DELETE	
-		FROM	EDU_INFO
+		FROM	EDU_REG
 		WHERE	EDU_ID = #{educationId}
+		AND		MBR_ID = #{id} 
 	</delete>
     
     

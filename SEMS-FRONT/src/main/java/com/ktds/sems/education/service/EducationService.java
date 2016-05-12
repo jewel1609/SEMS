@@ -20,7 +20,8 @@ public interface EducationService {
 
 	public ModelAndView doSearchList(EducationVO educationVO, int pageNo);
 
-	public String doCancelEducation(String educationId);
+
+	public String doCancelEducation(String educationId, HttpSession session);
 	
 	
 }

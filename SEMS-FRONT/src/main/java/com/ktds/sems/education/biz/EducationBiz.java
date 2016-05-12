@@ -20,7 +20,7 @@ public interface EducationBiz {
 
 	public boolean doApplyEducation(String educationId, String id);
 
-	public boolean doCancelEducation(String educationId);
+	public boolean doCancelEducation(String educationId, String id);
 
 	public int getSearchedEducationCount(EducationVO educationVO);
 

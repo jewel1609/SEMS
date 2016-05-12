@@ -59,8 +59,8 @@ public class EducationBizImpl implements EducationBiz {
 	}
 	
 	@Override
-	public boolean doCancelEducation(String educationId) {
-		return educationDAO.doCancelEducation(educationId) > 0;
+	public boolean doCancelEducation(String educationId, String id) {
+		return educationDAO.doCancelEducation(educationId, id) > 0;
 	}
 	@Override
 	public List<QNAVO> getAllCommentByEducationId(String educationId) {

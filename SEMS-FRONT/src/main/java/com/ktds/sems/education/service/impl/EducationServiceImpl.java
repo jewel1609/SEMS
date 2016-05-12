@@ -173,14 +173,23 @@ public class EducationServiceImpl implements EducationService {
 	}
 	
 	@Override
-	public String doCancelEducation(String educationId) {
-		boolean result = educationBiz.doCancelEducation(educationId);
+	public String doCancelEducation(String educationId , HttpSession session) {
 		
-		if( result ) {
-			return "redirect:/educationList";
-		}else{
-			throw new RuntimeException("	실패하였습니다.	");
+		if(session.getAttribute("_MEMBER_") != null){
+			MemberVO loginMember = (MemberVO)session.getAttribute("_MEMBER_");
+			boolean result = educationBiz.doCancelEducation(educationId , loginMember.getId() );
+		
+			if( result ) {
+				return "redirect:/educationList";
+			}else{
+				throw new RuntimeException("	실패하였습니다.	");
+			}
+		
+		} else{
+			return "redirect:/";
 		}
+		
+
 	}
 
 

@@ -16,8 +16,6 @@ public interface EducationDAO {
 
 	public EducationVO getOneEducationDetail(String educationId);
 
-	public int doCancelEducation(String educationId);
-	
 	public List<String> getMemberRegInfo(String id);
 
 	public int doApplyEducation(String educationId, String id);
@@ -34,6 +32,8 @@ public interface EducationDAO {
 	public String getNowDate();
 
 	public int getNextReplySeq();
+
+	public int doCancelEducation(String educationId, String id);
 
 	public int isApplyMemberByEducationId(String educationId, String id);
 }

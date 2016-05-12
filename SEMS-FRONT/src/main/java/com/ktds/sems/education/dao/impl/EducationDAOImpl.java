@@ -66,8 +66,13 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 	}
 	
 	@Override
-	public int doCancelEducation(String educationId) {
-		return getSqlSession().delete("EducationDAO.doCancelEducation", educationId);
+	public int doCancelEducation(String educationId, String id) {
+		
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("educationId", educationId);
+		paramMap.put("id", id);
+		
+		return getSqlSession().delete("EducationDAO.doCancelEducation", paramMap);
 	}
 
 	@Override
