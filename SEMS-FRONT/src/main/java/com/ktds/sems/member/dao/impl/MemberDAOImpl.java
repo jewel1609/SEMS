@@ -178,4 +178,29 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 		return getSqlSession().selectList("MemberDAO.getGraduationType");
 	}
 
+	@Override
+	public String selectedGraduationTypeCodeName(String id) {
+		return getSqlSession().selectOne("MemberDAO.selectedGraduationTypeCodeName", id);
+	}
+
+	@Override
+	public List<String> getHighestEducationLevelCodeNames() {
+		return getSqlSession().selectList("MemberDAO.getHighestEducationLevelCodeNames");
+	}
+
+	@Override
+	public String getSelectedHighestEducationLevelCodeName(String id) {
+		return getSqlSession().selectOne("MemberDAO.getSelectedHighestEducationLevelCodeName", id);
+	}
+
+	@Override
+	public String getGraduationTypeCodeId(String graduationType) {
+		return getSqlSession().selectOne("MemberDAO.getGraduationTypeCodeId", graduationType);
+	}
+
+	@Override
+	public String gethelCodeId(String helCodeName) {
+		return getSqlSession().selectOne("MemberDAO.gethelCodeId", helCodeName);
+	}
+
 }
