@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -189,6 +190,18 @@ public class MemberController {
 	// return "redirect:member/resign";
 	// }
 
+	
+	@RequestMapping("/member/myPage/resignMember")
+	public ModelAndView sendEmailForResign(@Valid HttpSession session) {
+		return memberService.sendEmailForResign(session, memberService.insertUuidForResign(session));
+	}
+	
+	
+//	@RequestMapping("/member/myPage/{resignCode}")
+//	public ModelAndView loginForResign(@PathVariable String resignCode, HttpSession session, MemberVO memberVO){
+//		return memberService.loginForResign(resignCode, session, memberVO);
+//	}
+	
 	// @RequestMapping("/member/myPage/sendResignMail")
 	// public ModelAndView sendResignMail(@Valid MemberVO memberVO, HttpSession
 	// session) {
@@ -220,4 +233,19 @@ public class MemberController {
 	public ModelAndView viewLoginHistoryPage(@RequestParam(required = false, defaultValue = "0") int pageNo, HttpSession session) {
 		return memberService.viewLoginHistoryPage(pageNo, session);
 	}
+	
+	@RequestMapping("/member/loginForResign/{resignCode}/{id}")
+	public ModelAndView loginForResine(@PathVariable String resignCode, String id){
+		return memberService.loginForResign(resignCode, id);
+	}
+	
+	@RequestMapping(value = ("/member/doResign"), method = RequestMethod.POST)
+	public void doResign(@RequestParam String resignCode, @Valid MemberVO memberVO, Errors errors, HttpSession session, HttpServletResponse response,
+			HttpServletRequest request){
+		
+		String loginStatus = memberService.doResign(memberVO, errors, session, request, resignCode);
+		AjaxUtil.sendResponse(response, loginStatus);
+	}
+	
+	
 }

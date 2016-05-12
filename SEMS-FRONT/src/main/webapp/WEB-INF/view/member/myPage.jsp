@@ -16,7 +16,8 @@
 </head>
 <body>
 
-<a href="/member/myPage/checkPassword">내 정보 수정</a>		
+<a href="/member/myPage/checkPassword">내 정보 수정</a>	<br />
+<a href="/member/myPage/resignMember">회원 탈퇴</a>
 
 </body>
 </html>
