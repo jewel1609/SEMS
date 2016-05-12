@@ -39,8 +39,8 @@
 			});
 		});
 		
-		$(".register .registButton").click(function() {
-			location.href = "/comm/register";
+		$(".registButton").click(function() {
+			location.href = "/register/policy";
 		});
 	});
 </script>
