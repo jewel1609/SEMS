@@ -50,7 +50,7 @@
         </ul>
       </li>
       <li><a href="#">Link Text</a></li>
-      <li><a href="<c:url value="/backend/eduregister" />">교육등록</a></li>
+      <li><a href="/backend/eduregister"> 교육등록 </a></li>
     </ul>
   </nav>
 </div>
