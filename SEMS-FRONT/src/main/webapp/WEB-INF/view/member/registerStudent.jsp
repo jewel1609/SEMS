@@ -292,9 +292,14 @@
 		학과 : <input type="text" name="majorName" value="${ member.majorName }" />
 		<br/><span id="messageByMajorName"></span><br/>
 		
-		졸업 구분 : <input type="text" name="graduationType" value="${ member.graduationType }" />
-		<br/><form:errors path="graduationType" /><br/>
+		졸업 구분 : 
+		<c:forEach items="${graduationTypeList}" var="graduationTypeCodeName">
+			<c:if test="${ graduationTypeList ne null }">
+			<input type="radio" class="graduationType" name="graduationType" value="${graduationTypeCodeName}" /> ${ graduationTypeCodeName } &nbsp;&nbsp;
+			</c:if>
+		</c:forEach>
 		
+		<br/><br/>
 		<input type="hidden" name="memberType" value="MBR" />
 		<input id="registerButton" class="inputButton" type="button" value="가입"/>
 	</form:form>
