@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+			"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="MemberDAO">
+
+	<select id="selectDropOutMembers" parameterType="_int" resultType="string">
+		SELECT 	ID
+		FROM	MBR
+		WHERE	RSN = 'Y'
+		AND		RSN_DT IS NOT NULL
+		AND		RSN_DT <![CDATA[<=]]> SYSDATE - #{dropOutDays}
+	</select>
+	
+	<delete id="removeATD" parameterType="string">
+		DELETE	
+		FROM	ATD
+		WHERE	MBR_ID = #{memberId}
+	</delete>
+	
+	<delete id="removeEduInfo" parameterType="string">
+		DELETE	
+		FROM	EDU_INFO
+		WHERE	MBR_ID = #{memberId}
+	</delete>
+	
+	<delete id="removeEduReg" parameterType="string">
+		DELETE	
+		FROM	EDU_REG
+		WHERE	MBR_ID = #{memberId}
+	</delete>
+	
+	<delete id="removeLgiHtr" parameterType="string">
+		DELETE	
+		FROM	LGI_HTR
+		WHERE	MBR_ID = #{memberId}
+	</delete>
+	
+	<delete id="removeQna" parameterType="string">
+		DELETE	
+		FROM	QNA
+		WHERE	MBR_ID = #{memberId}
+	</delete>
+	
+	<delete id="removeRereplyEval" parameterType="string">
+		DELETE	
+		FROM	RERPLY_EVAL
+		WHERE	MBR_ID = #{memberId}
+	</delete>
+	
+	<delete id="removeDropOutMembers" parameterType="string">
+		DELETE
+		FROM	MBR
+		WHERE	RSN = 'Y'
+		AND		RSN_DT IS NOT NULL
+		AND		ID = #{memberId}
+	</delete>
+
+</mapper>
