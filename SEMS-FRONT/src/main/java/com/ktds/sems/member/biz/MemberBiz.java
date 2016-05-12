@@ -54,7 +54,7 @@ public interface MemberBiz {
 	
 	public boolean isExistId(String id);
 
-	public void attend(MemberVO loginVO);
+	public void attendCheck(MemberVO loginVO);
 
 	public List<LoginHistoryVO> getAllLoginHistory(LoginHistorySearchVO loginHistorySearchVO);
 
