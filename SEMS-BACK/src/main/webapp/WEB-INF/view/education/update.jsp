@@ -37,7 +37,7 @@
 	     <form:errors path="educationLocation" /><br/>
 	   	educationCurriculum : 
 	   	<input type="text" id="educationCurriculum" name="educationCurriculum" value="${educationVO.educationCurriculum }">
-	   	  <input type="file" name="file" id="educationCurriculum" tabindex="2" style="height: 45px"  value="${educationVO.educationCurriculum }" >
+	   	  <input type="file" name="file" id="educationCurriculum" tabindex="2" style="height: 45px">
 	      <form:errors path="educationCurriculum" /><br/>  
 	     <br/>
 	     educationIntroduce :  
