@@ -18,7 +18,7 @@
 				return;
 			}
 			
-			$.post("/member/doResign", $("#loginForm").serialize(), function(data) {
+			$.post("<c:url value='/member/doResign'/>", $("#loginForm").serialize(), function(data) {
 				if(data == "OK") {
 					alert("아이디를 삭제합니다.");
 					location.href="/main";
