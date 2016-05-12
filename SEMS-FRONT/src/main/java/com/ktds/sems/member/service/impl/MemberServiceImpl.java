@@ -88,7 +88,7 @@ public class MemberServiceImpl implements MemberService {
 	public String login(MemberVO loginVO, Errors errors, HttpSession session, HttpServletRequest request) {
 
 		// 아이디 있는지 확인
-		if ( memberBiz.isExistId(loginVO.getId()) ) {
+		if ( !memberBiz.isExistId(loginVO.getId()) ) {
 			return "NO";
 		}
 		

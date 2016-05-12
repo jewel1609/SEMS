@@ -341,7 +341,7 @@ public class MemberBizImpl implements MemberBiz {
 		
 		String memberId = memberDAO.isExistId(id);
 		
-		if ( memberId == null ) {
+		if ( memberId != null ) {
 			return true;
 		}
 		else {
