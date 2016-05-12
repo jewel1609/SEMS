@@ -255,6 +255,11 @@
 		FROM	GRDT_TP
 	</select>
 	
+	<select id="getHighestEducationLevelCodeNames" resultType="string">
+		SELECT	CD_NM cdNm
+		FROM	HIGHEST_EDU_LV
+	</select>
+	
 	<select id="getEduListByMember" parameterType="MemberVO" resultType="EducationVO">
 		SELECT	E_I.EDU_ID educationId
 				, EDU_CTGR educationCategory
@@ -302,6 +307,33 @@
 		WHERE  ROWNUM = 1
 	</select>
 	
+	
+	<select id="selectedGraduationTypeCodeName" parameterType="string" resultType="string">
+		SELECT	CD_NM cdNm
+		FROM	MBR
+				, GRDT_TP
+		WHERE	MBR.GRDT_TP = GRDT_TP.CD_ID
+		AND		ID = #{id}
+	</select>
+	
+	<select id="getSelectedHighestEducationLevelCodeName" parameterType="string" resultType="string">
+		SELECT	CD_NM cdNm
+		FROM	MBR M
+				, HIGHEST_EDU_LV H
+		WHERE	M.HIGHEST_EDU_LV = H.CD_ID
+		AND		ID = #{id}
+	</select>
+	
+	<select id="getGraduationTypeCodeId" parameterType="string" resultType="string">
+		SELECT	CD_ID cdId
+		FROM	GRDT_TP
+		WHERE	CD_NM = #{cdNm}
+	</select>
+	<select id="gethelCodeId" parameterType="string" resultType="string">
+		SELECT	CD_ID cdId
+		FROM	HIGHEST_EDU_LV
+		WHERE	CD_NM = #{cdNm}
+	</select>
 	<select id="isExistEmail" parameterType="string" resultType="string">
 		SELECT	ID
 		FROM	MBR
