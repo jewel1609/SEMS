@@ -46,7 +46,7 @@ public class EducationServiceImpl implements EducationService {
 	public ModelAndView writeNewEducation(EducationVO educationVO, Errors errors, MultipartHttpServletRequest request) {
 
 		ModelAndView view = new ModelAndView();
-		
+
 		MultipartFile file = request.getFile("file");
 		
 		String salt = SHA256Util.generateSalt();
@@ -80,7 +80,7 @@ public class EducationServiceImpl implements EducationService {
 							
 							FileVO fileVO = new FileVO();
 							fileVO.setArticleId(educationVO.getEducationId());
-							fileVO.setFileName(saltFileName);
+							fileVO.setFileName(fileName);
 							fileVO.setFileLocation(filePath);
 							fileBiz.doWriteFile(fileVO);
 							
@@ -157,7 +157,7 @@ public class EducationServiceImpl implements EducationService {
 							
 							FileVO fileVO = new FileVO();
 							fileVO.setArticleId(educationVO.getEducationId());
-							fileVO.setFileName(saltFileName);
+							fileVO.setFileName(fileName);
 							fileVO.setFileLocation(filePath);
 							
 							fileBiz.updateFile(fileVO);
