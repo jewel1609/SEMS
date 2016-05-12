@@ -7,7 +7,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>졸업 구분 코드 설정 페이지</title>
-<script type="text/javascript" src="<c:url value="/resources/js/query-1.12.1.js"/>"></script>
+<script type="text/javascript" src="<c:url value="/resources/js/jquery-1.12.1.js"/> "></script>
 <script type="text/javascript">
 
 	$(document).ready(function (){
@@ -66,8 +66,10 @@
 		//삭제버튼 클릭시
 		$(".grdtDeleteBtn").click(function (){
 
+			var cdId =  $(this).parent().parent().children(":eq(0)");
+			
 			if ( confirm("삭제하시겠습니까?") == true ) {
-				location.href = "/comm/doGrdtDelete/"+ root.val();
+				location.href = "/comm/doGrdtDelete/"+ cdId.val();
 			}
 			else  {
 				return;
