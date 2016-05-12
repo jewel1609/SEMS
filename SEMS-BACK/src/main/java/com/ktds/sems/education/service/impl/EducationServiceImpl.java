@@ -46,7 +46,10 @@ public class EducationServiceImpl implements EducationService {
 	public ModelAndView writeNewEducation(EducationVO educationVO, Errors errors, MultipartHttpServletRequest request) {
 
 		ModelAndView view = new ModelAndView();
-
+		
+		HttpSession session = request.getSession();
+		MemberVO sessionMember = (MemberVO) session.getAttribute("_MEMBER_");
+		
 		MultipartFile file = request.getFile("file");
 		
 		String salt = SHA256Util.generateSalt();
@@ -56,44 +59,48 @@ public class EducationServiceImpl implements EducationService {
 		String fileName = file.getOriginalFilename();
 		String filePath = "D:\\"+saltFileName;
 		
-		if (educationVO.getEducationId() == null) {
-			if (errors.hasErrors()) {
-				view.setViewName("education/eduregister");
-				view.addObject("educationVO", educationVO);
-				view.addObject("costList", educationBiz.costCodeList());
-				view.addObject("typeList", educationBiz.typeCodeList());
-				view.addObject("categoryList", educationBiz.categoryCodeList());
-				return view;
-				
-			} else {
-				
-				boolean result = educationBiz.writeNewEducation(educationVO);
-
-				if ( !file.isEmpty() && result) {
-					
-					if ( fileName.toLowerCase().endsWith(".xlsx") ) {
-						
-						File files = new File(filePath);
-						
-						try {
-							file.transferTo(files);
-							
-							FileVO fileVO = new FileVO();
-							fileVO.setArticleId(educationVO.getEducationId());
-							fileVO.setFileName(fileName);
-							fileVO.setFileLocation(filePath);
-							fileBiz.doWriteFile(fileVO);
-							
-						} catch (IllegalStateException | IOException e) {
-							e.printStackTrace();
-						}
-					}
-					view.setViewName("redirect:/list");
+		if ( sessionMember.getMemberType().equals("ADM") ) {
+			if (educationVO.getEducationId() == null) {
+				if (errors.hasErrors()) {
+					view.setViewName("education/eduregister");
+					view.addObject("educationVO", educationVO);
+					view.addObject("costList", educationBiz.costCodeList());
+					view.addObject("typeList", educationBiz.typeCodeList());
+					view.addObject("categoryList", educationBiz.categoryCodeList());
+					return view;
 					
 				} else {
-					throw new RuntimeException("일시적인 장애가 발생했습니다. 잠시후 다시 시도해주세요.");
+					
+					boolean result = educationBiz.writeNewEducation(educationVO);
+
+					if ( !file.isEmpty() && result) {
+						
+						if ( fileName.toLowerCase().endsWith(".xlsx") ) {
+							
+							File files = new File(filePath);
+							
+							try {
+								file.transferTo(files);
+								
+								FileVO fileVO = new FileVO();
+								fileVO.setArticleId(educationVO.getEducationId());
+								fileVO.setFileName(fileName);
+								fileVO.setFileLocation(filePath);
+								fileBiz.doWriteFile(fileVO);
+								
+							} catch (IllegalStateException | IOException e) {
+								e.printStackTrace();
+							}
+						}
+						view.setViewName("redirect:/list");
+						
+					} else {
+						throw new RuntimeException("일시적인 장애가 발생했습니다. 잠시후 다시 시도해주세요.");
+					}
 				}
 			}
+		}else {
+			throw new RuntimeException("접근 가능한 권한이 아닙니다.");
 		}
 
 		return view;
@@ -121,8 +128,8 @@ public class EducationServiceImpl implements EducationService {
 		
 		ModelAndView view = new ModelAndView();
 		
-//		HttpSession session = request.getSession();
-//		MemberVO sessionMember = (MemberVO) session.getAttribute("_MEMBER_");
+		HttpSession session = request.getSession();
+		MemberVO sessionMember = (MemberVO) session.getAttribute("_MEMBER_");
 		
 		MultipartFile file = request.getFile("file");
 		
@@ -135,7 +142,7 @@ public class EducationServiceImpl implements EducationService {
 		
 		String educationId = educationVO.getEducationId();
 		
-		//if ( sessionMember.getMemberType().equals("admin") ) {
+		if ( sessionMember.getMemberType().equals("ADM") ) {
 			if ( errors.hasErrors() ) {
 				view.setViewName("education/update"+"/"+educationId);
 				view.addObject("educationVO", educationVO);
@@ -173,10 +180,10 @@ public class EducationServiceImpl implements EducationService {
 					throw new RuntimeException("에러가 발생했습니다. 잠시 후 다시 시도해주세요.");
 				}
 			}
-		//}
-		//else {
-			//throw new RuntimeException("접근 가능한 권한이 아닙니다.");
-		//}
+		}
+		else {
+			throw new RuntimeException("접근 가능한 권한이 아닙니다.");
+		}
 		
 		view.addObject("educationVO", educationVO);
 		return view;
