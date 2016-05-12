@@ -31,7 +31,7 @@
 				$("#messageById").text("");
 				return;
 			}
-			$.post("<c:url value="/checkValidationById" />", { "id" : $("#id").val() }, function(data) {
+			$.post("<c:url value='/checkValidationById' />", { "id" : $("#id").val() }, function(data) {
 				if (!data) {
 					alert("통신 실패");
 				} else if (data == "OK") {
@@ -41,7 +41,7 @@
 					$("#messageById").text("이미 사용중이거나 탈퇴한 회원입니다!").css("color", "red");
 					isCheckedId = false;
 				} else if (data == "NO") {
-					$("#messageById").text("영문, 숫자 조합의 5글자 이상이어야 합니다!").css("color", "red");
+					$("#messageById").text("영문, 숫자 조합의 5~20 글자이어야 합니다!").css("color", "red");
 					isCheckedId = false;
 				}
 			});
@@ -52,7 +52,7 @@
 		});
 		
 		$("#password").blur(function () {
-			$.post("<c:url value="/checkValidationByPassword" />", { "password" : $("#password").val() }, function(data) {
+			$.post("<c:url value='/checkValidationByPassword' />", { "password" : $("#password").val() }, function(data) {
 				if($("#password").val()=="") {
 					$("#messageByPassword").text("");
 					return;
@@ -244,21 +244,21 @@
 <body>
 
 	<form:form id="registerForm" commandName="memberVO" method="post">
-		아이디 : <input type="text" id="id" name="id" value="${ member.id }" tabindex="1"/>
+		아이디 : <input type="text" id="id" name="id" value="${ member.id }" tabindex="1" maxlength="20"/>
 		<br/><span id="messageById"></span>
 		<form:errors path="id" /><br/>
 		
-		비밀번호 : <input type="password" id="password" name="password" value="${ member.password }" tabindex="2" />
+		비밀번호 : <input type="password" id="password" name="password" value="${ member.password }" tabindex="2" maxlength="16"/>
 		<br/><span id="messageByPassword"></span>
 		<form:errors path="password" /><br/>
 		
-		비밀번호 재확인: <input type="password" id="repeatPassword" tabindex="3" />
+		비밀번호 재확인: <input type="password" id="repeatPassword" tabindex="3" maxlength="16"/>
 		<br/><span id="messageByRepeatPassword"></span><br/>
 		
-		이름 : <input type="text" id="name" name="name" value="${ member.name }" tabindex="4" />
+		이름 : <input type="text" id="name" name="name" value="${ member.name }" tabindex="4" maxlength="10"/>
 		<br/><form:errors path="name" /><br/>
 		
-		이메일 : <input type="email" id="email" name="email" value="${ member.email }" tabindex="5" />
+		이메일 : <input type="email" id="email" name="email" value="${ member.email }" tabindex="5" maxlength="30"/>
 		<br/><span id="messageByEmail"></span>
 		<form:errors path="email"/><br/>
 		
@@ -269,7 +269,7 @@
 		<input type="hidden" id="birthDate" name="birthDate" value="${ member.birthDate }" />
 		<br/><form:errors path="birthDate" /><br/>
 		
-		전화 번호 : <input type="text" name="phoneNumber" value="${ member.phoneNumber }" tabindex="9"/>
+		전화 번호 : <input type="text" name="phoneNumber" value="${ member.phoneNumber }" tabindex="20"/>
 		<br/><form:errors path="phoneNumber" /><br/>
 		
 		<input type="hidden" name="memberType" value="TR" />
