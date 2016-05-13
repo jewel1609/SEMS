@@ -42,7 +42,7 @@ public interface MemberService {
 
 	public String getPasswordById(String id);
 
-	public void checkExistionByEmail(String email, HttpServletResponse response);
+	public void checkValidationByEmail(String email, HttpServletResponse response);
 
 	public void checkValidationByRepeatPassword(String password, String repeatPassword, HttpServletResponse response);
 
@@ -59,6 +59,8 @@ public interface MemberService {
 	public String doResign(MemberVO memberVO, Errors errors, HttpSession session, HttpServletRequest request, String resignCode);
 
 	public ModelAndView registerStudent();
+
+	public void checkValidationByPhoneNumber(String phoneNumber, HttpServletResponse response);
 
 	public String doCheckPrevPassword(String id, String prevPassword, HttpServletRequest request);
 	
