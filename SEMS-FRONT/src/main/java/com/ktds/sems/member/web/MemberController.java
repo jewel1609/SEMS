@@ -33,8 +33,8 @@ public class MemberController {
 	}
 
 	@RequestMapping(value = "/doRegisterAction", method = RequestMethod.POST)
-	public ModelAndView registerNewMember(@Valid MemberVO member, Errors errors, HttpSession session) {
-		return memberService.addNewMember(member, errors, session);
+	public ModelAndView registerNewMember(@Valid MemberVO member, Errors errors, @RequestParam String repeatPassword, HttpSession session) {
+		return memberService.addNewMember(member, errors, repeatPassword, session);
 	}
 
 	@RequestMapping("/main")
