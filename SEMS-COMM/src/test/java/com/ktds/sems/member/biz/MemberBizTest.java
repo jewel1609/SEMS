@@ -1,6 +1,8 @@
 package com.ktds.sems.member.biz;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
+
+import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,6 +11,7 @@ import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.ktds.sems.member.vo.GrdtTpVO;
 import com.ktds.sems.member.vo.MemberVO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -117,5 +120,58 @@ public class MemberBizTest {
 		boolean isSuccess = !memberBiz.isResign(id);
 		assertTrue(isSuccess);
 	}
-
+	
+	
+	@Test
+	public void getAllGrdtListTest(){
+		List<GrdtTpVO> grdtTpList = memberBiz.getAllGrtdList();
+		assertNotNull(grdtTpList);
+		assertTrue(grdtTpList.size() >= 0);
+	}
+	
+	@Test
+	public void doGrdtInsertTest(){
+		GrdtTpVO grdtTpVO = new GrdtTpVO();
+		grdtTpVO.setCdId("TEST");
+		grdtTpVO.setCdNm("JUNITTEST");
+		
+		int checkGrdtInsert = memberBiz.doGrdtInsert(grdtTpVO);
+		assertTrue(checkGrdtInsert >= 1);
+	}
+	
+	@Test
+	public void doGrdtModifyTest(){
+		GrdtTpVO grdtTpVO = new GrdtTpVO();
+		grdtTpVO.setCdId("TEST");
+		grdtTpVO.setCdNm("JUNITTEST");
+		
+		int checkGrdtModify = memberBiz.doGrdtModify(grdtTpVO);
+		assertTrue(checkGrdtModify >= 1);
+	}
+	
+	@Test
+	public void doGrdtDeleteTest(){
+		String cdId = "TEST";
+		int checGrdtkDelete = memberBiz.doGrdtDelete(cdId);
+		assertTrue(checGrdtkDelete >= 1);
+	}
+	
+	@Test
+	public void isExistDataTest(){
+		GrdtTpVO grdtTpVO = new GrdtTpVO();
+		grdtTpVO.setCdId("EXPT");
+		grdtTpVO.setCdNm("졸업");
+		
+		int checkExistData = memberBiz.isExistData(grdtTpVO);
+		assertTrue(checkExistData >= 1);
+	}
+	
+	@Test
+	public void isExistCdNmDataTest(){
+		GrdtTpVO grdtTpVO = new GrdtTpVO();
+		grdtTpVO.setCdNm("졸업예정");
+		
+		int checkExistCdNmData = memberBiz.isExistCdNmData(grdtTpVO);
+		assertTrue(checkExistCdNmData >= 1);
+	}
 }
