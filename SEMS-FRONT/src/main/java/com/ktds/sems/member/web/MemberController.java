@@ -117,17 +117,19 @@ public class MemberController {
 
 		ModelAndView view = new ModelAndView();
 
-		// TODO 입력한 패스워드와
+		// 입력한 패스워드와
 		// 테이블의 member.getPassword() 혹은 세션패스워드 를 해독했을때의 암호가
-		// 일치한다면 SendMessage.send(response, "OK");
+		// 일치한다면 AjaxUtil.sendResponse(response, "OK");
 
 		MemberVO member = (MemberVO) session.getAttribute("_MEMBER_");
 		String sessionId = member.getId();
 		String originSalt = memberService.getSaltById(sessionId);
 		String inputPassword = SHA256Util.getEncrypt(password, originSalt);
-
+		
+		boolean isLock = memberService.isModifyAccountLock(sessionId);
 		String originPassword = memberService.getPasswordById(sessionId);
-		if (inputPassword.equals(originPassword)) {
+		
+		if (inputPassword.equals(originPassword) && isLock == false ) {
 			/*
 			 * 1. MODIFY_FAIL_COUNT를 0 으로 초기화한다. 2. IS_MODIFY_ACCOUNT_LOCK을
 			 * 'N'으로 초기화한다.
@@ -136,6 +138,7 @@ public class MemberController {
 			AjaxUtil.sendResponse(response, "OK");
 			memberService.modifySuccess(sessionId);
 			return null;
+			
 		} else {
 
 			/*
@@ -155,7 +158,7 @@ public class MemberController {
 			 * 1. IS_ACCOUNT_LOCK이 'Y'라면 사용자의 이메일로 비밀번호가 3회 이상 틀려 접속이 차단되었음을
 			 * 알린다.
 			 */
-			boolean isLock = memberService.isModifyAccountLock(sessionId);
+			isLock = memberService.isModifyAccountLock(sessionId);
 
 			/*
 			 * 2. 메일을 보낸다.

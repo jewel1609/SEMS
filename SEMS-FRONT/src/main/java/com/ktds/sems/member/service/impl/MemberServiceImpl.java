@@ -279,7 +279,6 @@ public class MemberServiceImpl implements MemberService {
 		// 최종학력 구분 값들을 보낸다. 유저가 회원가입시 선택한 최종학력을 보낸다.
 		List<String> highestEducationLevelCodeNameList = memberBiz.getHighestEducationLevelCodeNames();
 		String selectedHighestEducationLevelCodeName = memberBiz.getSelectedHighestEducationLevelCodeName(id);
-		System.out.println("selectedHighestEducationLevelCodeName : "+ selectedHighestEducationLevelCodeName);
 
 		// 회원구분을 조인해서 한글로 보여준다.
 		String memberTypeCodeName = memberBiz.memberTypeCodeName(id);
