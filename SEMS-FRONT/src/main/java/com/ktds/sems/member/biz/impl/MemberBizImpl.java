@@ -443,8 +443,8 @@ public class MemberBizImpl implements MemberBiz {
 	}
 	
 	@Override
-	public void doDeleteMember(String id) {
-		memberDAO.doDeleteMember(id);
+	public boolean doDeleteMember(String id) {
+		return memberDAO.doDeleteMember(id) > 0;
 	}
 
 	@Override
@@ -500,6 +500,19 @@ public class MemberBizImpl implements MemberBiz {
 	@Override
 	public boolean isTeacher(String id) {
 		return memberDAO.isTeacher(id) > 0;
+	}
+
+	@Override
+	public boolean doResign(MemberVO loginVO) {
+		
+		String memberSalt = memberDAO.getSaltById(loginVO.getId());
+		String inputPassword = loginVO.getPassword();
+		String newPassword = SHA256Util.getEncrypt(inputPassword, memberSalt);
+		loginVO.setPassword(newPassword);
+		
+		MemberVO memberVO = memberDAO.login(loginVO);
+
+		return memberVO != null;
 	}
 
 }
