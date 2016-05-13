@@ -5,7 +5,9 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.member.vo.MemberVO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -230,5 +233,24 @@ public class MemberDAOTest {
 		String id = "aaa";
 		String checkStr = memberDAO.memberTypeCodeName(id);
 		assertNotNull(checkStr);
+	}
+	
+	///////
+	
+	@Test
+	public void getEduListByMemberTest(){
+		MemberVO loginVO = new MemberVO();
+		loginVO.setId("JUnitTest");
+		List<EducationVO> eduList = memberDAO.getEduListByMember(loginVO);
+		assertNotNull(eduList);
+		assertTrue(eduList.size() >= 0);
+	}
+	@Test
+	public void getLastDateTest(){
+		Map<String, String> eduIdAndMemberId = new HashMap<String, String>();
+		eduIdAndMemberId.put("educationId", "JUnitTestEdu");
+		eduIdAndMemberId.put("memberId", "JUnitTestmbrId");
+		String date = memberDAO.getLastDate(eduIdAndMemberId);
+		assertNotNull(date);
 	}
 }
