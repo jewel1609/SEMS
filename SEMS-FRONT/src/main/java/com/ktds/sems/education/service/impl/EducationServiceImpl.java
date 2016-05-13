@@ -57,8 +57,10 @@ public class EducationServiceImpl implements EducationService {
 	
 		eduReplyListVO.setPaging(paging);
 		paging.setPageNumber(pageNo + "");
-		
 		int totalEduReplyCount = educationBiz.getEduReplyCount(educationId);
+		if( totalEduReplyCount == 0 ){
+			totalEduReplyCount++;
+		}
 		logger.info("totalEduReplyCount" +totalEduReplyCount);
 		paging.setTotalArticleCount(totalEduReplyCount);
 		
@@ -104,6 +106,9 @@ public class EducationServiceImpl implements EducationService {
 		paging.setPageNumber(pageNo + "");
 		
 		int totalEducationCount = educationBiz.getTotalEducationCount();
+		if( totalEducationCount == 0 ){
+			totalEducationCount++;
+		}
 		logger.info("토탈 카운트"+ totalEducationCount);
 		paging.setTotalArticleCount(totalEducationCount);
 		EducationSearchVO searchVO = new EducationSearchVO();
@@ -202,6 +207,10 @@ public class EducationServiceImpl implements EducationService {
 		paging.setPageNumber(pageNo + "");
 		
 		int searchedEducationCount = educationBiz.getSearchedEducationCount(educationVO);
+		if(searchedEducationCount == 0 ){
+			searchedEducationCount ++;
+		}
+		
 		paging.setTotalArticleCount(searchedEducationCount);
 		
 		EducationSearchVO searchVO = new EducationSearchVO();
@@ -212,6 +221,7 @@ public class EducationServiceImpl implements EducationService {
 		searchedListVO.setEducationList(searchedEducations);
 		ModelAndView view = new ModelAndView();
 		
+		view.addObject("searchKeyword", educationVO);
 		view.addObject("searchedListVO", searchedListVO);
 		view.setViewName("education/list");
 		return view;

@@ -20,6 +20,11 @@ public class EducationVO {
 	private String costName;
 	private String typeName;
 	
+	private String startYear;
+	private String startMonth;
+	private String endYear;
+	private String endMonth;
+	
 	public String getEducationId() {
 		return educationId;
 	}
@@ -116,4 +121,30 @@ public class EducationVO {
 	public void setTypeName(String typeName) {
 		this.typeName = typeName;
 	}
+	public String getStartYear() {
+		return startYear;
+	}
+	public void setStartYear(String startYear) {
+		this.startYear = startYear;
+	}
+	public String getStartMonth() {
+		return startMonth;
+	}
+	public void setStartMonth(String startMonth) {
+		this.startMonth = startMonth;
+	}
+	public String getEndYear() {
+		return endYear;
+	}
+	public void setEndYear(String endYear) {
+		this.endYear = endYear;
+	}
+	public String getEndMonth() {
+		return endMonth;
+	}
+	public void setEndMonth(String endMonth) {
+		this.endMonth = endMonth;
+	}
+	
+	
 }

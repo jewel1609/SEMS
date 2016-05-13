@@ -34,15 +34,28 @@ public class EducationController {
 	@RequestMapping("/educationList")
 	public ModelAndView viewEducationListPage(@RequestParam(required=false, defaultValue="0") int pageNo){
 		logger.info("실행");
+		logger.info(""+pageNo);
 		return educationService.getAllEducationList(pageNo);
 	}
 
 	
 	@RequestMapping("/searchList")
 	public ModelAndView doSearchList(@RequestParam String startYear, @RequestParam String startMonth, 
-			@RequestParam String endYear, @RequestParam String endMonth, @RequestParam String eduName,
-			@RequestParam String educationType, @RequestParam String cost, @RequestParam(required=false, defaultValue="0") int pageNo){
-		logger.info("검색");
+				@RequestParam String endYear, @RequestParam String endMonth, @RequestParam String eduName,
+				@RequestParam String educationType, @RequestParam String cost, @RequestParam(required=false, defaultValue="0") String pageNo){
+/*		logger.info("검색");
+		logger.info(startYear);
+		logger.info(startMonth);
+		logger.info(endYear);
+		logger.info(endMonth);
+		logger.info(eduName);
+		logger.info(educationType);
+		logger.info(cost);
+		logger.info(pageNo);*/
+		if(pageNo.length() > 1) {
+			pageNo = "0";
+		}
+//		String pageNo =request.getParameter("pageNo");
 		EducationVO educationVO = new EducationVO();
 		
 		if(startMonth.length() > 0 && endMonth.length() > 0 ) {
@@ -59,8 +72,6 @@ public class EducationController {
 			educationVO.setStartDate(null);
 			educationVO.setEndDate(null);
 		}
-		
-
 		if(eduName.equals("")) {
 			eduName = null;
 		}
@@ -77,7 +88,12 @@ public class EducationController {
 		educationVO.setEducationType(educationType);
 		educationVO.setCost(cost);
 		
-		return educationService.doSearchList( educationVO , pageNo );
+		educationVO.setStartYear(startYear);
+		educationVO.setStartMonth(startMonth);
+		educationVO.setEndYear(endYear);
+		educationVO.setEndMonth(endMonth);
+		
+		return educationService.doSearchList( educationVO , Integer.parseInt(pageNo) );
 	}
 	
 	@RequestMapping("/eduDetail/{educationId}")
