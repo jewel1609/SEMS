@@ -53,11 +53,9 @@ public class EducationServiceImpl implements EducationService {
 		MultipartFile file = request.getFile("file");
 		
 		String fileName = file.getOriginalFilename();
-		
 		String salt = SHA256Util.generateSalt();
 		String saltFileName = SHA256Util.getEncrypt(fileName, salt)+".xlsx";
 		educationVO.setSalt(salt);
-		
 		
 		String filePath = "D:\\"+saltFileName;
 		
@@ -127,7 +125,6 @@ public class EducationServiceImpl implements EducationService {
 
 	@Override
 	public ModelAndView modifyNewEducation(EducationVO educationVO, Errors errors, MultipartHttpServletRequest request) {
-		
 		ModelAndView view = new ModelAndView();
 		
 		HttpSession session = request.getSession();
@@ -136,7 +133,6 @@ public class EducationServiceImpl implements EducationService {
 		MultipartFile file = request.getFile("file");
 		
 		String fileName = file.getOriginalFilename();
-		
 		String salt = SHA256Util.generateSalt();
 		String saltFileName = SHA256Util.getEncrypt(fileName, salt)+".xlsx";
 		educationVO.setSalt(salt);
