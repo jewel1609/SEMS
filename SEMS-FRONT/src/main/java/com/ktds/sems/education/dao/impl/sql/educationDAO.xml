@@ -40,7 +40,7 @@
 		           			)
 	        </if>   
  		   <if test="educationTitle != null">
-	           AND EDU_TTL = #{educationTitle}
+	           AND LOWER(EDU_TTL) LIKE '%'||#{educationTitle}||'%'
            </if>
 	</select> 
 	
@@ -179,7 +179,7 @@
 					           			)
 				        </if>      
 			 		   <if test="educationVO.educationTitle != null">
-				           AND EDU_TTL = #{educationVO.educationTitle}
+				           AND LOWER(EDU_TTL) LIKE '%'||#{educationVO.educationTitle} ||'%'
 			           </if>
                         ORDER   BY EDU_ID DESC
                      ) EDU_INFO

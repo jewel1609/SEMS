@@ -71,9 +71,9 @@
     <ul class="nospace group btmspace-80">
       <li class="one_third first">
         <article class="service"><i class="icon fa fa-ambulance"></i>
-          <h6 class="heading"><a href="#">Lorem Ipsum Dolor</a></h6>
+          <h6 class="heading"><a href="/educationList">Lorem Ipsum Dolor</a></h6>
           <p>Aenean semper elementum tellus, ut placerat leo. Quisque vehicula, urna sit amet.</p>
-          <footer><a href="#">Read More &raquo;</a></footer>
+          <footer><a href="/educationList">Read More &raquo;</a></footer>
         </article>
       </li>
       <li class="one_third">

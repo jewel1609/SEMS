@@ -43,7 +43,6 @@ public class EducationController {
 			@RequestParam String endYear, @RequestParam String endMonth, @RequestParam String eduName,
 			@RequestParam String educationType, @RequestParam String cost, @RequestParam(required=false, defaultValue="0") int pageNo){
 		logger.info("검색");
-		
 		EducationVO educationVO = new EducationVO();
 		
 		if(startMonth.length() > 0 && endMonth.length() > 0 ) {
@@ -71,6 +70,9 @@ public class EducationController {
 		if(cost.equals("")){
 			cost = null;
 		}
+		
+		eduName=eduName.trim().toLowerCase();
+		
 		educationVO.setEducationTitle(eduName);
 		educationVO.setEducationType(educationType);
 		educationVO.setCost(cost);
