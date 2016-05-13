@@ -5,6 +5,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +25,7 @@ import kr.co.hucloud.utilities.web.AjaxUtil;
 @Controller
 public class MemberController {
 
+	private Logger logger = LoggerFactory.getLogger(MemberController.class);
 	private MemberService memberService;
 
 	public void setMemberService(MemberService memberService) {
@@ -79,10 +82,15 @@ public class MemberController {
 			HttpServletResponse response) {
 		memberService.checkValidationByRepeatPassword(password, repeatPassword, response);
 	}
+	
+	@RequestMapping("/checkValidationByEmail")
+	public void checkValidationByEmail(@RequestParam String email, HttpServletResponse response) {
+		memberService.checkValidationByEmail(email, response);
+	}
 
-	@RequestMapping("/checkExistionByEmail")
-	public void checkExistionByEmail(@RequestParam String email, HttpServletResponse response) {
-		memberService.checkExistionByEmail(email, response);
+	@RequestMapping("/checkValidationByPhoneNumber")
+	public void checkValidationByPhoneNumber(@RequestParam String phoneNumber, HttpServletResponse response) {
+		memberService.checkValidationByPhoneNumber(phoneNumber, response);
 	}
 
 	@RequestMapping(value = ("/login"), method = RequestMethod.POST)
