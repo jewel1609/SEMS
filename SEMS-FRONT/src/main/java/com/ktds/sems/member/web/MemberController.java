@@ -100,9 +100,7 @@ public class MemberController {
 
 	@RequestMapping("/member/myPage")
 	public ModelAndView viewMyPage() {
-		ModelAndView view = new ModelAndView();
-		view.setViewName("member/myPage");
-		return view;
+		return memberService.viewMyPageMenu();
 	}
 
 	@RequestMapping("/member/myPage/checkPassword")

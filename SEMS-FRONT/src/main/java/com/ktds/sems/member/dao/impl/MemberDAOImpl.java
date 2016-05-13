@@ -12,6 +12,7 @@ import com.ktds.sems.member.vo.AttendVO;
 import com.ktds.sems.member.vo.LoginHistorySearchVO;
 import com.ktds.sems.member.vo.LoginHistoryVO;
 import com.ktds.sems.member.vo.MemberVO;
+import com.ktds.sems.member.vo.MenuManageVO;
 
 public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 
@@ -241,6 +242,11 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 	@Override
 	public List<LoginHistoryVO> getDateSearchLoginHistory(LoginHistorySearchVO loginHistorySearchVO) {
 		return getSqlSession().selectList("MemberDAO.getDateSearchLoginHistory", loginHistorySearchVO);
+	}
+
+	@Override
+	public List<MenuManageVO> getMenuCategoryList() {
+		return getSqlSession().selectList("MemberDAO.getMenuCategoryList");
 	}
 
 }

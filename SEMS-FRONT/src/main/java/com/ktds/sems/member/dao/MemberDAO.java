@@ -8,6 +8,7 @@ import com.ktds.sems.member.vo.AttendVO;
 import com.ktds.sems.member.vo.LoginHistorySearchVO;
 import com.ktds.sems.member.vo.LoginHistoryVO;
 import com.ktds.sems.member.vo.MemberVO;
+import com.ktds.sems.member.vo.MenuManageVO;
 
 public interface MemberDAO {
 
@@ -95,5 +96,7 @@ public interface MemberDAO {
 	public int getDateSearchLoginHistoryCount(String memberId);
 
 	public List<LoginHistoryVO> getDateSearchLoginHistory(LoginHistorySearchVO loginHistorySearchVO);
+
+	public List<MenuManageVO> getMenuCategoryList();
 
 }

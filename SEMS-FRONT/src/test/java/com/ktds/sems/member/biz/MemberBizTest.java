@@ -16,6 +16,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.member.vo.MemberVO;
+import com.ktds.sems.member.vo.MenuManageVO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "/applicationContext.xml", "/educationContext.xml", "/memberContext.xml",
@@ -234,4 +235,12 @@ public class MemberBizTest {
 		boolean isSuccess = !memberBiz.isModifyAccountLock(id);
 		assertTrue(isSuccess);
  	}
+	
+	@Test
+	public void getMenuCategoryListTest() {
+		List<MenuManageVO> menu = memberBiz.getMenuCategoryList();
+	    assertNotNull(menu);
+	    assertTrue(menu.size() > 0);
+	}
+
 }

@@ -376,6 +376,15 @@
 		WHERE	EMAIL = #{email}
 	</select>
 	
+	<select id="getMenuCategoryList" resultType="MenuManageVO" >
+		SELECT 	CD_ID codeId
+				, CD_NM codeName
+				, URL url
+				, SRT sort
+		FROM 	MENU_MNG
+		ORDER 	BY SRT
+	</select>
+	
 	<update id="changePassword" parameterType="MemberVO">
 		UPDATE	MBR
 		SET		SALT = #{salt}

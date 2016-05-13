@@ -9,6 +9,7 @@ import com.ktds.sems.member.vo.GraduationTypeVO;
 import com.ktds.sems.member.vo.LoginHistorySearchVO;
 import com.ktds.sems.member.vo.LoginHistoryVO;
 import com.ktds.sems.member.vo.MemberVO;
+import com.ktds.sems.member.vo.MenuManageVO;
 
 public interface MemberBiz {
 
@@ -91,5 +92,7 @@ public interface MemberBiz {
 	public void sendEmailForResign(String email, String id, String uuid);
 
 	public void doDeleteMember(String id);
+
+	public List<MenuManageVO> getMenuCategoryList();
 
 }

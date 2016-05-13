@@ -60,5 +60,7 @@ public interface MemberService {
 
 	public ModelAndView registerStudent();
 
+	public ModelAndView viewMyPageMenu();
+
 
 }

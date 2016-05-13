@@ -19,6 +19,7 @@ import com.ktds.sems.member.vo.LoginHistoryListVO;
 import com.ktds.sems.member.vo.LoginHistorySearchVO;
 import com.ktds.sems.member.vo.LoginHistoryVO;
 import com.ktds.sems.member.vo.MemberVO;
+import com.ktds.sems.member.vo.MenuManageVO;
 
 import kr.co.hucloud.utilities.SHA256Util;
 import kr.co.hucloud.utilities.web.AjaxUtil;
@@ -653,5 +654,17 @@ public class MemberServiceImpl implements MemberService {
 			return "NO";
 		}
 	}
+
+	@Override
+	public ModelAndView viewMyPageMenu() {
+		ModelAndView view = new ModelAndView();
+		List<MenuManageVO> menuList = memberBiz.getMenuCategoryList();
+		
+		view.setViewName("member/myPage");
+		view.addObject("menuList", menuList);
+		
+		return view;
+	}
+	
 
 }

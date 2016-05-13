@@ -1,6 +1,9 @@
 package com.ktds.sems.member.service;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.List;
 
@@ -17,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.member.dao.MemberDAO;
 import com.ktds.sems.member.vo.MemberVO;
+import com.ktds.sems.member.vo.MenuManageVO;
 import com.ktds.sems.validator.member.MemberValidator;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -579,6 +583,21 @@ public class MemberServiceTest {
 		String sessionId = "aaa";
 		boolean isSuccess = !memberService.isModifyAccountLock(sessionId);
 		assertTrue(isSuccess);
+	}
+	
+	@Test
+	public void viewMyPageMenuTest() {
+		ModelAndView view = memberService.viewMyPageMenu();
+		assertNotNull(view);
+		
+		if ( view != null ) {
+			List<MenuManageVO> menuList = (List<MenuManageVO>) view.getModelMap().get("menuList");
+			assertNotNull(menuList);
+			assertTrue(menuList.size() > 0);
+		}
+		else {
+			fail("list is null");
+		}
 	}
 	
 }

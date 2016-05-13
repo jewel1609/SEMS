@@ -17,6 +17,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.member.vo.MemberVO;
+import com.ktds.sems.member.vo.MenuManageVO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "/applicationContext.xml", "/educationContext.xml", "/memberContext.xml",
@@ -233,6 +234,13 @@ public class MemberDAOTest {
 		String id = "aaa";
 		String checkStr = memberDAO.memberTypeCodeName(id);
 		assertNotNull(checkStr);
+	}
+	
+	@Test
+	public void getMenuCategoryListTest() {
+		List<MenuManageVO> menu = memberDAO.getMenuCategoryList();
+	    assertNotNull(menu);
+	    assertTrue(menu.size() > 0);
 	}
 	
 	///////

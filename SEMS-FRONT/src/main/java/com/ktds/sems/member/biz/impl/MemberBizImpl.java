@@ -30,6 +30,7 @@ import com.ktds.sems.member.vo.AttendVO;
 import com.ktds.sems.member.vo.LoginHistorySearchVO;
 import com.ktds.sems.member.vo.LoginHistoryVO;
 import com.ktds.sems.member.vo.MemberVO;
+import com.ktds.sems.member.vo.MenuManageVO;
 
 import kr.co.hucloud.utilities.SHA256Util;
 import kr.co.hucloud.utilities.excel.option.WriteOption;
@@ -473,6 +474,11 @@ public class MemberBizImpl implements MemberBiz {
 		mailVO.setToId(email);
 
 		sendMail.sendMailToCustomer(mailVO);
+	}
+
+	@Override
+	public List<MenuManageVO> getMenuCategoryList() {
+		return memberDAO.getMenuCategoryList();
 	}
 
 }

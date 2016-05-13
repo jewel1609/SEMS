@@ -83,10 +83,11 @@ public class MemberControllerTest {
 	public void viewMyPageTest() {
 		
 		ModelAndView view = memberController.viewMyPage();
+		assertNotNull(view);
 		
 		if ( view != null ) {
 			String viewName = view.getViewName();
-			assertNotNull(view);
+			assertNotNull(viewName);
 			assertEquals(viewName, "member/myPage");
 		}
 		else {

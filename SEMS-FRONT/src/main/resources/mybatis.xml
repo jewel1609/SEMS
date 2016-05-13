@@ -13,6 +13,7 @@
 		<typeAlias type="com.ktds.sems.member.vo.LoginHistorySearchVO" alias="LoginHistorySearchVO"/>
 		<typeAlias type="com.ktds.sems.member.vo.GraduationTypeVO" alias="GraduationTypeVO"/>
 		<typeAlias type="com.ktds.sems.file.vo.FileVO" alias="FileVO"/>
+		<typeAlias type="com.ktds.sems.member.vo.MenuManageVO" alias="MenuManageVO"/>
 	</typeAliases>
 
 	<mappers>
