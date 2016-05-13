@@ -10,6 +10,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import javax.servlet.http.HttpSession;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,7 @@ import org.springframework.validation.Validator;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ktds.sems.common.Session;
 import com.ktds.sems.education.vo.EducationVO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -90,6 +93,10 @@ public class EducationControllerTest {
 		MultipartFile file = new MockMultipartFile(name, originalFileName, contentType, content);
 		request.addFile(file);
 		
+		HttpSession session = null;
+		session = request.getSession();
+		session.setAttribute(Session.MEMBER_TYPE, "ADM");
+		
 		ModelAndView view = educationController.doEducationModifyAction(educationVO, errors, request);
 		assertNotNull(view);
 		
@@ -143,6 +150,10 @@ public class EducationControllerTest {
 		
 		MultipartFile file = new MockMultipartFile(name, originalFileName, contentType, content);
 		request.addFile(file);
+		
+		HttpSession session = null;
+		session = request.getSession();
+		session.setAttribute(Session.MEMBER_TYPE, "ADM");
 		
 		ModelAndView view = educationController.doEducationModifyAction(educationVO, errors, request);
 		assertNotNull(view);
@@ -200,6 +211,10 @@ public class EducationControllerTest {
 		MultipartFile file = new MockMultipartFile(name, originalFileName, contentType, content);
 		request.addFile(file);
 		
+		HttpSession session = null;
+		session = request.getSession();
+		session.setAttribute(Session.MEMBER_TYPE, "ADM");
+		
 		ModelAndView view = educationController.doEducationModifyAction(educationVO, errors, request);
 		assertNotNull(view);
 		
@@ -255,6 +270,10 @@ public class EducationControllerTest {
 		
 		MultipartFile file = new MockMultipartFile(name, originalFileName, contentType, content);
 		request.addFile(file);
+		
+		HttpSession session = null;
+		session = request.getSession();
+		session.setAttribute(Session.MEMBER_TYPE, "ADM");
 		
 		ModelAndView view = educationController.doEducationModifyAction(educationVO, errors, request);
 		assertNotNull(view);
@@ -312,6 +331,10 @@ public class EducationControllerTest {
 		MultipartFile file = new MockMultipartFile(name, originalFileName, contentType, content);
 		request.addFile(file);
 		
+		HttpSession session = null;
+		session = request.getSession();
+		session.setAttribute(Session.MEMBER_TYPE, "ADM");
+		
 		ModelAndView view = educationController.doEducationModifyAction(educationVO, errors, request);
 		assertNotNull(view);
 		
@@ -367,6 +390,10 @@ public class EducationControllerTest {
 		
 		MultipartFile file = new MockMultipartFile(name, originalFileName, contentType, content);
 		request.addFile(file);
+		
+		HttpSession session = null;
+		session = request.getSession();
+		session.setAttribute(Session.MEMBER_TYPE, "ADM");
 		
 		ModelAndView view = educationController.doEducationModifyAction(educationVO, errors, request);
 		assertNotNull(view);
@@ -424,6 +451,10 @@ public class EducationControllerTest {
 		MultipartFile file = new MockMultipartFile(name, originalFileName, contentType, content);
 		request.addFile(file);
 		
+		HttpSession session = null;
+		session = request.getSession();
+		session.setAttribute(Session.MEMBER_TYPE, "ADM");
+		
 		ModelAndView view = educationController.doEducationModifyAction(educationVO, errors, request);
 		assertNotNull(view);
 		
@@ -479,6 +510,10 @@ public class EducationControllerTest {
 		
 		MultipartFile file = new MockMultipartFile(name, originalFileName, contentType, content);
 		request.addFile(file);
+		
+		HttpSession session = null;
+		session = request.getSession();
+		session.setAttribute(Session.MEMBER_TYPE, "ADM");
 		
 		ModelAndView view = educationController.doEducationModifyAction(educationVO, errors, request);
 		assertNotNull(view);
@@ -536,6 +571,10 @@ public class EducationControllerTest {
 		MultipartFile file = new MockMultipartFile(name, originalFileName, contentType, content);
 		request.addFile(file);
 		
+		HttpSession session = null;
+		session = request.getSession();
+		session.setAttribute(Session.MEMBER_TYPE, "ADM");
+		
 		ModelAndView view = educationController.doEducationModifyAction(educationVO, errors, request);
 		assertNotNull(view);
 		
@@ -591,6 +630,10 @@ public class EducationControllerTest {
 		
 		MultipartFile file = new MockMultipartFile(name, originalFileName, contentType, content);
 		request.addFile(file);
+		
+		HttpSession session = null;
+		session = request.getSession();
+		session.setAttribute(Session.MEMBER_TYPE, "ADM");
 		
 		ModelAndView view = educationController.doEducationModifyAction(educationVO, errors, request);
 		assertNotNull(view);
@@ -648,6 +691,10 @@ public class EducationControllerTest {
 		MultipartFile file = new MockMultipartFile(name, originalFileName, contentType, content);
 		request.addFile(file);
 		
+		HttpSession session = null;
+		session = request.getSession();
+		session.setAttribute(Session.MEMBER_TYPE, "ADM");
+		
 		ModelAndView view = educationController.doEducationModifyAction(educationVO, errors, request);
 		assertNotNull(view);
 		
@@ -703,6 +750,10 @@ public class EducationControllerTest {
 		
 		MultipartFile file = new MockMultipartFile(name, originalFileName, contentType, content);
 		request.addFile(file);
+		
+		HttpSession session = null;
+		session = request.getSession();
+		session.setAttribute(Session.MEMBER_TYPE, "ADM");
 		
 		ModelAndView view = educationController.doEducationModifyAction(educationVO, errors, request);
 		assertNotNull(view);
@@ -760,6 +811,10 @@ public class EducationControllerTest {
 		MultipartFile file = new MockMultipartFile(name, originalFileName, contentType, content);
 		request.addFile(file);
 		
+		HttpSession session = null;
+		session = request.getSession();
+		session.setAttribute(Session.MEMBER_TYPE, "ADM");
+		
 		ModelAndView view = educationController.doEducationModifyAction(educationVO, errors, request);
 		assertNotNull(view);
 		
@@ -815,6 +870,10 @@ public class EducationControllerTest {
 		
 		MultipartFile file = new MockMultipartFile(name, originalFileName, contentType, content);
 		request.addFile(file);
+		
+		HttpSession session = null;
+		session = request.getSession();
+		session.setAttribute(Session.MEMBER_TYPE, "ADM");
 		
 		ModelAndView view = educationController.doEducationModifyAction(educationVO, errors, request);
 		assertNotNull(view);

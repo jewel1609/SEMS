@@ -38,8 +38,23 @@ public class EducationDAOTest {
 	@Test 
 	public void insertNewEducationTest(){
 		EducationVO educationVO = new EducationVO();
-		educationDAO.insertNewEducation(educationVO);
-		assertNotNull(educationVO);
+		
+		educationVO.setEducationId("ED-20160512-000139");
+		educationVO.setEducationCategory("ZCS");
+		educationVO.setEducationTitle("JUNIT...");
+		educationVO.setMemberId("JUNIT...");
+		educationVO.setMaxMember(30);
+		educationVO.setEducationLocation("JUNIT...");
+		educationVO.setEducationCurriculum("JUNIT...");
+		educationVO.setEducationIntroduce("JUNIT...");
+		educationVO.setStartDate("JUNIT...");
+		educationVO.setEndDate("JUNIT...");
+		educationVO.setStartTime("01:00");
+		educationVO.setEndTime("01:00");
+		educationVO.setEducationType("TIMM");
+		educationVO.setCost("CSTC");
+		
+		assertTrue(educationDAO.insertNewEducation(educationVO) > 0);
 	}
 	
 	@Test 
