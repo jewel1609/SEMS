@@ -82,7 +82,7 @@ public class MemberController {
 			HttpServletResponse response) {
 		memberService.checkValidationByRepeatPassword(password, repeatPassword, response);
 	}
-	
+
 	@RequestMapping("/checkValidationByEmail")
 	public void checkValidationByEmail(@RequestParam String email, HttpServletResponse response) {
 		memberService.checkValidationByEmail(email, response);
@@ -195,43 +195,17 @@ public class MemberController {
 		String sessionId = member.getId();
 		return memberService.modifySuccess(sessionId);
 	}
-	
+
 	@RequestMapping("/doChangePasswordAction")
 	public ModelAndView doChangePasswordAction(MemberVO memberVO) {
 		
 		return memberService.changePassword(memberVO);
 	}
 
-	
-	//
-	// @RequestMapping("/member/resign")
-	// public String viewResignPage() {
-	// return "redirect:member/resign";
-	// }
-
-	
 	@RequestMapping("/member/myPage/resignMember")
 	public ModelAndView sendEmailForResign(@Valid HttpSession session) {
 		return memberService.sendEmailForResign(session, memberService.insertUuidForResign(session));
 	}
-	
-	
-//	@RequestMapping("/member/myPage/{resignCode}")
-//	public ModelAndView loginForResign(@PathVariable String resignCode, HttpSession session, MemberVO memberVO){
-//		return memberService.loginForResign(resignCode, session, memberVO);
-//	}
-	
-	// @RequestMapping("/member/myPage/sendResignMail")
-	// public ModelAndView sendResignMail(@Valid MemberVO memberVO, HttpSession
-	// session) {
-	// return memberService.sendResignMail(memberVO, session);
-	// }
-	//
-	// @RequestMapping("/member/myPage/{resignCode}")
-	// public ModelAndView loginForResign(@PathVariable String resignCode,
-	// HttpSession session, MemberVO memberVO){
-	// return memberService.loginForResign(resignCode, session, memberVO);
-	// }
 
 	@RequestMapping("/member/myPage/doModifyAction")
 	public ModelAndView doModifyAction(@Valid MemberVO member, Errors errors, @RequestParam String graduationType,
@@ -254,19 +228,19 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/member/loginForResign/{resignCode}/{id}")
-	public ModelAndView loginForResine(@PathVariable String resignCode, @PathVariable String id){
+	public ModelAndView loginForResine(@PathVariable String resignCode, @PathVariable String id) {
 		return memberService.loginForResign(resignCode, id);
 	}
 
-	
-	@RequestMapping(value = ("/member/doResign"), method = RequestMethod.POST)
-	public void doResign(@RequestParam String resignCode, @Valid MemberVO memberVO, Errors errors, HttpSession session, HttpServletResponse response,
-			HttpServletRequest request){
-		
-		String loginStatus = memberService.doResign(memberVO, errors, session, request, resignCode);
-		AjaxUtil.sendResponse(response, loginStatus);
+	@RequestMapping(value = "/doResign", method = RequestMethod.POST)
+	public void doResign(@RequestParam String resignCode, @Valid MemberVO memberVO, Errors errors, HttpSession session,
+			HttpServletResponse response) {
+
+		String resignStatus = memberService.doResign(memberVO, errors, resignCode);
+		AjaxUtil.sendResponse(response, resignStatus);
+
 	}
-	
+
 	@RequestMapping(value = ("/checkPassword"), method = RequestMethod.POST)
 	public void checkPrevPassword(@RequestParam String id, @RequestParam String prevPassword, HttpServletResponse response, HttpServletRequest request) {
 		
