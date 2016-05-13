@@ -38,19 +38,18 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public ModelAndView addNewMember(MemberVO member, Errors errors, HttpSession session) {
+	public ModelAndView addNewMember(MemberVO member, Errors errors, String repeatPassword, HttpSession session) {
 		ModelAndView view = new ModelAndView();
 		MemberVO sessionMember = (MemberVO) session.getAttribute("_MEMBER_");
 
 		boolean isNotError = true;
 
 		String memberType = member.getMemberType();
-		isNotError = isAllValidValue(member, view);
-
+		isNotError = isAllValidValue(member, repeatPassword, view);
+		
 		if (sessionMember != null) {
 			throw new RuntimeException("유효한 접근이 아닙니다.");
 		} else if (errors.hasErrors() || !isNotError) {
-			
 			List<String> highestEducationLevelCodeNameList = memberBiz.getHighestEducationLevelCodeNames();
 			List<String> graduationTypeList = memberBiz.getGraduationType();
 
@@ -83,52 +82,65 @@ public class MemberServiceImpl implements MemberService {
 		return view;
 	}
 
-	private boolean isAllValidValue(MemberVO member, ModelAndView view) {
+	private boolean isAllValidValue(MemberVO member, String repeatPassword, ModelAndView view) {
 
 		boolean isNotError = true;
+		int errorCount = 0;
 		String memberType = member.getMemberType();
 
-		if (member.getId() != null) {
-			isNotError = memberBiz.isVerifyId(member.getId());
-		}
-
-		if (member.getPassword() != null) {
-			isNotError = memberBiz.isVerifyPassword(member.getPassword());
+		if ( repeatPassword == null ) {
+			view.addObject("isEmptyRepeatPassword", "true");
+			errorCount++;
 		}
 		
-		if ( member.getPhoneNumber() != null ) {
-			isNotError = memberBiz.isVerifyPhoneNumber(member.getPhoneNumber());
+		if ( repeatPassword != null && !member.getPassword().equals(repeatPassword)) {
+			view.addObject("isEqualsPassword", "true");
+			errorCount++;
+		}
+		
+		if (member.getId() != null && !memberBiz.isVerifyId(member.getId())) {
+			errorCount++;
+		}
+
+		if (member.getPassword() != null && !memberBiz.isVerifyPassword(member.getPassword())) {
+			errorCount++;
+		}
+		
+		if ( member.getPhoneNumber() != null && memberBiz.isVerifyPhoneNumber(member.getPhoneNumber())) {
+			errorCount++;
 		}
 		
 		if ( memberType == null) {
 			view.setViewName("redirect:/");
-			isNotError = false;
+			errorCount++;
 		} else if (memberType.equals("MBR")) {
 			if (member.getGraduationType() == null) {
 				view.addObject("isEmptyGraduationType", "true");
-				isNotError = false;
+				errorCount++;
 			}
 
 			if (member.getHighestEducationLevel() == null) {
 				view.addObject("isEmptyHighestEducationLevel", "true");
-				isNotError = false;
+				errorCount++;
 			}
 
 			if (member.getMajorName() == null || member.getMajorName().equals("")) {
 				view.addObject("isEmptyMajorName", "true");
-				isNotError = false;
+				errorCount++;
 			}
 
 			if (member.getUniversityName() == null || member.getUniversityName().equals("")) {
 				view.addObject("isEmptyUniversityName", "true");
-				isNotError = false;
+				errorCount++;
 			}
 			view.setViewName("member/registerStudent");
 		} else if (memberType.equals("TR")) {
 			view.setViewName("member/registerTeacher");
 		}
-
-		view.addObject("member", member);
+		
+		if ( errorCount > 0 ) {
+			isNotError = false;
+		}
 
 		return isNotError;
 	}
