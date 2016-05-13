@@ -50,5 +50,28 @@ public class MemberControllerTest {
 		assertNotNull(checkStr);
 		
 	}
+	
+	@Test
+	public void viewMbrTpPageTest(){
+		ModelAndView view = memberController.viewMbrTpPage();
+		assertNotNull(view.getViewName());
+		
+		if ( view != null) {
+			String viewName = view.getViewName();
+			assertNotNull(viewName);
+			assertEquals(viewName, "member/mbrTp");
+			
+			List<MemberVO> memberList = (List<MemberVO>) view.getModelMap().get("mbrTpVOList");
+			assertNotNull(memberList);
+			assertTrue(memberList.size() > 0);
+		}
+	}
+	
+	@Test
+	public void doMbrTpDeleteTest(){
+		String cdId = "JunitTest";		
+		String view = memberController.doMbrTpDelete(cdId);
+		assertNotNull(view);		
+	}
 
 }
