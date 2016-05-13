@@ -93,6 +93,10 @@ public interface MemberBiz {
 
 	public void doDeleteMember(String id);
 
+	public boolean isVerifyPhoneNumber(String phoneNumber);
+
+	boolean isVerifyEmail(String phoneNumber);
+
 	public List<MenuManageVO> getMenuCategoryList();
 
 	public boolean isTeacher(String id);
