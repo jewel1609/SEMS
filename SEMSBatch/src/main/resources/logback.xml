@@ -9,10 +9,10 @@
         </encoder>
     </appender>
     
-    <logger name="org.springframework.context" level="ERROR"></logger>
+    <logger name="org.springframework.context" level="DEBUG"></logger>
     
     <!-- 기본 로그 레벨  -->
-    <root level="INFO">
+    <root level="DEBUG">
         <appender-ref ref="console" />
     </root>
 </configuration>
