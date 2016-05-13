@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.member.service.MemberService;
+import com.ktds.sems.member.vo.LoginHistorySearchVO;
 import com.ktds.sems.member.vo.MemberVO;
 
 import kr.co.hucloud.utilities.SHA256Util;
@@ -239,10 +240,10 @@ public class MemberController {
 		memberService.saveLoginHistoryAsExcel(session);
 	}
 
-//	@RequestMapping("/member/loginHistory")
-//	public ModelAndView viewLoginHistoryPage(@RequestParam(required = false, defaultValue = "0") int pageNo, HttpSession session) {
-//		return memberService.viewLoginHistoryPage(pageNo, session);
-//	}
+	@RequestMapping("/member/loginHistory")
+	public ModelAndView viewLoginHistoryPage(@Valid LoginHistorySearchVO loginHistorySearchVO, @RequestParam(required = false, defaultValue = "0") int pageNo, HttpSession session, HttpServletRequest request) {
+		return memberService.viewLoginHistoryPage(loginHistorySearchVO, pageNo, session, request);
+	}
 	
 	@RequestMapping("/member/loginForResign/{resignCode}/{id}")
 	public ModelAndView loginForResine(@PathVariable String resignCode, @PathVariable String id){
