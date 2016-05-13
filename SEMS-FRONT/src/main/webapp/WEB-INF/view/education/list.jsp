@@ -7,7 +7,19 @@
 <head>
 <script type="text/javascript" src="<c:url value='/resources/js/jquery.min.js"'/>"></script>
 <script type="text/javascript">
-	$(document).ready(function() {
+
+$(document).ready(function() {
+
+	$(".onlyText").keyup(function(event) {
+		regexp = /[@\#$%<>&\()\=_\’]/gi;
+
+		v = $(this).val();
+		if (regexp.test(v)) {
+			alert("특수문자를 포함할 수 없습니다.");
+			$(this).val(v.replace(regexp, ''));
+		}
+	});
+
 		
 		$("#initSearch").click(function() {
 			location.href="<c:url value='/educationList'/>";
@@ -56,26 +68,26 @@
 </head>
 <body>
 
-<form name="searchForm" id="searchForm">
+<form name="searchForm" id="searchForm" >
 <table>
 	<tr>
 		<th>기간</th>
 		<td>
-			<select id="startYear" name="startYear">
+			<select id="startYear" name="startYear" >
 				<option value="" selected="selected"></option>
 				<c:forEach var="startYear" begin="2010" end="2016" step="1">
 					<option value="${ startYear }">${ startYear }</option>
 				</c:forEach>
 			</select>년
 			
-			<select id="startMonth" name="startMonth">
+			<select id="startMonth" name="startMonth" >
 				<option value="" selected="selected"></option>
 				<c:forEach var="startMonth" begin="01" end="12" step="1">
 					<option value="${ startMonth }">${ startMonth }</option>
 				</c:forEach>
 			</select>월
 			~
-			<select id="endYear" name="endYear">
+			<select id="endYear" name="endYear" >
 				<option value="" selected="selected"></option>
 				<c:forEach var="endYear" begin="2010" end="2016" step="1">
 					<option value="${ endYear }">${ endYear }</option>
@@ -83,7 +95,7 @@
 			</select>년
 			-
 			<select id="endMonth" name="endMonth">
-				<option value="" selected="selected"></option>
+				<option value="" selected="selected" ></option>
 				<c:forEach var="endMonth" begin="01" end="12" step="1">
 					<option value="${ endMonth }">${ endMonth }</option>
 				</c:forEach>
@@ -93,13 +105,13 @@
 	<tr>
 		<th>교육명</th>
 		<td>
-			<input type="text" name="eduName" id="eduName" />
+			<input type="text" name="eduName" id="eduName" class="onlyText" />
 		</td>
 	</tr>
 	<tr>
 		<th>교육 형태</th>
 		<td>
-			<select name="educationType" id="educationType">
+			<select name="educationType" id="educationType" >
 				<option value="" selected="selected"></option>
 				<option value="주간">주간</option>
 				<option value="야간">야간</option>
@@ -118,7 +130,7 @@
 	</tr>
 	<tr>
 		<td colspan="2">
-			<input type="button" value="검색" id="searchBtn" />
+			<input type="button" value="검색" id="searchBtn"/>
 			<input type="button"  value="검색 초기화" id="initSearch" name="initSearch" />
 		</td>
 	</tr>
