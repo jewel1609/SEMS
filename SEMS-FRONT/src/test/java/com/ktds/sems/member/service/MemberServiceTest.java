@@ -18,14 +18,13 @@ import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ktds.sems.SemsTestCase;
 import com.ktds.sems.member.dao.MemberDAO;
 import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.member.vo.MenuManageVO;
 import com.ktds.sems.validator.member.MemberValidator;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "/applicationContext.xml", "/educationContext.xml", "/memberContext.xml", "/rootContext.xml" })
-public class MemberServiceTest {
+public class MemberServiceTest extends SemsTestCase {
 
 	@Autowired
 	private MemberService memberService;
