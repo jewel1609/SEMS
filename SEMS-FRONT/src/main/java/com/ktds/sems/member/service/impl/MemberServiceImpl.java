@@ -38,40 +38,41 @@ public class MemberServiceImpl implements MemberService {
 	public ModelAndView addNewMember(MemberVO member, Errors errors, HttpSession session) {
 		ModelAndView view = new ModelAndView();
 		MemberVO sessionMember = (MemberVO) session.getAttribute("_MEMBER_");
-
+		
+		boolean isNotError = true;
+		
+		String memberType = member.getMemberType();
+		isNotError = isAllValidValue(member, view);
+		
 		if (sessionMember != null) {
 			throw new RuntimeException("유효한 접근이 아닙니다.");
-		} else if (errors.hasErrors()) {
-			if (member.getMemberType().equals("TR")) {
-				view.setViewName("member/registerTeacher");
-			} else if (member.getMemberType().equals("MBR")) {
-				view.setViewName("member/registerStudent");
-			}
-
+		}
+		else if (errors.hasErrors() || !isNotError) {
+			List<String> highestEducationLevelCodeNameList = memberBiz.getHighestEducationLevelCodeNames();
+			List<String> graduationTypeList = memberBiz.getGraduationType();
+			
+			view.addObject("graduationTypeList", graduationTypeList);
+			view.addObject("highestEducationLevelCodeNameList", highestEducationLevelCodeNameList);
+				
 			view.addObject("member", member);
-		} else if (member.getMemberType().equals("MBR") || member.getMemberType().equals("TR")) {
-			boolean isVerify = checkVerify(member);
-			
-			String graduationType = member.getGraduationType(); 
-			String highestEducationLevel = member.getHighestEducationLevel();
-			String selectGraduationTypeCodeId = null;
-			String selecthelCodeId = null;
-			
-			if ( graduationType != null ) {
-				selectGraduationTypeCodeId = memberBiz.getGraduationTypeCodeId(graduationType);
-			}
-			if ( highestEducationLevel != null ) {
+		} else if (isNotError) {
+			if (memberType.equals("MBR")) {
+				String graduationType = member.getGraduationType(); 
+				String highestEducationLevel = member.getHighestEducationLevel();
+				
+				String selectGraduationTypeCodeId = null;
+				String selecthelCodeId = null;
+				
 				selecthelCodeId = memberBiz.gethelCodeId(highestEducationLevel);
+				selectGraduationTypeCodeId = memberBiz.getGraduationTypeCodeId(graduationType);
+				
+				member.setGraduationType(selectGraduationTypeCodeId);
+				member.setHighestEducationLevel(selecthelCodeId);
 			}
 			
-			member.setGraduationType(selectGraduationTypeCodeId);
-			member.setHighestEducationLevel(selecthelCodeId);
-			
-			if (isVerify) {
-				setSaltAndPassword(member);
-				memberBiz.addNewMember(member);
-				view.setViewName("redirect:/");
-			}
+			setSaltAndPassword(member);
+			memberBiz.addNewMember(member);
+			view.setViewName("redirect:/");
 		} else {
 			throw new RuntimeException("잘 못 된 입력 : 회원 종류");
 		}
@@ -79,11 +80,52 @@ public class MemberServiceImpl implements MemberService {
 		return view;
 	}
 
-	private boolean checkVerify(MemberVO member) {
-		boolean isVerifyId = memberBiz.isVerifyId(member.getId());
-		boolean isVerifyPassword = memberBiz.isVerifyPassword(member.getPassword());
-
-		return isVerifyId && isVerifyPassword;
+	private boolean isAllValidValue(MemberVO member, ModelAndView view ) {
+		
+		boolean isNotError = true;
+		String memberType = member.getMemberType();
+		
+		if ( member.getId() !=null ) {
+			isNotError = memberBiz.isVerifyId(member.getId());
+		}
+		
+		if ( member.getPassword() !=null ) {
+			isNotError = memberBiz.isVerifyPassword(member.getPassword());
+		}
+		
+		if ( memberType == null) {
+			view.setViewName("redirect:/");
+			isNotError = false;
+		}
+		else if (memberType.equals("MBR")) {
+			if ( member.getGraduationType() == null ) {
+				view.addObject("isEmptyGraduationType", member);
+				isNotError = false;
+			}
+			
+			if ( member.getHighestEducationLevel() == null ) {
+				view.addObject("isEmptyHighestEducationLevel", member);
+				isNotError = false;
+			}
+			
+			if ( member.getMajorName() == null || member.getMajorName().equals("")) {
+				view.addObject("isEmptyMajorName", member);
+				isNotError = false;
+			}
+			
+			if ( member.getUniversityName() == null || member.getUniversityName().equals("") ) {
+				view.addObject("isEmptyUniversityName", member);
+				isNotError = false;
+			}
+			view.setViewName("member/registerStudent");
+		}
+		else if (memberType.equals("TR")) {
+			view.setViewName("member/registerTeacher");
+		}
+		
+		view.addObject("member", member);
+		
+		return isNotError;
 	}
 
 	private void setSaltAndPassword(MemberVO member) {
