@@ -414,12 +414,34 @@ public class MemberBizImpl implements MemberBiz {
 			return false;
 		}
 	}
+	
+	@Override
+	public void sendEmailForResign(String email, String id, String uuid) {
 
+		SendMail sendMail = new SendMail();
+		MailVO mailVO = new MailVO();
+
+		mailVO.setFromId("testForSendEmailKtds@gmail.com");
+		mailVO.setFromPassword("123qwe!@#qwe");
+		mailVO.setSubject("탈퇴기능 테스트입니다.");
+		mailVO.setText("<html><body>탈퇴하시겠습니까? <a href='http://localhost/sems/member/loginForResign/" + uuid + "/" + id
+				+ "'>예</a></body></html>");
+
+		mailVO.setToId(email);
+
+		sendMail.sendMailToCustomer(mailVO);
+	}
+	
 	@Override
 	public List<String> getGraduationType() {
 		return memberDAO.getGraduationType();
 	}
 
+	@Override
+	public void insertUuidForResign(MemberVO member) {
+		memberDAO.insertUuidForResign(member);
+	}
+	
 	@Override
 	public void doDeleteMember(String id) {
 		memberDAO.doDeleteMember(id);
@@ -456,11 +478,6 @@ public class MemberBizImpl implements MemberBiz {
 	}
 
 	@Override
-	public void insertUuidForResign(MemberVO member) {
-		memberDAO.insertUuidForResign(member);
-	}
-
-	@Override
 	public boolean changePassword(MemberVO memberVO) {
 		return memberDAO.changePassword(memberVO) > 0;
 	}
@@ -473,23 +490,6 @@ public class MemberBizImpl implements MemberBiz {
 	@Override
 	public List<LoginHistoryVO> getDateSearchLoginHistory(LoginHistorySearchVO loginHistorySearchVO) {
 		return memberDAO.getDateSearchLoginHistory(loginHistorySearchVO);
-	}
-
-	@Override
-	public void sendEmailForResign(String email, String id, String uuid) {
-
-		SendMail sendMail = new SendMail();
-		MailVO mailVO = new MailVO();
-
-		mailVO.setFromId("testForSendEmailKtds@gmail.com");
-		mailVO.setFromPassword("123qwe!@#qwe");
-		mailVO.setSubject("탈퇴기능 테스트입니다.");
-		mailVO.setText("<html><body>탈퇴하시겠습니까? <a href='http://localhost/sems/member/loginForResign/" + uuid + "/" + id
-				+ "'>예</a></body></html>");
-
-		mailVO.setToId(email);
-
-		sendMail.sendMailToCustomer(mailVO);
 	}
 
 	@Override
