@@ -57,6 +57,7 @@ public class EducationDAOTest {
 		educationVO.setCost("CSTC");
 		
 		assertTrue(educationDAO.insertNewEducation(educationVO) > 0);
+		 
 	}*/
 	
 	@Test 
