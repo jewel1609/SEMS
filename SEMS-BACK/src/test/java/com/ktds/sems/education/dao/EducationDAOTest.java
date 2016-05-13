@@ -61,21 +61,21 @@ public class EducationDAOTest {
 	public void costCodeListTest(){
 		List<CostVO> costcode = educationDAO.costCodeList();
 		assertNotNull(costcode);
-		assertTrue(costcode.size() >= 0);
+		assertTrue(costcode.size() > 0);
 	}
 	
 	@Test 
 	public void typeCodeListTest(){
 		List<EducationTypeVO> typecode = educationDAO.typeCodeList();
 		assertNotNull(typecode);
-		assertTrue(typecode.size() >= 0);
+		assertTrue(typecode.size() > 0);
 	}
 	
 	@Test 
 	public void categoryCodeListTest(){
 		List<CategoryVO>  categorycode = educationDAO.categoryCodeList();
 		assertNotNull(categorycode);
-		assertTrue(categorycode.size() >= 0);
+		assertTrue(categorycode.size() > 0);
 	}
 	
 	@Test
