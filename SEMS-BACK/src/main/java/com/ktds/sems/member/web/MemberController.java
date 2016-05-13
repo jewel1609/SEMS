@@ -25,4 +25,13 @@ public class MemberController {
 		return view;
 	}
 	
+	@RequestMapping("/memberManage/addMember")
+	public ModelAndView viewAddMemberPage() {
+		
+		ModelAndView view = new ModelAndView();
+		view.setViewName("/memberManage/addMember");
+		
+		return view;
+	}
+	
 }
