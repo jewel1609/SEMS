@@ -14,7 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.ktds.sems.common.Session;
+
 import com.ktds.sems.education.biz.EducationBiz;
 import com.ktds.sems.education.service.EducationService;
 import com.ktds.sems.education.vo.EducationVO;
@@ -52,11 +52,13 @@ public class EducationServiceImpl implements EducationService {
 		
 		MultipartFile file = request.getFile("file");
 		
+		String fileName = file.getOriginalFilename();
+		
 		String salt = SHA256Util.generateSalt();
-		String saltFileName = SHA256Util.getEncrypt(educationVO.getEducationCurriculum(), salt)+".xlsx";
+		String saltFileName = SHA256Util.getEncrypt(fileName, salt)+".xlsx";
 		educationVO.setSalt(salt);
 		
-		String fileName = file.getOriginalFilename();
+		
 		String filePath = "D:\\"+saltFileName;
 		
 		if ( sessionMember.getMemberType().equals("ADM") ) {
@@ -129,11 +131,12 @@ public class EducationServiceImpl implements EducationService {
 		ModelAndView view = new ModelAndView();
 		
 		HttpSession session = request.getSession();
-		String memberType = (String) session.getAttribute(Session.MEMBER_TYPE);
+		MemberVO sessionMember = (MemberVO) session.getAttribute("_MEMBER_");
 		
 		MultipartFile file = request.getFile("file");
 		
 		String fileName = file.getOriginalFilename();
+		
 		String salt = SHA256Util.generateSalt();
 		String saltFileName = SHA256Util.getEncrypt(fileName, salt)+".xlsx";
 		educationVO.setSalt(salt);
@@ -142,7 +145,7 @@ public class EducationServiceImpl implements EducationService {
 		
 		String educationId = educationVO.getEducationId();
 		
-		if ( memberType.equals("ADM") ) {
+		if ( sessionMember.getMemberType().equals("ADM") ) {
 			if ( errors.hasErrors() ) {
 				view.setViewName("education/update"+"/"+educationId);
 				view.addObject("educationVO", educationVO);
