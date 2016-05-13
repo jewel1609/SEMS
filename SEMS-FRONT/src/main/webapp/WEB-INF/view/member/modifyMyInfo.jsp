@@ -140,10 +140,10 @@ function daysInMonth(month, year) {
 	<br/>
 	이메일 : <input type="text" name="email" id="email"  value="${member.email}" placeholder="이메일을 입력하세요. " tabindex="2" /> 
 	<br />
-	
+	<c:if test="${isTeacher eq 'F'}">
 	대학교 : ${member.universityName}  <br />
 	전공 : ${member.majorName} <br /> 
-	
+	</c:if>
 	생년월일 : 
 	<select id="years" name="years" tabindex="5"></select>&nbsp;년
 	<select id="months" name="months" tabindex="6"></select>&nbsp;월
@@ -154,6 +154,7 @@ function daysInMonth(month, year) {
 	전화번호 : <input type="text" name="phoneNumber" id="phoneNumber"  value="${member.phoneNumber}" placeholder="전화번호를 입력하세요." tabindex="8" /> 
 	<br />
 	회원구분 : ${memberTypeCodeName} <br />
+	<c:if test="${isTeacher eq 'F'}">
 	졸업구분 : 
 	<c:forEach items="${graduationTypeList}" var="graduationTypeCodeName">
 				<c:if test="${graduationTypeCodeName eq selectedGraduationTypeCodeName}">
@@ -173,7 +174,7 @@ function daysInMonth(month, year) {
 				<input type="radio" class="helCodeName" name="helCodeName" value="${helCodeName}"/>${helCodeName}
 				</c:if>
 	</c:forEach>
-	
+	</c:if>
 	
 	
 	<input type="hidden" name="id" id="id" value="${member.id}"/> <br/><br/>
