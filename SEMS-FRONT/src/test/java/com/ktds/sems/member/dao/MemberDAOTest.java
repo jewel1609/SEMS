@@ -36,7 +36,7 @@ public class MemberDAOTest {
 		String salt = memberDAO.getSaltById(id);
 		assertNotNull(salt);
 	}
-
+ 
 	/**
 	 * 로그인
 	 */
@@ -236,14 +236,22 @@ public class MemberDAOTest {
 		assertNotNull(checkStr);
 	}
 	
+	/**
+	 * 탈퇴 회원 업데이트
+	 */
+	@Test
+	public void doDeleteMemberTest() {
+		String id = "cocomo12";
+		int executeQuery = memberDAO.doDeleteMember(id);
+		assertTrue(executeQuery > 0);
+	}
+	
 	@Test
 	public void getMenuCategoryListTest() {
 		List<MenuManageVO> menu = memberDAO.getMenuCategoryList();
 	    assertNotNull(menu);
 	    assertTrue(menu.size() > 0);
 	}
-	
-	///////
 	
 	@Test
 	public void getEduListByMemberTest(){
@@ -253,6 +261,7 @@ public class MemberDAOTest {
 		assertNotNull(eduList);
 		assertTrue(eduList.size() >= 0);
 	}
+	
 	@Test
 	public void getLastDateTest(){
 		Map<String, String> eduIdAndMemberId = new HashMap<String, String>();
