@@ -136,7 +136,7 @@ public class MemberController {
 			 */
 			memberService.resetModifyLockAndCount(sessionId);
 			AjaxUtil.sendResponse(response, "OK");
-			memberService.modifySuccess(sessionId);
+			//memberService.modifySuccess(sessionId);
 			return null;
 			
 		} else {
@@ -186,7 +186,6 @@ public class MemberController {
 
 		String sessionId = member.getId();
 		return memberService.modifySuccess(sessionId);
-
 	}
 	
 	@RequestMapping("/doChangePasswordAction")

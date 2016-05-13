@@ -99,4 +99,6 @@ public interface MemberDAO {
 
 	public List<MenuManageVO> getMenuCategoryList();
 
+	public int isTeacher(String id);
+
 }

@@ -279,6 +279,9 @@ public class MemberServiceImpl implements MemberService {
 
 		// 회원구분을 조인해서 한글로 보여준다.
 		String memberTypeCodeName = memberBiz.memberTypeCodeName(id);
+		
+		//강사인지 아닌지 체크
+		boolean isTeacher = memberBiz.isTeacher(id);
 
 		view.addObject("member", member);
 		view.addObject("graduationTypeList", graduationTypeCodeNameList);
@@ -286,6 +289,12 @@ public class MemberServiceImpl implements MemberService {
 		view.addObject("highestEducationLevelCodeNameList", highestEducationLevelCodeNameList);
 		view.addObject("selectedHighestEducationLevelCodeName", selectedHighestEducationLevelCodeName);
 		view.addObject("memberTypeCodeName", memberTypeCodeName);
+		if (!isTeacher) {
+			view.addObject("isTeacher", "F");
+		}
+		else {
+			view.addObject("isTeacher", "T");
+		}
 		view.setViewName("member/modifyMyInfo");
 		return view;
 

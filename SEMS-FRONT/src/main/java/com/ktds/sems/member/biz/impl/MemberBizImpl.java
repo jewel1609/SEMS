@@ -481,4 +481,9 @@ public class MemberBizImpl implements MemberBiz {
 		return memberDAO.getMenuCategoryList();
 	}
 
+	@Override
+	public boolean isTeacher(String id) {
+		return memberDAO.isTeacher(id) > 0;
+	}
+
 }

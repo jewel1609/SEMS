@@ -95,4 +95,6 @@ public interface MemberBiz {
 
 	public List<MenuManageVO> getMenuCategoryList();
 
+	public boolean isTeacher(String id);
+
 }

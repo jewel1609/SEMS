@@ -249,4 +249,9 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 		return getSqlSession().selectList("MemberDAO.getMenuCategoryList");
 	}
 
+	@Override
+	public int isTeacher(String id) {
+		return getSqlSession().selectOne("MemberDAO.isTeacher", id);
+	}
+
 }
