@@ -279,19 +279,19 @@
 </script>
 
 <!-- Vendor CSS -->
-<link href="<c:url value='/resources/vendors/animate-css/animate.min.css' rel="stylesheet" />">
-<link href="<c:url value='/resources/vendors/fullcalendar/fullcalendar.css' rel="stylesheet" />">
-<link href="<c:url value='/resources/vendors/sweet-alert/sweet-alert.min.css" rel="stylesheet' />">
-<link href="<c:url value='/resources/vendors/material-icons/material-design-iconic-font.min.css' rel="stylesheet" />">
-<link href="<c:url value='/resources/vendors/socicon/socicon.min.css' rel="stylesheet" />">
-<link href="<c:url value='/resources/vendors/noUiSlider/jquery.nouislider.min.css' rel="stylesheet" />">
-<link href="<c:url value='/resources/vendors/farbtastic/farbtastic.css' rel="stylesheet" />">
-<link href="<c:url value='/resources/vendors/summernote/summernote.css' rel="stylesheet" />">
+<link href="<c:url value='/resources/vendors/animate-css/animate.min.css'/>" rel="stylesheet">
+<link href="<c:url value='/resources/vendors/fullcalendar/fullcalendar.css' />" rel="stylesheet">
+<link href="<c:url value='/resources/vendors/sweet-alert/sweet-alert.min.css' />" rel="stylesheet">
+<link href="<c:url value='/resources/vendors/material-icons/material-design-iconic-font.min.css'/>" rel="stylesheet">
+<link href="<c:url value='/resources/vendors/socicon/socicon.min.css'/>" rel="stylesheet">
+<link href="<c:url value='/resources/vendors/noUiSlider/jquery.nouislider.min.css'/>" rel="stylesheet">
+<link href="<c:url value='/resources/vendors/farbtastic/farbtastic.css'/>" rel="stylesheet">
+<link href="<c:url value='/resources/vendors/summernote/summernote.css'/>" rel="stylesheet">
 <!-- CSS -->
-<link href="<c:url value='/resources/css/app.min.1.css' rel="stylesheet" />">
-<link href="<c:url value='/resources/css/app.min.2.css' rel="stylesheet" />">
-<link href="<c:url value='/resources/css/bottom.css' rel="stylesheet" />">
-<link href="<c:url value='/resources/css/eduDetail.css' rel="stylesheet" />">
+<link href="<c:url value='/resources/css/app.min.1.css'/>" rel="stylesheet">
+<link href="<c:url value='/resources/css/app.min.2.css'/>" rel="stylesheet">
+<link href="<c:url value='/resources/css/bottom.css'/>" rel="stylesheet">
+<link href="<c:url value='/resources/css/eduDetail.css'/>" rel="stylesheet">
 
 </head>
 <body>
