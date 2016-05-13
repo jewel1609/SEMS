@@ -10,15 +10,15 @@
 
 $(document).ready(function() {
 
-	$(".onlyText").keyup(function(event) {
-		regexp = /[@\#$%<>&\()\=_\’]/gi;
-
-		v = $(this).val();
-		if (regexp.test(v)) {
-			alert("특수문자를 포함할 수 없습니다.");
-			$(this).val(v.replace(regexp, ''));
-		}
-	});
+		$(".onlyText").keyup(function(event) {
+			regexp = /[@\#$%<>&\()\=_\’]/gi;
+	
+			v = $(this).val();
+			if (regexp.test(v)) {
+				alert("특수문자를 포함할 수 없습니다.");
+				$(this).val(v.replace(regexp, ''));
+			}
+		});
 
 		
 		$("#initSearch").click(function() {
@@ -126,10 +126,7 @@ $(document).ready(function() {
 	<tr>
 		<th>교육명</th>
 		<td>
-
-			<input type="text" name="eduName" id="eduName" value="${searchKeyword.educationTitle }" />
-
-
+			<input type="text" class="onlyText" name="eduName" id="eduName" value="${searchKeyword.educationTitle }" />
 		</td>
 	</tr>
 	<tr>
