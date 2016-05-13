@@ -235,7 +235,6 @@ public class MemberController {
 	@RequestMapping(value = "/doResign", method = RequestMethod.POST)
 	public void doResign(@RequestParam String resignCode, @Valid MemberVO memberVO, Errors errors, HttpSession session,
 			HttpServletResponse response) {
-
 		String resignStatus = memberService.doResign(memberVO, errors, resignCode);
 		AjaxUtil.sendResponse(response, resignStatus);
 
@@ -243,10 +242,8 @@ public class MemberController {
 
 	@RequestMapping(value = ("/checkPassword"), method = RequestMethod.POST)
 	public void checkPrevPassword(@RequestParam String id, @RequestParam String prevPassword, HttpServletResponse response, HttpServletRequest request) {
-		
 		String checkPrevPasswordStatus = memberService.doCheckPrevPassword(id, prevPassword, request);
 		AjaxUtil.sendResponse(response, checkPrevPasswordStatus);
 	}
-	
 	
 }
