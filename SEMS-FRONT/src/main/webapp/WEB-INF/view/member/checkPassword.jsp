@@ -17,7 +17,7 @@
 			}
 			
 			
-			$.post("/member/myPage/doCheckPassword", $("#checkPasswordForm").serialize(), function(data){
+			$.post("<c:url value="/member/myPage/doCheckPassword" />", $("#checkPasswordForm").serialize(), function(data){
 				
 				 if ( data =="NO" ){
 			           alert("비밀번호 오류입니다. 비밀번호를 확인해 주세요.");
