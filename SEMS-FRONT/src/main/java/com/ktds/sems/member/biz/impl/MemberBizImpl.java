@@ -515,4 +515,10 @@ public class MemberBizImpl implements MemberBiz {
 		return memberVO != null;
 	}
 
+	// 준호
+	@Override
+	public int delectJunitTestMember(String id) {
+		return memberDAO.delectJunitTestMember(id);
+	}
+		
 }
