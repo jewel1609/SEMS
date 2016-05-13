@@ -23,6 +23,8 @@
 <script type="text/javascript">
 	$(document).ready(function () {
 		
+		$(".message").css("color", "red");
+		
 		var isCheckedId = false;
 		var isCheckedEmail = false;
 		
@@ -33,7 +35,7 @@
 			}
 			$.post("<c:url value="/checkValidationById" />", { "id" : $("#id").val() }, function(data) {
 				if (!data) {
-					alert("통신 실패");
+					alert("인터넷 연결이 끊겼습니다.");
 				} else if (data == "OK") {
 					$("#messageById").text("사용할 수 있는 아이디 입니다.").css("color", "green");
 					isCheckedId = true;
@@ -48,7 +50,7 @@
 		});
 		
 		$("#id").focus(function () {
-			$("#messageById").text("");
+			$(".deleteMessageId").text("");
 		});
 		
 		$("#password").blur(function () {
@@ -59,7 +61,7 @@
 				}
 				
 				if (!data) {
-					alert("통신 실패");
+					alert("인터넷 연결이 끊겼습니다.");
 				} else if (data == "OK") {
 					$("#messageByPassword").text("안전한 비밀번호 입니다.").css("color", "green");
 				} else if (data == "NO") {
@@ -71,7 +73,7 @@
 		});
 		
 		$("#password").focus(function () {
-			$("#messageByPassword").text("");
+			$(".deleteMessagePassword").text("");
 		});
 		
 		$("#repeatPassword").blur(function () {
@@ -82,7 +84,7 @@
 				}
 				
 				if (!data) {
-					alert("통신 실패");
+					alert("인터넷 연결이 끊겼습니다.");
 				} else if (data == "OK") {
 					$("#messageByRepeatPassword").text("일치합니다.").css("color", "green");
 				} else if (data == "NO") {
@@ -92,7 +94,7 @@
 		});
 		
 		$("#repeatPassword").focus(function () {
-			$("#messageByRepeatPassword").text("");
+			$(".deleteMessageRepeatPassword").text("");
 		});
 		
 		$("#email").blur ( function () {
@@ -102,7 +104,7 @@
 			}
 			$.post("<c:url value="/checkValidationByEmail" />", { "email" : $("#email").val() }, function(data) {
 				if (!data) {
-					alert("통신 실패");
+					alert("인터넷 연결이 끊겼습니다.");
 				} else if (data == "OK") {
 					$("#messageByEmail").text("사용할 수 있는 이메일 입니다.").css("color", "green");
 					isCheckedEmail = true;
@@ -118,13 +120,13 @@
 		});
 		
 		$("#email").focus(function () {
-			$("#messageByEmail").text("");
+			$(".deleteMessageEmail").text("");
 		});
 		
 		$("#phoneNumber").blur(function () {
 			$.post("<c:url value="/checkValidationByPhoneNumber" />", { "phoneNumber" : $("#phoneNumber").val() }, function(data) {
 				if (!data) {
-					alert("통신 실패");
+					alert("인터넷 연결이 끊겼습니다.");
 				} else if (data == "OK") {
 					$("#messageByPhoneNumber").text("사용할 수 있는 전화번호 입니다.").css("color", "green");
 				} else if (data == "NO") {
@@ -134,12 +136,32 @@
 		});
 		
 		$("#phoneNumber").focus(function () {
-			$("#messageByPhoneNumber").text("");
+			$(".deleteMessagePhoneNumber").text("");
+		});
+		
+		$("#name").focus(function () {
+			$(".deleteMessageName").text("");
+		});
+		
+		$("#universityName").focus(function () {
+			$(".deleteMessageUniversityName").text("");
+		});
+
+		$("#majorName").focus(function () {
+			$(".deleteMessageMajorName").text("");
+		});
+		
+		$(".graduationType").click( function () {
+			$(".deleteMessageGraduationType").text("");
+		});
+		
+		$(".highestEducationLevel").click( function () {
+			$(".deleteMessageHighestEducationLevel").text("");
 		});
 		
 		$("#registerButton").click( function () {
 			
-			var universityName = $("#universityName").val();
+/* 			var universityName = $("#universityName").val();
 			if (universityName == "") {
 				$("#messageByUniversityName").html("학교를 입력하세요.");
 				return;
@@ -149,7 +171,7 @@
 			if (majorName == "") {
 				$("#messageByMajorName").html("학과를 입력하세요.");
 				return;
-			}
+			} */
 			
 			if(isCheckedId == false) {
 				alert("아이디를 확인해주세요.");
@@ -168,6 +190,8 @@
 		
 		$('#years, #months, #days').change(function () {
 			$("#birthDate").val();
+			
+			$(".deleteMessageBirthDate").text("");
 			
 			var target = document.getElementById("years");
 			var date = "";
@@ -277,45 +301,52 @@
 
 	<form:form id="registerForm" commandName="memberVO" method="post">
 		아이디 : <input type="text" id="id" name="id" value="${ member.id }" tabindex="1" maxlength="20"/>
-		<br/><span id="messageById"></span>
-		<form:errors path="id" /><br/>
+		<br/><span class="deleteMessageId" id="messageById"></span>
+		<form:errors class="deleteMessageId message" path="id"/><br/>
 		
 		비밀번호 : <input type="password" id="password" name="password" value="${ member.password }" tabindex="2" maxlength="16"/>
-		<br/><span id="messageByPassword"></span>
-		<form:errors path="password" /><br/>
+		<br/><span class="deleteMessagePassword" id="messageByPassword"></span>
+		<form:errors class="deleteMessagePassword message" path="password" /><br/>
 		
-		비밀번호 재확인: <input type="password" id="repeatPassword" tabindex="3" maxlength="16"/>
-		<br/><span id="messageByRepeatPassword"></span><br/>
+		비밀번호 재확인: <input type="password" id="repeatPassword" name="repeatPassword" tabindex="3" maxlength="16"/>
+		<br/><span class="deleteMessageRepeatPassword" id="messageByRepeatPassword"></span>
+		<c:if test="${isEmptyRepeatPassword eq 'true'}">
+			<span class="deleteMessageRepeatPassword" style="color: red;">비밀번호를 확인해주세요.</span>
+		</c:if>
+		<c:if test="${isEqualsPassword eq 'true'}">
+			<span class="deleteMessageRepeatPassword" style="color: red;">비밀번호가 일치하지 않습니다.</span>
+		</c:if>
+		<br/>
 		
 		이름 : <input type="text" id="name" name="name" value="${ member.name }" tabindex="4" maxlength="10"/>
-		<br/><form:errors path="name" /><br/>
+		<br/><form:errors class="deleteMessageName message" path="name"/><br/>
 		
 		이메일 : <input type="email" id="email" name="email" value="${ member.email }" tabindex="5" maxlength="30"/>
-		<br/><span id="messageByEmail"></span>
-		<form:errors path="email"/><br/>
+		<br/><span class="deleteMessageEmail" id="messageByEmail"></span>
+		<form:errors class="deleteMessageEmail message" path="email" /><br/>
 		
 		생년월일 : 
 		<select id="years" name="years" tabindex="6"></select>&nbsp;년
 		<select id="months" name="months" tabindex="7"></select>&nbsp;월
 		<select id="days" name="days" tabindex="8"></select>&nbsp;일
 		<input type="hidden" id="birthDate" name="birthDate" value="${ member.birthDate }" maxlength="12"/>
-		<br/><form:errors path="birthDate" /><br/>
+		<br/><form:errors class="deleteMessageBirthDate message" path="birthDate" /><br/>
 		
 		전화 번호 : <input type="text" id="phoneNumber" name="phoneNumber" value="${ member.phoneNumber }" tabindex="20" maxlength="13"/>
-		<br/><span id="messageByPhoneNumber"></span>
-		<form:errors path="phoneNumber" /><br/>
+		<br/><span class="deleteMessagePhoneNumber" id="messageByPhoneNumber"></span>
+		<form:errors class="deleteMessagePhoneNumber message" path="phoneNumber" /><br/>
 
-		학교 : <input type="text" name="universityName" value="${ member.universityName }" maxlength="20" />
+		학교 : <input type="text" id="universityName" name="universityName" value="${ member.universityName }" maxlength="20" />
 		<br/>
 			<c:if test="${isEmptyUniversityName ne null}">
-				<span id="messageByUniversityName">학교를 입력하세요!</span>
+				<span class="deleteMessageUniversityName" id="messageByUniversityName" style="color: red;">학교를 입력하세요!</span>
 			</c:if>
 		<br/>
 		
-		학과 : <input type="text" name="majorName" value="${ member.majorName }" maxlength="20"/>
+		학과 : <input type="text" id="majorName" name="majorName" value="${ member.majorName }" maxlength="20"/>
 		<br/>
 			<c:if test="${isEmptyMajorName ne null}">
-				<span id="messageByMajorName" style="color: red;">학과를 입력하세요!</span>
+				<span class="deleteMessageMajorName" id="messageByMajorName" style="color: red;">학과를 입력하세요!</span>
 			</c:if>
 		<br/>
 		
@@ -330,7 +361,7 @@
 		</c:forEach>
 		<br/>
 			<c:if test="${isEmptyGraduationType ne null}">
-				<span id="messageByMajorName" style="color: red;">졸업구분을 선택하세요!</span>
+				<span class="deleteMessageGraduationType" id="messageByGraduationType" style="color: red;">졸업구분을 선택하세요!</span>
 			</c:if>
 		<br/>
 		
@@ -345,7 +376,7 @@
 		</c:forEach>
 		<br/>
 			<c:if test="${isEmptyHighestEducationLevel ne null}">
-				<span id="messageByMajorName" style="color: red;">최종학력을 선택하세요!</span>
+				<span class="deleteMessageHighestEducationLevel" id="messageByHighestEducationLevel" style="color: red;">최종학력을 선택하세요!</span>
 			</c:if>
 		<br/>
 
