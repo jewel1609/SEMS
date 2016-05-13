@@ -1,6 +1,5 @@
 package com.ktds.sems.member.service.impl;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.UUID;
 
@@ -11,7 +10,6 @@ import javax.servlet.http.HttpSession;
 import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.ktds.sems.common.HistorySearchStore;
 import com.ktds.sems.common.SendMail;
 import com.ktds.sems.common.Session;
 import com.ktds.sems.common.vo.MailVO;
@@ -33,7 +31,7 @@ public class MemberServiceImpl implements MemberService {
 	public void setMemberBiz(MemberBiz memberBiz) {
 		this.memberBiz = memberBiz;
 	}
-
+	
 	@Override
 	public ModelAndView addNewMember(MemberVO member, Errors errors, HttpSession session) {
 		ModelAndView view = new ModelAndView();
@@ -393,6 +391,10 @@ public class MemberServiceImpl implements MemberService {
 		return memberBiz.isModifyAccountLock(sessionId);
 	}
 
+	/**
+	 * @author 206-025 김동규 > 이기연 (수정) 
+	 * 
+	 */
 	@Override
 	public ModelAndView viewLoginHistoryPage(LoginHistorySearchVO loginHistorySearchVO, int pageNo, HttpSession session, HttpServletRequest request) {
 		
@@ -400,16 +402,27 @@ public class MemberServiceImpl implements MemberService {
 		MemberVO memberVO = (MemberVO) session.getAttribute(Session.MEMBER);
 		LoginHistoryListVO loginHistoryListVO = new LoginHistoryListVO();
 		Paging paging = new Paging();
+		
 		loginHistoryListVO.setPaging(paging);
 		paging.setPageNumber(pageNo + "");
-
-		int totalLoginHisotryCount = memberBiz.getTotalLoginHistoryCount(memberVO.getId());
-		paging.setTotalArticleCount(totalLoginHisotryCount);
 
 		// 검색
 		loginHistorySearchVO.setStartIndex(paging.getStartArticleNumber());
 		loginHistorySearchVO.setEndIndex(paging.getEndArticleNumber());
 		loginHistorySearchVO.setMemberId(memberVO.getId());
+		
+		// 검색 세션 만들기 
+		// 새로 검색될 경우 
+		if( session.getAttribute(Session.LOGIN_HISTORY_SEARCH) == null) {
+			session.setAttribute("_LOGIN_HISTORY_SEARCH_", loginHistorySearchVO);
+			int totalLoginHisotryCount = memberBiz.getTotalLoginHistoryCount(memberVO.getId());
+			paging.setTotalArticleCount(totalLoginHisotryCount);
+		}
+		// 검색된 경우
+		else {
+			int totalLoginHisotryCount = memberBiz.getTotalLoginHistoryCount(memberVO.getId());
+			paging.setTotalArticleCount(totalLoginHisotryCount);
+		}
 		
 		List<LoginHistoryVO> loginHistoryList = memberBiz.getAllLoginHistory(loginHistorySearchVO);
 		loginHistoryListVO.setLoginHistoryList(loginHistoryList);
