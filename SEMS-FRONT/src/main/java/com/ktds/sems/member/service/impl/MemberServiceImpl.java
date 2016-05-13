@@ -32,43 +32,42 @@ public class MemberServiceImpl implements MemberService {
 	public void setMemberBiz(MemberBiz memberBiz) {
 		this.memberBiz = memberBiz;
 	}
-	
+
 	@Override
 	public ModelAndView addNewMember(MemberVO member, Errors errors, HttpSession session) {
 		ModelAndView view = new ModelAndView();
 		MemberVO sessionMember = (MemberVO) session.getAttribute("_MEMBER_");
-		
+
 		boolean isNotError = true;
-		
+
 		String memberType = member.getMemberType();
 		isNotError = isAllValidValue(member, view);
-		
+
 		if (sessionMember != null) {
 			throw new RuntimeException("유효한 접근이 아닙니다.");
-		}
-		else if (errors.hasErrors() || !isNotError) {
+		} else if (errors.hasErrors() || !isNotError) {
 			List<String> highestEducationLevelCodeNameList = memberBiz.getHighestEducationLevelCodeNames();
 			List<String> graduationTypeList = memberBiz.getGraduationType();
-			
+
 			view.addObject("graduationTypeList", graduationTypeList);
 			view.addObject("highestEducationLevelCodeNameList", highestEducationLevelCodeNameList);
-				
+
 			view.addObject("member", member);
 		} else if (isNotError) {
 			if (memberType.equals("MBR")) {
-				String graduationType = member.getGraduationType(); 
+				String graduationType = member.getGraduationType();
 				String highestEducationLevel = member.getHighestEducationLevel();
-				
+
 				String selectGraduationTypeCodeId = null;
 				String selecthelCodeId = null;
-				
+
 				selecthelCodeId = memberBiz.gethelCodeId(highestEducationLevel);
 				selectGraduationTypeCodeId = memberBiz.getGraduationTypeCodeId(graduationType);
-				
+
 				member.setGraduationType(selectGraduationTypeCodeId);
 				member.setHighestEducationLevel(selecthelCodeId);
 			}
-			
+
 			setSaltAndPassword(member);
 			memberBiz.addNewMember(member);
 			view.setViewName("redirect:/");
@@ -79,51 +78,49 @@ public class MemberServiceImpl implements MemberService {
 		return view;
 	}
 
-	private boolean isAllValidValue(MemberVO member, ModelAndView view ) {
-		
+	private boolean isAllValidValue(MemberVO member, ModelAndView view) {
+
 		boolean isNotError = true;
 		String memberType = member.getMemberType();
-		
-		if ( member.getId() !=null ) {
+
+		if (member.getId() != null) {
 			isNotError = memberBiz.isVerifyId(member.getId());
 		}
-		
-		if ( member.getPassword() !=null ) {
+
+		if (member.getPassword() != null) {
 			isNotError = memberBiz.isVerifyPassword(member.getPassword());
 		}
-		
-		if ( memberType == null) {
+
+		if (memberType == null) {
 			view.setViewName("redirect:/");
 			isNotError = false;
-		}
-		else if (memberType.equals("MBR")) {
-			if ( member.getGraduationType() == null ) {
+		} else if (memberType.equals("MBR")) {
+			if (member.getGraduationType() == null) {
 				view.addObject("isEmptyGraduationType", member);
 				isNotError = false;
 			}
-			
-			if ( member.getHighestEducationLevel() == null ) {
+
+			if (member.getHighestEducationLevel() == null) {
 				view.addObject("isEmptyHighestEducationLevel", member);
 				isNotError = false;
 			}
-			
-			if ( member.getMajorName() == null || member.getMajorName().equals("")) {
+
+			if (member.getMajorName() == null || member.getMajorName().equals("")) {
 				view.addObject("isEmptyMajorName", member);
 				isNotError = false;
 			}
-			
-			if ( member.getUniversityName() == null || member.getUniversityName().equals("") ) {
+
+			if (member.getUniversityName() == null || member.getUniversityName().equals("")) {
 				view.addObject("isEmptyUniversityName", member);
 				isNotError = false;
 			}
 			view.setViewName("member/registerStudent");
-		}
-		else if (memberType.equals("TR")) {
+		} else if (memberType.equals("TR")) {
 			view.setViewName("member/registerTeacher");
 		}
-		
+
 		view.addObject("member", member);
-		
+
 		return isNotError;
 	}
 
@@ -188,7 +185,7 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public String login(MemberVO loginVO, Errors errors, HttpSession session, HttpServletRequest request) {
-		
+
 		// 아이디 있는지 확인
 		if (!memberBiz.isExistId(loginVO.getId())) {
 			return "NO";
@@ -203,9 +200,9 @@ public class MemberServiceImpl implements MemberService {
 		if (memberBiz.isAccountLock(loginVO.getId())) {
 			return "OVER";
 		}
-		
+
 		// 로그인 30일 경과 계정
-		if(memberBiz.needToChangPassword(loginVO.getId())) {
+		if (memberBiz.needToChangPassword(loginVO.getId())) {
 			return "CNGPW";
 		}
 
@@ -231,9 +228,9 @@ public class MemberServiceImpl implements MemberService {
 
 				// 로그인 내역 남기기
 				memberBiz.stampLoginTime(session, request, loginVO);
-				
+
 				return "OK";
-				
+
 			} else {
 				return "NO";
 			}
@@ -348,7 +345,7 @@ public class MemberServiceImpl implements MemberService {
 		if (changeCount == 0) {
 		} else {
 			changeMember.setId(member.getId());
-			//회원정보 수정
+			// 회원정보 수정
 			memberBiz.modifyMemberInfo(changeMember);
 		}
 
@@ -362,13 +359,16 @@ public class MemberServiceImpl implements MemberService {
 	 * @author 이기연
 	 */
 	@Override
-	public void saveLoginHistoryAsExcel(HttpSession session) {
+	public ModelAndView saveLoginHistoryAsExcel(HttpSession session) {
+		ModelAndView view = new ModelAndView();
 		MemberVO sessionMember = (MemberVO) session.getAttribute("_MEMBER_");
 		String memberId = sessionMember.getId();
 
 		// 로그인된 멤버의 로그인 내역만 저장시키기 위해서 보낸다.
 		// boolean 값으로 받아와 excel 변환 여부를 체크한다.
 		memberBiz.saveLoginHistoryAsExcel(memberId);
+		view.setViewName("redirect:/member/loginHistory");
+		return view;
 	}
 
 	@Override
@@ -392,45 +392,74 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	/**
-	 * @author 206-025 김동규 > 이기연 (수정) 
+	 * @author 206-025 김동규 > 이기연 (수정)
 	 * 
 	 */
 	@Override
-	public ModelAndView viewLoginHistoryPage(LoginHistorySearchVO loginHistorySearchVO, Errors errors, int pageNo, HttpSession session, HttpServletRequest request) {
-		
+	public ModelAndView viewLoginHistoryPage(LoginHistorySearchVO loginHistorySearchVO, Errors errors, int pageNo,
+			HttpSession session, HttpServletRequest request) {
+
 		ModelAndView view = new ModelAndView();
 		MemberVO memberVO = (MemberVO) session.getAttribute(Session.MEMBER);
-		LoginHistoryListVO loginHistoryListVO = new LoginHistoryListVO();
-		Paging paging = new Paging();
-		
-		loginHistoryListVO.setPaging(paging);
-		paging.setPageNumber(pageNo + "");
 
 		// 검색
+
+		try {
+			pageNo = Integer.parseInt(request.getParameter("pageNo"));
+			loginHistorySearchVO.setSearchKeyWord(request.getParameter("searchKeyWord"));
+
+		} catch (RuntimeException re) {
+			session.setAttribute("_LOGIN_HISTORY_SEARCH_", loginHistorySearchVO);
+
+			if (loginHistorySearchVO == null) {
+				loginHistorySearchVO.setPageNo(0);
+				loginHistorySearchVO.setSearchKeyWord("");
+			}
+		}
+
+		session.setAttribute("_LOGIN_HISTORY_SEARCH_", loginHistorySearchVO);
+		
+		int totalLoginHistoryCount = 0;
+		List<LoginHistoryVO> loginHistoryList = null;
+
+		// 검색 세션 만들기
+		// 새로 검색될 경우
+		if (session.getAttribute(Session.LOGIN_HISTORY_SEARCH) == null) {
+			session.setAttribute("_LOGIN_HISTORY_SEARCH_", loginHistorySearchVO);
+			totalLoginHistoryCount = memberBiz.getTotalLoginHistoryCount(memberVO.getId());
+		}
+		// 검색된 경우
+		else if (session.getAttribute(Session.LOGIN_HISTORY_SEARCH) != null) {
+			totalLoginHistoryCount = memberBiz.getTotalLoginHistoryCount(memberVO.getId());
+		}
+		
+		
+		Paging paging = new Paging();
+		paging.setTotalArticleCount(totalLoginHistoryCount);
+		paging.setPageNumber(pageNo + "");
+		
 		loginHistorySearchVO.setStartIndex(paging.getStartArticleNumber());
 		loginHistorySearchVO.setEndIndex(paging.getEndArticleNumber());
 		loginHistorySearchVO.setMemberId(memberVO.getId());
 		
-		// 검색 세션 만들기 
-		// 새로 검색될 경우 
-		if( session.getAttribute(Session.LOGIN_HISTORY_SEARCH) == null) {
+
+		if (session.getAttribute(Session.LOGIN_HISTORY_SEARCH) == null) {
 			session.setAttribute("_LOGIN_HISTORY_SEARCH_", loginHistorySearchVO);
-			int totalLoginHisotryCount = memberBiz.getTotalLoginHistoryCount(memberVO.getId());
-			paging.setTotalArticleCount(totalLoginHisotryCount);
+			loginHistoryList = memberBiz.getAllLoginHistory(loginHistorySearchVO);
 		}
 		// 검색된 경우
-		else {
-			int totalLoginHisotryCount = memberBiz.getTotalLoginHistoryCount(memberVO.getId());
-			paging.setTotalArticleCount(totalLoginHisotryCount);
+		else if (session.getAttribute(Session.LOGIN_HISTORY_SEARCH) != null) {
+			loginHistoryList = memberBiz.getAllLoginHistory(loginHistorySearchVO);
 		}
 		
-		List<LoginHistoryVO> loginHistoryList = memberBiz.getAllLoginHistory(loginHistorySearchVO);
+		LoginHistoryListVO loginHistoryListVO = new LoginHistoryListVO();
 		loginHistoryListVO.setLoginHistoryList(loginHistoryList);
+		loginHistoryListVO.setPaging(paging);
 
 		view.setViewName("member/loginHistory");
 		view.addObject("loginHistoryListVO", loginHistoryListVO);
 		view.addObject("loginHistorySearchVO", loginHistorySearchVO);
-		
+
 		return view;
 	}
 
@@ -471,88 +500,84 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public ModelAndView changePassword(MemberVO memberVO, Errors errors) {
-		
+
 		ModelAndView view = new ModelAndView();
-		
-		if ( errors.hasErrors() ) {
-			
+
+		if (errors.hasErrors()) {
+
 			view.setViewName("/changePassword/" + memberVO.getId());
 			view.addObject("member", memberVO);
-			
+
 			return view;
-		}
-		else {
-			
+		} else {
+
 			System.out.println("에러가 없는 경우************");
-			
+
 			String originSalt = memberBiz.getSaltById(memberVO.getId());
 			String inputPassword = SHA256Util.getEncrypt(memberVO.getPrevPassword(), originSalt);
-			
+
 			String originPassword = memberBiz.getPasswordById(memberVO.getId());
-			
-			if ( inputPassword.equals(originPassword) ) {
-				
+
+			if (inputPassword.equals(originPassword)) {
+
 				// 입력한 현재 비밀번호가 맞은 경우
 				String newSalt = SHA256Util.generateSalt();
 				memberVO.setSalt(newSalt);
-				
+
 				String newPassword = SHA256Util.getEncrypt(memberVO.getPassword(), newSalt);
 				memberVO.setPassword(newPassword);
-				
+
 				memberBiz.changePassword(memberVO);
 
 				view.setViewName("/");
-				
+
 				return view;
 			}
-				
-			
+
 			// 입력한 현재 비밀번호가 틀렸을 경우
 			view.setViewName("/changePassword/" + memberVO.getId());
 			return view;
 		}
-		
+
 	}
-	
 
 	@Override
 	public ModelAndView registerStudent() {
 		ModelAndView view = new ModelAndView();
-		
+
 		List<String> highestEducationLevelCodeNameList = memberBiz.getHighestEducationLevelCodeNames();
 		List<String> graduationTypeList = memberBiz.getGraduationType();
-		
+
 		view.setViewName("member/registerStudent");
 		view.addObject("graduationTypeList", graduationTypeList);
 		view.addObject("highestEducationLevelCodeNameList", highestEducationLevelCodeNameList);
-		
+
 		return view;
 	}
 
 	@Override
 	public String insertUuidForResign(HttpSession session) {
-		
+
 		MemberVO memeber = (MemberVO) session.getAttribute("_MEMBER_");
 		String uuid = UUID.randomUUID().toString();
 
 		memeber.setUuid(uuid);
 
 		memberBiz.insertUuidForResign(memeber);
-		
+
 		return uuid;
 	}
 
 	@Override
 	public ModelAndView sendEmailForResign(HttpSession session, String uuid) {
 		ModelAndView view = new ModelAndView();
-		
+
 		MemberVO member = (MemberVO) session.getAttribute("_MEMBER_");
-		
+
 		member = memberBiz.getOneMember(member.getId());
 		memberBiz.sendEmailForResign(member.getEmail(), member.getId(), uuid);
-//		memberBiz.sendEmailForResign("abonno@naver.com", uuid);
-		
-		
+		// memberBiz.sendEmailForResign("abonno@naver.com", uuid);
+
 		view.setViewName("member/myPage");
 
 		return view;
@@ -561,20 +586,21 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public ModelAndView loginForResign(String resignCode, String id) {
 		ModelAndView view = new ModelAndView();
-		
+
 		view.addObject("resignCode", resignCode);
 		view.addObject("id", id);
-		
+
 		view.setViewName("member/loginForResign");
-		
+
 		return view;
 	}
 
 	@Override
-	public String doResign(MemberVO loginVO, Errors errors, HttpSession session, HttpServletRequest request, String resignCode) {
-	
+	public String doResign(MemberVO loginVO, Errors errors, HttpSession session, HttpServletRequest request,
+			String resignCode) {
+
 		// 아이디 있는지 확인
-		if ( memberBiz.isExistId(loginVO.getId()) ) {
+		if (memberBiz.isExistId(loginVO.getId())) {
 			return "NO";
 		}
 
@@ -591,12 +617,12 @@ public class MemberServiceImpl implements MemberService {
 		boolean isLoginSuccess = memberBiz.login(session, loginVO, request);
 		// 로그인 횟수 제한 방어코드 작성
 		if (isLoginSuccess) {
-			
-			//RSN, RSN_DT 업데이트 
+
+			// RSN, RSN_DT 업데이트
 			MemberVO member = (MemberVO) session.getAttribute("_MEMBER_");
 			member = memberBiz.getOneMember(member.getId());
-			
-			if( member.getUuid() == resignCode ){
+
+			if (member.getUuid() == resignCode) {
 				memberBiz.doDeleteMember(member.getId());
 			}
 
@@ -607,18 +633,19 @@ public class MemberServiceImpl implements MemberService {
 			// Token 값 생성 및 등록 코드 작성
 			if (memberBiz.loginSuccess(loginVO.getId())) {
 				/*
-				 * 로그인한 회원이 글을 작성하는 write.jsp 에 아래 코드를 추가해야함!
-				 * <input type="hidden" name="csrfToken" value="${sessionScope._CSRF_TOKEN_}" />
+				 * 로그인한 회원이 글을 작성하는 write.jsp 에 아래 코드를 추가해야함! <input
+				 * type="hidden" name="csrfToken"
+				 * value="${sessionScope._CSRF_TOKEN_}" />
 				 */
 				String csrfToken = UUID.randomUUID().toString();
 				session.setAttribute(Session.CSRF_TOKEN, csrfToken);
 
 				memberBiz.attendCheck(loginVO);
 
-				// 로그인 내역 남기기 
+				// 로그인 내역 남기기
 				memberBiz.stampLoginTime(session, request, loginVO);
 
-				if(memberBiz.needToChangPassword(loginVO.getId())) {
+				if (memberBiz.needToChangPassword(loginVO.getId())) {
 					return "CNGPW";
 				} else {
 					return "OK";
@@ -658,12 +685,11 @@ public class MemberServiceImpl implements MemberService {
 	public ModelAndView viewMyPageMenu() {
 		ModelAndView view = new ModelAndView();
 		List<MenuManageVO> menuList = memberBiz.getMenuCategoryList();
-		
+
 		view.setViewName("member/myPage");
 		view.addObject("menuList", menuList);
-		
+
 		return view;
 	}
-	
 
 }

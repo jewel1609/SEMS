@@ -34,7 +34,7 @@ public interface MemberService {
 
 	public ModelAndView viewLoginHistoryPage(LoginHistorySearchVO loginHistorySearchVO, Errors errors, int pageNo, HttpSession session, HttpServletRequest request);
 
-	public void saveLoginHistoryAsExcel(HttpSession session);
+	public ModelAndView saveLoginHistoryAsExcel(HttpSession session);
 
 	public void sendBlockAccountEmail(String sessionId);
 

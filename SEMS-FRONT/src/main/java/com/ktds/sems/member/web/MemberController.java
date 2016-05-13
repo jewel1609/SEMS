@@ -237,8 +237,8 @@ public class MemberController {
 	 * @param session
 	 */
 	@RequestMapping("/member/myPage/saveAsExcel")
-	public void saveLoginHistoryAsExcel(HttpSession session) {
-		memberService.saveLoginHistoryAsExcel(session);
+	public ModelAndView saveLoginHistoryAsExcel(HttpSession session) {
+		return memberService.saveLoginHistoryAsExcel(session);
 	}
 
 	@RequestMapping("/member/loginHistory")
