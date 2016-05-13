@@ -54,7 +54,7 @@
 	<update id="doDeleteMember" parameterType="string">
 		UPDATE	MBR
 		SET		RSN = 'Y'
-				RSN_DT = SYSDATE
+				, RSN_DT = SYSDATE
 		WHERE	ID = #{id}
 	</update>
 	
@@ -90,6 +90,7 @@
 				, RSN isResign
 				, MDF_F_CT modifyFailCount
 				, IS_MDF_LCK isModifyLock
+				, UUID uuid
 		FROM	MBR
 		WHERE	ID = #{id}
 		AND		PWD = #{password}
