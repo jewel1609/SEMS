@@ -41,8 +41,8 @@ public class MemberBizImpl implements MemberBiz{
 	}
 
 	@Override
-	public void doGrdtDelete(String cdId) {
-		memberDAO.doGrdtDelete(cdId);
+	public int doGrdtDelete(String cdId) {
+		return memberDAO.doGrdtDelete(cdId);
 		
 	}
 
