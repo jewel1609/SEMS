@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.mock.web.PassThroughFilterChain;
 import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -103,17 +104,18 @@ public class EducationServiceImpl implements EducationService {
 		paging.setPageNumber(pageNo + "");
 		
 		int totalEducationCount = educationBiz.getTotalEducationCount();
+		logger.info("토탈 카운트"+ totalEducationCount);
 		paging.setTotalArticleCount(totalEducationCount);
 		EducationSearchVO searchVO = new EducationSearchVO();
 		searchVO.setStartIndex(paging.getStartArticleNumber());
 		searchVO.setEndIndex(paging.getEndArticleNumber());
 		
 		List<EducationVO> educationList = educationBiz.getAllEducationList(searchVO);
+		logger.info("educationList"+ educationList.size());
 		educationListVO.setEducationList(educationList);
 
 		ModelAndView view = new ModelAndView();
 		view.setViewName("education/list");
-		
 		if(educationList.size() > 0 ){
 			view.addObject("educationListVO", educationListVO);
 		}
@@ -122,22 +124,31 @@ public class EducationServiceImpl implements EducationService {
 
 	@Override
 	public String doApplyEducation(String educationId, String educationType, HttpSession session) {
-		
 		// 현재 로그인된 멤버가 가입한 educationId에 해당하는 주/야간 정보 가져오기
 		MemberVO loginMember = (MemberVO)session.getAttribute("_MEMBER_");
 		List<String> eduType = educationBiz.getMemberRegInfo(loginMember.getId());
 		// 버튼을 통해 가져온 educationType에 해당하는 주/야간 정보와 비교하기
-		for (String eduTp : eduType) {
-			if( eduTp.equals(educationType) ){
-				return "FAIL";
+		if ( eduType.size() == 0) {
+			boolean isResult = educationBiz.doApplyEducation(educationId, loginMember.getId());
+			if( isResult ){
+				return "OK";
+			} else{
+				throw new RuntimeException("일시적인 장애가 발생했습니다. 잠시 후 다시 시도해주세요.");
 			}
 		}
-		// 다르다면  for 문을 빠져나와서 insert시킨다.
-		boolean isResult = educationBiz.doApplyEducation(educationId, loginMember.getId());
-		if( isResult ){
-			return "OK";
-		} else{
-			throw new RuntimeException("일시적인 장애가 발생했습니다. 잠시 후 다시 시도해주세요.");
+		else{
+			for (String eduTp : eduType) {
+				if( eduTp.equals(educationType) ){
+					return "FAIL";
+				}
+			}
+			// 다르다면  for 문을 빠져나와서 insert시킨다.
+			boolean isResult = educationBiz.doApplyEducation(educationId, loginMember.getId());
+			if( isResult ){
+				return "OK";
+			} else{
+				throw new RuntimeException("일시적인 장애가 발생했습니다. 잠시 후 다시 시도해주세요.");
+			}
 		}
 	}
 	
@@ -233,19 +244,16 @@ public class EducationServiceImpl implements EducationService {
 		List<FileVO> fileList = fileBiz.getOneFileId(educationId);
 		
 		for (FileVO fileVO : fileList){
-			if ( fileVO.getArticleId() == educationId ){
-//			if ( fileList.get(0). == educationId ){
+			if ( fileVO.getArticleId().equals(educationId) ){
 				DownloadUtil downloadUtil = DownloadUtil.getInstance("D:\\");
+				String displayFileName = (fileVO.getFileLocation()).substring(3);
 				try {
-					downloadUtil.download(request, response, fileVO.getFileName(), fileVO.getFileName());
+					downloadUtil.download(request, response, displayFileName, displayFileName);
 				} catch (UnsupportedEncodingException e) {}
 			}
-			System.out.println("fileVO.getArticleId() ==" + fileVO.getArticleId());
-			System.out.println("educationId ==" + educationId);
 		}
 		
-		
-		view.setViewName("redirect:/eduDetail/"+educationId );
+		view.setViewName("redirect:/eduDetail/"+ educationId );
 
 		return view;
 	}

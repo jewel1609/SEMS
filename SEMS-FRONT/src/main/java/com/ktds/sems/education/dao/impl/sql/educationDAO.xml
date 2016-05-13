@@ -57,6 +57,7 @@
 				, EDU.END_DATE endDate
 				, EDU.START_TM startTime
 				, EDU.END_TM endTime
+				, EDU.EDU_TP educationType
 		 		, EDU_TIME.CD_NM typeName
 				, EDU_CST.CD_NM costName 
 		FROM	EDU_INFO EDU
@@ -219,6 +220,28 @@
 		AND		MBR_ID = #{id} 
 	</delete>
     
+    <select id="getMemberRegInfo" parameterType="string"  resultType="string">
+    	SELECT 	 DISTINCT EDU_TP
+	    FROM 	 EDU_INFO
+	    WHERE    EDU_ID IN (
+	                        SELECT  EDU_ID
+	                        FROM    EDU_REG
+	                        WHERE   MBR_ID = #{id}
+	                        )
+    </select>
+    
+    <insert id="doApplyEducation" parameterType="map">
+    	INSERT INTO SEMS.EDU_REG (
+								   EDU_ID
+								   , EDU_REG_ID
+								   , MBR_ID
+								   ) 
+						VALUES ( 
+								#{educationId}
+								, EDU_REG_ID_SEQ.NEXTVAL
+								, #{id}
+							 )
+   	</insert>
     
     <select id="isApplyMemberByEducationId" parameterType="map" resultType="_int">
     	SELECT  COUNT(EDU_REG_ID)

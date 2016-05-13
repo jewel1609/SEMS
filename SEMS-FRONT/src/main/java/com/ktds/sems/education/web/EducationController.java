@@ -46,7 +46,7 @@ public class EducationController {
 		
 		EducationVO educationVO = new EducationVO();
 		
-		if(startMonth.length() > 0 && endMonth.length() > 0 ){
+		if(startMonth.length() > 0 && endMonth.length() > 0 ) {
 			if(startMonth.length() == 1) {
 				startMonth = "0" + startMonth;
 			}
@@ -55,7 +55,8 @@ public class EducationController {
 			}
 			educationVO.setStartDate(startYear + "-" + startMonth);
 			educationVO.setEndDate(endYear + "-" + endMonth);
-		}else{
+		}
+		else {
 			educationVO.setStartDate(null);
 			educationVO.setEndDate(null);
 		}

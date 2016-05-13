@@ -13,6 +13,8 @@ import com.ktds.sems.education.vo.EducationSearchVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.QNAVO;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
+
 public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationDAO {
 	
 	private Logger logger = LoggerFactory.getLogger(EducationDAOImpl.class);	

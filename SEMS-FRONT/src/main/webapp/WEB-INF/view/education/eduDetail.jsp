@@ -24,6 +24,17 @@
 						}
 					});
 		});
+		
+		$("#cancleEdu").click(function(){
+			var educationId = $("#eduId").val();
+			alert($("#eduId").val());
+			location.href = "<c:url value='/doCancelEducation/"+ educationId +"'/>";
+		});
+		
+		$("#goList").click(function(){
+			location.href="<c:url value='/educationList'/>";
+		});
+		
 	});
 </script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -84,41 +95,36 @@
 			<td>${ education.typeName }</td>
 		</tr>
 		<tr>
-			<td>비용</td>
-			<td>${ education.cost }</td>
-		</tr>
-		<tr>
 			<td>유료/무료</td>
 			<td>${ education.costName }</td>
 		</tr>
 	</table>
 	<br/>
+	<input type="button"  value="검색 목록" id="goList" name="goList" />
+	<br/>
+	<br/>
+	<h3>문의사항</h3>
+	<c:if test="${ eduReplyListVO.qnaList.size() gt 0 }">
 	<table border="1">
-	<tr>
-		<th colspan="6">문의사항</th>
-	</tr>
-
 	<c:forEach items="${eduReplyListVO.qnaList}" var="qna">
 	<tr>
-		<td>작성자</td>
-		<td>${ qna.mbrId }</td>
-		<td colspan="2">내용</td>
-		<td>${ qna.description }</td>
+		<td colspan="2">작성자</td>
+		<td colspan="2">${ qna.mbrId }</td>
+		<td>내용</td>
+		<td colspan="2">${ qna.description }</td>
 		
 	</tr>
 	<tr>
-		<td>날짜</td>
-		<td>${ qna.createdDate } </td>
 		<td>좋아요</td>
 		<td>${ qna.likeCnt }
 		<td>싫어요</td>
 		<td>${ qna.dislikeCnt }</td>
+		<td>날짜</td>
+		<td>${ qna.createdDate } </td>
 	</tr>
-	
-
 	</c:forEach>
 	 <tr>
-		<td colspan="5" >
+		<td colspan="6"  align="center">
 			<form id="pagingForm">
 					<c:if test="${ eduReplyListVO ne null }">
 						${eduReplyListVO.paging.getPagingList("pageNo", "[@]", "이전", "다음", "pagingForm")}
@@ -126,24 +132,28 @@
 			</form>
 		</td>
 	</tr>
-	
 	</table>
-	
-	<form:form commandName="qnaVO" method="post" action="<c:url value='/doWriteComment'/>">
+	</c:if>
+	<br/>
+	<form:form commandName="qnaVO" method="post" action="/doWriteComment">
 	<input type="hidden" name="educationId" value="${ education.educationId }">	
-	<textarea id="description" name="description" placeholder="내용을 입력하세요." >${qnaVO.description}</textarea><br/>
+	<textarea id="description" name="description" cols="51" rows="5" placeholder="내용을 입력하세요." >${qnaVO.description}</textarea><br/>
 	<form:errors path="description"/><br/>
 	<input type="submit" value="댓글쓰기"/>
 	</form:form>
-	
-	<c:if test="${ isApply }">
+	<br/>
 	<input type="hidden" value="${ education.educationId }" id="eduId" />
 	<input type="hidden" value="${ education.educationType }" id="eduType" />
+	
+	<c:if test="${ isApply }">
 	<input type="button" id="applyEdu" name="applyEdu" value="교육 참가 신청" />
 	</c:if>
-	<a href="<c:url value='/doCancelEducation/${ education.educationId }'/>">교육 참가 취소</a>
 	
+	<c:if test="${ !isApply }">
+	<input type="button" id="cancleEdu" name="cancleEdu" value="교육 참가 취소" />
+	</c:if>
 	<br/>
+	
 	<c:forEach items="${fileList}" var="fileVO">
 	파일다운로드: <a href="/downloadFile/${ education.educationId }">${fileVO.fileName}</a>
 	</c:forEach>
