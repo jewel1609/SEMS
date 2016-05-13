@@ -17,13 +17,12 @@
 	<table border="1" style="border-collapse: collapse; text-align: center;">
 		<c:forEach items="${menuList }" var="menuList" >
 			<tr>
-				<td><a href="<c:url value='${menuList.url }' />">${menuList.codeName }</a></td>
+				<td><a href="<c:url value='/member/myPage${menuList.url }' />">${menuList.codeName }</a></td>
 			</tr>
 		</c:forEach>
 	</table>
 
-	<%-- <a href="<c:url value="/member/myPage/checkPassword" />">내 정보 수정</a>	<br />
-	<a href="<c:url value="/member/myPage/resignMember" />">삭제</a> --%>
+	<a href="<c:url value="/member/myPage/resignMember" />">삭제</a>
 
 </body>
 </html>
