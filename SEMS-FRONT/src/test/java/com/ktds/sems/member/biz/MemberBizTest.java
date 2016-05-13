@@ -175,25 +175,20 @@ public class MemberBizTest {
 	@Test
 	public void getHighestEducationLevelCodeNamesTest(){
 		
-		List<String> result = memberBiz.getHighestEducationLevelCodeNames();
-		if ( result != null ) {
-			assertNotNull(result);
-		}
-		else {
-			fail("result is null");
-		}
+		List<String> helCodeNameList = memberBiz.getHighestEducationLevelCodeNames();
+		
+		assertNotNull(helCodeNameList);
+		assertTrue(helCodeNameList.size() >= 0 );
+		
 	}
 	
 	@Test
 	public void getGraduationTypeTest(){
 		
-		List<String> result = memberBiz.getGraduationType();
-		if ( result != null ) {
-			assertNotNull(result);
-		}
-		else {
-			fail("result is null");
-		}
+		List<String> graduationTypeList = memberBiz.getGraduationType();
+
+		assertNotNull(graduationTypeList);
+		assertTrue(graduationTypeList.size() >= 0 );
 	}
 	
 	@Test
