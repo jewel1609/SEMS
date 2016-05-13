@@ -52,11 +52,12 @@ public class EducationServiceImpl implements EducationService {
 		
 		MultipartFile file = request.getFile("file");
 		
+		String fileName = file.getOriginalFilename();
+		
 		String salt = SHA256Util.generateSalt();
-		String saltFileName = SHA256Util.getEncrypt(educationVO.getEducationCurriculum(), salt)+".xlsx";
+		String saltFileName = SHA256Util.getEncrypt(fileName, salt)+".xlsx";
 		educationVO.setSalt(salt);
 		
-		String fileName = file.getOriginalFilename();
 		String filePath = "D:\\"+saltFileName;
 		
 		if ( sessionMember.getMemberType().equals("ADM") ) {
