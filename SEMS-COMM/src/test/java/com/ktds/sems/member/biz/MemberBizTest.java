@@ -1,6 +1,7 @@
 package com.ktds.sems.member.biz;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
@@ -12,6 +13,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.ktds.sems.member.vo.GrdtTpVO;
+import com.ktds.sems.member.vo.MbrTpVO;
 import com.ktds.sems.member.vo.MemberVO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -174,4 +176,49 @@ public class MemberBizTest {
 		int checkExistCdNmData = memberBiz.isExistCdNmData(grdtTpVO);
 		assertTrue(checkExistCdNmData >= 1);
 	}
+	
+	@Test
+	public void getAllMbrTpListTest(){
+		List<MbrTpVO> mbrTpList = memberBiz.getAllMbrTpList();
+		assertNotNull(mbrTpList);
+		assertTrue(mbrTpList.size() >= 0);
+	}
+	
+	@Test
+	public void doInsertMbrTpTest(){
+		MbrTpVO mbrTpVO = new MbrTpVO();
+		mbrTpVO.setCdId("TEST");
+		mbrTpVO.setCdNm("JUNITTEST");
+		
+		int checkMbrInsert = memberBiz.doInsertMbrTp(mbrTpVO);
+		assertTrue(checkMbrInsert >= 1);
+	}
+	
+	@Test
+	public void doMbrTpModifyTest(){
+		MbrTpVO mbrTpVO = new MbrTpVO();
+		mbrTpVO.setCdId("TEST");
+		mbrTpVO.setCdNm("JUNITTEST");
+		
+		int checkMbrTpModify = memberBiz.doMbrTpModify(mbrTpVO);
+		assertTrue(checkMbrTpModify >= 1);
+	}
+	
+	@Test
+	public void doMbrTpDeleteTest(){
+		String cdId = "TEST";
+		int checkMbrTpDelete = memberBiz.doMbrTpDelete(cdId);
+		assertTrue(checkMbrTpDelete >= 1);
+	}
+	
+	@Test
+	public void isExistMbrTpDataTest(){
+		MbrTpVO mbrTpVO = new MbrTpVO();
+		mbrTpVO.setCdId("TEST");
+		mbrTpVO.setCdNm("JUNITTEST");
+		
+		int checkExistData = memberBiz.isExistMbrTpData(mbrTpVO);
+		assertTrue(checkExistData >= 1);
+	}
+	
 }
