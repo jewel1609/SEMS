@@ -81,7 +81,6 @@ public class EducationBizImpl implements EducationBiz {
 				&& !isStartTime
 				&& !isEndTime
 				&& !isEducationType
-				&& !isEducationType
 				&& !isCost) {
 			return true;
 		}
