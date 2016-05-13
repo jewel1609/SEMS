@@ -118,9 +118,17 @@ public class EducationServiceImpl implements EducationService {
 		List<EducationVO> educationList = educationBiz.getAllEducationList(searchVO);
 		logger.info("educationList"+ educationList.size());
 		educationListVO.setEducationList(educationList);
-
+		
+		// Type, Cost Name 가져오기
+		List<String> typeName = educationBiz.getTypeName();
+		List<String> costName = educationBiz.getCostName();
+		
 		ModelAndView view = new ModelAndView();
 		view.setViewName("education/list");
+		
+		view.addObject("typeName", typeName);
+		view.addObject("costName", costName);
+		
 		if(educationList.size() > 0 ){
 			view.addObject("educationListVO", educationListVO);
 		}
@@ -200,6 +208,8 @@ public class EducationServiceImpl implements EducationService {
 
 	@Override
 	public ModelAndView doSearchList(EducationVO educationVO, int pageNo) {
+		logger.info(educationVO.getCost());
+		logger.info(educationVO.getEducationType());
 		EducationListVO searchedListVO = new EducationListVO();
 		Paging paging = new Paging(15,15);
 		
@@ -212,17 +222,30 @@ public class EducationServiceImpl implements EducationService {
 		}
 		
 		paging.setTotalArticleCount(searchedEducationCount);
-		
+		logger.info("searchedEducationCount" +searchedEducationCount);
+
 		EducationSearchVO searchVO = new EducationSearchVO();
 		searchVO.setStartIndex(paging.getStartArticleNumber());
 		searchVO.setEndIndex(paging.getEndArticleNumber());	
 	
 		List<EducationVO> searchedEducations = educationBiz.doSearchList(educationVO, searchVO);
+		logger.info("searchedEducations" +searchedEducations.size());
+
 		searchedListVO.setEducationList(searchedEducations);
+
+		// Type, Cost Name 가져오기
+		List<String> typeName = educationBiz.getTypeName();
+		List<String> costName = educationBiz.getCostName();
+			
+		
 		ModelAndView view = new ModelAndView();
+		
+		view.addObject("typeName", typeName);
+		view.addObject("costName", costName);
 		
 		view.addObject("searchKeyword", educationVO);
 		view.addObject("searchedListVO", searchedListVO);
+		
 		view.setViewName("education/list");
 		return view;
 	}
@@ -249,23 +272,30 @@ public class EducationServiceImpl implements EducationService {
 
 
 	@Override
-	public ModelAndView doDownloadFile(String educationId, HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView view = new ModelAndView();
+	public void doDownloadFile(String educationId, HttpServletRequest request, HttpServletResponse response) {
 		List<FileVO> fileList = fileBiz.getOneFileId(educationId);
 		
 		for (FileVO fileVO : fileList){
 			if ( fileVO.getArticleId().equals(educationId) ){
 				DownloadUtil downloadUtil = DownloadUtil.getInstance("D:\\");
+				String userFileName = fileVO.getFileName();
 				String displayFileName = (fileVO.getFileLocation()).substring(3);
 				try {
-					downloadUtil.download(request, response, displayFileName, displayFileName);
+					downloadUtil.download(request, response, displayFileName, userFileName);
 				} catch (UnsupportedEncodingException e) {}
 			}
 		}
 		
-		view.setViewName("redirect:/eduDetail/"+ educationId );
+	}
 
-		return view;
+	@Override
+	public String doTransCostId(String cost) {
+		return educationBiz.doTransCostId(cost);
+	}
+
+	@Override
+	public String doTransTypeId(String educationType) {
+		return educationBiz.doTransTypeId(educationType);
 	}
 
 }

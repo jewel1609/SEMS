@@ -76,7 +76,7 @@ $(document).ready(function() {
 		<td>
 			<select id="startYear" name="startYear" >
 				<option value="" selected="selected"></option>
-				<c:forEach var="startYear" begin="2010" end="2016" step="1">
+				<c:forEach var="startYear" begin="2010" end="2017" step="1">
 					<c:if test="${ searchKeyword.startYear eq  startYear }">
 						<option value="${ startYear }" selected="selected">${ startYear }</option>
 					</c:if> 
@@ -137,22 +137,15 @@ $(document).ready(function() {
 		<td>
 
 			<select name="educationType" id="educationType" >
-				<option value="${searchKeyword.educationType}" selected="selected"></option>
-				<c:if test="${searchKeyword.educationType eq '주간'}">
-				<option value="주간" selected="selected">주간</option>
-				</c:if>
-				<c:if test="${searchKeyword.educationType ne '주간'}">
-
-			<select name="educationType" id="educationType" >
 				<option value="" selected="selected"></option>
-				<option value="주간">주간</option>
-				</c:if>
-				<c:if test="${searchKeyword.educationType eq '야간'}">
-				<option value="야간" selected="selected">야간</option>
-				</c:if>
-				<c:if test="${searchKeyword.educationType ne '야간'}">
-				<option value="야간">야간</option>
-				</c:if>
+				<c:forEach items="${ typeName }" var="tpName">
+					<c:if test="${searchKeyword.educationType eq tpName}">
+						<option value="${ tpName }" selected="selected">${ tpName }</option>
+					</c:if>
+					<c:if test="${searchKeyword.educationType ne tpName}">
+					<option value="${ tpName }">${ tpName }</option>
+					</c:if>
+				</c:forEach>
 			</select>
 		</td>
 	</tr>
@@ -160,23 +153,16 @@ $(document).ready(function() {
 		<th>비용</th>
 		<td>
 			<select name="cost" id="cost">
-				<option value="${searchKeyword.cost}" selected="selected"></option>
-				<c:if test="${searchKeyword.cost eq '무료'}">
-				<option value="무료" selected="selected">무료</option>
-				</c:if>
-				<c:if test="${searchKeyword.cost ne '무료'}">
-				<option value="무료">무료</option>
-				</c:if>
-				<c:if test="${searchKeyword.cost eq '유료'}">
-				<option value="유료" selected="selected">유료</option>
-				</c:if>
-				<c:if test="${searchKeyword.cost ne '유료'}">
-				<option value="유료">유료</option>
-				</c:if>
+					<option value="" selected="selected"></option>
+				<c:forEach items="${ costName }" var="csName">
+					<c:if test="${searchKeyword.cost eq csName}">
+					<option value="${ csName }" selected="selected">${ csName }</option>
+					</c:if>
+					<c:if test="${searchKeyword.cost ne csName}">
+					<option value="${ csName }">${ csName }</option>
+					</c:if>
+				</c:forEach>
 			</select>
-			
-			
-			
 		</td>
 	</tr>
 	<tr>

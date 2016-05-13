@@ -35,4 +35,12 @@ public interface EducationBiz {
 	public int isApplyMemberByEducationId(String educationId, String id);
 
 	public int getEduReplyCount(String educationId);
+
+	public List<String> getTypeName();
+
+	public List<String> getCostName();
+
+	public String doTransTypeId(String educationType);
+
+	public String doTransCostId(String cost);
 }

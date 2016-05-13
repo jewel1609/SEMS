@@ -39,4 +39,12 @@ public interface EducationDAO {
 
 	public int getEduReplyCount(String educationId);
 
+	public List<String> getCostName();
+
+	public List<String> getTypeName();
+
+	public String doTransCostId(String cost);
+
+	public String doTransTypeId(String educationType);
+
 }

@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.education.service.EducationService;
-import com.ktds.sems.education.vo.EducationListVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.QNAVO;
 
@@ -51,7 +50,7 @@ public class EducationController {
 	public ModelAndView doSearchList(@RequestParam String startYear, @RequestParam String startMonth, 
 				@RequestParam String endYear, @RequestParam String endMonth, @RequestParam String eduName,
 				@RequestParam String educationType, @RequestParam String cost, @RequestParam(required=false, defaultValue="0") String pageNo){
-/*		logger.info("검색");
+		logger.info("검색");
 		logger.info(startYear);
 		logger.info(startMonth);
 		logger.info(endYear);
@@ -59,7 +58,7 @@ public class EducationController {
 		logger.info(eduName);
 		logger.info(educationType);
 		logger.info(cost);
-		logger.info(pageNo);*/
+		logger.info(pageNo);
 		if(pageNo.length() > 1) {
 			pageNo = "0";
 		}
@@ -90,12 +89,20 @@ public class EducationController {
 			cost = null;
 		}
 		
-		eduName=eduName.trim().toLowerCase();
+		if(eduName != null){
+			eduName=eduName.trim().toLowerCase();
+			logger.info(eduName);
+		}
+		if(cost != null){
+	//		String costId = educationService.doTransCostId(cost);
+			educationVO.setCost(cost);
+		}
 		
+		if(educationType != null){
+//			String typeId = educationService.doTransTypeId(educationType);
+			educationVO.setEducationType(educationType);
+		}
 		educationVO.setEducationTitle(eduName);
-		educationVO.setEducationType(educationType);
-		educationVO.setCost(cost);
-		
 		educationVO.setStartYear(startYear);
 		educationVO.setStartMonth(startMonth);
 		educationVO.setEndYear(endYear);
@@ -121,8 +128,8 @@ public class EducationController {
 	}
 
 	@RequestMapping("/downloadFile/{educationId}")
-	public ModelAndView doDownloadFile(@PathVariable String educationId, HttpServletRequest request, HttpServletResponse response){
-		return educationService.doDownloadFile(educationId, request, response);
+	public void doDownloadFile(@PathVariable String educationId, HttpServletRequest request, HttpServletResponse response){
+		educationService.doDownloadFile(educationId, request, response);
 	}
 
 

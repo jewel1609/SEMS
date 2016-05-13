@@ -87,6 +87,27 @@ public class EducationBizImpl implements EducationBiz {
 	public List<QNAVO> getAllCommentByEducationId(String educationId, EducationSearchVO searchVO) {
 		return educationDAO.getAllCommentByEducationId(educationId, searchVO);
 	}
+
+	@Override
+	public List<String> getTypeName() {
+		return educationDAO.getTypeName();
+	}
+
+	@Override
+	public List<String> getCostName() {
+		return educationDAO.getCostName();
+	}
+
+	@Override
+	public String doTransTypeId(String educationType) {
+		return educationDAO.doTransTypeId(educationType);
+	}
+
+	@Override
+	public String doTransCostId(String cost) {
+		// TODO Auto-generated method stub
+		return educationDAO.doTransCostId(cost);
+	}
 }
 
 

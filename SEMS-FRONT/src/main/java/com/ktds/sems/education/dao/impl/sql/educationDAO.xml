@@ -255,4 +255,26 @@
 		FROM	QNA
 		WHERE 	EDU_ID = #{educationId}
     </select>
+    
+    <select id="getCostName" resultType="string">
+    	SELECT  CD_NM
+    	FROM	EDU_CST
+    </select>
+    
+    <select id="getTypeName" resultType="string">
+    	SELECT  CD_NM
+    	FROM	EDU_TIME
+    </select>
+	
+	<select id="doTransCostId" parameterType="string" resultType="string">
+		SELECT  CD_ID
+		FROM	EDU_CST
+		WHERE   CD_NM = #{cost}
+	</select>
+
+	<select id="doTransTypeId" parameterType="string" resultType="string">
+		SELECT  CD_ID
+		FROM	EDU_TIME
+		WHERE   CD_NM = #{educationType}
+	</select>
 </mapper>

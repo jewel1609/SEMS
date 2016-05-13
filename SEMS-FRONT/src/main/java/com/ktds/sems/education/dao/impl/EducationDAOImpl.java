@@ -120,6 +120,26 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 		return getSqlSession().selectOne("EducationDAO.getEduReplyCount", educationId);
 	}
 
+	@Override
+	public List<String> getCostName() {
+		return getSqlSession().selectList("EducationDAO.getCostName");
+	}
+
+	@Override
+	public List<String> getTypeName() {
+		return getSqlSession().selectList("EducationDAO.getTypeName");
+	}
+
+	@Override
+	public String doTransCostId(String cost) {
+		return getSqlSession().selectOne("EducationDAO.doTransCostId", cost);
+	}
+
+	@Override
+	public String doTransTypeId(String educationType) {
+		return getSqlSession().selectOne("EducationDAO.doTransTypeId", educationType);
+	}
+
 
 
 }

@@ -27,7 +27,6 @@
 		
 		$("#cancleEdu").click(function(){
 			var educationId = $("#eduId").val();
-			alert($("#eduId").val());
 			location.href = "<c:url value='/doCancelEducation/"+ educationId +"'/>";
 		});
 		

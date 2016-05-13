@@ -26,7 +26,11 @@ public interface EducationService {
 
 	public String doCancelEducation(String educationId, HttpSession session);
 
-	public ModelAndView doDownloadFile( String educationId, HttpServletRequest request, HttpServletResponse response);
+	public void doDownloadFile( String educationId, HttpServletRequest request, HttpServletResponse response);
+
+	public String doTransCostId(String cost);
+
+	public String doTransTypeId(String educationType);
 
 	
 }
