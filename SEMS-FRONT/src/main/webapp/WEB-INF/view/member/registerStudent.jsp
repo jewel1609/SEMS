@@ -285,10 +285,18 @@
 		<br/><form:errors path="phoneNumber" /><br/>
 
 		학교 : <input type="text" name="universityName" value="${ member.universityName }" />
-		<br/><span id="messageByUniversityName"></span><br/>
+		<br/>
+			<c:if test="${isEmptyUniversityName ne null}">
+				<span id="messageByUniversityName">학교를 입력하세요!</span>
+			</c:if>
+		<br/>
 		
 		학과 : <input type="text" name="majorName" value="${ member.majorName }" />
-		<br/><span id="messageByMajorName"></span><br/>
+		<br/>
+			<c:if test="${isEmptyMajorName ne null}">
+				<span id="messageByMajorName" style="color: red;">학과를 입력하세요!</span>
+			</c:if>
+		<br/>
 		
 		졸업구분 : 
 		<c:forEach items="${graduationTypeList}" var="graduationTypeCodeName">
@@ -299,7 +307,11 @@
 			<input type="radio" class="graduationType" name="graduationType" value="${graduationTypeCodeName}"/>${graduationTypeCodeName}
 			</c:if>
 		</c:forEach>
-		<br/><br/>
+		<br/>
+			<c:if test="${isEmptyGraduationType ne null}">
+				<span id="messageByMajorName" style="color: red;">졸업구분을 선택하세요!</span>
+			</c:if>
+		<br/>
 		
 		최종학력 : 
 		<c:forEach items="${highestEducationLevelCodeNameList}" var="helCodeName">
@@ -310,8 +322,12 @@
 			<input type="radio" class="highestEducationLevel" name="highestEducationLevel" value="${helCodeName}"/>${helCodeName}
 			</c:if>
 		</c:forEach>
-		
-		<br/><br/>
+		<br/>
+			<c:if test="${isEmptyHighestEducationLevel ne null}">
+				<span id="messageByMajorName" style="color: red;">최종학력을 선택하세요!</span>
+			</c:if>
+		<br/>
+
 		<input type="hidden" name="memberType" value="MBR" />
 		<input id="registerButton" class="inputButton" type="button" value="가입"/>
 	</form:form>
