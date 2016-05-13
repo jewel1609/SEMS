@@ -42,7 +42,7 @@
 
 <form id="checkPasswordForm" name="checkPasswordForm" method="post" action="<c:url value="/member/myPage/modify"/>">
 
-	<input type="text" name="password" id="password" size="50" placeholder="비밀번호를 입력하세요" />
+	<input type="password" name="password" id="password" size="50" placeholder="비밀번호를 입력하세요" />
 	<input type="button" id="checkPasswordBtn" value="확인" />
 
 </form>

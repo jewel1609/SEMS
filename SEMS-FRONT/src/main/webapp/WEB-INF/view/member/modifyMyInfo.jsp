@@ -17,6 +17,9 @@ $(document).ready(function() {
 		var form = $("#memberInfoForm");
 		form.attr("action", "<c:url value="/member/myPage/doModifyAction" />");
 		form.submit();
+		
+		alert("수정이 완료되었습니다.");
+		
 	});
 	
 	
@@ -131,7 +134,7 @@ function daysInMonth(month, year) {
 <form:form commandName="memberInfoForm" method="post">
 
 	아이디 : ${member.id}  <br/>
-	비밀번호 : <input type="text" name="password" id="password" />
+	비밀번호 : <input type="password" name="password" id="password" />
 	<br />
 	이름 : <input type="text" name="name" id="name" value="${member.name}" placeholder="이름을 입력하세요." tabindex="1"/>
 	<br/>
@@ -147,10 +150,6 @@ function daysInMonth(month, year) {
     <select id="days" name="days" tabindex="7"></select>&nbsp;일
 	<input type="hidden" id="birthDate" name="birthDate" value="${ member.birthDate }" />
 	
-	<!-- 
-	 <input type="text" name="birthDate" id="birthDate"  value="${member.birthDate}" placeholder="생년월일을 입력하세요." /> 	
-	 -->
-	 
 	<br />
 	전화번호 : <input type="text" name="phoneNumber" id="phoneNumber"  value="${member.phoneNumber}" placeholder="전화번호를 입력하세요." tabindex="8" /> 
 	<br />
