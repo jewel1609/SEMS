@@ -401,4 +401,10 @@
 		AND		MBR_TP = 'TR'
 	</select>
 	
+	<delete id="delectJunitTestMember" parameterType="string">
+		DELETE
+		FROM	MBR
+		WHERE	ID = #{id}
+	</delete>
+	
 </mapper>
