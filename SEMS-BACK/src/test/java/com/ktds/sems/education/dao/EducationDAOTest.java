@@ -2,6 +2,7 @@ package com.ktds.sems.education.dao;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.io.IOException;
@@ -9,7 +10,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import javax.validation.constraints.AssertTrue;
+import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,8 +24,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
+import com.ktds.sems.education.vo.CategoryVO;
+import com.ktds.sems.education.vo.CostVO;
+import com.ktds.sems.education.vo.EducationTypeVO;
 import com.ktds.sems.education.service.EducationServiceTest.EducationValidator;
 import com.ktds.sems.education.vo.EducationVO;
 
@@ -34,6 +37,38 @@ public class EducationDAOTest {
 
 	@Autowired
 	private EducationDAO educationDAO;
+	
+	@Test 
+	public void insertNewEducationTest(){
+		
+		EducationVO educationVO = new EducationVO();
+		educationDAO.insertNewEducation(educationVO);
+		assertNotNull(educationVO);
+		
+	}
+	
+	@Test 
+	public void costCodeListTest(){
+		
+		List<CostVO> costcode = educationDAO.costCodeList();
+		assertNotNull(costcode);
+		assertTrue(costcode.size() >= 0);
+	}
+	
+	@Test 
+	public void typeCodeListTest(){
+		
+		List<EducationTypeVO> typecode = educationDAO.typeCodeList();
+		assertNotNull(typecode);
+		assertTrue(typecode.size() >= 0);
+	}
+	@Test 
+	public void categoryCodeListTest(){
+		
+		List<CategoryVO>  categorycode = educationDAO.categoryCodeList();
+		assertNotNull(categorycode);
+		assertTrue(categorycode.size() >= 0);
+	}
 	
 	@Test
 	public void getOneEducationTest() {
