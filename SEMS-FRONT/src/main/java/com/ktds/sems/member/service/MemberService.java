@@ -48,7 +48,7 @@ public interface MemberService {
 
 	public void logout(HttpSession session);
 
-	public ModelAndView changePassword(MemberVO memberVO, Errors errors);
+	public ModelAndView changePassword(MemberVO memberVO);
 
 	public String insertUuidForResign(HttpSession session);
 
@@ -60,7 +60,8 @@ public interface MemberService {
 
 	public ModelAndView registerStudent();
 
+	public String doCheckPrevPassword(String id, String prevPassword, HttpServletRequest request);
+	
 	public ModelAndView viewMyPageMenu();
-
 
 }
