@@ -9,7 +9,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ktds.sems.SemsTestCase;
@@ -17,6 +19,7 @@ import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.member.vo.MenuManageVO;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MemberDAOTest extends SemsTestCase {
 
 	@Autowired
@@ -265,4 +268,42 @@ public class MemberDAOTest extends SemsTestCase {
 		String date = memberDAO.getLastDate(eduIdAndMemberId);
 		assertNotNull(date);
 	}
+	
+	/**
+	 * @author 남준호
+	 */
+	@Test
+	public void addNewMemberTest() {
+	      MemberVO member = new MemberVO();
+	      member.setId("JunitId1");
+	      member.setPassword("44cc5a083ad03370997e88834c4de95460fc54dc0562c401b71b9d504fe9d9b3");
+	      member.setHighestEducationLevel("HIGH");
+	      member.setName("Junitdd");
+	      member.setEmail("Junitdd@naver.com");
+	      member.setUniversityName("JUNIT대학교");
+	      member.setMajorName("JUNIT과");
+	      member.setGraduationType("GRAD");
+	      member.setBirthDate("1991-06-03");
+	      member.setPhoneNumber("010-0000-1154");
+	      member.setMemberType("MBR");
+	      member.setSalt("c21586d7786ea63b");
+		int addNewMember = memberDAO.addNewMember(member);
+		
+		assertTrue(addNewMember > 0);
+	}
+	
+	@Test
+	public void isExistEmailTest() {
+		String isExistEmail = memberDAO.isExistEmail("Junitdd@naver.com");
+		assertNotNull(isExistEmail);
+		assertTrue(isExistEmail.equals("JunitId1"));
+		
+	}
+	
+	@Test
+	public void zdelectJunitTestMember() {
+		memberDAO.delectJunitTestMember("JunitId1");
+	}
+	
+	
 }
