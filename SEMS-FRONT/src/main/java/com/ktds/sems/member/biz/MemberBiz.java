@@ -103,4 +103,5 @@ public interface MemberBiz {
 
 	public boolean isTeacher(String id);
 
+	public int delectJunitTestMember(String id);
 }
