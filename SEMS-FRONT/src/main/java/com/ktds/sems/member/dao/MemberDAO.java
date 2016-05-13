@@ -77,7 +77,7 @@ public interface MemberDAO {
 
 	public void insertUuidForResign(MemberVO member);
 
-	public void doDeleteMember(String id);
+	public int doDeleteMember(String id);
 
 	public String selectedGraduationTypeCodeName(String id);
 
