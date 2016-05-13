@@ -48,7 +48,7 @@ public class EducationServiceImpl implements EducationService {
 		ModelAndView view = new ModelAndView();
 		
 		HttpSession session = request.getSession();
-		MemberVO sessionMember = (MemberVO) session.getAttribute("_MEMBER_");
+		String memberType = (String) session.getAttribute(Session.MEMBER_TYPE);
 		
 		MultipartFile file = request.getFile("file");
 		
@@ -58,9 +58,10 @@ public class EducationServiceImpl implements EducationService {
 		String saltFileName = SHA256Util.getEncrypt(fileName, salt)+".xlsx";
 		educationVO.setSalt(salt);
 		
+		
 		String filePath = "D:\\"+saltFileName;
 		
-		if ( sessionMember.getMemberType().equals("ADM") ) {
+		if ( memberType.equals("ADM") ) {
 			if (educationVO.getEducationId() == null) {
 				if (errors.hasErrors()) {
 					view.setViewName("education/eduregister");
@@ -126,6 +127,7 @@ public class EducationServiceImpl implements EducationService {
 
 	@Override
 	public ModelAndView modifyNewEducation(EducationVO educationVO, Errors errors, MultipartHttpServletRequest request) {
+		
 		ModelAndView view = new ModelAndView();
 		
 		HttpSession session = request.getSession();
@@ -134,6 +136,7 @@ public class EducationServiceImpl implements EducationService {
 		MultipartFile file = request.getFile("file");
 		
 		String fileName = file.getOriginalFilename();
+		
 		String salt = SHA256Util.generateSalt();
 		String saltFileName = SHA256Util.getEncrypt(fileName, salt)+".xlsx";
 		educationVO.setSalt(salt);
