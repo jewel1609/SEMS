@@ -7,7 +7,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.validation.Errors;
+import org.springframework.validation.FieldError;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.common.SendMail;
@@ -28,6 +31,7 @@ import kr.co.hucloud.utilities.web.Paging;
 public class MemberServiceImpl implements MemberService {
 
 	private MemberBiz memberBiz;
+	private Logger logger = LoggerFactory.getLogger(MemberServiceImpl.class);
 
 	public void setMemberBiz(MemberBiz memberBiz) {
 		this.memberBiz = memberBiz;
@@ -46,6 +50,7 @@ public class MemberServiceImpl implements MemberService {
 		if (sessionMember != null) {
 			throw new RuntimeException("유효한 접근이 아닙니다.");
 		} else if (errors.hasErrors() || !isNotError) {
+			
 			List<String> highestEducationLevelCodeNameList = memberBiz.getHighestEducationLevelCodeNames();
 			List<String> graduationTypeList = memberBiz.getGraduationType();
 
@@ -90,28 +95,32 @@ public class MemberServiceImpl implements MemberService {
 		if (member.getPassword() != null) {
 			isNotError = memberBiz.isVerifyPassword(member.getPassword());
 		}
-
-		if (memberType == null) {
+		
+		if ( member.getPhoneNumber() != null ) {
+			isNotError = memberBiz.isVerifyPhoneNumber(member.getPhoneNumber());
+		}
+		
+		if ( memberType == null) {
 			view.setViewName("redirect:/");
 			isNotError = false;
 		} else if (memberType.equals("MBR")) {
 			if (member.getGraduationType() == null) {
-				view.addObject("isEmptyGraduationType", member);
+				view.addObject("isEmptyGraduationType", "true");
 				isNotError = false;
 			}
 
 			if (member.getHighestEducationLevel() == null) {
-				view.addObject("isEmptyHighestEducationLevel", member);
+				view.addObject("isEmptyHighestEducationLevel", "true");
 				isNotError = false;
 			}
 
 			if (member.getMajorName() == null || member.getMajorName().equals("")) {
-				view.addObject("isEmptyMajorName", member);
+				view.addObject("isEmptyMajorName", "true");
 				isNotError = false;
 			}
 
 			if (member.getUniversityName() == null || member.getUniversityName().equals("")) {
-				view.addObject("isEmptyUniversityName", member);
+				view.addObject("isEmptyUniversityName", "true");
 				isNotError = false;
 			}
 			view.setViewName("member/registerStudent");
@@ -171,13 +180,31 @@ public class MemberServiceImpl implements MemberService {
 		AjaxUtil.sendResponse(response, message);
 		return;
 	}
+	
+	@Override
+	public void checkValidationByPhoneNumber(String phoneNumber, HttpServletResponse response) {
+		String message = "NO";
+		boolean isVerifyPhoneNumber = memberBiz.isVerifyPhoneNumber(phoneNumber);
+		if (isVerifyPhoneNumber) {
+			message = "OK";
+		}
+		AjaxUtil.sendResponse(response, message);
+		return;
+	}
 
 	@Override
-	public void checkExistionByEmail(String email, HttpServletResponse response) {
-		String message = "EXIST";
-		boolean isExistEmail = memberBiz.isExistEmail(email);
-		if (!isExistEmail) {
+	public void checkValidationByEmail(String email, HttpServletResponse response) {
+		String message = "OK";
+		boolean isVerifyEmail = memberBiz.isVerifyEmail(email);
+		if (!isVerifyEmail) {
 			message = "NO";
+			AjaxUtil.sendResponse(response, message);
+			return;
+		}
+
+		boolean isExistEmail = memberBiz.isExistEmail(email);
+		if (isExistEmail) {
+			message = "EXIST";
 		}
 		AjaxUtil.sendResponse(response, message);
 		return;
