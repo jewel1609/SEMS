@@ -43,6 +43,7 @@ public class EducationServiceTest {
 		assertTrue(viewName == "education/update");
 	}
 	
+	
 	@Test
 	public void doEducationModifyTest() {
 		EducationVO educationVO = new EducationVO();
