@@ -2,6 +2,8 @@ package com.ktds.sems.member.service;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +13,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.ktds.sems.member.vo.GrdtTpVO;
 import com.ktds.sems.member.vo.MemberVO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -37,5 +41,50 @@ public class MemberServiceTest {
 
 		String checkStr = memberService.login(memberVO, errors, session, request);
 		assertNotNull(checkStr);
+	}
+	
+	@Test
+	public void viewGrdtPageTest(){
+		ModelAndView view = memberService.viewGrdtPage();
+		assertNotNull(view.getViewName());
+		
+		if ( view != null) {
+			String viewName = view.getViewName();
+			assertNotNull(viewName);
+			assertEquals(viewName, "member/grdtPage");
+			
+			List<MemberVO> memberList = (List<MemberVO>) view.getModelMap().get("grtdTpList");
+			assertNotNull(memberList);
+			assertTrue(memberList.size() > 0);
+		}
+	}
+	@Test
+	public void doGrdtInsertTest(){
+		GrdtTpVO grdtTpVO = new GrdtTpVO();
+		grdtTpVO.setCdId("JunitTestCdId");
+		grdtTpVO.setCdNm("JunitTestCdNm");
+		
+		String checkStr = memberService.doGrdtModify(grdtTpVO.getCdId(), grdtTpVO.getCdNm());
+		assertNotNull(checkStr);
+	}
+	
+	@Test
+	public void doGrdtModifyTest(){
+		GrdtTpVO grdtTpVO = new GrdtTpVO();
+		grdtTpVO.setCdId("JunitTestCdId");
+		grdtTpVO.setCdNm("JunitTestModifyCdNm");
+		
+		String checkStr = memberService.doGrdtModify(grdtTpVO.getCdId(), grdtTpVO.getCdNm());
+		assertNotNull(checkStr);
+	}
+	@Test
+	public void doGrdtDeleteTest(){
+		GrdtTpVO grdtTpVO = new GrdtTpVO();
+		grdtTpVO.setCdId("JunitTestCdId");
+		
+		String checkStr = memberService.doGrdtDelete(grdtTpVO.getCdId());
+		assertNotNull(checkStr);
+		assertEquals(checkStr, "redirect:/grdtPage");
+		
 	}
 }
