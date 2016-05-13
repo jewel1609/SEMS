@@ -37,6 +37,14 @@ public class EducationController {
 		logger.info(""+pageNo);
 		return educationService.getAllEducationList(pageNo);
 	}
+	
+	@RequestMapping("/calendar")
+	public ModelAndView viewEducationCalendarPage(){
+		ModelAndView view = new ModelAndView();
+		view.setViewName("education/calendar");
+		
+		return view;
+	}
 
 	
 	@RequestMapping("/searchList")
