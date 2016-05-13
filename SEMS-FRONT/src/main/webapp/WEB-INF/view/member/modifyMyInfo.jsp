@@ -8,10 +8,46 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript" src="<c:url value="/resources/js/jquery.min.js" />"></script>
+
+<style type="text/css">
+.modifyBtn {
+   border:none;
+   border-radius:5px;
+   padding:6px 12px;
+   font-weight:bold;
+   text-transform:uppercase;
+   color:#FFFFFF;
+   background-color:#E05149;
+}
+</style>
+
 <script type="text/javascript">
 
-
 $(document).ready(function() {
+	
+	$("#password").blur(function () {
+		$.post("<c:url value="/checkValidationByPassword" />", { "password" : $("#password").val() }, function(data) {
+			if($("#password").val()=="") {
+				$("#messageByPassword").text("");
+				return;
+			}
+			
+			if (!data) {
+				alert("통신 실패");
+			} else if (data == "OK") {
+				$("#messageByPassword").text("안전한 비밀번호 입니다.").css("color", "green");
+			} else if (data == "NO") {
+				$("#messageByPassword").text("영문, 숫자, 특수문자 조합의 10~16 글자이어야 합니다!").css("color", "red");
+			}
+		});
+		
+		$("#repeatPassword").val("");
+	});
+	
+	$("#password").focus(function () {
+		$("#messageByPassword").text("");
+	});	
+	
 	
 	$("#modifyBtn").click(function(){
 		var form = $("#memberInfoForm");
@@ -131,15 +167,23 @@ function daysInMonth(month, year) {
 </head>
 <body>
 
-<form:form commandName="memberInfoForm" method="post">
+<form:form id="memberInfoForm" commandName="member" method="post">
 
 	아이디 : ${member.id}  <br/>
-	비밀번호 : <input type="password" name="password" id="password" />
+	
+	비밀번호 : <input type="password" name="password" id="password" tabindex="1" maxlength="16"/>
+	<br /><span id="messageByPassword"></span>
+	<form:errors path="password"></form:errors>
 	<br />
+	
 	이름 : <input type="text" name="name" id="name" value="${member.name}" placeholder="이름을 입력하세요." tabindex="1"/>
-	<br/>
-	이메일 : <input type="text" name="email" id="email"  value="${member.email}" placeholder="이메일을 입력하세요. " tabindex="2" /> 
+	<form:errors path="name" /><br/>
 	<br />
+		
+	이메일 : <input type="text" name="email" id="email"  value="${member.email}" placeholder="이메일을 입력하세요. " tabindex="2" /> 
+	<br /><span id="messageByEmail"></span>
+	<form:errors path="email"></form:errors>
+	
 	<c:if test="${isTeacher eq 'F'}">
 	대학교 : ${member.universityName}  <br />
 	전공 : ${member.majorName} <br /> 
@@ -152,7 +196,9 @@ function daysInMonth(month, year) {
 	
 	<br />
 	전화번호 : <input type="text" name="phoneNumber" id="phoneNumber"  value="${member.phoneNumber}" placeholder="전화번호를 입력하세요." tabindex="8" /> 
-	<br />
+	<br /><span id="messageByPhoneNumber"></span>
+	<form:errors path="phoneNumber"></form:errors>
+	
 	회원구분 : ${memberTypeCodeName} <br />
 	<c:if test="${isTeacher eq 'F'}">
 	졸업구분 : 
@@ -175,8 +221,6 @@ function daysInMonth(month, year) {
 				</c:if>
 	</c:forEach>
 	</c:if>
-	
-	
 	<input type="hidden" name="id" id="id" value="${member.id}"/> <br/><br/>
 	<input type="button" id="modifyBtn" value="수정 완료" />
 	
