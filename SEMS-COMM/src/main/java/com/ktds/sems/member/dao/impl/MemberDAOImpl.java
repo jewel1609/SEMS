@@ -49,8 +49,8 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 		return getSqlSession().selectOne("MemberDAO.isExistMbrTpData", newMbrTpVO);
 	}
 
-	public void doMbrTpDelete(String cdId) {
-		getSqlSession().delete("MemberDAO.doMbrTpDelete", cdId);
+	public int doMbrTpDelete(String cdId) {
+		return getSqlSession().delete("MemberDAO.doMbrTpDelete", cdId);
 
 	}
 

@@ -24,7 +24,7 @@ public interface MemberDAO {
 
 	public int doInsertMbrTp(MbrTpVO newMbrTpVO);
 
-	public void doMbrTpDelete(String cdId);
+	public int doMbrTpDelete(String cdId);
 
 	public int doMbrTpModify(MbrTpVO mbrTpVO);
 

@@ -61,8 +61,8 @@ public class MemberBizImpl implements MemberBiz{
 	public int isExistData(GrdtTpVO grdtTpVO) {
 		return memberDAO.isExistData(grdtTpVO);
 	}
-	public void doMbrTpDelete(String cdId) {
-		memberDAO.doMbrTpDelete(cdId);
+	public int doMbrTpDelete(String cdId) {
+		return memberDAO.doMbrTpDelete(cdId);
 	}
 
 	@Override

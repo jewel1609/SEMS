@@ -26,7 +26,7 @@ public interface MemberBiz {
 	
 	public int doInsertMbrTp(MbrTpVO newMbrTpVO);
 
-	public void doMbrTpDelete(String cdId);
+	public int doMbrTpDelete(String cdId);
 
 	public int doMbrTpModify(MbrTpVO mbrTpVO);
 
