@@ -172,9 +172,9 @@ public class MemberController {
 			 * 2. 메일을 보낸다.
 			 */
 			// FIXME 이메일 테스트 시 주석처리 삭제
-			// if( isLock ){
-			// memberService.sendBlockAccountEmail(sessionId);
-			// }
+			 if( isLock ){
+			 memberService.sendBlockAccountEmail(sessionId);
+			 }
 
 			/*
 			 * 3. IS_ACCOUNT_LOCK이 'Y'라면 브라우저에게 'OVER' 라고 보낸다.
