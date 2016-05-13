@@ -2,12 +2,15 @@ package com.ktds.sems.member.dao;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.ktds.sems.member.vo.GrdtTpVO;
 import com.ktds.sems.member.vo.MemberVO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -124,5 +127,58 @@ public class MemberDAOTest {
 		String id = "cocomo12";
 		String checkStr = memberDAO.isResign(id);
 		assertNull(checkStr);
+	}
+	
+	@Test
+	public void getAllGrdtListTest(){
+		List<GrdtTpVO> grdtTpList = memberDAO.getAllGrtdList();
+		assertNotNull(grdtTpList);
+		assertTrue(grdtTpList.size() >= 0);
+	}
+	
+	@Test
+	public void doGrdtInsertTest(){
+		GrdtTpVO grdtTpVO = new GrdtTpVO();
+		grdtTpVO.setCdId("TEST");
+		grdtTpVO.setCdNm("JUNITTEST");
+		
+		int checkGrdtInsert = memberDAO.doGrdtInsert(grdtTpVO);
+		assertTrue(checkGrdtInsert >= 1);
+	}
+	
+	@Test
+	public void doGrdtModifyTest(){
+		GrdtTpVO grdtTpVO = new GrdtTpVO();
+		grdtTpVO.setCdId("TEST");
+		grdtTpVO.setCdNm("JUNITTEST");
+		
+		int checkGrdtModify = memberDAO.doGrdtModify(grdtTpVO);
+		assertTrue(checkGrdtModify >= 1);
+	}
+	
+	@Test
+	public void doGrdtDeleteTest(){
+		String cdId = "TEST";
+		int checGrdtkDelete = memberDAO.doGrdtDelete(cdId);
+		assertTrue(checGrdtkDelete >= 1);
+	}
+	
+	@Test
+	public void isExistDataTest(){
+		GrdtTpVO grdtTpVO = new GrdtTpVO();
+		grdtTpVO.setCdId("EXPT");
+		grdtTpVO.setCdNm("졸업");
+		
+		int checkExistData = memberDAO.isExistData(grdtTpVO);
+		assertTrue(checkExistData >= 1);
+	}
+	
+	@Test
+	public void isExistCdNmDataTest(){
+		GrdtTpVO grdtTpVO = new GrdtTpVO();
+		grdtTpVO.setCdNm("졸업예정");
+		
+		int checkExistCdNmData = memberDAO.isExistCdNmData(grdtTpVO);
+		assertTrue(checkExistCdNmData >= 1);
 	}
 }
