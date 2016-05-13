@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,6 +10,8 @@
 
 <link rel="stylesheet" href="/resources/css/layout.css" />
 </head>
+
+<c:set value="${sessionScope._MEMBER_TYPE_}" var="memberType" />
 <body id="top">
 <div class="wrapper row1">
   <header id="header" class="clear"> 
@@ -21,6 +23,10 @@
         <li><i class="fa fa-phone"></i> +00 (123) 456 1316</li>
         <li><i class="fa fa-envelope-o"></i> cocomo@ktds.com</li>
         <li><i class="fa fa-power-off"></i> <a href="/logout"> logout </a> </li>
+        <!-- 관리자라면 관리하기 버튼 보여주기 -->
+        <c:if test="${memberType eq 'ADM' }">
+        	<li><i class="fa fa-cog"></i> <a href="#" onclick="window.open('/comm/main','Place Detail','toolbar=no, location=no, status=no, menubar=no, scrollbars=no, resizeable=no, width=930, height=820');"> 관리하기 </a> </li>
+        </c:if>
       </ul>
     </div>
   </header>
