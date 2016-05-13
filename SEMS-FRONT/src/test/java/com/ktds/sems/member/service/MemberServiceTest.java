@@ -15,7 +15,9 @@ import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ktds.sems.member.dao.MemberDAO;
 import com.ktds.sems.member.vo.MemberVO;
+import com.ktds.sems.validator.member.MemberValidator;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "/applicationContext.xml", "/educationContext.xml", "/memberContext.xml", "/rootContext.xml" })
@@ -23,6 +25,8 @@ public class MemberServiceTest {
 
 	@Autowired
 	private MemberService memberService;
+	@Autowired
+	private MemberDAO memberDAO;
 
 	/**
 	 * 로그인
@@ -41,6 +45,416 @@ public class MemberServiceTest {
 		String checkStr = memberService.login(memberVO, errors, session, request);
 		assertNotNull(checkStr);
 	}
+	
+	@Test
+	public void addNewStudentMemberTest() {
+		MemberVO member = new MemberVO();
+		member.setId("Junit1");
+		member.setPassword("JunitPassword1@");
+		member.setName("Junit");
+		member.setEmail("Junit@naver.com");
+		member.setHighestEducationLevel("대졸");
+		member.setUniversityName("서울대");
+		member.setMajorName("컴공");
+		member.setGraduationType("졸업");
+		member.setBirthDate("1991-01-01");
+		member.setPhoneNumber("010-1234-5678");
+		member.setMemberType("MBR");
+		
+		BindingResult errors = new BeanPropertyBindingResult(member, "registerForm");
+		MockHttpSession session = new MockHttpSession();
+		MemberValidator memberValidator = new MemberValidator();
+		memberValidator.validate(member, errors);
+		
+		ModelAndView view = memberService.addNewMember(member, errors, session);
+		assertNotNull(view);
+		
+		if ( view != null ) {
+			String viewName = view.getViewName();
+			assertNotNull(viewName);
+			assertEquals(viewName,"redirect:/");
+			
+			assertTrue(memberDAO.isExistId(member.getId()) != null);
+		}
+		else {
+			fail("Fail...");
+		}
+	}
+	
+	@Test
+	public void addNewStudentMemberTestErrorCaseId() {
+		MemberVO member = new MemberVO();
+		member.setPassword("JunitPassword1@");
+		member.setName("Junit");
+		member.setEmail("Junit@naver.com");
+		member.setHighestEducationLevel("대졸");
+		member.setUniversityName("서울대");
+		member.setMajorName("컴공");
+		member.setGraduationType("졸업");
+		member.setBirthDate("1991-01-01");
+		member.setPhoneNumber("010-1234-5678");
+		member.setMemberType("MBR");
+		
+		BindingResult errors = new BeanPropertyBindingResult(member, "registerForm");
+		MockHttpSession session = new MockHttpSession();
+		MemberValidator memberValidator = new MemberValidator();
+		memberValidator.validate(member, errors);
+		
+		ModelAndView view = memberService.addNewMember(member, errors, session);
+		assertNotNull(view);
+		
+		if ( view != null ) {
+			String viewName = view.getViewName();
+			assertNotNull(viewName);
+			assertEquals(viewName,"member/registerStudent");
+			
+			assertTrue(errors.getErrorCount() == 1);
+		}
+		else {
+			fail("Fail...");
+		}
+	}
+	
+	@Test
+	public void addNewStudentMemberTestErrorCasePassword() {
+		MemberVO member = new MemberVO();
+		member.setId("JunitError1");
+		member.setName("Junit");
+		member.setEmail("Junit@naver.com");
+		member.setHighestEducationLevel("대졸");
+		member.setUniversityName("서울대");
+		member.setMajorName("컴공");
+		member.setGraduationType("졸업");
+		member.setBirthDate("1991-01-01");
+		member.setPhoneNumber("010-1234-5678");
+		member.setMemberType("MBR");
+		
+		BindingResult errors = new BeanPropertyBindingResult(member, "registerForm");
+		MockHttpSession session = new MockHttpSession();
+		MemberValidator memberValidator = new MemberValidator();
+		memberValidator.validate(member, errors);
+		
+		ModelAndView view = memberService.addNewMember(member, errors, session);
+		assertNotNull(view);
+		
+		if ( view != null ) {
+			String viewName = view.getViewName();
+			assertNotNull(viewName);
+			assertEquals(viewName,"member/registerStudent");
+			
+			assertTrue(errors.getErrorCount() == 1);
+		}
+		else {
+			fail("Fail...");
+		}
+	}
+	
+	@Test
+	public void addNewStudentMemberTestErrorCaseName() {
+		MemberVO member = new MemberVO();
+		member.setId("JunitError1");
+		member.setPassword("JunitPassword1@");
+		member.setEmail("Junit@naver.com");
+		member.setHighestEducationLevel("대졸");
+		member.setUniversityName("서울대");
+		member.setMajorName("컴공");
+		member.setGraduationType("졸업");
+		member.setBirthDate("1991-01-01");
+		member.setPhoneNumber("010-1234-5678");
+		member.setMemberType("MBR");
+		
+		BindingResult errors = new BeanPropertyBindingResult(member, "registerForm");
+		MockHttpSession session = new MockHttpSession();
+		MemberValidator memberValidator = new MemberValidator();
+		memberValidator.validate(member, errors);
+		
+		ModelAndView view = memberService.addNewMember(member, errors, session);
+		assertNotNull(view);
+		
+		if ( view != null ) {
+			String viewName = view.getViewName();
+			assertNotNull(viewName);
+			assertEquals(viewName,"member/registerStudent");
+			
+			assertTrue(errors.getErrorCount() == 1);
+		}
+		else {
+			fail("Fail...");
+		}
+	}
+	
+	@Test
+	public void addNewStudentMemberTestErrorCaseEmail() {
+		MemberVO member = new MemberVO();
+		member.setId("JunitError1");
+		member.setPassword("JunitPassword1@");
+		member.setName("Junit");
+		member.setHighestEducationLevel("대졸");
+		member.setUniversityName("서울대");
+		member.setMajorName("컴공");
+		member.setGraduationType("졸업");
+		member.setBirthDate("1991-01-01");
+		member.setPhoneNumber("010-1234-5678");
+		member.setMemberType("MBR");
+		
+		BindingResult errors = new BeanPropertyBindingResult(member, "registerForm");
+		MockHttpSession session = new MockHttpSession();
+		MemberValidator memberValidator = new MemberValidator();
+		memberValidator.validate(member, errors);
+		
+		ModelAndView view = memberService.addNewMember(member, errors, session);
+		assertNotNull(view);
+		
+		if ( view != null ) {
+			String viewName = view.getViewName();
+			assertNotNull(viewName);
+			assertEquals(viewName,"member/registerStudent");
+			
+			assertTrue(errors.getErrorCount() == 1);
+		}
+		else {
+			fail("Fail...");
+		}
+	}
+	
+	@Test
+	public void addNewStudentMemberTestErrorCaseHighestEducationLevel() {
+		MemberVO member = new MemberVO();
+		member.setId("JunitError1");
+		member.setPassword("JunitPassword1@");
+		member.setName("Junit");
+		member.setEmail("Junit@naver.com");
+		member.setUniversityName("서울대");
+		member.setMajorName("컴공");
+		member.setGraduationType("졸업");
+		member.setBirthDate("1991-01-01");
+		member.setPhoneNumber("010-1234-5678");
+		member.setMemberType("MBR");
+		
+		BindingResult errors = new BeanPropertyBindingResult(member, "registerForm");
+		MockHttpSession session = new MockHttpSession();
+		MemberValidator memberValidator = new MemberValidator();
+		memberValidator.validate(member, errors);
+		
+		ModelAndView view = memberService.addNewMember(member, errors, session);
+		assertNotNull(view);
+		
+		if ( view != null ) {
+			String viewName = view.getViewName();
+			assertNotNull(viewName);
+			assertEquals(viewName,"member/registerStudent");
+			
+			assertTrue(memberDAO.isExistId(member.getId()) == null);
+		}
+		else {
+			fail("Fail...");
+		}
+	}
+	
+	@Test
+	public void addNewStudentMemberTestErrorCaseUniversityName() {
+		MemberVO member = new MemberVO();
+		member.setId("JunitError1");
+		member.setPassword("JunitPassword1@");
+		member.setName("Junit");
+		member.setEmail("Junit@naver.com");
+		member.setHighestEducationLevel("대졸");
+		member.setMajorName("컴공");
+		member.setGraduationType("졸업");
+		member.setBirthDate("1991-01-01");
+		member.setPhoneNumber("010-1234-5678");
+		member.setMemberType("MBR");
+		
+		BindingResult errors = new BeanPropertyBindingResult(member, "registerForm");
+		MockHttpSession session = new MockHttpSession();
+		MemberValidator memberValidator = new MemberValidator();
+		memberValidator.validate(member, errors);
+		
+		ModelAndView view = memberService.addNewMember(member, errors, session);
+		assertNotNull(view);
+		
+		if ( view != null ) {
+			String viewName = view.getViewName();
+			assertNotNull(viewName);
+			assertEquals(viewName,"member/registerStudent");
+			
+			assertTrue(memberDAO.isExistId(member.getId()) == null);
+		}
+		else {
+			fail("Fail...");
+		}
+	}
+	
+	@Test
+	public void addNewStudentMemberTestErrorCaseMajorName() {
+		MemberVO member = new MemberVO();
+		member.setId("JunitError1");
+		member.setPassword("JunitPassword1@");
+		member.setName("Junit");
+		member.setEmail("Junit@naver.com");
+		member.setHighestEducationLevel("대졸");
+		member.setUniversityName("서울대");
+		member.setGraduationType("졸업");
+		member.setBirthDate("1991-01-01");
+		member.setPhoneNumber("010-1234-5678");
+		member.setMemberType("MBR");
+		
+		BindingResult errors = new BeanPropertyBindingResult(member, "registerForm");
+		MockHttpSession session = new MockHttpSession();
+		MemberValidator memberValidator = new MemberValidator();
+		memberValidator.validate(member, errors);
+		
+		ModelAndView view = memberService.addNewMember(member, errors, session);
+		assertNotNull(view);
+		
+		if ( view != null ) {
+			String viewName = view.getViewName();
+			assertNotNull(viewName);
+			assertEquals(viewName,"member/registerStudent");
+			
+			assertTrue(memberDAO.isExistId(member.getId()) == null);
+		}
+		else {
+			fail("Fail...");
+		}
+	}
+	
+	@Test
+	public void addNewStudentMemberTestErrorCaseGraduationType() {
+		MemberVO member = new MemberVO();
+		member.setId("JunitError1");
+		member.setPassword("JunitPassword1@");
+		member.setName("Junit");
+		member.setEmail("Junit@naver.com");
+		member.setHighestEducationLevel("대졸");
+		member.setUniversityName("서울대");
+		member.setMajorName("컴공");
+		member.setBirthDate("1991-01-01");
+		member.setPhoneNumber("010-1234-5678");
+		member.setMemberType("MBR");
+		
+		BindingResult errors = new BeanPropertyBindingResult(member, "registerForm");
+		MockHttpSession session = new MockHttpSession();
+		MemberValidator memberValidator = new MemberValidator();
+		memberValidator.validate(member, errors);
+		
+		ModelAndView view = memberService.addNewMember(member, errors, session);
+		assertNotNull(view);
+		
+		if ( view != null ) {
+			String viewName = view.getViewName();
+			assertNotNull(viewName);
+			assertEquals(viewName,"member/registerStudent");
+			
+			assertTrue(memberDAO.isExistId(member.getId()) == null);
+		}
+		else {
+			fail("Fail...");
+		}
+	}
+	
+	@Test
+	public void addNewStudentMemberTestErrorCaseBirthDate() {
+		MemberVO member = new MemberVO();
+		member.setId("JunitError1");
+		member.setPassword("JunitPassword1@");
+		member.setName("Junit");
+		member.setEmail("Junit@naver.com");
+		member.setHighestEducationLevel("대졸");
+		member.setUniversityName("서울대");
+		member.setMajorName("컴공");
+		member.setGraduationType("졸업");
+		member.setPhoneNumber("010-1234-5678");
+		member.setMemberType("MBR");
+		
+		BindingResult errors = new BeanPropertyBindingResult(member, "registerForm");
+		MockHttpSession session = new MockHttpSession();
+		MemberValidator memberValidator = new MemberValidator();
+		memberValidator.validate(member, errors);
+		
+		ModelAndView view = memberService.addNewMember(member, errors, session);
+		assertNotNull(view);
+		
+		if ( view != null ) {
+			String viewName = view.getViewName();
+			assertNotNull(viewName);
+			assertEquals(viewName,"member/registerStudent");
+			
+			assertTrue(errors.getErrorCount() == 1);
+		}
+		else {
+			fail("Fail...");
+		}
+	}
+	
+	@Test
+	public void addNewStudentMemberTestErrorCasePhoneNumber() {
+		MemberVO member = new MemberVO();
+		member.setId("JunitError1");
+		member.setPassword("JunitPassword1@");
+		member.setName("Junit");
+		member.setEmail("Junit@naver.com");
+		member.setHighestEducationLevel("대졸");
+		member.setUniversityName("서울대");
+		member.setMajorName("컴공");
+		member.setGraduationType("졸업");
+		member.setBirthDate("1991-01-01");
+		member.setMemberType("MBR");
+		
+		BindingResult errors = new BeanPropertyBindingResult(member, "registerForm");
+		MockHttpSession session = new MockHttpSession();
+		MemberValidator memberValidator = new MemberValidator();
+		memberValidator.validate(member, errors);
+		
+		ModelAndView view = memberService.addNewMember(member, errors, session);
+		assertNotNull(view);
+		
+		if ( view != null ) {
+			String viewName = view.getViewName();
+			assertNotNull(viewName);
+			assertEquals(viewName,"member/registerStudent");
+			
+			assertTrue(errors.getErrorCount() == 1);
+		}
+		else {
+			fail("Fail...");
+		}
+	}
+	
+	@Test
+	public void addNewMemberTestErrorCaseMemberType() {
+		MemberVO member = new MemberVO();
+		member.setId("JunitError1");
+		member.setPassword("JunitPassword1@");
+		member.setName("Junit");
+		member.setEmail("Junit@naver.com");
+		member.setHighestEducationLevel("대졸");
+		member.setUniversityName("서울대");
+		member.setMajorName("컴공");
+		member.setGraduationType("졸업");
+		member.setBirthDate("1991-01-01");
+		member.setPhoneNumber("010-1234-5678");
+		
+		BindingResult errors = new BeanPropertyBindingResult(member, "registerForm");
+		MockHttpSession session = new MockHttpSession();
+		MemberValidator memberValidator = new MemberValidator();
+		memberValidator.validate(member, errors);
+		
+		ModelAndView view = memberService.addNewMember(member, errors, session);
+		assertNotNull(view);
+		
+		if ( view != null ) {
+			String viewName = view.getViewName();
+			assertNotNull(viewName);
+			assertEquals(viewName,"redirect:/");
+			
+			assertTrue(memberDAO.isExistId(member.getId()) == null);
+		}
+		else {
+			fail("Fail...");
+		}
+	}
+	
 	
 	/**
 	 * 비밀번호 일치 시 회원정보 수정 페이지로 접근
