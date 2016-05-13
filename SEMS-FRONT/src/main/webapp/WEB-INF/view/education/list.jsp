@@ -3,8 +3,14 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
+
+<link href="/resources/css/eduDetail.css" rel="stylesheet">
 <head>
+
+
+<script type="text/javascript" src="/resources/js/jquery.min.js"></script>
 <script type="text/javascript" src="<c:url value='/resources/js/jquery.min.js"'/>"></script>
+
 <script type="text/javascript">
 	$(document).ready(function() {
 		
@@ -118,7 +124,8 @@
 	</tr>
 </table>
 </form>
-
+<div class="table_calendar">
+<div class="table">
 <table border="1">
 	<tr>
 		<th>교육 이름</th>
@@ -157,10 +164,14 @@
 				${searchedListVO.paging.getPagingList("pageNo", "[@]", "이전", "다음", "pagingForm")}
 				</c:if>
 			</form>
-		</td>
-	</tr>  
-
-</table>
-
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="clear"></div>
+		<div class="calendar">
+			<jsp:include page="/WEB-INF/view/education/calendar.jsp"></jsp:include>
+	</div>
+</div>
 </body>
 </html>

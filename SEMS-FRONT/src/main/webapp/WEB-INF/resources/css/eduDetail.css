@@ -1,0 +1,22 @@
+@CHARSET "UTF-8";
+
+div#table_calendar {
+	border: 1px solid red;
+	width: 100%;
+	height: 100%;
+}
+
+div#table {
+	margin-right: 5px;
+	margin-bottom: 100px;
+	width : 48%;
+	height: 1700px;
+	float: left;
+}
+div#calendar {
+	margin-right: 15px;
+	margin-left: 10px;
+	margin-top: 10px;
+	width : 48%;
+	float: left;
+}

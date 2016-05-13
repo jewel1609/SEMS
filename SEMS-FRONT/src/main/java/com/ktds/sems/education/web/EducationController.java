@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.education.service.EducationService;
+import com.ktds.sems.education.vo.EducationListVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.QNAVO;
 
@@ -35,6 +36,7 @@ public class EducationController {
 		logger.info("실행");
 		return educationService.getAllEducationList(pageNo);
 	}
+
 	
 	@RequestMapping("/searchList")
 	public ModelAndView doSearchList(@RequestParam String startYear, @RequestParam String startMonth, 
@@ -91,16 +93,11 @@ public class EducationController {
 		return educationService.writeNewComment(session, qnaVO, errors, educationId);
 	}
 
-	@RequestMapping("/calendar")
-	public String viewCalendarPage() {
-		return "/education/calendar";
-	}
-
 	@RequestMapping("/downloadFile/{educationId}")
 	public ModelAndView doDownloadFile(@PathVariable String educationId, HttpServletRequest request, HttpServletResponse response){
 		return educationService.doDownloadFile(educationId, request, response);
 	}
-	
+
 
 	@RequestMapping("/doCancelEducation/{educationId}")
 	public String doCancelEducation(@PathVariable String educationId,  HttpSession session) {

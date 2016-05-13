@@ -95,9 +95,10 @@ public class EducationServiceImpl implements EducationService {
 
 	@Override
 	public ModelAndView getAllEducationList(int pageNo) {
+		
 		EducationListVO educationListVO = new EducationListVO();
 		Paging paging = new Paging(15,15);
-			
+		
 		educationListVO.setPaging(paging);
 		paging.setPageNumber(pageNo + "");
 		
@@ -106,7 +107,7 @@ public class EducationServiceImpl implements EducationService {
 		EducationSearchVO searchVO = new EducationSearchVO();
 		searchVO.setStartIndex(paging.getStartArticleNumber());
 		searchVO.setEndIndex(paging.getEndArticleNumber());
-
+		
 		List<EducationVO> educationList = educationBiz.getAllEducationList(searchVO);
 		educationListVO.setEducationList(educationList);
 
@@ -224,12 +225,12 @@ public class EducationServiceImpl implements EducationService {
 
 	}
 
-	
+
+
 	@Override
 	public ModelAndView doDownloadFile(String educationId, HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView view = new ModelAndView();
 		List<FileVO> fileList = fileBiz.getOneFileId(educationId);
-		
 		
 		for (FileVO fileVO : fileList){
 			if ( fileVO.getArticleId() == educationId ){
