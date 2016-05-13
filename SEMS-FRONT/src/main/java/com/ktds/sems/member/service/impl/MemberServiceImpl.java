@@ -508,46 +508,37 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public ModelAndView changePassword(MemberVO memberVO, Errors errors) {
-
+	public ModelAndView changePassword(MemberVO memberVO) {
+		
 		ModelAndView view = new ModelAndView();
+		
+		String originSalt = memberBiz.getSaltById(memberVO.getId());
+		String inputPassword = SHA256Util.getEncrypt(memberVO.getPrevPassword(), originSalt);
+		
+		String originPassword = memberBiz.getPasswordById(memberVO.getId());
+		
+		if ( inputPassword.equals(originPassword) ) {
+			
+			// 입력한 현재 비밀번호가 맞은 경우
+			String newSalt = SHA256Util.generateSalt();
+			memberVO.setSalt(newSalt);
 
-		if (errors.hasErrors()) {
+			String newPassword = SHA256Util.getEncrypt(memberVO.getPassword(), newSalt);
+			memberVO.setPassword(newPassword);
+			
+			memberBiz.changePassword(memberVO);
 
-			view.setViewName("/changePassword/" + memberVO.getId());
-			view.addObject("member", memberVO);
-
+			view.setViewName("redirect:/");
+			
 			return view;
-		} else {
-
-			System.out.println("에러가 없는 경우************");
-
-			String originSalt = memberBiz.getSaltById(memberVO.getId());
-			String inputPassword = SHA256Util.getEncrypt(memberVO.getPrevPassword(), originSalt);
-
-			String originPassword = memberBiz.getPasswordById(memberVO.getId());
-
-			if (inputPassword.equals(originPassword)) {
-
-				// 입력한 현재 비밀번호가 맞은 경우
-				String newSalt = SHA256Util.generateSalt();
-				memberVO.setSalt(newSalt);
-
-				String newPassword = SHA256Util.getEncrypt(memberVO.getPassword(), newSalt);
-				memberVO.setPassword(newPassword);
-
-				memberBiz.changePassword(memberVO);
-
-				view.setViewName("/");
-
-				return view;
-			}
+			
+		} 
+		else {
 
 			// 입력한 현재 비밀번호가 틀렸을 경우
-			view.setViewName("/changePassword/" + memberVO.getId());
+			view.setViewName("redirect:/changePassword/" + memberVO.getId());
 			return view;
 		}
-
 	}
 
 	@Override
@@ -688,6 +679,21 @@ public class MemberServiceImpl implements MemberService {
 			}
 			return "NO";
 		}
+	}
+
+	@Override
+	public String doCheckPrevPassword(String id, String prevPassword, HttpServletRequest request) {
+
+		String originSalt = memberBiz.getSaltById(id);
+		String inputPassword = SHA256Util.getEncrypt(prevPassword, originSalt);
+		
+		String originPassword = memberBiz.getPasswordById(id);
+		
+		if ( !inputPassword.equals(originPassword) ) {
+			return "NO";
+		}
+		
+		return "OK";
 	}
 
 	@Override
