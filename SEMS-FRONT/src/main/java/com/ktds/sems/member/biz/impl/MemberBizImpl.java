@@ -162,6 +162,22 @@ public class MemberBizImpl implements MemberBiz {
 		Matcher matcher = pattern.matcher(password);
 		return matcher.matches();
 	}
+	
+	@Override
+	public boolean isVerifyPhoneNumber (String phoneNumber) {
+		String phoneNumberPolicy = "(^?0([0-9]){1,2}-?([0-9]{3,4})-?([0-9]{4})$)";
+		Pattern pattern = Pattern.compile(phoneNumberPolicy);
+		Matcher matcher = pattern.matcher(phoneNumber);
+		return matcher.matches();
+	}
+	
+	@Override
+	public boolean isVerifyEmail (String email) {
+		String emailPolicy = "(^[a-z\\d][\\w\\d\\_\\.-]+@[a-z\\d][\\w\\d-]+[\\.][a-z\\.]{2,8}$)";
+		Pattern pattern = Pattern.compile(emailPolicy);
+		Matcher matcher = pattern.matcher(email);
+		return matcher.matches();
+	}
 
 	/**
 	 * @author 이기연
