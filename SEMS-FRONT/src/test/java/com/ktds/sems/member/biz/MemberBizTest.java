@@ -6,7 +6,9 @@ import static org.junit.Assert.fail;
 
 import java.util.List;
 
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpSession;
@@ -15,6 +17,7 @@ import com.ktds.sems.SemsTestCase;
 import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.member.vo.MenuManageVO;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MemberBizTest extends SemsTestCase {
 
 	@Autowired
@@ -237,4 +240,63 @@ public class MemberBizTest extends SemsTestCase {
 	    assertTrue(menu.size() > 0);
 	}
 
+	@Test
+	public void addNewMemberTest(){
+		MemberVO member = new MemberVO();
+		member.setId("JunitIdTest1");
+		member.setPassword("44cc5a083ad03370997e88834c4de95460fc54dc0562c401b71b9d504fe9d9b3");
+		member.setHighestEducationLevel("HIGH");
+		member.setName("JunitName");
+		member.setEmail("junit1@naver.com");
+		member.setUniversityName("JUNIT대학교");
+		member.setMajorName("JUNIT과");
+		member.setGraduationType("GRAD");
+		member.setBirthDate("1991-06-03");
+		member.setPhoneNumber("010-0000-1154");
+		member.setMemberType("MBR");
+		member.setSalt("c21586d7786ea63b");
+		
+		boolean checkAddNewMember = memberBiz.addNewMember(member);
+		assertTrue(checkAddNewMember);
+	}
+	
+	@Test
+	public void isVerifyIdTest(){
+		String id = "JunitIdTest1";
+		boolean checkVerifyId = memberBiz.isVerifyId(id);
+		assertTrue(checkVerifyId);
+	}
+	@Test
+	public void isVerifyPasswordTest(){
+		String pw = "123qwe!@#qwe";
+		boolean checkVerifyPw = memberBiz.isVerifyPassword(pw);
+		assertTrue(checkVerifyPw);
+	}
+	@Test
+	public void isVerifyPhoneNumberTest(){
+		String phoneNumber = "010-0000-1154";
+		boolean checkVerifyPn = memberBiz.isVerifyPhoneNumber(phoneNumber);
+		assertTrue(checkVerifyPn);
+	}
+	@Test
+	public void isVerifyEmailTest(){
+		String email = "junit1@naver.com";
+		boolean checkVerifyEmail = memberBiz.isVerifyEmail(email);
+		assertTrue(checkVerifyEmail);
+	}
+	@Test
+	public void isExistEmailTest(){
+		String email = "junit1@naver.com";
+		boolean isExistEmail = memberBiz.isExistEmail(email);
+		assertTrue(isExistEmail);
+	}
+	
+	//오름차순에서 맨마지막에 실행하기위해
+	@Test
+	public void zdoDeleteTest(){
+		String id = "JunitIdTest1";
+		int doDeleteTest = memberBiz.delectJunitTestMember(id);
+		assertTrue(doDeleteTest > 0);
+	}
+	
 }
