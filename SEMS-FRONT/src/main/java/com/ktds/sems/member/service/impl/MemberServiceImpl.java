@@ -93,7 +93,7 @@ public class MemberServiceImpl implements MemberService {
 			errorCount++;
 		}
 		
-		if ( repeatPassword != null && !member.getPassword().equals(repeatPassword)) {
+		if ( repeatPassword != null && member.getPassword() != null && !member.getPassword().equals(repeatPassword)) {
 			view.addObject("isEqualsPassword", "true");
 			errorCount++;
 		}
