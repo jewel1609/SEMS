@@ -100,13 +100,17 @@
 				$("#messageByEmail").text("");
 				return;
 			}
-			$.post("<c:url value="/checkExistionByEmail" />", { "email" : $("#email").val() }, function(data) {
+			$.post("<c:url value="/checkValidationByEmail" />", { "email" : $("#email").val() }, function(data) {
 				if (!data) {
 					alert("통신 실패");
-				} else if (data == "NO") {
+				} else if (data == "OK") {
 					$("#messageByEmail").text("사용할 수 있는 이메일 입니다.").css("color", "green");
 					isCheckedEmail = true;
-				} else if (data == "EXIST") {
+				}  else if (data == "NO") {
+					$("#messageByEmail").text("올바른 이메일을 입력하세요!").css("color", "red");
+					isCheckedEmail = false;
+				}
+				else if (data == "EXIST") {
 					$("#messageByEmail").text("이미 사용중이거나 탈퇴한 회원입니다!").css("color", "red");
 					isCheckedEmail = false;
 				}
@@ -115,6 +119,22 @@
 		
 		$("#email").focus(function () {
 			$("#messageByEmail").text("");
+		});
+		
+		$("#phoneNumber").blur(function () {
+			$.post("<c:url value="/checkValidationByPhoneNumber" />", { "phoneNumber" : $("#phoneNumber").val() }, function(data) {
+				if (!data) {
+					alert("통신 실패");
+				} else if (data == "OK") {
+					$("#messageByPhoneNumber").text("사용할 수 있는 전화번호 입니다.").css("color", "green");
+				} else if (data == "NO") {
+					$("#messageByPhoneNumber").text("정확한 전화번호를 입력하세요!").css("color", "red");
+				}
+			});
+		});
+		
+		$("#phoneNumber").focus(function () {
+			$("#messageByPhoneNumber").text("");
 		});
 		
 		$("#registerButton").click( function () {
@@ -281,17 +301,18 @@
 		<input type="hidden" id="birthDate" name="birthDate" value="${ member.birthDate }" maxlength="12"/>
 		<br/><form:errors path="birthDate" /><br/>
 		
-		전화 번호 : <input type="text" name="phoneNumber" value="${ member.phoneNumber }" tabindex="20"/>
-		<br/><form:errors path="phoneNumber" /><br/>
+		전화 번호 : <input type="text" id="phoneNumber" name="phoneNumber" value="${ member.phoneNumber }" tabindex="20" maxlength="13"/>
+		<br/><span id="messageByPhoneNumber"></span>
+		<form:errors path="phoneNumber" /><br/>
 
-		학교 : <input type="text" name="universityName" value="${ member.universityName }" />
+		학교 : <input type="text" name="universityName" value="${ member.universityName }" maxlength="20" />
 		<br/>
 			<c:if test="${isEmptyUniversityName ne null}">
 				<span id="messageByUniversityName">학교를 입력하세요!</span>
 			</c:if>
 		<br/>
 		
-		학과 : <input type="text" name="majorName" value="${ member.majorName }" />
+		학과 : <input type="text" name="majorName" value="${ member.majorName }" maxlength="20"/>
 		<br/>
 			<c:if test="${isEmptyMajorName ne null}">
 				<span id="messageByMajorName" style="color: red;">학과를 입력하세요!</span>
@@ -300,10 +321,10 @@
 		
 		졸업구분 : 
 		<c:forEach items="${graduationTypeList}" var="graduationTypeCodeName">
-			<c:if test="${graduationTypeCodeName eq selectedGraduationTypeCodeName}">
+			<c:if test="${graduationTypeCodeName eq member.graduationType}">
 			<input type="radio" class="graduationType" name="graduationType" value="${graduationTypeCodeName}" checked="checked"/>${graduationTypeCodeName}
 			</c:if>
-			<c:if test="${graduationTypeCodeName ne selectedGraduationTypeCodeName}">
+			<c:if test="${graduationTypeCodeName ne member.graduationType}">
 			<input type="radio" class="graduationType" name="graduationType" value="${graduationTypeCodeName}"/>${graduationTypeCodeName}
 			</c:if>
 		</c:forEach>
@@ -315,10 +336,10 @@
 		
 		최종학력 : 
 		<c:forEach items="${highestEducationLevelCodeNameList}" var="helCodeName">
-			<c:if test="${helCodeName eq selectedHighestEducationLevelCodeName}">
+			<c:if test="${helCodeName eq member.highestEducationLevel }">
 			<input type="radio" class="highestEducationLevel" name="highestEducationLevel" value="${helCodeName}" checked="checked"/>${helCodeName}
 			</c:if>
-			<c:if test="${helCodeName ne selectedHighestEducationLevelCodeName}">
+			<c:if test="${helCodeName ne member.highestEducationLevel }">
 			<input type="radio" class="highestEducationLevel" name="highestEducationLevel" value="${helCodeName}"/>${helCodeName}
 			</c:if>
 		</c:forEach>

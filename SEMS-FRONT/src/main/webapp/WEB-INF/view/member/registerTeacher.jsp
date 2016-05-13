@@ -100,13 +100,17 @@
 				$("#messageByEmail").text("");
 				return;
 			}
-			$.post("<c:url value="/checkExistionByEmail" />", { "email" : $("#email").val() }, function(data) {
+			$.post("<c:url value="/checkValidationByEmail" />", { "email" : $("#email").val() }, function(data) {
 				if (!data) {
 					alert("통신 실패");
-				} else if (data == "NO") {
+				} else if (data == "OK") {
 					$("#messageByEmail").text("사용할 수 있는 이메일 입니다.").css("color", "green");
 					isCheckedEmail = true;
-				} else if (data == "EXIST") {
+				}  else if (data == "NO") {
+					$("#messageByEmail").text("올바른 이메일을 입력하세요!").css("color", "red");
+					isCheckedEmail = false;
+				}
+				else if (data == "EXIST") {
 					$("#messageByEmail").text("이미 사용중이거나 탈퇴한 회원입니다!").css("color", "red");
 					isCheckedEmail = false;
 				}
@@ -115,6 +119,22 @@
 		
 		$("#email").focus(function () {
 			$("#messageByEmail").text("");
+		});
+		
+		$("#phoneNumber").blur(function () {
+			$.post("<c:url value="/checkValidationByPhoneNumber" />", { "phoneNumber" : $("#phoneNumber").val() }, function(data) {
+				if (!data) {
+					alert("통신 실패");
+				} else if (data == "OK") {
+					$("#messageByPhoneNumber").text("사용할 수 있는 전화번호 입니다.").css("color", "green");
+				} else if (data == "NO") {
+					$("#messageByPhoneNumber").text("정확한 전화번호를 입력하세요!").css("color", "red");
+				}
+			});
+		});
+		
+		$("#phoneNumber").focus(function () {
+			$("#messageByPhoneNumber").text("");
 		});
 		
 		$("#registerButton").click( function () {
@@ -269,8 +289,10 @@
 		<input type="hidden" id="birthDate" name="birthDate" value="${ member.birthDate }" />
 		<br/><form:errors path="birthDate" /><br/>
 		
-		전화 번호 : <input type="text" name="phoneNumber" value="${ member.phoneNumber }" tabindex="20"/>
-		<br/><form:errors path="phoneNumber" /><br/>
+		전화 번호 : <input type="text" id="phoneNumber" name="phoneNumber" value="${ member.phoneNumber }" tabindex="20" maxlength="13"/>
+		
+		<br/><span id="messageByPhoneNumber"></span>
+		<form:errors path="phoneNumber" /><br/>
 		
 		<input type="hidden" name="memberType" value="TR" />
 		<input id="registerButton" class="inputButton" type="button" value="가입"/>
