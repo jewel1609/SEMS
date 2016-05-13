@@ -20,6 +20,15 @@
 				$(this).val(v.replace(regexp, ''));
 			}
 		});
+		$("#maxMember").keyup(function(event) {
+			reg = /[^0-9]/gi;
+	        v = $(this).val();
+	        if (reg.test(v)) {
+	        	alert("숫자만 입력 하시오.");
+	            $(this).val(v.replace(reg, ''));
+	            $(this).focus();
+	        }
+		});
 
 		$("#update").click(function() {
 			if (confirm("정말 등록하시겠습니까?") == true) {
