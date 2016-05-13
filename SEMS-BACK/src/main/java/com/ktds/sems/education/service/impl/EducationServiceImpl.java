@@ -14,12 +14,16 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ktds.sems.common.Session;
 import com.ktds.sems.education.biz.EducationBiz;
 import com.ktds.sems.education.service.EducationService;
 import com.ktds.sems.education.vo.EducationVO;
+import com.ktds.sems.member.vo.MemberVO;
+
+
+
 import com.ktds.sems.file.biz.FileBiz;
 import com.ktds.sems.file.vo.FileVO;
-import com.ktds.sems.member.vo.MemberVO;
 
 import kr.co.hucloud.utilities.SHA256Util;
 
@@ -125,20 +129,20 @@ public class EducationServiceImpl implements EducationService {
 		ModelAndView view = new ModelAndView();
 		
 		HttpSession session = request.getSession();
-		MemberVO sessionMember = (MemberVO) session.getAttribute("_MEMBER_");
+		String memberType = (String) session.getAttribute(Session.MEMBER_TYPE);
 		
 		MultipartFile file = request.getFile("file");
 		
+		String fileName = file.getOriginalFilename();
 		String salt = SHA256Util.generateSalt();
-		String saltFileName = SHA256Util.getEncrypt(educationVO.getEducationCurriculum(), salt)+".xlsx";
+		String saltFileName = SHA256Util.getEncrypt(fileName, salt)+".xlsx";
 		educationVO.setSalt(salt);
 		
-		String fileName = file.getOriginalFilename();
 		String filePath = "D:\\"+saltFileName;	
 		
 		String educationId = educationVO.getEducationId();
 		
-		if ( sessionMember.getMemberType().equals("ADM") ) {
+		if ( memberType.equals("ADM") ) {
 			if ( errors.hasErrors() ) {
 				view.setViewName("education/update"+"/"+educationId);
 				view.addObject("educationVO", educationVO);
