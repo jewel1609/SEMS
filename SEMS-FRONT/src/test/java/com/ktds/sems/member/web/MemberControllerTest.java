@@ -32,26 +32,26 @@ public class MemberControllerTest {
 	private MemberController memberController;
 
 	
-	@Test
-	public void viewModifyPageTest() {
-		
-		MockHttpSession session = new MockHttpSession();
-		MemberVO member = new MemberVO();
-		member.setId("aaa");
-		session.setAttribute("_MEMBER_", member);
-		ModelAndView view = memberController.viewModifyPage(session);
-				
-		if ( view != null) {
-			String viewName = view.getViewName();
-			assertNotNull(view);
-			assertEquals(viewName, "member/modifyMyInfo");
-			
-		}
-		else {
-			fail("view is null");
-		}
-	
-	}
+//	@Test
+//	public void viewModifyPageTest() {
+//		
+//		MockHttpSession session = new MockHttpSession();
+//		MemberVO member = new MemberVO();
+//		member.setId("aaa");
+//		session.setAttribute("_MEMBER_", member);
+//		ModelAndView view = memberController.viewModifyPage(session);
+//				
+//		if ( view != null) {
+//			String viewName = view.getViewName();
+//			assertNotNull(view);
+//			assertEquals(viewName, "member/modifyMyInfo");
+//			
+//		}
+//		else {
+//			fail("view is null");
+//		}
+//	
+//	}
 	
 	@Test
 	public void doModifyActionTest() {
