@@ -15,6 +15,7 @@ import com.ktds.sems.member.vo.MenuManageVO;
 
 public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 
+	// 준호
 	@Override
 	public int addNewMember(MemberVO member) {
 		return getSqlSession().insert("MemberDAO.addNewMember", member);
@@ -132,6 +133,7 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 	}
 
 
+	// 준호
 	@Override
 	public String isExistId(String id) {
 		return getSqlSession().selectOne("MemberDAO.isExistId", id);
@@ -142,6 +144,7 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 		return getSqlSession().insert("MemberDAO.stampLoginTime", newLoginHistoryVO);
 	}
 
+	// 준호
 	@Override
 	public String isExistEmail(String email) {
 		return getSqlSession().selectOne("MemberDAO.isExistEmail", email);
@@ -251,6 +254,12 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 	@Override
 	public int isTeacher(String id) {
 		return getSqlSession().selectOne("MemberDAO.isTeacher", id);
+	}
+	
+	// 준호
+	@Override
+	public int delectJunitTestMember(String id) {
+		return getSqlSession().delete("MemberDAO.delectJunitTestMember", id);
 	}
 
 }
