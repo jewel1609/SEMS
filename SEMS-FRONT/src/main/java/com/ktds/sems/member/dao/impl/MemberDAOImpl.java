@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.member.dao.MemberDAO;

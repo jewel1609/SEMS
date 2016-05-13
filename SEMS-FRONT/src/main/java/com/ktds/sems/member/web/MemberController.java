@@ -189,9 +189,9 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/doChangePasswordAction")
-	public ModelAndView doChangePasswordAction(@Valid MemberVO memberVO, Errors errors) {
-
-		return memberService.changePassword(memberVO, errors);
+	public ModelAndView doChangePasswordAction(MemberVO memberVO) {
+		
+		return memberService.changePassword(memberVO);
 	}
 
 	
@@ -257,6 +257,13 @@ public class MemberController {
 		
 		String loginStatus = memberService.doResign(memberVO, errors, session, request, resignCode);
 		AjaxUtil.sendResponse(response, loginStatus);
+	}
+	
+	@RequestMapping(value = ("/checkPassword"), method = RequestMethod.POST)
+	public void checkPrevPassword(@RequestParam String id, @RequestParam String prevPassword, HttpServletResponse response, HttpServletRequest request) {
+		
+		String checkPrevPasswordStatus = memberService.doCheckPrevPassword(id, prevPassword, request);
+		AjaxUtil.sendResponse(response, checkPrevPasswordStatus);
 	}
 	
 	

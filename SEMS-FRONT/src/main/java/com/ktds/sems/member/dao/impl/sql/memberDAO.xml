@@ -389,6 +389,7 @@
 		UPDATE	MBR
 		SET		SALT = #{salt}
 				, PWD = #{password}
+				, LATEST_LGI_DT = SYSDATE
 		WHERE	ID = #{id}
 	</update>	
 	

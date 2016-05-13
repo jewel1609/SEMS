@@ -27,7 +27,9 @@
 				<mvc:exclude-mapping path="/checkValidationByRepeatPassword"/>
 				<mvc:exclude-mapping path="/checkExistionByEmail"/>
 				<mvc:exclude-mapping path="/doRegisterAction"/>
-				<mvc:exclude-mapping path="/changedPassword"/>
+				<mvc:exclude-mapping path="/changePassword/*"/>
+				<mvc:exclude-mapping path="/doChangePasswordAction"/>
+				<mvc:exclude-mapping path="/checkPassword"/>
 				<mvc:exclude-mapping path="/fabicon.ico"/>
 				<mvc:exclude-mapping path="/resources/**"/>
 			<bean id="sessionCheckInterceptor" class="com.ktds.sems.interceptor.SessionCheckInterceptor"/>
