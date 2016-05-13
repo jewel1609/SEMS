@@ -11,7 +11,6 @@ public class MemberVO {
 	@NotEmpty(message = "필수 정보입니다.")
 	private String password;
 	
-	@NotEmpty(message = "필수 정보입니다.")
 	private String prevPassword;
 
 	@NotEmpty(message = "필수 정보입니다.")
