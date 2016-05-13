@@ -14,6 +14,7 @@ import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.member.vo.MemberVO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -233,8 +234,4 @@ public class MemberBizTest {
 		boolean isSuccess = !memberBiz.isModifyAccountLock(id);
 		assertTrue(isSuccess);
  	}
-	
-
-
-	
 }
