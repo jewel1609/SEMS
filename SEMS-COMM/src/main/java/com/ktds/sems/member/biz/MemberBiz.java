@@ -16,7 +16,7 @@ public interface MemberBiz {
 
 	public List<MbrTpVO> getAllMbrTpList();
 
-	public void doGrdtDelete(String cdId);
+	public int doGrdtDelete(String cdId);
 
 	public int doGrdtModify(GrdtTpVO grdtTpVO);
 
