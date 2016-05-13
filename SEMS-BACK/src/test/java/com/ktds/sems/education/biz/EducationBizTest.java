@@ -34,6 +34,12 @@ public class EducationBizTest {
 
 	@Autowired
 	private EducationBiz educationBiz;
+	
+	@Test
+	public void writeNewEducationTest(){
+		
+		
+	}
 
 	@Test
 	public void getOneEducationTest() {
