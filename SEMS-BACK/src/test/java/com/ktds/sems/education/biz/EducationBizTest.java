@@ -8,7 +8,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Enumeration;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpSessionContext;
 import javax.validation.constraints.AssertTrue;
 
 import org.junit.Test;
@@ -25,21 +29,17 @@ import org.springframework.validation.Validator;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ktds.sems.common.Session;
 import com.ktds.sems.education.service.EducationServiceTest.EducationValidator;
 import com.ktds.sems.education.vo.EducationVO;
+import com.ktds.sems.member.vo.MemberVO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "/applicationContext.xml", "/educationContext.xml", "/fileContext.xml", "/rootContext.xml" })
+@ContextConfiguration(locations = { "/applicationContext.xml", "/educationContext.xml", "/fileContext.xml", "/rootContext.xml" , "/memberContext.xml"})
 public class EducationBizTest {
 
 	@Autowired
 	private EducationBiz educationBiz;
-	
-	@Test
-	public void writeNewEducationTest(){
-		
-		
-	}
 
 	@Test
 	public void getOneEducationTest() {
@@ -47,8 +47,10 @@ public class EducationBizTest {
 		EducationVO educationVO = educationBiz.getOneEducation(educationId);
 		assertNotNull(educationVO);
 	}
+	
 	@Test
 	public void doEducationModifyTest() {
+		
 		EducationVO educationVO = new EducationVO();
 		
 		educationVO.setEducationId("ED-20160512-000066");
@@ -88,6 +90,10 @@ public class EducationBizTest {
 		
 		MultipartFile file = new MockMultipartFile(name, originalFileName, contentType, content);
 		request.addFile(file);
+		
+		HttpSession session = null;
+		session = request.getSession();
+		session.setAttribute(Session.MEMBER_TYPE, "ADM");
 		
 		boolean result = educationBiz.modifyNewEducation(educationVO);
 		assertEquals(result, true);

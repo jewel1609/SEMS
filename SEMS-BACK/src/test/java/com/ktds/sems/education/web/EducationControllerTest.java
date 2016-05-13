@@ -27,7 +27,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ktds.sems.education.vo.EducationVO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "/applicationContext.xml", "/educationContext.xml", "/fileContext.xml", "/rootContext.xml" })
+@ContextConfiguration(locations = { "/applicationContext.xml", "/educationContext.xml", "/fileContext.xml", "/rootContext.xml" , "/memberContext.xml"})
 public class EducationControllerTest {
 	
 	@Autowired

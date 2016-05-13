@@ -1,15 +1,13 @@
 package com.ktds.sems.education.dao;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.assertNotNull;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
 import java.util.List;
 
 import org.junit.Test;
@@ -28,11 +26,10 @@ import org.springframework.web.multipart.MultipartFile;
 import com.ktds.sems.education.vo.CategoryVO;
 import com.ktds.sems.education.vo.CostVO;
 import com.ktds.sems.education.vo.EducationTypeVO;
-import com.ktds.sems.education.service.EducationServiceTest.EducationValidator;
 import com.ktds.sems.education.vo.EducationVO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "/applicationContext.xml", "/educationContext.xml", "/fileContext.xml", "/rootContext.xml" })
+@ContextConfiguration(locations = { "/applicationContext.xml", "/educationContext.xml", "/fileContext.xml", "/rootContext.xml" , "/memberContext.xml"})
 public class EducationDAOTest {
 
 	@Autowired
@@ -40,16 +37,13 @@ public class EducationDAOTest {
 	
 	@Test 
 	public void insertNewEducationTest(){
-		
 		EducationVO educationVO = new EducationVO();
 		educationDAO.insertNewEducation(educationVO);
 		assertNotNull(educationVO);
-		
 	}
 	
 	@Test 
 	public void costCodeListTest(){
-		
 		List<CostVO> costcode = educationDAO.costCodeList();
 		assertNotNull(costcode);
 		assertTrue(costcode.size() >= 0);
@@ -57,14 +51,13 @@ public class EducationDAOTest {
 	
 	@Test 
 	public void typeCodeListTest(){
-		
 		List<EducationTypeVO> typecode = educationDAO.typeCodeList();
 		assertNotNull(typecode);
 		assertTrue(typecode.size() >= 0);
 	}
+	
 	@Test 
 	public void categoryCodeListTest(){
-		
 		List<CategoryVO>  categorycode = educationDAO.categoryCodeList();
 		assertNotNull(categorycode);
 		assertTrue(categorycode.size() >= 0);
@@ -72,13 +65,11 @@ public class EducationDAOTest {
 	
 	@Test
 	public void getOneEducationTest() {
-		
 		String educationId = "ED-20160512-000069";
 		EducationVO educationVO =  educationDAO.getOneEducation(educationId);
 		assertNotNull(educationVO);
-				
-		
 	}
+	
 	@Test
 	public void doEducationModifyTest() {
 		EducationVO educationVO = new EducationVO();

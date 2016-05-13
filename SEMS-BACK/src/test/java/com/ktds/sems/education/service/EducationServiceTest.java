@@ -10,6 +10,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import javax.servlet.http.HttpSession;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,11 +26,12 @@ import org.springframework.validation.Validator;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ktds.sems.common.Session;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.web.EducationControllerTest.EducationValidator;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "/applicationContext.xml", "/educationContext.xml", "/fileContext.xml", "/rootContext.xml" })
+@ContextConfiguration(locations = { "/applicationContext.xml", "/educationContext.xml", "/fileContext.xml", "/rootContext.xml" , "/memberContext.xml"})
 public class EducationServiceTest {
 
 	@Autowired
@@ -42,7 +45,6 @@ public class EducationServiceTest {
 		assertNotNull(view);
 		assertTrue(viewName == "education/update");
 	}
-	
 	
 	@Test
 	public void doEducationModifyTest() {
@@ -85,6 +87,10 @@ public class EducationServiceTest {
 		
 		MultipartFile file = new MockMultipartFile(name, originalFileName, contentType, content);
 		request.addFile(file);
+		
+		HttpSession session = null;
+		session = request.getSession();
+		session.setAttribute(Session.MEMBER_TYPE, "ADM");
 		
 		ModelAndView view = educationeService.modifyNewEducation(educationVO, errors, request);
 		assertNotNull(view);
