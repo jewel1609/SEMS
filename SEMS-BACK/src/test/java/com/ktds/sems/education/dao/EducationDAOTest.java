@@ -35,7 +35,9 @@ public class EducationDAOTest {
 	@Autowired
 	private EducationDAO educationDAO;
 	
-	@Test 
+	/* ED-20160512-000139 이미 등록돼 있음
+	 * 
+	 * @Test 
 	public void insertNewEducationTest(){
 		EducationVO educationVO = new EducationVO();
 		
@@ -55,7 +57,7 @@ public class EducationDAOTest {
 		educationVO.setCost("CSTC");
 		
 		assertTrue(educationDAO.insertNewEducation(educationVO) > 0);
-	}
+	}*/
 	
 	@Test 
 	public void costCodeListTest(){

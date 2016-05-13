@@ -53,7 +53,9 @@ public class EducationControllerTest {
 		}
 	}
 
-	@Test
+	/* D:\\핸드폰.xlsx 파일 있어야 함
+	 * 
+	 * @Test
 	public void doWriteActionTest() {
 		// List 보는건 차 후에 test 시도
 
@@ -96,10 +98,7 @@ public class EducationControllerTest {
 
 		HttpSession session = null;
 		session = request.getSession();
-		
-		MemberVO memberVO = new MemberVO();
-		memberVO.setMemberType("ADM");
-		session.setAttribute("_MEMBER_", memberVO);
+		session.setAttribute(Session.MEMBER_TYPE, "ADM");
 
 		ModelAndView view = educationController.doWriteAction(educationVO, errors, request);
 		assertNotNull(view);
@@ -111,7 +110,7 @@ public class EducationControllerTest {
 		} else {
 			fail("Fail");
 		}
-	}
+	}*/
 
 	@Test
 	public void doEducationModifyTest() {
@@ -213,10 +212,7 @@ public class EducationControllerTest {
 		
 		HttpSession session = null;
 		session = request.getSession();
-
-		MemberVO memberVO = new MemberVO();
-		memberVO.setMemberType("ADM");
-		session.setAttribute("_MEMBER_", memberVO);
+		session.setAttribute(Session.MEMBER_TYPE, "ADM");
 		
 		ModelAndView view = educationController.doWriteAction(educationVO, errors, request);
 		assertNotNull(view);
@@ -274,10 +270,7 @@ public class EducationControllerTest {
 
 		HttpSession session = null;
 		session = request.getSession();
-		
-		MemberVO memberVO = new MemberVO();
-		memberVO.setMemberType("ADM");
-		session.setAttribute("_MEMBER_", memberVO);
+		session.setAttribute(Session.MEMBER_TYPE, "ADM");
 		
 		ModelAndView view = educationController.doWriteAction(educationVO, errors, request);
 		assertNotNull(view);
@@ -337,10 +330,7 @@ public class EducationControllerTest {
 		
 		HttpSession session = null;
 		session = request.getSession();
-
-		MemberVO memberVO = new MemberVO();
-		memberVO.setMemberType("ADM");
-		session.setAttribute("_MEMBER_", memberVO);
+		session.setAttribute(Session.MEMBER_TYPE, "ADM");
 		
 		ModelAndView view = educationController.doWriteAction(educationVO, errors, request);
 		assertNotNull(view);
@@ -399,10 +389,7 @@ public class EducationControllerTest {
 
 		HttpSession session = null;
 		session = request.getSession();
-
-		MemberVO memberVO = new MemberVO();
-		memberVO.setMemberType("ADM");
-		session.setAttribute("_MEMBER_", memberVO);
+		session.setAttribute(Session.MEMBER_TYPE, "ADM");
 		
 		ModelAndView view = educationController.doWriteAction(educationVO, errors, request);
 		assertNotNull(view);
@@ -460,10 +447,7 @@ public class EducationControllerTest {
 
 		HttpSession session = null;
 		session = request.getSession();
-
-		MemberVO memberVO = new MemberVO();
-		memberVO.setMemberType("ADM");
-		session.setAttribute("_MEMBER_", memberVO);
+		session.setAttribute(Session.MEMBER_TYPE, "ADM");
 		
 		ModelAndView view = educationController.doWriteAction(educationVO, errors, request);
 		assertNotNull(view);
@@ -521,10 +505,7 @@ public class EducationControllerTest {
 		
 		HttpSession session = null;
 		session = request.getSession();
-
-		MemberVO memberVO = new MemberVO();
-		memberVO.setMemberType("ADM");
-		session.setAttribute("_MEMBER_", memberVO);
+		session.setAttribute(Session.MEMBER_TYPE, "ADM");
 		
 		ModelAndView view = educationController.doWriteAction(educationVO, errors, request);
 		assertNotNull(view);
@@ -582,10 +563,7 @@ public class EducationControllerTest {
 
 		HttpSession session = null;
 		session = request.getSession();
-
-		MemberVO memberVO = new MemberVO();
-		memberVO.setMemberType("ADM");
-		session.setAttribute("_MEMBER_", memberVO);
+		session.setAttribute(Session.MEMBER_TYPE, "ADM");
 		
 		ModelAndView view = educationController.doWriteAction(educationVO, errors, request);
 		assertNotNull(view);
@@ -643,10 +621,7 @@ public class EducationControllerTest {
 
 		HttpSession session = null;
 		session = request.getSession();
-
-		MemberVO memberVO = new MemberVO();
-		memberVO.setMemberType("ADM");
-		session.setAttribute("_MEMBER_", memberVO);
+		session.setAttribute(Session.MEMBER_TYPE, "ADM");
 		
 		ModelAndView view = educationController.doWriteAction(educationVO, errors, request);
 		assertNotNull(view);
@@ -704,10 +679,7 @@ public class EducationControllerTest {
 
 		HttpSession session = null;
 		session = request.getSession();
-
-		MemberVO memberVO = new MemberVO();
-		memberVO.setMemberType("ADM");
-		session.setAttribute("_MEMBER_", memberVO);
+		session.setAttribute(Session.MEMBER_TYPE, "ADM");
 		
 		ModelAndView view = educationController.doWriteAction(educationVO, errors, request);
 		assertNotNull(view);
@@ -765,10 +737,7 @@ public class EducationControllerTest {
 
 		HttpSession session = null;
 		session = request.getSession();
-
-		MemberVO memberVO = new MemberVO();
-		memberVO.setMemberType("ADM");
-		session.setAttribute("_MEMBER_", memberVO);
+		session.setAttribute(Session.MEMBER_TYPE, "ADM");
 		
 		ModelAndView view = educationController.doWriteAction(educationVO, errors, request);
 		assertNotNull(view);
@@ -826,10 +795,7 @@ public class EducationControllerTest {
 		
 		HttpSession session = null;
 		session = request.getSession();
-		
-		MemberVO memberVO = new MemberVO();
-		memberVO.setMemberType("ADM");
-		session.setAttribute("_MEMBER_", memberVO);
+		session.setAttribute(Session.MEMBER_TYPE, "ADM");
 		
 		ModelAndView view = educationController.doWriteAction(educationVO, errors, request);
 		assertNotNull(view);
@@ -887,10 +853,7 @@ public class EducationControllerTest {
 		
 		HttpSession session = null;
 		session = request.getSession();
-		
-		MemberVO memberVO = new MemberVO();
-		memberVO.setMemberType("ADM");
-		session.setAttribute("_MEMBER_", memberVO);
+		session.setAttribute(Session.MEMBER_TYPE, "ADM");
 		
 		ModelAndView view = educationController.doWriteAction(educationVO, errors, request);
 		assertNotNull(view);
