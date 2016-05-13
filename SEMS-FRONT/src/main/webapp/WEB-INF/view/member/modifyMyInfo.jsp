@@ -10,7 +10,7 @@
 <script type="text/javascript" src="<c:url value="/resources/js/jquery.min.js" />"></script>
 
 <style type="text/css">
-.modifyBtn {
+#modifyBtn {
    border:none;
    border-radius:5px;
    padding:6px 12px;
@@ -25,6 +25,50 @@
 
 $(document).ready(function() {
 	
+	var checkError = 0;
+	
+	$("#phoneNumber").blur(function () {
+		$.post("<c:url value="/checkValidationByPhoneNumber" />", { "phoneNumber" : $("#phoneNumber").val() }, function(data) {
+			if (!data) {
+				alert("통신 실패");
+			} else if (data == "OK") {
+				$("#messageByPhoneNumber").text("사용할 수 있는 전화번호 입니다.").css("color", "green");
+			} else if (data == "NO") {
+				$("#messageByPhoneNumber").text("정확한 전화번호를 입력하세요!").css("color", "red");
+				checkError += 1;
+			}
+		});
+	});
+	
+	$("#phoneNumber").focus(function () {
+		$("#messageByPhoneNumber").text("");
+	});
+	
+	
+	$("#email").blur ( function () {
+		if($("#email").val()=="") {
+			$("#messageByEmail").text("");
+			return;
+		}
+		$.post("<c:url value="/checkValidationByEmail" />", { "email" : $("#email").val() }, function(data) {
+			if (!data) {
+				alert("통신 실패");
+			} else if (data == "OK") {
+				$("#messageByEmail").text("사용할 수 있는 이메일 입니다.").css("color", "green");
+			}  else if (data == "NO") {
+				$("#messageByEmail").text("올바른 이메일을 입력하세요!").css("color", "red");
+				checkError += 1;
+			}
+			else if (data == "EXIST") {
+				$("#messageByEmail").text("이미 사용중이거나 탈퇴한 회원입니다!").css("color", "red");
+			}
+		});
+	});
+	
+	$("#email").focus(function () {
+		$("#messageByEmail").text("");
+	});	
+	
 	$("#password").blur(function () {
 		$.post("<c:url value="/checkValidationByPassword" />", { "password" : $("#password").val() }, function(data) {
 			if($("#password").val()=="") {
@@ -38,10 +82,9 @@ $(document).ready(function() {
 				$("#messageByPassword").text("안전한 비밀번호 입니다.").css("color", "green");
 			} else if (data == "NO") {
 				$("#messageByPassword").text("영문, 숫자, 특수문자 조합의 10~16 글자이어야 합니다!").css("color", "red");
+				checkError += 1;
 			}
 		});
-		
-		$("#repeatPassword").val("");
 	});
 	
 	$("#password").focus(function () {
@@ -50,12 +93,16 @@ $(document).ready(function() {
 	
 	
 	$("#modifyBtn").click(function(){
+		
+		if( checkError != 0 ) { 
+			alert("항목을 수정하세요.");
+			return;
+		}
+		
 		var form = $("#memberInfoForm");
 		form.attr("action", "<c:url value="/member/myPage/doModifyAction" />");
 		form.submit();
-		
 		alert("수정이 완료되었습니다.");
-		
 	});
 	
 	
@@ -170,36 +217,42 @@ function daysInMonth(month, year) {
 <form:form id="memberInfoForm" commandName="member" method="post">
 
 	아이디 : ${member.id}  <br/>
-	
+	<br />
+		
 	비밀번호 : <input type="password" name="password" id="password" tabindex="1" maxlength="16"/>
 	<br /><span id="messageByPassword"></span>
 	<form:errors path="password"></form:errors>
 	<br />
 	
-	이름 : <input type="text" name="name" id="name" value="${member.name}" placeholder="이름을 입력하세요." tabindex="1"/>
+	이름 : <input type="text" name="name" id="name" value="${member.name}" placeholder="이름을 입력하세요." tabindex="1" maxlength="10"/>
 	<form:errors path="name" /><br/>
 	<br />
 		
-	이메일 : <input type="text" name="email" id="email"  value="${member.email}" placeholder="이메일을 입력하세요. " tabindex="2" /> 
+	이메일 : <input type="text" name="email" id="email"  value="${member.email}" placeholder="이메일을 입력하세요. " tabindex="2"  maxlength="30"/> 
 	<br /><span id="messageByEmail"></span>
 	<form:errors path="email"></form:errors>
+	<br />
 	
 	<c:if test="${isTeacher eq 'F'}">
-	대학교 : ${member.universityName}  <br />
-	전공 : ${member.majorName} <br /> 
+	대학교 : ${member.universityName}  <br />	
+	<br />
+	전공 : ${member.majorName} <br /> 	
+	<br />
 	</c:if>
 	생년월일 : 
 	<select id="years" name="years" tabindex="5"></select>&nbsp;년
 	<select id="months" name="months" tabindex="6"></select>&nbsp;월
     <select id="days" name="days" tabindex="7"></select>&nbsp;일
 	<input type="hidden" id="birthDate" name="birthDate" value="${ member.birthDate }" />
-	
+	<br />
 	<br />
 	전화번호 : <input type="text" name="phoneNumber" id="phoneNumber"  value="${member.phoneNumber}" placeholder="전화번호를 입력하세요." tabindex="8" /> 
 	<br /><span id="messageByPhoneNumber"></span>
 	<form:errors path="phoneNumber"></form:errors>
+	<br />
 	
 	회원구분 : ${memberTypeCodeName} <br />
+	<br />
 	<c:if test="${isTeacher eq 'F'}">
 	졸업구분 : 
 	<c:forEach items="${graduationTypeList}" var="graduationTypeCodeName">
@@ -210,7 +263,7 @@ function daysInMonth(month, year) {
 				<input type="radio" class="graduationType" name="graduationType" value="${graduationTypeCodeName}"/>${graduationTypeCodeName}
 				</c:if>
 	</c:forEach>
-	<br/>
+	<br/><br/>
 	최종학력 : 
 	<c:forEach items="${highestEducationLevelCodeNameList}" var="helCodeName">
 				<c:if test="${helCodeName eq selectedHighestEducationLevelCodeName}">
