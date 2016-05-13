@@ -236,15 +236,15 @@ public class MemberDAOTest {
 		assertNotNull(checkStr);
 	}
 	
-	/**
-	 * 탈퇴 회원 업데이트
-	 */
-	@Test
-	public void doDeleteMemberTest() {
-		String id = "cocomo12";
-		int executeQuery = memberDAO.doDeleteMember(id);
-		assertTrue(executeQuery > 0);
-	}
+//	/**
+//	 * 탈퇴 회원 업데이트
+//	 */
+//	@Test
+//	public void doDeleteMemberTest() {
+//		String id = "cocomo12";
+//		int executeQuery = memberDAO.doDeleteMember(id);
+//		assertTrue(executeQuery > 0);
+//	}
 	
 	@Test
 	public void getMenuCategoryListTest() {
