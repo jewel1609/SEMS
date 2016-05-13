@@ -8,9 +8,6 @@
 	<mvc:annotation-driven />
 	<mvc:resources location="/WEB-INF/resources/" mapping="/resources/**" />
 
-	<mvc:annotation-driven/>
-	<mvc:resources location="/WEB-INF/resources/" mapping="/resources/**" />
-
 	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/"/>
