@@ -5,6 +5,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="<c:url value='/resources/css/eduDetail.css'/>" rel="stylesheet">
 <script type="text/javascript" src="<c:url value='/resources/js/jquery.min.js"'/>"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -33,7 +38,7 @@
 		$("#goList").click(function(){
 			location.href="<c:url value='/educationList'/>";
 		});
-		
+
 	});
 </script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -43,8 +48,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-
-	<table border="1">
+	
+	<div id="table_calendar">
+	<div id="table">
+	<table id="table_one" border="1">
 		<tr>
 			<th colspan="2">교육 상세 조회</th>
 		</tr>
@@ -99,12 +106,14 @@
 		</tr>
 	</table>
 	<br/>
+
 	<input type="button"  value="검색 목록" id="goList" name="goList" />
 	<br/>
 	<br/>
 	<h3>문의사항</h3>
 	<c:if test="${ eduReplyListVO.qnaList.size() gt 0 }">
-	<table border="1">
+	<table  id="tableTwo" border="1">
+
 	<c:forEach items="${eduReplyListVO.qnaList}" var="qna">
 	<tr>
 		<td colspan="2">작성자</td>
@@ -156,5 +165,14 @@
 	<c:forEach items="${fileList}" var="fileVO">
 	파일다운로드: <a href="/downloadFile/${ education.educationId }">${fileVO.fileName}</a>
 	</c:forEach>
+	</div>
+	
+	<div class="clear"></div>
+	
+		<div id="calendar">
+			<jsp:include page="/WEB-INF/view/education/calendar.jsp"></jsp:include>
+		</div>
+	</div>
+	
 </body>
 </html>

@@ -170,8 +170,6 @@ $(document).ready(function() {
 		</td>
 	</tr>
 </table>
-<div class="table_calendar">
-<div class="table"> 
 <table border="1">
 	<tr>
 		<th>교육 이름</th>
@@ -213,12 +211,9 @@ $(document).ready(function() {
 
 </table>
 </form>
-</div>
-
 	<div class="clear"></div>
 		<div class="calendar">
 			<jsp:include page="/WEB-INF/view/education/calendar.jsp"></jsp:include>
 	</div>
-</div>
 </body>
 </html>
