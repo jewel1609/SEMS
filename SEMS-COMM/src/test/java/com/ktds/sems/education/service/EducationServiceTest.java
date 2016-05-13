@@ -1,16 +1,42 @@
 package com.ktds.sems.education.service;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+import java.util.List;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
+import java.util.ArrayList;
+import java.util.List;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.validation.BeanPropertyBindingResult;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.ktds.sems.education.vo.CostVO;
+import com.ktds.sems.education.vo.TimeVO;
+
+
+import com.ktds.sems.education.vo.CategoryVO;
+import com.ktds.sems.education.vo.JsonResponseVO;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
@@ -20,6 +46,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ktds.sems.education.vo.CategoryVO;
 import com.ktds.sems.education.vo.JsonResponseVO;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={
 								  "/applicationContext.xml"
@@ -32,7 +59,326 @@ public class EducationServiceTest {
 	@Autowired
 	private EducationService educationService;
 	
+	// costTest
 	@Test
+	public void getAllEduCostTest() {
+		ModelAndView view = educationService.getAllEduCost();
+		assertNotNull(view);
+		
+		if ( view != null ) {
+			String viewName = view.getViewName();
+			assertNotNull(viewName);
+			assertEquals(viewName, "education/cost");
+			
+			List<CostVO> costList = (List<CostVO>) view.getModelMap().get("costList");
+			assertNotNull(costList);
+			assertTrue(costList.size() >= 0);
+		}
+		else {
+			fail("view is null");
+		}
+	}
+	
+	@Test
+	public void insertEduCostTestError2() {
+		CostVO cost = new CostVO();
+		cost.setCdId("TEST");
+		
+		String insertEduCost = educationService.insertEduCost(cost);
+		assertNotNull(insertEduCost);
+		assertEquals(insertEduCost, "NO_DATA");
+	}
+	
+	@Test
+	public void insertEduCostTestError3() {
+		CostVO cost = new CostVO();
+		cost.setCdNm("TEST");
+		
+		String insertEduCost = educationService.insertEduCost(cost);
+		assertNotNull(insertEduCost);
+		assertEquals(insertEduCost, "NO_DATA");
+	}
+	
+
+	public void insertEduCostTestError4() {
+		CostVO cost = new CostVO();
+		cost.setCdId("TEST1");
+		cost.setCdNm("TEST1");
+		
+		String insertEduCost = educationService.insertEduCost(cost);
+		assertNotNull(insertEduCost);
+		assertEquals(insertEduCost, "DATAL_F");
+	}
+	
+
+	public void insertEduCostTestError5() {
+		CostVO cost = new CostVO();
+		cost.setCdId("TEST1");
+		cost.setCdNm("TEST1");
+		
+		String insertEduCost = educationService.insertEduCost(cost);
+		assertNotNull(insertEduCost);
+		assertEquals(insertEduCost, "DATAL_F");
+	}
+	
+	@Test
+	public void insertEduCostTestError6() {
+		CostVO cost = new CostVO();
+		cost.setCdId("CSTC");
+		cost.setCdNm("유료");
+		
+		String insertEduCost = educationService.insertEduCost(cost);
+		assertNotNull(insertEduCost);
+		assertEquals(insertEduCost, "FAIL_V");
+	}
+	
+	@Test
+	public void insertEduCostTestError7() {
+		CostVO cost = new CostVO();
+		cost.setCdId("CSTC");
+		cost.setCdNm("유");
+		
+		String insertEduCost = educationService.insertEduCost(cost);
+		assertNotNull(insertEduCost);
+		assertEquals(insertEduCost, "FAIL_V");
+	}
+	
+	@Test
+	public void insertEduCostTestError8() {
+		CostVO cost = new CostVO();
+		cost.setCdId("CSTA");
+		cost.setCdNm("유료");
+		
+		String insertEduCost = educationService.insertEduCost(cost);
+		assertNotNull(insertEduCost);
+		assertEquals(insertEduCost, "FAIL_V");
+	}
+	
+	@Test
+	public void modifyEduCostTestError5() {
+		CostVO cost = new CostVO();
+		cost.setCdId("TES2");
+		cost.setCdNm("TES1");
+		
+		String modifyEduCost = educationService.modifyEduCost(cost);
+		assertNotNull(modifyEduCost);
+		assertEquals(modifyEduCost, "OK");
+	}
+	
+	public void modifyEduCostTestError1() {
+		CostVO cost = new CostVO();
+		cost.setCdId("TEST1");
+		cost.setCdNm("TEST1");
+		
+		String modifyEduCost = educationService.modifyEduCost(cost);
+		assertNotNull(modifyEduCost);
+		assertEquals(modifyEduCost, "DATAL_F");
+	}
+	
+	@Test
+	public void modifyEduCostTestError2() {
+		CostVO cost = new CostVO();
+		cost.setCdId("CSTA");
+		cost.setCdNm("유료");
+		
+		String modifyEduCost = educationService.modifyEduCost(cost);
+		assertNotNull(modifyEduCost);
+		assertEquals(modifyEduCost, "FAIL_V");
+	}
+	
+	@Test
+	public void modifyEduCostTestError3() {
+		CostVO cost = new CostVO();
+		cost.setCdId("TES2");
+		
+		String modifyEduCost = educationService.modifyEduCost(cost);
+		assertNotNull(modifyEduCost);
+		assertEquals(modifyEduCost, "NO_DATA");
+	}
+	@Test
+	public void modifyEduCostTestError4() {
+		CostVO cost = new CostVO();
+		cost.setCdNm("TES2");
+		
+		String modifyEduCost = educationService.modifyEduCost(cost);
+		assertNotNull(modifyEduCost);
+		assertEquals(modifyEduCost, "NO_DATA");
+	}
+	
+	@Test
+	public void zdeleteEduCostTest() {
+		String cdId = "TES2";
+		
+		ModelAndView view = educationService.deleteEduCost(cdId);
+		assertNotNull(view);
+		
+		if ( view != null ) {
+			String viewName = view.getViewName();
+			assertNotNull(viewName);
+			
+			assertEquals(viewName, "redirect:/education/cost");
+		}
+		else {
+			fail("view is null");
+		}
+	}
+	
+	@Test
+	public void insertEduCostTestError1() {
+		CostVO cost = new CostVO();
+		cost.setCdId("TES2");
+		cost.setCdNm("TES2");
+		
+		String insertEduCost = educationService.insertEduCost(cost);
+		assertNotNull(insertEduCost);
+		assertEquals(insertEduCost, "OK");
+	}
+	
+	// timeTest
+	@Test
+	public void insertEduTimeTestError1() {
+		TimeVO time = new TimeVO();
+		time.setCdId("TES2");
+		time.setCdNm("TES2");
+		
+		String insertEduTime = educationService.insertEduTime(time);
+		assertNotNull(insertEduTime);
+		assertEquals(insertEduTime, "OK");
+	}
+	
+	@Test
+	public void insertEduTimeTestError2() {
+		TimeVO time = new TimeVO();
+		time.setCdId("TES2");
+		
+		String insertEduTime = educationService.insertEduTime(time);
+		assertNotNull(insertEduTime);
+		assertEquals(insertEduTime, "NO_DATA");
+	}
+	
+	@Test
+	public void insertEduTimeTestError3() {
+		TimeVO time = new TimeVO();
+		time.setCdNm("TES2");
+		
+		String insertEduTime = educationService.insertEduTime(time);
+		assertNotNull(insertEduTime);
+		assertEquals(insertEduTime, "NO_DATA");
+	}
+	
+
+	public void insertEduTimeTestError4() {
+		CostVO cost = new CostVO();
+		cost.setCdId("TEST1");
+		cost.setCdNm("TEST1");
+		
+		String insertEduCost = educationService.insertEduCost(cost);
+		assertNotNull(insertEduCost);
+		assertEquals(insertEduCost, "DATAL_F");
+	}
+
+	@Test
+	public void insertEduTimeTestError6() {
+		TimeVO time = new TimeVO();
+		time.setCdId("TIMD");
+		time.setCdNm("오전");
+		
+		String insertEduTime = educationService.insertEduTime(time);
+		assertNotNull(insertEduTime);
+		assertEquals(insertEduTime, "FAIL_V");
+	}
+	
+	@Test
+	public void insertEduTimeTestError7() {
+		TimeVO time = new TimeVO();
+		time.setCdId("TIMD");
+		time.setCdNm("오");
+
+		String insertEduTime = educationService.insertEduTime(time);
+		assertNotNull(insertEduTime);
+		assertEquals(insertEduTime, "FAIL_V");
+	}
+	
+	@Test
+	public void insertEduTimeTestError8() {
+		TimeVO time = new TimeVO();
+		time.setCdId("TIMA");
+		time.setCdNm("오전");
+		
+		String insertEduTime = educationService.insertEduTime(time);
+		assertNotNull(insertEduTime);
+		assertEquals(insertEduTime, "FAIL_V");
+	}
+	
+	@Test
+	public void modifyEduTimeTestError5() {
+		TimeVO time = new TimeVO();
+		time.setCdId("TES2");
+		time.setCdNm("TES1");
+		
+		String modifyEduTime = educationService.modifyEduTime(time);
+		assertNotNull(modifyEduTime);
+		assertEquals(modifyEduTime, "OK");
+	}
+	
+	public void modifyEduTimeTestError1() {
+		CostVO cost = new CostVO();
+		cost.setCdId("TEST1");
+		cost.setCdNm("TEST1");
+		
+		String modifyEduCost = educationService.modifyEduCost(cost);
+		assertNotNull(modifyEduCost);
+		assertEquals(modifyEduCost, "DATAL_F");
+	}
+	
+	@Test
+	public void modifyEduTimeTestError2() {
+		TimeVO time = new TimeVO();
+		time.setCdId("TIMA");
+		time.setCdNm("오전");
+		
+		String modifyEduTime = educationService.modifyEduTime(time);
+		assertNotNull(modifyEduTime);
+		assertEquals(modifyEduTime, "FAIL_V");
+	}
+	
+	@Test
+	public void modifyEduTimeTestError3() {
+		TimeVO time = new TimeVO();
+		time.setCdId("TES2");
+		
+		String modifyEduTime = educationService.modifyEduTime(time);
+		assertNotNull(modifyEduTime);
+		assertEquals(modifyEduTime, "NO_DATA");
+	}
+	
+	@Test
+	public void modifyEduTimeTestError4() {
+		TimeVO time = new TimeVO();
+		time.setCdNm("TES2");
+	
+		String modifyEduTime = educationService.modifyEduTime(time);
+		assertNotNull(modifyEduTime);
+		assertEquals(modifyEduTime, "NO_DATA");
+	}
+	
+	@Test
+	public void zdeleteEduTestTest() {
+		String cdId = "TES2";
+		
+		ModelAndView view = educationService.deleteEduTime(cdId);
+		assertNotNull(view);
+		
+		if ( view != null ) {
+			String viewName = view.getViewName();
+			assertNotNull(viewName);
+			
+			assertEquals(viewName, "redirect:/education/time");
+		}
+		else {
+			fail("view is null");
+		}
+	}
 	public void validCategoryIdTest(){
 		String categoryId = "PAID";
 		String categoryType = "medium";
@@ -212,5 +558,5 @@ public class EducationServiceTest {
 		}
 		
 	}
-
+	
 }
