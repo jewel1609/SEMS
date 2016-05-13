@@ -28,21 +28,23 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.common.Session;
 import com.ktds.sems.education.vo.EducationVO;
+import com.ktds.sems.member.vo.MemberVO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "/applicationContext.xml", "/educationContext.xml", "/fileContext.xml", "/rootContext.xml" , "/memberContext.xml"})
+@ContextConfiguration(locations = { "/applicationContext.xml", "/educationContext.xml", "/fileContext.xml",
+		"/rootContext.xml", "/memberContext.xml" })
 public class EducationControllerTest {
-	
+
 	@Autowired
 	private EducationController educationController;
-	
+
 	@Test
-	public void viewEduWritePageTest(){
-		
+	public void viewEduWritePageTest() {
+
 		ModelAndView view = educationController.viewEduWritePage();
 		assertNotNull(view);
-		
-		if ( view != null){
+
+		if (view != null) {
 			String viewName = view.getViewName();
 			assertNotNull(viewName);
 			assertEquals(viewName, "education/eduregister");
@@ -50,67 +52,71 @@ public class EducationControllerTest {
 			fail("view is null");
 		}
 	}
-	
+
 	@Test
-	public void doWriteActionTest(){
-		// List 보는건 차 후에 test 시도 
-		
-	      EducationVO educationVO = new EducationVO();
-	      educationVO.setEducationCategory("ZCS");
-	      educationVO.setEducationTitle("JUNIT...");
-	      educationVO.setMemberId("JUNIT...");
-	      educationVO.setMaxMember(32);
-	      educationVO.setEducationLocation("JUNIT...");
-	      educationVO.setEducationCurriculum("JUNIT...");
-	      educationVO.setEducationIntroduce("JUNIT...");
-	      educationVO.setStartDate("2016-01-01");
-	      educationVO.setEndDate("2016-01-01");
-	      educationVO.setStartTime("01:00");
-	      educationVO.setEndTime("01:00");
-	      educationVO.setEducationType("TIMM");
-		  educationVO.setCost("CSTC");
-		  
+	public void doWriteActionTest() {
+		// List 보는건 차 후에 test 시도
+
+		EducationVO educationVO = new EducationVO();
+		educationVO.setEducationCategory("ZCS");
+		educationVO.setEducationTitle("JUNIT...");
+		educationVO.setMemberId("JUNIT...");
+		educationVO.setMaxMember(32);
+		educationVO.setEducationLocation("JUNIT...");
+		educationVO.setEducationCurriculum("JUNIT...");
+		educationVO.setEducationIntroduce("JUNIT...");
+		educationVO.setStartDate("2016-01-01");
+		educationVO.setEndDate("2016-01-01");
+		educationVO.setStartTime("01:00");
+		educationVO.setEndTime("01:00");
+		educationVO.setEducationType("TIMM");
+		educationVO.setCost("CSTC");
+
 		BindingResult errors = new BeanPropertyBindingResult(educationVO, "writeForm");
 		EducationValidator validator = new EducationValidator();
 		validator.validate(educationVO, errors);
-	      
-		  MockMultipartHttpServletRequest request = new MockMultipartHttpServletRequest();
-	      
-	      Path path = Paths.get("D:\\핸드폰.xlsx");
-	      String name = "file";
-	      String originalFileName = "핸드폰.xlsx";
-	      String contentType = "text/plain";
-	      
-	      byte[] content = null;
-	      
-	      try {
-	          content = Files.readAllBytes(path);
-	      }
-	      catch (final IOException e) {
-	         
-	      }
-	      
-	      MultipartFile file = new MockMultipartFile(name, originalFileName, contentType, content);
-	      request.addFile(file);
+
+		MockMultipartHttpServletRequest request = new MockMultipartHttpServletRequest();
+
+		Path path = Paths.get("D:\\핸드폰.xlsx");
+		String name = "file";
+		String originalFileName = "핸드폰";
+		String contentType = "text/plain";
+
+		byte[] content = null;
+
+		try {
+			content = Files.readAllBytes(path);
+		} catch (final IOException e) {
+
+		}
+
+		MultipartFile file = new MockMultipartFile(name, originalFileName, contentType, content);
+		request.addFile(file);
+
+		HttpSession session = null;
+		session = request.getSession();
 		
+		MemberVO memberVO = new MemberVO();
+		memberVO.setMemberType("ADM");
+		session.setAttribute("_MEMBER_", memberVO);
+
 		ModelAndView view = educationController.doWriteAction(educationVO, errors, request);
 		assertNotNull(view);
-		
-		if (view != null ){
+
+		if (view != null) {
 			String viewName = view.getViewName();
 			assertNotNull(viewName);
 			assertEquals(viewName, "redirect:/list");
-		}
-		else {
+		} else {
 			fail("Fail");
 		}
 	}
-	
-	
+
 	@Test
 	public void doEducationModifyTest() {
 		EducationVO educationVO = new EducationVO();
-		
+
 		educationVO.setEducationId("ED-20160512-000066");
 		educationVO.setEducationCategory("ZCS");
 		educationVO.setEducationTitle("JUNIT...");
@@ -125,37 +131,36 @@ public class EducationControllerTest {
 		educationVO.setEndTime("01:00");
 		educationVO.setEducationType("TIMM");
 		educationVO.setCost("CSTC");
-		
-		BindingResult errors = new BeanPropertyBindingResult(educationVO,"modifyForm");
+
+		BindingResult errors = new BeanPropertyBindingResult(educationVO, "modifyForm");
 		EducationValidator validator = new EducationValidator();
 		validator.validate(educationVO, errors);
-		
+
 		MockMultipartHttpServletRequest request = new MockMultipartHttpServletRequest();
-		
+
 		Path path = Paths.get("");
 		String name = "file";
 		String originalFileName = "file";
 		String contentType = "text/plain";
-		
+
 		byte[] content = null;
-		
+
 		try {
-		    content = Files.readAllBytes(path);
+			content = Files.readAllBytes(path);
+		} catch (final IOException e) {
+
 		}
-		catch (final IOException e) {
-			
-		}
-		
+
 		MultipartFile file = new MockMultipartFile(name, originalFileName, contentType, content);
 		request.addFile(file);
-		
+
 		HttpSession session = null;
 		session = request.getSession();
 		session.setAttribute(Session.MEMBER_TYPE, "ADM");
-		
+
 		ModelAndView view = educationController.doEducationModifyAction(educationVO, errors, request);
 		assertNotNull(view);
-		
+
 		if (view != null) {
 			String viewName = view.getViewName();
 			assertNotNull(viewName);
@@ -164,747 +169,748 @@ public class EducationControllerTest {
 			fail("fail...");
 		}
 	}
-	
+
 	@Test
-	public void doWriteActionTestWithError(){
-		// List 보는건 차 후에 test 시도 
-		
-		//EducationCategory 가 없을 경우 ..
-		 EducationVO educationVO = new EducationVO();
-	      educationVO.setEducationTitle("JUNIT...");
-	      educationVO.setMemberId("JUNIT...");
-	      educationVO.setMaxMember(32);
-	      educationVO.setEducationLocation("JUNIT...");
-	      educationVO.setEducationCurriculum("JUNIT...");
-	      educationVO.setEducationIntroduce("JUNIT...");
-	      educationVO.setStartDate("2016-01-01");
-	      educationVO.setEndDate("2016-01-01");
-	      educationVO.setStartTime("01:00");
-	      educationVO.setEndTime("01:00");
-	      educationVO.setEducationType("TIMM");
-		  educationVO.setCost("CSTC");
-		  
+	public void doWriteActionTestWithError() {
+		// List 보는건 차 후에 test 시도
+
+		// EducationCategory 가 없을 경우 ..
+		EducationVO educationVO = new EducationVO();
+		educationVO.setEducationTitle("JUNIT...");
+		educationVO.setMemberId("JUNIT...");
+		educationVO.setMaxMember(32);
+		educationVO.setEducationLocation("JUNIT...");
+		educationVO.setEducationCurriculum("JUNIT...");
+		educationVO.setEducationIntroduce("JUNIT...");
+		educationVO.setStartDate("2016-01-01");
+		educationVO.setEndDate("2016-01-01");
+		educationVO.setStartTime("01:00");
+		educationVO.setEndTime("01:00");
+		educationVO.setEducationType("TIMM");
+		educationVO.setCost("CSTC");
+
 		BindingResult errors = new BeanPropertyBindingResult(educationVO, "writeForm");
 		EducationValidator validator = new EducationValidator();
 		validator.validate(educationVO, errors);
-	      
-		 MockMultipartHttpServletRequest request = new MockMultipartHttpServletRequest();
-	      
-	      Path path = Paths.get("D:\\핸드폰.xlsx");
-	      String name = "file";
-	      String originalFileName = "핸드폰.xlsx";
-	      String contentType = "text/plain";
-	      
-	      byte[] content = null;
-	      
-	      try {
-	          content = Files.readAllBytes(path);
-	      }
-	      catch (final IOException e) {
-	         
-	      }
-	      
-	      MultipartFile file = new MockMultipartFile(name, originalFileName, contentType, content);
-	      request.addFile(file); 
+
+		MockMultipartHttpServletRequest request = new MockMultipartHttpServletRequest();
+
+		Path path = Paths.get("D:\\핸드폰.xlsx");
+		String name = "file";
+		String originalFileName = "핸드폰";
+		String contentType = "text/plain";
+
+		byte[] content = null;
+
+		try {
+			content = Files.readAllBytes(path);
+		} catch (final IOException e) {
+
+		}
+
+		MultipartFile file = new MockMultipartFile(name, originalFileName, contentType, content);
+		request.addFile(file);
+		
+		HttpSession session = null;
+		session = request.getSession();
+
+		MemberVO memberVO = new MemberVO();
+		memberVO.setMemberType("ADM");
+		session.setAttribute("_MEMBER_", memberVO);
 		
 		ModelAndView view = educationController.doWriteAction(educationVO, errors, request);
 		assertNotNull(view);
-		
-		if (view != null ){
+
+		if (view != null) {
 			String viewName = view.getViewName();
 			assertNotNull(viewName);
 			assertEquals(viewName, "education/eduregister");
 			assertTrue(errors.getErrorCount() == 1);
-		}
-		else {
+		} else {
 			fail("Fail");
 		}
 	}
-	
+
 	@Test
-	public void doWriteActionTestWithError2(){
-		// List 보는건 차 후에 test 시도 
-		
+	public void doWriteActionTestWithError2() {
+		// List 보는건 차 후에 test 시도
+
 		// setEducationTitle 없는경우
-		 EducationVO educationVO = new EducationVO();
-	      educationVO.setEducationCategory("ZCS");
-	      educationVO.setMemberId("JUNIT...");
-	      educationVO.setMaxMember(32);
-	      educationVO.setEducationLocation("JUNIT...");
-	      educationVO.setEducationCurriculum("JUNIT...");
-	      educationVO.setEducationIntroduce("JUNIT...");
-	      educationVO.setStartDate("2016-01-01");
-	      educationVO.setEndDate("2016-01-01");
-	      educationVO.setStartTime("01:00");
-	      educationVO.setEndTime("01:00");
-	      educationVO.setEducationType("TIMM");
-		  educationVO.setCost("CSTC");
-		  
+		EducationVO educationVO = new EducationVO();
+		educationVO.setEducationCategory("ZCS");
+		educationVO.setMemberId("JUNIT...");
+		educationVO.setMaxMember(32);
+		educationVO.setEducationLocation("JUNIT...");
+		educationVO.setEducationCurriculum("JUNIT...");
+		educationVO.setEducationIntroduce("JUNIT...");
+		educationVO.setStartDate("2016-01-01");
+		educationVO.setEndDate("2016-01-01");
+		educationVO.setStartTime("01:00");
+		educationVO.setEndTime("01:00");
+		educationVO.setEducationType("TIMM");
+		educationVO.setCost("CSTC");
+
 		BindingResult errors = new BeanPropertyBindingResult(educationVO, "writeForm");
 		EducationValidator validator = new EducationValidator();
 		validator.validate(educationVO, errors);
-	      
-		 MockMultipartHttpServletRequest request = new MockMultipartHttpServletRequest();
-	      
-	      Path path = Paths.get("D:\\핸드폰.xlsx");
-	      String name = "file";
-	      String originalFileName = "핸드폰.xlsx";
-	      String contentType = "text/plain";
-	      
-	      byte[] content = null;
-	      
-	      try {
-	          content = Files.readAllBytes(path);
-	      }
-	      catch (final IOException e) {
-	         
-	      }
-	      
-	      MultipartFile file = new MockMultipartFile(name, originalFileName, contentType, content);
-	      request.addFile(file); 
+
+		MockMultipartHttpServletRequest request = new MockMultipartHttpServletRequest();
+
+		Path path = Paths.get("D:\\핸드폰.xlsx");
+		String name = "file";
+		String originalFileName = "핸드폰";
+		String contentType = "text/plain";
+
+		byte[] content = null;
+
+		try {
+			content = Files.readAllBytes(path);
+		} catch (final IOException e) {
+
+		}
+
+		MultipartFile file = new MockMultipartFile(name, originalFileName, contentType, content);
+		request.addFile(file);
+
+		HttpSession session = null;
+		session = request.getSession();
+		
+		MemberVO memberVO = new MemberVO();
+		memberVO.setMemberType("ADM");
+		session.setAttribute("_MEMBER_", memberVO);
 		
 		ModelAndView view = educationController.doWriteAction(educationVO, errors, request);
 		assertNotNull(view);
 		
-		if (view != null ){
+		
+
+		if (view != null) {
 			String viewName = view.getViewName();
 			assertNotNull(viewName);
 			assertEquals(viewName, "education/eduregister");
 			assertTrue(errors.getErrorCount() == 1);
-		}
-		else {
+		} else {
 			fail("Fail");
 		}
 	}
-	
+
 	@Test
-	public void doWriteActionTestWithError3(){
-		// List 보는건 차 후에 test 시도 
-		
+	public void doWriteActionTestWithError3() {
+		// List 보는건 차 후에 test 시도
+
 		// MemberId 없는경우
-		 EducationVO educationVO = new EducationVO();
-	      educationVO.setEducationCategory("ZCS");
-	      educationVO.setEducationTitle("JUNIT...");
-	      educationVO.setMaxMember(32);
-	      educationVO.setEducationLocation("JUNIT...");
-	      educationVO.setEducationCurriculum("JUNIT...");
-	      educationVO.setEducationIntroduce("JUNIT...");
-	      educationVO.setStartDate("2016-01-01");
-	      educationVO.setEndDate("2016-01-01");
-	      educationVO.setStartTime("01:00");
-	      educationVO.setEndTime("01:00");
-	      educationVO.setEducationType("TIMM");
-		  educationVO.setCost("CSTC");
-		  
+		EducationVO educationVO = new EducationVO();
+		educationVO.setEducationCategory("ZCS");
+		educationVO.setEducationTitle("JUNIT...");
+		educationVO.setMaxMember(32);
+		educationVO.setEducationLocation("JUNIT...");
+		educationVO.setEducationCurriculum("JUNIT...");
+		educationVO.setEducationIntroduce("JUNIT...");
+		educationVO.setStartDate("2016-01-01");
+		educationVO.setEndDate("2016-01-01");
+		educationVO.setStartTime("01:00");
+		educationVO.setEndTime("01:00");
+		educationVO.setEducationType("TIMM");
+		educationVO.setCost("CSTC");
+
 		BindingResult errors = new BeanPropertyBindingResult(educationVO, "writeForm");
 		EducationValidator validator = new EducationValidator();
 		validator.validate(educationVO, errors);
-	      
-		 MockMultipartHttpServletRequest request = new MockMultipartHttpServletRequest();
-	      
-	      Path path = Paths.get("D:\\핸드폰.xlsx");
-	      String name = "file";
-	      String originalFileName = "핸드폰.xlsx";
-	      String contentType = "text/plain";
-	      
-	      byte[] content = null;
-	      
-	      try {
-	          content = Files.readAllBytes(path);
-	      }
-	      catch (final IOException e) {
-	         
-	      }
-	      
-	      MultipartFile file = new MockMultipartFile(name, originalFileName, contentType, content);
-	      request.addFile(file); 
+
+		MockMultipartHttpServletRequest request = new MockMultipartHttpServletRequest();
+
+		Path path = Paths.get("D:\\핸드폰.xlsx");
+		String name = "file";
+		String originalFileName = "핸드폰";
+		String contentType = "text/plain";
+
+		byte[] content = null;
+
+		try {
+			content = Files.readAllBytes(path);
+		} catch (final IOException e) {
+
+		}
+
+		MultipartFile file = new MockMultipartFile(name, originalFileName, contentType, content);
+		request.addFile(file);
+		
+		HttpSession session = null;
+		session = request.getSession();
+
+		MemberVO memberVO = new MemberVO();
+		memberVO.setMemberType("ADM");
+		session.setAttribute("_MEMBER_", memberVO);
 		
 		ModelAndView view = educationController.doWriteAction(educationVO, errors, request);
 		assertNotNull(view);
-		
-		if (view != null ){
+
+		if (view != null) {
 			String viewName = view.getViewName();
 			assertNotNull(viewName);
 			assertEquals(viewName, "education/eduregister");
 			assertTrue(errors.getErrorCount() == 1);
-		}
-		else {
+		} else {
 			fail("Fail");
 		}
 	}
-	
-	
-//	@Test
-//	public void doWriteActionTestWithError4(){
-//		// List 보는건 차 후에 test 시도 
-//		
-//		// MaxMember 없는경우
-//		 EducationVO educationVO = new EducationVO();
-//	      educationVO.setEducationCategory("ZCS");
-//	      educationVO.setEducationTitle("JUNIT...");
-//	      educationVO.setMemberId("JUNIT...");
-//	      educationVO.setEducationLocation("JUNIT...");
-//	      educationVO.setEducationCurriculum("JUNIT...");
-//	      educationVO.setEducationIntroduce("JUNIT...");
-//	      educationVO.setStartDate("2016-01-01");
-//	      educationVO.setEndDate("2016-01-01");
-//	      educationVO.setStartTime("01:00");
-//	      educationVO.setEndTime("01:00");
-//	      educationVO.setEducationType("TIMM");
-//		  educationVO.setCost("CSTC");
-//		  
-//		BindingResult errors = new BeanPropertyBindingResult(educationVO, "writeForm");
-//		EducationValidator validator = new EducationValidator();
-//		validator.validate(educationVO, errors);
-//	      
-//		 MockMultipartHttpServletRequest request = new MockMultipartHttpServletRequest();
-//	      
-//	      Path path = Paths.get("D:\\핸드폰.xlsx");
-//	      String name = "file";
-//	      String originalFileName = "핸드폰.xlsx";
-//	      String contentType = "text/plain";
-//	      
-//	      byte[] content = null;
-//	      
-//	      try {
-//	          content = Files.readAllBytes(path);
-//	      }
-//	      catch (final IOException e) {
-//	         
-//	      }
-//	      
-//	      MultipartFile file = new MockMultipartFile(name, originalFileName, contentType, content);
-//	      request.addFile(file); 
-//		
-//		ModelAndView view = educationController.doWriteAction(educationVO, errors, request);
-//		assertNotNull(view);
-//		
-//		if (view != null ){
-//			String viewName = view.getViewName();
-//			assertNotNull(viewName);
-//			assertEquals(viewName, "education/eduregister");
-//			assertTrue(errors.getErrorCount() == 1);  
-//		}
-//		else {
-//			fail("Fail");
-//		}
-//	}
-	
+
+
 	@Test
-	public void doWriteActionTestWithError5(){
-		// List 보는건 차 후에 test 시도 
-		
+	public void doWriteActionTestWithError5() {
+		// List 보는건 차 후에 test 시도
+
 		// EducationLocation 없는경우
-		 EducationVO educationVO = new EducationVO();
-	      educationVO.setEducationCategory("ZCS");
-	      educationVO.setEducationTitle("JUNIT...");
-	      educationVO.setMemberId("JUNIT...");
-	      educationVO.setMaxMember(32);
-	      educationVO.setEducationCurriculum("JUNIT...");
-	      educationVO.setEducationIntroduce("JUNIT...");
-	      educationVO.setStartDate("2016-01-01");
-	      educationVO.setEndDate("2016-01-01");
-	      educationVO.setStartTime("01:00");
-	      educationVO.setEndTime("01:00");
-	      educationVO.setEducationType("TIMM");
-		  educationVO.setCost("CSTC");
-		  
+		EducationVO educationVO = new EducationVO();
+		educationVO.setEducationCategory("ZCS");
+		educationVO.setEducationTitle("JUNIT...");
+		educationVO.setMemberId("JUNIT...");
+		educationVO.setMaxMember(32);
+		educationVO.setEducationCurriculum("JUNIT...");
+		educationVO.setEducationIntroduce("JUNIT...");
+		educationVO.setStartDate("2016-01-01");
+		educationVO.setEndDate("2016-01-01");
+		educationVO.setStartTime("01:00");
+		educationVO.setEndTime("01:00");
+		educationVO.setEducationType("TIMM");
+		educationVO.setCost("CSTC");
+
 		BindingResult errors = new BeanPropertyBindingResult(educationVO, "writeForm");
 		EducationValidator validator = new EducationValidator();
 		validator.validate(educationVO, errors);
-	      
-		 MockMultipartHttpServletRequest request = new MockMultipartHttpServletRequest();
-	      
-	      Path path = Paths.get("D:\\핸드폰.xlsx");
-	      String name = "file";
-	      String originalFileName = "핸드폰.xlsx";
-	      String contentType = "text/plain";
-	      
-	      byte[] content = null;
-	      
-	      try {
-	          content = Files.readAllBytes(path);
-	      }
-	      catch (final IOException e) {
-	         
-	      }
-	      
-	      MultipartFile file = new MockMultipartFile(name, originalFileName, contentType, content);
-	      request.addFile(file); 
+
+		MockMultipartHttpServletRequest request = new MockMultipartHttpServletRequest();
+
+		Path path = Paths.get("D:\\핸드폰.xlsx");
+		String name = "file";
+		String originalFileName = "핸드폰";
+		String contentType = "text/plain";
+
+		byte[] content = null;
+
+		try {
+			content = Files.readAllBytes(path);
+		} catch (final IOException e) {
+
+		}
+
+		MultipartFile file = new MockMultipartFile(name, originalFileName, contentType, content);
+		request.addFile(file);
+
+		HttpSession session = null;
+		session = request.getSession();
+
+		MemberVO memberVO = new MemberVO();
+		memberVO.setMemberType("ADM");
+		session.setAttribute("_MEMBER_", memberVO);
 		
 		ModelAndView view = educationController.doWriteAction(educationVO, errors, request);
 		assertNotNull(view);
-		
-		if (view != null ){
+
+		if (view != null) {
 			String viewName = view.getViewName();
 			assertNotNull(viewName);
 			assertEquals(viewName, "education/eduregister");
 			assertTrue(errors.getErrorCount() == 1);
-		}
-		else {
+		} else {
 			fail("Fail");
 		}
 	}
-	
+
 	@Test
-	public void doWriteActionTestWithError6(){
-		// List 보는건 차 후에 test 시도 
-		
+	public void doWriteActionTestWithError6() {
+		// List 보는건 차 후에 test 시도
+
 		// EducationCurriculum 없는경우
-		 EducationVO educationVO = new EducationVO();
-	      educationVO.setEducationCategory("ZCS");
-	      educationVO.setEducationTitle("JUNIT...");
-	      educationVO.setMemberId("JUNIT...");
-	      educationVO.setMaxMember(32);
-	      educationVO.setEducationLocation("JUNIT...");
-	      educationVO.setEducationIntroduce("JUNIT...");
-	      educationVO.setStartDate("2016-01-01");
-	      educationVO.setEndDate("2016-01-01");
-	      educationVO.setStartTime("01:00");
-	      educationVO.setEndTime("01:00");
-	      educationVO.setEducationType("TIMM");
-		  educationVO.setCost("CSTC");
-		  
+		EducationVO educationVO = new EducationVO();
+		educationVO.setEducationCategory("ZCS");
+		educationVO.setEducationTitle("JUNIT...");
+		educationVO.setMemberId("JUNIT...");
+		educationVO.setMaxMember(32);
+		educationVO.setEducationLocation("JUNIT...");
+		educationVO.setEducationIntroduce("JUNIT...");
+		educationVO.setStartDate("2016-01-01");
+		educationVO.setEndDate("2016-01-01");
+		educationVO.setStartTime("01:00");
+		educationVO.setEndTime("01:00");
+		educationVO.setEducationType("TIMM");
+		educationVO.setCost("CSTC");
+
 		BindingResult errors = new BeanPropertyBindingResult(educationVO, "writeForm");
 		EducationValidator validator = new EducationValidator();
 		validator.validate(educationVO, errors);
-	      
-		 MockMultipartHttpServletRequest request = new MockMultipartHttpServletRequest();
-	      
-	      Path path = Paths.get("D:\\핸드폰.xlsx");
-	      String name = "file";
-	      String originalFileName = "핸드폰.xlsx";
-	      String contentType = "text/plain";
-	      
-	      byte[] content = null;
-	      
-	      try {
-	          content = Files.readAllBytes(path);
-	      }
-	      catch (final IOException e) {
-	         
-	      }
-	      
-	      MultipartFile file = new MockMultipartFile(name, originalFileName, contentType, content);
-	      request.addFile(file); 
+
+		MockMultipartHttpServletRequest request = new MockMultipartHttpServletRequest();
+
+		Path path = Paths.get("D:\\핸드폰.xlsx");
+		String name = "file";
+		String originalFileName = "핸드폰";
+		String contentType = "text/plain";
+
+		byte[] content = null;
+
+		try {
+			content = Files.readAllBytes(path);
+		} catch (final IOException e) {
+
+		}
+
+		MultipartFile file = new MockMultipartFile(name, originalFileName, contentType, content);
+		request.addFile(file);
+
+		HttpSession session = null;
+		session = request.getSession();
+
+		MemberVO memberVO = new MemberVO();
+		memberVO.setMemberType("ADM");
+		session.setAttribute("_MEMBER_", memberVO);
 		
 		ModelAndView view = educationController.doWriteAction(educationVO, errors, request);
 		assertNotNull(view);
-		
-		if (view != null ){
+
+		if (view != null) {
 			String viewName = view.getViewName();
 			assertNotNull(viewName);
 			assertEquals(viewName, "education/eduregister");
 			assertTrue(errors.getErrorCount() == 1);
-		}
-		else {
+		} else {
 			fail("Fail");
 		}
 	}
-	
+
 	@Test
-	public void doWriteActionTestWithError7(){
-		// List 보는건 차 후에 test 시도 
-		
+	public void doWriteActionTestWithError7() {
+		// List 보는건 차 후에 test 시도
+
 		// EducationIntroduce 없는경우
-		 EducationVO educationVO = new EducationVO();
-	      educationVO.setEducationCategory("ZCS");
-	      educationVO.setEducationTitle("JUNIT...");
-	      educationVO.setMemberId("JUNIT...");
-	      educationVO.setMaxMember(32);
-	      educationVO.setEducationLocation("JUNIT...");
-	      educationVO.setEducationCurriculum("JUNIT...");
-	      educationVO.setStartDate("2016-01-01");
-	      educationVO.setEndDate("2016-01-01");
-	      educationVO.setStartTime("01:00");
-	      educationVO.setEndTime("01:00");
-	      educationVO.setEducationType("TIMM");
-		  educationVO.setCost("CSTC");
-		  
+		EducationVO educationVO = new EducationVO();
+		educationVO.setEducationCategory("ZCS");
+		educationVO.setEducationTitle("JUNIT...");
+		educationVO.setMemberId("JUNIT...");
+		educationVO.setMaxMember(32);
+		educationVO.setEducationLocation("JUNIT...");
+		educationVO.setEducationCurriculum("JUNIT...");
+		educationVO.setStartDate("2016-01-01");
+		educationVO.setEndDate("2016-01-01");
+		educationVO.setStartTime("01:00");
+		educationVO.setEndTime("01:00");
+		educationVO.setEducationType("TIMM");
+		educationVO.setCost("CSTC");
+
 		BindingResult errors = new BeanPropertyBindingResult(educationVO, "writeForm");
 		EducationValidator validator = new EducationValidator();
 		validator.validate(educationVO, errors);
-	      
-		 MockMultipartHttpServletRequest request = new MockMultipartHttpServletRequest();
-	      
-	      Path path = Paths.get("D:\\핸드폰.xlsx");
-	      String name = "file";
-	      String originalFileName = "핸드폰.xlsx";
-	      String contentType = "text/plain";
-	      
-	      byte[] content = null;
-	      
-	      try {
-	          content = Files.readAllBytes(path);
-	      }
-	      catch (final IOException e) {
-	         
-	      }
-	      
-	      MultipartFile file = new MockMultipartFile(name, originalFileName, contentType, content);
-	      request.addFile(file); 
+
+		MockMultipartHttpServletRequest request = new MockMultipartHttpServletRequest();
+
+		Path path = Paths.get("D:\\핸드폰.xlsx");
+		String name = "file";
+		String originalFileName = "핸드폰";
+		String contentType = "text/plain";
+
+		byte[] content = null;
+
+		try {
+			content = Files.readAllBytes(path);
+		} catch (final IOException e) {
+
+		}
+
+		MultipartFile file = new MockMultipartFile(name, originalFileName, contentType, content);
+		request.addFile(file);
+		
+		HttpSession session = null;
+		session = request.getSession();
+
+		MemberVO memberVO = new MemberVO();
+		memberVO.setMemberType("ADM");
+		session.setAttribute("_MEMBER_", memberVO);
 		
 		ModelAndView view = educationController.doWriteAction(educationVO, errors, request);
 		assertNotNull(view);
-		
-		if (view != null ){
+
+		if (view != null) {
 			String viewName = view.getViewName();
 			assertNotNull(viewName);
 			assertEquals(viewName, "education/eduregister");
 			assertTrue(errors.getErrorCount() == 1);
-		}
-		else {
+		} else {
 			fail("Fail");
 		}
 	}
-	
+
 	@Test
-	public void doWriteActionTestWithError8(){
-		// List 보는건 차 후에 test 시도 
-		
+	public void doWriteActionTestWithError8() {
+		// List 보는건 차 후에 test 시도
+
 		// StartDate 없는경우
-		 EducationVO educationVO = new EducationVO();
-	      educationVO.setEducationCategory("ZCS");
-	      educationVO.setEducationTitle("JUNIT...");
-	      educationVO.setMemberId("JUNIT...");
-	      educationVO.setMaxMember(32);
-	      educationVO.setEducationLocation("JUNIT...");
-	      educationVO.setEducationCurriculum("JUNIT...");
-	      educationVO.setEducationIntroduce("JUNIT...");
-	      educationVO.setEndDate("2016-01-01");
-	      educationVO.setStartTime("01:00");
-	      educationVO.setEndTime("01:00");
-	      educationVO.setEducationType("TIMM");
-		  educationVO.setCost("CSTC");
-		  
+		EducationVO educationVO = new EducationVO();
+		educationVO.setEducationCategory("ZCS");
+		educationVO.setEducationTitle("JUNIT...");
+		educationVO.setMemberId("JUNIT...");
+		educationVO.setMaxMember(32);
+		educationVO.setEducationLocation("JUNIT...");
+		educationVO.setEducationCurriculum("JUNIT...");
+		educationVO.setEducationIntroduce("JUNIT...");
+		educationVO.setEndDate("2016-01-01");
+		educationVO.setStartTime("01:00");
+		educationVO.setEndTime("01:00");
+		educationVO.setEducationType("TIMM");
+		educationVO.setCost("CSTC");
+
 		BindingResult errors = new BeanPropertyBindingResult(educationVO, "writeForm");
 		EducationValidator validator = new EducationValidator();
 		validator.validate(educationVO, errors);
-	      
-		 MockMultipartHttpServletRequest request = new MockMultipartHttpServletRequest();
-	      
-	      Path path = Paths.get("D:\\핸드폰.xlsx");
-	      String name = "file";
-	      String originalFileName = "핸드폰.xlsx";
-	      String contentType = "text/plain";
-	      
-	      byte[] content = null;
-	      
-	      try {
-	          content = Files.readAllBytes(path);
-	      }
-	      catch (final IOException e) {
-	         
-	      }
-	      
-	      MultipartFile file = new MockMultipartFile(name, originalFileName, contentType, content);
-	      request.addFile(file); 
+
+		MockMultipartHttpServletRequest request = new MockMultipartHttpServletRequest();
+
+		Path path = Paths.get("D:\\핸드폰.xlsx");
+		String name = "file";
+		String originalFileName = "핸드폰.xlsx";
+		String contentType = "text/plain";
+
+		byte[] content = null;
+
+		try {
+			content = Files.readAllBytes(path);
+		} catch (final IOException e) {
+
+		}
+
+		MultipartFile file = new MockMultipartFile(name, originalFileName, contentType, content);
+		request.addFile(file);
+
+		HttpSession session = null;
+		session = request.getSession();
+
+		MemberVO memberVO = new MemberVO();
+		memberVO.setMemberType("ADM");
+		session.setAttribute("_MEMBER_", memberVO);
 		
 		ModelAndView view = educationController.doWriteAction(educationVO, errors, request);
 		assertNotNull(view);
-		
-		if (view != null ){
+
+		if (view != null) {
 			String viewName = view.getViewName();
 			assertNotNull(viewName);
 			assertEquals(viewName, "education/eduregister");
 			assertTrue(errors.getErrorCount() == 1);
-		}
-		else {
+		} else {
 			fail("Fail");
 		}
 	}
-	
+
 	@Test
-	public void doWriteActionTestWithError9(){
-		// List 보는건 차 후에 test 시도 
-		
+	public void doWriteActionTestWithError9() {
+		// List 보는건 차 후에 test 시도
+
 		// EndDate 없는경우
-		 EducationVO educationVO = new EducationVO();
-	      educationVO.setEducationCategory("ZCS");
-	      educationVO.setEducationTitle("JUNIT...");
-	      educationVO.setMemberId("JUNIT...");
-	      educationVO.setMaxMember(32);
-	      educationVO.setEducationLocation("JUNIT...");
-	      educationVO.setEducationCurriculum("JUNIT...");
-	      educationVO.setEducationIntroduce("JUNIT...");
-	      educationVO.setStartDate("2016-01-01");
-	      educationVO.setStartTime("01:00");
-	      educationVO.setEndTime("01:00");
-	      educationVO.setEducationType("TIMM");
-		  educationVO.setCost("CSTC");
-		  
-		  
+		EducationVO educationVO = new EducationVO();
+		educationVO.setEducationCategory("ZCS");
+		educationVO.setEducationTitle("JUNIT...");
+		educationVO.setMemberId("JUNIT...");
+		educationVO.setMaxMember(32);
+		educationVO.setEducationLocation("JUNIT...");
+		educationVO.setEducationCurriculum("JUNIT...");
+		educationVO.setEducationIntroduce("JUNIT...");
+		educationVO.setStartDate("2016-01-01");
+		educationVO.setStartTime("01:00");
+		educationVO.setEndTime("01:00");
+		educationVO.setEducationType("TIMM");
+		educationVO.setCost("CSTC");
+
 		BindingResult errors = new BeanPropertyBindingResult(educationVO, "writeForm");
 		EducationValidator validator = new EducationValidator();
 		validator.validate(educationVO, errors);
-	      
-		 MockMultipartHttpServletRequest request = new MockMultipartHttpServletRequest();
-	      
-	      Path path = Paths.get("D:\\핸드폰.xlsx");
-	      String name = "file";
-	      String originalFileName = "핸드폰.xlsx";
-	      String contentType = "text/plain";
-	      
-	      byte[] content = null;
-	      
-	      try {
-	          content = Files.readAllBytes(path);
-	      }
-	      catch (final IOException e) {
-	         
-	      }
-	      
-	      MultipartFile file = new MockMultipartFile(name, originalFileName, contentType, content);
-	      request.addFile(file); 
+
+		MockMultipartHttpServletRequest request = new MockMultipartHttpServletRequest();
+
+		Path path = Paths.get("D:\\핸드폰.xlsx");
+		String name = "file";
+		String originalFileName = "핸드폰.xlsx";
+		String contentType = "text/plain";
+
+		byte[] content = null;
+
+		try {
+			content = Files.readAllBytes(path);
+		} catch (final IOException e) {
+
+		}
+
+		MultipartFile file = new MockMultipartFile(name, originalFileName, contentType, content);
+		request.addFile(file);
+
+		HttpSession session = null;
+		session = request.getSession();
+
+		MemberVO memberVO = new MemberVO();
+		memberVO.setMemberType("ADM");
+		session.setAttribute("_MEMBER_", memberVO);
 		
 		ModelAndView view = educationController.doWriteAction(educationVO, errors, request);
 		assertNotNull(view);
-		
-		if (view != null ){
+
+		if (view != null) {
 			String viewName = view.getViewName();
 			assertNotNull(viewName);
 			assertEquals(viewName, "education/eduregister");
 			assertTrue(errors.getErrorCount() == 1);
-		}
-		else {
+		} else {
 			fail("Fail");
 		}
 	}
-	
-	
+
 	@Test
-	public void doWriteActionTestWithError10(){
-		// List 보는건 차 후에 test 시도 
-		
+	public void doWriteActionTestWithError10() {
+		// List 보는건 차 후에 test 시도
+
 		// StartTime 없는경우
 		EducationVO educationVO = new EducationVO();
-	      educationVO.setEducationCategory("ZCS");
-	      educationVO.setEducationTitle("JUNIT...");
-	      educationVO.setMemberId("JUNIT...");
-	      educationVO.setMaxMember(32);
-	      educationVO.setEducationLocation("JUNIT...");
-	      educationVO.setEducationCurriculum("JUNIT...");
-	      educationVO.setEducationIntroduce("JUNIT...");
-	      educationVO.setStartDate("2016-01-01");
-	      educationVO.setEndDate("2016-01-01");
-	      educationVO.setEndTime("01:00");
-	      educationVO.setEducationType("TIMM");
-		  educationVO.setCost("CSTC");
-		  
+		educationVO.setEducationCategory("ZCS");
+		educationVO.setEducationTitle("JUNIT...");
+		educationVO.setMemberId("JUNIT...");
+		educationVO.setMaxMember(32);
+		educationVO.setEducationLocation("JUNIT...");
+		educationVO.setEducationCurriculum("JUNIT...");
+		educationVO.setEducationIntroduce("JUNIT...");
+		educationVO.setStartDate("2016-01-01");
+		educationVO.setEndDate("2016-01-01");
+		educationVO.setEndTime("01:00");
+		educationVO.setEducationType("TIMM");
+		educationVO.setCost("CSTC");
+
 		BindingResult errors = new BeanPropertyBindingResult(educationVO, "writeForm");
 		EducationValidator validator = new EducationValidator();
 		validator.validate(educationVO, errors);
-	      
-		 MockMultipartHttpServletRequest request = new MockMultipartHttpServletRequest();
-	      
-	      Path path = Paths.get("D:\\핸드폰.xlsx");
-	      String name = "file";
-	      String originalFileName = "핸드폰.xlsx";
-	      String contentType = "text/plain";
-	      
-	      byte[] content = null;
-	      
-	      try {
-	          content = Files.readAllBytes(path);
-	      }
-	      catch (final IOException e) {
-	         
-	      }
-	      
-	      MultipartFile file = new MockMultipartFile(name, originalFileName, contentType, content);
-	      request.addFile(file); 
+
+		MockMultipartHttpServletRequest request = new MockMultipartHttpServletRequest();
+
+		Path path = Paths.get("D:\\핸드폰.xlsx");
+		String name = "file";
+		String originalFileName = "핸드폰";
+		String contentType = "text/plain";
+
+		byte[] content = null;
+
+		try {
+			content = Files.readAllBytes(path);
+		} catch (final IOException e) {
+
+		}
+
+		MultipartFile file = new MockMultipartFile(name, originalFileName, contentType, content);
+		request.addFile(file);
+
+		HttpSession session = null;
+		session = request.getSession();
+
+		MemberVO memberVO = new MemberVO();
+		memberVO.setMemberType("ADM");
+		session.setAttribute("_MEMBER_", memberVO);
 		
 		ModelAndView view = educationController.doWriteAction(educationVO, errors, request);
 		assertNotNull(view);
-		
-		if (view != null ){
+
+		if (view != null) {
 			String viewName = view.getViewName();
 			assertNotNull(viewName);
 			assertEquals(viewName, "education/eduregister");
 			assertTrue(errors.getErrorCount() == 1);
-		}
-		else {
+		} else {
 			fail("Fail");
 		}
 	}
-	
+
 	@Test
-	public void doWriteActionTestWithError11(){
-		// List 보는건 차 후에 test 시도 
-		
+	public void doWriteActionTestWithError11() {
+		// List 보는건 차 후에 test 시도
+
 		// EndTime 없는경우
 		EducationVO educationVO = new EducationVO();
-	      educationVO.setEducationCategory("ZCS");
-	      educationVO.setEducationTitle("JUNIT...");
-	      educationVO.setMemberId("JUNIT...");
-	      educationVO.setMaxMember(32);
-	      educationVO.setEducationLocation("JUNIT...");
-	      educationVO.setEducationCurriculum("JUNIT...");
-	      educationVO.setEducationIntroduce("JUNIT...");
-	      educationVO.setStartDate("2016-01-01");
-	      educationVO.setEndDate("2016-01-01");
-	      educationVO.setStartTime("01:00");
-	      educationVO.setEducationType("TIMM");
-		  educationVO.setCost("CSTC");
-		  
+		educationVO.setEducationCategory("ZCS");
+		educationVO.setEducationTitle("JUNIT...");
+		educationVO.setMemberId("JUNIT...");
+		educationVO.setMaxMember(32);
+		educationVO.setEducationLocation("JUNIT...");
+		educationVO.setEducationCurriculum("JUNIT...");
+		educationVO.setEducationIntroduce("JUNIT...");
+		educationVO.setStartDate("2016-01-01");
+		educationVO.setEndDate("2016-01-01");
+		educationVO.setStartTime("01:00");
+		educationVO.setEducationType("TIMM");
+		educationVO.setCost("CSTC");
+
 		BindingResult errors = new BeanPropertyBindingResult(educationVO, "writeForm");
 		EducationValidator validator = new EducationValidator();
 		validator.validate(educationVO, errors);
-	      
-		 MockMultipartHttpServletRequest request = new MockMultipartHttpServletRequest();
-	      
-	      Path path = Paths.get("D:\\핸드폰.xlsx");
-	      String name = "file";
-	      String originalFileName = "핸드폰.xlsx";
-	      String contentType = "text/plain";
-	      
-	      byte[] content = null;
-	      
-	      try {
-	          content = Files.readAllBytes(path);
-	      }
-	      catch (final IOException e) {
-	         
-	      }
-	      
-	      MultipartFile file = new MockMultipartFile(name, originalFileName, contentType, content);
-	      request.addFile(file); 
+
+		MockMultipartHttpServletRequest request = new MockMultipartHttpServletRequest();
+
+		Path path = Paths.get("D:\\핸드폰.xlsx");
+		String name = "file";
+		String originalFileName = "핸드폰";
+		String contentType = "text/plain";
+
+		byte[] content = null;
+
+		try {
+			content = Files.readAllBytes(path);
+		} catch (final IOException e) {
+
+		}
+
+		MultipartFile file = new MockMultipartFile(name, originalFileName, contentType, content);
+		request.addFile(file);
+
+		HttpSession session = null;
+		session = request.getSession();
+
+		MemberVO memberVO = new MemberVO();
+		memberVO.setMemberType("ADM");
+		session.setAttribute("_MEMBER_", memberVO);
 		
 		ModelAndView view = educationController.doWriteAction(educationVO, errors, request);
 		assertNotNull(view);
-		
-		if (view != null ){
+
+		if (view != null) {
 			String viewName = view.getViewName();
 			assertNotNull(viewName);
 			assertEquals(viewName, "education/eduregister");
 			assertTrue(errors.getErrorCount() == 1);
-		}
-		else {
+		} else {
 			fail("Fail");
 		}
 	}
-	
-	
+
 	@Test
-	public void doWriteActionTestWithError12(){
-		// List 보는건 차 후에 test 시도 
-		
+	public void doWriteActionTestWithError12() {
+		// List 보는건 차 후에 test 시도
+
 		// EducationType 없는경우
 		EducationVO educationVO = new EducationVO();
-	      educationVO.setEducationCategory("ZCS");
-	      educationVO.setEducationTitle("JUNIT...");
-	      educationVO.setMemberId("JUNIT...");
-	      educationVO.setMaxMember(32);
-	      educationVO.setEducationLocation("JUNIT...");
-	      educationVO.setEducationCurriculum("JUNIT...");
-	      educationVO.setEducationIntroduce("JUNIT...");
-	      educationVO.setStartDate("2016-01-01");
-	      educationVO.setEndDate("2016-01-01");
-	      educationVO.setStartTime("01:00");
-	      educationVO.setEndTime("01:00");
-		  educationVO.setCost("CSTC");
-		  
-		  
+		educationVO.setEducationCategory("ZCS");
+		educationVO.setEducationTitle("JUNIT...");
+		educationVO.setMemberId("JUNIT...");
+		educationVO.setMaxMember(32);
+		educationVO.setEducationLocation("JUNIT...");
+		educationVO.setEducationCurriculum("JUNIT...");
+		educationVO.setEducationIntroduce("JUNIT...");
+		educationVO.setStartDate("2016-01-01");
+		educationVO.setEndDate("2016-01-01");
+		educationVO.setStartTime("01:00");
+		educationVO.setEndTime("01:00");
+		educationVO.setCost("CSTC");
+
 		BindingResult errors = new BeanPropertyBindingResult(educationVO, "writeForm");
 		EducationValidator validator = new EducationValidator();
 		validator.validate(educationVO, errors);
-	      
-		 MockMultipartHttpServletRequest request = new MockMultipartHttpServletRequest();
-	      
-	      Path path = Paths.get("D:\\핸드폰.xlsx");
-	      String name = "file";
-	      String originalFileName = "핸드폰.xlsx";
-	      String contentType = "text/plain";
-	      
-	      byte[] content = null;
-	      
-	      try {
-	          content = Files.readAllBytes(path);
-	      }
-	      catch (final IOException e) {
-	         
-	      }
-	      
-	      MultipartFile file = new MockMultipartFile(name, originalFileName, contentType, content);
-	      request.addFile(file); 
+
+		MockMultipartHttpServletRequest request = new MockMultipartHttpServletRequest();
+
+		Path path = Paths.get("D:\\핸드폰.xlsx");
+		String name = "file";
+		String originalFileName = "핸드폰";
+		String contentType = "text/plain";
+
+		byte[] content = null;
+
+		try {
+			content = Files.readAllBytes(path);
+		} catch (final IOException e) {
+
+		}
+
+		MultipartFile file = new MockMultipartFile(name, originalFileName, contentType, content);
+		request.addFile(file);
+		
+		HttpSession session = null;
+		session = request.getSession();
+		
+		MemberVO memberVO = new MemberVO();
+		memberVO.setMemberType("ADM");
+		session.setAttribute("_MEMBER_", memberVO);
 		
 		ModelAndView view = educationController.doWriteAction(educationVO, errors, request);
 		assertNotNull(view);
-		
-		if (view != null ){
+
+		if (view != null) {
 			String viewName = view.getViewName();
 			assertNotNull(viewName);
 			assertEquals(viewName, "education/eduregister");
 			assertTrue(errors.getErrorCount() == 1);
-		}
-		else {
+		} else {
 			fail("Fail");
 		}
 	}
-	
-	
+
 	@Test
-	public void doWriteActionTestWithError13(){
-		// List 보는건 차 후에 test 시도 
-		
+	public void doWriteActionTestWithError13() {
+		// List 보는건 차 후에 test 시도
+
 		// Cost 없는경우
 		EducationVO educationVO = new EducationVO();
-	      educationVO.setEducationCategory("ZCS");
-	      educationVO.setEducationTitle("JUNIT...");
-	      educationVO.setMemberId("JUNIT...");
-	      educationVO.setMaxMember(32);
-	      educationVO.setEducationLocation("JUNIT...");
-	      educationVO.setEducationCurriculum("JUNIT...");
-	      educationVO.setEducationIntroduce("JUNIT...");
-	      educationVO.setStartDate("2016-01-01");
-	      educationVO.setEndDate("2016-01-01");
-	      educationVO.setStartTime("01:00");
-	      educationVO.setEndTime("01:00");
-	      educationVO.setEducationType("TIMM");
-		  
-		  
+		educationVO.setEducationCategory("ZCS");
+		educationVO.setEducationTitle("JUNIT...");
+		educationVO.setMemberId("JUNIT...");
+		educationVO.setMaxMember(32);
+		educationVO.setEducationLocation("JUNIT...");
+		educationVO.setEducationCurriculum("JUNIT...");
+		educationVO.setEducationIntroduce("JUNIT...");
+		educationVO.setStartDate("2016-01-01");
+		educationVO.setEndDate("2016-01-01");
+		educationVO.setStartTime("01:00");
+		educationVO.setEndTime("01:00");
+		educationVO.setEducationType("TIMM");
+
 		BindingResult errors = new BeanPropertyBindingResult(educationVO, "writeForm");
 		EducationValidator validator = new EducationValidator();
 		validator.validate(educationVO, errors);
-	      
-		 MockMultipartHttpServletRequest request = new MockMultipartHttpServletRequest();
-	      
-	      Path path = Paths.get("D:\\핸드폰.xlsx");
-	      String name = "file";
-	      String originalFileName = "핸드폰.xlsx";
-	      String contentType = "text/plain";
-	      
-	      byte[] content = null;
-	      
-	      try {
-	          content = Files.readAllBytes(path);
-	      }
-	      catch (final IOException e) {
-	         
-	      }
-	      
-	      MultipartFile file = new MockMultipartFile(name, originalFileName, contentType, content);
-	      request.addFile(file); 
+
+		MockMultipartHttpServletRequest request = new MockMultipartHttpServletRequest();
+
+		Path path = Paths.get("D:\\핸드폰.xlsx");
+		String name = "file";
+		String originalFileName = "핸드폰";
+		String contentType = "text/plain";
+
+		byte[] content = null;
+
+		try {
+			content = Files.readAllBytes(path);
+		} catch (final IOException e) {
+
+		}
+
+		MultipartFile file = new MockMultipartFile(name, originalFileName, contentType, content);
+		request.addFile(file);
+		
+		HttpSession session = null;
+		session = request.getSession();
+		
+		MemberVO memberVO = new MemberVO();
+		memberVO.setMemberType("ADM");
+		session.setAttribute("_MEMBER_", memberVO);
 		
 		ModelAndView view = educationController.doWriteAction(educationVO, errors, request);
 		assertNotNull(view);
-		
-		if (view != null ){
+
+		if (view != null) {
 			String viewName = view.getViewName();
 			assertNotNull(viewName);
 			assertEquals(viewName, "education/eduregister");
 			assertTrue(errors.getErrorCount() == 1);
-		}
-		else {
+		} else {
 			fail("Fail");
 		}
 	}
+
 	@Test
 	public void doEducationModifyTestWithError2() {
 		EducationVO educationVO = new EducationVO();
-		
+
 		educationVO.setEducationId("ED-20160512-000066");
-		//educationVO.setEducationCategory("ZCS");
+		// educationVO.setEducationCategory("ZCS");
 		educationVO.setEducationTitle("JUNIT...");
 		educationVO.setMemberId("JUNIT...");
 		educationVO.setMaxMember(30);
@@ -917,55 +923,54 @@ public class EducationControllerTest {
 		educationVO.setEndTime("01:00");
 		educationVO.setEducationType("TIMM");
 		educationVO.setCost("CSTC");
-		
-		BindingResult errors = new BeanPropertyBindingResult(educationVO,"modifyForm");
+
+		BindingResult errors = new BeanPropertyBindingResult(educationVO, "modifyForm");
 		EducationValidator validator = new EducationValidator();
 		validator.validate(educationVO, errors);
-		
+
 		MockMultipartHttpServletRequest request = new MockMultipartHttpServletRequest();
-		
+
 		Path path = Paths.get("");
 		String name = "file";
 		String originalFileName = "file";
 		String contentType = "text/plain";
-		
+
 		byte[] content = null;
-		
+
 		try {
-		    content = Files.readAllBytes(path);
+			content = Files.readAllBytes(path);
+		} catch (final IOException e) {
+
 		}
-		catch (final IOException e) {
-			
-		}
-		
+
 		MultipartFile file = new MockMultipartFile(name, originalFileName, contentType, content);
 		request.addFile(file);
-		
+
 		HttpSession session = null;
 		session = request.getSession();
 		session.setAttribute(Session.MEMBER_TYPE, "ADM");
-		
+
 		ModelAndView view = educationController.doEducationModifyAction(educationVO, errors, request);
 		assertNotNull(view);
-		
+
 		if (view != null) {
 			String viewName = view.getViewName();
 			assertNotNull(viewName);
 			assertEquals(viewName, "education/update/ED-20160512-000066");
-			
+
 			assertTrue(errors.getErrorCount() == 1);
 		} else {
 			fail("fail...");
 		}
 	}
-	
+
 	@Test
 	public void doEducationModifyTestWithError3() {
 		EducationVO educationVO = new EducationVO();
-		
+
 		educationVO.setEducationId("ED-20160512-000066");
 		educationVO.setEducationCategory("ZCS");
-		//educationVO.setEducationTitle("JUNIT...");
+		// educationVO.setEducationTitle("JUNIT...");
 		educationVO.setMemberId("JUNIT...");
 		educationVO.setMaxMember(30);
 		educationVO.setEducationLocation("JUNIT...");
@@ -977,56 +982,55 @@ public class EducationControllerTest {
 		educationVO.setEndTime("01:00");
 		educationVO.setEducationType("TIMM");
 		educationVO.setCost("CSTC");
-		
-		BindingResult errors = new BeanPropertyBindingResult(educationVO,"modifyForm");
+
+		BindingResult errors = new BeanPropertyBindingResult(educationVO, "modifyForm");
 		EducationValidator validator = new EducationValidator();
 		validator.validate(educationVO, errors);
-		
+
 		MockMultipartHttpServletRequest request = new MockMultipartHttpServletRequest();
-		
+
 		Path path = Paths.get("");
 		String name = "file";
 		String originalFileName = "file";
 		String contentType = "text/plain";
-		
+
 		byte[] content = null;
-		
+
 		try {
-		    content = Files.readAllBytes(path);
+			content = Files.readAllBytes(path);
+		} catch (final IOException e) {
+
 		}
-		catch (final IOException e) {
-			
-		}
-		
+
 		MultipartFile file = new MockMultipartFile(name, originalFileName, contentType, content);
 		request.addFile(file);
-		
+
 		HttpSession session = null;
 		session = request.getSession();
 		session.setAttribute(Session.MEMBER_TYPE, "ADM");
-		
+
 		ModelAndView view = educationController.doEducationModifyAction(educationVO, errors, request);
 		assertNotNull(view);
-		
+
 		if (view != null) {
 			String viewName = view.getViewName();
 			assertNotNull(viewName);
 			assertEquals(viewName, "education/update/ED-20160512-000066");
-			
+
 			assertTrue(errors.getErrorCount() == 1);
 		} else {
 			fail("fail...");
 		}
 	}
-	
+
 	@Test
 	public void doEducationModifyTestWithError4() {
 		EducationVO educationVO = new EducationVO();
-		
+
 		educationVO.setEducationId("ED-20160512-000066");
 		educationVO.setEducationCategory("ZCS");
 		educationVO.setEducationTitle("JUNIT...");
-		//educationVO.setMemberId("JUNIT...");
+		// educationVO.setMemberId("JUNIT...");
 		educationVO.setMaxMember(30);
 		educationVO.setEducationLocation("JUNIT...");
 		educationVO.setEducationCurriculum("JUNIT...");
@@ -1037,57 +1041,56 @@ public class EducationControllerTest {
 		educationVO.setEndTime("01:00");
 		educationVO.setEducationType("TIMM");
 		educationVO.setCost("CSTC");
-		
-		BindingResult errors = new BeanPropertyBindingResult(educationVO,"modifyForm");
+
+		BindingResult errors = new BeanPropertyBindingResult(educationVO, "modifyForm");
 		EducationValidator validator = new EducationValidator();
 		validator.validate(educationVO, errors);
-		
+
 		MockMultipartHttpServletRequest request = new MockMultipartHttpServletRequest();
-		
+
 		Path path = Paths.get("");
 		String name = "file";
 		String originalFileName = "file";
 		String contentType = "text/plain";
-		
+
 		byte[] content = null;
-		
+
 		try {
-		    content = Files.readAllBytes(path);
+			content = Files.readAllBytes(path);
+		} catch (final IOException e) {
+
 		}
-		catch (final IOException e) {
-			
-		}
-		
+
 		MultipartFile file = new MockMultipartFile(name, originalFileName, contentType, content);
 		request.addFile(file);
-		
+
 		HttpSession session = null;
 		session = request.getSession();
 		session.setAttribute(Session.MEMBER_TYPE, "ADM");
-		
+
 		ModelAndView view = educationController.doEducationModifyAction(educationVO, errors, request);
 		assertNotNull(view);
-		
+
 		if (view != null) {
 			String viewName = view.getViewName();
 			assertNotNull(viewName);
 			assertEquals(viewName, "education/update/ED-20160512-000066");
-			
+
 			assertTrue(errors.getErrorCount() == 1);
 		} else {
 			fail("fail...");
 		}
 	}
-	
+
 	@Test
 	public void doEducationModifyTestWithError5() {
 		EducationVO educationVO = new EducationVO();
-		
+
 		educationVO.setEducationId("ED-20160512-000066");
 		educationVO.setEducationCategory("ZCS");
 		educationVO.setEducationTitle("JUNIT...");
 		educationVO.setMemberId("JUNIT...");
-		//educationVO.setMaxMember(30);
+		// educationVO.setMaxMember(30);
 		educationVO.setEducationLocation("JUNIT...");
 		educationVO.setEducationCurriculum("JUNIT...");
 		educationVO.setEducationIntroduce("JUNIT...");
@@ -1097,58 +1100,57 @@ public class EducationControllerTest {
 		educationVO.setEndTime("01:00");
 		educationVO.setEducationType("TIMM");
 		educationVO.setCost("CSTC");
-		
-		BindingResult errors = new BeanPropertyBindingResult(educationVO,"modifyForm");
+
+		BindingResult errors = new BeanPropertyBindingResult(educationVO, "modifyForm");
 		EducationValidator validator = new EducationValidator();
 		validator.validate(educationVO, errors);
-		
+
 		MockMultipartHttpServletRequest request = new MockMultipartHttpServletRequest();
-		
+
 		Path path = Paths.get("");
 		String name = "file";
 		String originalFileName = "file";
 		String contentType = "text/plain";
-		
+
 		byte[] content = null;
-		
+
 		try {
-		    content = Files.readAllBytes(path);
+			content = Files.readAllBytes(path);
+		} catch (final IOException e) {
+
 		}
-		catch (final IOException e) {
-			
-		}
-		
+
 		MultipartFile file = new MockMultipartFile(name, originalFileName, contentType, content);
 		request.addFile(file);
-		
+
 		HttpSession session = null;
 		session = request.getSession();
 		session.setAttribute(Session.MEMBER_TYPE, "ADM");
-		
+
 		ModelAndView view = educationController.doEducationModifyAction(educationVO, errors, request);
 		assertNotNull(view);
-		
+
 		if (view != null) {
 			String viewName = view.getViewName();
 			assertNotNull(viewName);
 			assertEquals(viewName, "redirect:/detail/ED-20160512-000066");
-			
+
 			assertTrue(errors.getErrorCount() == 0);
 		} else {
 			fail("fail...");
 		}
 	}
-	
+
 	@Test
 	public void doEducationModifyTestWithError6() {
 		EducationVO educationVO = new EducationVO();
-		
+
 		educationVO.setEducationId("ED-20160512-000066");
 		educationVO.setEducationCategory("ZCS");
 		educationVO.setEducationTitle("JUNIT...");
 		educationVO.setMemberId("JUNIT...");
 		educationVO.setMaxMember(30);
-		//educationVO.setEducationLocation("JUNIT...");
+		// educationVO.setEducationLocation("JUNIT...");
 		educationVO.setEducationCurriculum("JUNIT...");
 		educationVO.setEducationIntroduce("JUNIT...");
 		educationVO.setStartDate("JUNIT...");
@@ -1157,59 +1159,58 @@ public class EducationControllerTest {
 		educationVO.setEndTime("01:00");
 		educationVO.setEducationType("TIMM");
 		educationVO.setCost("CSTC");
-		
-		BindingResult errors = new BeanPropertyBindingResult(educationVO,"modifyForm");
+
+		BindingResult errors = new BeanPropertyBindingResult(educationVO, "modifyForm");
 		EducationValidator validator = new EducationValidator();
 		validator.validate(educationVO, errors);
-		
+
 		MockMultipartHttpServletRequest request = new MockMultipartHttpServletRequest();
-		
+
 		Path path = Paths.get("");
 		String name = "file";
 		String originalFileName = "file";
 		String contentType = "text/plain";
-		
+
 		byte[] content = null;
-		
+
 		try {
-		    content = Files.readAllBytes(path);
+			content = Files.readAllBytes(path);
+		} catch (final IOException e) {
+
 		}
-		catch (final IOException e) {
-			
-		}
-		
+
 		MultipartFile file = new MockMultipartFile(name, originalFileName, contentType, content);
 		request.addFile(file);
-		
+
 		HttpSession session = null;
 		session = request.getSession();
 		session.setAttribute(Session.MEMBER_TYPE, "ADM");
-		
+
 		ModelAndView view = educationController.doEducationModifyAction(educationVO, errors, request);
 		assertNotNull(view);
-		
+
 		if (view != null) {
 			String viewName = view.getViewName();
 			assertNotNull(viewName);
 			assertEquals(viewName, "education/update/ED-20160512-000066");
-			
+
 			assertTrue(errors.getErrorCount() == 1);
 		} else {
 			fail("fail...");
 		}
 	}
-	
+
 	@Test
 	public void doEducationModifyTestWithError7() {
 		EducationVO educationVO = new EducationVO();
-		
+
 		educationVO.setEducationId("ED-20160512-000066");
 		educationVO.setEducationCategory("ZCS");
 		educationVO.setEducationTitle("JUNIT...");
 		educationVO.setMemberId("JUNIT...");
 		educationVO.setMaxMember(30);
 		educationVO.setEducationLocation("JUNIT...");
-		//educationVO.setEducationCurriculum("JUNIT...");
+		// educationVO.setEducationCurriculum("JUNIT...");
 		educationVO.setEducationIntroduce("JUNIT...");
 		educationVO.setStartDate("JUNIT...");
 		educationVO.setEndDate("JUNIT...");
@@ -1217,52 +1218,51 @@ public class EducationControllerTest {
 		educationVO.setEndTime("01:00");
 		educationVO.setEducationType("TIMM");
 		educationVO.setCost("CSTC");
-		
-		BindingResult errors = new BeanPropertyBindingResult(educationVO,"modifyForm");
+
+		BindingResult errors = new BeanPropertyBindingResult(educationVO, "modifyForm");
 		EducationValidator validator = new EducationValidator();
 		validator.validate(educationVO, errors);
-		
+
 		MockMultipartHttpServletRequest request = new MockMultipartHttpServletRequest();
-		
+
 		Path path = Paths.get("");
 		String name = "file";
 		String originalFileName = "file";
 		String contentType = "text/plain";
-		
+
 		byte[] content = null;
-		
+
 		try {
-		    content = Files.readAllBytes(path);
+			content = Files.readAllBytes(path);
+		} catch (final IOException e) {
+
 		}
-		catch (final IOException e) {
-			
-		}
-		
+
 		MultipartFile file = new MockMultipartFile(name, originalFileName, contentType, content);
 		request.addFile(file);
-		
+
 		HttpSession session = null;
 		session = request.getSession();
 		session.setAttribute(Session.MEMBER_TYPE, "ADM");
-		
+
 		ModelAndView view = educationController.doEducationModifyAction(educationVO, errors, request);
 		assertNotNull(view);
-		
+
 		if (view != null) {
 			String viewName = view.getViewName();
 			assertNotNull(viewName);
 			assertEquals(viewName, "education/update/ED-20160512-000066");
-			
+
 			assertTrue(errors.getErrorCount() == 1);
 		} else {
 			fail("fail...");
 		}
 	}
-	
+
 	@Test
 	public void doEducationModifyTestWithError8() {
 		EducationVO educationVO = new EducationVO();
-		
+
 		educationVO.setEducationId("ED-20160512-000066");
 		educationVO.setEducationCategory("ZCS");
 		educationVO.setEducationTitle("JUNIT...");
@@ -1270,59 +1270,58 @@ public class EducationControllerTest {
 		educationVO.setMaxMember(30);
 		educationVO.setEducationLocation("JUNIT...");
 		educationVO.setEducationCurriculum("JUNIT...");
-		//educationVO.setEducationIntroduce("JUNIT...");
+		// educationVO.setEducationIntroduce("JUNIT...");
 		educationVO.setStartDate("JUNIT...");
 		educationVO.setEndDate("JUNIT...");
 		educationVO.setStartTime("01:00");
 		educationVO.setEndTime("01:00");
 		educationVO.setEducationType("TIMM");
 		educationVO.setCost("CSTC");
-		
-		BindingResult errors = new BeanPropertyBindingResult(educationVO,"modifyForm");
+
+		BindingResult errors = new BeanPropertyBindingResult(educationVO, "modifyForm");
 		EducationValidator validator = new EducationValidator();
 		validator.validate(educationVO, errors);
-		
+
 		MockMultipartHttpServletRequest request = new MockMultipartHttpServletRequest();
-		
+
 		Path path = Paths.get("");
 		String name = "file";
 		String originalFileName = "file";
 		String contentType = "text/plain";
-		
+
 		byte[] content = null;
-		
+
 		try {
-		    content = Files.readAllBytes(path);
+			content = Files.readAllBytes(path);
+		} catch (final IOException e) {
+
 		}
-		catch (final IOException e) {
-			
-		}
-		
+
 		MultipartFile file = new MockMultipartFile(name, originalFileName, contentType, content);
 		request.addFile(file);
-		
+
 		HttpSession session = null;
 		session = request.getSession();
 		session.setAttribute(Session.MEMBER_TYPE, "ADM");
-		
+
 		ModelAndView view = educationController.doEducationModifyAction(educationVO, errors, request);
 		assertNotNull(view);
-		
+
 		if (view != null) {
 			String viewName = view.getViewName();
 			assertNotNull(viewName);
 			assertEquals(viewName, "education/update/ED-20160512-000066");
-			
+
 			assertTrue(errors.getErrorCount() == 1);
 		} else {
 			fail("fail...");
 		}
 	}
-	
+
 	@Test
 	public void doEducationModifyTestWithError9() {
 		EducationVO educationVO = new EducationVO();
-		
+
 		educationVO.setEducationId("ED-20160512-000066");
 		educationVO.setEducationCategory("ZCS");
 		educationVO.setEducationTitle("JUNIT...");
@@ -1331,58 +1330,57 @@ public class EducationControllerTest {
 		educationVO.setEducationLocation("JUNIT...");
 		educationVO.setEducationCurriculum("JUNIT...");
 		educationVO.setEducationIntroduce("JUNIT...");
-		//educationVO.setStartDate("JUNIT...");
+		// educationVO.setStartDate("JUNIT...");
 		educationVO.setEndDate("JUNIT...");
 		educationVO.setStartTime("01:00");
 		educationVO.setEndTime("01:00");
 		educationVO.setEducationType("TIMM");
 		educationVO.setCost("CSTC");
-		
-		BindingResult errors = new BeanPropertyBindingResult(educationVO,"modifyForm");
+
+		BindingResult errors = new BeanPropertyBindingResult(educationVO, "modifyForm");
 		EducationValidator validator = new EducationValidator();
 		validator.validate(educationVO, errors);
-		
+
 		MockMultipartHttpServletRequest request = new MockMultipartHttpServletRequest();
-		
+
 		Path path = Paths.get("");
 		String name = "file";
 		String originalFileName = "file";
 		String contentType = "text/plain";
-		
+
 		byte[] content = null;
-		
+
 		try {
-		    content = Files.readAllBytes(path);
+			content = Files.readAllBytes(path);
+		} catch (final IOException e) {
+
 		}
-		catch (final IOException e) {
-			
-		}
-		
+
 		MultipartFile file = new MockMultipartFile(name, originalFileName, contentType, content);
 		request.addFile(file);
-		
+
 		HttpSession session = null;
 		session = request.getSession();
 		session.setAttribute(Session.MEMBER_TYPE, "ADM");
-		
+
 		ModelAndView view = educationController.doEducationModifyAction(educationVO, errors, request);
 		assertNotNull(view);
-		
+
 		if (view != null) {
 			String viewName = view.getViewName();
 			assertNotNull(viewName);
 			assertEquals(viewName, "education/update/ED-20160512-000066");
-			
+
 			assertTrue(errors.getErrorCount() == 1);
 		} else {
 			fail("fail...");
 		}
 	}
-	
+
 	@Test
 	public void doEducationModifyTestWithError10() {
 		EducationVO educationVO = new EducationVO();
-		
+
 		educationVO.setEducationId("ED-20160512-000066");
 		educationVO.setEducationCategory("ZCS");
 		educationVO.setEducationTitle("JUNIT...");
@@ -1392,57 +1390,56 @@ public class EducationControllerTest {
 		educationVO.setEducationCurriculum("JUNIT...");
 		educationVO.setEducationIntroduce("JUNIT...");
 		educationVO.setStartDate("JUNIT...");
-		//educationVO.setEndDate("JUNIT...");
+		// educationVO.setEndDate("JUNIT...");
 		educationVO.setStartTime("01:00");
 		educationVO.setEndTime("01:00");
 		educationVO.setEducationType("TIMM");
 		educationVO.setCost("CSTC");
-		
-		BindingResult errors = new BeanPropertyBindingResult(educationVO,"modifyForm");
+
+		BindingResult errors = new BeanPropertyBindingResult(educationVO, "modifyForm");
 		EducationValidator validator = new EducationValidator();
 		validator.validate(educationVO, errors);
-		
+
 		MockMultipartHttpServletRequest request = new MockMultipartHttpServletRequest();
-		
+
 		Path path = Paths.get("");
 		String name = "file";
 		String originalFileName = "file";
 		String contentType = "text/plain";
-		
+
 		byte[] content = null;
-		
+
 		try {
-		    content = Files.readAllBytes(path);
+			content = Files.readAllBytes(path);
+		} catch (final IOException e) {
+
 		}
-		catch (final IOException e) {
-			
-		}
-		
+
 		MultipartFile file = new MockMultipartFile(name, originalFileName, contentType, content);
 		request.addFile(file);
-		
+
 		HttpSession session = null;
 		session = request.getSession();
 		session.setAttribute(Session.MEMBER_TYPE, "ADM");
-		
+
 		ModelAndView view = educationController.doEducationModifyAction(educationVO, errors, request);
 		assertNotNull(view);
-		
+
 		if (view != null) {
 			String viewName = view.getViewName();
 			assertNotNull(viewName);
 			assertEquals(viewName, "education/update/ED-20160512-000066");
-			
+
 			assertTrue(errors.getErrorCount() == 1);
 		} else {
 			fail("fail...");
 		}
 	}
-	
+
 	@Test
 	public void doEducationModifyTestWithError11() {
 		EducationVO educationVO = new EducationVO();
-		
+
 		educationVO.setEducationId("ED-20160512-000066");
 		educationVO.setEducationCategory("ZCS");
 		educationVO.setEducationTitle("JUNIT...");
@@ -1452,57 +1449,56 @@ public class EducationControllerTest {
 		educationVO.setEducationCurriculum("JUNIT...");
 		educationVO.setEducationIntroduce("JUNIT...");
 		educationVO.setStartDate("JUNIT...");
-		//educationVO.setEndDate("JUNIT...");
+		// educationVO.setEndDate("JUNIT...");
 		educationVO.setStartTime("01:00");
 		educationVO.setEndTime("01:00");
 		educationVO.setEducationType("TIMM");
 		educationVO.setCost("CSTC");
-		
-		BindingResult errors = new BeanPropertyBindingResult(educationVO,"modifyForm");
+
+		BindingResult errors = new BeanPropertyBindingResult(educationVO, "modifyForm");
 		EducationValidator validator = new EducationValidator();
 		validator.validate(educationVO, errors);
-		
+
 		MockMultipartHttpServletRequest request = new MockMultipartHttpServletRequest();
-		
+
 		Path path = Paths.get("");
 		String name = "file";
 		String originalFileName = "file";
 		String contentType = "text/plain";
-		
+
 		byte[] content = null;
-		
+
 		try {
-		    content = Files.readAllBytes(path);
+			content = Files.readAllBytes(path);
+		} catch (final IOException e) {
+
 		}
-		catch (final IOException e) {
-			
-		}
-		
+
 		MultipartFile file = new MockMultipartFile(name, originalFileName, contentType, content);
 		request.addFile(file);
-		
+
 		HttpSession session = null;
 		session = request.getSession();
 		session.setAttribute(Session.MEMBER_TYPE, "ADM");
-		
+
 		ModelAndView view = educationController.doEducationModifyAction(educationVO, errors, request);
 		assertNotNull(view);
-		
+
 		if (view != null) {
 			String viewName = view.getViewName();
 			assertNotNull(viewName);
 			assertEquals(viewName, "education/update/ED-20160512-000066");
-			
+
 			assertTrue(errors.getErrorCount() == 1);
 		} else {
 			fail("fail...");
 		}
 	}
-	
+
 	@Test
 	public void doEducationModifyTestWithError12() {
 		EducationVO educationVO = new EducationVO();
-		
+
 		educationVO.setEducationId("ED-20160512-000066");
 		educationVO.setEducationCategory("ZCS");
 		educationVO.setEducationTitle("JUNIT...");
@@ -1514,55 +1510,54 @@ public class EducationControllerTest {
 		educationVO.setStartDate("JUNIT...");
 		educationVO.setEndDate("JUNIT...");
 		educationVO.setStartTime("01:00");
-		//educationVO.setEndTime("01:00");
+		// educationVO.setEndTime("01:00");
 		educationVO.setEducationType("TIMM");
 		educationVO.setCost("CSTC");
-		
-		BindingResult errors = new BeanPropertyBindingResult(educationVO,"modifyForm");
+
+		BindingResult errors = new BeanPropertyBindingResult(educationVO, "modifyForm");
 		EducationValidator validator = new EducationValidator();
 		validator.validate(educationVO, errors);
-		
+
 		MockMultipartHttpServletRequest request = new MockMultipartHttpServletRequest();
-		
+
 		Path path = Paths.get("");
 		String name = "file";
 		String originalFileName = "file";
 		String contentType = "text/plain";
-		
+
 		byte[] content = null;
-		
+
 		try {
-		    content = Files.readAllBytes(path);
+			content = Files.readAllBytes(path);
+		} catch (final IOException e) {
+
 		}
-		catch (final IOException e) {
-			
-		}
-		
+
 		MultipartFile file = new MockMultipartFile(name, originalFileName, contentType, content);
 		request.addFile(file);
-		
+
 		HttpSession session = null;
 		session = request.getSession();
 		session.setAttribute(Session.MEMBER_TYPE, "ADM");
-		
+
 		ModelAndView view = educationController.doEducationModifyAction(educationVO, errors, request);
 		assertNotNull(view);
-		
+
 		if (view != null) {
 			String viewName = view.getViewName();
 			assertNotNull(viewName);
 			assertEquals(viewName, "education/update/ED-20160512-000066");
-			
+
 			assertTrue(errors.getErrorCount() == 1);
 		} else {
 			fail("fail...");
 		}
 	}
-	
+
 	@Test
 	public void doEducationModifyTestWithError13() {
 		EducationVO educationVO = new EducationVO();
-		
+
 		educationVO.setEducationId("ED-20160512-000066");
 		educationVO.setEducationCategory("ZCS");
 		educationVO.setEducationTitle("JUNIT...");
@@ -1575,54 +1570,53 @@ public class EducationControllerTest {
 		educationVO.setEndDate("JUNIT...");
 		educationVO.setStartTime("01:00");
 		educationVO.setEndTime("01:00");
-		//educationVO.setEducationType("TIMM");
+		// educationVO.setEducationType("TIMM");
 		educationVO.setCost("CSTC");
-		
-		BindingResult errors = new BeanPropertyBindingResult(educationVO,"modifyForm");
+
+		BindingResult errors = new BeanPropertyBindingResult(educationVO, "modifyForm");
 		EducationValidator validator = new EducationValidator();
 		validator.validate(educationVO, errors);
-		
+
 		MockMultipartHttpServletRequest request = new MockMultipartHttpServletRequest();
-		
+
 		Path path = Paths.get("");
 		String name = "file";
 		String originalFileName = "file";
 		String contentType = "text/plain";
-		
+
 		byte[] content = null;
-		
+
 		try {
-		    content = Files.readAllBytes(path);
+			content = Files.readAllBytes(path);
+		} catch (final IOException e) {
+
 		}
-		catch (final IOException e) {
-			
-		}
-		
+
 		MultipartFile file = new MockMultipartFile(name, originalFileName, contentType, content);
 		request.addFile(file);
-		
+
 		HttpSession session = null;
 		session = request.getSession();
 		session.setAttribute(Session.MEMBER_TYPE, "ADM");
-		
+
 		ModelAndView view = educationController.doEducationModifyAction(educationVO, errors, request);
 		assertNotNull(view);
-		
+
 		if (view != null) {
 			String viewName = view.getViewName();
 			assertNotNull(viewName);
 			assertEquals(viewName, "education/update/ED-20160512-000066");
-			
+
 			assertTrue(errors.getErrorCount() == 1);
 		} else {
 			fail("fail...");
 		}
 	}
-	
+
 	@Test
 	public void doEducationModifyTestWithError14() {
 		EducationVO educationVO = new EducationVO();
-		
+
 		educationVO.setEducationId("ED-20160512-000066");
 		educationVO.setEducationCategory("ZCS");
 		educationVO.setEducationTitle("JUNIT...");
@@ -1636,51 +1630,50 @@ public class EducationControllerTest {
 		educationVO.setStartTime("01:00");
 		educationVO.setEndTime("01:00");
 		educationVO.setEducationType("TIMM");
-		//educationVO.setCost("CSTC");
-		
-		BindingResult errors = new BeanPropertyBindingResult(educationVO,"modifyForm");
+		// educationVO.setCost("CSTC");
+
+		BindingResult errors = new BeanPropertyBindingResult(educationVO, "modifyForm");
 		EducationValidator validator = new EducationValidator();
 		validator.validate(educationVO, errors);
-		
+
 		MockMultipartHttpServletRequest request = new MockMultipartHttpServletRequest();
-		
+
 		Path path = Paths.get("");
 		String name = "file";
 		String originalFileName = "file";
 		String contentType = "text/plain";
-		
+
 		byte[] content = null;
-		
+
 		try {
-		    content = Files.readAllBytes(path);
+			content = Files.readAllBytes(path);
+		} catch (final IOException e) {
+
 		}
-		catch (final IOException e) {
-			
-		}
-		
+
 		MultipartFile file = new MockMultipartFile(name, originalFileName, contentType, content);
 		request.addFile(file);
-		
+
 		HttpSession session = null;
 		session = request.getSession();
 		session.setAttribute(Session.MEMBER_TYPE, "ADM");
-		
+
 		ModelAndView view = educationController.doEducationModifyAction(educationVO, errors, request);
 		assertNotNull(view);
-		
+
 		if (view != null) {
 			String viewName = view.getViewName();
 			assertNotNull(viewName);
 			assertEquals(viewName, "education/update/ED-20160512-000066");
-			
+
 			assertTrue(errors.getErrorCount() == 1);
 		} else {
 			fail("fail...");
 		}
 	}
-	
+
 	public class EducationValidator implements Validator {
-		
+
 		@Override
 		public boolean supports(Class<?> clazz) {
 			return EducationVO.class.isAssignableFrom(clazz);
@@ -1688,64 +1681,64 @@ public class EducationControllerTest {
 
 		@Override
 		public void validate(Object target, Errors errors) {
-			
+
 			EducationVO educationVO = (EducationVO) target;
-			
+
 			String educationCategory = educationVO.getEducationCategory();
 			if (educationCategory == null || educationCategory.length() == 0) {
 				errors.rejectValue("educationCategory", "field.required", "error default message");
 			}
-			
+
 			String educationTitle = educationVO.getEducationTitle();
 			if (educationTitle == null || educationTitle.length() == 0) {
 				errors.rejectValue("educationTitle", "field.required", "error default message");
 			}
-			
+
 			String memberId = educationVO.getMemberId();
 			if (memberId == null || memberId.length() == 0) {
 				errors.rejectValue("memberId", "field.required", "error default message");
 			}
-			
+
 			String educationLocation = educationVO.getEducationLocation();
 			if (educationLocation == null || educationLocation.length() == 0) {
 				errors.rejectValue("educationLocation", "field.required", "error default message");
 			}
-			
+
 			String educationCurriculum = educationVO.getEducationCurriculum();
 			if (educationCurriculum == null || educationCurriculum.length() == 0) {
 				errors.rejectValue("educationCurriculum", "field.required", "error default message");
 			}
-			
+
 			String educationIntroduce = educationVO.getEducationIntroduce();
 			if (educationIntroduce == null || educationIntroduce.length() == 0) {
 				errors.rejectValue("educationIntroduce", "field.required", "error default message");
 			}
-			
+
 			String startDate = educationVO.getStartDate();
 			if (startDate == null || startDate.length() == 0) {
 				errors.rejectValue("startDate", "field.required", "error default message");
 			}
-			
+
 			String endDate = educationVO.getEndDate();
 			if (endDate == null || endDate.length() == 0) {
 				errors.rejectValue("endDate", "field.required", "error default message");
 			}
-			
+
 			String startTime = educationVO.getStartTime();
 			if (startTime == null || startTime.length() == 0) {
 				errors.rejectValue("startTime", "field.required", "error default message");
 			}
-			
+
 			String endTime = educationVO.getEndTime();
 			if (endTime == null || endTime.length() == 0) {
 				errors.rejectValue("endTime", "field.required", "error default message");
 			}
-			
+
 			String educationType = educationVO.getEducationType();
 			if (educationType == null || educationType.length() == 0) {
 				errors.rejectValue("educationType", "field.required", "error default message");
 			}
-			
+
 			String cost = educationVO.getCost();
 			if (cost == null || cost.length() == 0) {
 				errors.rejectValue("cost", "field.required", "error default message");
