@@ -242,8 +242,8 @@ public class MemberController {
 	}
 
 	@RequestMapping("/member/loginHistory")
-	public ModelAndView viewLoginHistoryPage(@Valid LoginHistorySearchVO loginHistorySearchVO, @RequestParam(required = false, defaultValue = "0") int pageNo, HttpSession session, HttpServletRequest request) {
-		return memberService.viewLoginHistoryPage(loginHistorySearchVO, pageNo, session, request);
+	public ModelAndView viewLoginHistoryPage(@Valid LoginHistorySearchVO loginHistorySearchVO, Errors errors, @RequestParam(required = false, defaultValue = "0") int pageNo, HttpSession session, HttpServletRequest request) {
+		return memberService.viewLoginHistoryPage(loginHistorySearchVO, errors, pageNo, session, request);
 	}
 	
 	@RequestMapping("/member/loginForResign/{resignCode}/{id}")
