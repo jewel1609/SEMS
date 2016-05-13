@@ -194,8 +194,8 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 	}
 
 	@Override
-	public void doDeleteMember(String id) {
-		getSqlSession().update("MemberDAO.doDeleteMember", id);
+	public int doDeleteMember(String id) {
+		return getSqlSession().update("MemberDAO.doDeleteMember", id);
 	}
 
 	@Override
