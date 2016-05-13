@@ -1,6 +1,5 @@
 package com.ktds.sems.education.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.validation.Errors;
@@ -130,7 +129,8 @@ public class EducationServiceImpl implements EducationService {
 				jsonResponseVO.setResult(true);
 			}
 			else {
-				throw new RuntimeException("카테고리를 추가중 장애가 발생했습니다. 잠시후 다시 시도해주세요.");
+				jsonResponseVO.setResult(false);
+				jsonResponseVO.setData("카테고리를 추가중 장애가 발생했습니다. 잠시후 다시 시도해주세요.");
 			}
 		}
 		
@@ -211,12 +211,12 @@ public class EducationServiceImpl implements EducationService {
 	}
 
 	@Override
-	public JsonResponseVO getChildCategory(String parentCategoryId, String categoryType) {
+	public JsonResponseVO getChildCategory(String categoryId, String categoryType) {
 		
 		JsonResponseVO jsonResponseVO = new JsonResponseVO();
 		
 		CategoryVO categoryVO = new CategoryVO();
-		categoryVO.setCategoryId(parentCategoryId);
+		categoryVO.setCategoryId(categoryId);
 		categoryVO.setCategoryType(categoryType);
 		
 		List<CategoryVO> childCategories = educationBiz.getChildCategory(categoryVO);

@@ -1,8 +1,6 @@
 package com.ktds.sems.education.biz.impl;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import com.ktds.sems.education.biz.EducationBiz;
 import com.ktds.sems.education.dao.EducationDAO;
@@ -181,8 +179,7 @@ public class EducationBizImpl implements EducationBiz {
 		return educationDAO.modifyCategory(categoryVO) > 0;
 	}
 
-	@Override
-	public boolean deleteLargeCategory(CategoryVO categoryVO) {
+	private boolean deleteLargeCategory(CategoryVO categoryVO) {
 		
 		List<CategoryVO> childCategories = getChildCategory(categoryVO);
 
@@ -196,8 +193,7 @@ public class EducationBizImpl implements EducationBiz {
 		return educationDAO.deleteCategory(categoryVO) > 0;
 	}
 
-	@Override
-	public boolean deleteMediumCategory(CategoryVO categoryVO) {
+	private boolean deleteMediumCategory(CategoryVO categoryVO) {
 		List<CategoryVO> childCategories = getChildCategory(categoryVO);
 
 		for (CategoryVO tmpCategoryVO : childCategories) {
@@ -210,8 +206,7 @@ public class EducationBizImpl implements EducationBiz {
 		return educationDAO.deleteCategory(categoryVO) > 0;
 	}
 
-	@Override
-	public boolean deleteSmallCategory(CategoryVO categoryVO) {
+	private boolean deleteSmallCategory(CategoryVO categoryVO) {
 		return educationDAO.deleteCategory(categoryVO) > 0;
 	}
 	

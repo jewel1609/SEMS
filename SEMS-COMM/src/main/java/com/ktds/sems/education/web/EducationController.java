@@ -131,8 +131,8 @@ public class EducationController {
 
 	@RequestMapping("/education/getChildCategory")
 	@ResponseBody
-	public JsonResponseVO getChildCategory(@RequestParam String parentCategoryId,@RequestParam String categoryType){
-		return educationService.getChildCategory(parentCategoryId, categoryType);
+	public JsonResponseVO getChildCategory(@RequestParam String categoryId,@RequestParam String categoryType){
+		return educationService.getChildCategory(categoryId, categoryType);
 	}
 	
 	@RequestMapping("/education/deleteCategory")

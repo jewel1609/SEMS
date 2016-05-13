@@ -38,10 +38,10 @@ public interface EducationService {
 
 	public String insertEduTime(TimeVO time);
 
-	JsonResponseVO getChildCategory(String parentCategoryId, String categoryType);
+	public JsonResponseVO getChildCategory(String categoryId, String categoryType);
 
-	String deleteCategory(String categoryId, String categoryType);
+	public String deleteCategory(String categoryId, String categoryType);
 
-	JsonResponseVO modifyCategory(CategoryVO categoryVO, Errors errors);
+	public JsonResponseVO modifyCategory(CategoryVO categoryVO, Errors errors);
 
 }

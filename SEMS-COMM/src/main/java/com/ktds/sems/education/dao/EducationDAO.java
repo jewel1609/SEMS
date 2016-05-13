@@ -9,7 +9,7 @@ import com.ktds.sems.education.vo.TimeVO;
 
 public interface EducationDAO {
 	
-	int validCategoryId(CategoryVO categoryVO);
+	public int validCategoryId(CategoryVO categoryVO);
 
 	public CostVO getEduCostByCdId(String cdId);
 
@@ -45,10 +45,10 @@ public interface EducationDAO {
 
 	public int insertEduTime(TimeVO time);
 
-	List<CategoryVO> getChildCategory(CategoryVO categoryVO);
+	public List<CategoryVO> getChildCategory(CategoryVO categoryVO);
 
-	int deleteCategory(CategoryVO categoryVO);
+	public int deleteCategory(CategoryVO categoryVO);
 
-	int modifyCategory(CategoryVO categoryVO);
+	public int modifyCategory(CategoryVO categoryVO);
 
 }

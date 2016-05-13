@@ -1,7 +1,6 @@
 package com.ktds.sems.education.dao.impl;
 
 import java.util.List;
-import java.util.Map;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 

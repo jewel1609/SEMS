@@ -8,7 +8,7 @@ import com.ktds.sems.education.vo.TimeVO;
 
 public interface EducationBiz {
 	
-	boolean validCategoryId(CategoryVO categoryVO);
+	public boolean validCategoryId(CategoryVO categoryVO);
 
 	public boolean modifyEduCost(CostVO cost);
 	
@@ -42,16 +42,10 @@ public interface EducationBiz {
 
 	public boolean insertEduTime(TimeVO time);
 
-	List<CategoryVO> getChildCategory(CategoryVO categoryVO);
+	public List<CategoryVO> getChildCategory(CategoryVO categoryVO);
 
 	boolean deleteCategory(CategoryVO categoryVO);
 
 	boolean modifyCategory(CategoryVO categoryVO);
 	
-	boolean deleteLargeCategory(CategoryVO categoryVO);
-	
-	boolean deleteMediumCategory(CategoryVO categoryVO);
-	
-	boolean deleteSmallCategory(CategoryVO categoryVO);
-
 }
