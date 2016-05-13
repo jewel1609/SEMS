@@ -43,7 +43,7 @@ public interface MemberService {
 	public String getPasswordById(String id);
 
 	public void checkValidationByEmail(String email, HttpServletResponse response);
-
+	
 	public void checkValidationByRepeatPassword(String password, String repeatPassword, HttpServletResponse response);
 
 	public void logout(HttpSession session);
@@ -56,7 +56,7 @@ public interface MemberService {
 
 	public ModelAndView loginForResign(String resignCode, String id);
 
-	public String doResign(MemberVO memberVO, Errors errors, HttpSession session, HttpServletRequest request, String resignCode);
+	public String doResign(MemberVO loginVO, Errors errors, String resignCode);
 
 	public ModelAndView registerStudent();
 
