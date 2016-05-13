@@ -1,6 +1,9 @@
 package com.ktds.sems.education.web;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.List;
 
@@ -10,6 +13,8 @@ import java.util.List;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.validation.BeanPropertyBindingResult;
@@ -55,7 +60,7 @@ public class EducationControllerTest {
 			
 			List<CostVO> costList = (List<CostVO>) view.getModelMap().get("costList");
 			assertNotNull(costList);
-			assertTrue(costList.size() > 0);
+			assertTrue(costList.size() >= 0);
 		}
 		else {
 			fail("view is null");
@@ -64,9 +69,14 @@ public class EducationControllerTest {
 	
 	@Test
 	public void deleteEduCostTest() {
-		String cdId = "CSTF";
+		MockHttpServletRequest request = new MockHttpServletRequest();
+		MockHttpServletResponse response = new MockHttpServletResponse();
+		request.setParameter("cdId", "TES1");
+		request.setParameter("cdNm", "TES1");
+
+		educationController.insertEduCost(request, response);
 		
-		ModelAndView view = educationController.deleteEduCost(cdId);
+		ModelAndView view = educationController.deleteEduCost("TES1");
 		assertNotNull(view);
 		
 		if ( view != null ) {
@@ -91,7 +101,7 @@ public class EducationControllerTest {
 			
 			List<TimeVO> timeList = (List<TimeVO>) view.getModelMap().get("timeList");
 			assertNotNull(timeList);
-			assertTrue(timeList.size() > 0);
+			assertTrue(timeList.size() >= 0);
 		}
 		else {
 			fail("view is null");
@@ -100,9 +110,14 @@ public class EducationControllerTest {
 	
 	@Test
 	public void deleteEduTimeTest() {
-		String cdId = "TIMD";
-		
-		ModelAndView view = educationController.deleteEduTime(cdId);
+		MockHttpServletRequest request = new MockHttpServletRequest();
+		MockHttpServletResponse response = new MockHttpServletResponse();
+		request.setParameter("cdId", "TES1");
+		request.setParameter("cdNm", "TES1");
+
+		educationController.insertEduTime(request, response);
+				
+		ModelAndView view = educationController.deleteEduTime("TES1");
 		assertNotNull(view);
 		
 		if ( view != null ) {
@@ -114,5 +129,7 @@ public class EducationControllerTest {
 			fail("view is null");
 		}
 	}
+	
+	
 
 }
