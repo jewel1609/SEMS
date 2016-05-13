@@ -91,7 +91,9 @@ public interface MemberBiz {
 
 	public void sendEmailForResign(String email, String id, String uuid);
 
-	public void doDeleteMember(String id);
+	public boolean doDeleteMember(String id);
+
+	public boolean doResign(MemberVO loginVO);
 
 	public boolean isVerifyPhoneNumber(String phoneNumber);
 
