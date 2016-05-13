@@ -1,6 +1,8 @@
 package com.ktds.sems.member.service;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
@@ -16,6 +18,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.member.vo.GrdtTpVO;
+import com.ktds.sems.member.vo.MbrTpVO;
 import com.ktds.sems.member.vo.MemberVO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -87,4 +90,50 @@ public class MemberServiceTest {
 		assertEquals(checkStr, "redirect:/grdtPage");
 		
 	}
+	
+	@Test
+	public void viewMbrTpPageTest(){
+		ModelAndView view = memberService.viewMbrTpPage();
+		assertNotNull(view.getViewName());
+		
+		if ( view != null) {
+			String viewName = view.getViewName();
+			assertNotNull(viewName);
+			assertEquals(viewName, "member/mbrTp");
+			
+			List<MemberVO> memberList = (List<MemberVO>) view.getModelMap().get("mbrTpVOList");
+			assertNotNull(memberList);
+			assertTrue(memberList.size() > 0);
+		}
+	}
+	@Test
+	public void doInsertMbrTpTest(){
+		MbrTpVO newMbrTpVO = new MbrTpVO();
+		newMbrTpVO.setCdId("JunitTestCdId");
+		newMbrTpVO.setCdNm("JunitTestCdNm");
+		
+		String checkStr = memberService.doGrdtModify(newMbrTpVO.getCdId(), newMbrTpVO.getCdNm());
+		assertNotNull(checkStr);
+	}
+	
+	@Test
+	public void doMbrTpModifyTest(){
+		MbrTpVO newMbrTpVO = new MbrTpVO();
+		newMbrTpVO.setCdId("JunitTestCdId");
+		newMbrTpVO.setCdNm("JunitTestCdNm");
+		
+		String checkStr = memberService.doMbrTpModify(newMbrTpVO.getCdId(), newMbrTpVO.getCdNm());
+		assertNotNull(checkStr);
+	}
+	@Test
+	public void doMbrTpDeleteTest(){
+		MbrTpVO mbrTpVO = new MbrTpVO();
+		mbrTpVO.setCdId("JunitTestCdId");
+		
+		String checkStr = memberService.doMbrTpDelete(mbrTpVO.getCdId());
+		assertNotNull(checkStr);
+		assertEquals(checkStr, "redirect:/mbrTpPage");
+		
+	}
+	
 }
