@@ -1,15 +1,10 @@
 package com.ktds.sems.member.vo;
 
-public class LoginHistorySearchVO {
+public class LoginHistorySearchVO extends LoginHistoryVO{
 	
 	private int pageNo;
 	private int startIndex;
 	private int endIndex;
-	
-	private String searchType;
-	private String searchKeyWord;
-	
-	private String memberId;
 	
 	private String beginDate;
 	private String closeDate;
@@ -36,30 +31,6 @@ public class LoginHistorySearchVO {
 
 	public void setEndIndex(int endIndex) {
 		this.endIndex = endIndex;
-	}
-
-	public String getSearchType() {
-		return searchType;
-	}
-
-	public void setSearchType(String searchType) {
-		this.searchType = searchType;
-	}
-
-	public String getSearchKeyWord() {
-		return searchKeyWord;
-	}
-
-	public void setSearchKeyWord(String searchKeyWord) {
-		this.searchKeyWord = searchKeyWord;
-	}
-
-	public String getMemberId() {
-		return memberId;
-	}
-
-	public void setMemberId(String memberId) {
-		this.memberId = memberId;
 	}
 
 	public String getBeginDate() {

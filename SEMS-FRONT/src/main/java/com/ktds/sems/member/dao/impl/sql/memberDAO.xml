@@ -240,7 +240,7 @@
 					FROM	(
 								SELECT	*
 								FROM	LGI_HTR
-								WHERE	MBR_ID = #{memberId}
+								WHERE	MBR_ID = #{id}
 								ORDER BY LGI_HTR_ID DESC
 							) LOGIN_HISTORY
 					WHERE	ROWNUM <![CDATA[<=]]> #{endIndex}

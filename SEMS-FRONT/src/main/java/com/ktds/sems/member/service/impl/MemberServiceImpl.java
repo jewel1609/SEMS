@@ -13,6 +13,8 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ktds.sems.common.HistorySearchStore;
+import com.ktds.sems.common.LoginStore;
 import com.ktds.sems.common.SendMail;
 import com.ktds.sems.common.Session;
 import com.ktds.sems.common.vo.MailVO;
@@ -456,61 +458,44 @@ public class MemberServiceImpl implements MemberService {
 	 */
 	@Override
 	public ModelAndView viewLoginHistoryPage(LoginHistorySearchVO loginHistorySearchVO, Errors errors, int pageNo,
-			HttpSession session, HttpServletRequest request) {
+			HttpSession session) {
 
 		ModelAndView view = new ModelAndView();
-		MemberVO memberVO = (MemberVO) session.getAttribute(Session.MEMBER);
+		LoginStore loginStore = LoginStore.getInstance();
+		HistorySearchStore searchStore = HistorySearchStore.getInstance();
+		searchStore.add(loginHistorySearchVO, session);
+		loginStore.add(loginHistorySearchVO.getId(), session);
 
-		// 검색
-
-		try {
-			pageNo = Integer.parseInt(request.getParameter("pageNo"));
-			loginHistorySearchVO.setSearchKeyWord(request.getParameter("searchKeyWord"));
-
-		} catch (RuntimeException re) {
-			session.setAttribute("_LOGIN_HISTORY_SEARCH_", loginHistorySearchVO);
-
-			if (loginHistorySearchVO == null) {
-				loginHistorySearchVO.setPageNo(0);
-				loginHistorySearchVO.setSearchKeyWord("");
-			}
-		}
-
-		session.setAttribute("_LOGIN_HISTORY_SEARCH_", loginHistorySearchVO);
-		
 		int totalLoginHistoryCount = 0;
 		List<LoginHistoryVO> loginHistoryList = null;
 
 		// 검색 세션 만들기
-		// 새로 검색될 경우
-		if (session.getAttribute(Session.LOGIN_HISTORY_SEARCH) == null) {
-			session.setAttribute("_LOGIN_HISTORY_SEARCH_", loginHistorySearchVO);
-			totalLoginHistoryCount = memberBiz.getTotalLoginHistoryCount(memberVO.getId());
+		if (searchStore.get(loginHistorySearchVO) == null) {
+			searchStore.add(loginHistorySearchVO, session);
+			totalLoginHistoryCount = memberBiz.getTotalLoginHistoryCount(loginStore.getMemberId(loginHistorySearchVO.getId()));
 		}
 		// 검색된 경우
-		else if (session.getAttribute(Session.LOGIN_HISTORY_SEARCH) != null) {
-			totalLoginHistoryCount = memberBiz.getTotalLoginHistoryCount(memberVO.getId());
+		else if (searchStore.get(loginHistorySearchVO) != null) {
+			totalLoginHistoryCount = memberBiz.getTotalLoginHistoryCount(loginStore.getMemberId(loginHistorySearchVO.getId()));
 		}
-		
-		
+
 		Paging paging = new Paging();
 		paging.setTotalArticleCount(totalLoginHistoryCount);
 		paging.setPageNumber(pageNo + "");
-		
+
 		loginHistorySearchVO.setStartIndex(paging.getStartArticleNumber());
 		loginHistorySearchVO.setEndIndex(paging.getEndArticleNumber());
-		loginHistorySearchVO.setMemberId(memberVO.getId());
-		
+		loginHistorySearchVO.setId(loginStore.getMemberId(loginHistorySearchVO.getId()));
 
-		if (session.getAttribute(Session.LOGIN_HISTORY_SEARCH) == null) {
-			session.setAttribute("_LOGIN_HISTORY_SEARCH_", loginHistorySearchVO);
+		if (searchStore.get(loginHistorySearchVO) == null) {
+			searchStore.add(loginHistorySearchVO, session);
 			loginHistoryList = memberBiz.getAllLoginHistory(loginHistorySearchVO);
 		}
 		// 검색된 경우
-		else if (session.getAttribute(Session.LOGIN_HISTORY_SEARCH) != null) {
+		else if (searchStore.get(loginHistorySearchVO) != null) {
 			loginHistoryList = memberBiz.getAllLoginHistory(loginHistorySearchVO);
 		}
-		
+
 		LoginHistoryListVO loginHistoryListVO = new LoginHistoryListVO();
 		loginHistoryListVO.setLoginHistoryList(loginHistoryList);
 		loginHistoryListVO.setPaging(paging);
