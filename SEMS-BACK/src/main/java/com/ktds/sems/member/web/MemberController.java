@@ -29,7 +29,7 @@ public class MemberController {
 	public ModelAndView viewAddMemberPage() {
 		
 		ModelAndView view = new ModelAndView();
-		view.setViewName("/memberManage/addMember");
+		view.setViewName("/member/addMemberPage");
 		
 		return view;
 	}
