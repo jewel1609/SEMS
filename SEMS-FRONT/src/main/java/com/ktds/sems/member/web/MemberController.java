@@ -53,8 +53,8 @@ public class MemberController {
 	}
 
 	@RequestMapping("/register/policy")
-	public String viewRegisterPage() {
-		return "member/registerPolicy";
+	public String viewRegisterPage(HttpSession session) {
+		return memberService.registerPolicy(session);
 	}
 
 	@RequestMapping("/register/student")
