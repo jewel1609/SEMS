@@ -43,7 +43,7 @@ public interface MemberDAO {
 
 	public int getTotalMemberHistoryCount();
 
-	public void massiveDeleteMember(String memberId);
+	public int massiveDeleteMember(String memberId);
 	
 	public MemberVO getMemberDetailById(String id);
 
@@ -60,6 +60,5 @@ public interface MemberDAO {
 	public List<String> getMemberTypeCodeNameList();
 
 	public String getMemberTypeCodeId(String memberType);
-
 
 }
