@@ -101,6 +101,45 @@
 		WHERE	LGI_HTR_ID = #{lgiHtrId}
 	</update>
 	
+	<select id="getTotalMemberCount">
+		SELECT 	COUNT(ID)
+		FROM	MBR
+	</select>
+	
+	<select id="getAllMemberList" parameterType="MemberSearchVO" resultType="MemberVO">
+		SELECT	MBR.ID id
+				, MBR.PWD password
+				, MBR.NM name
+				, MBR.EMAIL email
+				, MBR.HIGHEST_EDU_LV highestEducationLevel
+				, MBR.UNIV_NM universityName
+				, MBR.MJR_NM majorName
+				, MBR.GRDT_TP graduationType
+				, MBR.BRTH_DT birthDate
+				, MBR.PHONE_NMB phoneNumber
+				, MBR.MBR_TP memberType
+				, MBR.LGI_F_FC loginFailCount
+				, MBR.IS_ACC_LCK isAccountLock
+				, MBR.LATEST_LGI_DT latestLoginDate
+				, MBR.RSN_DT resignDate
+				, MBR.RSN isResign
+				, MBR.MDF_F_CT modifyFailCount
+				, MBR.IS_MDF_LCK isModifyLock
+		FROM	(
+					SELECT	ROWNUM AS RNUM
+							, MBR_INFO.*
+					FROM	(
+								SELECT	*
+								FROM	MBR
+								ORDER	BY ID DESC
+							) MBR_INFO
+					WHERE	ROWNUM <![CDATA[<=]]> #{endIndex}
+				) MBR
+		WHERE	RNUM >= #{startIndex}		
+	</select>
+	
+	
+	
 	<select id="isExistEmail" parameterType="string" resultType="string">
 		SELECT	ID
 		FROM	MBR

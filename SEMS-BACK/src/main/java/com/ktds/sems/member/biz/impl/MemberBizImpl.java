@@ -1,5 +1,7 @@
 package com.ktds.sems.member.biz.impl;
 
+import java.util.List;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -11,6 +13,7 @@ import com.ktds.sems.common.Session;
 import com.ktds.sems.member.biz.MemberBiz;
 import com.ktds.sems.member.dao.MemberDAO;
 import com.ktds.sems.member.vo.LoginHistoryVO;
+import com.ktds.sems.member.vo.MemberSearchVO;
 import com.ktds.sems.member.vo.MemberVO;
 
 import kr.co.hucloud.utilities.SHA256Util;
@@ -133,6 +136,16 @@ public class MemberBizImpl implements MemberBiz {
 		session.removeAttribute("_LOGIN_HISTORY_");
 		
 		return memberDAO.stampLogoutTime(newLoginHistoryVO) > 0;
+	}
+
+	@Override
+	public int getTotalMemberCount() {
+		return memberDAO.getTotalMemberCount();
+	}
+
+	@Override
+	public List<MemberVO> getAllMemberList(MemberSearchVO searchVO) {
+		return memberDAO.getAllMemberList(searchVO);
 	}
 
 	@Override

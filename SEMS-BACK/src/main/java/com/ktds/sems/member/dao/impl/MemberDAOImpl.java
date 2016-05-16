@@ -1,9 +1,12 @@
 package com.ktds.sems.member.dao.impl;
 
+import java.util.List;
+
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 
 import com.ktds.sems.member.dao.MemberDAO;
 import com.ktds.sems.member.vo.LoginHistoryVO;
+import com.ktds.sems.member.vo.MemberSearchVO;
 import com.ktds.sems.member.vo.MemberVO;
 
 public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
@@ -66,6 +69,16 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 	@Override
 	public int nextLoginHistorySeq() {
 		return getSqlSession().selectOne("MemberDAO.nextLoginHistorySeq");
+	}
+
+	@Override
+	public int getTotalMemberCount() {
+		return getSqlSession().selectOne("MemberDAO.getTotalMemberCount");
+	}
+
+	@Override
+	public List<MemberVO> getAllMemberList(MemberSearchVO searchVO) {
+		return getSqlSession().selectList("MemberDAO.getAllMemberList");
 	}
 
 	@Override

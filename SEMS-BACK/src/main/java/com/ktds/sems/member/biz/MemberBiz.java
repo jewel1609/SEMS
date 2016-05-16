@@ -1,8 +1,11 @@
 package com.ktds.sems.member.biz;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.ktds.sems.member.vo.MemberSearchVO;
 import com.ktds.sems.member.vo.MemberVO;
 
 public interface MemberBiz {
@@ -26,6 +29,10 @@ public interface MemberBiz {
 	public boolean stampLogoutTime(HttpSession session);
 
 	public boolean stampLoginTime(HttpSession session, HttpServletRequest request, MemberVO loginVO);
+
+	public int getTotalMemberCount();
+
+	public List<MemberVO> getAllMemberList(MemberSearchVO searchVO);
 
 	public boolean isVerifyId(String id);
 

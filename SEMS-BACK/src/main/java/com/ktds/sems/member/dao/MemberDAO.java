@@ -1,6 +1,9 @@
 package com.ktds.sems.member.dao;
 
+import java.util.List;
+
 import com.ktds.sems.member.vo.LoginHistoryVO;
+import com.ktds.sems.member.vo.MemberSearchVO;
 import com.ktds.sems.member.vo.MemberVO;
 
 public interface MemberDAO {
@@ -28,6 +31,10 @@ public interface MemberDAO {
 	public int nextLoginHistorySeq();
 
 	public int stampLogoutTime(LoginHistoryVO newLoginHistoryVO);
+
+	public int getTotalMemberCount();
+
+	public List<MemberVO> getAllMemberList(MemberSearchVO searchVO);
 
 	public String isExistEmail(String email);
 

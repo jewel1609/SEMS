@@ -1,5 +1,6 @@
 package com.ktds.sems.member.service.impl;
 
+import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -7,11 +8,16 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.validation.Errors;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.common.Session;
 import com.ktds.sems.member.biz.MemberBiz;
 import com.ktds.sems.member.service.MemberService;
+import com.ktds.sems.member.vo.MemberListVO;
+import com.ktds.sems.member.vo.MemberSearchVO;
 import com.ktds.sems.member.vo.MemberVO;
+
+import kr.co.hucloud.utilities.web.Paging;
 
 import kr.co.hucloud.utilities.web.AjaxUtil;
 
@@ -109,6 +115,32 @@ public class MemberServiceImpl implements MemberService{
 		
 		//로그아웃 stamp 찍기 위해서.. 
 		memberBiz.stampLogoutTime(session);
+	}
+
+	@Override
+	public ModelAndView getAllMemberList(int pageNo) {
+
+		MemberListVO memberListVO = new MemberListVO();
+		Paging paging = new Paging();
+		
+		memberListVO.setPaging(paging);
+		paging.setPageNumber(pageNo + "");
+		
+		int totalMemberCount = memberBiz.getTotalMemberCount();
+		
+		paging.setTotalArticleCount(totalMemberCount);
+		MemberSearchVO searchVO = new MemberSearchVO();
+		searchVO.setStartIndex(paging.getStartArticleNumber());
+		searchVO.setEndIndex(paging.getEndArticleNumber());
+		
+		List<MemberVO> memberList = memberBiz.getAllMemberList(searchVO);
+		memberListVO.setMemberList(memberList);
+		
+		ModelAndView view = new ModelAndView();
+		view.setViewName("member/memberListPage");
+		view.addObject("memberListVO", memberListVO);
+		
+		return view;
 	}
 
 	@Override
