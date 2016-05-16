@@ -1,6 +1,7 @@
 package com.ktds.sems.member.service;
 
 import static org.junit.Assert.assertNotNull;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -24,6 +25,8 @@ import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.member.vo.MenuManageVO;
 import com.ktds.sems.validator.member.MemberValidator;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = { "/applicationContext.xml", "/educationContext.xml", "/memberContext.xml", "/rootContext.xml"})
 public class MemberServiceTest extends SemsTestCase {
 
 	@Autowired
