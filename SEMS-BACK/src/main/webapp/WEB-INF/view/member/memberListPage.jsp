@@ -6,12 +6,45 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script type="text/javascript" src="<c:url value='/resources/js/jquery.min.js"'/>"></script>
+<script type="text/javascript">
+	$(document).ready(function () {
+		
+		$("#massiveSelectCheckBox").click(function () {
+			var isChecked = $(this).prop("checked");
+			$(".deleteMemberId").prop("checked", isChecked);
+		});
+		
+		$("#massiveDeleteBtn").click(function() {
+			var isChecked = false;
+			$(".deleteMemberId").each(function (index, data) {
+				if(data.checked){
+					isChecked = data.checked;
+				}
+			});
+			
+			if(!isChecked) {
+				alert("삭제할 대상을 선택하세요.")
+				return;
+			}
+			
+			if (confirm("정말 삭제하시겠습니까?")) {
+				var form = $("#searchForm");
+				form.attr("method", "post");
+				form.attr("action", "<c:url value="/doMassiveDeleteMember" />");
+				form.submit();
+			}
+		});
+	});
+</script>
 <title>MemberListPage</title>
 </head>
 <body>
 	<form name="searchForm" id="searchForm">
-		<table>
+		<table style="text-align:center">
 			<tr>
+				<th style="width: 15px">
+					<input type="checkbox" id="massiveSelectCheckBox" />
+				</th>
 				<th>아이디</th>
 				<th>비밀번호</th>
 				<th>이름</th>
@@ -33,6 +66,9 @@
 			</tr>
 			<c:forEach items="${ memberListVO.memberList }" var="member">
 				<tr>
+					<td>
+						<input class="deleteMemberId" name="deleteMemberId" value="${member.id}" type="checkbox"/>
+					</td>
 					<td>
 						<a href="<c:url value='/memberDetail/${member.id}'/>">${ member.id }</a>
 					</td>
@@ -58,7 +94,7 @@
 
 
 			<tr>
-				<td colspan="18" align="center">
+				<td colspan="19" align="center">
 					<c:if test="${ memberListVO ne null }">
 						${memberListVO.paging.getPagingList("pageNo", "[@]", "이전", "다음", "searchForm")}
 					</c:if> 
@@ -67,5 +103,8 @@
 
 		</table>
 	</form>
+	<div>
+		<span id="massiveDeleteBtn" style="cursor: pointer;">일괄삭제</span>
+	</div>
 </body>
 </html>
