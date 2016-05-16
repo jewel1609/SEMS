@@ -241,7 +241,7 @@ public class MemberServiceImpl implements MemberService{
 				view.setViewName("redirect:/memberManage/memberList");
 			}
 			else {
-				view.addObject("memberVO", memberVO);
+				view.addObject("member", memberVO);
 				view.setViewName("member/memberDetailPage");
 			}
 		}
