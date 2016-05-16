@@ -3,6 +3,7 @@ package com.ktds.sems.member.service.impl;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.validation.Errors;
@@ -11,6 +12,8 @@ import com.ktds.sems.common.Session;
 import com.ktds.sems.member.biz.MemberBiz;
 import com.ktds.sems.member.service.MemberService;
 import com.ktds.sems.member.vo.MemberVO;
+
+import kr.co.hucloud.utilities.web.AjaxUtil;
 
 public class MemberServiceImpl implements MemberService{
 
@@ -106,6 +109,76 @@ public class MemberServiceImpl implements MemberService{
 		
 		//로그아웃 stamp 찍기 위해서.. 
 		memberBiz.stampLogoutTime(session);
+	}
+
+	@Override
+	public void checkValidationById(String id, HttpServletResponse response) {
+		String message = "OK";
+		boolean isVerifyId = memberBiz.isVerifyId(id);
+		if (!isVerifyId) {
+			message = "NO";
+			AjaxUtil.sendResponse(response, message);
+			return;
+		}
+
+		boolean isExistId = memberBiz.isDuplicationId(id);
+		if (isExistId) {
+			message = "EXIST";
+		}
+		System.out.println(isExistId);
+		AjaxUtil.sendResponse(response, message);
+		return;
+	}
+
+	@Override
+	public void checkValidationByPassword(String password, HttpServletResponse response) {
+		String message = "NO";
+		boolean isVerifyPassword = memberBiz.isVerifyPassword(password);
+		if (isVerifyPassword) {
+			message = "OK";
+		}
+		AjaxUtil.sendResponse(response, message);
+		return;
+	}
+
+	@Override
+	public void checkValidationByRepeatPassword(String password, String repeatPassword, HttpServletResponse response) {
+		String message = "NO";
+		boolean isEquals = password.equals(repeatPassword);
+		if (isEquals) {
+			message = "OK";
+		}
+		AjaxUtil.sendResponse(response, message);
+		return;
+	}
+
+	@Override
+	public void checkValidationByEmail(String email, HttpServletResponse response) {
+		String message = "OK";
+		boolean isVerifyEmail = memberBiz.isVerifyEmail(email);
+		if (!isVerifyEmail) {
+			message = "NO";
+			AjaxUtil.sendResponse(response, message);
+			return;
+		}
+
+		boolean isExistEmail = memberBiz.isExistEmail(email);
+		if (isExistEmail) {
+			message = "EXIST";
+		}
+		AjaxUtil.sendResponse(response, message);
+		return;
+	}
+
+	@Override
+	public void checkValidationByPhoneNumber(String phoneNumber, HttpServletResponse response) {
+		String message = "NO";
+		boolean isVerifyPhoneNumber = memberBiz.isVerifyPhoneNumber(phoneNumber);
+		if (isVerifyPhoneNumber) {
+			message = "OK";
+		}
+		AjaxUtil.sendResponse(response, message);
+		return;
 	}
 
 }

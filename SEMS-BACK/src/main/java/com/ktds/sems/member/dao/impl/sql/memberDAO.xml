@@ -100,4 +100,11 @@
 		SET		LGO_DT = SYSDATE
 		WHERE	LGI_HTR_ID = #{lgiHtrId}
 	</update>
+	
+	<select id="isExistEmail" parameterType="string" resultType="string">
+		SELECT	ID
+		FROM	MBR
+		WHERE	EMAIL = #{email}
+	</select>
+	
 </mapper>

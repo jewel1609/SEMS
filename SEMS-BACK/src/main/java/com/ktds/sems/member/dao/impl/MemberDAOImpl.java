@@ -67,4 +67,11 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 	public int nextLoginHistorySeq() {
 		return getSqlSession().selectOne("MemberDAO.nextLoginHistorySeq");
 	}
+
+	@Override
+	public String isExistEmail(String email) {
+		return getSqlSession().selectOne("MemberDAO.isExistEmail", email);
+	}
+
+	
 }

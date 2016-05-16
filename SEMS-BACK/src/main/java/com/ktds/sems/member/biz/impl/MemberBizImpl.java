@@ -1,5 +1,8 @@
 package com.ktds.sems.member.biz.impl;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -130,6 +133,56 @@ public class MemberBizImpl implements MemberBiz {
 		session.removeAttribute("_LOGIN_HISTORY_");
 		
 		return memberDAO.stampLogoutTime(newLoginHistoryVO) > 0;
+	}
+
+	@Override
+	public boolean isVerifyId(String id) {
+		String idPolicy = "((?=.*[a-zA-Z])(?=.*[0-9]).{5,20})";
+		Pattern pattern = Pattern.compile(idPolicy);
+		Matcher matcher = pattern.matcher(id);
+		return matcher.matches();
+	}
+
+	@Override
+	public boolean isDuplicationId(String id) {
+		
+		String memberId = memberDAO.isExistId(id);
+
+		if (memberId != null) {
+			return true;
+		} 
+		else {
+			return false;
+		}
+	}
+
+	@Override
+	public boolean isVerifyPassword(String password) {
+		String passwordPolicy = "((?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*()]).{10,20})";
+		Pattern pattern = Pattern.compile(passwordPolicy);
+		Matcher matcher = pattern.matcher(password);
+		return matcher.matches();
+	}
+
+	@Override
+	public boolean isVerifyEmail(String email) {
+		String emailPolicy = "(^[a-z\\d][\\w\\d\\_\\.-]+@[a-z\\d][\\w\\d-]+[\\.][a-z\\.]{2,8}$)";
+		Pattern pattern = Pattern.compile(emailPolicy);
+		Matcher matcher = pattern.matcher(email);
+		return matcher.matches();
+	}
+
+	@Override
+	public boolean isExistEmail(String email) {
+		return memberDAO.isExistEmail(email) != null;
+	}
+
+	@Override
+	public boolean isVerifyPhoneNumber(String phoneNumber) {
+		String phoneNumberPolicy = "(^?0([0-9]){1,2}-?([0-9]{3,4})-?([0-9]{4})$)";
+		Pattern pattern = Pattern.compile(phoneNumberPolicy);
+		Matcher matcher = pattern.matcher(phoneNumber);
+		return matcher.matches();
 	}
 	
 }

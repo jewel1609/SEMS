@@ -1,7 +1,10 @@
 package com.ktds.sems.member.web;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.member.service.MemberService;
@@ -32,6 +35,32 @@ public class MemberController {
 		view.setViewName("/member/addMemberPage");
 		
 		return view;
+	}
+	
+	@RequestMapping("/checkValidationById")
+	public void checkValidationById(@RequestParam String id, HttpServletResponse response) {
+		memberService.checkValidationById(id, response);
+	}
+	
+	@RequestMapping("/checkValidationByPassword")
+	public void checkValidationByPassword(@RequestParam String password, HttpServletResponse response) {
+		memberService.checkValidationByPassword(password, response);
+	}
+	
+	@RequestMapping("/checkValidationByRepeatPassword")
+	public void checkValidationByRepeatPassword(@RequestParam String password, @RequestParam String repeatPassword,
+			HttpServletResponse response) {
+		memberService.checkValidationByRepeatPassword(password, repeatPassword, response);
+	}
+	
+	@RequestMapping("/checkValidationByEmail")
+	public void checkValidationByEmail(@RequestParam String email, HttpServletResponse response) {
+		memberService.checkValidationByEmail(email, response);
+	}
+	
+	@RequestMapping("/checkValidationByPhoneNumber")
+	public void checkValidationByPhoneNumber(@RequestParam String phoneNumber, HttpServletResponse response) {
+		memberService.checkValidationByPhoneNumber(phoneNumber, response);
 	}
 	
 }

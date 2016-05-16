@@ -29,5 +29,7 @@ public interface MemberDAO {
 
 	public int stampLogoutTime(LoginHistoryVO newLoginHistoryVO);
 
+	public String isExistEmail(String email);
+
 
 }
