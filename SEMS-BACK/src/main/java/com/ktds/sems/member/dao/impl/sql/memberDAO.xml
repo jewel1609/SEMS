@@ -144,12 +144,40 @@
 		AND		RNUM >= #{startIndex}		
 	</select>
 	
-	
-	
 	<select id="isExistEmail" parameterType="string" resultType="string">
 		SELECT	ID
 		FROM	MBR
 		WHERE	EMAIL = #{email}
+	</select>
+	
+	<select id="getMemberDetailById" parameterType="string" resultType="MemberVO">
+		SELECT	ID id
+				, PWD password
+				, NM name
+				, EMAIL email
+				, HIGHEST_EDU_LV.CD_NM highestEducationLevel
+				, UNIV_NM universityName
+				, MJR_NM majorName
+				, GRDT_TP.CD_NM graduationType
+				, BRTH_DT birthDate
+				, PHONE_NMB phoneNumber
+				, MBR_TP.CD_NM memberType
+				, SALT salt
+				, LGI_F_CT loginFailCount
+				, IS_ACC_LCK isAccountLock
+				, LATEST_LGI_DT latestLoginDate
+				, RSN_DT resignDate
+				, RSN isResign
+				, MDF_F_CT modifyFailCount
+				, IS_MDF_LCK isModifyLock
+		FROM	MBR
+				, HIGHEST_EDU_LV
+				, GRDT_TP
+				, MBR_TP
+		WHERE	MBR.HIGHEST_EDU_LV = HIGHEST_EDU_LV.CD_ID
+		AND		MBR.GRDT_TP = GRDT_TP.CD_ID
+		AND		MBR.MBR_TP = MBR_TP.CD_ID
+		AND		ID = #{id}
 	</select>
 	
 	<select id="getHighestEducationLevelCodeNames" resultType="string">
