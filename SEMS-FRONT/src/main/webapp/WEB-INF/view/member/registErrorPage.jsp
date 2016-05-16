@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script type="text/javascript" src="<c:url value="/resources/js/jquery.min.js" />"></script>
 <style type="text/css">
 .inputButton {
 	border:none;
@@ -26,7 +27,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-유효한 접근이 아닙니다.
+유효한 접근이 아닙니다.<br />
 <input id="homeButton" class="inputButton" type="button" value="홈으로 돌아가기"/>
 </body>
 </html>
