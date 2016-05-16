@@ -272,8 +272,8 @@ public class MemberBizImpl implements MemberBiz {
 	}
 
 	@Override
-	public int getTotalLoginHistoryCount(String memberId) {
-		return memberDAO.getTotalLoginHistoryCount(memberId);
+	public int getTotalLoginHistoryCount(LoginHistorySearchVO loginHistorySearchVO) {
+		return memberDAO.getTotalLoginHistoryCount(loginHistorySearchVO);
 	}
 
 	@Override

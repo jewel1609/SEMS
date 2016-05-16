@@ -107,8 +107,8 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 	}
 
 	@Override
-	public int getTotalLoginHistoryCount(String memberId) {
-		return getSqlSession().selectOne("MemberDAO.getTotalLoginHistoryCount", memberId);
+	public int getTotalLoginHistoryCount(LoginHistorySearchVO loginHistorySearchVO) {
+		return getSqlSession().selectOne("MemberDAO.getTotalLoginHistoryCount", loginHistorySearchVO);
 	}
 
 	@Override

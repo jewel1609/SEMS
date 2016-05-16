@@ -12,8 +12,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.ktds.sems.common.HistorySearchStore;
-import com.ktds.sems.common.LoginStore;
 import com.ktds.sems.common.SendMail;
 import com.ktds.sems.common.Session;
 import com.ktds.sems.common.vo.MailVO;
@@ -446,61 +444,31 @@ public class MemberServiceImpl implements MemberService {
 	 * 
 	 */
 	@Override
-	public ModelAndView viewLoginHistoryPage(LoginHistorySearchVO loginHistorySearchVO, Errors errors, int pageNo,
+	public ModelAndView viewLoginHistoryPage(LoginHistorySearchVO loginHistorySearchVO, int pageNo,
 			HttpSession session) {
 
 		ModelAndView view = new ModelAndView();
-		LoginStore loginStore = LoginStore.getInstance();
-		HistorySearchStore searchStore = HistorySearchStore.getInstance();
-		loginStore.add(loginHistorySearchVO.getId(), session);
-
-//		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
-//
-//		String beginDate = dateFormat.format(loginHistorySearchVO.getBeginDate());
-//		String closeDate = dateFormat.format(loginHistorySearchVO.getCloseDate());
-//
-//		if (beginDate.compareTo(closeDate) > 0) {
-//			loginHistorySearchVO.setBeginDate(loginHistorySearchVO.getBeginDate());
-//			loginHistorySearchVO.setCloseDate(loginHistorySearchVO.getCloseDate());
-//		} else if ( beginDate.compareTo(closeDate) < 0){
-//			beginDate = null;
-//			closeDate = null;
-//			loginHistorySearchVO.setBeginDate(beginDate);
-//			loginHistorySearchVO.setCloseDate(closeDate);
-//		}
 		
 		int totalLoginHistoryCount = 0;
 		List<LoginHistoryVO> loginHistoryList = null;
-
-		// 검색 세션 만들기
-		if (searchStore.get(loginHistorySearchVO) == null) {
-			searchStore.add(loginHistorySearchVO, session);
-			totalLoginHistoryCount = memberBiz
-					.getTotalLoginHistoryCount(loginStore.getMemberId(loginHistorySearchVO.getId()));
-		}
-		// 검색된 경우
-		else if (searchStore.get(loginHistorySearchVO) != null) {
-			totalLoginHistoryCount = memberBiz
-					.getTotalLoginHistoryCount(loginStore.getMemberId(loginHistorySearchVO.getId()));
-		}
-
+		
+		MemberVO memberVO = (MemberVO) session.getAttribute("_MEMBER_");
+		
+		loginHistorySearchVO.setId(memberVO.getId());
+		
+		
+		totalLoginHistoryCount = memberBiz.getTotalLoginHistoryCount(loginHistorySearchVO);
+		
+		
 		Paging paging = new Paging();
 		paging.setTotalArticleCount(totalLoginHistoryCount);
 		paging.setPageNumber(pageNo + "");
 
 		loginHistorySearchVO.setStartIndex(paging.getStartArticleNumber());
 		loginHistorySearchVO.setEndIndex(paging.getEndArticleNumber());
-		loginHistorySearchVO.setId(loginStore.getMemberId(loginHistorySearchVO.getId()));
 
-		if (searchStore.get(loginHistorySearchVO) == null) {
-			searchStore.add(loginHistorySearchVO, session);
-			loginHistoryList = memberBiz.getAllLoginHistory(loginHistorySearchVO);
-		}
-		// 검색된 경우
-		else if (searchStore.get(loginHistorySearchVO) != null) {
-			loginHistoryList = memberBiz.getAllLoginHistory(loginHistorySearchVO);
-		}
-
+		loginHistoryList = memberBiz.getAllLoginHistory(loginHistorySearchVO);
+		
 		LoginHistoryListVO loginHistoryListVO = new LoginHistoryListVO();
 		loginHistoryListVO.setLoginHistoryList(loginHistoryList);
 		loginHistoryListVO.setPaging(paging);
@@ -508,7 +476,7 @@ public class MemberServiceImpl implements MemberService {
 		view.setViewName("member/loginHistory");
 		view.addObject("loginHistoryListVO", loginHistoryListVO);
 		view.addObject("loginHistorySearchVO", loginHistorySearchVO);
-
+		
 		return view;
 	}
 
@@ -736,6 +704,20 @@ public class MemberServiceImpl implements MemberService {
 		else {
 			return "member/registerPolicy";
 		}
+	}
+
+	@Override
+	public ModelAndView loginHistoryInit() {
+		ModelAndView view = new ModelAndView();
+		
+		LoginHistorySearchVO loginHistorySearchVO = new LoginHistorySearchVO();
+		loginHistorySearchVO.setBeginDate(null);
+		loginHistorySearchVO.setCloseDate(null);
+		
+		view.addObject("loginHistorySearchVO", loginHistorySearchVO);
+		view.setViewName("redirect:/member/loginHistory");
+		
+		return view;
 	}
 
 	@Override

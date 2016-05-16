@@ -32,7 +32,7 @@ public interface MemberService {
 
 	public boolean isModifyAccountLock(String sessionId);
 
-	public ModelAndView viewLoginHistoryPage(LoginHistorySearchVO loginHistorySearchVO, Errors errors, int pageNo, HttpSession session);
+	public ModelAndView viewLoginHistoryPage(LoginHistorySearchVO loginHistorySearchVO, int pageNo, HttpSession session);
 
 	public ModelAndView saveLoginHistoryAsExcel(HttpSession session);
 
@@ -71,6 +71,8 @@ public interface MemberService {
 	public ModelAndView getAllEducationHistoryList(int pageNo, HttpSession session);
 
 	public String registerPolicy(HttpSession session);
+
+	public ModelAndView loginHistoryInit();
 
 	public ModelAndView doRequestIpHistory(int lgiHtrId, HttpSession session);
 

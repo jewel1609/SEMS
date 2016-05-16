@@ -41,7 +41,7 @@ public class MemberServiceTest extends SemsTestCase {
 	public void loginTest() {
 
 		MemberVO memberVO = new MemberVO();
-		memberVO.setId("cocomo");
+		memberVO.setId("cocomo12");
 		memberVO.setPassword("123qwe!@#qwe");
 		
 		BindingResult errors = new BeanPropertyBindingResult(memberVO, "loginForm");

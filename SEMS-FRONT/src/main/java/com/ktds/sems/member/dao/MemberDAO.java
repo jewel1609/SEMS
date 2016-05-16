@@ -48,7 +48,7 @@ public interface MemberDAO {
 
 	public List<LoginHistoryVO> saveLoginHistoryAsExcel(String memberId);
 
-	public int getTotalLoginHistoryCount(String memberId);
+	public int getTotalLoginHistoryCount(LoginHistorySearchVO loginHistorySearchVO);
 
 	public List<EducationVO> getEduListByMember(MemberVO loginVO);
 

@@ -223,10 +223,14 @@
 		WHERE	ID = #{id}
 		AND		(SYSDATE - LATEST_LGI_DT) >= 30
 	</select>
-	<select id="getTotalLoginHistoryCount" parameterType="string" resultType="_int">
+	<select id="getTotalLoginHistoryCount" parameterType="LoginHistorySearchVO" resultType="_int">
 		SELECT	COUNT(LGI_HTR_ID)
 		FROM	LGI_HTR
 		WHERE	MBR_ID = #{id}
+		<if test="beginDate != null and beginDate != '' ">
+		AND		LGI_DT <![CDATA[>=]]> TO_DATE(#{beginDate}, 'YYYY-MM-DD')		
+		AND		LGI_DT <![CDATA[<=]]> TO_DATE(#{closeDate}, 'YYYY-MM-DD')
+		</if>
 	</select>
 	<select id="getAllLoginHistory" parameterType="LoginHistorySearchVO" resultType="LoginHistoryVO">
 		SELECT	LGI_HTR_ID lgiHtrId
@@ -241,6 +245,10 @@
 								SELECT	*
 								FROM	LGI_HTR
 								WHERE	MBR_ID = #{id}
+								<if test="beginDate != null and beginDate != '' ">
+								AND		LGI_DT <![CDATA[>=]]> TO_DATE(#{beginDate}, 'YYYY-MM-DD')		
+								AND		LGI_DT <![CDATA[<=]]> TO_DATE(#{closeDate}, 'YYYY-MM-DD')
+								</if>								
 								ORDER BY LGI_HTR_ID DESC
 							) LOGIN_HISTORY
 					WHERE	ROWNUM <![CDATA[<=]]> #{endIndex}
