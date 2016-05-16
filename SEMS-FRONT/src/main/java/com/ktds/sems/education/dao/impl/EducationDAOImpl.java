@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import com.ktds.sems.education.dao.EducationDAO;
 import com.ktds.sems.education.vo.EducationSearchVO;
 import com.ktds.sems.education.vo.EducationVO;
+import com.ktds.sems.education.vo.QNASearchVO;
 import com.ktds.sems.education.vo.QNAVO;
 
 import ch.qos.logback.core.net.SyslogOutputStream;
@@ -138,6 +139,22 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 	@Override
 	public String doTransTypeId(String educationType) {
 		return getSqlSession().selectOne("EducationDAO.doTransTypeId", educationType);
+	}
+
+	/**
+	 * @author 206-025 이기연
+	 */
+	@Override
+	public int getTotalQNACount(String memberId) {
+		return getSqlSession().selectOne("EducationDAO.getTotalQNACount", memberId);
+	}
+
+	/**
+	 * @author 206-025 이기연
+	 */
+	@Override
+	public List<QNAVO> getAllQNAList(QNASearchVO qnaSearchVO) {
+		return getSqlSession().selectList("EducationDAO.getAllQNAList", qnaSearchVO);
 	}
 
 
