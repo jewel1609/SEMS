@@ -6,7 +6,7 @@ public class EducationHistoryVO {
 	private String startDate;
 	private String endDate;
 	private String educationName;
-	private String eduationLocation;
+	private String educationLocation;
 	
 	public String getId() {
 		return id;
@@ -33,10 +33,10 @@ public class EducationHistoryVO {
 		this.educationName = educationName;
 	}
 	public String getEduationLocation() {
-		return eduationLocation;
+		return educationLocation;
 	}
-	public void setEduationLocation(String eduationLocation) {
-		this.eduationLocation = eduationLocation;
+	public void setEduationLocation(String educationLocation) {
+		this.educationLocation = educationLocation;
 	}
 
 }

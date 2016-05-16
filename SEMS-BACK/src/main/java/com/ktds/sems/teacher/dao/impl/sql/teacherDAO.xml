@@ -3,5 +3,51 @@
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="TeacherDAO">
+
+	<select id="getTeacherInfo" parameterType="string" resultType="TeacherVO">
+		SELECT	T.ID id
+				, T.COMP_NM companyName
+				, T.BUIS_NMB businessNumber
+				, T.ANNUAL annual
+				, M.NM name
+				, M.PHONE_NMB phoneNumber
+		FROM	TEAC_INFO F
+				, MBR M
+		WHERE	M.ID = T.ID
+		AND		M.ID = #{ memberId }
+	</select>
+	
+	<select id="getTeacherEducationHistory" parameterType="string" resultType="EducationHistoryVO">
+		SELECT	ID id
+				, STR_DATE startDate
+				, END_DATE endDate
+				, EDU_NM educationName
+				, EDU_LOC educationLocation
+		FROM	EDU_HTR
+		WHERE	ID = #{ memberId }
+	</select>
+	
+	<select id="getTeacherProjectHistory" parameterType="string" resultType="ProjectHistoryVO">
+		SELECT	ID
+				, STR_DATE
+				, END_DATE
+				, PROJ_NM
+				, PROJ_LOC
+		FROM	PROJ_HTR
+		WHERE	ID = #{ memberId }
+	</select>
+	
+	<select id="getTeacherBook" parameterType="string" resultType="TeacherBookVO">
+		SELECT	ID id
+				, BOOK_NM bookName
+				, BOOK_COMP bookCompany
+		FROM	TEAC_BOOK
+		WHERE	ID = #{ memberId }
+	</select>
+	
+	<select id="getTeacherEducationGrade" parameterType="string" resultType="_double">
+		SELECT	1
+		FROM	DUAL
+	</select>
 	
 </mapper>

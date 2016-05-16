@@ -1,18 +1,13 @@
 package com.ktds.sems.teacher.vo;
 
-public class TeacherVO {
+import com.ktds.sems.member.vo.MemberVO;
 
-	private String id;
+public class TeacherVO extends MemberVO{
+
 	private String companyName;
 	private String businessNumber;
 	private int annual;
 	
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
-	}
 	public String getCompanyName() {
 		return companyName;
 	}
