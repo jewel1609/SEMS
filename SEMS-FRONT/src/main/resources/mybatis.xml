@@ -9,6 +9,7 @@
 		<typeAlias type="com.ktds.sems.education.vo.EducationVO" alias="EducationVO"/>
 		<typeAlias type="com.ktds.sems.education.vo.EducationSearchVO" alias="EducationSearchVO"/>
 		<typeAlias type="com.ktds.sems.education.vo.QNAVO" alias="QNAVO"/>
+		<typeAlias type="com.ktds.sems.education.vo.QNASearchVO" alias="QNASearchVO"/>
 		<typeAlias type="com.ktds.sems.member.vo.AttendVO" alias="AttendVO"/>
 		<typeAlias type="com.ktds.sems.member.vo.LoginHistorySearchVO" alias="LoginHistorySearchVO"/>
 		<typeAlias type="com.ktds.sems.member.vo.GraduationTypeVO" alias="GraduationTypeVO"/>
