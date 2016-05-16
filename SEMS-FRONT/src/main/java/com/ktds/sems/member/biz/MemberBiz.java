@@ -108,7 +108,7 @@ public interface MemberBiz {
 
 	public int getTotalEducationHistoryCountById(String id);
 
-	public List<EducationHistoryVO> getAllEducationHistoryList(EducationHistorySearchVO educationHistorySearchVO);
+	public List<EducationHistoryVO> getAllEducationHistoryListById(EducationHistorySearchVO educationHistorySearchVO);
 
 	public boolean doMatchHistoryWithMember(LoginHistoryVO loginHistoryVO);
 

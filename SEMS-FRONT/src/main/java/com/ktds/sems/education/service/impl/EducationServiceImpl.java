@@ -348,6 +348,7 @@ public class EducationServiceImpl implements EducationService {
 		
 		// 질문 qna
 		view.addObject("qnaVO", qnaVO);
+		
 		// 답변 qna
 		view.addObject("qnaAnswerVO", qnaAnswerVO);
 		return view;

@@ -440,12 +440,27 @@
 		WHERE	MBR_ID = #{id}
 	</select>
 	
-	<!-- 
-	<select id="getAllEducationHistoryList" parameterType="EducationHistorySearchVO" resultType="EducationHistoryVO">
-		SELECT	
-		FROM	
-		WHERE	
+	<select id="getAllEducationHistoryListById" parameterType="EducationHistorySearchVO" resultType="EducationHistoryVO">
+		SELECT	EDU_HTR_ID educationHistoryId
+				, EDU_ID educationId
+				, MBR_ID memberId
+				, EDU_HTR_DT educationHistoryDate
+				, STAT state
+				, IP ip
+				, CMNT comment
+				, FDBK feedback
+		FROM	(
+					SELECT	ROWNUM AS RNUM
+							, EDUCATION_HISTORY.*
+					FROM	(
+								SELECT	*
+								FROM	EDU_HTR
+								WHERE	MBR_ID = #{memberId}
+								ORDER BY EDU_HTR_ID DESC
+							) EDUCATION_HISTORY
+					WHERE	ROWNUM <![CDATA[<=]]> #{endIndex}
+				)
+		WHERE	RNUM <![CDATA[>=]]> #{startIndex}
 	</select>
-	 -->
 	
 </mapper>

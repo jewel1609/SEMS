@@ -529,8 +529,8 @@ public class MemberBizImpl implements MemberBiz {
 	}
 
 	@Override
-	public List<EducationHistoryVO> getAllEducationHistoryList(EducationHistorySearchVO educationHistorySearchVO) {
-		return memberDAO.getAllEducationHistoryList(educationHistorySearchVO);
+	public List<EducationHistoryVO> getAllEducationHistoryListById(EducationHistorySearchVO educationHistorySearchVO) {
+		return memberDAO.getAllEducationHistoryListById(educationHistorySearchVO);
 	}
 
 	@Override

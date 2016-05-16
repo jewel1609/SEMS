@@ -270,7 +270,7 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 	}
 
 	@Override
-	public List<EducationHistoryVO> getAllEducationHistoryList(EducationHistorySearchVO educationHistorySearchVO) {
+	public List<EducationHistoryVO> getAllEducationHistoryListById(EducationHistorySearchVO educationHistorySearchVO) {
 		return getSqlSession().selectList("MemberDAO.getAllEducationHistoryList", educationHistorySearchVO);
 	}
 

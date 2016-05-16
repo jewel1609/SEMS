@@ -685,8 +685,9 @@ public class MemberServiceImpl implements MemberService {
 		educationHistorySearchVO.setPageNo(pageNo);
 		educationHistorySearchVO.setStartIndex(paging.getStartArticleNumber());
 		educationHistorySearchVO.setEndIndex(paging.getEndArticleNumber());
+		educationHistorySearchVO.setMemberId(memberVO.getId());
 		
-		List<EducationHistoryVO> educationHistoryList = memberBiz.getAllEducationHistoryList(educationHistorySearchVO);
+		List<EducationHistoryVO> educationHistoryList = memberBiz.getAllEducationHistoryListById(educationHistorySearchVO);
 		ModelAndView view = new ModelAndView();
 		view.setViewName("education/educationHistory");
 		view.addObject("educationHistoryList", educationHistoryList);
