@@ -7,8 +7,17 @@ public class EducationHistoryVO extends EducationVO {
 	private String memberId;
 	private String educationHistoryDate;
 	private String state;
+	private String ip;
 	private String comment;
 	private String feedback;
+
+	public String getIp() {
+		return ip;
+	}
+
+	public void setIp(String ip) {
+		this.ip = ip;
+	}
 
 	public String getEducationHistoryId() {
 		return educationHistoryId;

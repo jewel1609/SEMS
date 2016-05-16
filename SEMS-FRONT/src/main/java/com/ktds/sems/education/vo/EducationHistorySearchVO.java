@@ -5,6 +5,7 @@ public class EducationHistorySearchVO {
 	private int pageNo;
 	private int startIndex;
 	private int endIndex;
+	private String memberId;
 
 	public int getPageNo() {
 		return pageNo;
@@ -28,6 +29,14 @@ public class EducationHistorySearchVO {
 
 	public void setEndIndex(int endIndex) {
 		this.endIndex = endIndex;
+	}
+
+	public String getMemberId() {
+		return memberId;
+	}
+
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
 	}
 
 }
