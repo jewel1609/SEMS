@@ -3,14 +3,19 @@ package com.ktds.sems.member.dao.impl;
 import java.util.List;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.ktds.sems.member.dao.MemberDAO;
+import com.ktds.sems.member.service.impl.MemberServiceImpl;
 import com.ktds.sems.member.vo.LoginHistoryVO;
 import com.ktds.sems.member.vo.MemberSearchVO;
 import com.ktds.sems.member.vo.MemberVO;
 
 public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 
+	private Logger logger = LoggerFactory.getLogger(MemberDAOImpl.class);
+	
 	@Override
 	public String isExistId(String id) {
 		return getSqlSession().selectOne("MemberDAO.isExistId", id);
@@ -78,7 +83,8 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 
 	@Override
 	public List<MemberVO> getAllMemberList(MemberSearchVO searchVO) {
-		return getSqlSession().selectList("MemberDAO.getAllMemberList");
+		logger.info("DAO : " + searchVO.getEndIndex());
+		return getSqlSession().selectList("MemberDAO.getAllMemberList", searchVO);
 	}
 
 	@Override
