@@ -16,6 +16,7 @@
 <body>
 	
 	<a href="<c:url value="/memberManage/addMember"/>">등록</a> <br/>
+	<a href="<c:url value="/memberManage/memberList"/>">조회</a> <br/>
 	
 </body>
 </html>
