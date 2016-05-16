@@ -161,18 +161,6 @@
 		
 		$("#registerButton").click( function () {
 			
-/* 			var universityName = $("#universityName").val();
-			if (universityName == "") {
-				$("#messageByUniversityName").html("학교를 입력하세요.");
-				return;
-			}
-			
-			var majorName = $("#majorName").val();
-			if (majorName == "") {
-				$("#messageByMajorName").html("학과를 입력하세요.");
-				return;
-			} */
-			
 			if(isCheckedId == false) {
 				alert("아이디를 확인해주세요.");
 				return;
