@@ -17,12 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.member.service.MemberService;
 import com.ktds.sems.member.vo.LoginHistorySearchVO;
 import com.ktds.sems.member.vo.LoginHistoryVO;
-import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.member.vo.MemberVO;
 
 import kr.co.hucloud.utilities.web.AjaxUtil;
@@ -120,6 +118,7 @@ public class MemberController {
 	public ModelAndView viewMemberDetailPage(@PathVariable String id) {
 		return memberService.getMemberDetailById(id);
 	}	
+	
 
 	@RequestMapping(value = "/doRegisterAction", method = RequestMethod.POST)
 	public ModelAndView registerNewMember(@Valid MemberVO member, Errors errors, HttpSession session) {
@@ -133,6 +132,11 @@ public class MemberController {
 			logger.info("Controller로 넘어온 ID : " + string);
 		}
 		return memberService.massiveDeleteMember(deleteMemberIds);
+	}
+	
+	@RequestMapping("/memberDelete/{id}")
+	public ModelAndView memberDeleteById(@PathVariable String id) {
+		return memberService.memberDeleteById(id);
 	}
 	
 }
