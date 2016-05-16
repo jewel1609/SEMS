@@ -277,4 +277,36 @@
 		FROM	EDU_TIME
 		WHERE   CD_NM = #{educationType}
 	</select>
+	
+	<select id="getTotalQNACount" parameterType="string" resultType="_int">
+		SELECT	COUNT(REPLY_ID)
+		FROM	QNA
+		WHERE	MBR_ID = #{memberId}
+		AND		PARENT_REPLY_ID = 0
+	</select>
+	
+	<select id="getAllQNAList" parameterType="QNASearchVO" resultType="QNAVO">
+		SELECT	QNA.REPLY_ID replyId
+				, QNA.EDU_ID eduId
+				, QNA.PARENT_REPLY_ID parentReplyId
+				, QNA.ORDER_NO orderNo
+				, QNA.DESCRIPTION description
+				, QNA.MBR_ID mbrId
+				, QNA.LIKE_CNT likeCnt
+				, QNA.DISLIKT_CNT dislikeCnt
+				, QNA.CREATED_DATE createdDate
+		FROM	(
+					SELECT	ROWNUM AS RNUM
+							, QNA.*
+					FROM	(
+								SELECT	*
+								FROM	QNA
+								WHERE	MBR_ID = #{id}
+								AND		PARENT_REPLY_ID = 0
+								ORDER	BY REPLY_ID DESC
+							) QNA
+					WHERE	ROWNUM <![CDATA[<=]]> #{endIndex}
+				) 
+		WHERE	RNUM <![CDATA[>=]]> #{startIndex}
+	</select>
 </mapper>
