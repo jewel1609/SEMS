@@ -11,11 +11,13 @@
 		<typeAlias type="com.ktds.sems.education.vo.EducationTypeVO" alias="EducationTypeVO"/>
 		<typeAlias type="com.ktds.sems.education.vo.CategoryVO" alias="CategoryVO"/>
 		<typeAlias type="com.ktds.sems.member.vo.MemberVO" alias="MemberVO"/>
+		<typeAlias type="com.ktds.sems.cooperation.vo.CooperationVO" alias="CooperationVO"/>
 	</typeAliases>
 
 	<mappers>
 		<mapper resource="/com/ktds/sems/education/dao/impl/sql/educationDAO.xml" />
 		<mapper resource="/com/ktds/sems/file/dao/impl/sql/fileDAO.xml"/>
 		<mapper resource="/com/ktds/sems/member/dao/impl/sql/memberDAO.xml"/>
+		<mapper resource="/com/ktds/sems/cooperation/dao/impl/sql/cooperationDAO.xml"/>
 	</mappers>
 </configuration>
