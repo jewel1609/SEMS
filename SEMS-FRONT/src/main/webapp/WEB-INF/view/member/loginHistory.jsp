@@ -62,10 +62,7 @@
 				<td>${loginHistory.lgiIp}</td>
 				<td>${loginHistory.lgiDt}</td>
 				<td>${loginHistory.lgoDt}</td>
-				<form:form commandName=""  method="" id="IPDemandForm">
-					<td><input type="button" id="demand" name="demand"
-						value="요청하기" /></td>
-				</form:form>
+				<td></td>
 			</tr>
 		</c:forEach>
 	</table>
@@ -76,11 +73,11 @@
 
 	<form:form commandName="loginHistorySearchVO" method="post" id="loginHistorySearchForm">
 		<div align="center" style="margin-top: 150px;">
-			<input type="datetime-local" name="beginDate" id="beginDate"
-				value="${loginHistorySearchVO.beginDate}" /> <input
-				type="datetime-local" name="closeDate" id="closeDate"
-				value="${loginHistorySearchVO.closeDate}" /> <input type="submit"
-				name="searchBtn" name="searchBtn" value="검색" />
+			<input type="date" name="beginDate" id="beginDate" value="${loginHistorySearchVO.beginDate}" />
+			<form:errors path="beginDate" />
+			<input type="date" name="closeDate" id="closeDate" value="${loginHistorySearchVO.closeDate}" />
+			<form:errors path="closeDate" />
+			<input type="submit" name="searchBtn" name="searchBtn" value="검색" />
 		</div>
 	</form:form>
 	<a href="<c:url value="/member/myPage/saveAsExcel"/>">로그인 내역 엑셀파일로
