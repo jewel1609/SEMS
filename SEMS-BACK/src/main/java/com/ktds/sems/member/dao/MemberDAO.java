@@ -38,6 +38,8 @@ public interface MemberDAO {
 
 	public String isExistEmail(String email);
 
+	public MemberVO getMemberDetailById(String id);
+
 	public List<String> getHighestEducationLevelCodeNames();
 
 	public List<String> getGraduationType();
