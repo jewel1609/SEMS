@@ -35,12 +35,15 @@
     		class="com.ktds.sems.member.web.MemberController" >
     		<property name="memberService" ref="memberService"></property>
     </bean>
+	
+	<bean id="teacherController" class="com.ktds.sems.teacher.web.TeacherController">
+		<property name="teacherService" ref="teacherService" />
+	</bean>
     
     <bean id="cooperationController"
     		class="com.ktds.sems.cooperation.web.CooperationController" >
     		<property name="cooperationService" ref="cooperationService" />
     </bean>
-    		
 	
 </beans>
 
