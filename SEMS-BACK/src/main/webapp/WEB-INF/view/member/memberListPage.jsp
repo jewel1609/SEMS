@@ -5,6 +5,17 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css">
+.inputButton {
+	border:none;
+	border-radius:5px;
+	padding:6px 12px;
+	font-weight:bold;
+	text-transform:uppercase;
+	color:#FFFFFF;
+	background-color:#E05149;
+}
+</style>
 <script type="text/javascript" src="<c:url value='/resources/js/jquery.min.js"'/>"></script>
 <script type="text/javascript">
 	$(document).ready(function () {
@@ -34,6 +45,31 @@
 				form.submit();
 			}
 		});
+		
+		$("#changePassword").click(function () {
+			var checkCount = 0;
+			var memberId = 0;
+			
+			$(".deleteMemberId").each(function (index, data) {
+				if(data.checked){
+					checkCount = checkCount + 1;
+					memberId = $(this).parent().parent().children(":eq(1)").text();
+				}
+			});
+			
+			if ( checkCount > 1 ) {
+				alert("하나만 선택하세요.");
+			}
+			else if (checkCount == 1) {
+				var jspopup = window.open("<c:url value="/memberManage/changePassword/" />" + memberId
+						, "javascript 페이지...."
+						, "width=500, height=450, resizable=no, scrollbars=no");
+			}
+			else {
+				alert("비밀번호를 변경할 대상을 선택하세요.")
+			}
+			
+		});
 	});
 </script>
 <title>MemberListPage</title>
@@ -51,7 +87,6 @@
 				<th>접속잠김여부</th>
 				<th>탈퇴여부</th>
 				<th>수정잠김여부</th>
-				<th>비밀번호 변경</th>
 			</tr>
 			<c:forEach items="${ memberListVO.memberList }" var="member">
 				<tr>
@@ -66,10 +101,8 @@
 					<td>${member.isAccountLock}</td>
 					<td>${member.isResign}</td>	
 					<td>${member.isModifyLock}</td>	
-					<td><input id="changePassword" type="button" value="비밀번호 변경" /></td>
 				</tr>
 			</c:forEach>
-
 
 			<tr>
 				<td colspan="7" align="center">
@@ -82,7 +115,9 @@
 		</table>
 	</form>
 	<div>
-		<span id="massiveDeleteBtn" style="cursor: pointer;">일괄삭제</span>
+		<input id="massiveDeleteBtn" class="inputButton" type="button" value="일괄삭제" style="cursor: pointer;" />
+		<input id="changePassword" class="inputButton" type="button" value="비밀번호 변경" />
+		<input id="modifyMemberType" class="inputButton" type="button" value="회원권한 변경" />
 	</div>
 </body>
 </html>
