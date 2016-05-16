@@ -1,7 +1,6 @@
 package com.ktds.sems.member.biz.impl;
 
 import java.util.List;
-import java.util.List;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -211,8 +210,8 @@ public class MemberBizImpl implements MemberBiz {
 	}
 
 	@Override
-	public void massiveDeleteMember(String memberId) {
-		memberDAO.massiveDeleteMember(memberId);
+	public boolean massiveDeleteMember(String memberId) {
+		return memberDAO.massiveDeleteMember(memberId) > 0;
 	}
 
 	@Override
@@ -254,5 +253,5 @@ public class MemberBizImpl implements MemberBiz {
 	public String getMemberTypeCodeId(String memberType) {
 		return memberDAO.getMemberTypeCodeId(memberType);
 	}
-	
+
 }
