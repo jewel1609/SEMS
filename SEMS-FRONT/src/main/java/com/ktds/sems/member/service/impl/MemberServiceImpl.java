@@ -50,7 +50,7 @@ public class MemberServiceImpl implements MemberService {
 		isNotError = isAllValidValue(member, repeatPassword, view);
 		
 		if (sessionMember != null) {
-			throw new RuntimeException("유효한 접근이 아닙니다.");
+			view.setViewName("member/registErrorPage");
 		} else if (errors.hasErrors() || !isNotError) {
 			List<String> highestEducationLevelCodeNameList = memberBiz.getHighestEducationLevelCodeNames();
 			List<String> graduationTypeList = memberBiz.getGraduationType();
@@ -683,6 +683,18 @@ public class MemberServiceImpl implements MemberService {
 		view.addObject("menuList", menuList);
 
 		return view;
+	}
+
+	@Override
+	public String registerPolicy(HttpSession session) {
+		MemberVO sessionMember = (MemberVO) session.getAttribute("_MEMBER_");
+		
+		if ( sessionMember != null ) {
+			return "member/registErrorPage";
+		}
+		else {
+			return "member/registerPolicy";
+		}
 	}
 
 }
