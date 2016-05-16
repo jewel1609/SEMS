@@ -16,6 +16,8 @@
 		<typeAlias type="com.ktds.sems.teacher.vo.ProjectHistoryVO" alias="ProjectHistoryVO"/>
 		<typeAlias type="com.ktds.sems.teacher.vo.EducationHistoryVO" alias="EducationHistoryVO"/>
 		<typeAlias type="com.ktds.sems.cooperation.vo.CooperationVO" alias="CooperationVO"/>
+		<typeAlias type="com.ktds.sems.member.vo.MemberSearchVO" alias="MemberSearchVO"/>
+		<typeAlias type="com.ktds.sems.member.vo.MemberListVO" alias="MemberListVO"/>
 	</typeAliases>
 
 	<mappers>
