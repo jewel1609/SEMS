@@ -32,10 +32,10 @@ public class EducationHistoryVO {
 	public void setEducationName(String educationName) {
 		this.educationName = educationName;
 	}
-	public String getEduationLocation() {
+	public String getEducationLocation() {
 		return educationLocation;
 	}
-	public void setEduationLocation(String educationLocation) {
+	public void setEducationLocation(String educationLocation) {
 		this.educationLocation = educationLocation;
 	}
 

@@ -5,6 +5,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.member.web.MemberController;
 import com.ktds.sems.teacher.biz.TeacherBiz;
 import com.ktds.sems.teacher.dao.TeacherDAO;
@@ -45,6 +46,11 @@ public class TeacherBizImpl implements TeacherBiz {
 	@Override
 	public double getTeacherEducationGrade(String memberId) {
 		return teacherDAO.getTeacherEducationGrade(memberId);
+	}
+
+	@Override
+	public List<EducationVO> getEducationHistory(String memberId) {
+		return teacherDAO.getEducationHistory(memberId);
 	}
 
 }

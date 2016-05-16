@@ -2,6 +2,7 @@ package com.ktds.sems.teacher.biz;
 
 import java.util.List;
 
+import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.teacher.vo.EducationHistoryVO;
 import com.ktds.sems.teacher.vo.ProjectHistoryVO;
 import com.ktds.sems.teacher.vo.TeacherBookVO;
@@ -18,5 +19,7 @@ public interface TeacherBiz {
 	List<TeacherBookVO> getTeacherBook(String memberId);
 
 	double getTeacherEducationGrade(String memberId);
+
+	List<EducationVO> getEducationHistory(String memberId);
 
 }

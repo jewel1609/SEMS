@@ -2,6 +2,7 @@ package com.ktds.sems.teacher.dao;
 
 import java.util.List;
 
+import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.teacher.vo.EducationHistoryVO;
 import com.ktds.sems.teacher.vo.ProjectHistoryVO;
 import com.ktds.sems.teacher.vo.TeacherBookVO;
@@ -16,6 +17,8 @@ public interface TeacherDAO {
 	List<ProjectHistoryVO> getTeacherProjectHistory(String memberId);
 
 	List<TeacherBookVO> getTeacherBook(String memberId);
+
+	List<EducationVO> getEducationHistory(String memberId);
 
 	double getTeacherEducationGrade(String memberId);
 

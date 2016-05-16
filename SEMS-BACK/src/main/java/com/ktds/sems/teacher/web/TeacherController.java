@@ -19,7 +19,7 @@ public class TeacherController {
 	public void setTeacherService(TeacherService teacherService) {
 		this.teacherService = teacherService;
 	}
-	
+
 	@RequestMapping("/teacher/detail/{memberId}")
 	public ModelAndView viewDetailPage(@PathVariable String memberId){
 		return teacherService.viewDetail(memberId);

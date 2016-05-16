@@ -5,44 +5,63 @@
 <mapper namespace="TeacherDAO">
 
 	<select id="getTeacherInfo" parameterType="string" resultType="TeacherVO">
-		SELECT	T.ID id
+		SELECT	T.MBR_ID id
 				, T.COMP_NM companyName
 				, T.BUIS_NMB businessNumber
 				, T.ANNUAL annual
 				, M.NM name
 				, M.PHONE_NMB phoneNumber
-		FROM	TEAC_INFO F
+		FROM	TCHR_INFO T
 				, MBR M
-		WHERE	M.ID = T.ID
+		WHERE	M.ID = T.MBR_ID
 		AND		M.ID = #{ memberId }
 	</select>
 	
 	<select id="getTeacherEducationHistory" parameterType="string" resultType="EducationHistoryVO">
-		SELECT	ID id
+		SELECT	TEH_ID id
 				, STR_DATE startDate
 				, END_DATE endDate
 				, EDU_NM educationName
 				, EDU_LOC educationLocation
-		FROM	EDU_HTR
-		WHERE	ID = #{ memberId }
+		FROM	TCHR_EDU_HTR
+		WHERE	MBR_ID = #{ memberId }
 	</select>
 	
 	<select id="getTeacherProjectHistory" parameterType="string" resultType="ProjectHistoryVO">
-		SELECT	ID
-				, STR_DATE
-				, END_DATE
-				, PROJ_NM
-				, PROJ_LOC
-		FROM	PROJ_HTR
-		WHERE	ID = #{ memberId }
+		SELECT	TPH_ID id
+				, STR_DATE startDate
+				, END_DATE endDate
+				, PROJ_NM projectName
+				, PROJ_LOC projectLocation
+		FROM	TCHR_PROJ_HTR
+		WHERE	MBR_ID = #{ memberId }
 	</select>
 	
 	<select id="getTeacherBook" parameterType="string" resultType="TeacherBookVO">
-		SELECT	ID id
+		SELECT	TB_ID id
 				, BOOK_NM bookName
 				, BOOK_COMP bookCompany
-		FROM	TEAC_BOOK
-		WHERE	ID = #{ memberId }
+		FROM	TCHR_BOOK
+		WHERE	MBR_ID = #{ memberId }
+	</select>
+	
+	<select id="getEducationHistory" parameterType="string" resultType="EducationVO">
+		SELECT	EDU_ID educationId
+				, EDU_CTGR educationCategory
+				, EDU_TTL educationTitle
+				, MBR_ID memberId
+				, MAX_MBR maxMember
+				, EDU_LOC educationLocation
+				, EDU_CLCM educationCurriculum
+				, EDU_INTR educationIntroduce
+				, SRT_DATE startDate
+				, END_DATE endDate
+				, START_TM startTime
+				, END_TM endTime
+				, EDU_TP educationType
+				, COST cost
+		FROM	EDU_INFO
+		WHERE	MBR_ID = #{ memberId }
 	</select>
 	
 	<select id="getTeacherEducationGrade" parameterType="string" resultType="_double">

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 
+import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.teacher.dao.TeacherDAO;
 import com.ktds.sems.teacher.vo.EducationHistoryVO;
 import com.ktds.sems.teacher.vo.ProjectHistoryVO;
@@ -30,6 +31,11 @@ public class TeacherDAOImpl extends SqlSessionDaoSupport implements TeacherDAO{
 	@Override
 	public List<TeacherBookVO> getTeacherBook(String memberId) {
 		return getSqlSession().selectList("TeacherDAO.getTeacherBook", memberId);
+	}
+	
+	@Override
+	public List<EducationVO> getEducationHistory(String memberId) {
+		return getSqlSession().selectList("TeacherDAO.getEducationHistory", memberId);
 	}
 
 	@Override
