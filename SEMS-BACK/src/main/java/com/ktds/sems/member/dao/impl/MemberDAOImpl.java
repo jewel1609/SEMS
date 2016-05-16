@@ -93,6 +93,11 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 	}
 
 	@Override
+	public MemberVO getMemberDetailById(String id) {
+		return getSqlSession().selectOne("MemberDAO.getMemberDetailById", id);
+	}
+
+	@Override
 	public List<String> getHighestEducationLevelCodeNames() {
 		return getSqlSession().selectList("MemberDAO.getHighestEducationLevelCodeNames");
 	}
