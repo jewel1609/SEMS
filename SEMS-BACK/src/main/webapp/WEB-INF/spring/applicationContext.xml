@@ -33,7 +33,7 @@
 
     <bean id="memberController"
     		class="com.ktds.sems.member.web.MemberController" >
-    		<property name="memberService" ref="memberService"></property>
+    		<property name="memberService" ref="memberService" />
     </bean>
 	
 	<bean id="teacherController" class="com.ktds.sems.teacher.web.TeacherController">
