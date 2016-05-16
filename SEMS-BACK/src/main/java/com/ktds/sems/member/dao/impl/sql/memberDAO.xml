@@ -111,13 +111,13 @@
 				, MBR.PWD password
 				, MBR.NM name
 				, MBR.EMAIL email
-				, MBR.HIGHEST_EDU_LV highestEducationLevel
+				, HIGHEST_EDU_LV.CD_NM highestEducationLevel
 				, MBR.UNIV_NM universityName
 				, MBR.MJR_NM majorName
-				, MBR.GRDT_TP graduationType
+				, GRDT_TP.CD_NM graduationType
 				, MBR.BRTH_DT birthDate
 				, MBR.PHONE_NMB phoneNumber
-				, MBR.MBR_TP memberType
+				, MBR_TP.CD_NM memberType
 				, MBR.LGI_F_CT loginFailCount
 				, MBR.IS_ACC_LCK isAccountLock
 				, MBR.LATEST_LGI_DT latestLoginDate
@@ -135,7 +135,13 @@
 							) MBR_INFO
 					WHERE	ROWNUM <![CDATA[<=]]> #{endIndex}
 				) MBR
-		WHERE	RNUM >= #{startIndex}		
+				, HIGHEST_EDU_LV
+				, GRDT_TP
+				, MBR_TP
+		WHERE	MBR.HIGHEST_EDU_LV = HIGHEST_EDU_LV.CD_ID
+		AND		MBR.GRDT_TP = GRDT_TP.CD_ID
+		AND		MBR.MBR_TP = MBR_TP.CD_ID
+		AND		RNUM >= #{startIndex}		
 	</select>
 	
 	
