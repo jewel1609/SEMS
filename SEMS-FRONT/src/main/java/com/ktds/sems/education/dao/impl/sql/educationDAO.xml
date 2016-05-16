@@ -65,7 +65,7 @@
 				, EDU_TIME
 		WHERE	EDU_ID LIKE #{educationId}
 		AND		EDU.COST = EDU_CST.CD_ID
-		AND		EDU.EDU_TP = EDU_TIME.CD_ID 
+		AND		EDU.EDU_TP = EDU_TIME.CD_ID
 	</select>
 
 	<select id="getAllCommentByEducationId" parameterType="map" resultType="QNAVO">
@@ -309,4 +309,5 @@
 				) 
 		WHERE	RNUM <![CDATA[>=]]> #{startIndex}
 	</select>
+
 </mapper>
