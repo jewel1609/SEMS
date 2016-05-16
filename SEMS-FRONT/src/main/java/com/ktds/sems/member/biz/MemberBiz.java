@@ -5,7 +5,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import com.ktds.sems.member.vo.GraduationTypeVO;
 import com.ktds.sems.member.vo.LoginHistorySearchVO;
 import com.ktds.sems.member.vo.LoginHistoryVO;
 import com.ktds.sems.member.vo.MemberVO;

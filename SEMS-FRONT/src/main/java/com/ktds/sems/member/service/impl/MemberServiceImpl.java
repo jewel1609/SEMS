@@ -1,5 +1,6 @@
 package com.ktds.sems.member.service.impl;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.UUID;
 
@@ -10,7 +11,6 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.validation.Errors;
-import org.springframework.validation.FieldError;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.common.HistorySearchStore;
@@ -48,7 +48,7 @@ public class MemberServiceImpl implements MemberService {
 
 		String memberType = member.getMemberType();
 		isNotError = isAllValidValue(member, repeatPassword, view);
-		
+
 		if (sessionMember != null) {
 			view.setViewName("member/registErrorPage");
 		} else if (errors.hasErrors() || !isNotError) {
@@ -90,16 +90,16 @@ public class MemberServiceImpl implements MemberService {
 		int errorCount = 0;
 		String memberType = member.getMemberType();
 
-		if ( repeatPassword == null ) {
+		if (repeatPassword == null) {
 			view.addObject("isEmptyRepeatPassword", "true");
 			errorCount++;
 		}
-		
-		if ( repeatPassword != null && member.getPassword() != null && !member.getPassword().equals(repeatPassword)) {
+
+		if (repeatPassword != null && member.getPassword() != null && !member.getPassword().equals(repeatPassword)) {
 			view.addObject("isEqualsPassword", "true");
 			errorCount++;
 		}
-		
+
 		if (member.getId() != null && !memberBiz.isVerifyId(member.getId())) {
 			errorCount++;
 		}
@@ -107,12 +107,12 @@ public class MemberServiceImpl implements MemberService {
 		if (member.getPassword() != null && !memberBiz.isVerifyPassword(member.getPassword())) {
 			errorCount++;
 		}
-		
-		if ( member.getPhoneNumber() != null && !memberBiz.isVerifyPhoneNumber(member.getPhoneNumber())) {
+
+		if (member.getPhoneNumber() != null && !memberBiz.isVerifyPhoneNumber(member.getPhoneNumber())) {
 			errorCount++;
 		}
-		
-		if ( memberType == null) {
+
+		if (memberType == null) {
 			view.setViewName("redirect:/");
 			errorCount++;
 		} else if (memberType.equals("MBR")) {
@@ -139,8 +139,8 @@ public class MemberServiceImpl implements MemberService {
 		} else if (memberType.equals("TR")) {
 			view.setViewName("member/registerTeacher");
 		}
-		
-		if ( errorCount > 0 ) {
+
+		if (errorCount > 0) {
 			isNotError = false;
 		}
 
@@ -194,7 +194,7 @@ public class MemberServiceImpl implements MemberService {
 		AjaxUtil.sendResponse(response, message);
 		return;
 	}
-	
+
 	@Override
 	public void checkValidationByPhoneNumber(String phoneNumber, HttpServletResponse response) {
 		String message = "NO";
@@ -320,8 +320,8 @@ public class MemberServiceImpl implements MemberService {
 
 		// 회원구분을 조인해서 한글로 보여준다.
 		String memberTypeCodeName = memberBiz.memberTypeCodeName(id);
-		
-		//강사인지 아닌지 체크
+
+		// 강사인지 아닌지 체크
 		boolean isTeacher = memberBiz.isTeacher(id);
 
 		view.addObject("member", member);
@@ -332,8 +332,7 @@ public class MemberServiceImpl implements MemberService {
 		view.addObject("memberTypeCodeName", memberTypeCodeName);
 		if (!isTeacher) {
 			view.addObject("isTeacher", "F");
-		}
-		else {
+		} else {
 			view.addObject("isTeacher", "T");
 		}
 		view.setViewName("member/modifyMyInfo");
@@ -452,20 +451,36 @@ public class MemberServiceImpl implements MemberService {
 		ModelAndView view = new ModelAndView();
 		LoginStore loginStore = LoginStore.getInstance();
 		HistorySearchStore searchStore = HistorySearchStore.getInstance();
-		searchStore.add(loginHistorySearchVO, session);
 		loginStore.add(loginHistorySearchVO.getId(), session);
 
+//		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+//
+//		String beginDate = dateFormat.format(loginHistorySearchVO.getBeginDate());
+//		String closeDate = dateFormat.format(loginHistorySearchVO.getCloseDate());
+//
+//		if (beginDate.compareTo(closeDate) > 0) {
+//			loginHistorySearchVO.setBeginDate(loginHistorySearchVO.getBeginDate());
+//			loginHistorySearchVO.setCloseDate(loginHistorySearchVO.getCloseDate());
+//		} else if ( beginDate.compareTo(closeDate) < 0){
+//			beginDate = null;
+//			closeDate = null;
+//			loginHistorySearchVO.setBeginDate(beginDate);
+//			loginHistorySearchVO.setCloseDate(closeDate);
+//		}
+		
 		int totalLoginHistoryCount = 0;
 		List<LoginHistoryVO> loginHistoryList = null;
 
 		// 검색 세션 만들기
 		if (searchStore.get(loginHistorySearchVO) == null) {
 			searchStore.add(loginHistorySearchVO, session);
-			totalLoginHistoryCount = memberBiz.getTotalLoginHistoryCount(loginStore.getMemberId(loginHistorySearchVO.getId()));
+			totalLoginHistoryCount = memberBiz
+					.getTotalLoginHistoryCount(loginStore.getMemberId(loginHistorySearchVO.getId()));
 		}
 		// 검색된 경우
 		else if (searchStore.get(loginHistorySearchVO) != null) {
-			totalLoginHistoryCount = memberBiz.getTotalLoginHistoryCount(loginStore.getMemberId(loginHistorySearchVO.getId()));
+			totalLoginHistoryCount = memberBiz
+					.getTotalLoginHistoryCount(loginStore.getMemberId(loginHistorySearchVO.getId()));
 		}
 
 		Paging paging = new Paging();
@@ -533,31 +548,30 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public ModelAndView changePassword(MemberVO memberVO) {
-		
+
 		ModelAndView view = new ModelAndView();
-		
+
 		String originSalt = memberBiz.getSaltById(memberVO.getId());
 		String inputPassword = SHA256Util.getEncrypt(memberVO.getPrevPassword(), originSalt);
-		
+
 		String originPassword = memberBiz.getPasswordById(memberVO.getId());
-		
-		if ( inputPassword.equals(originPassword) ) {
-			
+
+		if (inputPassword.equals(originPassword)) {
+
 			// 입력한 현재 비밀번호가 맞은 경우
 			String newSalt = SHA256Util.generateSalt();
 			memberVO.setSalt(newSalt);
 
 			String newPassword = SHA256Util.getEncrypt(memberVO.getPassword(), newSalt);
 			memberVO.setPassword(newPassword);
-			
+
 			memberBiz.changePassword(memberVO);
 
 			view.setViewName("redirect:/");
-			
+
 			return view;
-			
-		} 
-		else {
+
+		} else {
 
 			// 입력한 현재 비밀번호가 틀렸을 경우
 			view.setViewName("redirect:/changePassword/" + memberVO.getId());
@@ -642,12 +656,12 @@ public class MemberServiceImpl implements MemberService {
 
 		boolean isSuccess = memberBiz.doResign(loginVO);
 		MemberVO memberVO = memberBiz.getOneMember(loginVO.getId());
-		
+
 		if (isSuccess) {
 			if (memberVO.getUuid() != null && memberVO.getUuid().equals(resignCode)) {
-				
+
 				boolean isDeleteSuccess = memberBiz.doDeleteMember(memberVO.getId());
-				if(isDeleteSuccess) {
+				if (isDeleteSuccess) {
 					return "OK";
 				}
 				return "NO";
@@ -664,13 +678,13 @@ public class MemberServiceImpl implements MemberService {
 
 		String originSalt = memberBiz.getSaltById(id);
 		String inputPassword = SHA256Util.getEncrypt(prevPassword, originSalt);
-		
+
 		String originPassword = memberBiz.getPasswordById(id);
-		
-		if ( !inputPassword.equals(originPassword) ) {
+
+		if (!inputPassword.equals(originPassword)) {
 			return "NO";
 		}
-		
+
 		return "OK";
 	}
 

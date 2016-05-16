@@ -1,12 +1,15 @@
 package com.ktds.sems.member.vo;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 public class LoginHistorySearchVO extends LoginHistoryVO{
 	
 	private int pageNo;
 	private int startIndex;
 	private int endIndex;
-	
+	@NotEmpty(message="설정을 다시해주세요.")
 	private String beginDate;
+	@NotEmpty(message="설정을 다시해주세요.")
 	private String closeDate;
 
 	public int getPageNo() {
