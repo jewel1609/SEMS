@@ -408,6 +408,28 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
+	public ModelAndView memberDeleteById(String id) {
+		ModelAndView view = new ModelAndView();
+		
+		if ( id == null || id.length() == 0) {
+			view.setViewName("redirect:/memberManage/memberList");
+		}
+		else {
+			boolean isdeleteMember = memberBiz.massiveDeleteMember(id);
+			
+			if (!isdeleteMember) {
+				view.addObject("massage", "삭제 실패!");
+				view.setViewName("member/memberDetailPage");
+			}
+			else {
+				view.addObject("massage", "삭제 성공!");
+				view.setViewName("member/memberListPage");
+			}
+		}
+		return null;
+	}
+
+	@Override
 	public List<String> getMemberTypeCodeNameList() {
 		return memberBiz.getMemberTypeCodeNameList();
 	}
