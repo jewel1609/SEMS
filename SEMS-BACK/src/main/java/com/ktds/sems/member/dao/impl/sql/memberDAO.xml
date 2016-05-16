@@ -226,10 +226,12 @@
 							, PWD
 							, NM
 							, EMAIL
+							<if test="memberType == 'MBR' or memberType == 'STD'">
 							, HIGHEST_EDU_LV
 							, UNIV_NM
 							, MJR_NM
 							, GRDT_TP
+							</if>
 							, BRTH_DT
 							, PHONE_NMB
 							, MBR_TP
@@ -241,10 +243,12 @@
 							, #{password}
 							, #{name}
 							, #{email}
+							<if test="memberType == 'MBR' or memberType == 'STD'">
 							, #{highestEducationLevel}
 							, #{universityName}
 							, #{majorName}
 							, #{graduationType}
+							</if>
 							, #{birthDate}
 							, #{phoneNumber}
 							, #{memberType}

@@ -285,9 +285,11 @@ public class MemberServiceImpl implements MemberService{
 		ModelAndView view = new ModelAndView();
 		MemberVO sessionMember = (MemberVO) session.getAttribute("_MEMBER_");
 		boolean isNotError = true;
+		String selectMemberTypeCodeId = null;
 
 		String memberType = member.getMemberType();
 		isNotError = isAllValidValue(member, view);
+		selectMemberTypeCodeId = memberBiz.getMemberTypeCodeId(memberType);
 
 		if (sessionMember == null) {
 			throw new RuntimeException("유효한 접근이 아닙니다.");
@@ -307,28 +309,21 @@ public class MemberServiceImpl implements MemberService{
 
 				String selectGraduationTypeCodeId = null;
 				String selecthelCodeId = null;
-				String selectMemberTypeCodeId = null;
 				
-				selectMemberTypeCodeId = memberBiz.getMemberTypeCodeId(memberType);
+				
+				
 				selecthelCodeId = memberBiz.getHelCodeId(highestEducationLevel);
 				selectGraduationTypeCodeId = memberBiz.getGraduationTypeCodeId(graduationType);
-				System.out.println(member.getGraduationType()+"----------------------------졸업타입");
 				System.out.println(selectGraduationTypeCodeId);
 				
-				member.setMemberType(selectMemberTypeCodeId);
+				
 				member.setGraduationType(selectGraduationTypeCodeId);
 				member.setHighestEducationLevel(selecthelCodeId);
 				member.setUniversityName(member.getUniversityName());
 				member.setMajorName(member.getMajorName());
 			}
-			else {
-				member.setGraduationType("");
-				member.setHighestEducationLevel("");
-				member.setUniversityName("");
-				member.setMajorName("");
-			}
-
-			System.out.println(member.getGraduationType()+"----------------------------졸업타입2");
+			
+			member.setMemberType(selectMemberTypeCodeId);
 			setSaltAndPassword(member);
 			memberBiz.addNewMember(member);
 			view.setViewName("member/memberManagePage");
@@ -359,7 +354,7 @@ public class MemberServiceImpl implements MemberService{
 		if ( memberType == null) {
 			view.setViewName("redirect:/");
 			isNotError = false;
-		} else if (memberType.equals("MBR")) {
+		} else if (memberType.equals("수강생") || memberType.equals("일반회원")) {
 			if (member.getGraduationType() == null) {
 				view.addObject("isEmptyGraduationType", "true");
 				isNotError = false;
