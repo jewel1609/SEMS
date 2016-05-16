@@ -144,8 +144,15 @@ public class EducationController {
 	}
 	
 	@RequestMapping("/myPage/myQNADetail/{replyId}")
-	public String showMyQNADetail(@PathVariable String replyId,  HttpSession session) {
+	public ModelAndView showMyQNADetail(@PathVariable String replyId,  HttpSession session) {
 		return educationService.showMyQNADetail(replyId, session);
+	}
+	
+	@RequestMapping("/myPage/myQNAList/exportQNA")
+	public String exportQNAListAsExcel(HttpSession session) {
+		educationService.exportQNAListAsExcel(session);
+		return "redirect:/myPage/myQNAList";
+		
 	}
 	
 }
