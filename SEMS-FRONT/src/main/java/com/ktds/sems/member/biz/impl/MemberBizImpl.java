@@ -17,12 +17,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.common.LoginStore;
 import com.ktds.sems.common.SendMail;
 import com.ktds.sems.common.Session;
 import com.ktds.sems.common.vo.MailVO;
+import com.ktds.sems.education.vo.EducationHistorySearchVO;
+import com.ktds.sems.education.vo.EducationHistoryVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.member.biz.MemberBiz;
 import com.ktds.sems.member.dao.MemberDAO;
@@ -290,6 +291,7 @@ public class MemberBizImpl implements MemberBiz {
 		eduListByMember = memberDAO.getEduListByMember(loginVO);
 		Calendar cal = Calendar.getInstance();
 		Calendar cal2 = Calendar.getInstance();
+		
 
 		/* 현재 시간 */
 		Date date = new Date();
@@ -300,7 +302,7 @@ public class MemberBizImpl implements MemberBiz {
 		cal3.setTime(date);
 		long calTodayTime = cal3.getTimeInMillis();
 		String nowTime = dateFormat.format(date);
-
+		
 		// 강의 리스트에서 StartDate ~ EndDate 맞는 강의 가져옴
 		for (EducationVO educationVO : eduListByMember) {
 
@@ -522,6 +524,16 @@ public class MemberBizImpl implements MemberBiz {
 	}
 
 	@Override
+	public int getTotalEducationHistoryCountById(String id) {
+		return memberDAO.getTotalEducationHistoryCountById(id);
+	}
+
+	@Override
+	public List<EducationHistoryVO> getAllEducationHistoryList(EducationHistorySearchVO educationHistorySearchVO) {
+		return memberDAO.getAllEducationHistoryList(educationHistorySearchVO);
+	}
+
+	@Override
 	public boolean doMatchHistoryWithMember(LoginHistoryVO loginHistoryVO) {
 		
 		if ( memberDAO.doMatchHistoryWithMember(loginHistoryVO).equals("Y") ) {
@@ -536,5 +548,4 @@ public class MemberBizImpl implements MemberBiz {
 		memberDAO.doRequestIpHistory(lgiHtrId);
 	}
 
-		
 }

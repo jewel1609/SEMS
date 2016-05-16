@@ -3,6 +3,8 @@ package com.ktds.sems.member.dao;
 import java.util.List;
 import java.util.Map;
 
+import com.ktds.sems.education.vo.EducationHistorySearchVO;
+import com.ktds.sems.education.vo.EducationHistoryVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.member.vo.AttendVO;
 import com.ktds.sems.member.vo.LoginHistorySearchVO;
@@ -102,6 +104,10 @@ public interface MemberDAO {
 	public int isTeacher(String id);
 	
 	public int delectJunitTestMember(String id);
+
+	public int getTotalEducationHistoryCountById(String id);
+
+	public List<EducationHistoryVO> getAllEducationHistoryList(EducationHistorySearchVO educationHistorySearchVO);
 
 	public String doMatchHistoryWithMember(LoginHistoryVO loginHistoryVO);
 

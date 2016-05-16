@@ -1,6 +1,5 @@
 package com.ktds.sems.member.service.impl;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.UUID;
 
@@ -18,6 +17,9 @@ import com.ktds.sems.common.LoginStore;
 import com.ktds.sems.common.SendMail;
 import com.ktds.sems.common.Session;
 import com.ktds.sems.common.vo.MailVO;
+import com.ktds.sems.education.vo.EducationHistoryListVO;
+import com.ktds.sems.education.vo.EducationHistorySearchVO;
+import com.ktds.sems.education.vo.EducationHistoryVO;
 import com.ktds.sems.member.biz.MemberBiz;
 import com.ktds.sems.member.service.MemberService;
 import com.ktds.sems.member.vo.LoginHistoryListVO;
@@ -247,6 +249,7 @@ public class MemberServiceImpl implements MemberService {
 		}
 
 		boolean isLoginSuccess = memberBiz.login(session, loginVO, request);
+		
 		// 로그인 횟수 제한 방어코드 작성
 		if (isLoginSuccess) {
 			/*
@@ -256,9 +259,8 @@ public class MemberServiceImpl implements MemberService {
 			// Token 값 생성 및 등록 코드 작성
 			if (memberBiz.loginSuccess(loginVO.getId())) {
 				/*
-				 * 로그인한 회원이 글을 작성하는 write.jsp 에 아래 코드를 추가해야함! <input
-				 * type="hidden" name="csrfToken"
-				 * value="${sessionScope._CSRF_TOKEN_}" />
+				 * 로그인한 회원이 글을 작성하는 write.jsp 에 아래 코드를 추가해야함!
+				 * <input type="hidden" name="csrfToken" value="${sessionScope._CSRF_TOKEN_}" />
 				 */
 				String csrfToken = UUID.randomUUID().toString();
 				session.setAttribute(Session.CSRF_TOKEN, csrfToken);
@@ -695,6 +697,32 @@ public class MemberServiceImpl implements MemberService {
 		view.setViewName("member/myPage");
 		view.addObject("menuList", menuList);
 
+		return view;
+	}
+
+	@Override
+	public ModelAndView getAllEducationHistoryList(int pageNo, HttpSession session) {
+		
+		EducationHistoryListVO educationHistoryListVO = new EducationHistoryListVO();
+		Paging paging = new Paging();
+		educationHistoryListVO.setPaging(paging);
+
+		paging.setPageNumber(pageNo + "");
+		
+		MemberVO memberVO = (MemberVO) session.getAttribute(Session.MEMBER);
+		int totalEducationHistoryCountById = memberBiz.getTotalEducationHistoryCountById(memberVO.getId());
+		paging.setTotalArticleCount(totalEducationHistoryCountById);
+
+		EducationHistorySearchVO educationHistorySearchVO = new EducationHistorySearchVO();
+		educationHistorySearchVO.setPageNo(pageNo);
+		educationHistorySearchVO.setStartIndex(paging.getStartArticleNumber());
+		educationHistorySearchVO.setEndIndex(paging.getEndArticleNumber());
+		
+		List<EducationHistoryVO> educationHistoryList = memberBiz.getAllEducationHistoryList(educationHistorySearchVO);
+		ModelAndView view = new ModelAndView();
+		view.setViewName("education/educationHistory");
+		view.addObject("educationHistoryList", educationHistoryList);
+		
 		return view;
 	}
 

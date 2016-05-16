@@ -110,7 +110,7 @@ public class MemberController {
 	public ModelAndView viewMyPage() {
 		return memberService.viewMyPageMenu();
 	}
-
+	
 	@RequestMapping("/member/myPage/checkPassword")
 	public ModelAndView viewCheckPasswordPage() {
 
@@ -212,7 +212,7 @@ public class MemberController {
 			@RequestParam String helCodeName) {
 		return memberService.modifyMemberInfo(member, errors, graduationType, helCodeName);
 	}
-
+	
 	/**
 	 * @author 이기연
 	 * @param session
@@ -250,4 +250,11 @@ public class MemberController {
 		return memberService.doRequestIpHistory(lgiHtrId, session);
 	}
 	
+	/**
+	 *	나의 교육 이력 보기 
+	 */
+	@RequestMapping("member/myPage/educationHistory")
+	public ModelAndView viewEducationHistroyPage(@RequestParam(required = false, defaultValue = "0") int pageNo, HttpSession session) {
+		return memberService.getAllEducationHistoryList(pageNo, session);
+	}
 }

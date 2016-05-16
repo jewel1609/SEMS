@@ -5,6 +5,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.ktds.sems.education.vo.EducationHistorySearchVO;
+import com.ktds.sems.education.vo.EducationHistoryVO;
 import com.ktds.sems.member.vo.LoginHistorySearchVO;
 import com.ktds.sems.member.vo.LoginHistoryVO;
 import com.ktds.sems.member.vo.MemberVO;
@@ -103,6 +105,10 @@ public interface MemberBiz {
 	public boolean isTeacher(String id);
 
 	public int delectJunitTestMember(String id);
+
+	public int getTotalEducationHistoryCountById(String id);
+
+	public List<EducationHistoryVO> getAllEducationHistoryList(EducationHistorySearchVO educationHistorySearchVO);
 
 	public boolean doMatchHistoryWithMember(LoginHistoryVO loginHistoryVO);
 
