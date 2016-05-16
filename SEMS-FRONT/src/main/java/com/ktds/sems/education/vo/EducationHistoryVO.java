@@ -8,16 +8,8 @@ public class EducationHistoryVO extends EducationVO {
 	private String educationHistoryDate;
 	private String state;
 	private String ip;
-	private String comment;
-	private String feedback;
-
-	public String getIp() {
-		return ip;
-	}
-
-	public void setIp(String ip) {
-		this.ip = ip;
-	}
+	private String cmnt;
+	private String fdbk;
 
 	public String getEducationHistoryId() {
 		return educationHistoryId;
@@ -59,20 +51,28 @@ public class EducationHistoryVO extends EducationVO {
 		this.state = state;
 	}
 
-	public String getComment() {
-		return comment;
+	public String getIp() {
+		return ip;
 	}
 
-	public void setComment(String comment) {
-		this.comment = comment;
+	public void setIp(String ip) {
+		this.ip = ip;
 	}
 
-	public String getFeedback() {
-		return feedback;
+	public String getCmnt() {
+		return cmnt;
 	}
 
-	public void setFeedback(String feedback) {
-		this.feedback = feedback;
+	public void setCmnt(String cmnt) {
+		this.cmnt = cmnt;
+	}
+
+	public String getFdbk() {
+		return fdbk;
+	}
+
+	public void setFdbk(String fdbk) {
+		this.fdbk = fdbk;
 	}
 
 }
