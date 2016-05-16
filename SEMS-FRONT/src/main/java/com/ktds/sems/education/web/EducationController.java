@@ -138,6 +138,16 @@ public class EducationController {
 		return educationService.doCancelEducation(educationId, session);
 	}
 	
+	@RequestMapping("/myPage/myQNAList")
+	public ModelAndView showMyQNAList(@RequestParam(required=false, defaultValue="0") int pageNo,  HttpSession session) {
+		return educationService.showMyQNAList(pageNo, session);
+	}
+	
+	@RequestMapping("/myPage/myQNADetail/{replyId}")
+	public String showMyQNADetail(@PathVariable String replyId,  HttpSession session) {
+		return educationService.showMyQNADetail(replyId, session);
+	}
+	
 }
 
 
