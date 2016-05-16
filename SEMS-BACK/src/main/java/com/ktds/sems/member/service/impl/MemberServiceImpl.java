@@ -218,6 +218,28 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
+	public ModelAndView getMemberDetailById(String id) {
+		ModelAndView view = new ModelAndView();
+		
+		if ( id == null || id.length() == 0 ) {
+			view.setViewName("redirect:/memberManage/memberList");
+		}
+		else {
+			MemberVO memberVO = memberBiz.getMemberDetailById(id);
+			
+			if (memberVO == null) {
+				view.setViewName("redirect:/memberManage/memberList");
+			}
+			else {
+				view.addObject("memberVO", memberVO);
+				view.setViewName("member/memberDetailPage");
+			}
+		}
+		
+		return view;
+	}
+
+	@Override
 	public ModelAndView addNewMember(MemberVO member, Errors errors, HttpSession session) {
 		ModelAndView view = new ModelAndView();
 		MemberVO sessionMember = (MemberVO) session.getAttribute("_MEMBER_");
