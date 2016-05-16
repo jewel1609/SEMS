@@ -14,7 +14,8 @@
 </head>
 <body>
 
-	<a href="#"><input type="button" value="엑셀로 보내기"></a>
+	<a href="<c:url value='/myPage/myQNAList/exportQNA'/>" ><input type="button" value="엑셀로 보내기"></a>
+	<br/>
 	<br/>
 	<table border="1"> 
 		<tr>
