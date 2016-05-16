@@ -19,6 +19,26 @@
 <script type="text/javascript">
 
 	$(document).ready( function () {
+		var id;
+		
+		<c:if test="${id ne null}">
+			id = ${id};
+		</c:if>
+		
+		$("#sendPasswordButton").click(function () {
+			$.post("<c:url value="/memberManage/sendPassword" />", { "id" : id }, function(data) {
+				if (!data) {
+					alert("인터넷 연결이 끊겼습니다.");
+				} 
+				else if (data == "NO") {
+					alert("비밀번호 전송에 실패하였습니다.");
+				}
+				else if (data == "OK") {
+					alert("비밀번호 전송에 성공하였습니다.");
+					window.close();
+				}
+			});
+		});
 		$("#closeButton").click(function () {
 			window.close();
 		});
