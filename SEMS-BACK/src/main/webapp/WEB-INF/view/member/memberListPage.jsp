@@ -39,7 +39,7 @@
 			}
 			
 			if (confirm("정말 삭제하시겠습니까?")) {
-				var form = $("#searchForm");
+				var form = $("#memberListForm");
 				form.attr("method", "post");
 				form.attr("action", "<c:url value="/doMassiveDeleteMember" />");
 				form.submit();
@@ -75,7 +75,7 @@
 <title>MemberListPage</title>
 </head>
 <body>
-	<form name="searchForm" id="searchForm">
+	
 		<table style="text-align:center">
 			<tr>
 				<th style="width: 15px">
@@ -88,32 +88,37 @@
 				<th>탈퇴여부</th>
 				<th>수정잠김여부</th>
 			</tr>
-			<c:forEach items="${ memberListVO.memberList }" var="member">
-				<tr>
-					<td>
-						<input class="deleteMemberId" name="deleteMemberId" value="${member.id}" type="checkbox"/>
-					</td>
-					<td>
-						<a href="<c:url value='/memberDetail/${member.id}'/>">${ member.id }</a>
-					</td>
-					<td>${member.name}</td>		
-					<td>${member.memberType}</td>	
-					<td>${member.isAccountLock}</td>
-					<td>${member.isResign}</td>	
-					<td>${member.isModifyLock}</td>	
-				</tr>
-			</c:forEach>
-
+			<form name="memberListForm" id="memberListForm">
+				<c:forEach items="${ memberListVO.memberList }" var="member">
+					<tr>
+						<td>
+							<input class="deleteMemberId" name="deleteMemberId" value="${member.id}" type="checkbox"/>
+						</td>
+						<td>
+							<a href="<c:url value="/memberDetail/${member.id}"/>">${ member.id }</a>
+						</td>
+						<td>${member.name}</td>		
+						<td>${member.memberType}</td>	
+						<td>${member.isAccountLock}</td>
+						<td>${member.isResign}</td>	
+						<td>${member.isModifyLock}</td>	
+					</tr>
+				</c:forEach>
+			</form>
 			<tr>
 				<td colspan="7" align="center">
-					<c:if test="${ memberListVO ne null }">
-						${memberListVO.paging.getPagingList("pageNo", "[@]", "이전", "다음", "searchForm")}
-					</c:if> 
+					<form id="searchForm">
+						<div>
+							<c:if test="${ memberListVO ne null }">
+								${memberListVO.paging.getPagingList("pageNo", "[@]", "이전", "다음", "searchForm")}
+							</c:if> 
+						</div>
+					</form>
 				</td>
 			</tr>
 
 		</table>
-	</form>
+	
 	<div>
 		<input id="massiveDeleteBtn" class="inputButton" type="button" value="일괄삭제" style="cursor: pointer;" />
 		<input id="changePassword" class="inputButton" type="button" value="비밀번호 변경" />
