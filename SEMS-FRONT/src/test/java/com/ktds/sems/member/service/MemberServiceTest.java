@@ -924,7 +924,4 @@ public class MemberServiceTest extends SemsTestCase {
 		}
 	}
 	
-	
-	
-	
 }
