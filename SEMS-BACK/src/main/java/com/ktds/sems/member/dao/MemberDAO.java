@@ -39,7 +39,7 @@ public interface MemberDAO {
 	public String isExistEmail(String email);
 
 	public void massiveDeleteMember(String memberId);
-
+	
 	public MemberVO getMemberDetailById(String id);
 
 	public List<String> getHighestEducationLevelCodeNames();
