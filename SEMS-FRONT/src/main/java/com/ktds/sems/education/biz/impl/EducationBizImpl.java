@@ -1,5 +1,8 @@
 package com.ktds.sems.education.biz.impl;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import com.ktds.sems.education.biz.EducationBiz;
@@ -8,6 +11,10 @@ import com.ktds.sems.education.vo.EducationSearchVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.QNASearchVO;
 import com.ktds.sems.education.vo.QNAVO;
+import com.ktds.sems.member.vo.LoginHistoryVO;
+
+import kr.co.hucloud.utilities.excel.option.WriteOption;
+import kr.co.hucloud.utilities.excel.write.ExcelWrite;
 
 public class EducationBizImpl implements EducationBiz {
 
@@ -124,6 +131,83 @@ public class EducationBizImpl implements EducationBiz {
 	@Override
 	public List<QNAVO> getAllQNAList(QNASearchVO qnaSearchVO) {
 		return educationDAO.getAllQNAList(qnaSearchVO);
+	}
+
+	/**
+	 * @author 206-025 이기연
+	 */
+	@Override
+	public QNAVO getSelectedQNA(String replyId) {
+		return educationDAO.getSelectedQNA(replyId);
+	}
+
+	/**
+	 * @author 206-025 이기연
+	 */
+	@Override
+	public QNAVO getSelectedQNAAnswer(String replyId) {
+		return educationDAO.getSelectedQNAAnswer(replyId);
+	}
+
+	/**
+	 * @author 206-025 이기연
+	 */
+	@Override
+	public void exportQNAListAsExcel(String memberId) {
+		
+		WriteOption wo = new WriteOption();
+		wo.setSheetName("교육 문의 내역");
+		wo.setFileName("교육 문의 내역.xlsx");
+		wo.setFilePath("D:\\");
+		List<String> titles = new ArrayList<String>();
+
+		titles.add("문의 아이디");
+		titles.add("교육명");
+		titles.add("문의 날짜");
+		titles.add("문의 내용");
+		titles.add("답변 여부");
+		titles.add("답변");
+		wo.setTitles(titles);
+
+		List<String[]> contents = new ArrayList<String[]>();
+
+		// LoginHistory 만들기
+		try {
+			List<QNAVO> qnaVO = educationDAO.exportQNAListAsExcel(memberId);
+			Iterator<QNAVO> tempIterator = qnaVO.iterator();
+
+			// TODO while문으로 null을 만날 때 까지 while문을 돌려야 할 것 같다
+			while (tempIterator.hasNext())
+
+			{
+				// TODO String[] 타입인데... 이걸 수정해바야 할 것 같다.
+				// 하나씩 String[]에 담는 것 그리고 add
+				QNAVO tempQnaVO = new QNAVO();
+				tempQnaVO = tempIterator.next();
+				
+				// 답변을 답기 위해서 
+				QNAVO tempAnsweredQnaVO = educationDAO.getSelectedQNAAnswer(tempQnaVO.getReplyId());
+
+				String[] content = new String[5];
+
+				content[0] = tempQnaVO.getReplyId();
+				content[1] = tempQnaVO.getEduId();
+				content[2] = tempQnaVO.getCreatedDate();
+				content[3] = tempQnaVO.getDescription();
+				content[4] = tempQnaVO.getIsAnswered();
+				content[5] = tempAnsweredQnaVO.getDescription();
+
+				contents.add(content);
+			}
+
+			wo.setContents(contents);
+
+			File excelFile = ExcelWrite.write(wo);
+
+		} catch (Exception e) {
+			throw new RuntimeException();
+		}
+		
 	}
 }
 

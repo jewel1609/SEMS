@@ -48,4 +48,10 @@ public interface EducationBiz {
 	public List<QNAVO> getAllQNAList(QNASearchVO qnaSearchVO);
 
 	public int getTotalQNACount(String memberId);
+
+	public QNAVO getSelectedQNA(String replyId);
+
+	public QNAVO getSelectedQNAAnswer(String replyId);
+
+	public void exportQNAListAsExcel(String memberId);
 }
