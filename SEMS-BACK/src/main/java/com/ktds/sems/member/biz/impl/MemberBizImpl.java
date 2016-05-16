@@ -200,6 +200,11 @@ public class MemberBizImpl implements MemberBiz {
 	}
 
 	@Override
+	public MemberVO getMemberDetailById(String id) {
+		return memberDAO.getMemberDetailById(id);
+	}
+
+	@Override
 	public List<String> getHighestEducationLevelCodeNames() {
 		return memberDAO.getHighestEducationLevelCodeNames();
 	}
