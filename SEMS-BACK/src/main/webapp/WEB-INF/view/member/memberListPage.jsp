@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<script type="text/javascript"
-	src="<c:url value='/resources/js/jquery.min.js"'/>"></script>
+<script type="text/javascript" src="<c:url value='/resources/js/jquery.min.js"'/>"></script>
 <title>MemberListPage</title>
 </head>
 <body>
@@ -36,23 +36,23 @@
 					<td>
 						<a href="<c:url value='/memberDetail/${member.id}'/>">${ member.id }</a>
 					</td>
-					<td>member.password</td>	
-					<td>member.name</td>	
-					<td>member.email</td>	
-					<td>member.highestEducationLevel</td>	
-					<td>member.universityName</td>	
-					<td>member.majorName</td>	
-					<td>member.graduationType</td>	
-					<td>member.birthDate</td>	
-					<td>member.phoneNumber</td>	
-					<td>member.memberType</td>	
-					<td>member.loginFailCount</td>	
-					<td>member.isAccountLock</td>	
-					<td>member.latestLoginDate</td>	
-					<td>member.resignDate</td>	
-					<td>member.isResign</td>	
-					<td>member.modifyFailCount</td>	
-					<td>member.isModifyLock</td>	
+					<td>*****</td>	
+					<td>${member.name}</td>	
+					<td>${member.email}</td>	
+					<td>${member.highestEducationLevel}</td>	
+					<td>${member.universityName}</td>	
+					<td>${member.majorName}</td>	
+					<td>${member.graduationType}</td>	
+					<td>${member.birthDate}</td>	
+					<td>${member.phoneNumber}</td>	
+					<td>${member.memberType}</td>	
+					<td>${member.loginFailCount}</td>	
+					<td>${member.isAccountLock}</td>	
+					<td>${member.latestLoginDate}</td>	
+					<td>${member.resignDate}</td>	
+					<td>${member.isResign}</td>	
+					<td>${member.modifyFailCount}</td>	
+					<td>${member.isModifyLock}</td>	
 				</tr>
 			</c:forEach>
 
