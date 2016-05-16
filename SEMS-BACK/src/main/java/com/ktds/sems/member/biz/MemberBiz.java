@@ -52,7 +52,7 @@ public interface MemberBiz {
 
 	public int getTotalMemberHistoryCount();
 
-	public void massiveDeleteMember(String memberId);
+	public boolean massiveDeleteMember(String memberId);
 
 	public MemberVO getMemberDetailById(String id);
 
