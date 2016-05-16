@@ -100,7 +100,7 @@
 		SET		LGO_DT = SYSDATE
 		WHERE	LGI_HTR_ID = #{lgiHtrId}
 	</update>
-	
+	  
 	<select id="getAllMemberHistory" parameterType="LoginHistorySearchVO" resultType="LoginHistoryVO">
 		 SELECT HIS.LGI_HTR_ID lgiHtrId
 		 		, HIS.LGI_IP lgiIp
@@ -147,7 +147,7 @@
 		ORDER	BY	LGI_HTR_ID  DESC
 	</select>
 	
-	<select id="getTotalMemberCount">
+	<select id="getTotalMemberCount" resultType="_int">
 		SELECT 	COUNT(ID)
 		FROM	MBR
 	</select>
