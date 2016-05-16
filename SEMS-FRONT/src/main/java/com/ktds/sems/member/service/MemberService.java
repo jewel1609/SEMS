@@ -68,4 +68,6 @@ public interface MemberService {
 
 	public String registerTeacher(HttpSession session);
 
+	public String registerPolicy(HttpSession session);
+
 }
