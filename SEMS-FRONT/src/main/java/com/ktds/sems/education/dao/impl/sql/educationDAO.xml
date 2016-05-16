@@ -286,15 +286,21 @@
 	</select>
 	
 	<select id="getAllQNAList" parameterType="QNASearchVO" resultType="QNAVO">
-		SELECT	QNA.REPLY_ID replyId
-				, QNA.EDU_ID eduId
-				, QNA.PARENT_REPLY_ID parentReplyId
-				, QNA.ORDER_NO orderNo
-				, QNA.DESCRIPTION description
-				, QNA.MBR_ID mbrId
-				, QNA.LIKE_CNT likeCnt
-				, QNA.DISLIKT_CNT dislikeCnt
-				, QNA.CREATED_DATE createdDate
+		SELECT	Q.REPLY_ID replyId
+				, Q.EDU_ID eduId
+				, Q.PARENT_REPLY_ID parentReplyId
+				, Q.ORDER_NO orderNo
+				, Q.DESCRIPTION description
+				, Q.MBR_ID mbrId
+				, Q.LIKE_CNT likeCnt
+				, Q.DISLIKE_CNT dislikeCnt
+				, Q.CREATED_DATE createdDate
+				, (
+					SELECT	'Y'
+					FROM	QNA
+					WHERE	PARENT_REPLY_ID = Q.REPLY_ID
+				
+				 ) isAnswered
 		FROM	(
 					SELECT	ROWNUM AS RNUM
 							, QNA.*
@@ -306,8 +312,42 @@
 								ORDER	BY REPLY_ID DESC
 							) QNA
 					WHERE	ROWNUM <![CDATA[<=]]> #{endIndex}
-				) 
+				) Q
 		WHERE	RNUM <![CDATA[>=]]> #{startIndex}
+	</select>
+	
+	<select id="getSelectedQNA" parameterType="String" resultType="QNAVO">
+		SELECT		REPLY_ID replyId
+					, EDU_ID eduId
+					, PARENT_REPLY_ID parentReplyId
+					, ORDER_NO orderNo
+					, DESCRIPTION description
+					, MBR_ID mbrId
+					, LIKE_CNT likeCnt
+					, DISLIKE_CNT dislikeCnt
+					, CREATED_DATE createdDate
+		FROM		QNA
+		WHERE		REPLY_ID = #{replyId}
+	</select>
+	
+	<select id="getSelectedQNAAnswer" parameterType="String" resultType="QNAVO">
+		SELECT		REPLY_ID replyId
+					, EDU_ID eduId
+					, PARENT_REPLY_ID parentReplyId
+					, ORDER_NO orderNo
+					, DESCRIPTION description
+					, MBR_ID mbrId
+					, LIKE_CNT likeCnt
+					, DISLIKE_CNT dislikeCnt
+					, CREATED_DATE createdDate
+		FROM		QNA
+		WHERE		PARENT_REPLY_ID = #{replyId}
+	</select>
+	
+	<select id="exportQNAListAsExcel">
+		SELECT	*
+		FROM	QNA
+		WHERE	MBR_ID = #{memberId}
 	</select>
 
 </mapper>

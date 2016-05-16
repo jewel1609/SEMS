@@ -157,6 +157,28 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 		return getSqlSession().selectList("EducationDAO.getAllQNAList", qnaSearchVO);
 	}
 
+	/**
+	 * @author 206-025 이기연
+	 */
+	@Override
+	public QNAVO getSelectedQNA(String replyId) {
+		return getSqlSession().selectOne("EducationDAO.getSelectedQNA" ,replyId);
+	}
 
+	/**
+	 * @author 206-025 이기연
+	 */
+	@Override
+	public QNAVO getSelectedQNAAnswer(String replyId) {
+		return getSqlSession().selectOne("EducationDAO.getSelectedQNAAnswer" ,replyId);
+	}
+
+	/**
+	 * @author 206-025 이기연
+	 */
+	@Override
+	public List<QNAVO> exportQNAListAsExcel(String memberId) {
+		return getSqlSession().selectList("EducationDAO.exportQNAListAsExcel", memberId);
+	}
 
 }

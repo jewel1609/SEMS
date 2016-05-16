@@ -52,4 +52,10 @@ public interface EducationDAO {
 
 	public List<QNAVO> getAllQNAList(QNASearchVO qnaSearchVO);
 
+	public QNAVO getSelectedQNA(String replyId);
+
+	public QNAVO getSelectedQNAAnswer(String replyId);
+
+	public List<QNAVO> exportQNAListAsExcel(String memberId);
+
 }
