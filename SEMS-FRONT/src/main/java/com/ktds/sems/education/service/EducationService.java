@@ -34,7 +34,9 @@ public interface EducationService {
 
 	public ModelAndView showMyQNAList(int pageNo, HttpSession session);
 
-	public String showMyQNADetail(String replyId, HttpSession session);
+	public ModelAndView showMyQNADetail(String replyId, HttpSession session);
+
+	public void exportQNAListAsExcel(HttpSession session);
 
 	
 }

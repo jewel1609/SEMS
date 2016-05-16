@@ -325,10 +325,11 @@ public class EducationServiceImpl implements EducationService {
 		qnaSearchVO.setId(memberId);
 		
 		List<QNAVO> qnaList = educationBiz.getAllQNAList(qnaSearchVO);
+		qnaListVO.setQnaVO(qnaList);
 		
 		ModelAndView view = new ModelAndView();
 		view.setViewName("myPage/myQNAList");
-		view.addObject("qnaList", qnaList);
+		view.addObject("qnaListVO", qnaListVO);
 		
 		return view;
 	}
@@ -338,8 +339,29 @@ public class EducationServiceImpl implements EducationService {
 	 * 교육 문의 내용 디테일 페이지(팝업창)
 	 */
 	@Override
-	public String showMyQNADetail(String replyId, HttpSession session) {
-		return null;
+	public ModelAndView showMyQNADetail(String replyId, HttpSession session) {
+		ModelAndView view = new ModelAndView();
+		view.setViewName("/myPage/myQNADetail/{replyId}");
+
+		QNAVO qnaVO = educationBiz.getSelectedQNA(replyId);
+		QNAVO qnaAnswerVO = educationBiz.getSelectedQNAAnswer(replyId);
+		
+		// 질문 qna
+		view.addObject("qnaVO", qnaVO);
+		// 답변 qna
+		view.addObject("qnaAnswerVO", qnaAnswerVO);
+		return view;
+	}
+
+	/**
+	 * @author 206-025 이기연
+	 * 교육 문의 내용 디테일 엑셀 저장
+	 */
+	@Override
+	public void exportQNAListAsExcel(HttpSession session) {
+		MemberVO memberVO = (MemberVO) session.getAttribute(Session.MEMBER);
+		String memberId = memberVO.getId();
+		educationBiz.exportQNAListAsExcel(memberId);
 	}
 
 }
