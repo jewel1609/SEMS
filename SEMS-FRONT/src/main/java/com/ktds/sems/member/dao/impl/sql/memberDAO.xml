@@ -238,6 +238,8 @@
 				, LGI_IP lgiIp
 				,LGI_DT lgiDt
 				, LGO_DT lgoDt
+				, IS_REQ isReq
+				, CHK_CNT chkCnt
 		FROM	(
 					SELECT	ROWNUM AS RNUM
 							, LOGIN_HISTORY.*
@@ -421,17 +423,11 @@
 		WHERE	LGI_HTR_ID = #{lgiHtrId}
 		AND		MBR_ID = #{id}
 	</select>
-	<insert id="doRequestIpHistory" parameterType="_int">
-		INSERT INTO LGI_HTR (
-                        		LGI_HTR_ID
-                        		, IS_REQ
-                    		) 
-		VALUES				(
-                        		#{lgiHtrId}
-                        		, 'Y'
-                    		)
-	
-	</insert>
+	<update id="doRequestIpHistory" parameterType="_int">
+		UPDATE	LGI_HTR 
+		SET		IS_REQ = 'Y'
+		WHERE  	LGI_HTR_ID = #{lgiHtrId}
+	</update>
 	
 	
 	<select id="getTotalEducationHistoryCountById" parameterType="string" resultType="_int">

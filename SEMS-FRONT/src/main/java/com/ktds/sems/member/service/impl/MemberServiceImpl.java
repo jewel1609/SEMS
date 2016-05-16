@@ -685,7 +685,7 @@ public class MemberServiceImpl implements MemberService {
 		educationHistorySearchVO.setPageNo(pageNo);
 		educationHistorySearchVO.setStartIndex(paging.getStartArticleNumber());
 		educationHistorySearchVO.setEndIndex(paging.getEndArticleNumber());
-		educationHistorySearchVO.setMemberId(memberVO.getId());
+		// TODO 에러 발생 educationHistorySearchVO.setMemberId(memberVO.getId());
 		
 		List<EducationHistoryVO> educationHistoryList = memberBiz.getAllEducationHistoryListById(educationHistorySearchVO);
 		ModelAndView view = new ModelAndView();
@@ -711,11 +711,8 @@ public class MemberServiceImpl implements MemberService {
 	public ModelAndView loginHistoryInit() {
 		ModelAndView view = new ModelAndView();
 		
-		LoginHistorySearchVO loginHistorySearchVO = new LoginHistorySearchVO();
-		loginHistorySearchVO.setBeginDate(null);
-		loginHistorySearchVO.setCloseDate(null);
-		
-		view.addObject("loginHistorySearchVO", loginHistorySearchVO);
+		view.addObject("beginDate", null);
+		view.addObject("closeDate", null);
 		view.setViewName("redirect:/member/loginHistory");
 		
 		return view;
@@ -734,6 +731,7 @@ public class MemberServiceImpl implements MemberService {
 		
 		if(memberCheck) {
 			memberBiz.doRequestIpHistory(lgiHtrId);
+			view.setViewName("redirect:/member/loginHistory");
 			return view;
 		}else {
 			view.setViewName("redirect:/");

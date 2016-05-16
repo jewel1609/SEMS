@@ -281,6 +281,6 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 
 	@Override
 	public void doRequestIpHistory(int lgiHtrId) {
-		getSqlSession().insert("MemberDAO.doRequestIpHistory", lgiHtrId);
+		getSqlSession().update("MemberDAO.doRequestIpHistory", lgiHtrId);
 	}
 }

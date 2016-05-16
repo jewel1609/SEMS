@@ -250,7 +250,7 @@ public class MemberController {
 		return memberService.doRequestIpHistory(lgiHtrId, session);
 	}
 	
-	@RequestMapping("/loginHistoryInit")
+	@RequestMapping("/member/loginHistoryInit")
 	public ModelAndView loginHistoryInit() {
 		return memberService.loginHistoryInit();
 	}

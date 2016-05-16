@@ -69,7 +69,19 @@
 				<td>${loginHistory.lgiIp}</td>
 				<td>${loginHistory.lgiDt}</td>
 				<td>${loginHistory.lgoDt}</td>
-				<td><a href="<c:url value="/member/doRequestIpHistory/${loginHistory.lgiHtrId}"/>">요청</a></td>
+				<td>
+					<c:if test="${loginHistory.isReq eq 'Y' }">
+						<c:if test="${ loginHistory.chkCnt lt 1 }">
+							요청됨
+						</c:if>
+						<c:if test="${ loginHistory.chkCnt gt 0 }">
+							<a href="<c:url value="/member/doCheckIp/${loginHistory.lgiHtrId}"/>">IP 확인</a>
+						</c:if>					
+					</c:if>
+					<c:if test="${loginHistory.isReq ne 'Y'}">
+						<a href="<c:url value="/member/doRequestIpHistory/${loginHistory.lgiHtrId}"/>">요청</a>
+					</c:if>
+				</td>
 			</tr>
 		</c:forEach>
 	</table>
