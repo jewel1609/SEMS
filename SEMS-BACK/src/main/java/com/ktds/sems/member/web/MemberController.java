@@ -11,6 +11,7 @@ import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -102,9 +103,12 @@ public class MemberController {
 		logger.info("MemberList 실행 페이지 : " + pageNo);
 		
 		return memberService.getAllMemberList(pageNo);
-		
 	}
 	
+	@RequestMapping("/memberDetail/{id}")
+	public ModelAndView viewMemberDetailPage(@PathVariable String id) {
+		return memberService.getMemberDetailById(id);
+	}	
 	@RequestMapping(value = "/doRegisterAction", method = RequestMethod.POST)
 	public ModelAndView registerNewMember(@Valid MemberVO member, Errors errors, HttpSession session) {
 		return memberService.addNewMember(member, errors, session);
