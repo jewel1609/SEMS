@@ -172,7 +172,7 @@
 			}
 			
 			var form = $("#registerForm");
-			form.attr("action", "<c:url value="/doRegisterAction" />");
+			form.attr("action", "<c:url value="/doRegisterMemberAction" />");
 			form.submit();
 		});
 		
