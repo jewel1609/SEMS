@@ -51,6 +51,7 @@
 				<th>접속잠김여부</th>
 				<th>탈퇴여부</th>
 				<th>수정잠김여부</th>
+				<th>비밀번호 변경</th>>
 			</tr>
 			<c:forEach items="${ memberListVO.memberList }" var="member">
 				<tr>
@@ -65,6 +66,7 @@
 					<td>${member.isAccountLock}</td>
 					<td>${member.isResign}</td>	
 					<td>${member.isModifyLock}</td>	
+					<td><input id="changePassword" type="button" value="비밀번호 변경" /></td>
 				</tr>
 			</c:forEach>
 
