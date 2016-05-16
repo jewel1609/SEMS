@@ -77,7 +77,6 @@ public class MemberServiceImpl implements MemberService {
 			setSaltAndPassword(member);
 			memberBiz.addNewMember(member);
 			view.setViewName("redirect:/");
-			logger.info("=============등록");
 		} else {
 			throw new RuntimeException("잘 못 된 입력 : 회원 종류");
 		}
@@ -94,57 +93,47 @@ public class MemberServiceImpl implements MemberService {
 		if ( repeatPassword == null ) {
 			view.addObject("isEmptyRepeatPassword", "true");
 			errorCount++;
-			logger.info("=============1");
 		}
 		
 		if ( repeatPassword != null && member.getPassword() != null && !member.getPassword().equals(repeatPassword)) {
 			view.addObject("isEqualsPassword", "true");
 			errorCount++;
-			logger.info("=============2");
 		}
 		
 		if (member.getId() != null && !memberBiz.isVerifyId(member.getId())) {
 			errorCount++;
-			logger.info("=============3");
 		}
 
 		if (member.getPassword() != null && !memberBiz.isVerifyPassword(member.getPassword())) {
 			errorCount++;
-			logger.info("=============4");
 		}
 		
 		if ( member.getPhoneNumber() != null && !memberBiz.isVerifyPhoneNumber(member.getPhoneNumber())) {
 			errorCount++;
-			logger.info("=============5");
 		}
 		
 		if ( memberType == null) {
 			view.setViewName("redirect:/");
 			errorCount++;
-			logger.info("=============6");
 		} else if (memberType.equals("MBR")) {
 			if (member.getGraduationType() == null) {
 				view.addObject("isEmptyGraduationType", "true");
 				errorCount++;
-				logger.info("=============7");
 			}
 
 			if (member.getHighestEducationLevel() == null) {
 				view.addObject("isEmptyHighestEducationLevel", "true");
 				errorCount++;
-				logger.info("=============8");
 			}
 
 			if (member.getMajorName() == null || member.getMajorName().equals("")) {
 				view.addObject("isEmptyMajorName", "true");
 				errorCount++;
-				logger.info("=============9");
 			}
 
 			if (member.getUniversityName() == null || member.getUniversityName().equals("")) {
 				view.addObject("isEmptyUniversityName", "true");
 				errorCount++;
-				logger.info("=============10");
 			}
 			view.setViewName("member/registerStudent");
 		} else if (memberType.equals("TR")) {
