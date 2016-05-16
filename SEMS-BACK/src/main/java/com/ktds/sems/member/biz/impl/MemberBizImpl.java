@@ -244,5 +244,15 @@ public class MemberBizImpl implements MemberBiz {
 	public void addNewMember(MemberVO member) {
 		memberDAO.addNewMember(member);
 	}
+
+	@Override
+	public List<String> getMemberTypeCodeNameList() {
+		return memberDAO.getMemberTypeCodeNameList();
+	}
+
+	@Override
+	public String getMemberTypeCodeId(String memberType) {
+		return memberDAO.getMemberTypeCodeId(memberType);
+	}
 	
 }

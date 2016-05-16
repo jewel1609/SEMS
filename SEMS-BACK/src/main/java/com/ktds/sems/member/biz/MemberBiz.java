@@ -66,4 +66,8 @@ public interface MemberBiz {
 
 	public void addNewMember(MemberVO member);
 
+	public List<String> getMemberTypeCodeNameList();
+
+	public String getMemberTypeCodeId(String memberType);
+
 }

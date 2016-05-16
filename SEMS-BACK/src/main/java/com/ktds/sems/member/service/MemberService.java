@@ -43,4 +43,6 @@ public interface MemberService {
 
 	public List<String> getGraduationType();
 
+	public List<String> getMemberTypeCodeNameList();
+
 }

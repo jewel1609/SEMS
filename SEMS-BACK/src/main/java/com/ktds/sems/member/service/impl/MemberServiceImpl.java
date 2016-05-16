@@ -284,13 +284,12 @@ public class MemberServiceImpl implements MemberService{
 	public ModelAndView addNewMember(MemberVO member, Errors errors, HttpSession session) {
 		ModelAndView view = new ModelAndView();
 		MemberVO sessionMember = (MemberVO) session.getAttribute("_MEMBER_");
-
 		boolean isNotError = true;
 
 		String memberType = member.getMemberType();
 		isNotError = isAllValidValue(member, view);
 
-		if (sessionMember != null) {
+		if (sessionMember == null) {
 			throw new RuntimeException("유효한 접근이 아닙니다.");
 		} else if (errors.hasErrors() || !isNotError) {
 			
@@ -302,20 +301,34 @@ public class MemberServiceImpl implements MemberService{
 
 			view.addObject("member", member);
 		} else if (isNotError) {
-			if (memberType.equals("MBR")) {
+			if (memberType.equals("수강생") || memberType.equals("일반회원")) {
 				String graduationType = member.getGraduationType();
 				String highestEducationLevel = member.getHighestEducationLevel();
 
 				String selectGraduationTypeCodeId = null;
 				String selecthelCodeId = null;
-
+				String selectMemberTypeCodeId = null;
+				
+				selectMemberTypeCodeId = memberBiz.getMemberTypeCodeId(memberType);
 				selecthelCodeId = memberBiz.getHelCodeId(highestEducationLevel);
 				selectGraduationTypeCodeId = memberBiz.getGraduationTypeCodeId(graduationType);
-
+				System.out.println(member.getGraduationType()+"----------------------------졸업타입");
+				System.out.println(selectGraduationTypeCodeId);
+				
+				member.setMemberType(selectMemberTypeCodeId);
 				member.setGraduationType(selectGraduationTypeCodeId);
 				member.setHighestEducationLevel(selecthelCodeId);
+				member.setUniversityName(member.getUniversityName());
+				member.setMajorName(member.getMajorName());
+			}
+			else {
+				member.setGraduationType("");
+				member.setHighestEducationLevel("");
+				member.setUniversityName("");
+				member.setMajorName("");
 			}
 
+			System.out.println(member.getGraduationType()+"----------------------------졸업타입2");
 			setSaltAndPassword(member);
 			memberBiz.addNewMember(member);
 			view.setViewName("member/memberManagePage");
@@ -392,6 +405,11 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public List<String> getGraduationType() {
 		return memberBiz.getGraduationType();
+	}
+
+	@Override
+	public List<String> getMemberTypeCodeNameList() {
+		return memberBiz.getMemberTypeCodeNameList();
 	}
 
 }

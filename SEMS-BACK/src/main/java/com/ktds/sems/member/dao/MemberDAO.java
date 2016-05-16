@@ -57,5 +57,9 @@ public interface MemberDAO {
 
 	public String getGraduationTypeCodeId(String graduationType);
 
+	public List<String> getMemberTypeCodeNameList();
+
+	public String getMemberTypeCodeId(String memberType);
+
 
 }
