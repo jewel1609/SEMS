@@ -29,6 +29,9 @@ public interface MemberService {
 
 	public void checkValidationByPhoneNumber(String phoneNumber, HttpServletResponse response);
 
+	public String massiveDeleteMember(String[] deleteMemberIds);
+
+
 	public ModelAndView getMemberDetailById(String id);
 
 	public ModelAndView addNewMember(MemberVO member, Errors errors, HttpSession session);

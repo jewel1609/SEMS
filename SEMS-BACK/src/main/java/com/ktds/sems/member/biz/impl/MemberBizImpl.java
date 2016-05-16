@@ -200,6 +200,11 @@ public class MemberBizImpl implements MemberBiz {
 	}
 
 	@Override
+	public void massiveDeleteMember(String memberId) {
+		memberDAO.massiveDeleteMember(memberId);
+	}
+
+	@Override
 	public MemberVO getMemberDetailById(String id) {
 		return memberDAO.getMemberDetailById(id);
 	}

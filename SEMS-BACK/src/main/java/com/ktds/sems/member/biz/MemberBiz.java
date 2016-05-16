@@ -46,6 +46,8 @@ public interface MemberBiz {
 
 	public boolean isVerifyPhoneNumber(String phoneNumber);
 
+	public void massiveDeleteMember(String memberId);
+
 	public MemberVO getMemberDetailById(String id);
 
 	public List<String> getHighestEducationLevelCodeNames();

@@ -239,4 +239,10 @@
 		WHERE	CD_NM = #{cdNm}
 	</select>
 	
+	<delete id="massiveDeleteMember" parameterType="string">
+		DELETE
+		FROM	MBR
+		WHERE	ID = #{memberId}
+	</delete>
+	
 </mapper>

@@ -143,7 +143,6 @@ public class MemberServiceImpl implements MemberService{
 		ModelAndView view = new ModelAndView();
 		view.setViewName("member/memberListPage");
 		view.addObject("memberListVO", memberListVO);
-		
 		return view;
 	}
 
@@ -216,6 +215,17 @@ public class MemberServiceImpl implements MemberService{
 		AjaxUtil.sendResponse(response, message);
 		return;
 	}
+
+	@Override
+	public String massiveDeleteMember(String[] deleteMemberIds) {
+
+		for(String memberId : deleteMemberIds){
+			memberBiz.massiveDeleteMember(memberId);
+		}
+		
+		return "redirect:/memberManage/memberList";
+	}
+
 
 	@Override
 	public ModelAndView getMemberDetailById(String id) {

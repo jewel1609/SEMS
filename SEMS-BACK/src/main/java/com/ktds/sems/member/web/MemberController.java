@@ -114,4 +114,13 @@ public class MemberController {
 		return memberService.addNewMember(member, errors, session);
 	}
 	
+	@RequestMapping("/doMassiveDeleteMember")
+	public String massiveDeleteMember(HttpServletRequest request){
+		String[] deleteMemberIds = request.getParameterValues("deleteMemberId");
+		for (String string : deleteMemberIds) {
+			logger.info("Controller로 넘어온 ID : " + string);
+		}
+		return memberService.massiveDeleteMember(deleteMemberIds);
+	}
+	
 }
