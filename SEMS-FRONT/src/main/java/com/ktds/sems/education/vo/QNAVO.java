@@ -14,6 +14,14 @@ public class QNAVO {
 	private int dislikeCnt;
 	private String createdDate;
 	
+	private String isAnswered;
+
+	public String getIsAnswered() {
+		return isAnswered;
+	}
+	public void setIsAnswered(String isAnswered) {
+		this.isAnswered = isAnswered;
+	}
 	public String getReplyId() {
 		return replyId;
 	}

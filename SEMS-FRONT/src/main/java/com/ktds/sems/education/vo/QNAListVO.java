@@ -2,9 +2,11 @@ package com.ktds.sems.education.vo;
 
 import java.util.List;
 
+import com.ktds.sems.member.vo.MemberVO;
+
 import kr.co.hucloud.utilities.web.Paging;
 
-public class QNAListVO {
+public class QNAListVO extends MemberVO{
 
 	private List<QNAVO> qnaVO;
 	private Paging paging;
