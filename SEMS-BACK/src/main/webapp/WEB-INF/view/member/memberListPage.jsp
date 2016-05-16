@@ -51,7 +51,7 @@
 				<th>접속잠김여부</th>
 				<th>탈퇴여부</th>
 				<th>수정잠김여부</th>
-				<th>비밀번호 변경</th>>
+				<th>비밀번호 변경</th>
 			</tr>
 			<c:forEach items="${ memberListVO.memberList }" var="member">
 				<tr>
