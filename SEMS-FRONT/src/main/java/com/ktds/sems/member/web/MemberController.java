@@ -32,7 +32,7 @@ public class MemberController {
 		this.memberService = memberService;
 	}
 
-	@RequestMapping(value = "/doRegisterAction", method = RequestMethod.POST)
+	@RequestMapping(value = "/doRegisterMemberAction", method = RequestMethod.POST)
 	public ModelAndView doRegisterMemberAction(@Valid MemberVO member, Errors errors, @RequestParam String repeatPassword, HttpSession session) {
 		return memberService.addNewMember(member, errors, repeatPassword, session);
 	}
