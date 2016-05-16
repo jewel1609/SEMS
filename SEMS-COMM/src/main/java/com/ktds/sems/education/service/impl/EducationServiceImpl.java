@@ -39,6 +39,10 @@ public class EducationServiceImpl implements EducationService {
 	@Override
 	public String modifyEduCost(CostVO cost) {
 		String result = "";
+		
+		if (cost.getCdId() == null || cost.getCdNm() == null) {
+			return "NO_DATA";
+		}
 		boolean isExistCostNm = educationBiz.isExistCostNm(cost);
 		
 		if (isExistCostNm) {
@@ -53,6 +57,7 @@ public class EducationServiceImpl implements EducationService {
 				result = "FAIL_M";
 			}
 		}
+		
 		return result;
 	}
 
@@ -65,22 +70,16 @@ public class EducationServiceImpl implements EducationService {
 	}
 
 
-	@Override
-	public ModelAndView deleteEduCost(String cdId) {
-		ModelAndView view = new ModelAndView();
-		
-		boolean delectResult = educationBiz.deleteEduCost(cdId);
-		
-		if (!delectResult) {
-			view.setViewName("redirect:/education/cost");
-		}
-		view.setViewName("redirect:/education/cost");
-		return view;
-	}
+
 
 	@Override
 	public String insertEduCost(CostVO cost) {
 		String result = "";
+		
+		if (cost.getCdId() == null || cost.getCdNm() == null) {
+			return "NO_DATA";
+		}
+
 		boolean isExistCost = educationBiz.isExistCost(cost);
 				
 		if (isExistCost) {
@@ -97,6 +96,18 @@ public class EducationServiceImpl implements EducationService {
 		}
 		
 		return result;
+	}
+	
+	@Override
+	public ModelAndView deleteEduCost(String cdId) {
+		ModelAndView view = new ModelAndView();
+		
+		boolean delectResult = educationBiz.deleteEduCost(cdId);
+		
+		if (delectResult) {
+			view.setViewName("redirect:/education/cost");
+		}
+		return view;
 	}
 
 	@Override
@@ -161,10 +172,9 @@ public class EducationServiceImpl implements EducationService {
 		ModelAndView view = new ModelAndView();
 		boolean result = educationBiz.deleteEduTime(cdId);
 		
-		if (!result) {
+		if (result) {
 			view.setViewName("redirect:/education/time");
 		}
-		view.setViewName("redirect:/education/time");
 		
 		return view;
 	}
@@ -172,6 +182,11 @@ public class EducationServiceImpl implements EducationService {
 	@Override
 	public String modifyEduTime(TimeVO time) {
 		String result = "";
+		
+		if (time.getCdId() == null || time.getCdNm() == null) {
+			return "NO_DATA";
+		}
+		
 		boolean isExistTimeNm = educationBiz.isExistTimeNm(time);
 		
 		if (isExistTimeNm) {
@@ -192,6 +207,11 @@ public class EducationServiceImpl implements EducationService {
 	@Override
 	public String insertEduTime(TimeVO time) {
 		String result = "";
+		
+		if (time.getCdId() == null || time.getCdNm() == null) {
+			return "NO_DATA";
+		}
+		
 		boolean isExistTime = educationBiz.isExistTime(time);
 				
 		if (isExistTime) {
