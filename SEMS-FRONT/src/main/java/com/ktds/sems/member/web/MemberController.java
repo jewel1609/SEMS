@@ -58,13 +58,13 @@ public class MemberController {
 	}
 
 	@RequestMapping("/register/student")
-	public ModelAndView viewRegisterStudentPage() {
-		return memberService.registerStudent();
+	public ModelAndView viewRegisterStudentPage(HttpSession session) {
+		return memberService.registerStudent(session);
 	}
 
 	@RequestMapping("/register/teacher")
-	public String viewRegisterTeacherPage() {
-		return "member/registerTeacher";
+	public String viewRegisterTeacherPage(HttpSession session) {
+		return memberService.registerTeacher(session);
 	}
 
 	@RequestMapping("/checkValidationById")

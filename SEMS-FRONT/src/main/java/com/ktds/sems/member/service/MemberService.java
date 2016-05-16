@@ -58,12 +58,14 @@ public interface MemberService {
 
 	public String doResign(MemberVO loginVO, Errors errors, String resignCode);
 
-	public ModelAndView registerStudent();
+	public ModelAndView registerStudent(HttpSession session);
 
 	public void checkValidationByPhoneNumber(String phoneNumber, HttpServletResponse response);
 
 	public String doCheckPrevPassword(String id, String prevPassword, HttpServletRequest request);
 	
 	public ModelAndView viewMyPageMenu();
+
+	public String registerTeacher(HttpSession session);
 
 }

@@ -566,17 +566,35 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public ModelAndView registerStudent() {
+	public ModelAndView registerStudent(HttpSession session) {
 		ModelAndView view = new ModelAndView();
-
-		List<String> highestEducationLevelCodeNameList = memberBiz.getHighestEducationLevelCodeNames();
-		List<String> graduationTypeList = memberBiz.getGraduationType();
-
-		view.setViewName("member/registerStudent");
-		view.addObject("graduationTypeList", graduationTypeList);
-		view.addObject("highestEducationLevelCodeNameList", highestEducationLevelCodeNameList);
+		MemberVO sessionMember = (MemberVO) session.getAttribute("_MEMBER_");
+		
+		if ( sessionMember != null ) {
+			view.setViewName("member/registErrorPage");
+		}
+		else {
+			List<String> highestEducationLevelCodeNameList = memberBiz.getHighestEducationLevelCodeNames();
+			List<String> graduationTypeList = memberBiz.getGraduationType();
+			
+			view.setViewName("member/registerStudent");
+			view.addObject("graduationTypeList", graduationTypeList);
+			view.addObject("highestEducationLevelCodeNameList", highestEducationLevelCodeNameList);
+		}
 
 		return view;
+	}
+	
+	@Override
+	public String registerTeacher(HttpSession session) {
+		MemberVO sessionMember = (MemberVO) session.getAttribute("_MEMBER_");
+		
+		if ( sessionMember != null ) {
+			return "member/registErrorPage";
+		}
+		else {
+			return "member/registerTeacher";
+		}
 	}
 
 	@Override
