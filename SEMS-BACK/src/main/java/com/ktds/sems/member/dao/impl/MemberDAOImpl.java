@@ -105,8 +105,8 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 	}
 
 	@Override
-	public void massiveDeleteMember(String memberId) {
-		getSqlSession().delete("MemberDAO.massiveDeleteMember",memberId);
+	public int massiveDeleteMember(String memberId) {
+		return getSqlSession().delete("MemberDAO.massiveDeleteMember",memberId);
 	}
 
 	@Override
@@ -149,5 +149,4 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 		return getSqlSession().selectOne("MemberDAO.getMemberTypeCodeId", memberType);
 	}
 
-	
 }
