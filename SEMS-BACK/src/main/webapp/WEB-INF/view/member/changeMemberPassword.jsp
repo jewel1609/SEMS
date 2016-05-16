@@ -19,7 +19,9 @@
 <script type="text/javascript">
 
 	$(document).ready( function () {
-		$("#closeButton").click(function)
+		$("#closeButton").click(function () {
+			window.close();
+		});
 	});
 
 </script>
