@@ -43,6 +43,8 @@ public interface MemberService {
 
 	public List<String> getGraduationType();
 
+	public ModelAndView memberDeleteById(String id);
+
 	public List<String> getMemberTypeCodeNameList();
 
 }
