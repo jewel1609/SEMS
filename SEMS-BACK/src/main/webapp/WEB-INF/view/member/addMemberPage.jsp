@@ -229,6 +229,10 @@
 			}
 			else {
 				$("#studentForm").hide();
+				$("input:radio[name='highestEducationLevel']").prop("checked", false);
+				$("input:radio[name='graduationType']").prop("checked", false);
+				$("#universityName").val("");
+				$("#majorName").val("");
 			}
 		
 			
