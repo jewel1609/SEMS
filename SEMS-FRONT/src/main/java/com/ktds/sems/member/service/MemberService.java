@@ -70,4 +70,6 @@ public interface MemberService {
 
 	public String registerPolicy(HttpSession session);
 
+	public ModelAndView doRequestIpHistory(int lgiHtrId, HttpSession session);
+
 }

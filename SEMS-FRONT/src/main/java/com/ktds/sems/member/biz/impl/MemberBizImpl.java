@@ -520,5 +520,21 @@ public class MemberBizImpl implements MemberBiz {
 	public int delectJunitTestMember(String id) {
 		return memberDAO.delectJunitTestMember(id);
 	}
+
+	@Override
+	public boolean doMatchHistoryWithMember(LoginHistoryVO loginHistoryVO) {
+		
+		if ( memberDAO.doMatchHistoryWithMember(loginHistoryVO).equals("Y") ) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	@Override
+	public void doRequestIpHistory(int lgiHtrId) {
+		memberDAO.doRequestIpHistory(lgiHtrId);
+	}
+
 		
 }

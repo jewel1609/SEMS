@@ -245,5 +245,9 @@ public class MemberController {
 		String checkPrevPasswordStatus = memberService.doCheckPrevPassword(id, prevPassword, request);
 		AjaxUtil.sendResponse(response, checkPrevPasswordStatus);
 	}
+	@RequestMapping(value="/member/doRequestIpHistory/{lgiHtrId}", method=RequestMethod.GET)
+	public ModelAndView doRequestIpHistory (@PathVariable int lgiHtrId, HttpSession session) {
+		return memberService.doRequestIpHistory(lgiHtrId, session);
+	}
 	
 }

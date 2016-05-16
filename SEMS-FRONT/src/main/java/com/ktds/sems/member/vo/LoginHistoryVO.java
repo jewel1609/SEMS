@@ -6,6 +6,8 @@ public class LoginHistoryVO extends MemberVO{
 	private String lgiIp;
 	private String lgiDt;
 	private String lgoDt;
+	private String isReq;
+	private int chkCnt;
 	
 	public int getLgiHtrId() {
 		return lgiHtrId;
@@ -31,4 +33,17 @@ public class LoginHistoryVO extends MemberVO{
 	public void setLgoDt(String lgoDt) {
 		this.lgoDt = lgoDt;
 	}
+	public String getIsReq() {
+		return isReq;
+	}
+	public void setIsReq(String isReq) {
+		this.isReq = isReq;
+	}
+	public int getChkCnt() {
+		return chkCnt;
+	}
+	public void setChkCnt(int chkCnt) {
+		this.chkCnt = chkCnt;
+	}
+		
 }

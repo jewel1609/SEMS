@@ -262,4 +262,13 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 		return getSqlSession().delete("MemberDAO.delectJunitTestMember", id);
 	}
 
+	@Override
+	public String doMatchHistoryWithMember(LoginHistoryVO loginHistoryVO) {
+		return getSqlSession().selectOne("MemberDAO.doMatchHistoryWithMember", loginHistoryVO);
+	}
+
+	@Override
+	public void doRequestIpHistory(int lgiHtrId) {
+		getSqlSession().insert("MemberDAO.doRequestIpHistory", lgiHtrId);
+	}
 }

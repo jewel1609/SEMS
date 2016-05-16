@@ -103,4 +103,9 @@ public interface MemberBiz {
 	public boolean isTeacher(String id);
 
 	public int delectJunitTestMember(String id);
+
+	public boolean doMatchHistoryWithMember(LoginHistoryVO loginHistoryVO);
+
+	public void doRequestIpHistory(int lgiHtrId);
+
 }

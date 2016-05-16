@@ -103,4 +103,9 @@ public interface MemberDAO {
 	
 	public int delectJunitTestMember(String id);
 
+	public String doMatchHistoryWithMember(LoginHistoryVO loginHistoryVO);
+
+	public void doRequestIpHistory(int lgiHtrId);
+
+
 }

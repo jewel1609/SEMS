@@ -406,5 +406,23 @@
 		FROM	MBR
 		WHERE	ID = #{id}
 	</delete>
+	<select id="doMatchHistoryWithMember" parameterType="LoginHistoryVO" resultType="string">
+		SELECT	'Y'
+		FROM	LGI_HTR
+		WHERE	LGI_HTR_ID = #{lgiHtrId}
+		AND		MBR_ID = #{id}
+	</select>
+	<insert id="doRequestIpHistory" parameterType="_int">
+		INSERT INTO LGI_HTR (
+                        		LGI_HTR_ID
+                        		, IS_REQ
+                    		) 
+		VALUES				(
+                        		#{lgiHtrId}
+                        		, 'Y'
+                    		)
+	
+	</insert>
+	
 	
 </mapper>

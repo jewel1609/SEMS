@@ -710,4 +710,24 @@ public class MemberServiceImpl implements MemberService {
 		}
 	}
 
+	@Override
+	public ModelAndView doRequestIpHistory(int lgiHtrId, HttpSession session) {
+		ModelAndView view = new ModelAndView();
+		MemberVO sessionMember = (MemberVO) session.getAttribute(Session.MEMBER);
+					
+		LoginHistoryVO loginHistoryVO = new LoginHistoryVO();
+		loginHistoryVO.setId(sessionMember.getId());
+		loginHistoryVO.setLgiHtrId(lgiHtrId);
+		
+		boolean memberCheck = memberBiz.doMatchHistoryWithMember(loginHistoryVO);
+		
+		if(memberCheck) {
+			memberBiz.doRequestIpHistory(lgiHtrId);
+			return view;
+		}else {
+			view.setViewName("redirect:/");
+			return view;
+		}
+	}
+
 }
