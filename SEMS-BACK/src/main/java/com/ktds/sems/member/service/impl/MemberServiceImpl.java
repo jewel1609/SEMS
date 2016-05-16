@@ -19,6 +19,7 @@ import com.ktds.sems.member.vo.MemberListVO;
 import com.ktds.sems.member.vo.MemberSearchVO;
 import com.ktds.sems.member.vo.MemberVO;
 
+import kr.co.hucloud.utilities.SHA256Util;
 import kr.co.hucloud.utilities.web.Paging;
 
 import kr.co.hucloud.utilities.web.AjaxUtil;
@@ -214,6 +215,120 @@ public class MemberServiceImpl implements MemberService{
 		}
 		AjaxUtil.sendResponse(response, message);
 		return;
+	}
+
+	@Override
+	public ModelAndView addNewMember(MemberVO member, Errors errors, HttpSession session) {
+		ModelAndView view = new ModelAndView();
+		MemberVO sessionMember = (MemberVO) session.getAttribute("_MEMBER_");
+
+		boolean isNotError = true;
+
+		String memberType = member.getMemberType();
+		isNotError = isAllValidValue(member, view);
+
+		if (sessionMember != null) {
+			throw new RuntimeException("유효한 접근이 아닙니다.");
+		} else if (errors.hasErrors() || !isNotError) {
+			
+			List<String> highestEducationLevelCodeNameList = memberBiz.getHighestEducationLevelCodeNames();
+			List<String> graduationTypeList = memberBiz.getGraduationType();
+
+			view.addObject("graduationTypeList", graduationTypeList);
+			view.addObject("highestEducationLevelCodeNameList", highestEducationLevelCodeNameList);
+
+			view.addObject("member", member);
+		} else if (isNotError) {
+			if (memberType.equals("MBR")) {
+				String graduationType = member.getGraduationType();
+				String highestEducationLevel = member.getHighestEducationLevel();
+
+				String selectGraduationTypeCodeId = null;
+				String selecthelCodeId = null;
+
+				selecthelCodeId = memberBiz.getHelCodeId(highestEducationLevel);
+				selectGraduationTypeCodeId = memberBiz.getGraduationTypeCodeId(graduationType);
+
+				member.setGraduationType(selectGraduationTypeCodeId);
+				member.setHighestEducationLevel(selecthelCodeId);
+			}
+
+			setSaltAndPassword(member);
+			memberBiz.addNewMember(member);
+			view.setViewName("member/memberManagePage");
+		} else {
+			throw new RuntimeException("잘 못 된 입력 : 회원 종류");
+		}
+
+		return view;
+	}
+	
+	private boolean isAllValidValue(MemberVO member, ModelAndView view) {
+
+		boolean isNotError = true;
+		String memberType = member.getMemberType();
+
+		if (member.getId() != null) {
+			isNotError = memberBiz.isVerifyId(member.getId());
+		}
+
+		if (member.getPassword() != null) {
+			isNotError = memberBiz.isVerifyPassword(member.getPassword());
+		}
+		
+		if ( member.getPhoneNumber() != null ) {
+			isNotError = memberBiz.isVerifyPhoneNumber(member.getPhoneNumber());
+		}
+		
+		if ( memberType == null) {
+			view.setViewName("redirect:/");
+			isNotError = false;
+		} else if (memberType.equals("MBR")) {
+			if (member.getGraduationType() == null) {
+				view.addObject("isEmptyGraduationType", "true");
+				isNotError = false;
+			}
+
+			if (member.getHighestEducationLevel() == null) {
+				view.addObject("isEmptyHighestEducationLevel", "true");
+				isNotError = false;
+			}
+
+			if (member.getMajorName() == null || member.getMajorName().equals("")) {
+				view.addObject("isEmptyMajorName", "true");
+				isNotError = false;
+			}
+
+			if (member.getUniversityName() == null || member.getUniversityName().equals("")) {
+				view.addObject("isEmptyUniversityName", "true");
+				isNotError = false;
+			}
+			view.setViewName("member/registerStudent");
+		} else if (memberType.equals("TR")) {
+			view.setViewName("member/registerTeacher");
+		}
+
+		view.addObject("member", member);
+
+		return isNotError;
+	}
+	
+	private void setSaltAndPassword(MemberVO member) {
+		String salt = SHA256Util.generateSalt();
+		member.setSalt(salt);
+
+		String newPassword = SHA256Util.getEncrypt(member.getPassword(), salt);
+		member.setPassword(newPassword);
+	}
+
+	@Override
+	public List<String> getHighestEducationLevelCodeNames() {
+		return memberBiz.getHighestEducationLevelCodeNames();
+	}
+
+	@Override
+	public List<String> getGraduationType() {
+		return memberBiz.getGraduationType();
 	}
 
 }

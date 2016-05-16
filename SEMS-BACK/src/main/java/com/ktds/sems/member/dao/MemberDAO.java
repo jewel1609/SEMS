@@ -38,5 +38,15 @@ public interface MemberDAO {
 
 	public String isExistEmail(String email);
 
+	public List<String> getHighestEducationLevelCodeNames();
+
+	public List<String> getGraduationType();
+
+	public void addNewMember(MemberVO member);
+
+	public String getHelCodeId(String highestEducationLevel);
+
+	public String getGraduationTypeCodeId(String graduationType);
+
 
 }

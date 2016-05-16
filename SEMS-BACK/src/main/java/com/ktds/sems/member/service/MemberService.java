@@ -1,5 +1,7 @@
 package com.ktds.sems.member.service;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -26,5 +28,11 @@ public interface MemberService {
 	public void checkValidationByEmail(String email, HttpServletResponse response);
 
 	public void checkValidationByPhoneNumber(String phoneNumber, HttpServletResponse response);
+
+	public ModelAndView addNewMember(MemberVO member, Errors errors, HttpSession session);
+
+	public List<String> getHighestEducationLevelCodeNames();
+
+	public List<String> getGraduationType();
 
 }

@@ -1,5 +1,7 @@
 package com.ktds.sems.member.web;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import javax.servlet.http.HttpServletRequest;
@@ -10,10 +12,12 @@ import javax.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.member.service.MemberService;
+import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.member.vo.MemberVO;
 
 import kr.co.hucloud.utilities.web.AjaxUtil;
@@ -55,7 +59,14 @@ public class MemberController {
 	public ModelAndView viewAddMemberPage() {
 
 		ModelAndView view = new ModelAndView();
+		
+		List<String> highestEducationLevelCodeNameList = memberService.getHighestEducationLevelCodeNames();
+		List<String> graduationTypeList = memberService.getGraduationType();
+		
 		view.setViewName("/member/addMemberPage");
+		view.addObject("highestEducationLevelCodeNameList", highestEducationLevelCodeNameList);
+		view.addObject("graduationTypeList", graduationTypeList);
+		
 
 		return view;
 	}
@@ -92,6 +103,11 @@ public class MemberController {
 		
 		return memberService.getAllMemberList(pageNo);
 		
+	}
+	
+	@RequestMapping(value = "/doRegisterAction", method = RequestMethod.POST)
+	public ModelAndView registerNewMember(@Valid MemberVO member, Errors errors, HttpSession session) {
+		return memberService.addNewMember(member, errors, session);
 	}
 	
 }

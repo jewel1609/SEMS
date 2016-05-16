@@ -146,4 +146,63 @@
 		WHERE	EMAIL = #{email}
 	</select>
 	
+	<select id="getHighestEducationLevelCodeNames" resultType="string">
+		SELECT	CD_NM cdNm
+		FROM	HIGHEST_EDU_LV
+	</select>
+	
+	<select id="getGraduationType" resultType="string">
+		SELECT	CD_NM cdNm	
+		FROM	GRDT_TP
+	</select>
+	
+	<insert id="addNewMember" parameterType="MemberVO">
+		INSERT INTO MBR	(
+							ID
+							, PWD
+							, NM
+							, EMAIL
+							<if test="memberType == 'MBR'">
+							, HIGHEST_EDU_LV
+							, UNIV_NM
+							, MJR_NM
+							, GRDT_TP
+							</if>
+							, BRTH_DT
+							, PHONE_NMB
+							, MBR_TP
+							, SALT
+							, LATEST_LGI_DT
+						)
+		VALUES 			( 
+							#{id}
+							, #{password}
+							, #{name}
+							, #{email}
+							<if test="memberType == 'MBR'">
+							, #{highestEducationLevel}
+							, #{universityName}
+							, #{majorName}
+							, #{graduationType}
+							</if>
+							, #{birthDate}
+							, #{phoneNumber}
+							, #{memberType}
+							, #{salt}
+							, SYSDATE
+						)
+	</insert>
+	
+	<select id="getHelCodeId" parameterType="string" resultType="string">
+		SELECT	CD_ID cdId
+		FROM	HIGHEST_EDU_LV
+		WHERE	CD_NM = #{cdNm}
+	</select>
+	
+	<select id="getGraduationTypeCodeId" parameterType="string" resultType="string">
+		SELECT	CD_ID cdId
+		FROM	GRDT_TP
+		WHERE	CD_NM = #{cdNm}
+	</select>
+	
 </mapper>
