@@ -1,6 +1,7 @@
 package com.ktds.sems.member.biz.impl;
 
 import java.util.List;
+import java.util.List;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -196,6 +197,31 @@ public class MemberBizImpl implements MemberBiz {
 		Pattern pattern = Pattern.compile(phoneNumberPolicy);
 		Matcher matcher = pattern.matcher(phoneNumber);
 		return matcher.matches();
+	}
+
+	@Override
+	public List<String> getHighestEducationLevelCodeNames() {
+		return memberDAO.getHighestEducationLevelCodeNames();
+	}
+
+	@Override
+	public List<String> getGraduationType() {
+		return memberDAO.getGraduationType();
+	}
+
+	@Override
+	public String getHelCodeId(String highestEducationLevel) {
+		return memberDAO.getHelCodeId(highestEducationLevel);
+	}
+
+	@Override
+	public String getGraduationTypeCodeId(String graduationType) {
+		return memberDAO.getGraduationTypeCodeId(graduationType);
+	}
+
+	@Override
+	public void addNewMember(MemberVO member) {
+		memberDAO.addNewMember(member);
 	}
 	
 }
