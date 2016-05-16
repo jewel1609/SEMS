@@ -321,12 +321,7 @@
 		
 		졸업구분 : 
 		<c:forEach items="${graduationTypeList}" var="graduationTypeCodeName">
-			<c:if test="${graduationTypeCodeName eq member.graduationType}">
-			<input type="radio" class="graduationType" name="graduationType" value="${graduationTypeCodeName}" checked="checked"/>${graduationTypeCodeName}
-			</c:if>
-			<c:if test="${graduationTypeCodeName ne member.graduationType}">
 			<input type="radio" class="graduationType" name="graduationType" value="${graduationTypeCodeName}"/>${graduationTypeCodeName}
-			</c:if>
 		</c:forEach>
 		<br/>
 			<c:if test="${isEmptyGraduationType ne null}">
@@ -336,12 +331,7 @@
 		
 		최종학력 : 
 		<c:forEach items="${highestEducationLevelCodeNameList}" var="helCodeName">
-			<c:if test="${helCodeName eq member.highestEducationLevel }">
-			<input type="radio" class="highestEducationLevel" name="highestEducationLevel" value="${helCodeName}" checked="checked"/>${helCodeName}
-			</c:if>
-			<c:if test="${helCodeName ne member.highestEducationLevel }">
 			<input type="radio" class="highestEducationLevel" name="highestEducationLevel" value="${helCodeName}"/>${helCodeName}
-			</c:if>
 		</c:forEach>
 		<br/>
 			<c:if test="${isEmptyHighestEducationLevel ne null}">
