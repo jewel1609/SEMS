@@ -33,6 +33,8 @@ public interface MemberDAO {
 
 	public int stampLogoutTime(LoginHistoryVO newLoginHistoryVO);
 
+	public List<LoginHistoryVO> getAllLoginHistoryList();
+
 	public List<LoginHistoryVO> getAllMemberHistory(LoginHistorySearchVO loginHistorySearchVO);
 
 	public int getTotalMemberCount();

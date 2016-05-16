@@ -100,6 +100,14 @@
 		SET		LGO_DT = SYSDATE
 		WHERE	LGI_HTR_ID = #{lgiHtrId}
 	</update>
+	<select id="getAllLoginHistoryList" resultType="LoginHistoryVO" >
+		SELECT	LGI_HTR_ID lgiHtrId
+				, MBR_ID id
+				, LGI_IP lgiIp
+				, LGI_DT lgiDt
+				, LGO_DT lgoDt
+		FROM 	LGI_HTR
+	</select>
 	  
 	<select id="getAllMemberHistory" parameterType="LoginHistorySearchVO" resultType="LoginHistoryVO">
 		 SELECT HIS.LGI_HTR_ID lgiHtrId

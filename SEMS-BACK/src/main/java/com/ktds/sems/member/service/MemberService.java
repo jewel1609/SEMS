@@ -8,9 +8,8 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
-
-import com.ktds.sems.member.vo.LoginHistorySearchVO;
 import com.ktds.sems.member.vo.LoginHistoryVO;
+import com.ktds.sems.member.vo.LoginHistorySearchVO;
 import com.ktds.sems.member.vo.MemberVO;
 
 public interface MemberService {
@@ -18,6 +17,8 @@ public interface MemberService {
 	public String login(MemberVO memberVO, Errors errors, HttpSession session, HttpServletRequest request);
 
 	public void logout(HttpSession session);
+
+	public ModelAndView viewLoginHistory(LoginHistoryVO loginHistoryVO, Errors errors, HttpSession session);
 
 	public ModelAndView getAllMemberHistory(int pageNo);
 
@@ -32,8 +33,8 @@ public interface MemberService {
 	public void checkValidationByEmail(String email, HttpServletResponse response);
 
 	public void checkValidationByPhoneNumber(String phoneNumber, HttpServletResponse response);
+	
 	public String massiveDeleteMember(String[] deleteMemberIds);
-
 
 	public ModelAndView getMemberDetailById(String id);
 

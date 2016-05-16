@@ -1,7 +1,7 @@
 package com.ktds.sems.member.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,27 +13,27 @@ import org.slf4j.LoggerFactory;
 import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ktds.sems.common.LoginStore;
 import com.ktds.sems.common.Session;
 import com.ktds.sems.member.biz.MemberBiz;
 import com.ktds.sems.member.service.MemberService;
 import com.ktds.sems.member.vo.LoginHistoryListVO;
-import com.ktds.sems.member.vo.LoginHistorySearchVO;
 import com.ktds.sems.member.vo.LoginHistoryVO;
+import com.ktds.sems.member.vo.LoginHistorySearchVO;
 import com.ktds.sems.member.vo.MemberListVO;
 import com.ktds.sems.member.vo.MemberSearchVO;
 import com.ktds.sems.member.vo.MemberVO;
+import com.ktds.sems.member.web.MemberController;
 
 import kr.co.hucloud.utilities.SHA256Util;
 import kr.co.hucloud.utilities.web.Paging;
-
 import kr.co.hucloud.utilities.web.AjaxUtil;
-import kr.co.hucloud.utilities.web.Paging;
 
 public class MemberServiceImpl implements MemberService{
 
-	private MemberBiz memberBiz;
 	private Logger logger = LoggerFactory.getLogger(MemberServiceImpl.class);
-		
+	private MemberBiz memberBiz;
+
 	public void setMemberBiz(MemberBiz memberBiz) {
 		this.memberBiz = memberBiz;
 	}
@@ -124,6 +124,24 @@ public class MemberServiceImpl implements MemberService{
 		
 		//로그아웃 stamp 찍기 위해서.. 
 		memberBiz.stampLogoutTime(session);
+	}
+
+	@Override
+	public ModelAndView viewLoginHistory(LoginHistoryVO loginHistoryVO, Errors errors, HttpSession session) {
+		
+		ModelAndView view = new ModelAndView();
+		//LoginStore loginStore = LoginStore.getInstance();
+		//loginStore.add(loginHistoryVO.getId(), session);
+		LoginHistoryListVO loginHistoryListVO = new LoginHistoryListVO();
+		List<LoginHistoryVO> loginHistoryList = null;
+		
+		loginHistoryList = memberBiz.getAllLoginHistoryList();
+		logger.info("loginHistoryListSize"+loginHistoryList.size());
+		loginHistoryListVO.setLoginHistoryList(loginHistoryList);
+		view.setViewName("/member/loginHistoryPage");
+		view.addObject("loginHistoryListVO", loginHistoryListVO);
+		
+		return view;
 	}
 
 	@Override
