@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.ktds.sems.member.dao.MemberDAO;
+import com.ktds.sems.member.vo.LoginHistorySearchVO;
 import com.ktds.sems.member.service.impl.MemberServiceImpl;
 import com.ktds.sems.member.vo.LoginHistoryVO;
 import com.ktds.sems.member.vo.MemberSearchVO;
@@ -77,6 +78,11 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 	}
 
 	@Override
+	public List<LoginHistoryVO> getAllMemberHistory(LoginHistorySearchVO loginHistorySearchVO) {
+		return getSqlSession().selectList("MemberDAO.getAllMemberHistory", loginHistorySearchVO);
+	}
+
+	@Override
 	public int getTotalMemberCount() {
 		return getSqlSession().selectOne("MemberDAO.getTotalMemberCount");
 	}
@@ -91,6 +97,11 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 	@Override
 	public String isExistEmail(String email) {
 		return getSqlSession().selectOne("MemberDAO.isExistEmail", email);
+	}
+
+	@Override
+	public int getTotalMemberHistoryCount() {
+		return getSqlSession().selectOne("MemberDAO.getTotalMemberHistoryCount");
 	}
 
 	@Override

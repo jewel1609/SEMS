@@ -1,5 +1,6 @@
 package com.ktds.sems.member.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -15,6 +16,9 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ktds.sems.common.Session;
 import com.ktds.sems.member.biz.MemberBiz;
 import com.ktds.sems.member.service.MemberService;
+import com.ktds.sems.member.vo.LoginHistoryListVO;
+import com.ktds.sems.member.vo.LoginHistorySearchVO;
+import com.ktds.sems.member.vo.LoginHistoryVO;
 import com.ktds.sems.member.vo.MemberListVO;
 import com.ktds.sems.member.vo.MemberSearchVO;
 import com.ktds.sems.member.vo.MemberVO;
@@ -23,6 +27,7 @@ import kr.co.hucloud.utilities.SHA256Util;
 import kr.co.hucloud.utilities.web.Paging;
 
 import kr.co.hucloud.utilities.web.AjaxUtil;
+import kr.co.hucloud.utilities.web.Paging;
 
 public class MemberServiceImpl implements MemberService{
 
@@ -122,22 +127,48 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
+	public ModelAndView getAllMemberHistory(int pageNo) {
+		LoginHistoryListVO loginHistoryListVO = new LoginHistoryListVO();
+		Paging paging = new Paging(20,20);
+		
+		loginHistoryListVO.setPaging(paging);
+		int totalHistoryCount = memberBiz.getTotalMemberHistoryCount();
+		
+		paging.setPageNumber(pageNo + "");
+		paging.setTotalArticleCount(totalHistoryCount);
+		
+		LoginHistorySearchVO loginHistorySearchVO = new LoginHistorySearchVO();
+		loginHistorySearchVO.setStartIndex(paging.getStartArticleNumber());
+		loginHistorySearchVO.setEndIndex(paging.getEndArticleNumber());
+
+		List<LoginHistoryVO> loginHistory = memberBiz.getAllMemberHistory(loginHistorySearchVO);
+		loginHistoryListVO.setLoginHistoryList(loginHistory);
+		
+		ModelAndView view = new ModelAndView();
+		view.setViewName("common/history");
+		view.addObject("loginHistoryListVO", loginHistoryListVO);
+		
+		return view;
+	}
+
+	@Override
 	public ModelAndView getAllMemberList(int pageNo) {
 
 		MemberListVO memberListVO = new MemberListVO();
 		Paging paging = new Paging();
 		
 		memberListVO.setPaging(paging);
-		paging.setPageNumber(pageNo + "");
-		
 		int totalMemberCount = memberBiz.getTotalMemberCount();
 		
+		paging.setPageNumber(pageNo + "");
 		paging.setTotalArticleCount(totalMemberCount);
+		
 		MemberSearchVO searchVO = new MemberSearchVO();
 		searchVO.setStartIndex(paging.getStartArticleNumber());
 		searchVO.setEndIndex(paging.getEndArticleNumber());
 		
 		List<MemberVO> memberList = memberBiz.getAllMemberList(searchVO);
+		
 		memberListVO.setMemberList(memberList);
 		
 		ModelAndView view = new ModelAndView();

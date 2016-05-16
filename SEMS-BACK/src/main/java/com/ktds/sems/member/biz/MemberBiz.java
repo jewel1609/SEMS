@@ -5,6 +5,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.ktds.sems.member.vo.LoginHistorySearchVO;
+import com.ktds.sems.member.vo.LoginHistoryVO;
 import com.ktds.sems.member.vo.MemberSearchVO;
 import com.ktds.sems.member.vo.MemberVO;
 
@@ -30,6 +32,8 @@ public interface MemberBiz {
 
 	public boolean stampLoginTime(HttpSession session, HttpServletRequest request, MemberVO loginVO);
 
+	public List<LoginHistoryVO> getAllMemberHistory(LoginHistorySearchVO loginHistorySearchVO);
+
 	public int getTotalMemberCount();
 
 	public List<MemberVO> getAllMemberList(MemberSearchVO searchVO);
@@ -45,6 +49,8 @@ public interface MemberBiz {
 	public boolean isExistEmail(String email);
 
 	public boolean isVerifyPhoneNumber(String phoneNumber);
+
+	public int getTotalMemberHistoryCount();
 
 	public void massiveDeleteMember(String memberId);
 

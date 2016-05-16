@@ -101,7 +101,53 @@
 		WHERE	LGI_HTR_ID = #{lgiHtrId}
 	</update>
 	
-	<select id="getTotalMemberCount" resultType="_int">
+	<select id="getAllMemberHistory" parameterType="LoginHistorySearchVO" resultType="LoginHistoryVO">
+		 SELECT HIS.LGI_HTR_ID lgiHtrId
+		 		, HIS.LGI_IP lgiIp
+		 		, HIS.LGI_DT lgiDt
+		 		, HIS.LGO_DT lgoDt
+		 		, HIS.MBR_ID id
+		 		, HIS.CD_NM memberType
+	     FROM 	(
+	             SELECT ROWNUM AS RNUM
+	              ,LGI.*
+	          FROM   (
+	                         SELECT   LGI_HTR.*
+	                        FROM   (
+	                                  SELECT  LGI_HTR.*, MBR_TP.CD_NM
+	                                  FROM   LGI_HTR, MBR, MBR_TP
+	                                  WHERE   MBR.MBR_TP = MBR_TP.CD_ID
+	                                  AND     LGI_HTR.MBR_ID = MBR.ID
+	                                  )LGI_HTR 
+	                        WHERE   MBR_ID IN (
+	                                    SELECT   ID
+	                                    FROM   MBR
+	                                    WHERE   MBR_TP != 'ADM'
+	                                    )
+	                        ORDER   BY   LGI_HTR_ID  DESC
+	                )    LGI
+	             WHERE   ROWNUM <![CDATA[<=]]> #{endIndex}
+	        ) HIS
+	        WHERE   RNUM >= #{startIndex}   
+	</select>
+	
+	<select id="getTotalMemberHistoryCount" resultType="_int">
+		SELECT	COUNT(LGI_HTR_ID)
+		FROM	(
+                SELECT  LGI_HTR.*, MBR_TP.CD_NM
+                FROM   LGI_HTR, MBR, MBR_TP
+                WHERE   MBR.MBR_TP = MBR_TP.CD_ID
+                AND     LGI_HTR.MBR_ID = MBR.ID
+                )LGI_HTR   
+		WHERE	MBR_ID IN (
+						SELECT	ID
+						FROM	MBR
+						WHERE	MBR_TP != 'ADM'
+						)
+		ORDER	BY	LGI_HTR_ID  DESC
+	</select>
+	
+	<select id="getTotalMemberCount">
 		SELECT 	COUNT(ID)
 		FROM	MBR
 	</select>

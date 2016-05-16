@@ -1,5 +1,6 @@
 package com.ktds.sems.member.web;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -16,8 +17,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.member.service.MemberService;
+import com.ktds.sems.member.vo.LoginHistorySearchVO;
+import com.ktds.sems.member.vo.LoginHistoryVO;
 import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.member.vo.MemberVO;
 
@@ -105,10 +109,16 @@ public class MemberController {
 		return memberService.getAllMemberList(pageNo);
 	}
 	
+	@RequestMapping("/history")
+	public ModelAndView viewHistoryPage(@RequestParam(required = false, defaultValue = "0") int pageNo){
+		return memberService.getAllMemberHistory(pageNo);
+	}
+
 	@RequestMapping("/memberDetail/{id}")
 	public ModelAndView viewMemberDetailPage(@PathVariable String id) {
 		return memberService.getMemberDetailById(id);
 	}	
+
 	@RequestMapping(value = "/doRegisterAction", method = RequestMethod.POST)
 	public ModelAndView registerNewMember(@Valid MemberVO member, Errors errors, HttpSession session) {
 		return memberService.addNewMember(member, errors, session);

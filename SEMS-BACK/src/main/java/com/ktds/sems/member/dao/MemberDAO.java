@@ -2,6 +2,7 @@ package com.ktds.sems.member.dao;
 
 import java.util.List;
 
+import com.ktds.sems.member.vo.LoginHistorySearchVO;
 import com.ktds.sems.member.vo.LoginHistoryVO;
 import com.ktds.sems.member.vo.MemberSearchVO;
 import com.ktds.sems.member.vo.MemberVO;
@@ -32,11 +33,15 @@ public interface MemberDAO {
 
 	public int stampLogoutTime(LoginHistoryVO newLoginHistoryVO);
 
+	public List<LoginHistoryVO> getAllMemberHistory(LoginHistorySearchVO loginHistorySearchVO);
+
 	public int getTotalMemberCount();
 
 	public List<MemberVO> getAllMemberList(MemberSearchVO searchVO);
 
 	public String isExistEmail(String email);
+
+	public int getTotalMemberHistoryCount();
 
 	public void massiveDeleteMember(String memberId);
 	

@@ -13,6 +13,7 @@ import com.ktds.sems.common.LoginStore;
 import com.ktds.sems.common.Session;
 import com.ktds.sems.member.biz.MemberBiz;
 import com.ktds.sems.member.dao.MemberDAO;
+import com.ktds.sems.member.vo.LoginHistorySearchVO;
 import com.ktds.sems.member.vo.LoginHistoryVO;
 import com.ktds.sems.member.vo.MemberSearchVO;
 import com.ktds.sems.member.vo.MemberVO;
@@ -140,6 +141,11 @@ public class MemberBizImpl implements MemberBiz {
 	}
 
 	@Override
+	public List<LoginHistoryVO> getAllMemberHistory(LoginHistorySearchVO loginHistorySearchVO) {
+		return memberDAO.getAllMemberHistory(loginHistorySearchVO);
+	}
+
+	@Override
 	public int getTotalMemberCount() {
 		return memberDAO.getTotalMemberCount();
 	}
@@ -197,6 +203,11 @@ public class MemberBizImpl implements MemberBiz {
 		Pattern pattern = Pattern.compile(phoneNumberPolicy);
 		Matcher matcher = pattern.matcher(phoneNumber);
 		return matcher.matches();
+	}
+
+	@Override
+	public int getTotalMemberHistoryCount() {
+		return memberDAO.getTotalMemberHistoryCount();
 	}
 
 	@Override
