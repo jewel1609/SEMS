@@ -12,6 +12,15 @@
 </head>
 <body>
 ${qnaVO.replyId} detail page......
-
+<table>
+	<tr>
+		<th>문의 내용</th>
+		<th>답변 사항</th>
+	</tr>
+	<tr>
+		<td>${qnaVO.description}</td>
+		<td>${qnaAnswerVO.description}</td>
+	</tr>
+</table>
 </body>
 </html>

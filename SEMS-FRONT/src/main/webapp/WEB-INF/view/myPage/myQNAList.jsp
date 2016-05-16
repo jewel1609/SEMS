@@ -29,7 +29,7 @@
 			<td>${qnaVO.replyId}</td>
 			<td>${qnaVO.eduId}</td>
 			<td>${qnaVO.createdDate}</td>
-			<td><a href="<c:url value='/myPage/myQNADetail/{replyId}'/>" onclick="window.open(this.href, '문의 사항','');return false;" target="_blank">${qnaVO.description}</a></td>
+			<td><a href="<c:url value='/myPage/myQNADetail/${qnaVO.replyId}'/>" onclick="window.open(this.href, '문의 사항','');return false;" target="_blank">${qnaVO.description}</a></td>
 			<td>${qnaVO.isAnswered}</td>
 		</tr>
 		</c:forEach>
