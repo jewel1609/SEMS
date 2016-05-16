@@ -101,7 +101,7 @@
 		WHERE	LGI_HTR_ID = #{lgiHtrId}
 	</update>
 	
-	<select id="getTotalMemberCount">
+	<select id="getTotalMemberCount" resultType="_int">
 		SELECT 	COUNT(ID)
 		FROM	MBR
 	</select>
@@ -118,7 +118,7 @@
 				, MBR.BRTH_DT birthDate
 				, MBR.PHONE_NMB phoneNumber
 				, MBR.MBR_TP memberType
-				, MBR.LGI_F_FC loginFailCount
+				, MBR.LGI_F_CT loginFailCount
 				, MBR.IS_ACC_LCK isAccountLock
 				, MBR.LATEST_LGI_DT latestLoginDate
 				, MBR.RSN_DT resignDate
