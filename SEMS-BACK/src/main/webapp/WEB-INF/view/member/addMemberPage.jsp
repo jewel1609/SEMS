@@ -23,6 +23,8 @@
 <script type="text/javascript">
 	$(document).ready(function () {
 		
+		$("#studentForm").hide();
+		
 		var isCheckedId = false;
 		var isCheckedEmail = false;
 		
@@ -191,6 +193,24 @@
 			$("#birthDate").val(date);
 		});
 		
+		if( $(".memberType").val() == '수강생' || $(".memberType").val() == '일반회원') {
+			$("#studentForm").show();
+		}
+		
+		$('input[type=radio][name=memberType]').change(function() {
+			
+			if( this.value == '수강생' || this.value == '일반회원' ) {
+				$("#studentForm").show();	
+			}
+			else {
+				$("#studentForm").hide();
+			}
+		
+			
+		});
+		
+		
+		
 	});
 </script>
 
@@ -275,7 +295,7 @@
 </head>
 <body>
 
-	<form:form id="registerForm" commandName="memberVO" method="post">
+	<form:form id="registerForm" commandName="member" method="post">
 		아이디 : <input type="text" id="id" name="id" value="${ member.id }" tabindex="1" maxlength="20"/>
 		<br/><span id="messageById"></span>
 		<form:errors path="id" /><br/>
@@ -304,7 +324,16 @@
 		전화 번호 : <input type="text" id="phoneNumber" name="phoneNumber" value="${ member.phoneNumber }" tabindex="20" maxlength="13"/>
 		<br/><span id="messageByPhoneNumber"></span>
 		<form:errors path="phoneNumber" /><br/>
-
+		
+		회원권한 : 
+		<c:forEach items="${memberTypeCodeNameList}" var="memberTypeCodeName">
+			<input type="radio" class="memberType" name="memberType" value="${memberTypeCodeName}"/>${memberTypeCodeName}
+		</c:forEach>
+		
+		<br/>
+		<br/>
+		
+		<div id="studentForm">
 		학교 : <input type="text" name="universityName" value="${ member.universityName }" maxlength="20" />
 		<br/>
 			<c:if test="${isEmptyUniversityName ne null}">
@@ -338,8 +367,8 @@
 				<span id="messageByMajorName" style="color: red;">최종학력을 선택하세요!</span>
 			</c:if>
 		<br/>
+		</div>
 
-		<input type="hidden" name="memberType" value="MBR" />
 		<input id="registerButton" class="inputButton" type="button" value="가입"/>
 	</form:form>
 
