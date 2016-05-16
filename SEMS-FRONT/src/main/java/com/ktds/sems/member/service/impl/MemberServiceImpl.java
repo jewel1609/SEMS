@@ -42,16 +42,18 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public ModelAndView addNewMember(MemberVO member, Errors errors, String repeatPassword, HttpSession session) {
 		ModelAndView view = new ModelAndView();
+		
 		MemberVO sessionMember = (MemberVO) session.getAttribute("_MEMBER_");
+		String memberType = member.getMemberType();
+		if (sessionMember != null || memberType == null) {
+			view.setViewName("member/registErrorPage");
+			return view;
+		}
 
 		boolean isNotError = true;
-
-		String memberType = member.getMemberType();
 		isNotError = isAllValidValue(member, repeatPassword, view);
 
-		if (sessionMember != null) {
-			view.setViewName("member/registErrorPage");
-		} else if (errors.hasErrors() || !isNotError) {
+		if (errors.hasErrors() || !isNotError) {
 			List<String> highestEducationLevelCodeNameList = memberBiz.getHighestEducationLevelCodeNames();
 			List<String> graduationTypeList = memberBiz.getGraduationType();
 
@@ -111,11 +113,8 @@ public class MemberServiceImpl implements MemberService {
 		if (member.getPhoneNumber() != null && !memberBiz.isVerifyPhoneNumber(member.getPhoneNumber())) {
 			errorCount++;
 		}
-
-		if (memberType == null) {
-			view.setViewName("redirect:/");
-			errorCount++;
-		} else if (memberType.equals("MBR")) {
+		
+		if (memberType.equals("MBR")) {
 			if (member.getGraduationType() == null) {
 				view.addObject("isEmptyGraduationType", "true");
 				errorCount++;
