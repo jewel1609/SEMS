@@ -437,6 +437,9 @@ public class MemberServiceTest extends SemsTestCase {
 			List<String> graduationTypeList = (List<String>) view.getModel().get("graduationTypeList");
 			assertNotNull(graduationTypeList);
 			
+			String isEmptyHighestEducationLevel = (String) view.getModelMap().get("isEmptyHighestEducationLevel");
+			assertNotNull(isEmptyHighestEducationLevel);
+			
 			MemberVO viewMember = (MemberVO) view.getModelMap().get("member");
 			assertNotNull(viewMember);
 			assertTrue(viewMember.getHighestEducationLevel() == null);
@@ -481,6 +484,9 @@ public class MemberServiceTest extends SemsTestCase {
 
 			List<String> graduationTypeList = (List<String>) view.getModel().get("graduationTypeList");
 			assertNotNull(graduationTypeList);
+			
+			String isEmptyUniversityName = (String) view.getModelMap().get("isEmptyUniversityName");
+			assertNotNull(isEmptyUniversityName); 
 			
 			MemberVO viewMember = (MemberVO) view.getModelMap().get("member");
 			assertNotNull(viewMember);
@@ -527,6 +533,9 @@ public class MemberServiceTest extends SemsTestCase {
 			List<String> graduationTypeList = (List<String>) view.getModel().get("graduationTypeList");
 			assertNotNull(graduationTypeList);
 			
+			String isEmptyMajorName = (String) view.getModelMap().get("isEmptyMajorName");
+			assertNotNull(isEmptyMajorName);
+			
 			MemberVO viewMember = (MemberVO) view.getModelMap().get("member");
 			assertNotNull(viewMember);
 			assertTrue(viewMember.getMajorName() == null);
@@ -571,6 +580,9 @@ public class MemberServiceTest extends SemsTestCase {
 
 			List<String> graduationTypeList = (List<String>) view.getModel().get("graduationTypeList");
 			assertNotNull(graduationTypeList);
+			
+			String isEmptyGraduationType = (String) view.getModelMap().get("isEmptyGraduationType");
+			assertNotNull(isEmptyGraduationType);
 			
 			MemberVO viewMember = (MemberVO) view.getModelMap().get("member");
 			assertNotNull(viewMember);
@@ -709,7 +721,7 @@ public class MemberServiceTest extends SemsTestCase {
 	}
 	
 	@Test
-	public void addNewMemberTestErrorCaseRepeatPasswrod() {
+	public void addNewMemberTestErrorCaseNotEqualRepeatPasswrod() {
 		MemberVO member = new MemberVO();
 		member.setId("JunitError1");
 		member.setPassword("JunitPassword1@");
@@ -743,6 +755,56 @@ public class MemberServiceTest extends SemsTestCase {
 			List<String> graduationTypeList = (List<String>) view.getModel().get("graduationTypeList");
 			assertNotNull(graduationTypeList);
 			
+			String isEqualsPassword = (String) view.getModelMap().get("isEqualsPassword");
+			assertNotNull(isEqualsPassword);
+			
+			MemberVO viewMember = (MemberVO) view.getModelMap().get("member");
+			assertNotNull(viewMember);
+			
+			assertTrue(memberDAO.isExistId(member.getId()) == null);
+		}
+		else {
+			fail("Fail...");
+		}
+	}
+	
+	@Test
+	public void addNewMemberTestErrorCaseEmptyRepeatPasswrod() {
+		MemberVO member = new MemberVO();
+		member.setId("JunitError1");
+		member.setPassword("JunitPassword1@");
+		member.setName("Junit");
+		member.setEmail("Junit@naver.com");
+		member.setHighestEducationLevel("대졸");
+		member.setUniversityName("서울대");
+		member.setMajorName("컴공");
+		member.setGraduationType("졸업");
+		member.setBirthDate("1991-01-01");
+		member.setPhoneNumber("010-1234-5678");
+		member.setMemberType("MBR");
+		
+		BindingResult errors = new BeanPropertyBindingResult(member, "registerForm");
+		MockHttpSession session = new MockHttpSession();
+		MemberValidator memberValidator = new MemberValidator();
+		memberValidator.validate(member, errors);
+		
+		ModelAndView view = memberService.addNewMember(member, errors, null, session);
+		assertNotNull(view);
+		
+		if ( view != null ) {
+			String viewName = view.getViewName();
+			assertNotNull(viewName);
+			assertEquals(viewName,"member/registerStudent");
+			
+			List<String> highestEducationLevelCodeNameList = (List<String>) view.getModel().get("highestEducationLevelCodeNameList");
+			assertNotNull(highestEducationLevelCodeNameList);
+
+			List<String> graduationTypeList = (List<String>) view.getModel().get("graduationTypeList");
+			assertNotNull(graduationTypeList);
+			
+			String isEmptyRepeatPassword = (String) view.getModelMap().get("isEmptyRepeatPassword");
+			assertNotNull(isEmptyRepeatPassword);
+			
 			MemberVO viewMember = (MemberVO) view.getModelMap().get("member");
 			assertNotNull(viewMember);
 			
@@ -770,7 +832,7 @@ public class MemberServiceTest extends SemsTestCase {
 	}
 	
 	@Test
-	public void registerPolicyErrorExistSession () {
+	public void registerPolicyErrorCaseExistSession () {
 		MockHttpSession session = new MockHttpSession();
 		MemberVO sessionMember = new MemberVO();
 		session.setAttribute("_MEMBER_", sessionMember);
@@ -811,7 +873,7 @@ public class MemberServiceTest extends SemsTestCase {
 	}
 	
 	@Test
-	public void registerStudentErrorExistSession () {
+	public void registerStudentErrorCaseExistSession () {
 		MockHttpSession session = new MockHttpSession();
 		MemberVO sessionMember = new MemberVO();
 		session.setAttribute("_MEMBER_", sessionMember);
@@ -846,7 +908,7 @@ public class MemberServiceTest extends SemsTestCase {
 	}
 	
 	@Test
-	public void registerTeacherErrorExistSession () {
+	public void registerTeacherErrorCaseExistSession () {
 		MockHttpSession session = new MockHttpSession();
 		MemberVO sessionMember = new MemberVO();
 		session.setAttribute("_MEMBER_", sessionMember);
