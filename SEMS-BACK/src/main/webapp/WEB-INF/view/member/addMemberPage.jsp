@@ -141,16 +141,41 @@
 		
 		$("#registerButton").click( function () {
 			
-			var universityName = $("#universityName").val();
-			if (universityName == "") {
-				$("#messageByUniversityName").html("학교를 입력하세요.");
+			var isCheckedMemberType = $('input:radio[name=memberType]').is(':checked');
+			if ( isCheckedMemberType == false) {
+				alert("회원권한을 선택해주세요.")
 				return;
 			}
 			
-			var majorName = $("#majorName").val();
-			if (majorName == "") {
-				$("#messageByMajorName").html("학과를 입력하세요.");
-				return;
+			var selectMemberType = $(':radio[name="memberType"]:checked').val();
+			
+			if ( selectMemberType == "수강생" || selectMemberType == "일반회원") {
+				
+				var universityName = $("#universityName").val();
+				if (universityName == "") {
+					alert("학교를 입력하세요.");
+					$("#messageByUniversityName").html("학교를 입력하세요.");
+					return;
+				}
+				
+				var majorName = $("#majorName").val();
+				if (majorName == "") {
+					alert("학과를 입력하세요.");
+					$("#messageByMajorName").html("학과를 입력하세요.");
+					return;
+				}
+				
+				var graduationType = $('input:radio[name=graduationType]').is(':checked');
+				if ( graduationType == false) {
+					alert("졸업구분을 선택하세요");
+					return;
+				}
+				
+				var highestEducationLevel = $('input:radio[name=highestEducationLevel]').is(':checked');
+				if ( highestEducationLevel == false ) {
+					alert("최종학력을 선택하세요.");
+					return;
+				}
 			}
 			
 			if(isCheckedId == false) {
@@ -334,14 +359,14 @@
 		<br/>
 		
 		<div id="studentForm">
-		학교 : <input type="text" name="universityName" value="${ member.universityName }" maxlength="20" />
+		학교 : <input type="text" id="universityName" name="universityName" value="${ member.universityName }" maxlength="20" />
 		<br/>
 			<c:if test="${isEmptyUniversityName ne null}">
 				<span id="messageByUniversityName">학교를 입력하세요!</span>
 			</c:if>
 		<br/>
 		
-		학과 : <input type="text" name="majorName" value="${ member.majorName }" maxlength="20"/>
+		학과 : <input type="text" id="majorName" name="majorName" value="${ member.majorName }" maxlength="20"/>
 		<br/>
 			<c:if test="${isEmptyMajorName ne null}">
 				<span id="messageByMajorName" style="color: red;">학과를 입력하세요!</span>
