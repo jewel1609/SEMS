@@ -685,7 +685,7 @@ public class MemberServiceImpl implements MemberService {
 		educationHistorySearchVO.setPageNo(pageNo);
 		educationHistorySearchVO.setStartIndex(paging.getStartArticleNumber());
 		educationHistorySearchVO.setEndIndex(paging.getEndArticleNumber());
-		// TODO 에러 발생 educationHistorySearchVO.setMemberId(memberVO.getId());
+		educationHistorySearchVO.setMemberId(memberVO.getId());
 		
 		List<EducationHistoryVO> educationHistoryList = memberBiz.getAllEducationHistoryListById(educationHistorySearchVO);
 		ModelAndView view = new ModelAndView();
