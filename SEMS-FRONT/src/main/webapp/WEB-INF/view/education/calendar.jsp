@@ -95,7 +95,7 @@
 									},
 
 									fixedWeekCount : false,
-									contentHeight : 600,
+									contentHeight : 370,
 									eventLimit : true,
 									theme : true, //Do not remove this as it ruin the design
 									selectable : true,
