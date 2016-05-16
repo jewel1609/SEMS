@@ -46,6 +46,8 @@ public interface MemberBiz {
 
 	public boolean isVerifyPhoneNumber(String phoneNumber);
 
+	public MemberVO getMemberDetailById(String id);
+
 	public List<String> getHighestEducationLevelCodeNames();
 
 	public List<String> getGraduationType();
