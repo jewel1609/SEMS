@@ -26,6 +26,8 @@ import com.ktds.sems.education.vo.EduReplyListVO;
 import com.ktds.sems.education.vo.EducationListVO;
 import com.ktds.sems.education.vo.EducationSearchVO;
 import com.ktds.sems.education.vo.EducationVO;
+import com.ktds.sems.education.vo.QNAListVO;
+import com.ktds.sems.education.vo.QNASearchVO;
 import com.ktds.sems.education.vo.QNAVO;
 
 import com.ktds.sems.file.biz.FileBiz;
@@ -296,6 +298,48 @@ public class EducationServiceImpl implements EducationService {
 	@Override
 	public String doTransTypeId(String educationType) {
 		return educationBiz.doTransTypeId(educationType);
+	}
+
+	/**
+	 * @author 206-025 이기연
+	 * 교육 문의 내용 리스트
+	 */
+	@Override
+	public ModelAndView showMyQNAList(int pageNo, HttpSession session) {
+
+		MemberVO memberVO = (MemberVO) session.getAttribute(Session.MEMBER);
+		String memberId = memberVO.getId(); 
+				
+		// page setting
+		QNAListVO qnaListVO = new QNAListVO();
+		Paging paging = new Paging(15,15);
+		qnaListVO.setPaging(paging);
+		paging.setPageNumber(pageNo+"");
+		
+		int totalQNACount = educationBiz.getTotalQNACount(memberId);
+		paging.setTotalArticleCount(totalQNACount);
+		
+		QNASearchVO qnaSearchVO = new QNASearchVO();
+		qnaSearchVO.setStartIndex(paging.getStartArticleNumber());
+		qnaSearchVO.setEndIndex(paging.getEndArticleNumber());
+		qnaSearchVO.setId(memberId);
+		
+		List<QNAVO> qnaList = educationBiz.getAllQNAList(qnaSearchVO);
+		
+		ModelAndView view = new ModelAndView();
+		view.setViewName("myPage/myQNAList");
+		view.addObject("qnaList", qnaList);
+		
+		return view;
+	}
+
+	/**
+	 * @author 206-025 이기연
+	 * 교육 문의 내용 디테일 페이지(팝업창)
+	 */
+	@Override
+	public String showMyQNADetail(String replyId, HttpSession session) {
+		return null;
 	}
 
 }

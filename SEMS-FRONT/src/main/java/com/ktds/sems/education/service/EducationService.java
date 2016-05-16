@@ -32,5 +32,9 @@ public interface EducationService {
 
 	public String doTransTypeId(String educationType);
 
+	public ModelAndView showMyQNAList(int pageNo, HttpSession session);
+
+	public String showMyQNADetail(String replyId, HttpSession session);
+
 	
 }
