@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.ktds.sems.education.vo.EducationSearchVO;
 import com.ktds.sems.education.vo.EducationVO;
+import com.ktds.sems.education.vo.QNASearchVO;
 import com.ktds.sems.education.vo.QNAVO;
 
 public interface EducationBiz {
@@ -43,4 +44,8 @@ public interface EducationBiz {
 	public String doTransTypeId(String educationType);
 
 	public String doTransCostId(String cost);
+
+	public List<QNAVO> getAllQNAList(QNASearchVO qnaSearchVO);
+
+	public int getTotalQNACount(String memberId);
 }

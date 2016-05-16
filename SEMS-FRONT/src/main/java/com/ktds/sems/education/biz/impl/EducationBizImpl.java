@@ -6,6 +6,7 @@ import com.ktds.sems.education.biz.EducationBiz;
 import com.ktds.sems.education.dao.EducationDAO;
 import com.ktds.sems.education.vo.EducationSearchVO;
 import com.ktds.sems.education.vo.EducationVO;
+import com.ktds.sems.education.vo.QNASearchVO;
 import com.ktds.sems.education.vo.QNAVO;
 
 public class EducationBizImpl implements EducationBiz {
@@ -107,6 +108,22 @@ public class EducationBizImpl implements EducationBiz {
 	public String doTransCostId(String cost) {
 		// TODO Auto-generated method stub
 		return educationDAO.doTransCostId(cost);
+	}
+
+	/**
+	 * @author 206-025 이기연
+	 */
+	@Override
+	public int getTotalQNACount(String memberId) {
+		return educationDAO.getTotalQNACount(memberId);
+	}
+
+	/**
+	 * @author 206-025 이기연
+	 */
+	@Override
+	public List<QNAVO> getAllQNAList(QNASearchVO qnaSearchVO) {
+		return educationDAO.getAllQNAList(qnaSearchVO);
 	}
 }
 
