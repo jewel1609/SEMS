@@ -29,6 +29,8 @@ public interface MemberService {
 
 	public void checkValidationByPhoneNumber(String phoneNumber, HttpServletResponse response);
 
+	public ModelAndView getMemberDetailById(String id);
+
 	public ModelAndView addNewMember(MemberVO member, Errors errors, HttpSession session);
 
 	public List<String> getHighestEducationLevelCodeNames();
