@@ -7,7 +7,7 @@ public class CooperationVO {
 	private String cooperationLocation;
 	private String cooperationNumber;
 	private String representativeName;
-	private String managerNumber;
+	private String managerPhoneNumber;
 	private String cooperationPhoneNumber;
 	private String managerEmail;
 	private String cooperationType;
@@ -42,11 +42,11 @@ public class CooperationVO {
 	public void setRepresentativeName(String representativeName) {
 		this.representativeName = representativeName;
 	}
-	public String getManagerNumber() {
-		return managerNumber;
+	public String getManagerPhoneNumber() {
+		return managerPhoneNumber;
 	}
-	public void setManagerNumber(String managerNumber) {
-		this.managerNumber = managerNumber;
+	public void setManagerNumber(String managerPhoneNumber) {
+		this.managerPhoneNumber = managerPhoneNumber;
 	}
 	public String getCooperationPhoneNumber() {
 		return cooperationPhoneNumber;

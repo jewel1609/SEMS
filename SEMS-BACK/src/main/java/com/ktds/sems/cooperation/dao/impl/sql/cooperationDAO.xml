@@ -3,5 +3,52 @@
 
 <mapper namespace="CooperationDAO" >
 
+	<select id="getTotalCooperationCount" resultType="_int" >
+		SELECT	COUNT(COO_ID)
+		FROM	COO_INFO
+	</select>
+	
+	<select id="getAllCooperation" parameterType="CooperationSearchVO" resultType="CooperationVO" >
+		SELECT 	COO_ID cooperationId
+				, COO_TTL cooperationTitle
+				, COO_LOC cooperationLocation
+				, COO_NMB cooperationNumber
+				, REP_NM representativeName
+				, MGR_PH managerPhoneNumber
+				, COO_PH cooperationPhoneNumber
+				, MGR_EMAIL managerEmail
+				, COO_TP cooperationType
+		FROM 	(
+					SELECT	ROWNUM AS RNUM
+							, COO_INFO.*
+					FROM	(
+								SELECT	*
+								FROM	COO_INFO
+								ORDER	BY COO_ID DESC
+							) COO_INFO
+					WHERE	ROWNUM <![CDATA[<=]]> #{endIndex}
+				)
+		WHERE	RNUM >= #{startIndex}
+	</select>
+	
+	<select id="getOneCooperation" parameterType="String" resultType="CooperationVO" >
+		SELECT 	COO_ID cooperationId
+				, COO_TTL cooperationTitle
+				, COO_LOC cooperationLocation
+				, COO_NMB cooperationNumber
+				, REP_NM representativeName
+				, MGR_PH managerPhoneNumber
+				, COO_PH cooperationPhoneNumber
+				, MGR_EMAIL managerEmail
+				, COO_TP cooperationType
+		FROM	COO_INFO
+		WHERE	COO_ID = #{coopertionId}
+	</select>
+	
+	<delete id="doDeleteCooperation" parameterType="String" >
+		DELETE
+		FROM	COO_INFO
+		WHERE	COO_ID = #{coopertionId}
+	</delete>
 
 </mapper>
