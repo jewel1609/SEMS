@@ -375,9 +375,17 @@ public class MemberBizImpl implements MemberBiz {
 
 	@Override
 	public List<LoginHistoryVO> getAllLoginHistory(LoginHistorySearchVO loginHistorySearchVO) {
-		return memberDAO.getAllLoginHistory(loginHistorySearchVO);
+		
+		List<LoginHistoryVO> loginHistoryVO = memberDAO.getAllLoginHistory(loginHistorySearchVO);
+				
+		for ( LoginHistoryVO history : loginHistoryVO ) {
+			String lgiIp = history.getLgiIp();
+			history.setLgiIp(hideIp(lgiIp));
+		}
+		
+		return loginHistoryVO;
 	}
-
+	
 	@Override
 	public void modifyMemberInfo(MemberVO member) {
 		memberDAO.modifyMemberInfo(member);
@@ -554,6 +562,31 @@ public class MemberBizImpl implements MemberBiz {
 		memberDAO.ipCheckCountUpdate(loginHistoryVO);
 		
 		return memberDAO.checkIpInfo(loginHistoryVO);
+	}
+	
+	/**
+	 * IP Masking
+	 * 
+	 * @author 이기연
+	 * 
+	 * @param ip 마스킹 처리할 IP
+	 * @return 마스킹 IP
+	 */
+	private String hideIp(String ip) {
+		String hidedIp = "";
+		String number = "^[0-9]$";
+
+		for (int i = 0; i < ip.length(); i++) {
+			String temp = ip.charAt(i) + "";
+			if (temp.matches(number)) {
+				hidedIp = hidedIp + "*";
+			}
+			else {
+				hidedIp = hidedIp + temp;
+			}
+		}
+		
+		return hidedIp;
 	}
 
 }
