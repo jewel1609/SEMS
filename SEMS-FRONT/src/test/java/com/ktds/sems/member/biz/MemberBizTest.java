@@ -364,4 +364,30 @@ public class MemberBizTest extends SemsTestCase {
 		
 		assertTrue(isSuccess);
 	}
+	
+	/**
+	 * 진행중인 교육 이력만 보기
+	 */
+	@Test
+	public void getJoinEducationListTest() {
+		String memberId = "test02";
+		List<EducationHistoryVO> educationHistoryList = memberBiz.getJoinEducationList(memberId);
+		
+		if( educationHistoryList != null ) {
+			
+			for (EducationHistoryVO educationHistoryVO : educationHistoryList) {
+				assertNotNull(educationHistoryVO.getEducationHistoryId());
+				assertNotNull(educationHistoryVO.getEducationId());
+				assertNotNull(educationHistoryVO.getMemberId());
+				assertNotNull(educationHistoryVO.getEducationHistoryDate());
+				assertNotNull(educationHistoryVO.getState());
+				assertNotNull(educationHistoryVO.getIp());
+				assertNotNull(educationHistoryVO.getStartDate());
+				assertNotNull(educationHistoryVO.getEndDate());
+			}
+			
+		} else {
+			fail("fail");
+		}
+	}
 }
