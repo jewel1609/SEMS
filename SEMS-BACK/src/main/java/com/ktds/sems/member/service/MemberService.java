@@ -18,9 +18,9 @@ public interface MemberService {
 
 	public void logout(HttpSession session);
 
+	public ModelAndView getAllMemberHistory(LoginHistorySearchVO loginHistorySearchVO, int pageNo);
+	
 	public ModelAndView viewLoginHistory(LoginHistoryVO loginHistoryVO, Errors errors, HttpSession session);
-
-	public ModelAndView getAllMemberHistory(int pageNo);
 
 	public ModelAndView getAllMemberList(int pageNo);
 
@@ -47,5 +47,7 @@ public interface MemberService {
 	public ModelAndView memberDeleteById(String id);
 
 	public List<String> getMemberTypeCodeNameList();
+
+	public ModelAndView loginHistoryInit();
 
 }

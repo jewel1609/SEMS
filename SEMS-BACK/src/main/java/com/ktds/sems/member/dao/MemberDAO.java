@@ -43,7 +43,7 @@ public interface MemberDAO {
 
 	public String isExistEmail(String email);
 
-	public int getTotalMemberHistoryCount();
+	public int getTotalMemberHistoryCount(LoginHistorySearchVO loginHistorySearchVO);
 
 	public int massiveDeleteMember(String memberId);
 	
@@ -62,5 +62,7 @@ public interface MemberDAO {
 	public List<String> getMemberTypeCodeNameList();
 
 	public String getMemberTypeCodeId(String memberType);
+
+	public List<String> getTypeList();
 
 }

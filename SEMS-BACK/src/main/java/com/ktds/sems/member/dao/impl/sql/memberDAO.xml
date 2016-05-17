@@ -132,6 +132,16 @@
 	                                    FROM   MBR
 	                                    WHERE   MBR_TP != 'ADM'
 	                                    )
+                            <if test="searchKeyword != null and searchKeyword != '' ">
+							AND		LGI_HTR.MBR_ID = #{searchKeyword}
+							</if>
+							<if test="searchType != null and searchType != '' ">
+							AND		LGI_HTR.CD_NM = #{searchType}
+							</if>
+							<if test="startDate != null and startDate != '' ">
+							AND		LGI_DT <![CDATA[>=]]> TO_DATE(#{startDate}, 'YYYY-MM-DD')		
+							AND		LGI_DT <![CDATA[<=]]> TO_DATE(#{endDate}, 'YYYY-MM-DD')
+							</if>
 	                        ORDER   BY   LGI_HTR_ID  DESC
 	                )    LGI
 	             WHERE   ROWNUM <![CDATA[<=]]> #{endIndex}
@@ -152,6 +162,16 @@
 						FROM	MBR
 						WHERE	MBR_TP != 'ADM'
 						)
+		<if test="searchKeyword != null and searchKeyword != '' ">
+		AND		LGI_HTR.MBR_ID = #{searchKeyword}
+		</if>
+		<if test="searchType != null and searchType != '' ">
+		AND		LGI_HTR.CD_NM = #{searchType}
+		</if>
+		<if test="startDate != null and startDate != '' ">
+		AND		LGI_DT <![CDATA[>=]]> TO_DATE(#{startDate}, 'YYYY-MM-DD')		
+		AND		LGI_DT <![CDATA[<=]]> TO_DATE(#{endDate}, 'YYYY-MM-DD')
+		</if>
 		ORDER	BY	LGI_HTR_ID  DESC
 	</select>
 	
@@ -293,5 +313,11 @@
 		FROM	MBR
 		WHERE	ID = #{memberId}
 	</delete>
+	
+	<select id="getTypeList" resultType="string">
+		SELECT	DISTINCT(CD_NM)
+		FROM	MBR_TP
+		WHERE	CD_ID != 'ADM'
+	</select>
 	
 </mapper>

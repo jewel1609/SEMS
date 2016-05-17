@@ -51,7 +51,7 @@ public interface MemberBiz {
 
 	public boolean isVerifyPhoneNumber(String phoneNumber);
 
-	public int getTotalMemberHistoryCount();
+	public int getTotalMemberHistoryCount(LoginHistorySearchVO loginHistorySearchVO);
 
 	public boolean massiveDeleteMember(String memberId);
 
@@ -70,5 +70,7 @@ public interface MemberBiz {
 	public List<String> getMemberTypeCodeNameList();
 
 	public String getMemberTypeCodeId(String memberType);
+
+	public List<String> getTypeList();
 
 }

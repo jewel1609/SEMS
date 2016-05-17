@@ -211,8 +211,8 @@ public class MemberBizImpl implements MemberBiz {
 	}
 
 	@Override
-	public int getTotalMemberHistoryCount() {
-		return memberDAO.getTotalMemberHistoryCount();
+	public int getTotalMemberHistoryCount(LoginHistorySearchVO loginHistorySearchVO) {
+		return memberDAO.getTotalMemberHistoryCount(loginHistorySearchVO);
 	}
 
 	@Override
@@ -260,4 +260,9 @@ public class MemberBizImpl implements MemberBiz {
 		return memberDAO.getMemberTypeCodeId(memberType);
 	}
 
+	@Override
+	public List<String> getTypeList() {
+		return memberDAO.getTypeList();
+	}
+	
 }

@@ -109,9 +109,9 @@ public class MemberController {
 		return memberService.getAllMemberList(pageNo);
 	}
 	
-	@RequestMapping("/history")
-	public ModelAndView viewHistoryPage(@RequestParam(required = false, defaultValue = "0") int pageNo){
-		return memberService.getAllMemberHistory(pageNo);
+	@RequestMapping("/memberHistory")
+	public ModelAndView viewHistoryPage(LoginHistorySearchVO loginHistorySearchVO, @RequestParam(required = false, defaultValue = "0") int pageNo){
+		return memberService.getAllMemberHistory(loginHistorySearchVO ,pageNo);
 	}
 
 	@RequestMapping("/memberDetail/{id}")
@@ -132,6 +132,11 @@ public class MemberController {
 			logger.info("Controller로 넘어온 ID : " + string);
 		}
 		return memberService.massiveDeleteMember(deleteMemberIds);
+	}
+	
+	@RequestMapping("/member/loginHistoryInit")
+	public ModelAndView loginHistoryInit() {
+		return memberService.loginHistoryInit();
 	}
 	
 	@RequestMapping("/memberDelete/{id}")
