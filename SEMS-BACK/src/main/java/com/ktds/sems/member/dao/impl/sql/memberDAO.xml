@@ -353,6 +353,31 @@
 		WHERE	ID = #{memberId}
 	</delete>
 	
+	<update id="changePassword" parameterType="MemberVO">
+		UPDATE	MBR
+		SET		SALT = #{salt}
+				, PWD = #{password}
+				, LATEST_LGI_DT = SYSDATE
+		WHERE	ID = #{id}
+	</update>	
+	
+	<select id="getMemberType" resultType="string">
+		SELECT	CD_NM
+		FROM	MBR_TP
+	</select>
+	
+	<select id="getMemberTypeCode" resultType="string" parameterType="string">
+		SELECT	CD_ID
+		FROM	MBR_TP
+		WHERE	CD_NM = #{memberType}
+	</select>
+	
+	<update id="modifyMemberTypeById" parameterType="map">
+		UPDATE	MBR
+		SET		MBR_TP = #{memberTypeCode}
+		WHERE	ID = #{memberId}
+	</update>
+
 	<select id="getTypeList" resultType="string">
 		SELECT	DISTINCT(CD_NM)
 		FROM	MBR_TP

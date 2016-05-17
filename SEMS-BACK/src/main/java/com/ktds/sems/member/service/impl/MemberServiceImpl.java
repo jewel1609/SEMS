@@ -1,8 +1,13 @@
 package com.ktds.sems.member.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
 import java.util.ArrayList;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,8 +18,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ktds.sems.common.SendMail;
 import com.ktds.sems.common.LoginStore;
 import com.ktds.sems.common.Session;
+import com.ktds.sems.common.vo.MailVO;
 import com.ktds.sems.member.biz.MemberBiz;
 import com.ktds.sems.member.service.MemberService;
 import com.ktds.sems.member.vo.LoginHistoryListVO;
@@ -196,12 +203,14 @@ public class MemberServiceImpl implements MemberService{
 		searchVO.setEndIndex(paging.getEndArticleNumber());
 		
 		List<MemberVO> memberList = memberBiz.getAllMemberList(searchVO);
-		
 		memberListVO.setMemberList(memberList);
+		
+		List<String> memberTypeList = memberBiz.getMemberType();
 		
 		ModelAndView view = new ModelAndView();
 		view.setViewName("member/memberListPage");
 		view.addObject("memberListVO", memberListVO);
+		view.addObject("memberTypeList", memberTypeList);
 		return view;
 	}
 
@@ -431,6 +440,66 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
+	public ModelAndView changeMemberPassword(String id) {
+		ModelAndView view = new ModelAndView();
+		view.setViewName("member/changeMemberPassword");
+		view.addObject("id", id);
+		return view;
+	}
+
+	@Override
+	public void sendAndChangePassword(String memberId, HttpServletResponse response) {
+		String message = "NO";
+		
+		SendMail sendMail = new SendMail();
+		MailVO mailVO = new MailVO();		
+		MemberVO member = new MemberVO();
+		
+		String password = memberBiz.randomValue(10);
+		String salt = SHA256Util.generateSalt();
+		member.setSalt(salt);
+
+		String newPassword = SHA256Util.getEncrypt(password, salt);
+		member.setId(memberId);
+		member.setPassword(newPassword);
+
+		boolean isChangedPassword = memberBiz.changePassword(member);
+		if ( isChangedPassword ) {
+			mailVO.setFromId("testForSendEmailKtds@gmail.com");
+			mailVO.setFromPassword("123qwe!@#qwe");
+			mailVO.setSubject("임시 비밀 번호입니다.");
+			mailVO.setText("<html><body>임시 비밀번호는 : " + password + "<a href='http://localhost/sems/'>로그인</a></body></html>");
+			mailVO.setToId(memberId);
+			
+			// TODO 이메일 테스트
+			// sendMail.sendMailToCustomer(mailVO);
+			
+			message = "OK";
+		}
+
+		AjaxUtil.sendResponse(response, message);
+	}
+
+	@Override
+	public ModelAndView modifyMemberType(String memberType, List<String> memberIds) {
+		ModelAndView view = new ModelAndView();
+		if ( memberType != null && memberIds != null ) {
+			String memberTypeCode = memberBiz.getMemberTypeCode(memberType);
+			Map<String, String> modifyMemberType = new HashMap<String, String> ();
+			modifyMemberType.put("memberTypeCode", memberTypeCode);
+			
+			for (String memberId : memberIds ) {
+				modifyMemberType.put("memberId", memberId);
+				
+				memberBiz.modifyMemberTypeById (modifyMemberType);
+			}
+			view.setViewName("redirect:/memberManage/memberList");
+		}
+		
+		return view;
+	}
+
+	@Override
 	public ModelAndView memberDeleteById(String id) {
 		ModelAndView view = new ModelAndView();
 		
@@ -469,5 +538,4 @@ public class MemberServiceImpl implements MemberService{
 		
 		return view;
 	}
-
 }

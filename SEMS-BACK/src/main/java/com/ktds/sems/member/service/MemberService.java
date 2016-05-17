@@ -42,6 +42,12 @@ public interface MemberService {
 
 	public List<String> getGraduationType();
 
+	public ModelAndView changeMemberPassword(String id);
+
+	public void sendAndChangePassword(String memberId, HttpServletResponse response);
+
+	public ModelAndView modifyMemberType(String memberType, List<String> memberId);
+
 	public ModelAndView memberDeleteById(String id);
 
 	public List<String> getMemberTypeCodeNameList();

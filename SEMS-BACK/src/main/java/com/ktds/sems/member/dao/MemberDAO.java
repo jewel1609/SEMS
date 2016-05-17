@@ -1,6 +1,7 @@
 package com.ktds.sems.member.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.ktds.sems.member.vo.LoginHistorySearchVO;
 import com.ktds.sems.member.vo.LoginHistoryVO;
@@ -57,6 +58,10 @@ public interface MemberDAO {
 
 	public String getGraduationTypeCodeId(String graduationType);
 
+	public int changePassword(MemberVO member);
+
+	public List<String> getMemberType();
+	
 	public List<String> getMemberTypeCodeNameList();
 
 	public String getMemberTypeCodeId(String memberType);
@@ -67,4 +72,7 @@ public interface MemberDAO {
 	
 	public int getTotalAdminHistoryCount();
 
+	public String getMemberTypeCode(String memberType);
+
+	public int modifyMemberTypeById(Map<String, String> modifyMemberType);
 }

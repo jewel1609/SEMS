@@ -134,6 +134,16 @@ public class MemberController {
 		return memberService.massiveDeleteMember(deleteMemberIds);
 	}
 	
+	@RequestMapping("/memberManage/sendAndChangePassword")
+	public void doSendAndChangePasswordAction (String memberId, HttpServletResponse response) {
+		memberService.sendAndChangePassword(memberId, response);
+	}
+	
+	@RequestMapping(value="/memberManage/doModifyMemberTypeAction", method = RequestMethod.POST)
+	public ModelAndView doModifyMemberTypeAction (@RequestParam String memberType,@RequestParam List<String> deleteMemberId) {
+		return memberService.modifyMemberType(memberType, deleteMemberId);
+	}
+	
 	@RequestMapping("/member/loginHistoryInit")
 	public ModelAndView loginHistoryInit() {
 		return memberService.loginHistoryInit();

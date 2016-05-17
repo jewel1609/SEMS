@@ -1,6 +1,7 @@
 package com.ktds.sems.member.biz;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -64,6 +65,16 @@ public interface MemberBiz {
 	public String getGraduationTypeCodeId(String graduationType);
 
 	public void addNewMember(MemberVO member);
+
+	public String randomValue(int i);
+
+	public boolean changePassword(MemberVO member);
+
+	public List<String> getMemberType();
+
+	public String getMemberTypeCode(String memberType);
+
+	public boolean modifyMemberTypeById(Map<String, String> modifyMemberType);
 
 	public List<String> getMemberTypeCodeNameList();
 

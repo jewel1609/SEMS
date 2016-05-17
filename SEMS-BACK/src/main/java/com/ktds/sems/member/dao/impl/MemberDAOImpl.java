@@ -1,6 +1,7 @@
 package com.ktds.sems.member.dao.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.slf4j.Logger;
@@ -137,6 +138,26 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 	@Override
 	public String getGraduationTypeCodeId(String graduationType) {
 		return getSqlSession().selectOne("MemberDAO.getGraduationTypeCodeId", graduationType);
+	}
+
+	@Override
+	public int changePassword(MemberVO member) {
+		return getSqlSession().update("MemberDAO.changePassword", member);
+	}
+
+	@Override
+	public List<String> getMemberType() {
+		return getSqlSession().selectList("MemberDAO.getMemberType");
+	}
+
+	@Override
+	public String getMemberTypeCode(String memberType) {
+		return getSqlSession().selectOne("MemberDAO.getMemberTypeCode", memberType);
+	}
+
+	@Override
+	public int modifyMemberTypeById(Map<String, String> modifyMemberType) {
+		return getSqlSession().update("MemberDAO.modifyMemberTypeById", modifyMemberType);
 	}
 
 	@Override

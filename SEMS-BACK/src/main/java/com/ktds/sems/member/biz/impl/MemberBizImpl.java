@@ -1,6 +1,8 @@
 package com.ktds.sems.member.biz.impl;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -170,7 +172,14 @@ public class MemberBizImpl implements MemberBiz {
 		String idPolicy = "((?=.*[a-zA-Z])(?=.*[0-9]).{5,20})";
 		Pattern pattern = Pattern.compile(idPolicy);
 		Matcher matcher = pattern.matcher(id);
-		return matcher.matches();
+		boolean isVerify = matcher.matches();
+		
+		idPolicy = "(^[A-Za-z0-9]*$)";
+		pattern = Pattern.compile(idPolicy);
+		matcher = pattern.matcher(id);
+		isVerify = isVerify && matcher.matches();
+		
+		return isVerify;
 	}
 
 	@Override
@@ -184,14 +193,6 @@ public class MemberBizImpl implements MemberBiz {
 		else {
 			return false;
 		}
-	}
-
-	@Override
-	public boolean isVerifyPassword(String password) {
-		String passwordPolicy = "((?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*()]).{10,20})";
-		Pattern pattern = Pattern.compile(passwordPolicy);
-		Matcher matcher = pattern.matcher(password);
-		return matcher.matches();
 	}
 
 	@Override
@@ -253,6 +254,67 @@ public class MemberBizImpl implements MemberBiz {
 	@Override
 	public void addNewMember(MemberVO member) {
 		memberDAO.addNewMember(member);
+	}
+
+	@Override
+	public String randomValue(int size) {
+		Random random = new Random();
+		StringBuilder salt = null;
+		String newPassword = null;
+		
+		char[] choices = ("abcdefghijklmnopqrstuvwxyz"
+				+ "ABCDEFGHIJKLMNOPQRSTUVWXYZ" 
+				+ "0123456789"
+				+ "!@#$%^&*()").toCharArray();
+		
+		while (true) {
+			salt = new StringBuilder(size);
+			for (int i = 0; i < size; ++i) {
+				salt.append(choices[random.nextInt(choices.length)]);
+			}
+			
+			newPassword = salt.toString();
+			if ( isVerifyPassword(newPassword) ) {
+				break;
+			}
+		}
+		
+		return newPassword;
+	}
+	
+	@Override
+	public boolean isVerifyPassword(String password) {
+		String passwordPolicy = "((?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*()]).{10,20})";
+		Pattern pattern = Pattern.compile(passwordPolicy);
+		Matcher matcher = pattern.matcher(password);
+		boolean isVerify = matcher.matches();
+		
+		passwordPolicy = "(^[A-Za-z0-9!@#$%^&*()]*$)";
+		pattern = Pattern.compile(passwordPolicy);
+		matcher = pattern.matcher(password);
+		isVerify = isVerify && matcher.matches();
+		
+		return isVerify;
+	}
+
+	@Override
+	public boolean changePassword(MemberVO member) {
+		return memberDAO.changePassword(member) > 0;
+	}
+
+	@Override
+	public List<String> getMemberType() {
+		return memberDAO.getMemberType();
+	}
+
+	@Override
+	public String getMemberTypeCode(String memberType) {
+		return memberDAO.getMemberTypeCode(memberType);
+	}
+
+	@Override
+	public boolean modifyMemberTypeById(Map<String, String> modifyMemberType) {
+		return memberDAO.modifyMemberTypeById(modifyMemberType) > 0;
 	}
 
 	@Override

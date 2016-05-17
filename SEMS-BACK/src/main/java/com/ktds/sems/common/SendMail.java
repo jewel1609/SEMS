@@ -41,7 +41,6 @@ public class SendMail {
 		} catch (MessagingException e) {
 			e.printStackTrace();
 		}
-
 	}
 
 }
