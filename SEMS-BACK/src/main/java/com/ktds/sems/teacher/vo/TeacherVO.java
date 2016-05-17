@@ -1,13 +1,26 @@
 package com.ktds.sems.teacher.vo;
 
-import com.ktds.sems.member.vo.MemberVO;
+import javax.validation.constraints.NotNull;
 
-public class TeacherVO extends MemberVO{
 
+
+
+
+public class TeacherVO{
+
+	private String memberId;
 	private String companyName;
 	private String businessNumber;
+
+	@NotNull(message="연차를 입력 해주세요!")
 	private int annual;
 	
+	public String getMemberId() {
+		return memberId;
+	}
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
+	}
 	public String getCompanyName() {
 		return companyName;
 	}
