@@ -965,4 +965,20 @@ public class MemberControllerTest extends SemsTestCase {
 
 	}
 	
+	/**
+	 * 나의 교육 이력 엑셀 다운로드
+	 */
+	@Test
+	public void eduationHistoryExportExcelTest() {
+		
+		MemberVO memberVO = new MemberVO();
+		memberVO.setId("test02");
+		
+		MockHttpSession session = new MockHttpSession();
+		session.setAttribute(Session.MEMBER, memberVO);
+		
+		String returnString = memberController.eduationHistoryExportExcel(session);
+		assertNotNull(returnString);
+	}
+	
 }
