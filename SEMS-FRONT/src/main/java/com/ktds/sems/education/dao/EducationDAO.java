@@ -64,4 +64,8 @@ public interface EducationDAO {
 
 	public String getEmail(String id);
 
+	public String getStartYear();
+
+	public String getEndYear();
+
 }
