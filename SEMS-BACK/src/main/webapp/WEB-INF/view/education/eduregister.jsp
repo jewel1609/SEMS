@@ -83,6 +83,18 @@
 	        	alert("숫자만 입력 하시오.");
 	            $(this).val(v.replace(reg, ''));
 	            $(this).focus();
+	            return;
+	        }
+	        if ( v == 0 ) {
+	        	alert("0이상의 숫자만 입력 하시오.");
+	            $(this).val('');
+	            $(this).focus();
+	            return;
+	        }
+	        if ( v > 2147483647 ) {
+	        	alert("너무 큰 숫자의 입력입니다.");
+	            $(this).focus();
+	            return;
 	        }
 		});
 
@@ -108,6 +120,17 @@
 					$('#maxMember').focus();
 					return false;
 				}
+				if ( $.trim($('#maxMember').val()) == 0 ) {
+		        	alert("0이상의 숫자만 입력 하시오.");
+		        	$('#maxMember').val('');
+		        	$('#maxMember').focus();
+		            return false;
+		        }
+		        if ( $.trim($('#maxMember').val()) > 2147483647 ) {
+		        	alert("너무 큰 숫자의 입력입니다.");
+		        	$('#maxMember').focus();
+		            return false;
+		        }
 				if ($.trim($('#educationLocation').val()) == '') {
 					alert("강의실 명을 입력하시오.");
 					$('#educationLocation').focus();
@@ -206,7 +229,7 @@
 			<form:errors path="memberId" />
 			<br />
 	     정원 : <input type="text" class="onlyText" id="maxMember"
-				name="maxMember" value="${educationVO.maxMember }" />
+				name="maxMember" value="${educationVO.maxMember }" min="1" max="2147483647" />
 			<br />
 			<br />
 	     강의실 : <input type="text" class="onlyText"
