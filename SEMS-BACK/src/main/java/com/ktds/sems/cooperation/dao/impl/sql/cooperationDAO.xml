@@ -3,6 +3,48 @@
 
 <mapper namespace="CooperationDAO" >
 
+	<select id="nextCooSeq" resultType="_int">
+		SELECT	COO_ID_SEQ.NEXTVAL
+		FROM	DUAL
+	</select>
+	
+	<select id="nowDate" resultType="string">
+		SELECT	TO_CHAR(SYSDATE, 'YYYYMMDD')
+		FROM	DUAL
+	</select>
+	
+	<insert id="doRegisterCoo" parameterType="cooperationVO">
+		INSERT INTO COO_INFO (
+		                       COO_ID
+		                       , COO_TTL
+		                       , COO_LOC
+		                       , COO_NMB
+		                       , REP_NM
+		                       , MGR_PH
+		                       , COO_PH
+		                       , MGR_EMAIL
+		                       , COO_TP
+		                     ) 
+		VALUES              (
+								#{cooperationId}
+								, #{cooperationTitle}
+								, #{cooperationLocation}
+								, #{cooperationNumber}
+								, #{representativeName}
+								, #{managerPhoneNumber}
+								, #{cooperationPhoneNumber}
+								, #{managerEmail}
+								, #{cooperationType}
+		                    )
+	</insert>
+	
+	<select id="isExistCooperationTitle" parameterType="string" resultType="string">
+		SELECT	COO_TTL
+		FROM	COO_INFO
+		WHERE   COO_TTL = #{cooperationTitle}
+		AND		ROWNUM=1
+	</select>
+	
 	<select id="getTotalCooperationCount" resultType="_int" >
 		SELECT	COUNT(COO_ID)
 		FROM	COO_INFO
@@ -42,13 +84,43 @@
 				, MGR_EMAIL managerEmail
 				, COO_TP cooperationType
 		FROM	COO_INFO
-		WHERE	COO_ID = #{coopertionId}
+		WHERE	COO_ID = #{cooperationId}
 	</select>
 	
-	<delete id="doDeleteCooperation" parameterType="String" >
+	<delete id="doDeleteCooperation" parameterType="string" >
 		DELETE
 		FROM	COO_INFO
-		WHERE	COO_ID = #{coopertionId}
+		WHERE	COO_ID = #{cooperationId}
 	</delete>
+	
+	<update id="doModifyCoo" parameterType="CooperationVO">
+		UPDATE	COO_INFO
+		SET		COO_ID    = #{cooperationId}
+				<if test="cooperationTitle != null">
+				, COO_TTL   = #{cooperationTitle}
+				</if>
+				<if test="cooperationLocation != null">
+		       	, COO_LOC   = #{cooperationLocation}
+		       	</if>
+		       	<if test="cooperationNumber != null">
+		       	, COO_NMB   = #{cooperationNumber}
+		       	</if>
+		       	<if test="representativeName != null">
+		       	, REP_NM    = #{representativeName}
+		       	</if>
+		       	<if test="managerPhoneNumber != null">
+		       	, MGR_PH    = #{managerPhoneNumber}
+		       	</if>
+		       	<if test="cooperationPhoneNumber != null">
+		      	, COO_PH    = #{cooperationPhoneNumber}
+		      	</if>
+		       	<if test="managerEmail != null">
+		      	, MGR_EMAIL = #{managerEmail}
+		      	</if>
+		       	<if test="cooperationType != null">
+		      	, COO_TP    = #{cooperationType}
+		      	</if>
+		WHERE  COO_ID    = #{cooperationId}
+	</update>
 
 </mapper>

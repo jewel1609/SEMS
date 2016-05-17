@@ -7,6 +7,10 @@ import com.ktds.sems.cooperation.vo.CooperationVO;
 
 public interface CooperationBiz {
 
+	public boolean doRegisterCoo(CooperationVO cooperation);
+
+	public boolean isExistCooperationTitle(String cooperationTitle);
+
 	public int getTotalCooperationCount();
 
 	public List<CooperationVO> getAllCooperation(CooperationSearchVO searchVO);
@@ -14,5 +18,7 @@ public interface CooperationBiz {
 	public CooperationVO getOneCooperation(String cooperationId);
 
 	public boolean doDeleteCooperation(String cooperationId);
+
+	public boolean doModifyCoo(CooperationVO cooperation);
 
 }

@@ -5,10 +5,33 @@ import java.util.List;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 
 import com.ktds.sems.cooperation.dao.CooperationDAO;
+import com.ktds.sems.cooperation.vo.CooperationVO;
 import com.ktds.sems.cooperation.vo.CooperationSearchVO;
 import com.ktds.sems.cooperation.vo.CooperationVO;
 
 public class CooperationDAOImpl extends SqlSessionDaoSupport implements CooperationDAO{
+
+	@Override
+	public int nextCooSeq() {
+		return getSqlSession().selectOne("CooperationDAO.nextCooSeq");
+	}
+
+	@Override
+	public String nowDate() {
+		return getSqlSession().selectOne("CooperationDAO.nowDate");
+	}
+
+	@Override
+	public int doRegisterCoo(CooperationVO cooperationVO) {
+		return getSqlSession().insert("CooperationDAO.doRegisterCoo", cooperationVO);
+	}
+
+	@Override
+	public String isExistCooperationTitle(String cooperationTitle) {
+		return getSqlSession().selectOne("CooperationDAO.isExistCooperationTitle", cooperationTitle);
+	}
+	
+	
 
 	@Override
 	public int getTotalCooperationCount() {
@@ -28,6 +51,11 @@ public class CooperationDAOImpl extends SqlSessionDaoSupport implements Cooperat
 	@Override
 	public int doDeleteCooperation(String cooperationId) {
 		return getSqlSession().delete("CooperationDAO.doDeleteCooperation", cooperationId);
+	}
+
+	@Override
+	public void doModifyCoo(CooperationVO cooperation) {
+		getSqlSession().update("CooperationDAO.doModifyCoo", cooperation);
 	}
 	
 }
