@@ -281,5 +281,68 @@ public class EducationServiceImpl implements EducationService {
 		
 		return view;
 	}
+	
+	@Override
+	public ModelAndView completeCancelEducationByMemberId(String educationId, String memberId) {
+		
+		ModelAndView view = new ModelAndView();
+		
+		boolean result = educationBiz.completeCancelEducationByMemberId(educationId, memberId);
+		
+		if ( result ) {
+		view.setViewName("redirect:/educationHistory");
+		return view;
+		}
+		else return view;
+	}
+	
+	@Override
+	public ModelAndView denyCancleEducationByMemberId(String educationId, String memberId, String description) {
+		ModelAndView view = new ModelAndView();
+		
+		boolean result = educationBiz.denyCancleEducationByMemberId(educationId, memberId);
+		
+		if ( result ) {
+			view.setViewName("redirect:/educationHistory");
+			return view;
+		}
+		
+		return view;
+	}
+	
+	@Override
+	public ModelAndView completeGiveUpEducationByMemberId(String educationId, String memberId) {
+		
+		ModelAndView view = new ModelAndView();
+		
+		boolean result = educationBiz.completeGiveUpEducationByMemberId(educationId, memberId);
+		
+		if ( result ) {
+		view.setViewName("redirect:/educationHistory");
+		return view;
+		}
+		else return view;
+	}
+	
+	@Override
+	public ModelAndView denyGiveUpEducationByMemberId(String educationId, String memberId, String description) {
+		ModelAndView view = new ModelAndView();
+		
+		boolean result = educationBiz.denyGiveUpEducationByMemberId(educationId, memberId);
+		
+		if ( result ) {
+			view.setViewName("redirect:/educationHistory");
+			return view;
+		}
+		
+		return view;
+	}
+	
+	
+
+
+
+
+
 
 }

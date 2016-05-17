@@ -90,6 +90,38 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 		paramMap.put("memberId", memberId);
 		return getSqlSession().update("EducationDAO.cancelJoinEducationByMemberId", paramMap);
 	}
+	
+	@Override
+	public int completeCancelEducationByMemberId(String educationId, String memberId) {
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("educationId", educationId);
+		paramMap.put("memberId", memberId);
+		return getSqlSession().update("EducationDAO.completeCancelEducationByMemberId", paramMap);
+	}
+	
+	@Override
+	public int denyCancleEducationByMemberId(String educationId, String memberId) {
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("educationId", educationId);
+		paramMap.put("memberId", memberId);
+		return getSqlSession().update("EducationDAO.denyCancleEducationByMemberId", paramMap);
+	}
+	
+	@Override
+	public int completeGiveUpEducationByMemberId(String educationId, String memberId) {
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("educationId", educationId);
+		paramMap.put("memberId", memberId);
+		return getSqlSession().update("EducationDAO.completeGiveUpEducationByMemberId", paramMap);
+	}
+	
+	@Override
+	public int denyGiveUpEducationByMemberId(String educationId, String memberId) {
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("educationId", educationId);
+		paramMap.put("memberId", memberId);
+		return getSqlSession().update("EducationDAO.denyGiveUpEducationByMemberId", paramMap);
+	}
 
 	
 }

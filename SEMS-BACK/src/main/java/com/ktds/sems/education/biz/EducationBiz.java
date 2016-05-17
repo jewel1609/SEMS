@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.ktds.sems.education.vo.CategoryVO;
 import com.ktds.sems.education.vo.CostVO;
+import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationHistoryVO;
 import com.ktds.sems.education.vo.EducationTypeVO;
 import com.ktds.sems.education.vo.EducationVO;
@@ -29,9 +30,21 @@ public interface EducationBiz {
 	public int getJCEduHistoryCount();
 
 	public List<EducationHistoryVO> getJCEducationHistory();
+	
+	
 
 	public boolean applyJoinEducationByMemberId(String educationId, String memberId);
 
 	public boolean cancelJoinEducationByMemberId(String educationId, String memberId);
+	
+	public boolean completeCancelEducationByMemberId(String educationId, String memberId);
+	
+	public boolean denyCancleEducationByMemberId(String educationId, String memberId);
+	
+	public boolean completeGiveUpEducationByMemberId(String educationId, String memberId);
+	
+	public boolean denyGiveUpEducationByMemberId(String educationId, String memberId);
+	
+	
 
 }

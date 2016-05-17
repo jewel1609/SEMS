@@ -175,6 +175,29 @@ public class EducationBizImpl implements EducationBiz {
 	public boolean cancelJoinEducationByMemberId(String educationId, String memberId) {
 		return educationDAO.cancelJoinEducationByMemberId(educationId, memberId) > 0;
 	}
+	
+	@Override
+	public boolean completeCancelEducationByMemberId(String educationId, String memberId) {
+		return educationDAO.completeCancelEducationByMemberId(educationId, memberId) > 0;
+	}
+	
+	@Override
+	public boolean denyCancleEducationByMemberId(String educationId, String memberId) {
+		return educationDAO.denyCancleEducationByMemberId(educationId, memberId) > 0;
+	}
+	
+	@Override
+	public boolean completeGiveUpEducationByMemberId(String educationId, String memberId) {
+		return educationDAO.completeGiveUpEducationByMemberId(educationId, memberId) > 0;
+	}
+	
+	@Override
+	public boolean denyGiveUpEducationByMemberId(String educationId, String memberId) {
+		return educationDAO.denyGiveUpEducationByMemberId(educationId, memberId) > 0;
+	}
+	
+	
+	
 
 
 }

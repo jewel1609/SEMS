@@ -184,4 +184,34 @@
 		AND		 MBR_ID LIKE #{memberId}
 		AND		 STAT LIKE 'JOIN_APLY'
 	</delete>
+	
+		<update id="completeCancelEducationByMemberId" parameterType="map">
+		UPDATE	 EDU_HTR
+		SET		 STAT = 'CNCL_CMPL'
+		WHERE	 EDU_ID LIKE #{educationId}
+		AND		 MBR_ID LIKE #{memberId}	
+	</update>
+	
+		<delete id="denyCancleEducationByMemberId" parameterType="map">
+		DELETE	 EDU_HTR
+		WHERE	 EDU_ID LIKE #{educationId}
+		AND		 MBR_ID LIKE #{memberId}
+		AND		 STAT LIKE 'CNCL_APLY'
+	</delete>
+	
+		<update id="completeGiveUpEducationByMemberId" parameterType="map">
+		UPDATE	 EDU_HTR
+		SET		 STAT = 'GVUP_APLY'
+		WHERE	 EDU_ID LIKE #{educationId}
+		AND		 MBR_ID LIKE #{memberId}	
+	</update>
+	
+		<delete id="denyGiveUpEducationByMemberId" parameterType="map">
+		DELETE	 EDU_HTR
+		WHERE	 EDU_ID LIKE #{educationId}
+		AND		 MBR_ID LIKE #{memberId}
+		AND		 STAT LIKE 'GVUP_APLY'
+	</delete>
+	
+	
 </mapper>
