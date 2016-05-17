@@ -7,7 +7,7 @@
 		<typeAlias type="com.ktds.sems.member.vo.MemberVO" alias="MemberVO"/>
 		<typeAlias type="com.ktds.sems.member.vo.LoginHistoryVO" alias="LoginHistoryVO"/>
 		<typeAlias type="com.ktds.sems.education.vo.EducationVO" alias="EducationVO"/>
-		<typeAlias type="com.ktds.sems.education.vo.EducationHistoryVO" alias="EducationHistroyVO"/>
+		<typeAlias type="com.ktds.sems.education.vo.EducationHistoryVO" alias="EducationHistoryVO"/>
 		<typeAlias type="com.ktds.sems.education.vo.EducationHistorySearchVO" alias="EducationHistorySearchVO"/>
 		<typeAlias type="com.ktds.sems.education.vo.EducationSearchVO" alias="EducationSearchVO"/>
 		<typeAlias type="com.ktds.sems.education.vo.QNAVO" alias="QNAVO"/>

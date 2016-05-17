@@ -95,10 +95,6 @@ public interface MemberDAO {
 
 	public int changePassword(MemberVO memberVO);
 
-	public int getDateSearchLoginHistoryCount(String memberId);
-
-	public List<LoginHistoryVO> getDateSearchLoginHistory(LoginHistorySearchVO loginHistorySearchVO);
-
 	public List<MenuManageVO> getMenuCategoryList();
 
 	public int isTeacher(String id);
@@ -112,6 +108,10 @@ public interface MemberDAO {
 	public String doMatchHistoryWithMember(LoginHistoryVO loginHistoryVO);
 
 	public void doRequestIpHistory(int lgiHtrId);
+
+	public int doCheckIp(LoginHistoryVO loginHistoryVO);
+
+	public LoginHistoryVO checkIpInfo(LoginHistoryVO loginHistoryVO);
 
 
 }

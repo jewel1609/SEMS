@@ -458,5 +458,22 @@
 				)
 		WHERE	RNUM <![CDATA[>=]]> #{startIndex}
 	</select>
+	<select id="doCheckIp" parameterType="LoginHistoryVO" resultType="_int">
+		SELECT	'1'
+		FROM	LGI_HTR
+		WHERE	LGI_HTR_ID = #{lgiHtrId}
+		AND		MBR_ID = #{id}
+	</select>
 	
+	<select id="checkIpInfo" parameterType="LoginHistoryVO" resultType="LoginHistoryVO">
+		SELECT	LGI_HTR_ID lgiHtrId
+				, MBR_ID id
+				, LGI_IP lgiIp
+				, CHK_CNT chkCnt
+				,LGI_DT lgiDt
+				, LGO_DT lgoDt
+		FROM	LGI_HTR
+		WHERE	LGI_HTR_ID = #{lgiHtrId}
+		AND		MBR_ID = #{id}
+	</select>
 </mapper>

@@ -446,7 +446,6 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public ModelAndView viewLoginHistoryPage(LoginHistorySearchVO loginHistorySearchVO, int pageNo,
 			HttpSession session) {
-
 		ModelAndView view = new ModelAndView();
 		
 		int totalLoginHistoryCount = 0;
@@ -472,7 +471,7 @@ public class MemberServiceImpl implements MemberService {
 		LoginHistoryListVO loginHistoryListVO = new LoginHistoryListVO();
 		loginHistoryListVO.setLoginHistoryList(loginHistoryList);
 		loginHistoryListVO.setPaging(paging);
-
+		
 		view.setViewName("member/loginHistory");
 		view.addObject("loginHistoryListVO", loginHistoryListVO);
 		view.addObject("loginHistorySearchVO", loginHistorySearchVO);
@@ -736,6 +735,26 @@ public class MemberServiceImpl implements MemberService {
 		}else {
 			view.setViewName("redirect:/");
 			return view;
+		}
+	}
+
+	@Override
+	public ModelAndView doCheckIp(int lgiHtrId, HttpSession session) {
+		ModelAndView view = new ModelAndView();
+		MemberVO sessionMember = (MemberVO) session.getAttribute(Session.MEMBER);
+		
+		LoginHistoryVO loginHistoryVO = new LoginHistoryVO();
+		loginHistoryVO.setId(sessionMember.getId());
+		loginHistoryVO.setLgiHtrId(lgiHtrId);
+		boolean checkIp = memberBiz.doCheckIp(loginHistoryVO);
+		
+		if(checkIp) {
+			LoginHistoryVO loginHistory = memberBiz.checkIpInfo(loginHistoryVO);
+			view.setViewName("member/checkIP");
+			view.addObject("loginHistory", loginHistory);
+			return view;
+		}else {
+			return new ModelAndView("redirect:/");
 		}
 	}
 

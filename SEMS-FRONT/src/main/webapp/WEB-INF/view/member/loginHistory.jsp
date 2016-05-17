@@ -37,7 +37,6 @@
 					return;
 				}
 			}
-		
 			movePage('0');
 			
 		});
@@ -99,8 +98,6 @@
 		</div>
 		</form>
 	</div>
-
-	<a href="<c:url value="/member/myPage/saveAsExcel"/>">엑셀 파일로 저장
-	
+	<a href="<c:url value="/member/myPage/saveAsExcel"/>">엑셀 파일로 저장</a>
 </body>
 </html>

@@ -84,10 +84,6 @@ public interface MemberBiz {
 
 	public boolean changePassword(MemberVO memberVO);
 
-	public int getDateSearchLoginHistoryCount(String memberId);
-
-	public List<LoginHistoryVO> getDateSearchLoginHistory(LoginHistorySearchVO loginHistorySearchVO);
-
 	public void insertUuidForResign(MemberVO member);
 
 	public void sendEmailForResign(String email, String id, String uuid);
@@ -113,5 +109,9 @@ public interface MemberBiz {
 	public boolean doMatchHistoryWithMember(LoginHistoryVO loginHistoryVO);
 
 	public void doRequestIpHistory(int lgiHtrId);
+
+	public boolean doCheckIp(LoginHistoryVO loginHistoryVO);
+
+	public LoginHistoryVO checkIpInfo(LoginHistoryVO loginHistoryVO);
 
 }

@@ -485,16 +485,6 @@ public class MemberBizImpl implements MemberBiz {
 	}
 
 	@Override
-	public int getDateSearchLoginHistoryCount(String memberId) {
-		return memberDAO.getDateSearchLoginHistoryCount(memberId);
-	}
-
-	@Override
-	public List<LoginHistoryVO> getDateSearchLoginHistory(LoginHistorySearchVO loginHistorySearchVO) {
-		return memberDAO.getDateSearchLoginHistory(loginHistorySearchVO);
-	}
-
-	@Override
 	public List<MenuManageVO> getMenuCategoryList() {
 		return memberDAO.getMenuCategoryList();
 	}
@@ -546,6 +536,21 @@ public class MemberBizImpl implements MemberBiz {
 	@Override
 	public void doRequestIpHistory(int lgiHtrId) {
 		memberDAO.doRequestIpHistory(lgiHtrId);
+	}
+
+	@Override
+	public boolean doCheckIp(LoginHistoryVO loginHistoryVO) {
+		if(memberDAO.doCheckIp(loginHistoryVO) == 1) {
+			loginHistoryVO.setChkCnt(memberDAO.doCheckIp(loginHistoryVO));
+			return true;
+		}else {
+			return false;
+		}
+	}
+
+	@Override
+	public LoginHistoryVO checkIpInfo(LoginHistoryVO loginHistoryVO) {
+		return memberDAO.checkIpInfo(loginHistoryVO);
 	}
 
 }

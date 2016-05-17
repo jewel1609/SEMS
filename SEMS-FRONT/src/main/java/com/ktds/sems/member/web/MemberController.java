@@ -258,8 +258,12 @@ public class MemberController {
 	/**
 	 *	나의 교육 이력 보기 
 	 */
-	@RequestMapping("member/myPage/educationHistory")
+	@RequestMapping("/member/myPage/educationHistory")
 	public ModelAndView viewEducationHistroyPage(@RequestParam(required = false, defaultValue = "0") int pageNo, HttpSession session) {
 		return memberService.getAllEducationHistoryList(pageNo, session);
+	}
+	@RequestMapping(value=("/member/doCheckIp/{lgiHtrId}"), method=RequestMethod.GET)
+	public ModelAndView doCheckIp(@PathVariable int lgiHtrId, HttpSession session) {
+		return memberService.doCheckIp(lgiHtrId, session);
 	}
 }

@@ -239,16 +239,6 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 	}
 
 	@Override
-	public int getDateSearchLoginHistoryCount(String memberId) {
-		return getSqlSession().selectOne("MemberDAO.getDateSearchLoginHistoryCount", memberId);
-	}
-
-	@Override
-	public List<LoginHistoryVO> getDateSearchLoginHistory(LoginHistorySearchVO loginHistorySearchVO) {
-		return getSqlSession().selectList("MemberDAO.getDateSearchLoginHistory", loginHistorySearchVO);
-	}
-
-	@Override
 	public List<MenuManageVO> getMenuCategoryList() {
 		return getSqlSession().selectList("MemberDAO.getMenuCategoryList");
 	}
@@ -282,5 +272,15 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 	@Override
 	public void doRequestIpHistory(int lgiHtrId) {
 		getSqlSession().update("MemberDAO.doRequestIpHistory", lgiHtrId);
+	}
+
+	@Override
+	public int doCheckIp(LoginHistoryVO loginHistoryVO) {
+		return getSqlSession().selectOne("MemberDAO.doCheckIp",loginHistoryVO);
+	}
+
+	@Override
+	public LoginHistoryVO checkIpInfo(LoginHistoryVO loginHistoryVO) {
+		return getSqlSession().selectOne("MemberDAO.checkIpInfo", loginHistoryVO);
 	}
 }

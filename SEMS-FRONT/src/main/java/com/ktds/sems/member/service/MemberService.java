@@ -76,4 +76,6 @@ public interface MemberService {
 
 	public ModelAndView doRequestIpHistory(int lgiHtrId, HttpSession session);
 
+	public ModelAndView doCheckIp(int lgiHtrId, HttpSession session);
+
 }
