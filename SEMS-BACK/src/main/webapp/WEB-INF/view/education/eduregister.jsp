@@ -7,12 +7,68 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Education 등록 페이지</title>
-<script type="text/javascript" src="/backend/resources/js/jquery.min.js"></script>
+<script type="text/javascript" src="<c:url value="/resources/js/jquery.min.js"/>"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script src="<c:url value="/resources/js/jquery.timepicker.min.js"/>"></script>
+<link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/jquery.timepicker.min.css"/>">
 <script type="text/javascript">
 	$(document).ready(function() {
+		
+		var ua = navigator.userAgent.toLowerCase();
+		if (ua.indexOf('chrome') == -1 ) // Internet Explorer일 경우
+	    {
+			console.log('ie');
+			$("#startDate").datepicker({ dateFormat: "yy-mm-dd" });
+			$("#endDate").datepicker({ dateFormat: "yy-mm-dd" });
+			/*
+			http://timepicker.co/ 참조
+			*/
+			$("#startTime").timepicker({
+				 timeFormat: 'HH:mm',
+			        // year, month, day and seconds are not important
+			        //minTime: new Date(0, 0, 0, 8, 0, 0),
+			        //maxTime: new Date(0, 0, 0, 15, 0, 0),
+			        // time entries start being generated at 6AM but the plugin 
+			        // shows only those within the [minTime, maxTime] interval
+			        startHour: 6,
+			        // the value of the first item in the dropdown, when the input
+			        // field is empty. This overrides the startHour and startMinute 
+			        // options
+			        startTime: new Date(0, 0, 0, 8, 20, 0),
+			        // items in the dropdown are separated by at interval minutes
+			        interval: 10
+			});
+			$("#endTime").timepicker({
+				 timeFormat: 'HH:mm',
+			        // year, month, day and seconds are not important
+			        //minTime: new Date(0, 0, 0, 8, 0, 0),
+			       // maxTime: new Date(0, 0, 0, 15, 0, 0),
+			        // time entries start being generated at 6AM but the plugin 
+			        // shows only those within the [minTime, maxTime] interval
+			        startHour: 6,
+			        // the value of the first item in the dropdown, when the input
+			        // field is empty. This overrides the startHour and startMinute 
+			        // options
+			        startTime: new Date(0, 0, 0, 8, 20, 0),
+			        // items in the dropdown are separated by at interval minutes
+			        interval: 10
+			});
+	    }
+	    else  // Internet Explorer가 아닐경우
+	    {
+	    }
 
 		$(".onlyText").keyup(function(event) {
 			regexp = /[@\#$%<>&\()\=_\’]/gi;
+
+			v = $(this).val();
+			if (regexp.test(v)) {
+				alert("특수문자를 포함할 수 없습니다.");
+				$(this).val(v.replace(regexp, ''));
+			}
+		});
+		$(".onlyTextWithBracket").keyup(function(event) {
+			regexp = /[@\#$%<>&\=_\’]/gi;
 
 			v = $(this).val();
 			if (regexp.test(v)) {
@@ -138,7 +194,7 @@
 			<br />
 			<form:errors path="educationCategory" />
 			<br />
-	     교육명 : <input type="text" class="onlyText"
+	     교육명 : <input type="text" class="onlyTextWithBracket"
 				id="educationTitle" name="educationTitle"
 				value="${educationVO.educationTitle }" maxlength="20"/>
 			<br />
@@ -170,7 +226,7 @@
 	     교육 소개 :  
 	    	
 	 	   <input type="text" style="height: 100px" id="educationIntroduce"
-				class="onlyText" name="educationIntroduce"
+				class="onlyTextWithBracket" name="educationIntroduce"
 				value="${educationVO.educationIntroduce }" />
 			<br />
 			<form:errors path="educationIntroduce" />
