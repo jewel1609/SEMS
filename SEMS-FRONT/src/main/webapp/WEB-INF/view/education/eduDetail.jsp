@@ -155,14 +155,13 @@
 			<c:if test="${ eduReplyListVO.qnaList.size() gt 0 }">
 				<div id="tableTwo">
 					<c:forEach items="${eduReplyListVO.qnaList}" var="qna">
-						<div style="padding-left:(${qna.depth}*10)px">
+						<div style="padding-left:${qna.depth * 20}px">
 							<div>
 								<div>
 									${qna.depth}
 									<span>작성자 : </span>
 									<span>${ qna.mbrId }</span>
-									<input type="hidden" value="${qna.replyId }"
-									/>
+									<input type="hidden" value="${qna.replyId }"/>
 									<br/>
 								</div>
 								<div>
