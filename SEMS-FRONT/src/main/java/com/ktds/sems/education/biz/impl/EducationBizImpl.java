@@ -275,6 +275,16 @@ public class EducationBizImpl implements EducationBiz {
 
 		sendMail.sendMailToCustomer(mailVO);
 	}
+
+	@Override
+	public String getStartYear() {
+		return educationDAO.getStartYear();
+	}
+
+	@Override
+	public String getEndYear() {
+		return educationDAO.getEndYear();
+	}
 	
 }
 
