@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -46,4 +47,11 @@ public class EducationController {
 	public ModelAndView doEducationModifyAction(@Valid EducationVO educationVO, Errors errors, MultipartHttpServletRequest request){
 		return educationService.modifyNewEducation(educationVO, errors, request);
 	}
+	
+	@RequestMapping("/educationHistory")
+	public ModelAndView viewEduHistoryManagePage(@RequestParam(required=false, defaultValue="0") int pageNo){
+		ModelAndView view = educationService.getAllEducationHistory(pageNo); 
+		return view;
+	}
+	
 }
