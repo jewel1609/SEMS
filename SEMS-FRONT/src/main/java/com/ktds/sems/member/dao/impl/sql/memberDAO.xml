@@ -436,7 +436,7 @@
 		WHERE	MBR_ID = #{id}
 	</select>
 	
-	<select id="getAllEducationHistoryListById" parameterType="EducationHistorySearchVO" resultType="EducationHistoryVO">
+	<select id="getAllEducationHistoryListByIdWithPaging" parameterType="EducationHistorySearchVO" resultType="EducationHistoryVO">
 		SELECT	EH.EDU_HTR_ID educationHistoryId
 				, EH.EDU_ID educationId
 				, EH.MBR_ID memberId
@@ -481,7 +481,7 @@
 		AND		MBR_ID = #{id}
 	</select>
 	
-	<select id="getAllEducationHistoryListByIdForExel" parameterType="string" resultType="EducationHistoryVO">
+	<select id="getAllEducationHistoryListById" parameterType="string" resultType="EducationHistoryVO">
 		SELECT	EH.EDU_HTR_ID educationHistoryId
 				, EH.EDU_ID educationId
 				, EH.MBR_ID memberId

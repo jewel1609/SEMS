@@ -667,7 +667,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public ModelAndView getAllEducationHistoryList(int pageNo, HttpSession session) {
+	public ModelAndView getAllEducationHistoryListByIdWithPaging(int pageNo, HttpSession session) {
 		
 		EducationHistoryListVO educationHistoryListVO = new EducationHistoryListVO();
 		Paging paging = new Paging();
@@ -685,7 +685,7 @@ public class MemberServiceImpl implements MemberService {
 		educationHistorySearchVO.setEndIndex(paging.getEndArticleNumber());
 		educationHistorySearchVO.setMemberId(memberVO.getId());
 		
-		List<EducationHistoryVO> educationHistoryList = memberBiz.getAllEducationHistoryListById(educationHistorySearchVO);
+		List<EducationHistoryVO> educationHistoryList = memberBiz.getAllEducationHistoryListByIdWithPaging(educationHistorySearchVO);
 		educationHistoryListVO.setEducationHistoryList(educationHistoryList);
 
 		ModelAndView view = new ModelAndView();
@@ -762,9 +762,9 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public String eduationHistoryExportExel(HttpSession session) {
+	public String eduationHistoryExportExcel(HttpSession session) {
 		MemberVO memberVO = (MemberVO) session.getAttribute(Session.MEMBER);
-		boolean isSuccess = memberBiz.eduationHistoryExportExel(memberVO.getId());
+		boolean isSuccess = memberBiz.eduationHistoryExportExcel(memberVO.getId());
 		
 		if(isSuccess) {
 			return "redirect:/member/myPage/educationHistory";

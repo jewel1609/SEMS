@@ -260,7 +260,7 @@ public class MemberController {
 	 */
 	@RequestMapping("/member/myPage/educationHistory")
 	public ModelAndView viewEducationHistroyPage(@RequestParam(required = false, defaultValue = "0") int pageNo, HttpSession session) {
-		return memberService.getAllEducationHistoryList(pageNo, session);
+		return memberService.getAllEducationHistoryListByIdWithPaging(pageNo, session);
 	}
 	
 	@RequestMapping(value=("/member/doCheckIp/{lgiHtrId}"), method=RequestMethod.GET)
@@ -268,8 +268,8 @@ public class MemberController {
 		return memberService.doCheckIp(lgiHtrId, session);
 	}
 	
-	@RequestMapping("/member/myPage/educationHistory/exportExel")
-	public String eduationHistoryExportExel(HttpSession session) {
-		return memberService.eduationHistoryExportExel(session);
+	@RequestMapping("/member/myPage/educationHistory/exportExcel")
+	public String eduationHistoryExportExcel(HttpSession session) {
+		return memberService.eduationHistoryExportExcel(session);
 	}
 }

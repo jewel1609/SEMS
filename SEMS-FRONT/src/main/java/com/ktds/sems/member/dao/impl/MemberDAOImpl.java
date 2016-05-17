@@ -260,7 +260,7 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 	}
 
 	@Override
-	public List<EducationHistoryVO> getAllEducationHistoryListById(EducationHistorySearchVO educationHistorySearchVO) {
+	public List<EducationHistoryVO> getAllEducationHistoryListByIdWithPaging(EducationHistorySearchVO educationHistorySearchVO) {
 		return getSqlSession().selectList("MemberDAO.getAllEducationHistoryListById", educationHistorySearchVO);
 	}
 
@@ -285,8 +285,8 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 	}
 
 	@Override
-	public List<EducationHistoryVO> getAllEducationHistoryListByIdForExel(String id) {
-		return getSqlSession().selectList("MemberDAO.getAllEducationHistoryListByIdForExel", id);
+	public List<EducationHistoryVO> getAllEducationHistoryListById(String id) {
+		return getSqlSession().selectList("MemberDAO.getAllEducationHistoryListById", id);
 	}
 
 	@Override

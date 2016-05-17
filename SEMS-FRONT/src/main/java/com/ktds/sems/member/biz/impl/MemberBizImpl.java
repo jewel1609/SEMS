@@ -527,8 +527,8 @@ public class MemberBizImpl implements MemberBiz {
 	}
 
 	@Override
-	public List<EducationHistoryVO> getAllEducationHistoryListById(EducationHistorySearchVO educationHistorySearchVO) {
-		return memberDAO.getAllEducationHistoryListById(educationHistorySearchVO);
+	public List<EducationHistoryVO> getAllEducationHistoryListByIdWithPaging(EducationHistorySearchVO educationHistorySearchVO) {
+		return memberDAO.getAllEducationHistoryListByIdWithPaging(educationHistorySearchVO);
 	}
 
 	@Override
@@ -590,7 +590,7 @@ public class MemberBizImpl implements MemberBiz {
 	}
 
 	@Override
-	public boolean eduationHistoryExportExel(String id) {
+	public boolean eduationHistoryExportExcel(String id) {
 		WriteOption wo = new WriteOption();
 		wo.setSheetName("나의 교육 이력");
 		wo.setFileName("나의교육이력.xlsx");
@@ -615,7 +615,7 @@ public class MemberBizImpl implements MemberBiz {
 
 		// educationHistoryList 만들기
 		try {
-			educationHistoryList = memberDAO.getAllEducationHistoryListByIdForExel(id);
+			educationHistoryList = memberDAO.getAllEducationHistoryListById(id);
 			Iterator<EducationHistoryVO> tempIterator = educationHistoryList.iterator();
 
 			// TODO while문으로 null을 만날 때 까지 while문을 돌려야 할 것 같다
@@ -641,10 +641,6 @@ public class MemberBizImpl implements MemberBiz {
 				content[8] = tempEducationHistoryVO.getStartDate();
 				content[9] = tempEducationHistoryVO.getEndDate();
 				
-				System.out.println("#########################");
-				System.out.println(tempEducationHistoryVO.getEducationHistoryId());
-				System.out.println("#########################");
-				
 				contents.add(content);
 			}
 
@@ -655,10 +651,6 @@ public class MemberBizImpl implements MemberBiz {
 		} catch (Exception e) {
 			throw new RuntimeException();
 		}
-		
-		System.out.println("*********");
-		System.out.println(educationHistoryList);
-		System.out.println("*********");
 		
 		return educationHistoryList != null;
 	}

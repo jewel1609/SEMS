@@ -68,7 +68,7 @@ public interface MemberService {
 
 	public String registerTeacher(HttpSession session);
 
-	public ModelAndView getAllEducationHistoryList(int pageNo, HttpSession session);
+	public ModelAndView getAllEducationHistoryListByIdWithPaging(int pageNo, HttpSession session);
 
 	public String registerPolicy(HttpSession session);
 
@@ -78,6 +78,6 @@ public interface MemberService {
 
 	public ModelAndView doCheckIp(int lgiHtrId, HttpSession session);
 
-	public String eduationHistoryExportExel(HttpSession session);
+	public String eduationHistoryExportExcel(HttpSession session);
 
 }

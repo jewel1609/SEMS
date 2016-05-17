@@ -103,7 +103,7 @@ public interface MemberDAO {
 
 	public int getTotalEducationHistoryCountById(String id);
 
-	public List<EducationHistoryVO> getAllEducationHistoryListById(EducationHistorySearchVO educationHistorySearchVO);
+	public List<EducationHistoryVO> getAllEducationHistoryListByIdWithPaging(EducationHistorySearchVO educationHistorySearchVO);
 
 	public String doMatchHistoryWithMember(LoginHistoryVO loginHistoryVO);
 
@@ -113,7 +113,7 @@ public interface MemberDAO {
 
 	public LoginHistoryVO checkIpInfo(LoginHistoryVO loginHistoryVO);
 
-	public List<EducationHistoryVO> getAllEducationHistoryListByIdForExel(String id);
+	public List<EducationHistoryVO> getAllEducationHistoryListById(String id);
 
 	public void ipCheckCountUpdate(LoginHistoryVO loginHistoryVO);
 

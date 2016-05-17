@@ -104,7 +104,7 @@ public interface MemberBiz {
 
 	public int getTotalEducationHistoryCountById(String id);
 
-	public List<EducationHistoryVO> getAllEducationHistoryListById(EducationHistorySearchVO educationHistorySearchVO);
+	public List<EducationHistoryVO> getAllEducationHistoryListByIdWithPaging(EducationHistorySearchVO educationHistorySearchVO);
 
 	public boolean doMatchHistoryWithMember(LoginHistoryVO loginHistoryVO);
 
@@ -114,6 +114,6 @@ public interface MemberBiz {
 
 	public LoginHistoryVO checkIpInfo(LoginHistoryVO loginHistoryVO);
 
-	public boolean eduationHistoryExportExel(String id);
+	public boolean eduationHistoryExportExcel(String id);
 
 }
