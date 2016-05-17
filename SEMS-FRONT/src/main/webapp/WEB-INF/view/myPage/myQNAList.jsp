@@ -17,6 +17,7 @@
 	<a href="<c:url value='/myPage/myQNAList/exportQNA'/>" ><input type="button" value="엑셀로 보내기"></a>
 	<br/>
 	<br/>
+	<form id="pagingForm"> 
 	<table border="1"> 
 		<tr>
 			<th>문의 번호</th>
@@ -25,12 +26,13 @@
 			<th>문의 내용</th>
 			<th>답변 여부</th>
 		</tr>
-		<c:forEach items="${qnaListVO.qnaVO}" var="qnaVO">
+		<c:forEach items="${qnaListVO.qnaList}" var="qnaVO">
 		<tr>
 			<td>${qnaVO.replyId}</td>
 			<td>${qnaVO.eduId}</td>
 			<td>${qnaVO.createdDate}</td>
-			<td><a href="<c:url value='/myPage/myQNADetail/${qnaVO.replyId}'/>" onclick="window.open(this.href, '문의 사항','');return false;" target="_blank">${qnaVO.description}</a></td>
+			<td><a href="<c:url value='/myPage/myQNADetail/${qnaVO.replyId}'/>" 
+			onclick="window.open(this.href, 'Place Detail','toolbar=no, location=no, status=no, menubar=no, scrollbars=no, resizeable=no, width=530, height=820');return false;" target="_blank">${qnaVO.description}</a></td>
 			<td>${qnaVO.isAnswered}</td>
 		</tr>
 		</c:forEach>
@@ -39,6 +41,7 @@
 			</td>
 		</tr>
 	</table>
+	</form>
 
 </body>
 </html>
