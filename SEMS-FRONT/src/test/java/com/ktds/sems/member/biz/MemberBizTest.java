@@ -17,8 +17,12 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.ktds.sems.SemsTestCase;
+import com.ktds.sems.education.vo.EducationHistorySearchVO;
+import com.ktds.sems.education.vo.EducationHistoryVO;
 import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.member.vo.MenuManageVO;
+
+import kr.co.hucloud.utilities.web.Paging;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "/applicationContext.xml", "/educationContext.xml", "/memberContext.xml", "/rootContext.xml"})
@@ -304,4 +308,48 @@ public class MemberBizTest extends SemsTestCase {
 		assertTrue(doDeleteTest > 0);
 	}
 	
+	/**
+	 *	나의 교육 이력 보기 
+	 */
+	@Test
+	public void getAllEducationHistoryListByIdTest() {
+		
+		Paging paging = new Paging();
+		paging.setPageNumber(0 + "");
+		
+		int totalArticleNumber = memberBiz.getTotalEducationHistoryCountById("test01");
+		
+		if(totalArticleNumber != 0) {
+			
+			paging.setTotalArticleCount(totalArticleNumber);
+			EducationHistorySearchVO educationHistorySearchVO = new EducationHistorySearchVO();
+			educationHistorySearchVO.setPageNo(0);
+			educationHistorySearchVO.setStartIndex(paging.getStartArticleNumber());
+			educationHistorySearchVO.setEndIndex(paging.getEndArticleNumber());
+			
+			educationHistorySearchVO.setMemberId("test01");
+			List<EducationHistoryVO> educationHistoryList = memberBiz.getAllEducationHistoryListById(educationHistorySearchVO);
+			
+			if(educationHistoryList != null) {
+				
+				for (EducationHistoryVO educationHistoryVO : educationHistoryList) {
+					assertNotNull(educationHistoryVO.getEducationHistoryId());
+					assertNotNull(educationHistoryVO.getEducationId());
+					assertNotNull(educationHistoryVO.getMemberId());
+					assertNotNull(educationHistoryVO.getEducationHistoryDate());
+					assertNotNull(educationHistoryVO.getState());
+					assertNotNull(educationHistoryVO.getIp());
+					assertNotNull(educationHistoryVO.getStartDate());
+					assertNotNull(educationHistoryVO.getEndDate());
+				}
+				
+			} else {
+				fail("fail");
+			}
+			
+		} else {
+			fail("fail");
+		}
+
+	}
 }
