@@ -419,6 +419,45 @@
 		WHERE	ID = #{id}
 	</select>
 	
+	<select id="getNextReReplyEval" resultType="_int">
+		SELECT 	REPLY_ID_SEQ.NEXTVAL
+		FROM	DUAL
+	</select>
+	
+	<update id="plusReReplyLike" parameterType="string">
+		UPDATE	QNA
+		SET		LIKE_CNT = LIKE_CNT+1
+		WHERE	REPLY_ID = #{replyId}
+	</update>
+	
+	<insert id="insertReReplyEval">
+		INSERT INTO RERPLY_EVAL (
+								   REPLY_ID
+								   , MBR_ID
+								   , LIKE_CNT
+								   , DISLIKE_CNT
+								   , CREATED_DATE
+								   , REPLY_EVAL_ID
+							   	) 
+		VALUES					( 
+									#{replyId}
+									, #{mbrId}
+									, 'Y'
+							 		, 'N'
+							 		, SYSDATE
+							 		, #{replyEvalId}
+								)	
+								
+	</insert>
+	
+	<select id="checkReReplyEval" parameterType="ReRplyEvalVO" resultType="_int">
+		SELECT	COUNT(REPLY_EVAL_ID)
+		FROM	RERPLY_EVAL
+		WHERE	MBR_ID = #{mbrId}
+		AND		REPLY_ID = #{replyId}
+		AND		LIKE_CNT = 'Y'
+	</select>
+	
 	<select id="getStartYear" resultType="string">
 		SELECT	SUBSTR(SDATE, 0, 4) SDATE
 		FROM	(
