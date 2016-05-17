@@ -2,6 +2,9 @@ package com.ktds.sems.cooperation.service.impl;
 
 import javax.servlet.http.HttpServletResponse;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.mock.web.MockHttpSession;
 import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -70,20 +73,38 @@ public class CooperationServiceImpl implements CooperationService {
 	}
 
 	@Override
-	public ModelAndView getAllCooperationList(int pageNo) {
+	public ModelAndView getAllCooperationList(int pageNo, HttpServletRequest request) {
 		
+		MockHttpSession session = new MockHttpSession();
 		CooperationListVO cooperationListVO = new CooperationListVO();
 		Paging paging = new Paging();
 		cooperationListVO.setPaging(paging);
 		
 		paging.setPageNumber(pageNo + "");
 		
-		int totalCooperationCount = cooperationBiz.getTotalCooperationCount();
+		int totalCooperationCount = cooperationBiz.getTotalCooperationCount(request);
 		paging.setTotalArticleCount(totalCooperationCount);
 		
 		CooperationSearchVO searchVO = new CooperationSearchVO();
 		searchVO.setStartIndex(paging.getStartArticleNumber());
 		searchVO.setEndIndex(paging.getEndArticleNumber());
+		
+		if ( request.getParameter("searchKeyword") != null ) {
+			searchVO.setPageNo(pageNo);
+			searchVO.setSearchKeyword(request.getParameter("searchKeyword"));
+			searchVO.setSearchType(request.getParameter("searchType"));
+		}
+		else {
+			searchVO = (CooperationSearchVO) session.getAttribute("_SEARCH_");
+			searchVO = new CooperationSearchVO();
+			searchVO.setStartIndex(paging.getStartArticleNumber());
+			searchVO.setEndIndex(paging.getEndArticleNumber());
+			searchVO.setPageNo(0);
+			searchVO.setSearchKeyword("");
+			searchVO.setSearchType("1");
+		}
+		
+		session.setAttribute("_SEARCH_", searchVO);
 		
 		List<CooperationVO> cooperationList = cooperationBiz.getAllCooperation(searchVO);
 		cooperationListVO.setCooperationList(cooperationList);
@@ -91,6 +112,7 @@ public class CooperationServiceImpl implements CooperationService {
 		ModelAndView view = new ModelAndView();
 		view.setViewName("cooperation/cooperationList");
 		view.addObject("cooperationListVO", cooperationListVO);
+		view.addObject("searchVO", searchVO);
 		
 		return view;
 	}
@@ -157,5 +179,6 @@ public class CooperationServiceImpl implements CooperationService {
 		}
 		return view;
 	}
+
 	
 }

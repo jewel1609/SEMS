@@ -2,11 +2,15 @@ package com.ktds.sems.cooperation.biz;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.ktds.sems.cooperation.vo.CooperationSearchVO;
 import com.ktds.sems.cooperation.vo.CooperationVO;
 
 public interface CooperationBiz {
 
+	public int getTotalCooperationCount(HttpServletRequest request);
+	
 	public boolean doRegisterCoo(CooperationVO cooperation);
 
 	public boolean isExistCooperationTitle(String cooperationTitle);

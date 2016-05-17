@@ -3,6 +3,7 @@
 
 <mapper namespace="CooperationDAO" >
 
+	
 	<select id="nextCooSeq" resultType="_int">
 		SELECT	COO_ID_SEQ.NEXTVAL
 		FROM	DUAL
@@ -45,9 +46,15 @@
 		AND		ROWNUM=1
 	</select>
 	
-	<select id="getTotalCooperationCount" resultType="_int" >
+	<select id="getTotalCooperationCount" parameterType="map" resultType="_int" >
 		SELECT	COUNT(COO_ID)
 		FROM	COO_INFO
+		<if test="searchType == 1 and searchType != null">
+			WHERE	COO_TTL LIKE '%'||#{searchKeyword}||'%'
+		</if>
+		<if test="searchType == 2 and searchType != null">
+			WHERE	COO_TP LIKE '%'||#{searchKeyword}||'%'
+		</if>
 	</select>
 	
 	<select id="getAllCooperation" parameterType="CooperationSearchVO" resultType="CooperationVO" >
@@ -66,6 +73,12 @@
 					FROM	(
 								SELECT	*
 								FROM	COO_INFO
+								<if test="searchType == 1 and searchType != null">
+								WHERE   COO_TTL LIKE '%'||#{searchKeyword}||'%'
+								</if>
+								<if test="searchType == 2 and searchType != null">
+								WHERE   COO_TP LIKE '%'||#{searchKeyword}||'%'
+								</if>
 								ORDER	BY COO_ID DESC
 							) COO_INFO
 					WHERE	ROWNUM <![CDATA[<=]]> #{endIndex}
@@ -73,7 +86,7 @@
 		WHERE	RNUM >= #{startIndex}
 	</select>
 	
-	<select id="getOneCooperation" parameterType="String" resultType="CooperationVO" >
+	<select id="getOneCooperation" parameterType="string" resultType="CooperationVO" >
 		SELECT 	COO_ID cooperationId
 				, COO_TTL cooperationTitle
 				, COO_LOC cooperationLocation

@@ -6,6 +6,9 @@ public class CooperationSearchVO {
 	private int startIndex;
 	private int endIndex;
 	
+	private String searchType;
+	private String searchKeyword;
+	
 	public int getPageNo() {
 		return pageNo;
 	}
@@ -24,7 +27,17 @@ public class CooperationSearchVO {
 	public void setEndIndex(int endIndex) {
 		this.endIndex = endIndex;
 	}
-	
-	
+	public String getSearchType() {
+		return searchType;
+	}
+	public void setSearchType(String searchType) {
+		this.searchType = searchType;
+	}
+	public String getSearchKeyword() {
+		return searchKeyword;
+	}
+	public void setSearchKeyword(String searchKeyword) {
+		this.searchKeyword = searchKeyword;
+	}
 	
 }

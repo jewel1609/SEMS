@@ -1,5 +1,7 @@
 package com.ktds.sems.cooperation.web;
 
+import javax.servlet.http.HttpServletRequest;
+
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
@@ -50,8 +52,8 @@ public class CooperationController {
 	
 	
 	@RequestMapping("/cooList")
-	public ModelAndView viewCooListPage(@RequestParam(required=false, defaultValue="0") int pageNo) {
-		return cooperationService.getAllCooperationList(pageNo);
+	public ModelAndView viewCooListPage(@RequestParam(required=false, defaultValue="0") int pageNo, HttpServletRequest request) {
+		return cooperationService.getAllCooperationList(pageNo, request);
 	}
 	
 	@RequestMapping("/cooDetail/{cooperationId}")

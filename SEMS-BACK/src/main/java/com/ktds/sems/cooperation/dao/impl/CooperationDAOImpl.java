@@ -1,6 +1,7 @@
 package com.ktds.sems.cooperation.dao.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 
@@ -12,6 +13,9 @@ import com.ktds.sems.cooperation.vo.CooperationVO;
 public class CooperationDAOImpl extends SqlSessionDaoSupport implements CooperationDAO{
 
 	@Override
+	public int getTotalCooperationCount(Map<String,String> searchInfo) {
+		return getSqlSession().selectOne("CooperationDAO.getTotalCooperationCount", searchInfo);
+	}
 	public int nextCooSeq() {
 		return getSqlSession().selectOne("CooperationDAO.nextCooSeq");
 	}

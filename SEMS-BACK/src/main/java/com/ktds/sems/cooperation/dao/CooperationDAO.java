@@ -1,12 +1,14 @@
 package com.ktds.sems.cooperation.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.ktds.sems.cooperation.vo.CooperationSearchVO;
 import com.ktds.sems.cooperation.vo.CooperationVO;
 
 public interface CooperationDAO {
 
+	public int getTotalCooperationCount(Map<String,String> searchInfo);
 	public int nextCooSeq();
 	public String nowDate();
 	public int doRegisterCoo(CooperationVO cooperation);

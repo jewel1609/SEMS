@@ -1,5 +1,7 @@
 package com.ktds.sems.cooperation.service;
 
+import javax.servlet.http.HttpServletRequest;
+
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.validation.Errors;
@@ -9,13 +11,13 @@ import com.ktds.sems.cooperation.vo.CooperationVO;
 
 public interface CooperationService {
 
+	public ModelAndView getAllCooperationList(int pageNo, HttpServletRequest request);
+
 	public ModelAndView viewRegistCooPage();
 
 	public ModelAndView doRegisterCoo(CooperationVO cooperationVO, Errors errors);
 
 	public void isExistCooperationTitle(String title, HttpServletResponse response);
-
-	public ModelAndView getAllCooperationList(int pageNo);
 
 	public ModelAndView getOneCooperation(String cooperationId);
 

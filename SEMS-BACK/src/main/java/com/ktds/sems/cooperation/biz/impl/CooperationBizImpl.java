@@ -1,6 +1,10 @@
 package com.ktds.sems.cooperation.biz.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import com.ktds.sems.cooperation.biz.CooperationBiz;
 import com.ktds.sems.cooperation.dao.CooperationDAO;
@@ -16,6 +20,18 @@ public class CooperationBizImpl implements CooperationBiz{
 	}
 
 	@Override
+	public int getTotalCooperationCount(HttpServletRequest request) {
+		
+		String searchType = request.getParameter("searchType");
+		String searchKeyword = request.getParameter("searchKeyword");
+		
+		Map<String,String> searchInfo = new HashMap<String,String>();
+		searchInfo.put("searchType", searchType);
+		searchInfo.put("searchKeyword", searchKeyword);
+		
+		return cooperationDAO.getTotalCooperationCount(searchInfo);
+	}
+	
 	public boolean doRegisterCoo(CooperationVO cooperation) {
 		
 		int nextRegisterCooperationId = cooperationDAO.nextCooSeq();
