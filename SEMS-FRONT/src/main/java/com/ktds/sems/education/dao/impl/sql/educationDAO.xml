@@ -318,7 +318,7 @@
 				) Q
 		WHERE	RNUM <![CDATA[>=]]> #{startIndex}
 	</select>
-	
+
 	<select id="getSelectedQNA" parameterType="String" resultType="QNAVO">
 		SELECT		REPLY_ID replyId
 					, EDU_ID eduId
