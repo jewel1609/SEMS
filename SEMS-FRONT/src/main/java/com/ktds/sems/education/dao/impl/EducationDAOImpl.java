@@ -199,4 +199,14 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 		return getSqlSession().selectOne("EducationDAO.getEmail", id);
 	}
 
+	@Override
+	public String getStartYear() {
+		return getSqlSession().selectOne("EducationDAO.getStartYear");
+	}
+
+	@Override
+	public String getEndYear() {
+		return getSqlSession().selectOne("EducationDAO.getEndYear");
+	}
+
 }
