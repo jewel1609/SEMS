@@ -4,6 +4,7 @@ public class EducationHistoryVO {
 	
 	private String educationHistoryId;
 	private String educationId;
+	private String educationTitle;
 	private String memberId;
 	private String educationHistoryDate;
 	private String state;
@@ -75,5 +76,13 @@ public class EducationHistoryVO {
 		this.fdbk = fdbk;
 	}
 
+	public String getEducationTitle() {
+		return educationTitle;
+	}
+
+	public void setEducationTitle(String educationTitle) {
+		this.educationTitle = educationTitle;
+	}
+	
 	
 }
