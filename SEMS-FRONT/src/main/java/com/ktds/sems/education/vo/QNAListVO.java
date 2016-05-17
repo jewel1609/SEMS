@@ -8,14 +8,14 @@ import kr.co.hucloud.utilities.web.Paging;
 
 public class QNAListVO extends MemberVO{
 
-	private List<QNAVO> qnaVO;
+	private List<QNAVO> qnaList;
 	private Paging paging;
-
-	public List<QNAVO> getQnaVO() {
-		return qnaVO;
+	
+	public List<QNAVO> getQnaList() {
+		return qnaList;
 	}
-	public void setQnaVO(List<QNAVO> qnaVO) {
-		this.qnaVO = qnaVO;
+	public void setQnaList(List<QNAVO> qnaList) {
+		this.qnaList = qnaList;
 	}
 	public Paging getPaging() {
 		return paging;
@@ -23,6 +23,5 @@ public class QNAListVO extends MemberVO{
 	public void setPaging(Paging paging) {
 		this.paging = paging;
 	}
-	
 	
 }

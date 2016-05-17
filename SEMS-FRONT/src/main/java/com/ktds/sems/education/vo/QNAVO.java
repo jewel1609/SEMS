@@ -1,7 +1,5 @@
 package com.ktds.sems.education.vo;
 
-import org.hibernate.validator.constraints.NotEmpty;
-
 public class QNAVO {
 
 	private String replyId; 
@@ -15,7 +13,14 @@ public class QNAVO {
 	private String createdDate;
 	
 	private String isAnswered;
-
+	private String answer;
+	
+	public String getAnswer() {
+		return answer;
+	}
+	public void setAnswer(String answer) {
+		this.answer = answer;
+	}
 	public String getIsAnswered() {
 		return isAnswered;
 	}
@@ -76,6 +81,5 @@ public class QNAVO {
 	public void setCreatedDate(String createdDate) {
 		this.createdDate = createdDate;
 	}
-	
 	
 }
