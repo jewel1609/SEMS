@@ -316,6 +316,10 @@ public class EducationServiceImpl implements EducationService {
 		String memberId = memberVO.getId(); 
 		int totalQNACount = educationBiz.getTotalQNACount(memberId);
 
+		System.out.println("**************************");
+		System.out.println(totalQNACount);
+		System.out.println("**************************");
+		
 		// page setting
 		Paging paging = new Paging();
 		paging.setTotalArticleCount(totalQNACount);
@@ -348,13 +352,14 @@ public class EducationServiceImpl implements EducationService {
 		view.setViewName("myPage/myQNADetail");
 
 		QNAVO qnaVO = educationBiz.getSelectedQNA(replyId);
-		QNAVO qnaAnswerVO = educationBiz.getSelectedQNAAnswer(replyId);
+		List<QNAVO> qnaAnswerList = educationBiz.getSelectedQNAAnswer(replyId);
+		QNAListVO qnaListVO = new QNAListVO();
+		qnaListVO.setQnaList(qnaAnswerList);
 		
 		// 질문 qna
 		view.addObject("qnaVO", qnaVO);
-		
 		// 답변 qna
-		view.addObject("qnaAnswerVO", qnaAnswerVO);
+		view.addObject("qnaListVO", qnaListVO);
 		return view;
 	}
 
