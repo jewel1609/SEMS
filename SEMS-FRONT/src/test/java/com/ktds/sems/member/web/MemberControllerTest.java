@@ -18,9 +18,14 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.SemsTestCase;
+import com.ktds.sems.common.Session;
+import com.ktds.sems.education.vo.EducationHistoryListVO;
+import com.ktds.sems.education.vo.EducationHistoryVO;
 import com.ktds.sems.member.dao.MemberDAO;
 import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.validator.member.MemberValidator;
+
+import kr.co.hucloud.utilities.web.Paging;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "/applicationContext.xml", "/educationContext.xml", "/memberContext.xml", "/rootContext.xml"})
@@ -922,5 +927,42 @@ public class MemberControllerTest extends SemsTestCase {
 		}
 	}
 
+	/**
+	 * 나의 교육 이력 보기
+	 */
+	@Test
+	public void viewEducationHistroyPage() {
+
+		MemberVO memberVO = new MemberVO();
+		memberVO.setId("test01");
+
+		int pageNo = 0;
+		MockHttpSession session = new MockHttpSession();
+		session.setAttribute(Session.MEMBER, memberVO);
+
+		ModelAndView view = memberController.viewEducationHistroyPage(pageNo, session);
+
+		if (view != null) {
+
+			String viewName = view.getViewName();
+			assertNotNull(viewName);
+			assertEquals(viewName, "education/educationHistory");
+			
+			EducationHistoryListVO educationHistoryListVO = (EducationHistoryListVO) view.getModelMap().get("educationHistoryListVO");
+			assertNotNull(educationHistoryListVO);
+			
+			List<EducationHistoryVO> educationHistoryList = educationHistoryListVO.getEducationHistoryList();
+			assertNotNull(educationHistoryList);
+			assertTrue(educationHistoryList.size() > 0);
+			
+			Paging paging = educationHistoryListVO.getPaging();
+			assertNotNull(paging);
+			assertTrue(paging.getTotalArticleCount() > 0);
+			
+		} else {
+			fail("fail");
+		}
+
+	}
 	
 }
