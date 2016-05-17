@@ -312,7 +312,7 @@ public class MemberBizTest extends SemsTestCase {
 	 *	나의 교육 이력 보기 
 	 */
 	@Test
-	public void getAllEducationHistoryListByIdTest() {
+	public void getAllEducationHistoryListByIdWithPagingTest() {
 		
 		Paging paging = new Paging();
 		paging.setPageNumber(0 + "");
@@ -357,7 +357,7 @@ public class MemberBizTest extends SemsTestCase {
 	 * 나의 교육 이력 엑셀 다운로드
 	 */
 	@Test
-	public void eduationHistoryExportExcel() {
+	public void eduationHistoryExportExcelTest() {
 		
 		String id = "test02";
 		boolean isSuccess = memberBiz.eduationHistoryExportExcel(id);

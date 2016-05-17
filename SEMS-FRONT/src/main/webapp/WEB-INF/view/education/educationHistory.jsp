@@ -34,7 +34,7 @@
 </table>
 <br/><br/>
 <h3>교육 히스토리</h3>
-<table>
+<table border="1">
 	<tr>
 		<th>교육 명</th>
 		<th>비용</th>

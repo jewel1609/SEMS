@@ -927,7 +927,7 @@ public class MemberServiceTest extends SemsTestCase {
 	 * 나의 교육 이력 보기
 	 */
 	@Test
-	public void getAllEducationHistoryListTest() {
+	public void getAllEducationHistoryListByIdWithPagingTest() {
 
 		MemberVO memberVO = new MemberVO();
 		memberVO.setId("test01");

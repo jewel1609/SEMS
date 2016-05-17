@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -318,7 +319,7 @@ public class MemberDAOTest extends SemsTestCase {
 	 * 나의 교육 이력 보기 
 	 */
 	@Test
-	public void getAllEducationHistoryListByIdTest() {
+	public void getAllEducationHistoryListByIdWithPagingTest() {
 		
 		Paging paging = new Paging();
 		paging.setPageNumber(0 + "");
@@ -347,6 +348,8 @@ public class MemberDAOTest extends SemsTestCase {
 					assertNotNull(educationHistoryVO.getIp());
 					assertNotNull(educationHistoryVO.getStartDate());
 					assertNotNull(educationHistoryVO.getEndDate());
+					assertNotNull(educationHistoryVO.getEducationTitle());
+					assertNotNull(educationHistoryVO.getCost());
 				}
 				
 			} else {
@@ -358,5 +361,32 @@ public class MemberDAOTest extends SemsTestCase {
 		}
 	}
 	
-	
+	/**
+	 * 나의 교육 이력 엑셀 다운로드
+	 */
+	@Test
+	public void getAllEducationHistoryListByIdTest(){
+		
+		String id = "test02";
+		List<EducationHistoryVO> educationHistoryList = memberDAO.getAllEducationHistoryListById(id);
+
+		if(educationHistoryList != null) {
+			
+			for (EducationHistoryVO educationHistoryVO : educationHistoryList) {
+				assertNotNull(educationHistoryVO.getEducationHistoryId());
+				assertNotNull(educationHistoryVO.getEducationId());
+				assertNotNull(educationHistoryVO.getMemberId());
+				assertNotNull(educationHistoryVO.getEducationHistoryDate());
+				assertNotNull(educationHistoryVO.getState());
+				assertNotNull(educationHistoryVO.getIp());
+				assertNotNull(educationHistoryVO.getStartDate());
+				assertNotNull(educationHistoryVO.getEndDate());
+				assertNotNull(educationHistoryVO.getEducationTitle());
+				assertNotNull(educationHistoryVO.getCost());
+			}
+			
+		} else {
+			fail("fail");
+		}
+	}
 }

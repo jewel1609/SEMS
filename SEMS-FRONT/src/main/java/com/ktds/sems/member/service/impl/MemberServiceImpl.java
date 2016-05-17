@@ -781,7 +781,6 @@ public class MemberServiceImpl implements MemberService {
 		} else {
 			return "redirect:/member/myPage";
 		}
-		
 	}
 
 }

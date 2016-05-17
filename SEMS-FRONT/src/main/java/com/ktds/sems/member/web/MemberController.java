@@ -268,6 +268,9 @@ public class MemberController {
 		return memberService.doCheckIp(lgiHtrId, session);
 	}
 	
+	/**
+	 *	나의 교육 이력 엑셀 다운로드 
+	 */
 	@RequestMapping("/member/myPage/educationHistory/exportExcel")
 	public String eduationHistoryExportExcel(HttpSession session) {
 		return memberService.eduationHistoryExportExcel(session);
