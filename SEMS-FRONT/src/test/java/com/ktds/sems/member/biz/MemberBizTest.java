@@ -352,4 +352,16 @@ public class MemberBizTest extends SemsTestCase {
 		}
 
 	}
+	
+	/**
+	 * 나의 교육 이력 엑셀 다운로드
+	 */
+	@Test
+	public void eduationHistoryExportExcel() {
+		
+		String id = "test02";
+		boolean isSuccess = memberBiz.eduationHistoryExportExcel(id);
+		
+		assertTrue(isSuccess);
+	}
 }
