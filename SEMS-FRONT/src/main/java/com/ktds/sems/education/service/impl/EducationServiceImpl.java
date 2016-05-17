@@ -307,17 +307,15 @@ public class EducationServiceImpl implements EducationService {
 	@Override
 	public ModelAndView showMyQNAList(int pageNo, HttpSession session) {
 
+		ModelAndView view = new ModelAndView();
 		MemberVO memberVO = (MemberVO) session.getAttribute(Session.MEMBER);
 		String memberId = memberVO.getId(); 
-				
-		// page setting
-		QNAListVO qnaListVO = new QNAListVO();
-		Paging paging = new Paging(15,15);
-		qnaListVO.setPaging(paging);
-		paging.setPageNumber(pageNo+"");
-		
 		int totalQNACount = educationBiz.getTotalQNACount(memberId);
+
+		// page setting
+		Paging paging = new Paging();
 		paging.setTotalArticleCount(totalQNACount);
+		paging.setPageNumber(pageNo+"");
 		
 		QNASearchVO qnaSearchVO = new QNASearchVO();
 		qnaSearchVO.setStartIndex(paging.getStartArticleNumber());
@@ -325,9 +323,11 @@ public class EducationServiceImpl implements EducationService {
 		qnaSearchVO.setId(memberId);
 		
 		List<QNAVO> qnaList = educationBiz.getAllQNAList(qnaSearchVO);
-		qnaListVO.setQnaVO(qnaList);
 		
-		ModelAndView view = new ModelAndView();
+		QNAListVO qnaListVO = new QNAListVO();
+		qnaListVO.setQnaList(qnaList);
+		qnaListVO.setPaging(paging);
+
 		view.setViewName("myPage/myQNAList");
 		view.addObject("qnaListVO", qnaListVO);
 		
@@ -341,7 +341,7 @@ public class EducationServiceImpl implements EducationService {
 	@Override
 	public ModelAndView showMyQNADetail(String replyId, HttpSession session) {
 		ModelAndView view = new ModelAndView();
-		view.setViewName("/myPage/myQNADetail/{replyId}");
+		view.setViewName("myPage/myQNADetail");
 
 		QNAVO qnaVO = educationBiz.getSelectedQNA(replyId);
 		QNAVO qnaAnswerVO = educationBiz.getSelectedQNAAnswer(replyId);
