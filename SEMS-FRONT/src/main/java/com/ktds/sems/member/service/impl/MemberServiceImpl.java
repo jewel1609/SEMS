@@ -115,6 +115,7 @@ public class MemberServiceImpl implements MemberService {
 		}
 		
 		if (memberType.equals("MBR")) {
+			
 			if (member.getGraduationType() == null) {
 				view.addObject("isEmptyGraduationType", "true");
 				errorCount++;
@@ -125,12 +126,14 @@ public class MemberServiceImpl implements MemberService {
 				errorCount++;
 			}
 
-			if (member.getMajorName() == null || member.getMajorName().equals("")) {
+			String majorName = member.getMajorName();
+			if (majorName == null || majorName.trim().equals("")) {
 				view.addObject("isEmptyMajorName", "true");
 				errorCount++;
 			}
 
-			if (member.getUniversityName() == null || member.getUniversityName().equals("")) {
+			String universityName = member.getUniversityName();
+			if (universityName == null || universityName.trim().equals("")) {
 				view.addObject("isEmptyUniversityName", "true");
 				errorCount++;
 			}
