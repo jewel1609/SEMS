@@ -21,4 +21,6 @@ public interface EducationDAO {
 	public int modifyNewEducation(EducationVO changedEducationVO);
 	public List<EducationHistoryVO> getAllEducationHistory();
 	public int getAllEduHistoryCount();
+	public int getJCEduHistoryCount();
+	public List<EducationHistoryVO> getJCEduHistoryHistory();
 }
