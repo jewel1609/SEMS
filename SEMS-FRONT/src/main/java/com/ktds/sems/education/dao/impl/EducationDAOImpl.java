@@ -13,6 +13,7 @@ import com.ktds.sems.education.vo.EducationSearchVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.QNASearchVO;
 import com.ktds.sems.education.vo.QNAVO;
+import com.ktds.sems.education.vo.ReRplyEvalVO;
 
 import ch.qos.logback.core.net.SyslogOutputStream;
 
@@ -197,6 +198,26 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 	@Override
 	public String getEmail(String id) {
 		return getSqlSession().selectOne("EducationDAO.getEmail", id);
+	}
+
+	@Override
+	public int getNextReReplyEval() {
+		return getSqlSession().selectOne("EducationDAO.getNextReReplyEval");
+	}
+
+	@Override
+	public int plusReReplyLike(String replyId) {
+		return getSqlSession().update("EducationDAO.plusReReplyLike", replyId);
+	}
+
+	@Override
+	public int insertReReplyEval(ReRplyEvalVO reRplyEvalVO) {
+		return getSqlSession().insert("EducationDAO.insertReReplyEval", reRplyEvalVO);
+	}
+
+	@Override
+	public int checkReReplyEval(ReRplyEvalVO reRplyEvalVO) {
+		return getSqlSession().selectOne("EducationDAO.checkReReplyEval", reRplyEvalVO);
 	}
 
 	@Override

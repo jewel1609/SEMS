@@ -8,6 +8,7 @@ import java.util.List;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.QNASearchVO;
 import com.ktds.sems.education.vo.QNAVO;
+import com.ktds.sems.education.vo.ReRplyEvalVO;
 
 public interface EducationDAO {
 
@@ -63,6 +64,14 @@ public interface EducationDAO {
 	public List<EducationVO> getApplyHistory(String memberId, String educationId);
 
 	public String getEmail(String id);
+
+	public int getNextReReplyEval();
+
+	public int plusReReplyLike(String replyId);
+
+	public int insertReReplyEval(ReRplyEvalVO reRplyEvalVO);
+
+	public int checkReReplyEval(ReRplyEvalVO reRplyEvalVO);
 
 	public String getStartYear();
 

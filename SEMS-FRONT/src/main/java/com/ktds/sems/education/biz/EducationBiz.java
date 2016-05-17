@@ -6,6 +6,7 @@ import com.ktds.sems.education.vo.EducationSearchVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.QNASearchVO;
 import com.ktds.sems.education.vo.QNAVO;
+import com.ktds.sems.education.vo.ReRplyEvalVO;
 
 public interface EducationBiz {
 
@@ -64,6 +65,14 @@ public interface EducationBiz {
 	public String getEmail(String id);
 
 	public void sendEmailByReReply(QNAVO questionVO, QNAVO answerVO, String email);
+
+	public int getNextReReplyEval();
+
+	public boolean plusReReplyLike(String replyId);
+
+	public boolean insertReReplyEval(ReRplyEvalVO reRplyEvalVO);
+
+	public boolean checkReReplyEval(ReRplyEvalVO reRplyEvalVO);
 
 	public String getStartYear();
 

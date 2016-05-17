@@ -1,8 +1,6 @@
 package com.ktds.sems.education.service.impl;
 
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,28 +9,23 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.mock.web.PassThroughFilterChain;
 import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.common.Session;
 import com.ktds.sems.education.biz.EducationBiz;
 import com.ktds.sems.education.service.EducationService;
-
 import com.ktds.sems.education.util.DownloadUtil;
-
 import com.ktds.sems.education.vo.EduReplyListVO;
-
 import com.ktds.sems.education.vo.EducationListVO;
 import com.ktds.sems.education.vo.EducationSearchVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.QNAListVO;
 import com.ktds.sems.education.vo.QNASearchVO;
 import com.ktds.sems.education.vo.QNAVO;
-
+import com.ktds.sems.education.vo.ReRplyEvalVO;
 import com.ktds.sems.file.biz.FileBiz;
 import com.ktds.sems.file.vo.FileVO;
-
 import com.ktds.sems.member.vo.MemberVO;
 
 import kr.co.hucloud.utilities.web.Paging;
@@ -444,6 +437,45 @@ public class EducationServiceImpl implements EducationService {
 			return null;
 		}
 		return view;
+	}
+
+	@Override
+	public String plusReReplyLike(String replyId, HttpSession session) {
+		MemberVO memberVO = (MemberVO) session.getAttribute(Session.MEMBER);
+		
+		ReRplyEvalVO reRplyEvalVO = new ReRplyEvalVO();
+		
+		String nowDate = educationBiz.getNowDate();
+		int nextSeq = educationBiz.getNextReReplyEval();
+		String replyEvalId = "RE-" + nowDate + "-" + lpad(nextSeq + "", 6, "0");
+		
+		//댓글ID
+		reRplyEvalVO.setReplyId(replyId);
+		
+		// 좋아요 누른 아이디
+		reRplyEvalVO.setMbrId(memberVO.getId());
+		
+		// REPLY_EVAL_ID (pk)
+		reRplyEvalVO.setReplyEvalId(replyEvalId);
+		
+		if (!educationBiz.checkReReplyEval(reRplyEvalVO)){
+			boolean result = educationBiz.insertReReplyEval(reRplyEvalVO);
+			
+			if(!result){
+				return "FAIL";
+			}
+			else{
+				if(educationBiz.plusReReplyLike(replyId)){
+					return "OK";
+				}
+				else {
+					return "FAIL";
+				}
+			} 
+		}
+		else {
+			return "FAIL";
+		}
 	}
 
 }

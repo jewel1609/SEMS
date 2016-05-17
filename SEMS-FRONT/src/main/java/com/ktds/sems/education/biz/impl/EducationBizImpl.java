@@ -16,6 +16,7 @@ import com.ktds.sems.education.vo.EducationSearchVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.QNASearchVO;
 import com.ktds.sems.education.vo.QNAVO;
+import com.ktds.sems.education.vo.ReRplyEvalVO;
 import com.ktds.sems.member.vo.LoginHistoryVO;
 import com.sun.media.jfxmedia.logging.Logger;
 
@@ -274,6 +275,26 @@ public class EducationBizImpl implements EducationBiz {
 		mailVO.setToId(email);
 
 		sendMail.sendMailToCustomer(mailVO);
+	}
+
+	@Override
+	public int getNextReReplyEval() {
+		return educationDAO.getNextReReplyEval();
+	}
+
+	@Override
+	public boolean plusReReplyLike(String replyId) {
+		return educationDAO.plusReReplyLike(replyId) > 0;
+	}
+
+	@Override
+	public boolean insertReReplyEval(ReRplyEvalVO reRplyEvalVO) {
+		return educationDAO.insertReReplyEval(reRplyEvalVO) > 0;
+	}
+
+	@Override
+	public boolean checkReReplyEval(ReRplyEvalVO reRplyEvalVO) {
+		return educationDAO.checkReReplyEval(reRplyEvalVO) > 0;
 	}
 
 	@Override

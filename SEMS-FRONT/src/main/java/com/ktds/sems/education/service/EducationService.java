@@ -42,5 +42,7 @@ public interface EducationService {
 
 	public ModelAndView viewRequestRetractionPage(HttpSession session, HttpServletRequest request, String educationId);
 
+	public String plusReReplyLike(String replyId, HttpSession session);
+
 	
 }

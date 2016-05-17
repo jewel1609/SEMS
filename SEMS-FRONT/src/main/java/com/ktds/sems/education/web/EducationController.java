@@ -170,6 +170,22 @@ public class EducationController {
 		return educationService.viewRequestRetractionPage(session, request, educationId);
 	}
 	
+	@RequestMapping("/plusReReplyLike")
+	public void plusReReplyLike(HttpServletRequest request, HttpServletResponse response, HttpSession session){
+		String replyId = request.getParameter("replyId");
+		
+		String status = educationService.plusReReplyLike(replyId, session);
+		AjaxUtil.sendResponse(response, status);
+	}
+	
+	@RequestMapping("/plusReReplyDislike")
+	public void plusReReplyDislike(HttpServletRequest request, HttpServletResponse response, HttpSession session){
+		String replyId = request.getParameter("replyId");
+		
+	/*	String status = educationService.plusReReplyDislike(replyId, session);
+		AjaxUtil.sendResponse(response, status);*/
+	}
+	
 }
 
 
