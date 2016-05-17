@@ -28,6 +28,8 @@
 		<property name="maxInMemorySize" value="100000000" />
 	</bean>
 	
+	<bean id="customExceptionHandler" class="com.ktds.sems.handler.CustomExceptionHandler"></bean>
+	
 	<bean id="educationController"
 			class="com.ktds.sems.education.web.EducationController">
 			<property name="educationService" ref="educationService" />

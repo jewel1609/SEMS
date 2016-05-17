@@ -11,6 +11,85 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 
+		var ua = navigator.userAgent.toLowerCase();
+		if (ua.indexOf('chrome') == -1 ) // Internet Explorer일 경우
+	    {
+			console.log('ie');
+			$("#startDate").datepicker({ dateFormat: "yy-mm-dd",  minDate: new Date() });
+			$("#endDate").datepicker({ dateFormat: "yy-mm-dd",  minDate: new Date() });
+			/*
+			http://timepicker.co/ 참조
+			*/
+			$("#startTime").timepicker({
+				 timeFormat: 'HH:mm',
+			        startHour: 9,
+			        startTime: new Date(0, 0, 0, 8, 20, 0),
+			        interval: 10
+			});
+			$("#endTime").timepicker({
+				 timeFormat: 'HH:mm',
+			        startHour: 9,
+			        startTime: new Date(0, 0, 0, 8, 20, 0),
+			        interval: 10
+			});
+	    }
+	    else  // Internet Explorer가 아닐경우
+	    {
+	    }
+		
+		// 오늘의 날짜를 가져온다.
+		var today = new Date();
+		var dd = today.getDate();
+		var mm = today.getMonth() + 1;
+		var yyyy = today.getFullYear();
+		if(dd<10){
+			dd='0'+dd
+		} 
+		if ( mm < 10) {
+			mm = '0' + mm
+		} 
+
+		today = yyyy + '-' + mm + '-' + dd;
+		
+		//개강 시작과 종료의 최소선택을 오늘로
+		$("#startDate").attr("min", today);
+		$("#endDate").attr("min", today);
+		
+		//날짜의 선택이 변경되면 새로고침
+		$("#startDate").change(function(){
+			if ( $("#endDate").val() == '' || $(this).val() > $("#endDate").val() ) {
+				$("#endDate").val($(this).val());
+			}
+		});
+		$("#endDate").change(function(){
+			if ( $("#startDate").val() == '' || $(this).val() < $("#startDate").val() ) {
+				$("#startDate").val($(this).val());
+			}
+		});
+		
+		//시간의 선택이 변경되면 새로고침
+		$("#startTime").change(function(){
+			if ( $("#endTime").val() == '' || $(this).val() > $("#endTime").val() ) {
+				$("#endTime").val($(this).val());
+			}
+		});
+		$("#endTime").change(function(){
+			if ( $("#startTime").val() == '' || $(this).val() < $("#startTime").val() ) {
+				$("#startTime").val($(this).val());
+			}
+		});
+
+		//소괄호를 허용하는 정규식 
+		$(".onlyTextWithBracket").keyup(function(event) {
+			regexp = /[@\#$%<>&\=_\’]/gi;
+
+			v = $(this).val();
+			if (regexp.test(v)) {
+				alert("특수문자를 포함할 수 없습니다.");
+				$(this).val(v.replace(regexp, ''));
+			}
+		});
+
 		$(".onlyText").keyup(function(event) {
 			regexp = /[@\#$%<>&\()\=_\’]/gi;
 
@@ -27,6 +106,17 @@
 	        	alert("숫자만 입력 하시오.");
 	            $(this).val(v.replace(reg, ''));
 	            $(this).focus();
+	        }
+	        if ( v == 0 ) {
+	        	alert("0이상의 숫자만 입력 하시오.");
+	            $(this).val('');
+	            $(this).focus();
+	            return;
+	        }
+	        if ( v > 2147483647 ) {
+	        	alert("너무 큰 숫자의 입력입니다.");
+	            $(this).focus();
+	            return;
 	        }
 		});
 
@@ -109,6 +199,9 @@
 					$('.cost').focus();
 					return false;
 				}
+				
+				var updateForm = $("#educationVO");
+				updateForm.submit();
 			} else {
 				return;
 			}
@@ -157,7 +250,7 @@
 			<br />
 			<form:errors path="educationCategory" />
 			<br />
-	     교육명 : <input type="text" class="onlyText"
+	     교육명 : <input type="text" class="onlyTextWithBracket"
 				id="educationTitle" name="educationTitle"
 				value="${educationVO.educationTitle }" maxlength="20"/>
 			<br />
@@ -169,7 +262,7 @@
 			<form:errors path="memberId" />
 			<br />
 	     정원 : <input type="text" class="onlyText" id="maxMember"
-				name="maxMember" value="${educationVO.maxMember }" />
+				name="maxMember" value="${educationVO.maxMember }" min="1" max="2147483647" />
 			<br />
 			<br />
 	     강의실 : <input type="text" class="onlyText"
@@ -197,7 +290,7 @@
 	     교육소개 :  
 	    	
 	 	   <input type="text" style="height: 100px" id="educationIntroduce"
-				class="onlyText" name="educationIntroduce"
+				class="onlyTextWithBracket" name="educationIntroduce"
 				value="${educationVO.educationIntroduce }" />
 			<br />
 			<form:errors path="educationIntroduce" />
@@ -250,7 +343,7 @@
 
 			<input type="hidden" name="educationId"
 				value="${educationVO.educationId }" />
-			<input type="submit" id="update" value="등록하기" />
+			<input type="button" id="update" value="등록하기" />
 		</form:form>
 	</div>
 </body>

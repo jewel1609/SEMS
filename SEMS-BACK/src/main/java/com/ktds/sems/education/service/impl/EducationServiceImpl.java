@@ -111,6 +111,10 @@ public class EducationServiceImpl implements EducationService {
 		
 		EducationVO educationVO = educationBiz.getOneEducation(educationId);
 		
+		if ( educationVO == null ) {
+			throw new RuntimeException("해당 강의가 없습니다.");
+		}
+		
 		ModelAndView view = new ModelAndView();
 		
 		view.setViewName("education/update");
