@@ -32,10 +32,32 @@ $(document).ready(function() {
 			
 			startMonth = fillString(startMonth);
 			
+			if (startYear == "" || startYear.length == 0) {
+				alert("시작 년도를 선택하세요.");
+				$("#startYear").focus();
+				return;
+			}
+			if (startMonth == "" || startMonth.length == 0) {
+				alert("시작 월을 선택하세요.");
+				$("#startMonth").focus();
+				return;
+			}
+			
 			var endYear = $("#endYear").val();
 			var endMonth = $("#endMonth").val();
 
 			endMonth = fillString(endMonth);
+			
+			if (endYear == "" || endYear.length == 0) {
+				alert("종료 년도를 선택하세요.");
+				$("#endYear").focus();
+				return;
+			}
+			if (endMonth == "" || endMonth.length == 0) {
+				alert("종료 월을 선택하세요.");
+				$("#endMonth").focus();
+				return;
+			}
 			
 			var startSearchDate = startYear + startMonth;
 			var endSearchDate = endYear + endMonth;
@@ -76,7 +98,7 @@ $(document).ready(function() {
 		<td>
 			<select id="startYear" name="startYear" >
 				<option value="" selected="selected"></option>
-				<c:forEach var="startYear" begin="2010" end="2017" step="1">
+				<c:forEach var="startYear" begin="${fromYear}" end="${toYear}" step="1">
 					<c:if test="${ searchKeyword.startYear eq  startYear }">
 						<option value="${ startYear }" selected="selected">${ startYear }</option>
 					</c:if> 
@@ -100,7 +122,7 @@ $(document).ready(function() {
 			~
 			<select id="endYear" name="endYear" >
 				<option value="" selected="selected"></option>
-				<c:forEach var="endYear" begin="2010" end="2016" step="1">
+				<c:forEach var="endYear" begin="${fromYear}" end="${toYear}" step="1">
 					<c:if test="${ searchKeyword.endYear eq  endYear }">
 						<option value="${ endYear }" selected="selected">${ endYear }</option>
 					</c:if> 
