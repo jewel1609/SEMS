@@ -57,7 +57,7 @@ public interface EducationDAO {
 
 	public QNAVO getSelectedQNA(String replyId);
 
-	public QNAVO getSelectedQNAAnswer(String replyId);
+	public List<QNAVO> getSelectedQNAAnswer(String replyId);
 
 	public List<QNAVO> exportQNAListAsExcel(String memberId);
 

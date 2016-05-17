@@ -15,8 +15,6 @@ import com.ktds.sems.education.vo.QNASearchVO;
 import com.ktds.sems.education.vo.QNAVO;
 import com.ktds.sems.education.vo.ReRplyEvalVO;
 
-import ch.qos.logback.core.net.SyslogOutputStream;
-
 public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationDAO {
 	
 	private Logger logger = LoggerFactory.getLogger(EducationDAOImpl.class);	
@@ -175,8 +173,8 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 	 * @author 206-025 이기연
 	 */
 	@Override
-	public QNAVO getSelectedQNAAnswer(String replyId) {
-		return getSqlSession().selectOne("EducationDAO.getSelectedQNAAnswer" ,replyId);
+	public List<QNAVO> getSelectedQNAAnswer(String replyId) {
+		return getSqlSession().selectList("EducationDAO.getSelectedQNAAnswer" ,replyId);
 	}
 
 	/**
