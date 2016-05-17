@@ -144,4 +144,10 @@ public class MemberController {
 		return memberService.memberDeleteById(id);
 	}
 	
+	@RequestMapping("/adminHistory")
+	public ModelAndView viewAdminHistory(@RequestParam(required=false, defaultValue="0") int pageNo) {
+		//logger.info("pageNO : " + pageNo);
+		return memberService.getAllAdminHistory(pageNo);
+	}
+	
 }

@@ -77,7 +77,6 @@
 		AND		RSN = 'Y'
 	</select>
 	<insert id="stampLoginTime" parameterType="LoginHistoryVO">
-
 		INSERT INTO LGI_HTR	(
 								LGI_HTR_ID
 								, MBR_ID
@@ -100,15 +99,55 @@
 		SET		LGO_DT = SYSDATE
 		WHERE	LGI_HTR_ID = #{lgiHtrId}
 	</update>
-	<select id="getAllLoginHistoryList" resultType="LoginHistoryVO" >
-		SELECT	LGI_HTR_ID lgiHtrId
-				, MBR_ID id
-				, LGI_IP lgiIp
-				, LGI_DT lgiDt
-				, LGO_DT lgoDt
-		FROM 	LGI_HTR
+
+	<select id="getAllAdminHistory" parameterType="LoginHistorySearchVO" resultType="LoginHistoryVO">
+		SELECT	HIS.LGI_HTR_ID lgiHtrId
+				, HIS.LGI_IP lgiIp
+				, HIS.LGI_DT lgiDt
+				, HIS.LGO_DT lgoDt
+				, HIS.MBR_ID id
+				, HIS.CD_NM memberType
+		FROM	(
+					SELECT ROWNUM AS RNUM
+					, LGI.*
+				FROM	(
+							SELECT	LGI_HTR.*
+							FROM	(
+										SELECT	LGI_HTR.*, MBR_TP.CD_NM
+										FROM	LGI_HTR
+												, MBR
+												, MBR_TP
+										WHERE	MBR.MBR_TP = MBR_TP.CD_ID
+										AND		LGI_HTR.MBR_ID = MBR.ID
+									)LGI_HTR
+							WHERE	MBR_ID IN	(
+													SELECT	ID
+													FROM	MBR
+													WHERE	MBR_TP = 'ADM'
+												)
+							ORDER BY	LGI_HTR_ID DESC
+						)LGI
+				WHERE	ROWNUM <![CDATA[<=]]> #{endIndex}
+				) HIS
+		WHERE   RNUM >= #{startIndex}
 	</select>
-	  
+
+	<select id="getTotalAdminHistoryCount" resultType="_int">
+		SELECT	COUNT(LGI_HTR_ID)
+		FROM	(
+					SELECT	LGI_HTR.*, MBR_TP.CD_NM
+					FROM	LGI_HTR, MBR, MBR_TP
+					WHERE	MBR.MBR_TP = MBR_TP.CD_ID
+					AND		LGI_HTR.MBR_ID = MBR.ID
+				)LGI_HTR
+		WHERE	MBR_ID IN	(
+								SELECT	ID
+								FROM	MBR
+								WHERE	MBR_TP ='ADM'
+							)
+		ORDER BY	LGI_HTR_ID	DESC
+	</select>
+		  
 	<select id="getAllMemberHistory" parameterType="LoginHistorySearchVO" resultType="LoginHistoryVO">
 		 SELECT HIS.LGI_HTR_ID lgiHtrId
 		 		, HIS.LGI_IP lgiIp

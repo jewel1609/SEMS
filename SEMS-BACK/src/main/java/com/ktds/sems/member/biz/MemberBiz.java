@@ -31,8 +31,6 @@ public interface MemberBiz {
 
 	public boolean stampLoginTime(HttpSession session, HttpServletRequest request, MemberVO loginVO);
 
-	public List<LoginHistoryVO> getAllLoginHistoryList();
-
 	public List<LoginHistoryVO> getAllMemberHistory(LoginHistorySearchVO loginHistorySearchVO);
 
 	public int getTotalMemberCount();
@@ -72,5 +70,9 @@ public interface MemberBiz {
 	public String getMemberTypeCodeId(String memberType);
 
 	public List<String> getTypeList();
+	
+	public List<LoginHistoryVO> getAllAdminHistory(LoginHistorySearchVO loginHistorySearchVO);
+	
+	public int getTotalAdminHistoryCount();
 
 }

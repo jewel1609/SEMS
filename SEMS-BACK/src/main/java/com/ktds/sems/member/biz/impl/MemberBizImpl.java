@@ -140,15 +140,20 @@ public class MemberBizImpl implements MemberBiz {
 	}
 
 	@Override
-	public List<LoginHistoryVO> getAllLoginHistoryList() {
-		
-		return memberDAO.getAllLoginHistoryList();
-	}
-
-	@Override
 	public List<LoginHistoryVO> getAllMemberHistory(LoginHistorySearchVO loginHistorySearchVO) {
 		return memberDAO.getAllMemberHistory(loginHistorySearchVO);
 	}
+	
+	@Override
+	public List<LoginHistoryVO> getAllAdminHistory(LoginHistorySearchVO loginHistorySearchVO) {
+		return memberDAO.getAllAdminHistory(loginHistorySearchVO);
+	}
+
+	@Override
+	public int getTotalAdminHistoryCount() {
+		return memberDAO.getTotalAdminHistoryCount();
+	}
+
 
 	@Override
 	public int getTotalMemberCount() {

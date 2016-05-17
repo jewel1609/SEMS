@@ -33,8 +33,6 @@ public interface MemberDAO {
 
 	public int stampLogoutTime(LoginHistoryVO newLoginHistoryVO);
 
-	public List<LoginHistoryVO> getAllLoginHistoryList();
-
 	public List<LoginHistoryVO> getAllMemberHistory(LoginHistorySearchVO loginHistorySearchVO);
 
 	public int getTotalMemberCount();
@@ -64,5 +62,9 @@ public interface MemberDAO {
 	public String getMemberTypeCodeId(String memberType);
 
 	public List<String> getTypeList();
+	
+	public List<LoginHistoryVO> getAllAdminHistory(LoginHistorySearchVO loginHistorySearchVO);
+	
+	public int getTotalAdminHistoryCount();
 
 }

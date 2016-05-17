@@ -17,7 +17,7 @@
 		AND		M.ID = #{ memberId }
 	</select>
 	
-	<select id="getTeacherEducationHistory" parameterType="string" resultType="EducationHistoryVO">
+	<select id="getTeacherEducationHistory" parameterType="string" resultType="TeacherEduHistoryVO">
 		SELECT	TEH_ID id
 				, STR_DATE startDate
 				, END_DATE endDate

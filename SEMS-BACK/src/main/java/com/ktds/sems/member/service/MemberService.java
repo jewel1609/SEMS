@@ -20,8 +20,6 @@ public interface MemberService {
 
 	public ModelAndView getAllMemberHistory(LoginHistorySearchVO loginHistorySearchVO, int pageNo);
 	
-	public ModelAndView viewLoginHistory(LoginHistoryVO loginHistoryVO, Errors errors, HttpSession session);
-
 	public ModelAndView getAllMemberList(int pageNo);
 
 	public void checkValidationById(String id, HttpServletResponse response);
@@ -49,5 +47,7 @@ public interface MemberService {
 	public List<String> getMemberTypeCodeNameList();
 
 	public ModelAndView loginHistoryInit();
+	
+	public ModelAndView getAllAdminHistory(int pageNo);
 
 }

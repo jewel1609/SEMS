@@ -125,22 +125,29 @@ public class MemberServiceImpl implements MemberService{
 		//로그아웃 stamp 찍기 위해서.. 
 		memberBiz.stampLogoutTime(session);
 	}
-
+	
 	@Override
-	public ModelAndView viewLoginHistory(LoginHistoryVO loginHistoryVO, Errors errors, HttpSession session) {
-		
-		ModelAndView view = new ModelAndView();
-		//LoginStore loginStore = LoginStore.getInstance();
-		//loginStore.add(loginHistoryVO.getId(), session);
+	public ModelAndView getAllAdminHistory(int pageNo) {
 		LoginHistoryListVO loginHistoryListVO = new LoginHistoryListVO();
-		List<LoginHistoryVO> loginHistoryList = null;
+		Paging paging = new Paging(15, 15);
 		
-		loginHistoryList = memberBiz.getAllLoginHistoryList();
-		logger.info("loginHistoryListSize"+loginHistoryList.size());
-		loginHistoryListVO.setLoginHistoryList(loginHistoryList);
-		view.setViewName("/member/loginHistoryPage");
+		loginHistoryListVO.setPaging(paging);
+		int totalHistoryCount = memberBiz.getTotalAdminHistoryCount();
+		logger.info("totalHistoryCount"+totalHistoryCount);
+		paging.setPageNumber(pageNo + "");
+		paging.setTotalArticleCount(totalHistoryCount);
+		
+		LoginHistorySearchVO loginHistorySearchVO = new LoginHistorySearchVO();
+		loginHistorySearchVO.setStartIndex(paging.getStartArticleNumber());
+		loginHistorySearchVO.setEndIndex(paging.getEndArticleNumber());
+		
+		List<LoginHistoryVO> loginHistory = memberBiz.getAllAdminHistory(loginHistorySearchVO);
+		loginHistoryListVO.setLoginHistoryList(loginHistory);
+		
+		logger.info("loginHistorySize"+loginHistory.size());
+		ModelAndView view = new ModelAndView();
+		view.setViewName("member/adminHistory");
 		view.addObject("loginHistoryListVO", loginHistoryListVO);
-		
 		return view;
 	}
 

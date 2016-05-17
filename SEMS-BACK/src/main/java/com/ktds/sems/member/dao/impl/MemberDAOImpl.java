@@ -78,11 +78,6 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 	}
 
 	@Override
-	public List<LoginHistoryVO> getAllLoginHistoryList() {
-		return getSqlSession().selectList("MemberDAO.getAllLoginHistoryList");
-	}
-
-	@Override
 	public List<LoginHistoryVO> getAllMemberHistory(LoginHistorySearchVO loginHistorySearchVO) {
 		return getSqlSession().selectList("MemberDAO.getAllMemberHistory", loginHistorySearchVO);
 	}
@@ -157,5 +152,15 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 	@Override
 	public List<String> getTypeList() {
 		return getSqlSession().selectList("MemberDAO.getTypeList");
+	}
+	
+	@Override
+	public List<LoginHistoryVO> getAllAdminHistory(LoginHistorySearchVO loginHistorySearchVO) {
+		return getSqlSession().selectList("MemberDAO.getAllAdminHistory", loginHistorySearchVO);
+	}
+
+	@Override
+	public int getTotalAdminHistoryCount() {
+		return getSqlSession().selectOne("MemberDAO.getTotalAdminHistoryCount");
 	}
 }
