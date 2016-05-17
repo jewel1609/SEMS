@@ -223,8 +223,34 @@ public class EducationServiceImpl implements EducationService {
 		eduHistoryListVO.setEducationHistoryList(eduHistoryList);
 		
 		view.addObject("eduHistoryListVO", eduHistoryListVO);
-		//logger.info("eduHistoryListSize"+eduHistoryList.size());
+		logger.info("eduHistoryListSize"+eduHistoryList.size());
 		view.setViewName("education/eduManage");
+		return view;
+	}
+
+	@Override
+	public ModelAndView getJCEduHistory(int pageNo) {
+		EducationHistoryListVO eduHistoryListVO = new EducationHistoryListVO();
+		Paging paging = new Paging(15,15);
+		eduHistoryListVO.setPaging(paging);
+		paging.setPageNumber(pageNo + "");
+		
+		int eduHistoryCount = educationBiz.getJCEduHistoryCount();
+		if(eduHistoryCount == 0 ){
+			eduHistoryCount ++;
+		}
+		paging.setTotalArticleCount(eduHistoryCount);
+		EducationHistorySearchVO searchVO = new EducationHistorySearchVO();
+		searchVO.setStartIndex(paging.getStartArticleNumber());
+		searchVO.setEndIndex(paging.getEndArticleNumber());	
+		
+		ModelAndView view = new ModelAndView();
+		List<EducationHistoryVO> eduHistoryList = educationBiz.getJCEducationHistory();
+		eduHistoryListVO.setEducationHistoryList(eduHistoryList);
+		
+		view.addObject("eduHistoryListVO", eduHistoryListVO);
+		logger.info("eduHistoryListSize"+eduHistoryList.size());
+		view.setViewName("education/checkApplicant");
 		return view;
 	}
 
