@@ -10,6 +10,7 @@
 <script type="text/javascript" src="<c:url value="/resources/js/jquery.min.js"/>"></script>
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <script src="<c:url value="/resources/js/jquery.timepicker.min.js"/>"></script>
+<link href="http://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/jquery.timepicker.min.css"/>">
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -18,39 +19,21 @@
 		if (ua.indexOf('chrome') == -1 ) // Internet Explorer일 경우
 	    {
 			console.log('ie');
-			$("#startDate").datepicker({ dateFormat: "yy-mm-dd" });
-			$("#endDate").datepicker({ dateFormat: "yy-mm-dd" });
+			$("#startDate").datepicker({ dateFormat: "yy-mm-dd",  minDate: new Date() });
+			$("#endDate").datepicker({ dateFormat: "yy-mm-dd",  minDate: new Date() });
 			/*
 			http://timepicker.co/ 참조
 			*/
 			$("#startTime").timepicker({
 				 timeFormat: 'HH:mm',
-			        // year, month, day and seconds are not important
-			        //minTime: new Date(0, 0, 0, 8, 0, 0),
-			        //maxTime: new Date(0, 0, 0, 15, 0, 0),
-			        // time entries start being generated at 6AM but the plugin 
-			        // shows only those within the [minTime, maxTime] interval
-			        startHour: 6,
-			        // the value of the first item in the dropdown, when the input
-			        // field is empty. This overrides the startHour and startMinute 
-			        // options
+			        startHour: 9,
 			        startTime: new Date(0, 0, 0, 8, 20, 0),
-			        // items in the dropdown are separated by at interval minutes
 			        interval: 10
 			});
 			$("#endTime").timepicker({
 				 timeFormat: 'HH:mm',
-			        // year, month, day and seconds are not important
-			        //minTime: new Date(0, 0, 0, 8, 0, 0),
-			       // maxTime: new Date(0, 0, 0, 15, 0, 0),
-			        // time entries start being generated at 6AM but the plugin 
-			        // shows only those within the [minTime, maxTime] interval
-			        startHour: 6,
-			        // the value of the first item in the dropdown, when the input
-			        // field is empty. This overrides the startHour and startMinute 
-			        // options
+			        startHour: 9,
 			        startTime: new Date(0, 0, 0, 8, 20, 0),
-			        // items in the dropdown are separated by at interval minutes
 			        interval: 10
 			});
 	    }
@@ -58,21 +41,25 @@
 	    {
 	    }
 		
-		// 개강 날짜의 최소선택을 오늘로
+		// 오늘의 날짜를 가져온다.
 		var today = new Date();
 		var dd = today.getDate();
-		var mm = today.getMonth()+1; //January is 0!
+		var mm = today.getMonth() + 1;
 		var yyyy = today.getFullYear();
 		if(dd<10){
 			dd='0'+dd
 		} 
-		if(mm<10){
-			mm='0'+mm
+		if ( mm < 10) {
+			mm = '0' + mm
 		} 
 
-		today = yyyy+'-'+mm+'-'+dd;
+		today = yyyy + '-' + mm + '-' + dd;
+		
+		//개강 시작과 종료의 최소선택을 오늘로
 		$("#startDate").attr("min", today);
 		$("#endDate").attr("min", today);
+		
+		//날짜의 선택이 변경되면 새로고침
 		$("#startDate").change(function(){
 			if ( $("#endDate").val() == '' || $(this).val() > $("#endDate").val() ) {
 				$("#endDate").val($(this).val());
@@ -84,6 +71,7 @@
 			}
 		});
 		
+		//시간의 선택이 변경되면 새로고침
 		$("#startTime").change(function(){
 			if ( $("#endTime").val() == '' || $(this).val() > $("#endTime").val() ) {
 				$("#endTime").val($(this).val());
@@ -104,6 +92,8 @@
 				$(this).val(v.replace(regexp, ''));
 			}
 		});
+		
+		//소괄호를 허용하는 정규식 
 		$(".onlyTextWithBracket").keyup(function(event) {
 			regexp = /[@\#$%<>&\=_\’]/gi;
 
