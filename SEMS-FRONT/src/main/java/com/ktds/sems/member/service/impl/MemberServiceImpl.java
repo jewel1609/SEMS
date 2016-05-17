@@ -689,6 +689,7 @@ public class MemberServiceImpl implements MemberService {
 		educationHistorySearchVO.setMemberId(memberVO.getId());
 		
 		List<EducationHistoryVO> educationHistoryList = memberBiz.getAllEducationHistoryListByIdWithPaging(educationHistorySearchVO);
+		List<EducationHistoryVO> joinEducationList = memberBiz.getJoinEducationList(educationHistorySearchVO.getMemberId());
 		educationHistoryListVO.setEducationHistoryList(educationHistoryList);
 
 		System.out.println("******************************");
@@ -699,6 +700,7 @@ public class MemberServiceImpl implements MemberService {
 		ModelAndView view = new ModelAndView();
 		view.setViewName("education/educationHistory");
 		view.addObject("educationHistoryListVO", educationHistoryListVO);
+		view.addObject("joinEducationList", joinEducationList);
 		
 		return view;
 	}

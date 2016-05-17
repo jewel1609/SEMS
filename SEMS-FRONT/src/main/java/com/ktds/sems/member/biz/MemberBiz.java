@@ -116,4 +116,6 @@ public interface MemberBiz {
 
 	public boolean eduationHistoryExportExcel(String id);
 
+	public List<EducationHistoryVO> getJoinEducationList(String memberId);
+
 }

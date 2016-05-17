@@ -9,6 +9,31 @@
 </head>
 <body>
 
+<h3>현재 참가 중 교육</h3>
+<table border="1">
+<tr>
+		<th>educationTitle</th>
+		<th>cost</th>
+		<th>educationHistoryDate</th>
+		<th>comment</th>
+		<th>feedback</th>
+		<th>startDate</th>
+		<th>endDate</th>
+	</tr>
+	<c:forEach items="${ joinEducationList }" var="joinEducationVO">
+		<tr>
+			<td>${ joinEducationVO.educationTitle }</td>
+			<td>${ joinEducationVO.cost }</td>
+			<td>${ joinEducationVO.educationHistoryDate }</td>
+			<td>${ joinEducationVO.cmnt }</td>
+			<td>${ joinEducationVO.fdbk }</td>
+			<td>${ joinEducationVO.startDate }</td>
+			<td>${ joinEducationVO.endDate }</td>
+		</tr>
+	</c:forEach>	
+</table>
+<br/><br/>
+<h3>교육 히스토리</h3>
 <table>
 	<tr>
 		<th>교육 명</th>
@@ -25,7 +50,20 @@
 			<td>${ educationHistoryVO.educationTitle }</td>
 			<td>${ educationHistoryVO.cost }</td>
 			<td>${ educationHistoryVO.educationHistoryDate }</td>
-			<td>${ educationHistoryVO.state }</td>
+			<td>
+				<c:if test="${ educationHistoryVO.state eq 'GVUP_APLY' }">
+					참가 포기
+				</c:if>
+				<c:if test="${ educationHistoryVO.state eq 'JOIN_APLY' }">
+					참가 신청
+				</c:if>
+				<c:if test="${ educationHistoryVO.state eq 'JOIN_CMPL' }">
+					참가 완료
+				</c:if>
+				<c:if test="${ educationHistoryVO.state eq 'CNCL_APLY' }">
+					참가 취소
+				</c:if>
+			</td>
 			<td>${ educationHistoryVO.cmnt }</td>
 			<td>${ educationHistoryVO.fdbk }</td>
 			<td>${ educationHistoryVO.startDate }</td>

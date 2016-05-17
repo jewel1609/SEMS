@@ -117,4 +117,6 @@ public interface MemberDAO {
 
 	public void ipCheckCountUpdate(LoginHistoryVO loginHistoryVO);
 
+	public List<EducationHistoryVO> getJoinEducationList(String memberId);
+
 }

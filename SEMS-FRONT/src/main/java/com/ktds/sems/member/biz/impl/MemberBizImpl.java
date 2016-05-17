@@ -668,4 +668,9 @@ public class MemberBizImpl implements MemberBiz {
 		
 		return educationHistoryList != null;
 	}
+
+	@Override
+	public List<EducationHistoryVO> getJoinEducationList(String memberId) {
+		return memberDAO.getJoinEducationList(memberId);
+	}
 }
