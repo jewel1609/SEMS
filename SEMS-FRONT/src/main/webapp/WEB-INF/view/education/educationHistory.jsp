@@ -11,12 +11,10 @@
 
 <table>
 	<tr>
-		<th>educationHistoryId</th>
-		<th>educationId</th>
-		<th>memberId</th>
+		<th>educationTitle</th>
+		<th>cost</th>
 		<th>educationHistoryDate</th>
 		<th>state</th>
-		<th>ip</th>
 		<th>comment</th>
 		<th>feedback</th>
 		<th>startDate</th>
@@ -24,12 +22,10 @@
 	</tr>
 	<c:forEach items="${ educationHistoryListVO.educationHistoryList }" var="educationHistoryVO">
 		<tr>
-			<td>${ educationHistoryVO.educationHistoryId }</td>
-			<td>${ educationHistoryVO.educationId }</td>
-			<td>${ educationHistoryVO.memberId }</td>
+			<td>${ educationHistoryVO.educationTitle }</td>
+			<td>${ educationHistoryVO.cost }</td>
 			<td>${ educationHistoryVO.educationHistoryDate }</td>
 			<td>${ educationHistoryVO.state }</td>
-			<td>${ educationHistoryVO.ip }</td>
 			<td>${ educationHistoryVO.cmnt }</td>
 			<td>${ educationHistoryVO.fdbk }</td>
 			<td>${ educationHistoryVO.startDate }</td>

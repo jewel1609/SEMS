@@ -934,7 +934,7 @@ public class MemberServiceTest extends SemsTestCase {
 		MockHttpSession session = new MockHttpSession();
 		session.setAttribute(Session.MEMBER, memberVO);
 
-		ModelAndView view = memberService.getAllEducationHistoryList(pageNo, session);
+		ModelAndView view = memberService.getAllEducationHistoryListByIdWithPaging(pageNo, session);
 
 		if (view != null) {
 

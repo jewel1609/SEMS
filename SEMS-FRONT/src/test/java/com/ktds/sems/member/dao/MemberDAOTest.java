@@ -334,7 +334,7 @@ public class MemberDAOTest extends SemsTestCase {
 			educationHistorySearchVO.setEndIndex(paging.getEndArticleNumber());
 			
 			educationHistorySearchVO.setMemberId("test01");
-			List<EducationHistoryVO> educationHistoryList = memberDAO.getAllEducationHistoryListById(educationHistorySearchVO);
+			List<EducationHistoryVO> educationHistoryList = memberDAO.getAllEducationHistoryListByIdWithPaging(educationHistorySearchVO);
 			
 			if(educationHistoryList != null) {
 				

@@ -328,7 +328,7 @@ public class MemberBizTest extends SemsTestCase {
 			educationHistorySearchVO.setEndIndex(paging.getEndArticleNumber());
 			
 			educationHistorySearchVO.setMemberId("test01");
-			List<EducationHistoryVO> educationHistoryList = memberBiz.getAllEducationHistoryListById(educationHistorySearchVO);
+			List<EducationHistoryVO> educationHistoryList = memberBiz.getAllEducationHistoryListByIdWithPaging(educationHistorySearchVO);
 			
 			if(educationHistoryList != null) {
 				
