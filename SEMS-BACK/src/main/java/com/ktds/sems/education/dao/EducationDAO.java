@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.ktds.sems.education.vo.CategoryVO;
 import com.ktds.sems.education.vo.CostVO;
+import com.ktds.sems.education.vo.EducationHistoryVO;
 import com.ktds.sems.education.vo.EducationTypeVO;
 import com.ktds.sems.education.vo.EducationVO;
 
@@ -17,5 +18,7 @@ public interface EducationDAO {
 	public List<CategoryVO> categoryCodeList();
 	
 	public EducationVO getOneEducation(String educationId);
-	int modifyNewEducation(EducationVO changedEducationVO);
+	public int modifyNewEducation(EducationVO changedEducationVO);
+	public List<EducationHistoryVO> getAllEducationHistory();
+	public int getAllEduHistoryCount();
 }
