@@ -19,4 +19,6 @@ public interface EducationService {
 	public ModelAndView modifyNewEducation(EducationVO educationVO, Errors errors, MultipartHttpServletRequest request);
 
 	public ModelAndView getAllEduCode();
+
+	public ModelAndView getAllEducationHistory(int pageNo);
 }
