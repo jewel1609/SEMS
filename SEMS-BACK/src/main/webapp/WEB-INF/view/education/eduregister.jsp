@@ -57,6 +57,43 @@
 	    else  // Internet Explorer가 아닐경우
 	    {
 	    }
+		
+		// 개강 날짜의 최소선택을 오늘로
+		var today = new Date();
+		var dd = today.getDate();
+		var mm = today.getMonth()+1; //January is 0!
+		var yyyy = today.getFullYear();
+		if(dd<10){
+			dd='0'+dd
+		} 
+		if(mm<10){
+			mm='0'+mm
+		} 
+
+		today = yyyy+'-'+mm+'-'+dd;
+		$("#startDate").attr("min", today);
+		$("#endDate").attr("min", today);
+		$("#startDate").change(function(){
+			if ( $("#endDate").val() == '' || $(this).val() > $("#endDate").val() ) {
+				$("#endDate").val($(this).val());
+			}
+		});
+		$("#endDate").change(function(){
+			if ( $("#startDate").val() == '' || $(this).val() < $("#startDate").val() ) {
+				$("#startDate").val($(this).val());
+			}
+		});
+		
+		$("#startTime").change(function(){
+			if ( $("#endTime").val() == '' || $(this).val() > $("#endTime").val() ) {
+				$("#endTime").val($(this).val());
+			}
+		});
+		$("#endTime").change(function(){
+			if ( $("#startTime").val() == '' || $(this).val() < $("#startTime").val() ) {
+				$("#startTime").val($(this).val());
+			}
+		});
 
 		$(".onlyText").keyup(function(event) {
 			regexp = /[@\#$%<>&\()\=_\’]/gi;
