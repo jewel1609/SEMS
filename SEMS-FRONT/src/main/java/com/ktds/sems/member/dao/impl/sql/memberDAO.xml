@@ -229,7 +229,7 @@
 		WHERE	MBR_ID = #{id}
 		<if test="beginDate != null and beginDate != '' ">
 		AND		LGI_DT <![CDATA[>=]]> TO_DATE(#{beginDate}, 'YYYY-MM-DD')		
-		AND		LGI_DT <![CDATA[<=]]> TO_DATE(#{closeDate}, 'YYYY-MM-DD')
+		AND		LGI_DT <![CDATA[<=]]> (TO_DATE(#{closeDate}, 'YYYY-MM-DD') + 1)
 		</if>
 	</select>
 	<select id="getAllLoginHistory" parameterType="LoginHistorySearchVO" resultType="LoginHistoryVO">
@@ -249,7 +249,7 @@
 								WHERE	MBR_ID = #{id}
 								<if test="beginDate != null and beginDate != '' ">
 								AND		LGI_DT <![CDATA[>=]]> TO_DATE(#{beginDate}, 'YYYY-MM-DD')		
-								AND		LGI_DT <![CDATA[<=]]> TO_DATE(#{closeDate}, 'YYYY-MM-DD')
+								AND		LGI_DT <![CDATA[<=]]> (TO_DATE(#{closeDate}, 'YYYY-MM-DD') + 1)
 								</if>								
 								ORDER BY LGI_HTR_ID DESC
 							) LOGIN_HISTORY

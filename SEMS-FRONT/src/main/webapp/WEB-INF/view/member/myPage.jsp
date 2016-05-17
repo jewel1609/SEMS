@@ -17,7 +17,7 @@
 	<table border="1" style="border-collapse: collapse; text-align: center;">
 		<c:forEach items="${menuList }" var="menuList" >
 			<tr>
-				<td><a href="<c:url value='/member/myPage${menuList.url }' />">${menuList.codeName }</a></td>
+				<td><a href="<c:url value='/member/${menuList.url }' />">${menuList.codeName }</a></td>
 			</tr>
 		</c:forEach>
 	</table>

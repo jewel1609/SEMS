@@ -445,7 +445,8 @@ public class MemberServiceImpl implements MemberService {
 	 */
 	@Override
 	public ModelAndView viewLoginHistoryPage(LoginHistorySearchVO loginHistorySearchVO, int pageNo,
-			HttpSession session) {
+			HttpSession session, HttpServletRequest request) {
+		
 		ModelAndView view = new ModelAndView();
 		
 		int totalLoginHistoryCount = 0;
@@ -455,9 +456,7 @@ public class MemberServiceImpl implements MemberService {
 		
 		loginHistorySearchVO.setId(memberVO.getId());
 		
-		
 		totalLoginHistoryCount = memberBiz.getTotalLoginHistoryCount(loginHistorySearchVO);
-		
 		
 		Paging paging = new Paging();
 		paging.setTotalArticleCount(totalLoginHistoryCount);

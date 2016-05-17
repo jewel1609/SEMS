@@ -32,7 +32,7 @@ public interface MemberService {
 
 	public boolean isModifyAccountLock(String sessionId);
 
-	public ModelAndView viewLoginHistoryPage(LoginHistorySearchVO loginHistorySearchVO, int pageNo, HttpSession session);
+	public ModelAndView viewLoginHistoryPage(LoginHistorySearchVO loginHistorySearchVO, int pageNo, HttpSession session, HttpServletRequest request);
 
 	public ModelAndView saveLoginHistoryAsExcel(HttpSession session);
 
