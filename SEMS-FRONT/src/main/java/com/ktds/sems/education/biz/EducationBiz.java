@@ -65,4 +65,8 @@ public interface EducationBiz {
 
 	public void sendEmailByReReply(QNAVO questionVO, QNAVO answerVO, String email);
 
+	public String getStartYear();
+
+	public String getEndYear();
+
 }
