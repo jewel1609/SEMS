@@ -54,4 +54,10 @@ public class EducationController {
 		return view;
 	}
 	
+	@RequestMapping("/checkEduApplicant")
+	public ModelAndView viewCheckApplicantPage(@RequestParam(required=false, defaultValue="0") int pageNo){
+		// JC (JOIN_CMPL)
+		ModelAndView view = educationService.getJCEduHistory(pageNo); 
+		return view;
+	}
 }
