@@ -7,6 +7,8 @@ import static org.junit.Assert.fail;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -957,5 +959,21 @@ public class MemberServiceTest extends SemsTestCase {
 			fail("fail");
 		}
 
+	}
+	
+	/**
+	 * 나의 교육 이력 엑셀 다운로드
+	 */
+	@Test
+	public void eduationHistoryExportExcelTest() {
+
+		MemberVO memberVO = new MemberVO();
+		memberVO.setId("test02");
+		
+		MockHttpSession mockSession = new MockHttpSession();
+		mockSession.setAttribute(Session.MEMBER, memberVO);
+
+		String returnString = memberService.eduationHistoryExportExcel(mockSession);
+		assertNotNull(returnString);
 	}
 }
