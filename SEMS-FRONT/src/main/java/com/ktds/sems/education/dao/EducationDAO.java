@@ -52,6 +52,8 @@ public interface EducationDAO {
 
 	public List<QNAVO> getAllQNAList(QNASearchVO qnaSearchVO);
 
+	public int doReReplyInsert(QNAVO qnaVO);
+
 	public QNAVO getSelectedQNA(String replyId);
 
 	public QNAVO getSelectedQNAAnswer(String replyId);

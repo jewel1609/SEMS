@@ -137,6 +137,11 @@ public class EducationBizImpl implements EducationBiz {
 		return educationDAO.getAllQNAList(qnaSearchVO);
 	}
 
+	@Override
+	public boolean doReReplyInsert(QNAVO qnaVO) {
+		return educationDAO.doReReplyInsert(qnaVO) > 0;
+	}
+
 	/**
 	 * @author 206-025 이기연
 	 */

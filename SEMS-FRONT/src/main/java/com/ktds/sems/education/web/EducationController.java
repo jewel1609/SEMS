@@ -155,6 +155,16 @@ public class EducationController {
 		
 	}
 	
+	@RequestMapping("/doReReplyInsert")
+	public void doReReplyInsert(HttpServletRequest request, HttpServletResponse response,HttpSession session){
+		String replyId = request.getParameter("replyId");
+		String eduId = request.getParameter("eduId");
+		String id = request.getParameter("id");
+		String description = request.getParameter("description");
+
+		String status = educationService.doReReplyInsert(replyId, eduId, id, description,session);
+		AjaxUtil.sendResponse(response, status);
+	}
 	@RequestMapping("/education/retraction/{educationId}")
 	public ModelAndView viewRequestRetractionPage(HttpSession session, HttpServletRequest request, @PathVariable String educationId){
 		return educationService.viewRequestRetractionPage(session, request, educationId);

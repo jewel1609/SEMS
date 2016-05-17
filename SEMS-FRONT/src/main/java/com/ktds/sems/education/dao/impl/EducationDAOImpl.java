@@ -157,6 +157,11 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 		return getSqlSession().selectList("EducationDAO.getAllQNAList", qnaSearchVO);
 	}
 
+	@Override
+	public int doReReplyInsert(QNAVO qnaVO) {
+		return getSqlSession().insert("EducationDAO.doReReplyInsert", qnaVO);
+	}
+
 	/**
 	 * @author 206-025 이기연
 	 */

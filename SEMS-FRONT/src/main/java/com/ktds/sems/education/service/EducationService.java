@@ -38,6 +38,8 @@ public interface EducationService {
 
 	public void exportQNAListAsExcel(HttpSession session);
 
+	public String doReReplyInsert(String eduId, String id, String description, String description2, HttpSession session);
+
 	public ModelAndView viewRequestRetractionPage(HttpSession session, HttpServletRequest request, String educationId);
 
 	

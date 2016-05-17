@@ -78,14 +78,17 @@
 				, LIKE_CNT likeCnt
 				, DISLIKE_CNT dislikeCnt
 				, CREATED_DATE createdDate
+				, DEP depth
 		FROM	(
 					SELECT	ROWNUM AS RNUM
 							, QNA.*
 					FROM	(
-								SELECT	*
+								SELECT	QNA.*,
+										LEVEL DEP
 								FROM	QNA
 								WHERE	EDU_ID = #{educationId}
-								ORDER	BY REPLY_ID DESC
+							 	START   WITH PARENT_REPLY_ID = '0'
+           						CONNECT BY PRIOR REPLY_ID = PARENT_REPLY_ID 
 							) QNA
 					WHERE	ROWNUM <![CDATA[<=]]> #{endIndex}
 				) QNA
@@ -388,5 +391,26 @@
 		AND		EDU_ID = #{ educationId }
 		AND		STAT = 'JOIN_APLY'
 	</select>
+
+	<insert id="doReReplyInsert" parameterType="QNAVO">
+		INSERT INTO QNA (
+						   REPLY_ID 
+						   , EDU_ID 
+						   , PARENT_REPLY_ID 
+						   , ORDER_NO 
+						   , DESCRIPTION 
+						   , MBR_ID 
+						   , CREATED_DATE
+						   ) 
+					VALUES ( 
+							 #{replyId},
+							 #{eduId},
+							 #{parentReplyId},
+							 '4',
+							 #{description},
+							 #{mbrId},
+							 SYSDATE
+							 )			
+	</insert>
 
 </mapper>

@@ -81,7 +81,7 @@ public class EducationServiceImpl implements EducationService {
 		
 		
 		//이미 신청된 회원인지 비교해서 boolean 값 보내기
-		MemberVO loginMember = (MemberVO)session.getAttribute("_MEMBER_");
+/*		MemberVO loginMember = (MemberVO)session.getAttribute("_MEMBER_");
 		boolean isApply =  true;
 		if (educationBiz.isApplyMemberByEducationId(educationId, loginMember.getId()) > 0 ){
 			isApply = false;
@@ -90,7 +90,8 @@ public class EducationServiceImpl implements EducationService {
 			isApply = true;
 		}
 		
-		view.addObject("isApply", isApply);
+		view.addObject("isApply", isApply);*/
+		
 		view.addObject("eduReplyListVO", eduReplyListVO);
 		view.addObject("education", education);
 		view.addObject("fileList", fileList);
@@ -363,6 +364,36 @@ public class EducationServiceImpl implements EducationService {
 		MemberVO memberVO = (MemberVO) session.getAttribute(Session.MEMBER);
 		String memberId = memberVO.getId();
 		educationBiz.exportQNAListAsExcel(memberId);
+	}
+
+	@Override
+	public String doReReplyInsert(String replyId, String eduId, String id, String description, HttpSession session) {
+		MemberVO memberVO = (MemberVO) session.getAttribute(Session.MEMBER);
+		
+		QNAVO qnaVO = new QNAVO();
+		
+		String nowDate = educationBiz.getNowDate();
+		int nextSeq = educationBiz.getNextReplySeq();
+		String realReplyId = "RP-" + nowDate + "-" + lpad(nextSeq + "", 6, "0");
+		//강의ID
+		qnaVO.setEduId(eduId);
+		//대댓글 ID
+		qnaVO.setReplyId(realReplyId);
+		//댓글ID
+		qnaVO.setParentReplyId(replyId);
+		//내용
+		qnaVO.setDescription(description);
+		// 답글 쓴 아이디를 집어넣음
+		qnaVO.setMbrId(memberVO.getId());
+		
+		// 받는사람 Id (String id 로 받아온거 는 EMAIL 전송할때 써야징)
+		
+		boolean result = educationBiz.doReReplyInsert(qnaVO);
+		
+		if(!result){
+			return "FAIL";
+		}
+		return "OK";
 	}
 
 	@Override

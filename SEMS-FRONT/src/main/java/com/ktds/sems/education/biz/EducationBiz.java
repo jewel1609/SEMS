@@ -49,6 +49,8 @@ public interface EducationBiz {
 
 	public int getTotalQNACount(String memberId);
 
+	public boolean doReReplyInsert(QNAVO qnaVO);
+
 	public QNAVO getSelectedQNA(String replyId);
 
 	public QNAVO getSelectedQNAAnswer(String replyId);
