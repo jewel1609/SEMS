@@ -272,17 +272,17 @@
 		WHERE   CD_NM = #{cost}
 	</select>
 
-	<select id="doTransTypeId" parameterType="string" resultType="string">
+	<select id="doTransTypeId" parameterType="String" resultType="string">
 		SELECT  CD_ID
 		FROM	EDU_TIME
 		WHERE   CD_NM = #{educationType}
 	</select>
 	
-	<select id="getTotalQNACount" parameterType="string" resultType="_int">
+	<select id="getTotalQNACount" parameterType="String" resultType="_int">
 		SELECT	COUNT(REPLY_ID)
 		FROM	QNA
 		WHERE	MBR_ID = #{memberId}
-		AND		PARENT_REPLY_ID = 0
+		AND		PARENT_REPLY_ID = '0'
 	</select>
 	
 	<select id="getAllQNAList" parameterType="QNASearchVO" resultType="QNAVO">
@@ -308,7 +308,7 @@
 								SELECT	*
 								FROM	QNA
 								WHERE	MBR_ID = #{id}
-								AND		PARENT_REPLY_ID = 0
+								AND		PARENT_REPLY_ID = '0'
 								ORDER	BY REPLY_ID DESC
 							) QNA
 					WHERE	ROWNUM <![CDATA[<=]]> #{endIndex}
@@ -344,10 +344,34 @@
 		WHERE		PARENT_REPLY_ID = #{replyId}
 	</select>
 	
-	<select id="exportQNAListAsExcel">
-		SELECT	*
-		FROM	QNA
-		WHERE	MBR_ID = #{memberId}
+	<select id="exportQNAListAsExcel" parameterType="String" resultType="QNAVO">
+		SELECT		Q.REPLY_ID replyId
+					, Q.EDU_ID eduId
+					, Q.PARENT_REPLY_ID parentReplyId
+					, Q.ORDER_NO orderNo
+					, Q.DESCRIPTION description
+					, Q.MBR_ID mbrId
+					, Q.LIKE_CNT likeCnt
+					, Q.DISLIKE_CNT dislikeCnt
+					, Q.CREATED_DATE createdDate
+					, (
+						SELECT	'Y'
+						FROM	QNA
+						WHERE	PARENT_REPLY_ID = Q.REPLY_ID
+					 ) isAnswered
+					 , (
+                            SELECT  DESCRIPTION
+                            FROM    QNA
+                            WHERE   REPLY_ID = (
+                                        SELECT  REPLY_ID
+                                        FROM    QNA
+                                        WHERE   PARENT_REPLY_ID = Q.REPLY_ID
+                                    ) 
+					 ) answer 
+		FROM	QNA Q
+		WHERE	Q.MBR_ID = #{memberId}
+		AND		Q.PARENT_REPLY_ID = '0'
+		ORDER	BY Q.REPLY_ID ASC
 	</select>
 
 </mapper>
