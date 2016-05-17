@@ -8,6 +8,8 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
+import com.ktds.sems.common.SendMail;
+import com.ktds.sems.common.vo.MailVO;
 import com.ktds.sems.education.biz.EducationBiz;
 import com.ktds.sems.education.dao.EducationDAO;
 import com.ktds.sems.education.vo.EducationSearchVO;
@@ -248,6 +250,30 @@ public class EducationBizImpl implements EducationBiz {
 		} catch (ParseException e) {}
 		
 		return true;
+	}
+
+	@Override
+	public String getEmail(String id) {
+		return educationDAO.getEmail(id);
+	}
+
+	@Override
+	public void sendEmailByReReply(QNAVO questionVO, QNAVO answerVO,String email) {
+		SendMail sendMail = new SendMail();
+		MailVO mailVO = new MailVO();
+
+		mailVO.setFromId("testForSendEmailKtds@gmail.com");
+		mailVO.setFromPassword("123qwe!@#qwe");
+		mailVO.setSubject("문의하신 질문에 대한 답변입니다.");
+		mailVO.setText("<html><body>문의하신분 : " + questionVO.getMbrId() + "<br/> 작성 시간 : " + questionVO.getCreatedDate()
+									+ "<br/> 문의 내용 : " + questionVO.getDescription() + "<br/><br/><br/><br/>"
+									+ " 답변 작성자: " + answerVO.getMbrId() +"<br/> 작성 시간 : " + answerVO.getCreatedDate()
+									+ "<br/> 답변 내용 : " + answerVO.getDescription() + "<br/><br/> 문의해 주셔서 감사합니다."
+									+ "</body></html>");
+
+		mailVO.setToId(email);
+
+		sendMail.sendMailToCustomer(mailVO);
 	}
 	
 }

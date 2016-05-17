@@ -194,4 +194,9 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 		return getSqlSession().selectList("EducationDAO.getApplyHistory", map);
 	}
 
+	@Override
+	public String getEmail(String id) {
+		return getSqlSession().selectOne("EducationDAO.getEmail", id);
+	}
+
 }

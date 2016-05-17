@@ -89,12 +89,13 @@ public class EducationServiceImpl implements EducationService {
 		else{
 			isApply = true;
 		}
-		
 		view.addObject("isApply", isApply);*/
+		String memberType = (String) session.getAttribute(Session.MEMBER_TYPE);
 		
 		view.addObject("eduReplyListVO", eduReplyListVO);
 		view.addObject("education", education);
 		view.addObject("fileList", fileList);
+		view.addObject("memberType", memberType);
 		view.setViewName("education/eduDetail");
 		return view;
 	}
@@ -386,16 +387,29 @@ public class EducationServiceImpl implements EducationService {
 		// 답글 쓴 아이디를 집어넣음
 		qnaVO.setMbrId(memberVO.getId());
 		
-		// 받는사람 Id (String id 로 받아온거 는 EMAIL 전송할때 써야징)
-		
 		boolean result = educationBiz.doReReplyInsert(qnaVO);
 		
 		if(!result){
 			return "FAIL";
 		}
-		return "OK";
+		else{
+			//댓글이 등록됐을때 이메일을 보냄.
+			// 받는사람 Id의 Email (String id 로 받아온거 는 EMAIL 전송할때 써야징)
+			String email = educationBiz.getEmail(id);
+			
+			//문의댓글 작성자, 내용, 날짜
+			QNAVO questionVO = new QNAVO();
+			questionVO = educationBiz.getSelectedQNA(replyId);
+			
+			//문의답글 제목, 내용, 날짜
+			QNAVO answerVO = new QNAVO();
+			answerVO = educationBiz.getSelectedQNA(realReplyId);
+			
+			//educationBiz.sendEmailByReReply(questionVO, answerVO, email);
+			return "OK";
+		} 
 	}
-
+	
 	@Override
 	public ModelAndView viewRequestRetractionPage(HttpSession session, HttpServletRequest request, String educationId) {
 		ModelAndView view = new ModelAndView();

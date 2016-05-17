@@ -61,4 +61,8 @@ public interface EducationBiz {
 
 	public boolean isEducationStarted(String educationId);
 
+	public String getEmail(String id);
+
+	public void sendEmailByReReply(QNAVO questionVO, QNAVO answerVO, String email);
+
 }

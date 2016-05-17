@@ -62,4 +62,6 @@ public interface EducationDAO {
 
 	public List<EducationVO> getApplyHistory(String memberId, String educationId);
 
+	public String getEmail(String id);
+
 }
