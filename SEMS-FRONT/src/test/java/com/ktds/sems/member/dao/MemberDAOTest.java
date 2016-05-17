@@ -318,7 +318,7 @@ public class MemberDAOTest extends SemsTestCase {
 	 * 나의 교육 이력 보기 
 	 */
 	@Test
-	public void getAllEducationHistoryListById() {
+	public void getAllEducationHistoryListByIdTest() {
 		
 		Paging paging = new Paging();
 		paging.setPageNumber(0 + "");
