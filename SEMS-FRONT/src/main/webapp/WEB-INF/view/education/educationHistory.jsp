@@ -11,14 +11,14 @@
 
 <table>
 	<tr>
-		<th>educationTitle</th>
-		<th>cost</th>
-		<th>educationHistoryDate</th>
-		<th>state</th>
-		<th>comment</th>
-		<th>feedback</th>
-		<th>startDate</th>
-		<th>endDate</th>
+		<th>교육 명</th>
+		<th>비용</th>
+		<th>신청 날짜</th>
+		<th>신청 상태</th>
+		<th>코멘트</th>
+		<th>피드백</th>
+		<th>교육 시작일</th>
+		<th>교육 종료일</th>
 	</tr>
 	<c:forEach items="${ educationHistoryListVO.educationHistoryList }" var="educationHistoryVO">
 		<tr>
