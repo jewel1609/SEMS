@@ -612,8 +612,8 @@ public class MemberBizImpl implements MemberBiz {
 		List<String> titles = new ArrayList<String>();
 
 		// 10개
-		titles.add("교육이력번호");
-		titles.add("교육번호");
+		titles.add("교육명");
+		titles.add("비용");
 		titles.add("수강생 아이디");
 		titles.add("신청 날짜");
 		titles.add("신청 상태");
@@ -644,8 +644,8 @@ public class MemberBizImpl implements MemberBiz {
 				// 10개
 				String[] content = new String[10];
 
-				content[0] = tempEducationHistoryVO.getEducationHistoryId();
-				content[1] = tempEducationHistoryVO.getEducationId();
+				content[0] = tempEducationHistoryVO.getEducationTitle();
+				content[1] = tempEducationHistoryVO.getCost();
 				content[2] = tempEducationHistoryVO.getMemberId();
 				content[3] = tempEducationHistoryVO.getEducationHistoryDate();
 				content[4] = tempEducationHistoryVO.getState();
