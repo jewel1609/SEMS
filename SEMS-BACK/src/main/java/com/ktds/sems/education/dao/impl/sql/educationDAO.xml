@@ -132,5 +132,22 @@
 				, M_CD_ID
 		FROM	SML_CTGR
 	</select>
-
+		
+	<select id="getAllEducationHistory" resultType="EduHistoryVO">
+		SELECT	EDU_HTR_ID educationHistoryId
+				, EDU_ID educationId
+				, MBR_ID memberId
+				, EDU_HTR_DT educationHistoryDate
+				, STAT state
+				, IP ip
+				, CMNT cmnt
+				, FDBK fdbk
+		FROM	EDU_HTR
+	</select>
+	
+	<select id="getAllEduHistoryCount" resultType="_int">
+		SELECT	COUNT(*)
+		FROM	EDU_HTR
+	</select>
+	
 </mapper>
