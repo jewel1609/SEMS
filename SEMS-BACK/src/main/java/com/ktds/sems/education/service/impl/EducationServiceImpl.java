@@ -4,11 +4,12 @@ package com.ktds.sems.education.service.impl;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpSession;
 
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.validation.Errors;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -17,19 +18,21 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ktds.sems.common.Session;
 import com.ktds.sems.education.biz.EducationBiz;
 import com.ktds.sems.education.service.EducationService;
+import com.ktds.sems.education.vo.EducationHistoryListVO;
+import com.ktds.sems.education.vo.EducationHistorySearchVO;
+import com.ktds.sems.education.vo.EducationHistoryVO;
 import com.ktds.sems.education.vo.EducationVO;
-import com.ktds.sems.member.vo.MemberVO;
-
-
-
 import com.ktds.sems.file.biz.FileBiz;
 import com.ktds.sems.file.vo.FileVO;
 
 import kr.co.hucloud.utilities.SHA256Util;
+import kr.co.hucloud.utilities.web.Paging;
 
 
 
 public class EducationServiceImpl implements EducationService {
+	
+	private Logger logger = LoggerFactory.getLogger(EducationServiceImpl.class);	
 	
 	private EducationBiz educationBiz;
 	private FileBiz fileBiz;
@@ -195,6 +198,33 @@ public class EducationServiceImpl implements EducationService {
 		view.addObject("typeList", educationBiz.typeCodeList());
 		view.addObject("categoryList", educationBiz.categoryCodeList());
 		view.setViewName("education/eduregister");
+		return view;
+	}
+
+	@Override
+	public ModelAndView getAllEducationHistory(int pageNo) {
+		
+		EducationHistoryListVO eduHistoryListVO = new EducationHistoryListVO();
+		Paging paging = new Paging(15,15);
+		eduHistoryListVO.setPaging(paging);
+		paging.setPageNumber(pageNo + "");
+		
+		int eduHistoryCount = educationBiz.getAllEduHistoryCount();
+		if(eduHistoryCount == 0 ){
+			eduHistoryCount ++;
+		}
+		paging.setTotalArticleCount(eduHistoryCount);
+		EducationHistorySearchVO searchVO = new EducationHistorySearchVO();
+		searchVO.setStartIndex(paging.getStartArticleNumber());
+		searchVO.setEndIndex(paging.getEndArticleNumber());	
+		
+		ModelAndView view = new ModelAndView();
+		List<EducationHistoryVO> eduHistoryList = educationBiz.getAllEducationHistory();
+		eduHistoryListVO.setEducationHistoryList(eduHistoryList);
+		
+		view.addObject("eduHistoryListVO", eduHistoryListVO);
+		//logger.info("eduHistoryListSize"+eduHistoryList.size());
+		view.setViewName("education/eduManage");
 		return view;
 	}
 
