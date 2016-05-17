@@ -692,6 +692,7 @@ public class MemberServiceImpl implements MemberService {
 		educationHistoryListVO.setEducationHistoryList(educationHistoryList);
 
 		System.out.println("******************************");
+		System.out.println(educationHistoryList.get(0).getEducationId());
 		System.out.println(educationHistoryList.get(0).getEducationTitle());
 		System.out.println("******************************");
 		
