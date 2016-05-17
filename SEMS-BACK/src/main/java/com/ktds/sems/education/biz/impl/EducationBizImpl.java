@@ -6,6 +6,7 @@ import com.ktds.sems.education.biz.EducationBiz;
 import com.ktds.sems.education.dao.EducationDAO;
 import com.ktds.sems.education.vo.CategoryVO;
 import com.ktds.sems.education.vo.CostVO;
+import com.ktds.sems.education.vo.EducationHistoryVO;
 import com.ktds.sems.education.vo.EducationTypeVO;
 import com.ktds.sems.education.vo.EducationVO;
 
@@ -143,6 +144,16 @@ public class EducationBizImpl implements EducationBiz {
 	@Override
 	public List<CategoryVO> categoryCodeList() {
 		return educationDAO.categoryCodeList();
+	}
+
+	@Override
+	public List<EducationHistoryVO> getAllEducationHistory() {
+		return educationDAO.getAllEducationHistory();
+	}
+
+	@Override
+	public int getAllEduHistoryCount() {
+		return educationDAO.getAllEduHistoryCount();
 	}
 
 
