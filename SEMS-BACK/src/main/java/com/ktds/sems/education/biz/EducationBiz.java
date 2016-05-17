@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.ktds.sems.education.vo.CategoryVO;
 import com.ktds.sems.education.vo.CostVO;
+import com.ktds.sems.education.vo.EducationHistoryVO;
 import com.ktds.sems.education.vo.EducationTypeVO;
 import com.ktds.sems.education.vo.EducationVO;
 
@@ -20,5 +21,9 @@ public interface EducationBiz {
 	public List<EducationTypeVO> typeCodeList();
 
 	public List<CategoryVO> categoryCodeList();
+
+	public List<EducationHistoryVO> getAllEducationHistory();
+
+	public int getAllEduHistoryCount();
 
 }
