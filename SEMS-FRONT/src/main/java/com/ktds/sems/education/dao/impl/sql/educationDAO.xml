@@ -373,5 +373,20 @@
 		AND		Q.PARENT_REPLY_ID = '0'
 		ORDER	BY Q.REPLY_ID ASC
 	</select>
+	
+	<select id="getApplyHistory" parameterType="map" resultType="EducationHistoryVO">
+		SELECT	EDU_HTR_ID educationHistoryId
+				, EDU_ID educationId
+				, MBR_ID memberId
+				, EDU_HTR_DT educationHistoryDate
+				, STAT state
+				, IP ip
+				, CMNT cmnt
+				, FDBK fdbk
+		FROM	EDU_HTR
+		WHERE	MBR_ID = #{ memberId }
+		AND		EDU_ID = #{ educationId }
+		AND		STAT = 'JOIN_APLY'
+	</select>
 
 </mapper>

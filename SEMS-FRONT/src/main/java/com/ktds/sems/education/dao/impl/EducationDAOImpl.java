@@ -181,4 +181,12 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 		return getSqlSession().selectList("EducationDAO.exportQNAListAsExcel", memberId);
 	}
 
+	@Override
+	public List<EducationVO> getApplyHistory(String memberId, String educationId) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("memberId", memberId);
+		map.put("educationId", educationId);
+		return getSqlSession().selectList("EducationDAO.getApplyHistory", map);
+	}
+
 }

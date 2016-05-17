@@ -365,6 +365,33 @@ public class EducationServiceImpl implements EducationService {
 		educationBiz.exportQNAListAsExcel(memberId);
 	}
 
+	@Override
+	public ModelAndView viewRequestRetractionPage(HttpSession session, HttpServletRequest request, String educationId) {
+		ModelAndView view = new ModelAndView();
+		//교육참가 신청내역이 있는지 확인
+		MemberVO memberVO = (MemberVO) session.getAttribute(Session.MEMBER);
+		boolean hasApplyHistory = educationBiz.hasApplyHistory(memberVO.getId(), educationId);
+		if ( hasApplyHistory ) {
+			//교육이 시작되었는지 확인
+			boolean isEducationStarted = educationBiz.isEducationStarted(educationId);
+			if ( isEducationStarted ) {
+				//교육이 시작 되었다면 교육 포기 페이지로 이동
+				view.setViewName("redirect:/education/abandon");
+			}
+			else {
+				//교육이 아직 시작 전이라면 취소신청 페이지로 이동
+				view.addObject("educationId", educationId);
+				view.setViewName("education/retraction");
+			}
+		}
+		else {
+			//교육참가 신청이 없을경우 접근 불가능
+			//TODO 어느 페이지로 보내야 하지?
+			return null;
+		}
+		return view;
+	}
+
 }
 
 

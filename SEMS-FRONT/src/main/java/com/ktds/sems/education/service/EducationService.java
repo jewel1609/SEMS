@@ -38,5 +38,7 @@ public interface EducationService {
 
 	public void exportQNAListAsExcel(HttpSession session);
 
+	public ModelAndView viewRequestRetractionPage(HttpSession session, HttpServletRequest request, String educationId);
+
 	
 }

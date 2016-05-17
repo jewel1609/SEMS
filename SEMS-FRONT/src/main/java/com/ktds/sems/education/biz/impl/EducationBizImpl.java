@@ -1,7 +1,10 @@
 package com.ktds.sems.education.biz.impl;
 
 import java.io.File;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -12,6 +15,7 @@ import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.QNASearchVO;
 import com.ktds.sems.education.vo.QNAVO;
 import com.ktds.sems.member.vo.LoginHistoryVO;
+import com.sun.media.jfxmedia.logging.Logger;
 
 import kr.co.hucloud.utilities.excel.option.WriteOption;
 import kr.co.hucloud.utilities.excel.write.ExcelWrite;
@@ -204,6 +208,43 @@ public class EducationBizImpl implements EducationBiz {
 		}
 		
 	}
+
+	@Override
+	public boolean hasApplyHistory(String memberId, String educationId) {
+		List<EducationVO> educationVO = educationDAO.getApplyHistory(memberId, educationId);
+		if ( educationVO == null ) {
+			return false;
+		}
+		else {
+			return true;
+		}
+	}
+
+	@Override
+	public boolean isEducationStarted(String educationId) {
+		Date educationStartDate;
+		Date currentDate;
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
+		EducationVO educationVO = educationDAO.getOneEducationDetail(educationId);
+		String startDate = educationVO.getStartDate();
+		
+		long time = System.currentTimeMillis(); 
+		
+		try {
+			educationStartDate = dateFormat.parse(startDate);
+			currentDate = dateFormat.parse(dateFormat.format(new Date(time)));
+			int compare = currentDate.compareTo(educationStartDate);
+			if ( compare <= 0 ) {
+				return false;
+			}
+			else {
+				return true;
+			}
+		} catch (ParseException e) {}
+		
+		return true;
+	}
+	
 }
 
 

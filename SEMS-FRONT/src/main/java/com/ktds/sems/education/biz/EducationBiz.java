@@ -54,4 +54,9 @@ public interface EducationBiz {
 	public QNAVO getSelectedQNAAnswer(String replyId);
 
 	public void exportQNAListAsExcel(String memberId);
+
+	public boolean hasApplyHistory(String memberId, String educationId);
+
+	public boolean isEducationStarted(String educationId);
+
 }

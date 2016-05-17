@@ -58,4 +58,6 @@ public interface EducationDAO {
 
 	public List<QNAVO> exportQNAListAsExcel(String memberId);
 
+	public List<EducationVO> getApplyHistory(String memberId, String educationId);
+
 }

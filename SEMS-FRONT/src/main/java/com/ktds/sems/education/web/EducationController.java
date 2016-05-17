@@ -155,6 +155,11 @@ public class EducationController {
 		
 	}
 	
+	@RequestMapping("/education/retraction/{educationId}")
+	public ModelAndView viewRequestRetractionPage(HttpSession session, HttpServletRequest request, @PathVariable String educationId){
+		return educationService.viewRequestRetractionPage(session, request, educationId);
+	}
+	
 }
 
 
