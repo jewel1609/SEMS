@@ -32,12 +32,12 @@ public class MemberController {
 		return memberService.viewGrdtPage();
 	}
 
-	@RequestMapping("doGrdtDelete/{cdId}")
+	@RequestMapping("/doGrdtDelete/{cdId}")
 	public String doGrdtDelete(@PathVariable String cdId) {
 		return memberService.doGrdtDelete(cdId);
 	}
 
-	@RequestMapping("doGrdtModify")
+	@RequestMapping("/doGrdtModify")
 	public void doGrdtModify(HttpServletRequest request, HttpServletResponse response) {
 
 		String cdId = request.getParameter("cdId");
@@ -47,7 +47,7 @@ public class MemberController {
 		AjaxUtil.sendResponse(response, status);
 	}
 
-	@RequestMapping("doGrdtInsert")
+	@RequestMapping("/doGrdtInsert")
 	public void doGrdtInsert(HttpServletRequest request, HttpServletResponse response) {
 		String cdId = request.getParameter("cdId");
 		String cdNm = request.getParameter("cdNm");
@@ -99,12 +99,12 @@ public class MemberController {
 		AjaxUtil.sendResponse(response, status);
 	}
 
-	@RequestMapping("doMbrTpDelete/{cdId}")
+	@RequestMapping("/doMbrTpDelete/{cdId}")
 	public String doMbrTpDelete(@PathVariable String cdId) {
 		return memberService.doMbrTpDelete(cdId);
 	}
 
-	@RequestMapping("doMbrTpModify")
+	@RequestMapping("/doMbrTpModify")
 	public void doMbrTpModify(HttpServletRequest request, HttpServletResponse response) {
 
 		String cdId = request.getParameter("cdId");
