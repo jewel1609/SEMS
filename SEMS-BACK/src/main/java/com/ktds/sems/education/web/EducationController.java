@@ -60,4 +60,10 @@ public class EducationController {
 		ModelAndView view = educationService.getJCEduHistory(pageNo); 
 		return view;
 	}
+	
+	@RequestMapping("/applyJoin/{educationId}/{memberId}")
+	public ModelAndView applyJoin(@PathVariable String educationId, String memberId ){
+		ModelAndView view = educationService.applyJoinEducationByMemberId(educationId, memberId);
+		return view;
+	}
 }

@@ -10,24 +10,13 @@
 <script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
-			
-		$("#joinCnclBtn").click(function() {
-				window.open('<c:url value="/webapp/WEB-INF/view/update.jsp"/>',
-							'1463457167300',
-							'width=700,height=500,toolbar=0,menubar=0,location=0,status=1,scrollbars=1,resizable=1,left=0,top=0');
-				            });
 
 		$("#joinAplyBtn").click(function() {
-				var eduHistoryId = $("#eduHistoryId").val();
-											location.href = "<c:url value='/applyJoin/"+eduHistoryId+"'/>";
-										});
-
-		$("#myButtons1").click(function() {
-			var educationId = $("#eduId").val();
-			location.href = "<c:url value='/applyJoin/"+educationId+"'/>";
+			var educationId = $("#JAEduId").val();
+			var memberId = $("#JAMbrId").val();
+			
+			location.href = "<c:url value='/applyJoin/"+eduHistoryId+"/"+memberId+"'/>";
 		});
-			$('#myModal').modal('hide');
-
 	});
 </script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -72,8 +61,8 @@
 				value="${eduHistory.educationHistoryId}" />
 			<c:if test="${ eduHistory.state eq 'JOIN_APLY' }">
 				<tr>
-					<td><input type="hidden" id="eduId" value="${eduHistory.educationId }"/>${eduHistory.educationId }</td>
-					<td>${eduHistory.memberId }</td>
+					<td><input type="hidden" id="JAEduId" value="${eduHistory.educationId }"/>${eduHistory.educationId }</td>
+					<td><input type="hidden" id="JAMbrId" value="${eduHistory.memberId }">${eduHistory.memberId }</td>
 					<td>${eduHistory.ip }</td>
 					<td>${eduHistory.educationHistoryDate }</td>
 					<td>${eduHistory.state }</td>
@@ -94,7 +83,7 @@
 			</c:if>
 			<c:if test="${ eduHistory.state eq 'CNCL_APLY' }">
 				<tr>
-					<td>${eduHistory.educationId }</td>
+					<td><input type="hidden" id="eduId" value="${eduHistory.educationId }"/>${eduHistory.educationId }</td>
 					<td>${eduHistory.memberId }</td>
 					<td>${eduHistory.ip }</td>
 					<td>${eduHistory.educationHistoryDate }</td>
@@ -155,8 +144,8 @@
 				<div class="modal-body">정말로 승인 하시겠습니까??</div>
 				<div class="modal-footer">
 					
-					<button type="button" class="btn btn-primary" id="myButtons1">
-						저장</button>
+					<button type="button" class="btn btn-primary" id="joinAplyBtn">
+					정말	승인</button>
 					<button type="button" class="btn btn-default" data-dismiss="modal">
 						취소</button>
 				</div>

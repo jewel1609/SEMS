@@ -1,7 +1,5 @@
 package com.ktds.sems.education.service.impl;
 
-
-
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -27,8 +25,6 @@ import com.ktds.sems.file.vo.FileVO;
 
 import kr.co.hucloud.utilities.SHA256Util;
 import kr.co.hucloud.utilities.web.Paging;
-
-
 
 public class EducationServiceImpl implements EducationService {
 	
@@ -251,6 +247,16 @@ public class EducationServiceImpl implements EducationService {
 		view.addObject("eduHistoryListVO", eduHistoryListVO);
 		logger.info("eduHistoryListSize"+eduHistoryList.size());
 		view.setViewName("education/checkApplicant");
+		return view;
+	}
+
+	@Override
+	public ModelAndView applyJoinEducationByMemberId(String educationId, String memberId) {
+		
+		
+		ModelAndView view = new ModelAndView();
+		
+		
 		return view;
 	}
 

@@ -23,4 +23,6 @@ public interface EducationService {
 	public ModelAndView getAllEducationHistory(int pageNo);
 
 	public ModelAndView getJCEduHistory(int pageNo);
+
+	public ModelAndView applyJoinEducationByMemberId(String educationId, String memberId);
 }
