@@ -215,7 +215,7 @@
  	
 	<delete id="doCancelEducation" parameterType="string">
 		DELETE	
-		FROM	EDU_REG
+		FROM	EDU_HTR
 		WHERE	EDU_ID = #{educationId}
 		AND		MBR_ID = #{id} 
 	</delete>
@@ -225,27 +225,27 @@
 	    FROM 	 EDU_INFO
 	    WHERE    EDU_ID IN (
 	                        SELECT  EDU_ID
-	                        FROM    EDU_REG
+	                        FROM    EDU_HTR
 	                        WHERE   MBR_ID = #{id}
 	                        )
     </select>
     
     <insert id="doApplyEducation" parameterType="map">
-    	INSERT INTO SEMS.EDU_REG (
+    	INSERT INTO SEMS.EDU_HTR (
 								   EDU_ID
-								   , EDU_REG_ID
+								   , EDU_HTR_ID
 								   , MBR_ID
 								   ) 
 						VALUES ( 
 								#{educationId}
-								, EDU_REG_ID_SEQ.NEXTVAL
+								, EDU_HTR_ID_SEQ.NEXTVAL
 								, #{id}
 							 )
    	</insert>
     
     <select id="isApplyMemberByEducationId" parameterType="map" resultType="_int">
-    	SELECT  COUNT(EDU_REG_ID)
-    	FROM	EDU_REG
+    	SELECT  COUNT(EDU_HTR_ID)
+    	FROM	EDU_HTR
     	WHERE	EDU_ID = #{educationId}
     	AND		MBR_ID = #{id}
     </select>
@@ -272,17 +272,17 @@
 		WHERE   CD_NM = #{cost}
 	</select>
 
-	<select id="doTransTypeId" parameterType="String" resultType="string">
+	<select id="doTransTypeId" parameterType="string" resultType="string">
 		SELECT  CD_ID
 		FROM	EDU_TIME
 		WHERE   CD_NM = #{educationType}
 	</select>
 	
-	<select id="getTotalQNACount" parameterType="String" resultType="_int">
+	<select id="getTotalQNACount" parameterType="string" resultType="_int">
 		SELECT	COUNT(REPLY_ID)
 		FROM	QNA
 		WHERE	MBR_ID = #{memberId}
-		AND		PARENT_REPLY_ID = '0'
+		AND		PARENT_REPLY_ID = 0
 	</select>
 	
 	<select id="getAllQNAList" parameterType="QNASearchVO" resultType="QNAVO">
@@ -308,7 +308,7 @@
 								SELECT	*
 								FROM	QNA
 								WHERE	MBR_ID = #{id}
-								AND		PARENT_REPLY_ID = '0'
+								AND		PARENT_REPLY_ID = 0
 								ORDER	BY REPLY_ID DESC
 							) QNA
 					WHERE	ROWNUM <![CDATA[<=]]> #{endIndex}
