@@ -63,5 +63,15 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 		return getSqlSession().selectOne("EducationDAO.getAllEduHistoryCount");
 	}
 
+	@Override
+	public int getJCEduHistoryCount() {
+		return getSqlSession().selectOne("EducationDAO.getJCEduHistoryCount");
+	}
+
+	@Override
+	public List<EducationHistoryVO> getJCEduHistoryHistory() {
+		return getSqlSession().selectList("EducationDAO.getJCEduHistoryHistory");
+	}
+
 	
 }
