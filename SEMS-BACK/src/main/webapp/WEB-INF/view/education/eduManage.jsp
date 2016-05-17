@@ -110,7 +110,7 @@ $(document).ready(function() {
 					<td>${eduHistory.educationId }</td>
 					<td>${eduHistory.memberId }</td>
 					<td>${eduHistory.ip }</td>
-					<td>${eduHistory.eduHistoryDate }</td>
+					<td>${eduHistory.educationHistoryDate }</td>
 					<td>${eduHistory.state }</td>
 					<td>
 					<c:if test="${eduHistory.cmnt ne null }">
