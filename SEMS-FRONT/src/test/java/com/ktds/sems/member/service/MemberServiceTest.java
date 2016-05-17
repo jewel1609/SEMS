@@ -1,8 +1,7 @@
 package com.ktds.sems.member.service;
 
-import static org.junit.Assert.assertNotNull;
-
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -20,13 +19,19 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.SemsTestCase;
+import com.ktds.sems.common.Session;
+import com.ktds.sems.education.vo.EducationHistoryListVO;
+import com.ktds.sems.education.vo.EducationHistoryVO;
 import com.ktds.sems.member.dao.MemberDAO;
 import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.member.vo.MenuManageVO;
 import com.ktds.sems.validator.member.MemberValidator;
 
+import kr.co.hucloud.utilities.web.Paging;
+
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "/applicationContext.xml", "/educationContext.xml", "/memberContext.xml", "/rootContext.xml"})
+@ContextConfiguration(locations = { "/applicationContext.xml", "/educationContext.xml", "/memberContext.xml",
+		"/rootContext.xml" })
 public class MemberServiceTest extends SemsTestCase {
 
 	@Autowired
@@ -43,11 +48,11 @@ public class MemberServiceTest extends SemsTestCase {
 		MemberVO memberVO = new MemberVO();
 		memberVO.setId("cocomo12");
 		memberVO.setPassword("123qwe!@#qwe");
-		
+
 		BindingResult errors = new BeanPropertyBindingResult(memberVO, "loginForm");
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		MockHttpSession session = new MockHttpSession();
-		
+
 		String checkStr = memberService.login(memberVO, errors, session, request);
 		assertNotNull(checkStr);
 	}
@@ -57,66 +62,64 @@ public class MemberServiceTest extends SemsTestCase {
 	 */
 	@Test
 	public void insertUuidForResignTest() {
-		
+
 		MockHttpSession session = new MockHttpSession();
 		MemberVO member = new MemberVO();
-		
+
 		member.setId("JunitResign");
-		
+
 		session.setAttribute("_MEMBER_", member);
 		String checkStr = memberService.insertUuidForResign(session);
 		assertNotNull(checkStr);
 	}
-	
+
 	/**
-	 * 탈퇴 신청한 회원에게 이메일 보내기
-	 * 이메일이 보내지지 않아 Junit에러 발생
+	 * 탈퇴 신청한 회원에게 이메일 보내기 이메일이 보내지지 않아 Junit에러 발생
 	 */
-//	@Test
-//	public void sendEmailForResignTest() {
-//		
-//		ModelAndView view = new ModelAndView();
-//		MemberVO member = new MemberVO();
-//		MockHttpSession session = new MockHttpSession();
-//		
-//		member.setId("test02");
-//		session.setAttribute("_MEMBER_", member);
-//		
-//		String uuid = "This is uuid sample";
-//		
-//		view = memberService.sendEmailForResign(session, uuid);
-//		assertNotNull(view.getViewName());
-//	}
-	
+	// @Test
+	// public void sendEmailForResignTest() {
+	//
+	// ModelAndView view = new ModelAndView();
+	// MemberVO member = new MemberVO();
+	// MockHttpSession session = new MockHttpSession();
+	//
+	// member.setId("test02");
+	// session.setAttribute("_MEMBER_", member);
+	//
+	// String uuid = "This is uuid sample";
+	//
+	// view = memberService.sendEmailForResign(session, uuid);
+	// assertNotNull(view.getViewName());
+	// }
+
 	/**
 	 * 탈퇴
 	 */
 	@Test
 	public void loginForResignTest() {
-		
+
 		ModelAndView view = new ModelAndView();
 		String resignCode = "This is resignCode sample";
 		String id = "This is id sample";
-		
+
 		view = memberService.loginForResign(resignCode, id);
 		assertNotNull(view);
 	}
-	
+
 	@Test
 	public void viewMyPageMenuTest() {
 		ModelAndView view = memberService.viewMyPageMenu();
 		assertNotNull(view);
-		
-		if ( view != null ) {
+
+		if (view != null) {
 			List<MenuManageVO> menuList = (List<MenuManageVO>) view.getModelMap().get("menuList");
 			assertNotNull(menuList);
 			assertTrue(menuList.size() > 0);
-		}
-		else {
+		} else {
 			fail("list is null");
 		}
 	}
-	
+
 	@Test
 	public void addNewTeacherMemberTest() {
 		MemberVO member = new MemberVO();
@@ -128,29 +131,28 @@ public class MemberServiceTest extends SemsTestCase {
 		member.setBirthDate("1991-01-01");
 		member.setPhoneNumber("010-1234-5678");
 		member.setMemberType("TR");
-		
+
 		BindingResult errors = new BeanPropertyBindingResult(member, "registerForm");
 		MemberValidator memberValidator = new MemberValidator();
 		memberValidator.validate(member, errors);
 		MockHttpSession session = new MockHttpSession();
-		
+
 		ModelAndView view = memberService.addNewMember(member, errors, repeatPasswrod, session);
 		assertNotNull(view);
-		
-		if ( view != null ) {
+
+		if (view != null) {
 			String viewName = view.getViewName();
 			assertNotNull(viewName);
-			assertEquals(viewName,"redirect:/");
-			
+			assertEquals(viewName, "redirect:/");
+
 			assertTrue(memberDAO.isExistId(member.getId()) != null);
-			
+
 			memberDAO.delectJunitTestMember(member.getId());
-		}
-		else {
+		} else {
 			fail("Fail...");
 		}
 	}
-	
+
 	@Test
 	public void addNewStudentMemberTest() {
 		MemberVO member = new MemberVO();
@@ -166,24 +168,23 @@ public class MemberServiceTest extends SemsTestCase {
 		member.setBirthDate("1991-01-01");
 		member.setPhoneNumber("010-1234-5678");
 		member.setMemberType("MBR");
-		
+
 		BindingResult errors = new BeanPropertyBindingResult(member, "registerForm");
 		MemberValidator memberValidator = new MemberValidator();
 		memberValidator.validate(member, errors);
 		MockHttpSession session = new MockHttpSession();
-		
+
 		ModelAndView view = memberService.addNewMember(member, errors, repeatPasswrod, session);
 		assertNotNull(view);
-		
-		if ( view != null ) {
+
+		if (view != null) {
 			String viewName = view.getViewName();
 			assertNotNull(viewName);
-			assertEquals(viewName,"redirect:/");
-			
+			assertEquals(viewName, "redirect:/");
+
 			assertTrue(memberDAO.isExistId(member.getId()) != null);
 			memberDAO.delectJunitTestMember(member.getId());
-		}
-		else {
+		} else {
 			fail("Fail...");
 		}
 	}
@@ -203,29 +204,28 @@ public class MemberServiceTest extends SemsTestCase {
 		member.setBirthDate("1991-01-01");
 		member.setPhoneNumber("010-1234-5678");
 		member.setMemberType("MBR");
-		
+
 		MemberVO sessionMember = new MemberVO();
-		
+
 		MockHttpSession session = new MockHttpSession();
 		session.setAttribute("_MEMBER_", sessionMember);
-		
+
 		BindingResult errors = new BeanPropertyBindingResult(member, "registerForm");
 		MemberValidator memberValidator = new MemberValidator();
 		memberValidator.validate(member, errors);
-		
+
 		ModelAndView view = memberService.addNewMember(member, errors, repeatPasswrod, session);
 		assertNotNull(view);
-		
-		if ( view != null ) {
+
+		if (view != null) {
 			String viewName = view.getViewName();
 			assertNotNull(viewName);
-			assertEquals(viewName,"member/registErrorPage");
-		}
-		else {
+			assertEquals(viewName, "member/registErrorPage");
+		} else {
 			fail("Fail...");
 		}
 	}
-	
+
 	@Test
 	public void addNewMemberTestErrorCaseId() {
 		MemberVO member = new MemberVO();
@@ -240,37 +240,37 @@ public class MemberServiceTest extends SemsTestCase {
 		member.setBirthDate("1991-01-01");
 		member.setPhoneNumber("010-1234-5678");
 		member.setMemberType("MBR");
-		
+
 		BindingResult errors = new BeanPropertyBindingResult(member, "registerForm");
 		MockHttpSession session = new MockHttpSession();
 		MemberValidator memberValidator = new MemberValidator();
 		memberValidator.validate(member, errors);
-		
+
 		ModelAndView view = memberService.addNewMember(member, errors, repeatPasswrod, session);
 		assertNotNull(view);
-		
-		if ( view != null ) {
+
+		if (view != null) {
 			String viewName = view.getViewName();
 			assertNotNull(viewName);
-			assertEquals(viewName,"member/registerStudent");
-			
-			List<String> highestEducationLevelCodeNameList = (List<String>) view.getModel().get("highestEducationLevelCodeNameList");
+			assertEquals(viewName, "member/registerStudent");
+
+			List<String> highestEducationLevelCodeNameList = (List<String>) view.getModel()
+					.get("highestEducationLevelCodeNameList");
 			assertNotNull(highestEducationLevelCodeNameList);
 
 			List<String> graduationTypeList = (List<String>) view.getModel().get("graduationTypeList");
 			assertNotNull(graduationTypeList);
-			
+
 			MemberVO viewMember = (MemberVO) view.getModelMap().get("member");
 			assertNotNull(viewMember);
 			assertTrue(viewMember.getId() == null);
-			
+
 			assertTrue(errors.getErrorCount() == 1);
-		}
-		else {
+		} else {
 			fail("Fail...");
 		}
 	}
-	
+
 	@Test
 	public void addNewMemberTestErrorCasePassword() {
 		MemberVO member = new MemberVO();
@@ -285,37 +285,37 @@ public class MemberServiceTest extends SemsTestCase {
 		member.setBirthDate("1991-01-01");
 		member.setPhoneNumber("010-1234-5678");
 		member.setMemberType("MBR");
-		
+
 		BindingResult errors = new BeanPropertyBindingResult(member, "registerForm");
 		MockHttpSession session = new MockHttpSession();
 		MemberValidator memberValidator = new MemberValidator();
 		memberValidator.validate(member, errors);
-		
+
 		ModelAndView view = memberService.addNewMember(member, errors, repeatPasswrod, session);
 		assertNotNull(view);
-		
-		if ( view != null ) {
+
+		if (view != null) {
 			String viewName = view.getViewName();
 			assertNotNull(viewName);
-			assertEquals(viewName,"member/registerStudent");
-			
-			List<String> highestEducationLevelCodeNameList = (List<String>) view.getModel().get("highestEducationLevelCodeNameList");
+			assertEquals(viewName, "member/registerStudent");
+
+			List<String> highestEducationLevelCodeNameList = (List<String>) view.getModel()
+					.get("highestEducationLevelCodeNameList");
 			assertNotNull(highestEducationLevelCodeNameList);
 
 			List<String> graduationTypeList = (List<String>) view.getModel().get("graduationTypeList");
 			assertNotNull(graduationTypeList);
-			
+
 			MemberVO viewMember = (MemberVO) view.getModelMap().get("member");
 			assertNotNull(viewMember);
 			assertTrue(viewMember.getPassword() == null);
-			
+
 			assertTrue(errors.getErrorCount() == 1);
-		}
-		else {
+		} else {
 			fail("Fail...");
 		}
 	}
-	
+
 	@Test
 	public void addNewMemberTestErrorCaseName() {
 		MemberVO member = new MemberVO();
@@ -330,37 +330,37 @@ public class MemberServiceTest extends SemsTestCase {
 		member.setBirthDate("1991-01-01");
 		member.setPhoneNumber("010-1234-5678");
 		member.setMemberType("MBR");
-		
+
 		BindingResult errors = new BeanPropertyBindingResult(member, "registerForm");
 		MockHttpSession session = new MockHttpSession();
 		MemberValidator memberValidator = new MemberValidator();
 		memberValidator.validate(member, errors);
-		
-		ModelAndView view = memberService.addNewMember(member, errors, repeatPasswrod,session);
+
+		ModelAndView view = memberService.addNewMember(member, errors, repeatPasswrod, session);
 		assertNotNull(view);
-		
-		if ( view != null ) {
+
+		if (view != null) {
 			String viewName = view.getViewName();
 			assertNotNull(viewName);
-			assertEquals(viewName,"member/registerStudent");
-			
-			List<String> highestEducationLevelCodeNameList = (List<String>) view.getModel().get("highestEducationLevelCodeNameList");
+			assertEquals(viewName, "member/registerStudent");
+
+			List<String> highestEducationLevelCodeNameList = (List<String>) view.getModel()
+					.get("highestEducationLevelCodeNameList");
 			assertNotNull(highestEducationLevelCodeNameList);
 
 			List<String> graduationTypeList = (List<String>) view.getModel().get("graduationTypeList");
 			assertNotNull(graduationTypeList);
-			
+
 			MemberVO viewMember = (MemberVO) view.getModelMap().get("member");
 			assertNotNull(viewMember);
 			assertTrue(viewMember.getName() == null);
-			
+
 			assertTrue(errors.getErrorCount() == 1);
-		}
-		else {
+		} else {
 			fail("Fail...");
 		}
 	}
-	
+
 	@Test
 	public void addNewMemberTestErrorCaseEmail() {
 		MemberVO member = new MemberVO();
@@ -375,37 +375,37 @@ public class MemberServiceTest extends SemsTestCase {
 		member.setBirthDate("1991-01-01");
 		member.setPhoneNumber("010-1234-5678");
 		member.setMemberType("MBR");
-		
+
 		BindingResult errors = new BeanPropertyBindingResult(member, "registerForm");
 		MockHttpSession session = new MockHttpSession();
 		MemberValidator memberValidator = new MemberValidator();
 		memberValidator.validate(member, errors);
-		
+
 		ModelAndView view = memberService.addNewMember(member, errors, repeatPasswrod, session);
 		assertNotNull(view);
-		
-		if ( view != null ) {
+
+		if (view != null) {
 			String viewName = view.getViewName();
 			assertNotNull(viewName);
-			assertEquals(viewName,"member/registerStudent");
-			
-			List<String> highestEducationLevelCodeNameList = (List<String>) view.getModel().get("highestEducationLevelCodeNameList");
+			assertEquals(viewName, "member/registerStudent");
+
+			List<String> highestEducationLevelCodeNameList = (List<String>) view.getModel()
+					.get("highestEducationLevelCodeNameList");
 			assertNotNull(highestEducationLevelCodeNameList);
 
 			List<String> graduationTypeList = (List<String>) view.getModel().get("graduationTypeList");
 			assertNotNull(graduationTypeList);
-			
+
 			MemberVO viewMember = (MemberVO) view.getModelMap().get("member");
 			assertNotNull(viewMember);
 			assertTrue(viewMember.getEmail() == null);
-			
+
 			assertTrue(errors.getErrorCount() == 1);
-		}
-		else {
+		} else {
 			fail("Fail...");
 		}
 	}
-	
+
 	@Test
 	public void addNewMemberTestErrorCaseHighestEducationLevel() {
 		MemberVO member = new MemberVO();
@@ -420,40 +420,40 @@ public class MemberServiceTest extends SemsTestCase {
 		member.setBirthDate("1991-01-01");
 		member.setPhoneNumber("010-1234-5678");
 		member.setMemberType("MBR");
-		
+
 		BindingResult errors = new BeanPropertyBindingResult(member, "registerForm");
 		MockHttpSession session = new MockHttpSession();
 		MemberValidator memberValidator = new MemberValidator();
 		memberValidator.validate(member, errors);
-		
+
 		ModelAndView view = memberService.addNewMember(member, errors, repeatPasswrod, session);
 		assertNotNull(view);
-		
-		if ( view != null ) {
+
+		if (view != null) {
 			String viewName = view.getViewName();
 			assertNotNull(viewName);
-			assertEquals(viewName,"member/registerStudent");
-			
-			List<String> highestEducationLevelCodeNameList = (List<String>) view.getModel().get("highestEducationLevelCodeNameList");
+			assertEquals(viewName, "member/registerStudent");
+
+			List<String> highestEducationLevelCodeNameList = (List<String>) view.getModel()
+					.get("highestEducationLevelCodeNameList");
 			assertNotNull(highestEducationLevelCodeNameList);
 
 			List<String> graduationTypeList = (List<String>) view.getModel().get("graduationTypeList");
 			assertNotNull(graduationTypeList);
-			
+
 			String isEmptyHighestEducationLevel = (String) view.getModelMap().get("isEmptyHighestEducationLevel");
 			assertNotNull(isEmptyHighestEducationLevel);
-			
+
 			MemberVO viewMember = (MemberVO) view.getModelMap().get("member");
 			assertNotNull(viewMember);
 			assertTrue(viewMember.getHighestEducationLevel() == null);
-			
+
 			assertTrue(memberDAO.isExistId(member.getId()) == null);
-		}
-		else {
+		} else {
 			fail("Fail...");
 		}
 	}
-	
+
 	@Test
 	public void addNewMemberTestErrorCaseUniversityName() {
 		MemberVO member = new MemberVO();
@@ -468,40 +468,40 @@ public class MemberServiceTest extends SemsTestCase {
 		member.setBirthDate("1991-01-01");
 		member.setPhoneNumber("010-1234-5678");
 		member.setMemberType("MBR");
-		
+
 		BindingResult errors = new BeanPropertyBindingResult(member, "registerForm");
 		MockHttpSession session = new MockHttpSession();
 		MemberValidator memberValidator = new MemberValidator();
 		memberValidator.validate(member, errors);
-		
+
 		ModelAndView view = memberService.addNewMember(member, errors, repeatPasswrod, session);
 		assertNotNull(view);
-		
-		if ( view != null ) {
+
+		if (view != null) {
 			String viewName = view.getViewName();
 			assertNotNull(viewName);
-			assertEquals(viewName,"member/registerStudent");
-			
-			List<String> highestEducationLevelCodeNameList = (List<String>) view.getModel().get("highestEducationLevelCodeNameList");
+			assertEquals(viewName, "member/registerStudent");
+
+			List<String> highestEducationLevelCodeNameList = (List<String>) view.getModel()
+					.get("highestEducationLevelCodeNameList");
 			assertNotNull(highestEducationLevelCodeNameList);
 
 			List<String> graduationTypeList = (List<String>) view.getModel().get("graduationTypeList");
 			assertNotNull(graduationTypeList);
-			
+
 			String isEmptyUniversityName = (String) view.getModelMap().get("isEmptyUniversityName");
-			assertNotNull(isEmptyUniversityName); 
-			
+			assertNotNull(isEmptyUniversityName);
+
 			MemberVO viewMember = (MemberVO) view.getModelMap().get("member");
 			assertNotNull(viewMember);
 			assertTrue(viewMember.getUniversityName() == null);
-			
+
 			assertTrue(memberDAO.isExistId(member.getId()) == null);
-		}
-		else {
+		} else {
 			fail("Fail...");
 		}
 	}
-	
+
 	@Test
 	public void addNewMemberTestErrorCaseMajorName() {
 		MemberVO member = new MemberVO();
@@ -516,40 +516,40 @@ public class MemberServiceTest extends SemsTestCase {
 		member.setBirthDate("1991-01-01");
 		member.setPhoneNumber("010-1234-5678");
 		member.setMemberType("MBR");
-		
+
 		BindingResult errors = new BeanPropertyBindingResult(member, "registerForm");
 		MockHttpSession session = new MockHttpSession();
 		MemberValidator memberValidator = new MemberValidator();
 		memberValidator.validate(member, errors);
-		
+
 		ModelAndView view = memberService.addNewMember(member, errors, repeatPasswrod, session);
 		assertNotNull(view);
-		
-		if ( view != null ) {
+
+		if (view != null) {
 			String viewName = view.getViewName();
 			assertNotNull(viewName);
-			assertEquals(viewName,"member/registerStudent");
-			
-			List<String> highestEducationLevelCodeNameList = (List<String>) view.getModel().get("highestEducationLevelCodeNameList");
+			assertEquals(viewName, "member/registerStudent");
+
+			List<String> highestEducationLevelCodeNameList = (List<String>) view.getModel()
+					.get("highestEducationLevelCodeNameList");
 			assertNotNull(highestEducationLevelCodeNameList);
 
 			List<String> graduationTypeList = (List<String>) view.getModel().get("graduationTypeList");
 			assertNotNull(graduationTypeList);
-			
+
 			String isEmptyMajorName = (String) view.getModelMap().get("isEmptyMajorName");
 			assertNotNull(isEmptyMajorName);
-			
+
 			MemberVO viewMember = (MemberVO) view.getModelMap().get("member");
 			assertNotNull(viewMember);
 			assertTrue(viewMember.getMajorName() == null);
-			
+
 			assertTrue(memberDAO.isExistId(member.getId()) == null);
-		}
-		else {
+		} else {
 			fail("Fail...");
 		}
 	}
-	
+
 	@Test
 	public void addNewMemberTestErrorCaseGraduationType() {
 		MemberVO member = new MemberVO();
@@ -564,40 +564,40 @@ public class MemberServiceTest extends SemsTestCase {
 		member.setBirthDate("1991-01-01");
 		member.setPhoneNumber("010-1234-5678");
 		member.setMemberType("MBR");
-		
+
 		BindingResult errors = new BeanPropertyBindingResult(member, "registerForm");
 		MockHttpSession session = new MockHttpSession();
 		MemberValidator memberValidator = new MemberValidator();
 		memberValidator.validate(member, errors);
-		
+
 		ModelAndView view = memberService.addNewMember(member, errors, repeatPasswrod, session);
 		assertNotNull(view);
-		
-		if ( view != null ) {
+
+		if (view != null) {
 			String viewName = view.getViewName();
 			assertNotNull(viewName);
-			assertEquals(viewName,"member/registerStudent");
-			
-			List<String> highestEducationLevelCodeNameList = (List<String>) view.getModel().get("highestEducationLevelCodeNameList");
+			assertEquals(viewName, "member/registerStudent");
+
+			List<String> highestEducationLevelCodeNameList = (List<String>) view.getModel()
+					.get("highestEducationLevelCodeNameList");
 			assertNotNull(highestEducationLevelCodeNameList);
 
 			List<String> graduationTypeList = (List<String>) view.getModel().get("graduationTypeList");
 			assertNotNull(graduationTypeList);
-			
+
 			String isEmptyGraduationType = (String) view.getModelMap().get("isEmptyGraduationType");
 			assertNotNull(isEmptyGraduationType);
-			
+
 			MemberVO viewMember = (MemberVO) view.getModelMap().get("member");
 			assertNotNull(viewMember);
 			assertTrue(viewMember.getGraduationType() == null);
-			
+
 			assertTrue(memberDAO.isExistId(member.getId()) == null);
-		}
-		else {
+		} else {
 			fail("Fail...");
 		}
 	}
-	
+
 	@Test
 	public void addNewMemberTestErrorCaseBirthDate() {
 		MemberVO member = new MemberVO();
@@ -612,37 +612,37 @@ public class MemberServiceTest extends SemsTestCase {
 		member.setGraduationType("졸업");
 		member.setPhoneNumber("010-1234-5678");
 		member.setMemberType("MBR");
-		
+
 		BindingResult errors = new BeanPropertyBindingResult(member, "registerForm");
 		MockHttpSession session = new MockHttpSession();
 		MemberValidator memberValidator = new MemberValidator();
 		memberValidator.validate(member, errors);
-		
+
 		ModelAndView view = memberService.addNewMember(member, errors, repeatPasswrod, session);
 		assertNotNull(view);
-		
-		if ( view != null ) {
+
+		if (view != null) {
 			String viewName = view.getViewName();
 			assertNotNull(viewName);
-			assertEquals(viewName,"member/registerStudent");
-			
-			List<String> highestEducationLevelCodeNameList = (List<String>) view.getModel().get("highestEducationLevelCodeNameList");
+			assertEquals(viewName, "member/registerStudent");
+
+			List<String> highestEducationLevelCodeNameList = (List<String>) view.getModel()
+					.get("highestEducationLevelCodeNameList");
 			assertNotNull(highestEducationLevelCodeNameList);
 
 			List<String> graduationTypeList = (List<String>) view.getModel().get("graduationTypeList");
 			assertNotNull(graduationTypeList);
-			
+
 			MemberVO viewMember = (MemberVO) view.getModelMap().get("member");
 			assertNotNull(viewMember);
 			assertTrue(viewMember.getBirthDate() == null);
-			
+
 			assertTrue(errors.getErrorCount() == 1);
-		}
-		else {
+		} else {
 			fail("Fail...");
 		}
 	}
-	
+
 	@Test
 	public void addNewMemberTestErrorCasePhoneNumber() {
 		MemberVO member = new MemberVO();
@@ -657,37 +657,37 @@ public class MemberServiceTest extends SemsTestCase {
 		member.setGraduationType("졸업");
 		member.setBirthDate("1991-01-01");
 		member.setMemberType("MBR");
-		
+
 		BindingResult errors = new BeanPropertyBindingResult(member, "registerForm");
 		MockHttpSession session = new MockHttpSession();
 		MemberValidator memberValidator = new MemberValidator();
 		memberValidator.validate(member, errors);
-		
+
 		ModelAndView view = memberService.addNewMember(member, errors, repeatPasswrod, session);
 		assertNotNull(view);
-		
-		if ( view != null ) {
+
+		if (view != null) {
 			String viewName = view.getViewName();
 			assertNotNull(viewName);
-			assertEquals(viewName,"member/registerStudent");
-			
-			List<String> highestEducationLevelCodeNameList = (List<String>) view.getModel().get("highestEducationLevelCodeNameList");
+			assertEquals(viewName, "member/registerStudent");
+
+			List<String> highestEducationLevelCodeNameList = (List<String>) view.getModel()
+					.get("highestEducationLevelCodeNameList");
 			assertNotNull(highestEducationLevelCodeNameList);
 
 			List<String> graduationTypeList = (List<String>) view.getModel().get("graduationTypeList");
 			assertNotNull(graduationTypeList);
-			
+
 			MemberVO viewMember = (MemberVO) view.getModelMap().get("member");
 			assertNotNull(viewMember);
 			assertTrue(viewMember.getPhoneNumber() == null);
-			
+
 			assertTrue(errors.getErrorCount() == 1);
-		}
-		else {
+		} else {
 			fail("Fail...");
 		}
 	}
-	
+
 	@Test
 	public void addNewMemberTestErrorCaseMemberType() {
 		MemberVO member = new MemberVO();
@@ -702,27 +702,26 @@ public class MemberServiceTest extends SemsTestCase {
 		member.setGraduationType("졸업");
 		member.setBirthDate("1991-01-01");
 		member.setPhoneNumber("010-1234-5678");
-		
+
 		BindingResult errors = new BeanPropertyBindingResult(member, "registerForm");
 		MockHttpSession session = new MockHttpSession();
 		MemberValidator memberValidator = new MemberValidator();
 		memberValidator.validate(member, errors);
-		
+
 		ModelAndView view = memberService.addNewMember(member, errors, repeatPasswrod, session);
 		assertNotNull(view);
-		
-		if ( view != null ) {
+
+		if (view != null) {
 			String viewName = view.getViewName();
 			assertNotNull(viewName);
-			assertEquals(viewName,"member/registErrorPage");
-			
+			assertEquals(viewName, "member/registErrorPage");
+
 			assertTrue(memberDAO.isExistId(member.getId()) == null);
-		}
-		else {
+		} else {
 			fail("Fail...");
 		}
 	}
-	
+
 	@Test
 	public void addNewMemberTestErrorCaseNotEqualRepeatPasswrod() {
 		MemberVO member = new MemberVO();
@@ -738,39 +737,39 @@ public class MemberServiceTest extends SemsTestCase {
 		member.setBirthDate("1991-01-01");
 		member.setPhoneNumber("010-1234-5678");
 		member.setMemberType("MBR");
-		
+
 		BindingResult errors = new BeanPropertyBindingResult(member, "registerForm");
 		MockHttpSession session = new MockHttpSession();
 		MemberValidator memberValidator = new MemberValidator();
 		memberValidator.validate(member, errors);
-		
+
 		ModelAndView view = memberService.addNewMember(member, errors, repeatPasswrod, session);
 		assertNotNull(view);
-		
-		if ( view != null ) {
+
+		if (view != null) {
 			String viewName = view.getViewName();
 			assertNotNull(viewName);
-			assertEquals(viewName,"member/registerStudent");
-			
-			List<String> highestEducationLevelCodeNameList = (List<String>) view.getModel().get("highestEducationLevelCodeNameList");
+			assertEquals(viewName, "member/registerStudent");
+
+			List<String> highestEducationLevelCodeNameList = (List<String>) view.getModel()
+					.get("highestEducationLevelCodeNameList");
 			assertNotNull(highestEducationLevelCodeNameList);
 
 			List<String> graduationTypeList = (List<String>) view.getModel().get("graduationTypeList");
 			assertNotNull(graduationTypeList);
-			
+
 			String isEqualsPassword = (String) view.getModelMap().get("isEqualsPassword");
 			assertNotNull(isEqualsPassword);
-			
+
 			MemberVO viewMember = (MemberVO) view.getModelMap().get("member");
 			assertNotNull(viewMember);
-			
+
 			assertTrue(memberDAO.isExistId(member.getId()) == null);
-		}
-		else {
+		} else {
 			fail("Fail...");
 		}
 	}
-	
+
 	@Test
 	public void addNewMemberTestErrorCaseEmptyRepeatPasswrod() {
 		MemberVO member = new MemberVO();
@@ -785,146 +784,178 @@ public class MemberServiceTest extends SemsTestCase {
 		member.setBirthDate("1991-01-01");
 		member.setPhoneNumber("010-1234-5678");
 		member.setMemberType("MBR");
-		
+
 		BindingResult errors = new BeanPropertyBindingResult(member, "registerForm");
 		MockHttpSession session = new MockHttpSession();
 		MemberValidator memberValidator = new MemberValidator();
 		memberValidator.validate(member, errors);
-		
+
 		ModelAndView view = memberService.addNewMember(member, errors, null, session);
 		assertNotNull(view);
-		
-		if ( view != null ) {
-			String viewName = view.getViewName();
-			assertNotNull(viewName);
-			assertEquals(viewName,"member/registerStudent");
-			
-			List<String> highestEducationLevelCodeNameList = (List<String>) view.getModel().get("highestEducationLevelCodeNameList");
-			assertNotNull(highestEducationLevelCodeNameList);
 
-			List<String> graduationTypeList = (List<String>) view.getModel().get("graduationTypeList");
-			assertNotNull(graduationTypeList);
-			
-			String isEmptyRepeatPassword = (String) view.getModelMap().get("isEmptyRepeatPassword");
-			assertNotNull(isEmptyRepeatPassword);
-			
-			MemberVO viewMember = (MemberVO) view.getModelMap().get("member");
-			assertNotNull(viewMember);
-			
-			assertTrue(memberDAO.isExistId(member.getId()) == null);
-		}
-		else {
-			fail("Fail...");
-		}
-	}
-	
-	@Test
-	public void registerPolicy () {
-		MockHttpSession session = new MockHttpSession();
-		MemberVO sessionMember = new MemberVO();
-		
-		String viewName = memberService.registerPolicy(session);
-		assertNotNull(viewName);
-
-		if ( viewName != null ) {
-			assertEquals(viewName, "member/registerPolicy");
-		}
-		else {
-			fail("Fail...");
-		}
-	}
-	
-	@Test
-	public void registerPolicyErrorCaseExistSession () {
-		MockHttpSession session = new MockHttpSession();
-		MemberVO sessionMember = new MemberVO();
-		session.setAttribute("_MEMBER_", sessionMember);
-		
-		String viewName = memberService.registerPolicy(session);
-		assertNotNull(viewName);
-		
-		if ( viewName != null ) {
-			assertEquals(viewName, "member/registErrorPage");
-		}
-		else {
-			fail("Fail...");
-		}
-	}
-	
-	@Test
-	public void registerStudent () {
-		MockHttpSession session = new MockHttpSession();
-		MemberVO sessionMember = new MemberVO();
-		
-		ModelAndView view = memberService.registerStudent(session);
-		assertNotNull(view);
-		
-		if ( view != null ) {
+		if (view != null) {
 			String viewName = view.getViewName();
 			assertNotNull(viewName);
 			assertEquals(viewName, "member/registerStudent");
-			
-			List<String> highestEducationLevelCodeNameList = (List<String>) view.getModel().get("highestEducationLevelCodeNameList");
+
+			List<String> highestEducationLevelCodeNameList = (List<String>) view.getModel()
+					.get("highestEducationLevelCodeNameList");
 			assertNotNull(highestEducationLevelCodeNameList);
 
 			List<String> graduationTypeList = (List<String>) view.getModel().get("graduationTypeList");
 			assertNotNull(graduationTypeList);
-		}
-		else {
+
+			String isEmptyRepeatPassword = (String) view.getModelMap().get("isEmptyRepeatPassword");
+			assertNotNull(isEmptyRepeatPassword);
+
+			MemberVO viewMember = (MemberVO) view.getModelMap().get("member");
+			assertNotNull(viewMember);
+
+			assertTrue(memberDAO.isExistId(member.getId()) == null);
+		} else {
 			fail("Fail...");
 		}
 	}
-	
+
 	@Test
-	public void registerStudentErrorCaseExistSession () {
+	public void registerPolicy() {
+		MockHttpSession session = new MockHttpSession();
+		MemberVO sessionMember = new MemberVO();
+
+		String viewName = memberService.registerPolicy(session);
+		assertNotNull(viewName);
+
+		if (viewName != null) {
+			assertEquals(viewName, "member/registerPolicy");
+		} else {
+			fail("Fail...");
+		}
+	}
+
+	@Test
+	public void registerPolicyErrorCaseExistSession() {
 		MockHttpSession session = new MockHttpSession();
 		MemberVO sessionMember = new MemberVO();
 		session.setAttribute("_MEMBER_", sessionMember);
-		
+
+		String viewName = memberService.registerPolicy(session);
+		assertNotNull(viewName);
+
+		if (viewName != null) {
+			assertEquals(viewName, "member/registErrorPage");
+		} else {
+			fail("Fail...");
+		}
+	}
+
+	@Test
+	public void registerStudent() {
+		MockHttpSession session = new MockHttpSession();
+		MemberVO sessionMember = new MemberVO();
+
 		ModelAndView view = memberService.registerStudent(session);
 		assertNotNull(view);
-		
-		if ( view != null ) {
+
+		if (view != null) {
+			String viewName = view.getViewName();
+			assertNotNull(viewName);
+			assertEquals(viewName, "member/registerStudent");
+
+			List<String> highestEducationLevelCodeNameList = (List<String>) view.getModel()
+					.get("highestEducationLevelCodeNameList");
+			assertNotNull(highestEducationLevelCodeNameList);
+
+			List<String> graduationTypeList = (List<String>) view.getModel().get("graduationTypeList");
+			assertNotNull(graduationTypeList);
+		} else {
+			fail("Fail...");
+		}
+	}
+
+	@Test
+	public void registerStudentErrorCaseExistSession() {
+		MockHttpSession session = new MockHttpSession();
+		MemberVO sessionMember = new MemberVO();
+		session.setAttribute("_MEMBER_", sessionMember);
+
+		ModelAndView view = memberService.registerStudent(session);
+		assertNotNull(view);
+
+		if (view != null) {
 			String viewName = view.getViewName();
 			assertNotNull(viewName);
 			assertEquals(viewName, "member/registErrorPage");
-		}
-		else {
+		} else {
 			fail("Fail...");
 		}
 	}
-	
+
 	@Test
-	public void registerTeacher () {
+	public void registerTeacher() {
 		MockHttpSession session = new MockHttpSession();
 		MemberVO sessionMember = new MemberVO();
-		
+
 		String viewName = memberService.registerTeacher(session);
 		assertNotNull(viewName);
-		
-		if ( viewName != null ) {
+
+		if (viewName != null) {
 			assertEquals(viewName, "member/registerTeacher");
-		}
-		else {
+		} else {
 			fail("Fail...");
 		}
 	}
-	
+
 	@Test
-	public void registerTeacherErrorCaseExistSession () {
+	public void registerTeacherErrorCaseExistSession() {
 		MockHttpSession session = new MockHttpSession();
 		MemberVO sessionMember = new MemberVO();
 		session.setAttribute("_MEMBER_", sessionMember);
-		
+
 		String viewName = memberService.registerTeacher(session);
 		assertNotNull(viewName);
-		
-		if ( viewName != null ) {
+
+		if (viewName != null) {
 			assertEquals(viewName, "member/registErrorPage");
-		}
-		else {
+		} else {
 			fail("Fail...");
 		}
 	}
-	
+
+	/**
+	 * 나의 교육 이력 보기
+	 */
+	@Test
+	public void getAllEducationHistoryListTest() {
+
+		MemberVO memberVO = new MemberVO();
+		memberVO.setId("test01");
+
+		int pageNo = 0;
+		MockHttpSession session = new MockHttpSession();
+		session.setAttribute(Session.MEMBER, memberVO);
+
+		ModelAndView view = memberService.getAllEducationHistoryList(pageNo, session);
+
+		if (view != null) {
+
+			String viewName = view.getViewName();
+			assertNotNull(viewName);
+			assertEquals(viewName, "education/educationHistory");
+			
+			EducationHistoryListVO educationHistoryListVO = (EducationHistoryListVO) view.getModelMap().get("educationHistoryListVO");
+			assertNotNull(educationHistoryListVO);
+			
+			List<EducationHistoryVO> educationHistoryList = educationHistoryListVO.getEducationHistoryList();
+			assertNotNull(educationHistoryList);
+			assertTrue(educationHistoryList.size() > 0);
+			
+			Paging paging = educationHistoryListVO.getPaging();
+			assertNotNull(paging);
+			assertTrue(paging.getTotalArticleCount() > 0);
+			
+		} else {
+			fail("fail");
+		}
+
+	}
 }
