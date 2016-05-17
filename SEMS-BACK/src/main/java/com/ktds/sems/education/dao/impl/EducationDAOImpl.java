@@ -1,6 +1,8 @@
 package com.ktds.sems.education.dao.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 
@@ -71,6 +73,22 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 	@Override
 	public List<EducationHistoryVO> getJCEduHistoryHistory() {
 		return getSqlSession().selectList("EducationDAO.getJCEduHistoryHistory");
+	}
+
+	@Override
+	public int applyJoinEducationByMemberId(String educationId, String memberId) {
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("educationId", educationId);
+		paramMap.put("memberId", memberId);
+		return getSqlSession().update("EducationDAO.applyJoinEdcationByMemberId", paramMap);
+	}
+
+	@Override
+	public int cancelJoinEducationByMemberId(String educationId, String memberId) {
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("educationId", educationId);
+		paramMap.put("memberId", memberId);
+		return getSqlSession().update("EducationDAO.cancelJoinEducationByMemberId", paramMap);
 	}
 
 	

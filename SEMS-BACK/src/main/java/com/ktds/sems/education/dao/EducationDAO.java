@@ -23,4 +23,6 @@ public interface EducationDAO {
 	public int getAllEduHistoryCount();
 	public int getJCEduHistoryCount();
 	public List<EducationHistoryVO> getJCEduHistoryHistory();
+	public int applyJoinEducationByMemberId(String educationId, String memberId);
+	public int cancelJoinEducationByMemberId(String educationId, String memberId);
 }

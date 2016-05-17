@@ -166,5 +166,15 @@ public class EducationBizImpl implements EducationBiz {
 		return educationDAO.getJCEduHistoryHistory();
 	}
 
+	@Override
+	public boolean applyJoinEducationByMemberId(String educationId, String memberId) {
+		return educationDAO.applyJoinEducationByMemberId(educationId, memberId) > 0;
+	}
+
+	@Override
+	public boolean cancelJoinEducationByMemberId(String educationId, String memberId) {
+		return educationDAO.cancelJoinEducationByMemberId(educationId, memberId) > 0;
+	}
+
 
 }

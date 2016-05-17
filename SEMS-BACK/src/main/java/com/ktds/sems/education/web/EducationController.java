@@ -1,8 +1,5 @@
 package com.ktds.sems.education.web;
 
-
-
-
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
@@ -15,8 +12,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.education.service.EducationService;
 import com.ktds.sems.education.vo.EducationVO;
-
-
 
 @Controller
 public class EducationController {
@@ -61,9 +56,22 @@ public class EducationController {
 		return view;
 	}
 	
-	@RequestMapping("/applyJoin/{educationId}/{memberId}")
-	public ModelAndView applyJoin(@PathVariable String educationId, String memberId ){
+	@RequestMapping("/joinAply/{educationId}/{memberId}")
+	public ModelAndView doJoinApply(@PathVariable String educationId,@PathVariable String memberId ){
+		System.out.println(memberId);
+		System.out.println(educationId);
+		
 		ModelAndView view = educationService.applyJoinEducationByMemberId(educationId, memberId);
+		return view;
+	}
+
+	@RequestMapping("/joinCncl/{educationId}/{memberId}/{description}")
+	public ModelAndView cnclJoin(@PathVariable String educationId,@PathVariable String memberId, @PathVariable String description ){
+		System.out.println(memberId);
+		System.out.println(educationId);
+		System.out.println(description);
+		
+		ModelAndView view = educationService.cancelJoinEducationByMemberId(educationId, memberId,description);
 		return view;
 	}
 }

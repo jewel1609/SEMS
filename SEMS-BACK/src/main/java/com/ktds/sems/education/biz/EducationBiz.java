@@ -10,11 +10,11 @@ import com.ktds.sems.education.vo.EducationVO;
 
 public interface EducationBiz {
 
-	boolean writeNewEducation(EducationVO educationVO );
+	public boolean writeNewEducation(EducationVO educationVO );
 
 	public EducationVO getOneEducation(String educationId);
 
-	boolean modifyNewEducation(EducationVO educationVO);
+	public boolean modifyNewEducation(EducationVO educationVO);
 	
 	public List<CostVO> costCodeList();
 
@@ -29,5 +29,9 @@ public interface EducationBiz {
 	public int getJCEduHistoryCount();
 
 	public List<EducationHistoryVO> getJCEducationHistory();
+
+	public boolean applyJoinEducationByMemberId(String educationId, String memberId);
+
+	public boolean cancelJoinEducationByMemberId(String educationId, String memberId);
 
 }

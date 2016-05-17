@@ -25,4 +25,7 @@ public interface EducationService {
 	public ModelAndView getJCEduHistory(int pageNo);
 
 	public ModelAndView applyJoinEducationByMemberId(String educationId, String memberId);
+
+	public ModelAndView cancelJoinEducationByMemberId(String educationId, String memberId, String description);
+
 }

@@ -15,7 +15,19 @@
 			var educationId = $("#JAEduId").val();
 			var memberId = $("#JAMbrId").val();
 			
-			location.href = "<c:url value='/applyJoin/"+eduHistoryId+"/"+memberId+"'/>";
+			location.href = "<c:url value='/joinApply/"+educationId+"/"+memberId+"'/>";
+		});
+		
+		$("#joinCnclBtn").click(function() {
+			var educationId = $("#JCEduId").val();
+			var memberId = $("#JCMbrId").val();
+			var description = $("#description").val();
+			
+			location.href = "<c:url value='/joinCncl/"+educationId+"/"+memberId+"/"+description"'/>";
+		});
+		
+		$().click(function() {
+			
 		});
 	});
 </script>
@@ -73,18 +85,18 @@
 					</c:if></td>
 					<td>
 						<!-- 승인버튼 --> <button class="btn btn-primary btn-sm" data-toggle="modal"
-		data-target="#myModal">교육참여승인</button>
+		data-target="#JoinAplyModal">교육참여승인</button>
 					</td>
 					<td>
 						<button class="btn btn-primary btn-sm" data-toggle="modal"
-		data-target="#myModal">교육참여거절</button>
+		data-target="#JoinCnclModal">교육참여거절</button>
 					</td>
 				</tr>
 			</c:if>
 			<c:if test="${ eduHistory.state eq 'CNCL_APLY' }">
 				<tr>
-					<td><input type="hidden" id="eduId" value="${eduHistory.educationId }"/>${eduHistory.educationId }</td>
-					<td>${eduHistory.memberId }</td>
+					<td><input type="hidden" id="JCEduId" value="${eduHistory.educationId }"/>${eduHistory.educationId }</td>
+					<td><input type="hidden" id="JCMbrId" value="${eduHistory.memberId }"/>${eduHistory.memberId }</td>
 					<td>${eduHistory.ip }</td>
 					<td>${eduHistory.educationHistoryDate }</td>
 					<td>${eduHistory.state }</td>
@@ -131,7 +143,7 @@
 
 	
 
-	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+	<div class="modal fade" id="JoinAplyModal" tabindex="-1" role="dialog"
 		aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-sm">
 			<!--  큰창:<div class="modal-dialog modal-lg"> 작은창 :<div class="modal-dialog modal-sm" > <div class="modal-dialog modal-dialog" >  -->
@@ -152,6 +164,31 @@
 			</div>
 		</div>
 	</div>
+	
+	<div class="modal fade" id="JoinCnclModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-sm">
+			<!--  큰창:<div class="modal-dialog modal-lg"> 작은창 :<div class="modal-dialog modal-sm" > <div class="modal-dialog modal-dialog" >  -->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">×</button>
+					<h4 class="modal-title" id="myModalLabel">교육 참가 거절</h4>
+				</div>
+				<div class="modal-body">거절 사유와 함께 상태를 변경하겠습니다.<br/>
+				<textarea id="description" rows="7" cols="70"></textarea>
+				</div>
+				<div class="modal-footer">
+					
+					<button type="button" class="btn btn-primary" id="joinCnclBtn">
+					정말	거절</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">
+						취소</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
 
 
 

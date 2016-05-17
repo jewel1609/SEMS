@@ -257,9 +257,27 @@ public class EducationServiceImpl implements EducationService {
 	@Override
 	public ModelAndView applyJoinEducationByMemberId(String educationId, String memberId) {
 		
-		
 		ModelAndView view = new ModelAndView();
 		
+		boolean result = educationBiz.applyJoinEducationByMemberId(educationId, memberId);
+		
+		if ( result ) {
+		view.setViewName("redirect:/educationHistory");
+		return view;
+		}
+		else return view;
+	}
+
+	@Override
+	public ModelAndView cancelJoinEducationByMemberId(String educationId, String memberId, String description) {
+		ModelAndView view = new ModelAndView();
+		
+		boolean result = educationBiz.cancelJoinEducationByMemberId(educationId, memberId);
+		
+		if ( result ) {
+			view.setViewName("redirect:/educationHistory");
+			return view;
+		}
 		
 		return view;
 	}

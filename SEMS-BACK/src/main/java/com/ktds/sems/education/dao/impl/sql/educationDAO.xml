@@ -171,4 +171,17 @@
 		WHERE	STAT = 'JOIN_CMPL'
 	</select>
 	
+	<update id="applyJoinEdcationByMemberId" parameterType="map">
+		UPDATE	 EDU_HTR
+		SET		 STAT = 'JOIN_CMPL'
+		WHERE	 EDU_ID LIKE #{educationId}
+		AND		 MBR_ID LIKE #{memberId}	
+	</update>
+	
+	<delete id="cancelJoinEducationByMemberId" parameterType="map">
+		DELETE	 EDU_HTR
+		WHERE	 EDU_ID LIKE #{educationId}
+		AND		 MBR_ID LIKE #{memberId}
+		AND		 STAT LIKE 'JOIN_APLY'
+	</delete>
 </mapper>
