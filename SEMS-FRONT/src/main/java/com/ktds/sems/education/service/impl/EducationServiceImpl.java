@@ -127,11 +127,16 @@ public class EducationServiceImpl implements EducationService {
 		List<String> typeName = educationBiz.getTypeName();
 		List<String> costName = educationBiz.getCostName();
 		
+		String startYear = educationBiz.getStartYear();
+		String endYear = educationBiz.getEndYear();
+		
 		ModelAndView view = new ModelAndView();
 		view.setViewName("education/list");
 		
 		view.addObject("typeName", typeName);
 		view.addObject("costName", costName);
+		view.addObject("fromYear", startYear);
+		view.addObject("toYear", endYear);
 		
 		if(educationList.size() > 0 ){
 			view.addObject("educationListVO", educationListVO);
@@ -241,11 +246,15 @@ public class EducationServiceImpl implements EducationService {
 		List<String> typeName = educationBiz.getTypeName();
 		List<String> costName = educationBiz.getCostName();
 			
+		String startYear = educationBiz.getStartYear();
+		String endYear = educationBiz.getEndYear();
 		
 		ModelAndView view = new ModelAndView();
 		
 		view.addObject("typeName", typeName);
 		view.addObject("costName", costName);
+		view.addObject("fromYear", startYear);
+		view.addObject("toYear", endYear);
 		
 		view.addObject("searchKeyword", educationVO);
 		view.addObject("searchedListVO", searchedListVO);
