@@ -285,7 +285,7 @@
 		SELECT	COUNT(REPLY_ID)
 		FROM	QNA
 		WHERE	MBR_ID = #{memberId}
-		AND		PARENT_REPLY_ID = 0
+		AND		PARENT_REPLY_ID = '0'
 	</select>
 	
 	<select id="getAllQNAList" parameterType="QNASearchVO" resultType="QNAVO">
@@ -298,12 +298,11 @@
 				, Q.LIKE_CNT likeCnt
 				, Q.DISLIKE_CNT dislikeCnt
 				, Q.CREATED_DATE createdDate
-				, (
-					SELECT	'Y'
-					FROM	QNA
-					WHERE	PARENT_REPLY_ID = Q.REPLY_ID
-				
-				 ) isAnswered
+				, NVL ( (
+						SELECT	DISTINCT 'Y'
+						FROM	QNA
+						WHERE	PARENT_REPLY_ID IN Q.REPLY_ID
+				) , 'N' ) isAnswered
 		FROM	(
 					SELECT	ROWNUM AS RNUM
 							, QNA.*
@@ -311,7 +310,7 @@
 								SELECT	*
 								FROM	QNA
 								WHERE	MBR_ID = #{id}
-								AND		PARENT_REPLY_ID = 0
+								AND		PARENT_REPLY_ID = '0'
 								ORDER	BY REPLY_ID DESC
 							) QNA
 					WHERE	ROWNUM <![CDATA[<=]]> #{endIndex}
@@ -319,7 +318,7 @@
 		WHERE	RNUM <![CDATA[>=]]> #{startIndex}
 	</select>
 
-	<select id="getSelectedQNA" parameterType="String" resultType="QNAVO">
+	<select id="getSelectedQNA" parameterType="string" resultType="QNAVO">
 		SELECT		REPLY_ID replyId
 					, EDU_ID eduId
 					, PARENT_REPLY_ID parentReplyId
@@ -333,7 +332,7 @@
 		WHERE		REPLY_ID = #{replyId}
 	</select>
 	
-	<select id="getSelectedQNAAnswer" parameterType="String" resultType="QNAVO">
+	<select id="getSelectedQNAAnswer" parameterType="string" resultType="QNAVO">
 		SELECT		REPLY_ID replyId
 					, EDU_ID eduId
 					, PARENT_REPLY_ID parentReplyId
@@ -347,7 +346,7 @@
 		WHERE		PARENT_REPLY_ID = #{replyId}
 	</select>
 	
-	<select id="exportQNAListAsExcel" parameterType="String" resultType="QNAVO">
+	<select id="exportQNAListAsExcel" parameterType="string" resultType="QNAVO">
 		SELECT		Q.REPLY_ID replyId
 					, Q.EDU_ID eduId
 					, Q.PARENT_REPLY_ID parentReplyId
@@ -357,12 +356,12 @@
 					, Q.LIKE_CNT likeCnt
 					, Q.DISLIKE_CNT dislikeCnt
 					, Q.CREATED_DATE createdDate
-					, (
+					, NVL ( (
 						SELECT	'Y'
 						FROM	QNA
 						WHERE	PARENT_REPLY_ID = Q.REPLY_ID
-					 ) isAnswered
-					 , (
+					 ) , 'N' ) isAnswered
+					 , NVL ( (
                             SELECT  DESCRIPTION
                             FROM    QNA
                             WHERE   REPLY_ID = (
@@ -370,7 +369,7 @@
                                         FROM    QNA
                                         WHERE   PARENT_REPLY_ID = Q.REPLY_ID
                                     ) 
-					 ) answer 
+					 ) , '0' ) answer 
 		FROM	QNA Q
 		WHERE	Q.MBR_ID = #{memberId}
 		AND		Q.PARENT_REPLY_ID = '0'
