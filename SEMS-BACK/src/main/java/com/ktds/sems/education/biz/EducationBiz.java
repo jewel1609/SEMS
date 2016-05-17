@@ -26,4 +26,8 @@ public interface EducationBiz {
 
 	public int getAllEduHistoryCount();
 
+	public int getJCEduHistoryCount();
+
+	public List<EducationHistoryVO> getJCEducationHistory();
+
 }
