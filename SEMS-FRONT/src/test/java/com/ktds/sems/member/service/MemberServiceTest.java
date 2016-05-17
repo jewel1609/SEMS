@@ -25,6 +25,9 @@ import com.ktds.sems.common.Session;
 import com.ktds.sems.education.vo.EducationHistoryListVO;
 import com.ktds.sems.education.vo.EducationHistoryVO;
 import com.ktds.sems.member.dao.MemberDAO;
+import com.ktds.sems.member.vo.LoginHistoryListVO;
+import com.ktds.sems.member.vo.LoginHistorySearchVO;
+import com.ktds.sems.member.vo.LoginHistoryVO;
 import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.member.vo.MenuManageVO;
 import com.ktds.sems.validator.member.MemberValidator;
@@ -943,22 +946,110 @@ public class MemberServiceTest extends SemsTestCase {
 			String viewName = view.getViewName();
 			assertNotNull(viewName);
 			assertEquals(viewName, "education/educationHistory");
-			
-			EducationHistoryListVO educationHistoryListVO = (EducationHistoryListVO) view.getModelMap().get("educationHistoryListVO");
+
+			EducationHistoryListVO educationHistoryListVO = (EducationHistoryListVO) view.getModelMap()
+					.get("educationHistoryListVO");
 			assertNotNull(educationHistoryListVO);
-			
+
 			List<EducationHistoryVO> educationHistoryList = educationHistoryListVO.getEducationHistoryList();
 			assertNotNull(educationHistoryList);
 			assertTrue(educationHistoryList.size() > 0);
-			
+
 			Paging paging = educationHistoryListVO.getPaging();
 			assertNotNull(paging);
 			assertTrue(paging.getTotalArticleCount() > 0);
-			
+
 		} else {
 			fail("fail");
 		}
 
+	}
+
+	@Test
+	public void saveLoginHistoryAsExcelTest() {
+		MemberVO memberVO = new MemberVO();
+		memberVO.setId("test04");
+		MockHttpSession session = new MockHttpSession();
+		session.setAttribute(Session.MEMBER, memberVO);
+		ModelAndView view = memberService.saveLoginHistoryAsExcel(session);
+
+		if (view != null) {
+			String viewName = view.getViewName();
+			assertNotNull(viewName);
+			assertEquals(viewName, "redirect:/member/loginHistory");
+		} else {
+			fail("[Service Part]saveLoginHistoryAsExcelTest Fail.");
+		}
+
+	}
+
+	@Test
+	public void viewLoginHistoryPageTest() {
+		MockHttpSession session = new MockHttpSession();
+		LoginHistorySearchVO loginHistorySearchVO = new LoginHistorySearchVO();
+		loginHistorySearchVO.setId("test04");
+		session.setAttribute(Session.MEMBER, loginHistorySearchVO);
+
+		ModelAndView view = memberService.viewLoginHistoryPage(loginHistorySearchVO, 0, session);
+
+		if (view != null) {
+			String viewName = view.getViewName();
+			assertNotNull(viewName);
+			assertEquals(viewName, "member/loginHistory");
+
+			LoginHistoryListVO loginHistoryListVO = (LoginHistoryListVO) view.getModel().get("loginHistoryListVO");
+			LoginHistorySearchVO loginSearchVO = (LoginHistorySearchVO) view.getModel().get("loginHistorySearchVO");
+			assertNotNull(loginHistoryListVO);
+			assertNotNull(loginSearchVO);
+
+			Paging paging = loginHistoryListVO.getPaging();
+			assertNotNull(paging);
+			assertTrue(paging.getTotalArticleCount() > 0);
+
+			List<LoginHistoryVO> loginHistoryList = loginHistoryListVO.getLoginHistoryList();
+			assertNotNull(loginHistoryList);
+			assertTrue(loginHistoryList.size() > 0);
+		} else {
+			fail("[Service Part]viewLoginHistoryPageTest Fail.");
+		}
+	}
+
+	@Test
+	public void doRequestIpHistoryTest() {
+		LoginHistoryVO loginHistoryVO = new LoginHistoryVO();
+		loginHistoryVO.setId("test04");
+		loginHistoryVO.setLgiHtrId(1048);
+		MockHttpSession session = new MockHttpSession();
+		session.setAttribute(Session.MEMBER, loginHistoryVO);
+
+		ModelAndView view = memberService.doRequestIpHistory(loginHistoryVO.getLgiHtrId(), session);
+		if (view != null) {
+			String viewName = view.getViewName();
+			assertNotNull(viewName);
+			assertEquals(viewName, "redirect:/member/loginHistory");
+		} else {
+			fail("[Service Part]doRequestIpHistoryTest Fail.");
+		}
+	}
+
+	@Test
+	public void doCheckIpTest() {
+		LoginHistoryVO loginHistoryVO = new LoginHistoryVO();
+		loginHistoryVO.setId("test04");
+		loginHistoryVO.setLgiHtrId(1048);
+		MockHttpSession session = new MockHttpSession();
+		session.setAttribute(Session.MEMBER, loginHistoryVO);
+
+		ModelAndView view = memberService.doCheckIp(loginHistoryVO.getLgiHtrId(), session);
+		if (view != null) {
+			String viewName = view.getViewName();
+			assertNotNull(viewName);
+			assertEquals(viewName, "member/checkIP");
+			LoginHistoryVO loginHistory = (LoginHistoryVO) view.getModel().get("loginHistory");
+			assertNotNull(loginHistory);
+		} else {
+			fail("[Service Part]doCheckIpTest Fail.");
+		}
 	}
 	
 	/**

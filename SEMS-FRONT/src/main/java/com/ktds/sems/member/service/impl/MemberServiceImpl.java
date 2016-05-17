@@ -448,14 +448,14 @@ public class MemberServiceImpl implements MemberService {
 	 */
 	@Override
 	public ModelAndView viewLoginHistoryPage(LoginHistorySearchVO loginHistorySearchVO, int pageNo,
-			HttpSession session, HttpServletRequest request) {
+			HttpSession session) {
 		
 		ModelAndView view = new ModelAndView();
 		
 		int totalLoginHistoryCount = 0;
 		List<LoginHistoryVO> loginHistoryList = null;
 		
-		MemberVO memberVO = (MemberVO) session.getAttribute("_MEMBER_");
+		MemberVO memberVO = (MemberVO) session.getAttribute(Session.MEMBER);
 		
 		loginHistorySearchVO.setId(memberVO.getId());
 		
@@ -480,7 +480,7 @@ public class MemberServiceImpl implements MemberService {
 		
 		return view;
 	}
-
+	
 	@Override
 	public void sendBlockAccountEmail(String id) {
 

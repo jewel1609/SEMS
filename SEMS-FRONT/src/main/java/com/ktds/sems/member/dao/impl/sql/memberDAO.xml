@@ -229,7 +229,7 @@
 		WHERE	MBR_ID = #{id}
 		<if test="beginDate != null and beginDate != '' ">
 		AND		LGI_DT <![CDATA[>=]]> TO_DATE(#{beginDate}, 'YYYY-MM-DD')		
-		AND		LGI_DT <![CDATA[<=]]> (TO_DATE(#{closeDate}, 'YYYY-MM-DD') + 1)
+		AND		LGI_DT <![CDATA[<=]]> TO_DATE(#{closeDate}, 'YYYY-MM-DD')
 		</if>
 	</select>
 	<select id="getAllLoginHistory" parameterType="LoginHistorySearchVO" resultType="LoginHistoryVO">
@@ -249,7 +249,7 @@
 								WHERE	MBR_ID = #{id}
 								<if test="beginDate != null and beginDate != '' ">
 								AND		LGI_DT <![CDATA[>=]]> TO_DATE(#{beginDate}, 'YYYY-MM-DD')		
-								AND		LGI_DT <![CDATA[<=]]> (TO_DATE(#{closeDate}, 'YYYY-MM-DD') + 1)
+								AND		LGI_DT <![CDATA[<=]]> TO_DATE(#{closeDate}, 'YYYY-MM-DD')
 								</if>								
 								ORDER BY LGI_HTR_ID DESC
 							) LOGIN_HISTORY
@@ -436,7 +436,7 @@
 		WHERE	MBR_ID = #{id}
 	</select>
 	
-	<select id="getAllEducationHistoryListByIdWithPaging" parameterType="EducationHistorySearchVO" resultType="EducationHistoryVO">
+	<select id="getAllEducationHistoryListById" parameterType="EducationHistorySearchVO" resultType="EducationHistoryVO">
 		SELECT	EH.EDU_HTR_ID educationHistoryId
 				, EH.EDU_ID educationId
 				, EH.MBR_ID memberId
@@ -445,8 +445,6 @@
 				, EH.IP ip
 				, EH.CMNT cmnt
 				, EH.FDBK fdbk
-				, EI.EDU_TTL educationTitle
-				, EI.COST cost
 				, EI.SRT_DATE startDate
 				, EI.END_DATE endDate
 		FROM	EDU_INFO EI
@@ -483,25 +481,6 @@
 		AND		MBR_ID = #{id}
 	</select>
 	
-	<select id="getAllEducationHistoryListById" parameterType="string" resultType="EducationHistoryVO">
-		SELECT	EH.EDU_HTR_ID educationHistoryId
-				, EH.EDU_ID educationId
-				, EH.MBR_ID memberId
-				, EH.EDU_HTR_DT educationHistoryDate
-				, EH.STAT state
-				, EH.IP ip
-				, EH.CMNT cmnt
-				, EH.FDBK fdbk
-				, EI.EDU_TTL educationTitle
-				, EI.COST cost
-				, EI.SRT_DATE startDate
-				, EI.END_DATE endDate
-		FROM	EDU_INFO EI
-				, EDU_HTR EH
-		WHERE	EI.EDU_ID = EH.EDU_ID
-		AND		EH.MBR_ID = #{id}
-	</select>
-	
 	<update id="ipCheckCountUpdate" parameterType="LoginHistoryVO">
 		UPDATE	LGI_HTR
 		SET		CHK_CNT	= 0
@@ -509,26 +488,4 @@
 		WHERE	LGI_HTR_ID = #{lgiHtrId}
 		AND		MBR_ID = #{id}
 	</update>
-	
-	<select id="getJoinEducationList" parameterType="string" resultType="EducationHistoryVO">
-		SELECT	EH.EDU_HTR_ID educationHistoryId
-				, EH.EDU_ID educationId
-				, EH.MBR_ID memberId
-				, EH.EDU_HTR_DT educationHistoryDate
-				, EH.STAT state
-				, EH.IP ip
-				, EH.CMNT cmnt
-				, EH.FDBK fdbk
-				, EI.EDU_TTL educationTitle
-				, EI.COST cost
-				, EI.SRT_DATE startDate
-				, EI.END_DATE endDate
-		FROM	EDU_INFO EI
-				, EDU_HTR EH
-		WHERE	EI.EDU_ID = EH.EDU_ID
-		AND		EH.MBR_ID = #{memberId}	
-		AND		EH.STAT LIKE 'JOIN_CMPL'	
-		AND		TO_DATE(EI.SRT_DATE,'YYYY-MM-DD') <![CDATA[<=]]> SYSDATE
-		AND		(TO_DATE(EI.END_DATE,'YYYY-MM-DD') + 1) <![CDATA[>=]]> SYSDATE
-	</select>
 </mapper>

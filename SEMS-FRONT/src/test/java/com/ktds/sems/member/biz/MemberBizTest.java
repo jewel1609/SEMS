@@ -19,6 +19,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.ktds.sems.SemsTestCase;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationHistoryVO;
+import com.ktds.sems.member.vo.LoginHistoryListVO;
+import com.ktds.sems.member.vo.LoginHistorySearchVO;
+import com.ktds.sems.member.vo.LoginHistoryVO;
 import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.member.vo.MenuManageVO;
 
@@ -351,6 +354,73 @@ public class MemberBizTest extends SemsTestCase {
 			fail("fail");
 		}
 
+	}
+
+	@Test
+	public void viewLoginHistoryPageTest() {
+		
+		LoginHistorySearchVO loginHistorySearchVO = new LoginHistorySearchVO();
+		loginHistorySearchVO.setId("test04");
+
+		int totalLoginHistoryCount = memberBiz.getTotalLoginHistoryCount(loginHistorySearchVO);
+		
+		if(totalLoginHistoryCount != 0) {
+			Paging paging = new Paging();
+			paging.setTotalArticleCount(totalLoginHistoryCount);
+			paging.setPageNumber(0 + "");
+			loginHistorySearchVO.setStartIndex(paging.getStartArticleNumber());
+			loginHistorySearchVO.setEndIndex(paging.getEndArticleNumber());
+			loginHistorySearchVO.setLgiHtrId(1048);
+			loginHistorySearchVO.setBeginDate("2016/05/17");
+			loginHistorySearchVO.setCloseDate("2016/05/17");
+			
+			List<LoginHistoryVO> loginHistoryList = memberBiz.getAllLoginHistory(loginHistorySearchVO);
+			if(loginHistoryList != null) {
+				for (LoginHistoryVO loginHistoryVO : loginHistoryList) {
+					assertNotNull(loginHistoryVO.getLgiHtrId());
+					assertNotNull(loginHistoryVO.getId());
+					assertNotNull(loginHistoryVO.getLgiIp());
+					assertNotNull(loginHistoryVO.getLgiDt());
+					assertNotNull(loginHistoryVO.getLgoDt());
+					assertNotNull(loginHistoryVO.getIsReq());
+					assertNotNull(loginHistoryVO.getChkCnt());
+				}
+			}
+			else {
+				fail("[Biz Part] viewLoginHistoryPageTest < loginHistoryList Fail.");
+			}
+			
+			LoginHistoryListVO loginHistoryListVO = new LoginHistoryListVO();
+			loginHistoryListVO.setLoginHistoryList(loginHistoryList);
+			loginHistoryListVO.setPaging(paging);
+			assertNotNull(paging);
+		}else {
+			fail("[Biz Part] viewLoginHistoryPageTest < totalLoginHistoryCount Fail.");
+		}
+	}
+	
+	@Test
+	public void doRequestIpHistoryTest(){
+		LoginHistoryVO loginHistoryVO = new LoginHistoryVO();
+		loginHistoryVO.setId("test04");
+		loginHistoryVO.setLgiHtrId(1048);
+		
+		boolean memberCheck = memberBiz.doMatchHistoryWithMember(loginHistoryVO);
+		assertTrue(memberCheck);
+	}
+	
+	@Test
+	public void doCheckIpTest(){
+		
+		LoginHistoryVO loginHistoryVO = new LoginHistoryVO();
+		loginHistoryVO.setId("test04");
+		loginHistoryVO.setLgiHtrId(1048);
+		
+		boolean checkIp = memberBiz.doCheckIp(loginHistoryVO);
+		boolean memberCheck = memberBiz.doMatchHistoryWithMember(loginHistoryVO);
+		
+		assertTrue(checkIp);
+		assertTrue(memberCheck);
 	}
 	
 	/**

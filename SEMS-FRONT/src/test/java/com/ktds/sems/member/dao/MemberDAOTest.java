@@ -361,6 +361,51 @@ public class MemberDAOTest extends SemsTestCase {
 		}
 	}
 	
+//	@Test
+//	public void saveLoginHistoryAsExcelTest(){
+//		List<LoginHistoryVO> exportFile = memberDAO.saveLoginHistoryAsExcel("test04");
+//		
+//		for (LoginHistoryVO loginHistoryVO : exportFile) {
+//			assertNotNull(loginHistoryVO.getLgiHtrId());
+//			assertNotNull(loginHistoryVO.getId());
+//			assertNotNull(loginHistoryVO.getLgiIp());
+//			assertNotNull(loginHistoryVO.getLgiDt());
+//			assertNotNull(loginHistoryVO.getLgoDt());
+//		}
+//		assertTrue(exportFile.size() > 0);
+//	}
+//	@Test
+//	public void getTotalLoginHistoryCountTest(){
+//		return getSqlSession().selectOne("MemberDAO.getTotalLoginHistoryCount", loginHistorySearchVO);
+//	}
+//	@Test
+//	public void nextLoginHistorySeqTest(){
+//		return getSqlSession().selectOne("MemberDAO.nextLoginHistorySeq");
+//	}
+//	@Test
+//	public void getAllLoginHistoryTest(){
+//		return getSqlSession().selectList("MemberDAO.getAllLoginHistory", loginHistorySearchVO);
+//	}
+//	@Test
+//	public void doMatchHistoryWithMemberTest(){
+//		return getSqlSession().selectOne("MemberDAO.doMatchHistoryWithMember", loginHistoryVO);
+//	}
+//	@Test
+//	public void doRequestIpHistoryTest(){
+//		getSqlSession().update("MemberDAO.doRequestIpHistory", lgiHtrId);
+//	}
+//	@Test
+//	public void doCheckIpTest(){
+//		return getSqlSession().selectOne("MemberDAO.doCheckIp",loginHistoryVO);
+//	}
+//	@Test
+//	public void checkIpInfoTest(){
+//		return getSqlSession().selectOne("MemberDAO.checkIpInfo", loginHistoryVO);
+//	}
+//	@Test
+//	public void ipCheckCountUpdateTest(){
+//		getSqlSession().update("MemberDAO.ipCheckCountUpdate", loginHistoryVO);
+//	}
 	/**
 	 * 나의 교육 이력 엑셀 다운로드
 	 */

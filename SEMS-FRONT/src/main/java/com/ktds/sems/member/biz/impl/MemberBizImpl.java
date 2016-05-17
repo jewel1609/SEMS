@@ -389,7 +389,6 @@ public class MemberBizImpl implements MemberBiz {
 
 	@Override
 	public List<LoginHistoryVO> getAllLoginHistory(LoginHistorySearchVO loginHistorySearchVO) {
-		
 		List<LoginHistoryVO> loginHistoryVO = memberDAO.getAllLoginHistory(loginHistorySearchVO);
 				
 		for ( LoginHistoryVO history : loginHistoryVO ) {
