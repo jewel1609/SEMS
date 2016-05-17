@@ -145,9 +145,30 @@
 		FROM	EDU_HTR
 	</select>
 	
+	<select id="getJCEduHistoryHistory" resultType="EduHistoryVO">
+  SELECT	EDU_HTR.EDU_HTR_ID educationHistoryId
+				, EDU_INFO.EDU_TTL educationTitle
+				, 	EDU_HTR.MBR_ID memberId
+				, 	EDU_HTR.EDU_HTR_DT educationHistoryDate
+				, 	EDU_HTR.STAT state
+				, 	EDU_HTR.IP ip
+				, 	EDU_HTR.CMNT cmnt
+				, 	EDU_HTR.FDBK fdbk
+		FROM	EDU_HTR
+				, EDU_INFO
+		WHERE	EDU_HTR.EDU_ID = EDU_INFO.EDU_ID
+		AND		STAT = 'JOIN_CMPL'
+	</select>
+	
 	<select id="getAllEduHistoryCount" resultType="_int">
 		SELECT	COUNT(*)
 		FROM	EDU_HTR
+	</select>
+	
+	<select id="getJCEduHistoryCount" resultType="_int">
+		SELECT	COUNT(*)
+		FROM	EDU_HTR
+		WHERE	STAT = 'JOIN_CMPL'
 	</select>
 	
 </mapper>
