@@ -153,7 +153,14 @@ public class MemberBizImpl implements MemberBiz {
 		String idPolicy = "((?=.*[a-zA-Z])(?=.*[0-9]).{5,20})";
 		Pattern pattern = Pattern.compile(idPolicy);
 		Matcher matcher = pattern.matcher(id);
-		return matcher.matches();
+		boolean isVerify = matcher.matches();
+		
+		idPolicy = "(^[A-Za-z0-9]*$)";
+		pattern = Pattern.compile(idPolicy);
+		matcher = pattern.matcher(id);
+		isVerify = isVerify && matcher.matches();
+		
+		return isVerify;
 	}
 
 	@Override
@@ -161,12 +168,19 @@ public class MemberBizImpl implements MemberBiz {
 		String passwordPolicy = "((?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*()]).{10,20})";
 		Pattern pattern = Pattern.compile(passwordPolicy);
 		Matcher matcher = pattern.matcher(password);
-		return matcher.matches();
+		boolean isVerify = matcher.matches();
+		
+		passwordPolicy = "(^[A-Za-z0-9!@#$%^&*()]*$)";
+		pattern = Pattern.compile(passwordPolicy);
+		matcher = pattern.matcher(password);
+		isVerify = isVerify && matcher.matches();
+		
+		return isVerify;
 	}
 	
 	@Override
 	public boolean isVerifyPhoneNumber (String phoneNumber) {
-		String phoneNumberPolicy = "(^?0([0-9]){1,2}-?([0-9]{3,4})-?([0-9]{4})$)";
+		String phoneNumberPolicy = "(^0([0-9]){1,2}-([0-9]{3,4})-([0-9]{4})$)";
 		Pattern pattern = Pattern.compile(phoneNumberPolicy);
 		Matcher matcher = pattern.matcher(phoneNumber);
 		return matcher.matches();
