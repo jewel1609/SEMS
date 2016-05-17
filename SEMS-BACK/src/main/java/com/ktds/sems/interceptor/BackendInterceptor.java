@@ -20,7 +20,11 @@ public class BackendInterceptor extends HandlerInterceptorAdapter {
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
 		String userType = (String) request.getSession().getAttribute(Session.MEMBER_TYPE);
-		if(userType == null || !userType.equals("ADM")) {
+		if(userType != null && userType.equals("ADM")) {
+			return;
+		}
+		else {
+			response.sendRedirect("/backend");
 			return;
 		}
 	}

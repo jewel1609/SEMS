@@ -13,14 +13,6 @@
 			<mvc:mapping path="/**"/>
 			<bean id="backendInterceptor" class="com.ktds.sems.interceptor.BackendInterceptor"/>
 		</mvc:interceptor>
-		<mvc:interceptor>
-		<!-- 모든 페이지에서 세션이 끊겨 있으면 root로 이동 -->
-			<mvc:mapping path="/**"/>
-				<mvc:exclude-mapping path="/backend"/>
-				<mvc:exclude-mapping path="/fabicon.ico"/>
-				<mvc:exclude-mapping path="/resources/**"/>
-			<bean id="sessionCheckInterceptor" class="com.ktds.sems.interceptor.SessionCheckInterceptor"/>
-		</mvc:interceptor>
 	</mvc:interceptors>
 	
 	<bean id="viewResolver"

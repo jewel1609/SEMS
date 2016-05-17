@@ -27,9 +27,9 @@
 				} else if (data == "CNGPW") {
 					alert("비밀번호를 설정한지 30일이 지났습니다. 비밀번호를 변경해주세요!");
 					location.href="<c:url value='/changePassword'/>";
-				} else if (data = "NOADMIN") {
+				} else if (data == "NOADMIN") {
 					alert("관리자만 접속 가능합니다.");
-				} else if (data = "RSN") {
+				} else if (data == "RSN") {
 					alert("탈퇴한 회원입니다.");
 				}
 			});
