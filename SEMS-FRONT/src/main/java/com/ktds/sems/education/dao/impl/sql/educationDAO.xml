@@ -418,4 +418,25 @@
 		FROM	MBR
 		WHERE	ID = #{id}
 	</select>
+	
+	<select id="getStartYear" resultType="string">
+		SELECT	SUBSTR(SDATE, 0, 4) SDATE
+		FROM	(
+                    SELECT  SRT_DATE SDATE
+                    FROM    EDU_INFO
+                    ORDER   BY SRT_DATE ASC
+                )
+		WHERE   ROWNUM = 1
+	</select>
+	
+	<select id="getEndYear" resultType="string">
+		SELECT	SUBSTR(EDATE, 0, 4) EDATE
+		FROM	(
+                    SELECT  END_DATE EDATE
+                    FROM    EDU_INFO
+                    ORDER   BY END_DATE DESC
+                )
+		WHERE   ROWNUM = 1
+	
+	</select>
 </mapper>
