@@ -589,4 +589,77 @@ public class MemberBizImpl implements MemberBiz {
 		return hidedIp;
 	}
 
+	@Override
+	public boolean eduationHistoryExportExel(String id) {
+		WriteOption wo = new WriteOption();
+		wo.setSheetName("나의 교육 이력");
+		wo.setFileName("나의교육이력.xlsx");
+		wo.setFilePath("D:\\");
+		List<String> titles = new ArrayList<String>();
+
+		// 10개
+		titles.add("교육이력번호");
+		titles.add("교육번호");
+		titles.add("수강생 아이디");
+		titles.add("신청 날짜");
+		titles.add("신청 상태");
+		titles.add("신청 IP");
+		titles.add("코멘트");
+		titles.add("피드백");
+		titles.add("교육시작일자");
+		titles.add("교육종료일자");
+		wo.setTitles(titles);
+
+		List<String[]> contents = new ArrayList<String[]>();
+		List<EducationHistoryVO> educationHistoryList = new ArrayList<EducationHistoryVO>();
+
+		// educationHistoryList 만들기
+		try {
+			educationHistoryList = memberDAO.getAllEducationHistoryListByIdForExel(id);
+			Iterator<EducationHistoryVO> tempIterator = educationHistoryList.iterator();
+
+			// TODO while문으로 null을 만날 때 까지 while문을 돌려야 할 것 같다
+			while (tempIterator.hasNext())
+
+			{
+				// TODO String[] 타입인데... 이걸 수정해바야 할 것 같다.
+				// 하나씩 String[]에 담는 것 그리고 add
+				EducationHistoryVO tempEducationHistoryVO = new EducationHistoryVO();
+				tempEducationHistoryVO = tempIterator.next();
+
+				// 10개
+				String[] content = new String[10];
+
+				content[0] = tempEducationHistoryVO.getEducationHistoryId();
+				content[1] = tempEducationHistoryVO.getEducationId();
+				content[2] = tempEducationHistoryVO.getMemberId();
+				content[3] = tempEducationHistoryVO.getEducationHistoryDate();
+				content[4] = tempEducationHistoryVO.getState();
+				content[5] = tempEducationHistoryVO.getIp();
+				content[6] = tempEducationHistoryVO.getCmnt();
+				content[7] = tempEducationHistoryVO.getFdbk();
+				content[8] = tempEducationHistoryVO.getStartDate();
+				content[9] = tempEducationHistoryVO.getEndDate();
+				
+				System.out.println("#########################");
+				System.out.println(tempEducationHistoryVO.getEducationHistoryId());
+				System.out.println("#########################");
+				
+				contents.add(content);
+			}
+
+			wo.setContents(contents);
+
+			File excelFile = ExcelWrite.write(wo);
+
+		} catch (Exception e) {
+			throw new RuntimeException();
+		}
+		
+		System.out.println("*********");
+		System.out.println(educationHistoryList);
+		System.out.println("*********");
+		
+		return educationHistoryList != null;
+	}
 }

@@ -762,4 +762,17 @@ public class MemberServiceImpl implements MemberService {
 		}
 	}
 
+	@Override
+	public String eduationHistoryExportExel(HttpSession session) {
+		MemberVO memberVO = (MemberVO) session.getAttribute(Session.MEMBER);
+		boolean isSuccess = memberBiz.eduationHistoryExportExel(memberVO.getId());
+		
+		if(isSuccess) {
+			return "redirect:/member/myPage/educationHistory";
+		} else {
+			return "redirect:/member/myPage";
+		}
+		
+	}
+
 }

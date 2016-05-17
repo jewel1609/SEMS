@@ -78,4 +78,6 @@ public interface MemberService {
 
 	public ModelAndView doCheckIp(int lgiHtrId, HttpSession session);
 
+	public String eduationHistoryExportExel(HttpSession session);
+
 }

@@ -262,8 +262,14 @@ public class MemberController {
 	public ModelAndView viewEducationHistroyPage(@RequestParam(required = false, defaultValue = "0") int pageNo, HttpSession session) {
 		return memberService.getAllEducationHistoryList(pageNo, session);
 	}
+	
 	@RequestMapping(value=("/member/doCheckIp/{lgiHtrId}"), method=RequestMethod.GET)
 	public ModelAndView doCheckIp(@PathVariable int lgiHtrId, HttpSession session) {
 		return memberService.doCheckIp(lgiHtrId, session);
+	}
+	
+	@RequestMapping("/member/myPage/educationHistory/exportExel")
+	public String eduationHistoryExportExel(HttpSession session) {
+		return memberService.eduationHistoryExportExel(session);
 	}
 }

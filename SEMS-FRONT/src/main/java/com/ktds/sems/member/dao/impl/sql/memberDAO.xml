@@ -481,6 +481,23 @@
 		AND		MBR_ID = #{id}
 	</select>
 	
+	<select id="getAllEducationHistoryListByIdForExel" parameterType="string" resultType="EducationHistoryVO">
+		SELECT	EH.EDU_HTR_ID educationHistoryId
+				, EH.EDU_ID educationId
+				, EH.MBR_ID memberId
+				, EH.EDU_HTR_DT educationHistoryDate
+				, EH.STAT state
+				, EH.IP ip
+				, EH.CMNT cmnt
+				, EH.FDBK fdbk
+				, EI.SRT_DATE startDate
+				, EI.END_DATE endDate
+		FROM	EDU_INFO EI
+				, EDU_HTR EH
+		WHERE	EI.EDU_ID = EH.EDU_ID
+		AND		EH.MBR_ID = #{id}
+	</select>
+	
 	<update id="ipCheckCountUpdate" parameterType="LoginHistoryVO">
 		UPDATE	LGI_HTR
 		SET		CHK_CNT	= 0

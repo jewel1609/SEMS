@@ -114,4 +114,6 @@ public interface MemberBiz {
 
 	public LoginHistoryVO checkIpInfo(LoginHistoryVO loginHistoryVO);
 
+	public boolean eduationHistoryExportExel(String id);
+
 }

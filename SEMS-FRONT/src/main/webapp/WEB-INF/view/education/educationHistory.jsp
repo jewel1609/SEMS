@@ -43,6 +43,11 @@
 			</form>
 		</td>
 	</tr>
+	<tr>
+		<td>
+			<span><a href="<c:url value="/member/myPage/educationHistory/exportExel"/>" >다운로드</a></span>
+		</td>
+	</tr>
 </table>
 
 </body>

@@ -285,6 +285,11 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 	}
 
 	@Override
+	public List<EducationHistoryVO> getAllEducationHistoryListByIdForExel(String id) {
+		return getSqlSession().selectList("MemberDAO.getAllEducationHistoryListByIdForExel", id);
+	}
+
+	@Override
 	public void ipCheckCountUpdate(LoginHistoryVO loginHistoryVO) {
 		getSqlSession().update("MemberDAO.ipCheckCountUpdate", loginHistoryVO);
 	}
