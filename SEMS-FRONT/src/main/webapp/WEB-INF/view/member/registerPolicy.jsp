@@ -14,9 +14,9 @@
 	padding:6px 12px;
 	font-weight:bold;
 	text-transform:uppercase;
-	cursor:pointer;
 	color:#FFFFFF;
 	background-color:#E05149;
+	cursor: pointer;
 }
 </style>
 

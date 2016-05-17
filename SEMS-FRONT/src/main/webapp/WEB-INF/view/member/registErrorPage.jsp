@@ -14,6 +14,7 @@
 	text-transform:uppercase;
 	color:#FFFFFF;
 	background-color:#E05149;
+	cursor: pointer;
 }
 </style>
 <script type="text/javascript">
