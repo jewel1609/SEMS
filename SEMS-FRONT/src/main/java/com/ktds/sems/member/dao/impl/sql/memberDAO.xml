@@ -480,4 +480,12 @@
 		WHERE	LGI_HTR_ID = #{lgiHtrId}
 		AND		MBR_ID = #{id}
 	</select>
+	
+	<update id="ipCheckCountUpdate" parameterType="LoginHistoryVO">
+		UPDATE	LGI_HTR
+		SET		CHK_CNT	= 0
+				, IS_REQ = ''
+		WHERE	LGI_HTR_ID = #{lgiHtrId}
+		AND		MBR_ID = #{id}
+	</update>
 </mapper>

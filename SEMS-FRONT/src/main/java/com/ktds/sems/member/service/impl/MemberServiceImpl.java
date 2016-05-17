@@ -748,9 +748,11 @@ public class MemberServiceImpl implements MemberService {
 		LoginHistoryVO loginHistoryVO = new LoginHistoryVO();
 		loginHistoryVO.setId(sessionMember.getId());
 		loginHistoryVO.setLgiHtrId(lgiHtrId);
-		boolean checkIp = memberBiz.doCheckIp(loginHistoryVO);
 		
-		if(checkIp) {
+		boolean checkIp = memberBiz.doCheckIp(loginHistoryVO);
+		boolean memberCheck = memberBiz.doMatchHistoryWithMember(loginHistoryVO);
+		
+		if(checkIp && memberCheck) {
 			LoginHistoryVO loginHistory = memberBiz.checkIpInfo(loginHistoryVO);
 			view.setViewName("member/checkIP");
 			view.addObject("loginHistory", loginHistory);

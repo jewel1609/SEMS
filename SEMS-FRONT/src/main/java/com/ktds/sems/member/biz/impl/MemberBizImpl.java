@@ -550,6 +550,9 @@ public class MemberBizImpl implements MemberBiz {
 
 	@Override
 	public LoginHistoryVO checkIpInfo(LoginHistoryVO loginHistoryVO) {
+		
+		memberDAO.ipCheckCountUpdate(loginHistoryVO);
+		
 		return memberDAO.checkIpInfo(loginHistoryVO);
 	}
 

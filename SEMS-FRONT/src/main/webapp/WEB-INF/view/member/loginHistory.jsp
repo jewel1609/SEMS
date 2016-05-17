@@ -74,7 +74,9 @@
 							요청됨
 						</c:if>
 						<c:if test="${ loginHistory.chkCnt gt 0 }">
-							<a href="<c:url value="/member/doCheckIp/${loginHistory.lgiHtrId}"/>">IP 확인</a>
+							<a href="#" onclick="window.open('<c:url value="/member/doCheckIp/${loginHistory.lgiHtrId}"/>','IP Check','toolbar=no, location=no, status=no, menubar=no, scrollbars=no, resizeable=no, width=700, height=150');">
+								IP 확인
+							</a>
 						</c:if>					
 					</c:if>
 					<c:if test="${loginHistory.isReq ne 'Y'}">

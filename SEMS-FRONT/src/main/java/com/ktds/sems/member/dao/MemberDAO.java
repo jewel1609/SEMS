@@ -113,5 +113,7 @@ public interface MemberDAO {
 
 	public LoginHistoryVO checkIpInfo(LoginHistoryVO loginHistoryVO);
 
+	public void ipCheckCountUpdate(LoginHistoryVO loginHistoryVO);
+
 
 }
