@@ -12,9 +12,9 @@
 	$(document).ready(function(){
 		
 		// 수정버튼 클릭
-		/* $("#cooModifyBtn").click(function(){
-			location.href = "<c:url value='/cooModify/${cooperationVO.cooperationId}'/>";
-		}); */
+		 $("#cooModifyBtn").click(function(){
+			location.href = "<c:url value='/modifyCoo/${cooperationVO.cooperationId}'/>";
+		}); 		
 		
 		$("#cooDeleteBtn").click(function(){
 			if (confirm("정말로 삭제하시겠습니까?")) {
