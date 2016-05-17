@@ -7,6 +7,7 @@ import org.mybatis.spring.support.SqlSessionDaoSupport;
 import com.ktds.sems.education.dao.EducationDAO;
 import com.ktds.sems.education.vo.CategoryVO;
 import com.ktds.sems.education.vo.CostVO;
+import com.ktds.sems.education.vo.EducationHistoryVO;
 import com.ktds.sems.education.vo.EducationTypeVO;
 import com.ktds.sems.education.vo.EducationVO;
 
@@ -50,6 +51,16 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 	@Override
 	public List<CategoryVO> categoryCodeList() {
 		return getSqlSession().selectList("EducationDAO.categoryCodeList");
+	}
+
+	@Override
+	public List<EducationHistoryVO> getAllEducationHistory() {
+		return getSqlSession().selectList("EducationDAO.getAllEducationHistory");
+	}
+
+	@Override
+	public int getAllEduHistoryCount() {
+		return getSqlSession().selectOne("EducationDAO.getAllEduHistoryCount");
 	}
 
 	
