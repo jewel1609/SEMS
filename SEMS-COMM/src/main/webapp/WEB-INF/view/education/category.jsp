@@ -82,10 +82,10 @@
 			initCategoryIdAndName();
 			categoryType.val('large');
 			categoryId.attr('readonly', false);
+			$("#addCategoryBtn").show();
+			$("#modifyCategoryBtn").hide();
 			var hasNewCategoryContainer = $('#largeCategoryListContainer #newCategoryContainer').length > 0;
 			if ( !hasNewCategoryContainer ) {
-				$("#addCategoryBtn").show();
-				$("#modifyCategoryBtn").hide();
 				$("#largeCategoryListContainer").append($("#newCategoryContainer").detach());
 				$("#newCategoryContainer").show();
 			}
@@ -101,10 +101,10 @@
 				categoryType.val('medium');
 				parentCategoryId.val($('#largeCategoryList').val());
 				categoryId.attr('readonly', false);
+				$("#addCategoryBtn").show();
+				$("#modifyCategoryBtn").hide();
 				var hasNewCategoryContainer = $('#mediumCategoryListContainer #newCategoryContainer').length > 0;
 				if ( !hasNewCategoryContainer ) {
-					$("#addCategoryBtn").show();
-					$("#modifyCategoryBtn").hide();
 					$("#mediumCategoryListContainer").append($("#newCategoryContainer").detach());
 					$("#newCategoryContainer").show();
 				}
@@ -124,10 +124,10 @@
 				categoryType.val('small');
 				parentCategoryId.val($('#mediumCategoryList').val());
 				categoryId.attr('readonly', false);
+				$("#addCategoryBtn").show();
+				$("#modifyCategoryBtn").hide();
 				var hasNewCategoryContainer = $('#smallCategoryListContainer #newCategoryContainer').length > 0;
 				if ( !hasNewCategoryContainer ) {
-					$("#addCategoryBtn").show();
-					$("#modifyCategoryBtn").hide();
 					$("#smallCategoryListContainer").append($("#newCategoryContainer").detach());
 					$("#newCategoryContainer").show();
 				}
@@ -149,10 +149,10 @@
 				categoryId.attr('readonly', true);
 				categoryName.val($("#largeCategoryList option:selected").text());
 				
+				$("#addCategoryBtn").hide();
+				$("#modifyCategoryBtn").show();
 				var hasNewCategoryContainer = $('#largeCategoryListContainer #newCategoryContainer').length > 0;
 				if ( !hasNewCategoryContainer ) {
-					$("#addCategoryBtn").hide();
-					$("#modifyCategoryBtn").show();
 					$("#largeCategoryListContainer").append($("#newCategoryContainer").detach());
 					$("#newCategoryContainer").show();
 				}
@@ -173,10 +173,10 @@
 				categoryId.val($("#mediumCategoryList").val());
 				categoryId.attr('readonly', true);
 				categoryName.val($("#mediumCategoryList option:selected").text());
+				$("#addCategoryBtn").hide();
+				$("#modifyCategoryBtn").show();
 				var hasNewCategoryContainer = $('#mediumCategoryListContainer #newCategoryContainer').length > 0;
 				if ( !hasNewCategoryContainer ) {
-					$("#addCategoryBtn").hide();
-					$("#modifyCategoryBtn").show();
 					$("#mediumCategoryListContainer").append($("#newCategoryContainer").detach());
 					$("#newCategoryContainer").show();
 				}
@@ -197,10 +197,10 @@
 				categoryId.val($("#smallCategoryList").val());
 				categoryId.attr('readonly', true);
 				categoryName.val($("#smallCategoryList option:selected").text());
+				$("#addCategoryBtn").hide();
+				$("#modifyCategoryBtn").show();
 				var hasNewCategoryContainer = $('#smallCategoryListContainer #newCategoryContainer').length > 0;
 				if ( !hasNewCategoryContainer ) {
-					$("#addCategoryBtn").hide();
-					$("#modifyCategoryBtn").show();
 					$("#smallCategoryListContainer").append($("#newCategoryContainer").detach());
 					$("#newCategoryContainer").show();
 				}
@@ -330,7 +330,7 @@
 			
 			$.post(
 					'<c:url value="/education/getChildCategory"/>'
-					, 'parentCategoryId=' + parentCategoryId.val() + '&categoryType=large'
+					, 'categoryId=' + parentCategoryId.val() + '&categoryType=large'
 					, function(response){
 						if ( response.result ) {
 							$("#smallCategoryList").empty();
@@ -358,7 +358,7 @@
 			
 			$.post(
 					'<c:url value="/education/getChildCategory"/>'
-					, 'parentCategoryId=' + parentCategoryId.val() + '&categoryType=medium'
+					, 'categoryId=' + parentCategoryId.val() + '&categoryType=medium'
 					, function(response){
 						if ( response.result ) {
 							var smallCategoryList = $("#smallCategoryList");
