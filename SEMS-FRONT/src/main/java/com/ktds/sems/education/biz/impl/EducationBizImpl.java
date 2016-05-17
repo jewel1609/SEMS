@@ -154,7 +154,6 @@ public class EducationBizImpl implements EducationBiz {
 	 */
 	@Override
 	public void exportQNAListAsExcel(String memberId) {
-		
 		WriteOption wo = new WriteOption();
 		wo.setSheetName("교육 문의 내역");
 		wo.setFileName("교육 문의 내역.xlsx");
@@ -178,25 +177,21 @@ public class EducationBizImpl implements EducationBiz {
 
 			// TODO while문으로 null을 만날 때 까지 while문을 돌려야 할 것 같다
 			while (tempIterator.hasNext())
-
 			{
 				// TODO String[] 타입인데... 이걸 수정해바야 할 것 같다.
 				// 하나씩 String[]에 담는 것 그리고 add
 				QNAVO tempQnaVO = new QNAVO();
 				tempQnaVO = tempIterator.next();
-				
-				// 답변을 답기 위해서 
-				QNAVO tempAnsweredQnaVO = educationDAO.getSelectedQNAAnswer(tempQnaVO.getReplyId());
 
-				String[] content = new String[5];
+				String[] content = new String[6];
 
 				content[0] = tempQnaVO.getReplyId();
 				content[1] = tempQnaVO.getEduId();
 				content[2] = tempQnaVO.getCreatedDate();
 				content[3] = tempQnaVO.getDescription();
 				content[4] = tempQnaVO.getIsAnswered();
-				content[5] = tempAnsweredQnaVO.getDescription();
-
+				content[5] = tempQnaVO.getAnswer();
+				
 				contents.add(content);
 			}
 
