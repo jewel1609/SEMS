@@ -445,6 +445,8 @@
 				, EH.IP ip
 				, EH.CMNT cmnt
 				, EH.FDBK fdbk
+				, EI.EDU_TTL educationTitle
+				, EI.COST cost
 				, EI.SRT_DATE startDate
 				, EI.END_DATE endDate
 		FROM	EDU_INFO EI
