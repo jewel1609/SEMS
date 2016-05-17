@@ -156,5 +156,15 @@ public class EducationBizImpl implements EducationBiz {
 		return educationDAO.getAllEduHistoryCount();
 	}
 
+	@Override
+	public int getJCEduHistoryCount() {
+		return educationDAO.getJCEduHistoryCount();
+	}
+
+	@Override
+	public List<EducationHistoryVO> getJCEducationHistory() {
+		return educationDAO.getJCEduHistoryHistory();
+	}
+
 
 }
