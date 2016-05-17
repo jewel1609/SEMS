@@ -157,7 +157,7 @@ public class EducationBizImpl implements EducationBiz {
 	 * @author 206-025 이기연
 	 */
 	@Override
-	public QNAVO getSelectedQNAAnswer(String replyId) {
+	public List<QNAVO> getSelectedQNAAnswer(String replyId) {
 		return educationDAO.getSelectedQNAAnswer(replyId);
 	}
 
