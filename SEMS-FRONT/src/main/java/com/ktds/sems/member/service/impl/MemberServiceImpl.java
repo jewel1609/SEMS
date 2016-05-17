@@ -692,11 +692,6 @@ public class MemberServiceImpl implements MemberService {
 		List<EducationHistoryVO> joinEducationList = memberBiz.getJoinEducationList(educationHistorySearchVO.getMemberId());
 		educationHistoryListVO.setEducationHistoryList(educationHistoryList);
 
-		System.out.println("******************************");
-		System.out.println(educationHistoryList.get(0).getEducationId());
-		System.out.println(educationHistoryList.get(0).getEducationTitle());
-		System.out.println("******************************");
-		
 		ModelAndView view = new ModelAndView();
 		view.setViewName("education/educationHistory");
 		view.addObject("educationHistoryListVO", educationHistoryListVO);

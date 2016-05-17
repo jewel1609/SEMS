@@ -389,4 +389,33 @@ public class MemberDAOTest extends SemsTestCase {
 			fail("fail");
 		}
 	}
+	
+	/**
+	 * 진행중인 교육 이력 보기
+	 */
+	@Test
+	public void getJoinEducationList() {
+		
+		String memberId = "test02";
+		List<EducationHistoryVO> educationHistoryList = memberDAO.getJoinEducationList(memberId);
+
+		if(educationHistoryList != null) {
+			
+			for (EducationHistoryVO educationHistoryVO : educationHistoryList) {
+				assertNotNull(educationHistoryVO.getEducationHistoryId());
+				assertNotNull(educationHistoryVO.getEducationId());
+				assertNotNull(educationHistoryVO.getMemberId());
+				assertNotNull(educationHistoryVO.getEducationHistoryDate());
+				assertNotNull(educationHistoryVO.getState());
+				assertNotNull(educationHistoryVO.getIp());
+				assertNotNull(educationHistoryVO.getStartDate());
+				assertNotNull(educationHistoryVO.getEndDate());
+				assertNotNull(educationHistoryVO.getEducationTitle());
+				assertNotNull(educationHistoryVO.getCost());
+			}
+			
+		} else {
+			fail("fail");
+		}
+	}
 }
