@@ -437,15 +437,18 @@
 	</select>
 	
 	<select id="getAllEducationHistoryListById" parameterType="EducationHistorySearchVO" resultType="EducationHistoryVO">
-		SELECT	EDU_HTR_ID educationHistoryId
-				, EDU_ID educationId
-				, MBR_ID memberId
-				, EDU_HTR_DT educationHistoryDate
-				, STAT state
-				, IP ip
-				, CMNT comment
-				, FDBK feedback
-		FROM	(
+		SELECT	EH.EDU_HTR_ID educationHistoryId
+				, EH.EDU_ID educationId
+				, EH.MBR_ID memberId
+				, EH.EDU_HTR_DT educationHistoryDate
+				, EH.STAT state
+				, EH.IP ip
+				, EH.CMNT cmnt
+				, EH.FDBK fdbk
+				, EI.SRT_DATE startDate
+				, EI.END_DATE endDate
+		FROM	EDU_INFO EI
+				, (
 					SELECT	ROWNUM AS RNUM
 							, EDUCATION_HISTORY.*
 					FROM	(
@@ -455,8 +458,9 @@
 								ORDER BY EDU_HTR_ID DESC
 							) EDUCATION_HISTORY
 					WHERE	ROWNUM <![CDATA[<=]]> #{endIndex}
-				)
+				) EH
 		WHERE	RNUM <![CDATA[>=]]> #{startIndex}
+		AND		EI.EDU_ID = EH.EDU_ID
 	</select>
 	<select id="doCheckIp" parameterType="LoginHistoryVO" resultType="_int">
 		SELECT	'1'
