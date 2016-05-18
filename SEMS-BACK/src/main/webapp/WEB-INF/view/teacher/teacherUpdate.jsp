@@ -31,7 +31,7 @@
 		});
 
 		$("#update").click(function() {
-			if (confirm("정말 등록하시겠습니까?") == true) {
+			if (confirm("정말 수정하시겠습니까?") == true) {
 				if ($("#compCheckedBox").val() == '1') {
 					if ($.trim($('#companyName').val()) == '') {
 						alert("소속업체를 입력하시오.");
