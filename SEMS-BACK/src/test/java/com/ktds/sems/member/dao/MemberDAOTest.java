@@ -16,6 +16,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.ktds.sems.member.vo.MemberSearchVO;
 import com.ktds.sems.member.vo.MemberVO;
+import com.ktds.sems.member.vo.PersonalInfoReadVO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"/applicationContext.xml", "/educationContext.xml", "/memberContext.xml", "/fileContext.xml", "/rootContext.xml"})
@@ -162,6 +163,49 @@ public class MemberDAOTest  {
 		
 		int deleteCount = memberDAO.massiveDeleteMember(member.getId());
 		assertTrue(deleteCount > 0 );
+	}
+	
+	/**
+	 * getTargetMemberEmail
+	 * getSysdate
+	 * getPersonalInfoIdSeq
+	 * doWriteMemberDetailInfo
+	 * 
+	 */
+	
+	@Test
+	public void getTargetMemberEmailTest() {
+		String id = "test01";
+		String getTargetMemberEmail  = memberDAO.getTargetMemberEmail(id);
+		assertNotNull(getTargetMemberEmail);
+		assertEquals(getTargetMemberEmail, "hihelloho@nate.com");
+	}
+	
+	@Test
+	public void getSysdateTest() {
+		String getSysdate  = memberDAO.getSysdate();
+		assertNotNull(getSysdate);
+	}
+	
+	//@Test
+	public void getPersonalInfoIdSeq() {
+		int getPersonalInfoIdSeq = memberDAO.getPersonalInfoIdSeq();
+		assertNotNull(getPersonalInfoIdSeq);
+		assertTrue(getPersonalInfoIdSeq > 0);
+	}
+	
+	//@Test
+	public void doWriteMemberDetailInfo() {
+		PersonalInfoReadVO personalInfoReadVO = new PersonalInfoReadVO();
+		personalInfoReadVO.setId("testJunitDAO");
+		personalInfoReadVO.setMemberId("junitTest");
+		personalInfoReadVO.setTargetMemberId("test01");
+		personalInfoReadVO.setDescription("desc");
+		personalInfoReadVO.setReadDate("Junitdate");
+		
+		int doWriteMemberDetailInfo = memberDAO.doWriteMemberDetailInfo(personalInfoReadVO);
+		assertNotNull(doWriteMemberDetailInfo);
+		assertTrue(doWriteMemberDetailInfo > 0);
 	}
 	
 }
