@@ -18,6 +18,7 @@ import com.ktds.sems.member.vo.LoginHistorySearchVO;
 import com.ktds.sems.member.vo.LoginHistoryVO;
 import com.ktds.sems.member.vo.MemberSearchVO;
 import com.ktds.sems.member.vo.MemberVO;
+import com.ktds.sems.member.vo.PersonalInfoReadVO;
 
 import kr.co.hucloud.utilities.SHA256Util;
 
@@ -325,6 +326,26 @@ public class MemberBizImpl implements MemberBiz {
 	@Override
 	public String getMemberTypeCodeId(String memberType) {
 		return memberDAO.getMemberTypeCodeId(memberType);
+	}
+
+	@Override
+	public boolean doWriteMemberDetailInfo(PersonalInfoReadVO personalInfoReadVO) {
+		return memberDAO.doWriteMemberDetailInfo(personalInfoReadVO) > 0;
+	}
+
+	@Override
+	public int getPersonalInfoIdSeq() {
+		return memberDAO.getPersonalInfoIdSeq();
+	}
+
+	@Override
+	public String getSysdate() {
+		return memberDAO.getSysdate();
+	}
+
+	@Override
+	public String getTargetMemberEmail(String targetMemberId) {
+		return memberDAO.getTargetMemberEmail(targetMemberId);
 	}
 
 	@Override
