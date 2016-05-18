@@ -1,14 +1,10 @@
 package com.ktds.sems.member.service.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
-import java.util.ArrayList;
 import java.util.UUID;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,22 +16,20 @@ import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.common.SendMail;
-import com.ktds.sems.common.LoginStore;
 import com.ktds.sems.common.Session;
 import com.ktds.sems.common.vo.MailVO;
 import com.ktds.sems.member.biz.MemberBiz;
 import com.ktds.sems.member.service.MemberService;
 import com.ktds.sems.member.vo.LoginHistoryListVO;
-import com.ktds.sems.member.vo.LoginHistoryVO;
 import com.ktds.sems.member.vo.LoginHistorySearchVO;
+import com.ktds.sems.member.vo.LoginHistoryVO;
 import com.ktds.sems.member.vo.MemberListVO;
 import com.ktds.sems.member.vo.MemberSearchVO;
 import com.ktds.sems.member.vo.MemberVO;
-import com.ktds.sems.member.web.MemberController;
 
 import kr.co.hucloud.utilities.SHA256Util;
-import kr.co.hucloud.utilities.web.Paging;
 import kr.co.hucloud.utilities.web.AjaxUtil;
+import kr.co.hucloud.utilities.web.Paging;
 
 public class MemberServiceImpl implements MemberService{
 
@@ -206,13 +200,22 @@ public class MemberServiceImpl implements MemberService{
 		memberListVO.setMemberList(memberList);
 		
 		List<String> memberTypeList = memberBiz.getMemberType();
+		List<String> searchTypeList = searchTypeList();
 		
 		ModelAndView view = new ModelAndView();
 		view.setViewName("member/memberListPage");
 		view.addObject("memberListVO", memberListVO);
 		view.addObject("memberSearchVO", memberSearchVO);
 		view.addObject("memberTypeList", memberTypeList);
+		view.addObject("searchTypeList", searchTypeList);
 		return view;
+	}
+	
+	private List<String> searchTypeList() {
+		List<String> searchTypeList = new ArrayList<String>();
+		searchTypeList.add("Y");
+		searchTypeList.add("N");
+		return searchTypeList;
 	}
 
 	@Override
