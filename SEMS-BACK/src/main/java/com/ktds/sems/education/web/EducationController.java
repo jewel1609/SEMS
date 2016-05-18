@@ -58,58 +58,16 @@ public class EducationController {
 		return view;
 	}
 
-	@RequestMapping("/joinAply/{educationId}/{memberId}")
-	public ModelAndView doJoinApply(@PathVariable String educationId, @PathVariable String memberId) {
-		System.out.println(memberId);
-		System.out.println(educationId);
-
-		ModelAndView view = educationService.applyJoinEducationByMemberId(educationId, memberId);
+	@RequestMapping("/joinAply/{educationHistoryId}")
+	public ModelAndView doJoinApply(@PathVariable String educationHistoryId ) {
+		ModelAndView view = educationService.applyJoinEducationByMemberId(educationHistoryId);
 		return view;
 	}
 
-	@RequestMapping("/joinCncl/{educationId}/{memberId}/{description}")
-	public ModelAndView cnclJoin(@PathVariable String educationId, @PathVariable String memberId,
-			@PathVariable String description) {
-		System.out.println(memberId);
-		System.out.println(educationId);
-		System.out.println(description);
-
-		ModelAndView view = educationService.cancelJoinEducationByMemberId(educationId, memberId, description);
+	@RequestMapping("/joinCncl/{educationHistoryId}/{memberId}/{description}")
+	public ModelAndView cnclJoin(@PathVariable String educationHistoryId, @PathVariable String memberId, @PathVariable String description) {
+		ModelAndView view = educationService.cancelJoinEducationByMemberId(educationHistoryId, memberId, description);
 		return view;
 	}
 
-	
-	@RequestMapping("/cancelComplete/{educationHistoryId}")
-	public ModelAndView doCancelComplete(@PathVariable String educationHistoryId){
-	System.out.println(educationHistoryId);
-	
-	ModelAndView view = educationService.completeCancelEducationByMemberId(educationHistoryId);
-	return view;
-	}
-	  
-	@RequestMapping("/cancelDeny/{educationHistoryId}")
-	public ModelAndView doCancelDeny(@PathVariable String educationHistoryId){
-		System.out.println(educationHistoryId);
-		
-		ModelAndView view = educationService.denyCancelEducationByMemberId(educationHistoryId);
-		return view;
-		}
-		  
-	@RequestMapping("/giveUpComplete/{educationHistoryId}")
-	public ModelAndView doGiveUpComplete(@PathVariable String educationHistoryId){
-	System.out.println(educationHistoryId);
-	
-	ModelAndView view = educationService.completeGiveUpEducationByMemberId(educationHistoryId);
-	return view;
-	}
-	   
-	@RequestMapping("/giveUpDeny/{educationHistoryId}")
-	public ModelAndView doGiveUpDeny(@PathVariable String educationHistoryId){
-		System.out.println(educationHistoryId);
-		
-		ModelAndView view = educationService.denyGiveUpEducationByMemberId(educationHistoryId);
-		return view;
-		}
-	
-	
 }

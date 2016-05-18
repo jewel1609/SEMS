@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.validation.Errors;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.common.SendMail;
@@ -156,7 +157,9 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public ModelAndView getAllMemberHistory(LoginHistorySearchVO loginHistorySearchVO, int pageNo) {
+	public ModelAndView getAllMemberHistory(LoginHistorySearchVO loginHistorySearchVO, int pageNo, HttpSession session) {
+		String memberType = (String) session.getAttribute(Session.MEMBER_TYPE);
+		
 		LoginHistoryListVO loginHistoryListVO = new LoginHistoryListVO();
 		Paging paging = new Paging(20,20);
 		
@@ -175,11 +178,16 @@ public class MemberServiceImpl implements MemberService{
 		List<String> typeList = memberBiz.getTypeList();
 		
 		ModelAndView view = new ModelAndView();
-		view.setViewName("member/memberHistory");
-		view.addObject("typeList", typeList);
-		view.addObject("loginHistoryListVO", loginHistoryListVO);
-		view.addObject("loginHistorySearchVO", loginHistorySearchVO);
 		
+		if( memberType.equals("ADM") || memberType == null ){
+			view.setViewName("member/memberHistory");
+			view.addObject("typeList", typeList);
+			view.addObject("loginHistoryListVO", loginHistoryListVO);
+			view.addObject("loginHistorySearchVO", loginHistorySearchVO);
+		}
+		else{
+			throw new RuntimeException("접근 가능한 권한이 아닙니다.");
+		}
 		return view;
 	}
 

@@ -167,16 +167,16 @@ public class EducationBizImpl implements EducationBiz {
 	}
 
 	@Override
-	public boolean applyJoinEducationByMemberId(String educationId, String memberId) {
-		return educationDAO.applyJoinEducationByMemberId(educationId, memberId) > 0;
+	public boolean applyJoinEducationByMemberId(String educationHistoryId, String changeState) {
+		return educationDAO.applyJoinEducationByMemberId(educationHistoryId, changeState) > 0;
 	}
 
 	@Override
-	public boolean cancelJoinEducationByMemberId(String educationId, String memberId) {
-		return educationDAO.cancelJoinEducationByMemberId(educationId, memberId) > 0;
+	public boolean cancelJoinEducationByMemberId(String educationHistoryId, String changeState) {
+		return educationDAO.cancelJoinEducationByMemberId(educationHistoryId, changeState) > 0;
 	}
 	
-	@Override
+	/*@Override
 	public boolean completeCancelEducationByMemberId(String educationHistoryId) {
 		return educationDAO.completeCancelEducationByMemberId(educationHistoryId) > 0;
 	}
@@ -194,6 +194,11 @@ public class EducationBizImpl implements EducationBiz {
 	@Override
 	public boolean denyGiveUpEducationByMemberId(String educationHistoryId) {
 		return educationDAO.denyGiveUpEducationByMemberId(educationHistoryId) > 0;
+	}*/
+
+	@Override
+	public String getStateByEducationHistroyId(String educationHistoryId) {
+		return educationDAO.getStateByEducationHistroyId(educationHistoryId);
 	}
 	
 	

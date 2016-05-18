@@ -23,11 +23,8 @@ public interface EducationDAO {
 	public int getAllEduHistoryCount();
 	public int getJCEduHistoryCount();
 	public List<EducationHistoryVO> getJCEduHistoryHistory();
-	public int applyJoinEducationByMemberId(String educationId, String memberId);
-	public int cancelJoinEducationByMemberId(String educationId, String memberId);
-	public int completeCancelEducationByMemberId(String educationHistoryId);
-	public int denyCancelEducationByMemberId(String educationHistoryId);
-	public int completeGiveUpEducationByMemberId(String educationHistoryId);
-	public int denyGiveUpEducationByMemberId(String educationHistoryId);
+	public int applyJoinEducationByMemberId(String educationHistoryId, String changeState);
+	public int cancelJoinEducationByMemberId(String educationHistoryId, String changeState);
+	public String getStateByEducationHistroyId(String educationHistoryId);
 	
 }

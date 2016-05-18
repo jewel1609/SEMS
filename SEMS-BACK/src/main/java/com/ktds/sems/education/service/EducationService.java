@@ -24,17 +24,8 @@ public interface EducationService {
 
 	public ModelAndView getJCEduHistory(int pageNo);
 
-	public ModelAndView applyJoinEducationByMemberId(String educationId, String memberId);
+	public ModelAndView applyJoinEducationByMemberId(String educationHistoryId);
 
-	public ModelAndView cancelJoinEducationByMemberId(String educationId, String memberId, String description);
-
-	public ModelAndView completeCancelEducationByMemberId(String educationHistoryId);
-	
-	public ModelAndView denyCancelEducationByMemberId(String educationHistoryId);
-	
-	public ModelAndView completeGiveUpEducationByMemberId(String educationHistoryId);
-	
-	public ModelAndView denyGiveUpEducationByMemberId(String educationHistoryId);	
-
+	public ModelAndView cancelJoinEducationByMemberId(String educationHistoryId, String memberId, String description);
 
 }

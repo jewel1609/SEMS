@@ -196,7 +196,7 @@
 	        WHERE   RNUM >= #{startIndex}   
 	</select>
 	
-	<select id="getTotalMemberHistoryCount" resultType="_int">
+	<select id="getTotalMemberHistoryCount" parameterType="LoginHistorySearchVO" resultType="_int">
 		SELECT	COUNT(LGI_HTR_ID)
 		FROM	(
                 SELECT  LGI_HTR.*, MBR_TP.CD_NM

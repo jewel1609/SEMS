@@ -31,19 +31,11 @@ public interface EducationBiz {
 
 	public List<EducationHistoryVO> getJCEducationHistory();
 	
-	
+	public boolean applyJoinEducationByMemberId(String educationHistoryId, String changeState);
 
-	public boolean applyJoinEducationByMemberId(String educationId, String memberId);
+	public boolean cancelJoinEducationByMemberId(String educationHistoryId, String changeState);
 
-	public boolean cancelJoinEducationByMemberId(String educationId, String memberId);
-	
-	public boolean completeCancelEducationByMemberId(String educationHistoryId);
-	
-	public boolean denyCancelEducationByMemberId(String educationHistoryId);
-	
-	public boolean completeGiveUpEducationByMemberId(String educationHistoryId);
-	
-	public boolean denyGiveUpEducationByMemberId(String educationHistoryId);
+	public String getStateByEducationHistroyId(String educationHistoryId);
 	
 	
 

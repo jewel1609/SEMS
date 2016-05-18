@@ -76,22 +76,22 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 	}
 
 	@Override
-	public int applyJoinEducationByMemberId(String educationId, String memberId) {
+	public int applyJoinEducationByMemberId(String educationHistoryId, String changeState) {
 		Map<String, String> paramMap = new HashMap<String, String>();
-		paramMap.put("educationId", educationId);
-		paramMap.put("memberId", memberId);
+		paramMap.put("educationHistoryId", educationHistoryId);
+		paramMap.put("changeState", changeState);
 		return getSqlSession().update("EducationDAO.applyJoinEdcationByMemberId", paramMap);
 	}
 
 	@Override
-	public int cancelJoinEducationByMemberId(String educationId, String memberId) {
+	public int cancelJoinEducationByMemberId(String educationHistoryId, String changeState) {
 		Map<String, String> paramMap = new HashMap<String, String>();
-		paramMap.put("educationId", educationId);
-		paramMap.put("memberId", memberId);
+		paramMap.put("educationHistoryId", educationHistoryId);
+		paramMap.put("changeState", changeState);
 		return getSqlSession().update("EducationDAO.cancelJoinEducationByMemberId", paramMap);
 	}
 	
-	@Override
+	/*	@Override
 	public int completeCancelEducationByMemberId(String educationHistoryId) {
 		Map<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("educationHistoryId", educationHistoryId);
@@ -117,6 +117,11 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 		Map<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("educationHistoryId", educationHistoryId);
 		return getSqlSession().update("EducationDAO.denyGiveUpEducationByMemberId", paramMap);
+	}*/
+
+	@Override
+	public String getStateByEducationHistroyId(String educationHistoryId) {
+		return getSqlSession().selectOne("EducationDAO.getStateByEducationHistroyId", educationHistoryId);
 	}
 
 	

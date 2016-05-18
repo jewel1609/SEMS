@@ -173,18 +173,16 @@
 	
 	<update id="applyJoinEdcationByMemberId" parameterType="map">
 		UPDATE	 EDU_HTR
-		SET		 STAT = 'JOIN_CMPL'
-		WHERE	 EDU_ID LIKE #{educationId}
-		AND		 MBR_ID LIKE #{memberId}	
+		SET		 STAT = #{changeState}
+		WHERE	 EDU_HTR_ID = #{educationHistoryId}
 	</update>
 	
-	<delete id="cancelJoinEducationByMemberId" parameterType="map">
-		DELETE	 EDU_HTR
-		WHERE	 EDU_ID LIKE #{educationId}
-		AND		 MBR_ID LIKE #{memberId}
-		AND		 STAT LIKE 'JOIN_APLY'
-	</delete>
-	
+	<update id="cancelJoinEducationByMemberId" parameterType="map">
+		UPDATE	 EDU_HTR
+		SET		 STAT = #{changeState}
+		WHERE	 EDU_HTR_ID = #{educationHistoryId}
+	</update>
+<!-- 	
 		<update id="completeCancelEducationByMemberId" parameterType="map">
 		UPDATE	 EDU_HTR
 		SET		 STAT = 'EDU_CL_C'
@@ -207,7 +205,13 @@
 		UPDATE	 EDU_HTR
 		SET		 STAT = 'EDU_GU_R'
 		WHERE	EDU_HTR_ID = #{educationHistoryId}
-	</delete>
+	</delete> -->
+	
+	<select id="getStateByEducationHistroyId" parameterType="String" resultType="String">
+		SELECT  STAT
+		FROM	EDU_HTR
+		WHERE	EDU_HTR_ID = #{educationHistoryId}
+	</select>
 	
 	
 </mapper>

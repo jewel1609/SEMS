@@ -255,11 +255,21 @@ public class EducationServiceImpl implements EducationService {
 	}
 
 	@Override
-	public ModelAndView applyJoinEducationByMemberId(String educationId, String memberId) {
+	public ModelAndView applyJoinEducationByMemberId(String educationHistoryId) {
 		
 		ModelAndView view = new ModelAndView();
-		
-		boolean result = educationBiz.applyJoinEducationByMemberId(educationId, memberId);
+		String state = educationBiz.getStateByEducationHistroyId(educationHistoryId);
+		String changeState = "";
+		if( state.equals("EDU_JN_A") ){
+			changeState="EDU_JN_C";
+		}
+		else if( state.equals("EDU_CL_A") ){
+			changeState="EDU_CL_C";
+		}
+		else if( state.equals("EDU_GU_A") ){
+			changeState="EDU_GU_C";
+		}
+		boolean result = educationBiz.applyJoinEducationByMemberId(educationHistoryId, changeState);
 		
 		if ( result ) {
 		view.setViewName("redirect:/educationHistory");
@@ -269,10 +279,25 @@ public class EducationServiceImpl implements EducationService {
 	}
 
 	@Override
-	public ModelAndView cancelJoinEducationByMemberId(String educationId, String memberId, String description) {
+	public ModelAndView cancelJoinEducationByMemberId(String educationHistoryId, String memberId, String description) {
 		ModelAndView view = new ModelAndView();
 		
-		boolean result = educationBiz.cancelJoinEducationByMemberId(educationId, memberId);
+		String state = educationBiz.getStateByEducationHistroyId(educationHistoryId);
+		String changeState = "";
+		if( state.equals("EDU_JN_A") ){
+			changeState="EDU_JN_R";
+		}
+		else if( state.equals("EDU_CL_A") ){
+			changeState="EDU_CL_R";
+		}
+		else if( state.equals("EDU_GU_A") ){
+			changeState="EDU_GU_R";
+		}
+		
+		/**
+		 * Email 여기서 보내도록
+		 */
+		boolean result = educationBiz.cancelJoinEducationByMemberId(educationHistoryId, changeState);
 		
 		if ( result ) {
 			view.setViewName("redirect:/educationHistory");
@@ -282,7 +307,7 @@ public class EducationServiceImpl implements EducationService {
 		return view;
 	}
 	
-	@Override
+	/*@Override
 	public ModelAndView completeCancelEducationByMemberId(String educationHistoryId) {
 		
 		ModelAndView view = new ModelAndView();
@@ -338,7 +363,7 @@ public class EducationServiceImpl implements EducationService {
 		else return view;
 	}
 	
-	
+	*/
 
 
 

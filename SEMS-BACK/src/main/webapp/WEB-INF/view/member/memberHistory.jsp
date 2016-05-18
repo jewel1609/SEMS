@@ -143,11 +143,11 @@
 		</tr>
 		<c:forEach items="${ loginHistoryListVO.loginHistoryList }" var="history">
 		<tr>
-			<td>${ history.id }</td>
-			<td>${ history.lgiIp }</td>
-			<td>${ history.lgiDt }</td>
-			<td>${ history.lgoDt }</td>
-			<td>${ history.memberType }</td>
+			<td class="menutd">${ history.id }</td>
+			<td class="menutd">${ history.lgiIp }</td>
+			<td class="menutd">${ history.lgiDt }</td>
+			<td class="menutd">${ history.lgoDt }</td>
+			<td class="menutd">${ history.memberType }</td>
 		</tr>
 		</c:forEach>
 		<tr>

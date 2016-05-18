@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.member.service.MemberService;
@@ -109,8 +110,8 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/memberHistory")
-	public ModelAndView viewHistoryPage(LoginHistorySearchVO loginHistorySearchVO, @RequestParam(required = false, defaultValue = "0") int pageNo){
-		return memberService.getAllMemberHistory(loginHistorySearchVO ,pageNo);
+	public ModelAndView viewHistoryPage(LoginHistorySearchVO loginHistorySearchVO, @RequestParam(required = false, defaultValue = "0") int pageNo, HttpSession session){
+		return memberService.getAllMemberHistory(loginHistorySearchVO ,pageNo, session);
 	}
 
 	@RequestMapping(value = "/doRegisterAction", method = RequestMethod.POST)

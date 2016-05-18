@@ -9,43 +9,36 @@
    src="<c:url value='/resources/js/jquery.min.js"'/>"></script>
 <script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
 <script type="text/javascript">
-   
-	$(document).ready(function() {
-      $("#joinCnclBtn").click(function() {
-            window.open('<c:url value="/webapp/WEB-INF/view/update.jsp"/>',
-                     '1463457167300',
-                     'width=700,height=500,toolbar=0,menubar=0,location=0,status=1,scrollbars=1,resizable=1,left=0,top=0');
-                        });
+   $(document).ready(function() {
 
       $("#joinAplyBtn").click(function() {
-            var eduHistoryId = $("#eduHistoryId").val();
-                                 location.href = "<c:url value='/applyJoin/"+eduHistoryId+"'/>";
-                              });
-
-      $("#myButtons1").click(function() {
-         var educationId = $("#eduId").val();
-         location.href = "<c:url value='/applyJoin/"+educationId+"'/>";
+            var educationHistoryId = $("#historyId").val();
+            location.href = "<c:url value='/joinAply/"+educationHistoryId+"'/>";
       });
-         $('#myModal').modal('hide');
-
-		$("#joinAplyBtn").click(function() {
-			var educationId = $("#JAEduId").val();
-			var memberId = $("#JAMbrId").val();
-			
-			location.href = "<c:url value='/joinApply/"+educationId+"/"+memberId+"'/>";
-		});
-		
-		$("#joinCnclBtn").click(function() {
-			var educationId = $("#JCEduId").val();
-			var memberId = $("#JCMbrId").val();
+	  
+      $("#joinCnclBtn").click(function() {
+    	    var educationHistoryId = $("#historyId2").val();
+			var memberId = $("#memberId2").val();
 			var description = $("#description").val();
-			
-			location.href = "<c:url value='/joinCncl/"+educationId+"/"+memberId+"/"+description"'/>";
-		});
+			if( description == null || description ==""){
+				alert("내용을 입력해주세요.")
+				return;
+			}
+			console.log(educationHistoryId);
+			console.log(memberId);
+			location.href = "<c:url value='/joinCncl/"+educationHistoryId+"/"+memberId+"/"+description+"'/>";
+	   }); 
 		
-		$().click(function() {
-			
-		});
+		$(".joinaply").click(function(){
+			 $("#historyId").val($(this).data('id'));
+			 $("#memberId").val($(this).data('whatever'));
+		    /*  $('#JoinAplyModal').modal('show'); */
+	   });
+		$(".cnclaply").click(function(){
+			 $("#historyId2").val($(this).data('id'));
+			 $("#memberId2").val($(this).data('whatever'));
+		    /*  $('#JoinAplyModal').modal('show'); */
+	   });
    });
 </script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -72,65 +65,23 @@
    포기 거절 시 참가완료(JOIN_CMPL)로 변경해준다.
    -->
 
-   <table>
-      <tr>
-         <td>교육명</td>
-         <td>학생아이디</td>
-         <td>신청자아이피</td>
-         <td>상태변경일</td>
-         <td>신청 상태</td>
-         <td>신청(거절/포기) 사유</td>
-         <!-- 상태마다 승인과 거절이있다. -->
-         <td>승인버튼</td>
-         <td>거절버튼</td>
-      </tr>
-      
-		<c:forEach items="${ eduHistoryListVO.educationHistoryList }"var="eduHistory">
+	<table>
+		<tr>
+			<td>교육명</td>
+			<td>학생아이디</td>
+			<td>신청자아이피</td>
+			<td>상태변경일</td>
+			<td>신청 상태</td>
+			<td>신청(거절/포기) 사유</td>
+			<!-- 상태마다 승인과 거절이있다. -->
+			<td>승인버튼</td>
+			<td>거절버튼</td>
+		</tr>
+		<c:forEach items="${ eduHistoryListVO.educationHistoryList }"
+			var="eduHistory">
 			<input type="hidden" id="eduHistoryId"
 				value="${eduHistory.educationHistoryId}" />
-			<c:if test="${ eduHistory.state eq 'JOIN_APLY' }">
-				<tr>
-					<td><input type="hidden" id="JAEduId" value="${eduHistory.educationId }"/>${eduHistory.educationId }</td>
-					<td><input type="hidden" id="JAMbrId" value="${eduHistory.memberId }">${eduHistory.memberId }</td>
-					<td>${eduHistory.ip }</td>
-					<td>${eduHistory.educationHistoryDate }</td>
-					<td>${eduHistory.state }</td>
-					<td><c:if test="${eduHistory.cmnt ne null }">
-						${eduHistory.cmnt }
-					</c:if> <c:if test="${eduHistory.fdbk ne null }">
-						${eduHistory.fdbk }
-					</c:if></td>
-					<td>
-						<!-- 승인버튼 --> <button class="btn btn-primary btn-sm" data-toggle="modal"
-		data-target="#JoinAplyModal">교육참여승인</button>
-					</td>
-					<td>
-						<button class="btn btn-primary btn-sm" data-toggle="modal"
-		data-target="#JoinCnclModal">교육참여거절</button>
-					</td>
-				</tr>
-			</c:if>
-			<c:if test="${ eduHistory.state eq 'CNCL_APLY' }">
-				<tr>
-					<td><input type="hidden" id="JCEduId" value="${eduHistory.educationId }"/>${eduHistory.educationId }</td>
-					<td><input type="hidden" id="JCMbrId" value="${eduHistory.memberId }"/>${eduHistory.memberId }</td>
-					<td>${eduHistory.ip }</td>
-					<td>${eduHistory.educationHistoryDate }</td>
-					<td>${eduHistory.state }</td>
-					<td><c:if test="${eduHistory.cmnt ne null }">
-						${eduHistory.cmnt }
-					</c:if> <c:if test="${eduHistory.fdbk ne null }">
-						${eduHistory.fdbk }
-					</c:if></td>
-					<td>
-						<!-- 승인버튼 --> <input type="button" value="교육취소승인" id="cnclAplyBtn" />
-					</td>
-					<td>
-						<!-- 거절버튼 --> <input type="button" value="교육취소거절" id="cnclCmplBtn" />
-					</td>
-				</tr>
-			</c:if>
-			<c:if test="${ eduHistory.state eq 'GVUP_APLY' }">
+			<c:if test="${ eduHistory.state eq 'EDU_JN_A' }">
 				<tr>
 					<td>${eduHistory.educationId }</td>
 					<td>${eduHistory.memberId }</td>
@@ -143,10 +94,56 @@
 						${eduHistory.fdbk }
 					</c:if></td>
 					<td>
-						<!-- 승인버튼 --> <input type="button" value="교육포기승인" id="gvupAplyBtn" />
+						<button class="btn btn-primary btn-sm joinaply" data-toggle="modal" data-id="${eduHistory.educationHistoryId}" data-whatever="${eduHistory.memberId }"
+		data-target="#JoinAplyModal">교육참여승인</button>
 					</td>
 					<td>
-						<!-- 거절버튼 --> <input type="button" value="교육포기거절" id="gvupCmplBtn" />
+						<button class="btn btn-primary btn-sm cnclaply" data-toggle="modal" data-id="${eduHistory.educationHistoryId}" data-whatever="${eduHistory.memberId }"
+		data-target="#JoinCnclModal">교육참여거절</button>
+					</td>
+				</tr>
+			</c:if>
+			<c:if test="${ eduHistory.state eq 'EDU_CL_A' }">
+				<tr>
+					<td>${eduHistory.educationId }</td>
+					<td>${eduHistory.memberId }</td>
+					<td>${eduHistory.ip }</td>
+					<td>${eduHistory.educationHistoryDate }</td>
+					<td>${eduHistory.state }</td>
+					<td><c:if test="${eduHistory.cmnt ne null }">
+						${eduHistory.cmnt }
+					</c:if> <c:if test="${eduHistory.fdbk ne null }">
+						${eduHistory.fdbk }
+					</c:if></td>
+					<td>
+						<button class="btn btn-primary btn-sm joinaply" data-toggle="modal" data-id="${eduHistory.educationHistoryId}" data-whatever="${eduHistory.memberId }"
+		data-target="#JoinAplyModal">교육취소승인</button>
+					</td>
+					<td>
+						<button class="btn btn-primary btn-sm cnclaply" data-toggle="modal" data-id="${eduHistory.educationHistoryId}" data-whatever="${eduHistory.memberId }"
+		data-target="#JoinCnclModal">교육취소거절</button>
+					</td>
+				</tr>
+			</c:if>
+			<c:if test="${ eduHistory.state eq 'EDU_GU_A' }">
+				<tr>
+					<td>${eduHistory.educationId }</td>
+					<td>${eduHistory.memberId }</td>
+					<td>${eduHistory.ip }</td>
+					<td>${eduHistory.educationHistoryDate }</td>
+					<td>${eduHistory.state }</td>
+					<td><c:if test="${eduHistory.cmnt ne null }">
+						${eduHistory.cmnt }
+					</c:if> <c:if test="${eduHistory.fdbk ne null }">
+						${eduHistory.fdbk }
+					</c:if></td>
+					<td>
+						<button class="btn btn-primary btn-sm joinaply" data-toggle="modal" data-id="${eduHistory.educationHistoryId}" data-whatever="${eduHistory.memberId }"
+		data-target="#JoinAplyModal">교육포기승인</button>
+					</td>
+					<td>
+						<button class="btn btn-primary btn-sm cnclaply" data-toggle="modal" data-id="${eduHistory.educationHistoryId}" data-whatever="${eduHistory.memberId }"
+		data-target="#JoinCnclModal">교육포기거절</button>
 					</td>
 				</tr>
 			</c:if>
@@ -159,36 +156,7 @@
    </table>
 
    
-
-   <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-      aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-sm">
-         <!--  큰창:<div class="modal-dialog modal-lg"> 
-         작은창 :<div class="modal-dialog modal-sm" > <div class="modal-dialog modal-dialog" >  -->
-         <div class="modal-content">
-            <div class="modal-header">
-               <button type="button" class="close" data-dismiss="modal"
-                  aria-hidden="true">×</button>
-               <h4 class="modal-title" id="myModalLabel">교육 참가 승인</h4>
-            </div>
-            <div class="modal-body">정말로 승인 하시겠습니까??</div>
-            
-            <div class="modal-body-text">
-			<textarea name="memo" rows=15 cols=38>
-			
-			</textarea>
-			</div> 
-            
-            <div class="modal-footer">
-               
-               <button type="button" class="btn btn-primary" id="myButtons1">
-               정말   승인</button>
-               <button type="button" class="btn btn-default" data-dismiss="modal">
-                  취소</button>
-            </div>
-         </div>
-      </div>
-   </div>
+   
 	<div class="modal fade" id="JoinAplyModal" tabindex="-1" role="dialog"
 		aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-sm">
@@ -197,9 +165,12 @@
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"
 						aria-hidden="true">×</button>
-					<h4 class="modal-title" id="myModalLabel">교육 참가 승인</h4>
+					<h4 class="modal-title" id="myModalLabel">승인</h4>
 				</div>
-				<div class="modal-body">정말로 승인 하시겠습니까??</div>
+				<div class="modal-body">정말로 승인 하시겠습니까??
+					<input type="hidden" id="historyId" name="historyId" value="" />
+					<input type="hidden" id="memberId" name="memberId" value="" />
+				</div>
 				<div class="modal-footer">
 					
 					<button type="button" class="btn btn-primary" id="joinAplyBtn">
@@ -219,9 +190,11 @@
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"
 						aria-hidden="true">×</button>
-					<h4 class="modal-title" id="myModalLabel">교육 참가 거절</h4>
+					<h4 class="modal-title" id="myModalLabel">거절</h4>
 				</div>
 				<div class="modal-body">거절 사유와 함께 상태를 변경하겠습니다.<br/>
+				<input type="hidden" id="historyId2" name="historyId2" value="" />
+				<input type="hidden" id="memberId2" name="memberId2" value="" />
 				<textarea id="description" rows="7" cols="70"></textarea>
 				</div>
 				<div class="modal-footer">
@@ -234,8 +207,6 @@
 			</div>
 		</div>
 	</div>
-	
-
 
 
 </body>
