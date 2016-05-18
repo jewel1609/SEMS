@@ -65,8 +65,13 @@
 	</select>
 	
 	<select id="getTeacherEducationGrade" parameterType="string" resultType="_double">
-		SELECT	1
-		FROM	DUAL
+		SELECT  NVL(AVG(RATIO), 0)
+		FROM    MBR M
+		        , EDU_INFO EI
+		        , EDU_HTR EH
+		WHERE   M.ID = #{ memberId }
+		AND     M.ID = EI.MBR_ID
+		AND     EI.EDU_ID = EH.EDU_ID
 	</select>
 	
 	<select id="getOneTeacherInfo" parameterType="string" resultType="TeacherVO">
