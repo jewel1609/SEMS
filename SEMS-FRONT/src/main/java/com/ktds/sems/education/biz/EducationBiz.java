@@ -48,7 +48,7 @@ public interface EducationBiz {
 
 	public List<QNAVO> getAllQNAList(QNASearchVO qnaSearchVO);
 
-	public int getTotalQNACount(String memberId);
+	public int getTotalQNACount(QNASearchVO qnaSearchVO);
 
 	public boolean doReReplyInsert(QNAVO qnaVO);
 

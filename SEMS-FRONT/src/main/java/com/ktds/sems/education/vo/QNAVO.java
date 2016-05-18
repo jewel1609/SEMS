@@ -1,6 +1,6 @@
 package com.ktds.sems.education.vo;
 
-public class QNAVO {
+public class QNAVO extends EducationVO {
 
 	private String replyId; 
 	private String eduId;

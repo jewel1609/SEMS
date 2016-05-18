@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ktds.sems.common.Session;
 import com.ktds.sems.education.service.EducationService;
 import com.ktds.sems.education.vo.EducationVO;
+import com.ktds.sems.education.vo.QNASearchVO;
 import com.ktds.sems.education.vo.QNAVO;
 
 import kr.co.hucloud.utilities.web.AjaxUtil;
@@ -139,8 +141,14 @@ public class EducationController {
 	}
 	
 	@RequestMapping("/myPage/myQNAList")
-	public ModelAndView showMyQNAList(@RequestParam(required=false, defaultValue="0") int pageNo,  HttpSession session) {
-		return educationService.showMyQNAList(pageNo, session);
+	public ModelAndView showMyQNAList(QNASearchVO qnaSearchVO,  HttpSession session) {
+		return educationService.showMyQNAList(qnaSearchVO, session);
+	}
+	
+	@RequestMapping("/myPage/myQNAListInit")
+	public String showMyQNAList(HttpSession session) {
+		session.removeAttribute(Session.SEARCH_QNA);
+		return "redirect:/myPage/myQNAList";
 	}
 	
 	@RequestMapping("/myPage/myQNADetail/{replyId}")

@@ -17,8 +17,6 @@ import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.QNASearchVO;
 import com.ktds.sems.education.vo.QNAVO;
 import com.ktds.sems.education.vo.ReRplyEvalVO;
-import com.ktds.sems.member.vo.LoginHistoryVO;
-import com.sun.media.jfxmedia.logging.Logger;
 
 import kr.co.hucloud.utilities.excel.option.WriteOption;
 import kr.co.hucloud.utilities.excel.write.ExcelWrite;
@@ -26,7 +24,7 @@ import kr.co.hucloud.utilities.excel.write.ExcelWrite;
 public class EducationBizImpl implements EducationBiz {
 
 	private EducationDAO educationDAO;
-	
+
 	public void setEducationDAO(EducationDAO educationDAO) {
 		this.educationDAO = educationDAO;
 	}
@@ -45,10 +43,10 @@ public class EducationBizImpl implements EducationBiz {
 	public EducationVO getOneEducationDetail(String educationId) {
 		return educationDAO.getOneEducationDetail(educationId);
 	}
-	
+
 	@Override
 	public int getSearchedEducationCount(EducationVO educationVO) {
-		return educationDAO.getSearchedEducationCount( educationVO);
+		return educationDAO.getSearchedEducationCount(educationVO);
 	}
 
 	@Override
@@ -59,12 +57,12 @@ public class EducationBizImpl implements EducationBiz {
 
 	@Override
 	public List<EducationVO> doSearchList(EducationVO educationVO, EducationSearchVO searchVO) {
-		return educationDAO.doSearchList( educationVO , searchVO);
+		return educationDAO.doSearchList(educationVO, searchVO);
 	}
-	
+
 	@Override
 	public boolean writeNewComment(QNAVO qnaVO) {
-		//qnaVO.getReplyId();
+		// qnaVO.getReplyId();
 		return educationDAO.insertNewComment(qnaVO) > 0;
 	}
 
@@ -72,7 +70,7 @@ public class EducationBizImpl implements EducationBiz {
 	public boolean doApplyEducation(String educationId, String id) {
 		return educationDAO.doApplyEducation(educationId, id) > 0;
 	}
-	
+
 	@Override
 	public boolean doCancelEducation(String educationId, String id) {
 		return educationDAO.doCancelEducation(educationId, id) > 0;
@@ -128,8 +126,8 @@ public class EducationBizImpl implements EducationBiz {
 	 * @author 206-025 이기연
 	 */
 	@Override
-	public int getTotalQNACount(String memberId) {
-		return educationDAO.getTotalQNACount(memberId);
+	public int getTotalQNACount(QNASearchVO qnaSearchVO) {
+		return educationDAO.getTotalQNACount(qnaSearchVO);
 	}
 
 	/**
@@ -188,8 +186,7 @@ public class EducationBizImpl implements EducationBiz {
 			Iterator<QNAVO> tempIterator = qnaVO.iterator();
 
 			// TODO while문으로 null을 만날 때 까지 while문을 돌려야 할 것 같다
-			while (tempIterator.hasNext())
-			{
+			while (tempIterator.hasNext()) {
 				// TODO String[] 타입인데... 이걸 수정해바야 할 것 같다.
 				// 하나씩 String[]에 담는 것 그리고 add
 				QNAVO tempQnaVO = new QNAVO();
@@ -203,7 +200,7 @@ public class EducationBizImpl implements EducationBiz {
 				content[3] = tempQnaVO.getDescription();
 				content[4] = tempQnaVO.getIsAnswered();
 				content[5] = tempQnaVO.getAnswer();
-				
+
 				contents.add(content);
 			}
 
@@ -214,16 +211,15 @@ public class EducationBizImpl implements EducationBiz {
 		} catch (Exception e) {
 			throw new RuntimeException();
 		}
-		
+
 	}
 
 	@Override
 	public boolean hasApplyHistory(String memberId, String educationId) {
 		List<EducationVO> educationVO = educationDAO.getApplyHistory(memberId, educationId);
-		if ( educationVO == null ) {
+		if (educationVO == null) {
 			return false;
-		}
-		else {
+		} else {
 			return true;
 		}
 	}
@@ -235,21 +231,21 @@ public class EducationBizImpl implements EducationBiz {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
 		EducationVO educationVO = educationDAO.getOneEducationDetail(educationId);
 		String startDate = educationVO.getStartDate();
-		
-		long time = System.currentTimeMillis(); 
-		
+
+		long time = System.currentTimeMillis();
+
 		try {
 			educationStartDate = dateFormat.parse(startDate);
 			currentDate = dateFormat.parse(dateFormat.format(new Date(time)));
 			int compare = currentDate.compareTo(educationStartDate);
 			if ( compare < 0 ) {
 				return false;
-			}
-			else {
+			} else {
 				return true;
 			}
-		} catch (ParseException e) {}
-		
+		} catch (ParseException e) {
+		}
+
 		return true;
 	}
 
@@ -259,7 +255,7 @@ public class EducationBizImpl implements EducationBiz {
 	}
 
 	@Override
-	public void sendEmailByReReply(QNAVO questionVO, QNAVO answerVO,String email) {
+	public void sendEmailByReReply(QNAVO questionVO, QNAVO answerVO, String email) {
 		SendMail sendMail = new SendMail();
 		MailVO mailVO = new MailVO();
 
@@ -267,10 +263,9 @@ public class EducationBizImpl implements EducationBiz {
 		mailVO.setFromPassword("123qwe!@#qwe");
 		mailVO.setSubject("문의하신 질문에 대한 답변입니다.");
 		mailVO.setText("<html><body>문의하신분 : " + questionVO.getMbrId() + "<br/> 작성 시간 : " + questionVO.getCreatedDate()
-									+ "<br/> 문의 내용 : " + questionVO.getDescription() + "<br/><br/><br/><br/>"
-									+ " 답변 작성자: " + answerVO.getMbrId() +"<br/> 작성 시간 : " + answerVO.getCreatedDate()
-									+ "<br/> 답변 내용 : " + answerVO.getDescription() + "<br/><br/> 문의해 주셔서 감사합니다."
-									+ "</body></html>");
+				+ "<br/> 문의 내용 : " + questionVO.getDescription() + "<br/><br/><br/><br/>" + " 답변 작성자: "
+				+ answerVO.getMbrId() + "<br/> 작성 시간 : " + answerVO.getCreatedDate() + "<br/> 답변 내용 : "
+				+ answerVO.getDescription() + "<br/><br/> 문의해 주셔서 감사합니다." + "</body></html>");
 
 		mailVO.setToId(email);
 
@@ -323,5 +318,3 @@ public class EducationBizImpl implements EducationBiz {
 	}
 	
 }
-
-

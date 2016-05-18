@@ -9,6 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.education.vo.EducationListVO;
 import com.ktds.sems.education.vo.EducationVO;
+import com.ktds.sems.education.vo.QNASearchVO;
 import com.ktds.sems.education.vo.QNAVO;
 import com.ktds.sems.file.vo.FileVO;
 
@@ -32,7 +33,7 @@ public interface EducationService {
 
 	public String doTransTypeId(String educationType);
 
-	public ModelAndView showMyQNAList(int pageNo, HttpSession session);
+	public ModelAndView showMyQNAList(QNASearchVO qnaSearchVO, HttpSession session);
 
 	public ModelAndView showMyQNADetail(String replyId, HttpSession session);
 

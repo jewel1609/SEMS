@@ -3,8 +3,6 @@ package com.ktds.sems.education.dao;
 import java.util.List;
 
 import com.ktds.sems.education.vo.EducationSearchVO;
-import java.util.List;
-
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.QNASearchVO;
 import com.ktds.sems.education.vo.QNAVO;
@@ -49,7 +47,7 @@ public interface EducationDAO {
 
 	public String doTransTypeId(String educationType);
 
-	public int getTotalQNACount(String memberId);
+	public int getTotalQNACount(QNASearchVO QNASearchVO);
 
 	public List<QNAVO> getAllQNAList(QNASearchVO qnaSearchVO);
 

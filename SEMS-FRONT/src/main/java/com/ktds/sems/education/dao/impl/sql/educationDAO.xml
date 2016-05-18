@@ -281,11 +281,38 @@
 		WHERE   CD_NM = #{educationType}
 	</select>
 	
-	<select id="getTotalQNACount" parameterType="string" resultType="_int">
+	<select id="getTotalQNACount" parameterType="QNASearchVO" resultType="_int">
 		SELECT	COUNT(REPLY_ID)
-		FROM	QNA
-		WHERE	MBR_ID = #{memberId}
-		AND		PARENT_REPLY_ID = '0'
+		FROM	(
+					SELECT	QNA.*
+					FROM	(
+								SELECT	*
+								FROM	QNA
+								WHERE	MBR_ID = #{id}
+								AND		PARENT_REPLY_ID = '0'
+								<if test="searchKeyword != null and searchType != null">
+								AND		(
+										<if test="searchType == 'replyId'">
+											REPLY_ID LIKE '%' || #{searchKeyword} || '%'
+										</if>
+										<if test="searchType == 'eduId'">
+											EDU_ID LIKE '%' || #{searchKeyword} || '%'
+										</if>
+										<if test="searchType == 'description'">
+											DESCRIPTION LIKE '%' || #{searchKeyword} || '%'
+										</if>
+										)
+								</if>
+								<if test="startDate != null and startDate != ''">
+								AND		CREATED_DATE >= #{startDate}
+								</if>
+								<if test="endDate != null and endDate != ''">
+								AND		CREATED_DATE <![CDATA[<]]> TO_DATE(#{endDate}, 'YYYY-MM-DD') + 1
+								</if>
+								ORDER	BY REPLY_ID DESC
+							) QNA
+				) Q
+		WHERE	PARENT_REPLY_ID = '0'
 	</select>
 	
 	<select id="getAllQNAList" parameterType="QNASearchVO" resultType="QNAVO">
@@ -311,6 +338,25 @@
 								FROM	QNA
 								WHERE	MBR_ID = #{id}
 								AND		PARENT_REPLY_ID = '0'
+								<if test="searchKeyword != null and searchType != null">
+								AND		(
+										<if test="searchType == 'replyId'">
+											REPLY_ID LIKE '%' || #{searchKeyword} || '%'
+										</if>
+										<if test="searchType == 'eduId'">
+											EDU_ID LIKE '%' || #{searchKeyword} || '%'
+										</if>
+										<if test="searchType == 'description'">
+											DESCRIPTION LIKE '%' || #{searchKeyword} || '%'
+										</if>
+										)
+								</if>
+								<if test="startDate != null and startDate != ''">
+								AND		CREATED_DATE >= #{startDate}
+								</if>
+								<if test="endDate != null and endDate != ''">
+								AND		CREATED_DATE <![CDATA[<]]> TO_DATE(#{endDate}, 'YYYY-MM-DD') + 1
+								</if>
 								ORDER	BY REPLY_ID DESC
 							) QNA
 					WHERE	ROWNUM <![CDATA[<=]]> #{endIndex}

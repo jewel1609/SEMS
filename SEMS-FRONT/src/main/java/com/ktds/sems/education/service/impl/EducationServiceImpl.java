@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.xmlbeans.QNameSetSpecification;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.validation.Errors;
@@ -309,26 +310,30 @@ public class EducationServiceImpl implements EducationService {
 	 * 교육 문의 내용 리스트
 	 */
 	@Override
-	public ModelAndView showMyQNAList(int pageNo, HttpSession session) {
+	public ModelAndView showMyQNAList(QNASearchVO qnaSearchVO, HttpSession session) {
 
+		if( qnaSearchVO == null ) {
+			qnaSearchVO = new QNASearchVO();
+			qnaSearchVO.setPageNo(0);
+		}
+		
 		ModelAndView view = new ModelAndView();
 		MemberVO memberVO = (MemberVO) session.getAttribute(Session.MEMBER);
-		String memberId = memberVO.getId(); 
-		int totalQNACount = educationBiz.getTotalQNACount(memberId);
+		String memberId = memberVO.getId();
+		qnaSearchVO.setId(memberId);
+		int totalQNACount = educationBiz.getTotalQNACount(qnaSearchVO);
 
-		System.out.println("**************************");
-		System.out.println(totalQNACount);
-		System.out.println("**************************");
-		
 		// page setting
 		Paging paging = new Paging();
 		paging.setTotalArticleCount(totalQNACount);
-		paging.setPageNumber(pageNo+"");
 		
-		QNASearchVO qnaSearchVO = new QNASearchVO();
+		paging.setPageNumber(qnaSearchVO.getPageNo() + "");
+		
 		qnaSearchVO.setStartIndex(paging.getStartArticleNumber());
 		qnaSearchVO.setEndIndex(paging.getEndArticleNumber());
 		qnaSearchVO.setId(memberId);
+		
+		session.setAttribute(Session.SEARCH_QNA, qnaSearchVO);
 		
 		List<QNAVO> qnaList = educationBiz.getAllQNAList(qnaSearchVO);
 		
