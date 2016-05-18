@@ -492,8 +492,13 @@ public class MemberServiceImpl implements MemberService{
 				modifyMemberType.put("memberId", memberId);
 				memberBiz.modifyMemberTypeById (modifyMemberType);
 			}
-			view.setViewName("redirect:/memberManage/memberList");
+			view.addObject("isModifySuccess", "OK");
 		}
+		else {
+			view.addObject("isModifySuccess", "NO");
+		}
+		view.setViewName("redirect:/memberManage/memberList");
+		
 		return view;
 	}
 
