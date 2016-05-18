@@ -8,9 +8,28 @@ public class MemberSearchVO {
 	
 	private String searchKeyword;
 	private String searchType;
+	private String connLock;
+	private String isRgsn;
+	private String modLock;
 	
-	
-	
+	public String getConnLock() {
+		return connLock;
+	}
+	public void setConnLock(String connLock) {
+		this.connLock = connLock;
+	}
+	public String getIsRgsn() {
+		return isRgsn;
+	}
+	public void setIsRgsn(String isRgsn) {
+		this.isRgsn = isRgsn;
+	}
+	public String getModLock() {
+		return modLock;
+	}
+	public void setModLock(String modLock) {
+		this.modLock = modLock;
+	}
 	public String getSearchKeyword() {
 		return searchKeyword;
 	}
