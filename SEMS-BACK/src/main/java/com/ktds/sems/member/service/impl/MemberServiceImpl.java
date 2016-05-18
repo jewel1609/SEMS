@@ -26,9 +26,7 @@ import com.ktds.sems.member.vo.LoginHistoryVO;
 import com.ktds.sems.member.vo.MemberListVO;
 import com.ktds.sems.member.vo.MemberSearchVO;
 import com.ktds.sems.member.vo.MemberVO;
-
 import com.ktds.sems.member.vo.PersonalInfoReadVO;
-
 
 import kr.co.hucloud.utilities.SHA256Util;
 import kr.co.hucloud.utilities.web.AjaxUtil;
@@ -132,7 +130,7 @@ public class MemberServiceImpl implements MemberService{
 	}
 	
 	@Override
-	public ModelAndView getAllAdminHistory(LoginHistorySearchVO loginHistorySearchVO, int pageNo) {
+	public ModelAndView getAllAdminHistory(int pageNo) {
 		LoginHistoryListVO loginHistoryListVO = new LoginHistoryListVO();
 		Paging paging = new Paging(20, 20);
 		
@@ -142,6 +140,7 @@ public class MemberServiceImpl implements MemberService{
 		paging.setPageNumber(pageNo + "");
 		paging.setTotalArticleCount(totalHistoryCount);
 		
+		LoginHistorySearchVO loginHistorySearchVO = new LoginHistorySearchVO();
 		loginHistorySearchVO.setStartIndex(paging.getStartArticleNumber());
 		loginHistorySearchVO.setEndIndex(paging.getEndArticleNumber());
 		
@@ -302,8 +301,7 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 
-	@Override
-	public ModelAndView getMemberDetailById(String id) {
+	private ModelAndView getMemberDetailById(String id) {
 		ModelAndView view = new ModelAndView();
 		
 		if ( id == null || id.length() == 0 ) {
@@ -557,11 +555,10 @@ public class MemberServiceImpl implements MemberService{
 		else {
 			personalInfoReadVO.setId(personalInfoReadVO());
 			boolean isWrite = memberBiz.doWriteMemberDetailInfo(personalInfoReadVO);
-
 			if ( isWrite ) {
 			// TODO  EMAIL TEST	
 			//	sendMail(personalInfoReadVO);
-				view.setViewName("redirect:/memberDetail/"+personalInfoReadVO.getTargetMemberId());
+				view = getMemberDetailById(personalInfoReadVO.getTargetMemberId());
 			}
 		}
 		
@@ -627,4 +624,5 @@ public class MemberServiceImpl implements MemberService{
 		
 		return view;
 	}
+
 }
