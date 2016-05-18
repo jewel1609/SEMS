@@ -34,7 +34,7 @@ public interface EducationBiz {
 
 	public int getNextReplySeq();
 
-	public int isApplyMemberByEducationId(String educationId, String id);
+	public String isApplyMemberByEducationId(String educationId, String id);
 
 	public int getEduReplyCount(String educationId);
 
@@ -83,5 +83,11 @@ public interface EducationBiz {
 	public boolean plusReReplyDislike(String replyId);
 
 	public boolean doRequestRetraction(String educationId, String retractionMsg, String memberId);
+
+	public int getTotalMemberNumber(String educationId);
+
+	public boolean doReserveEducation(String educationId, String id);
+
+	public boolean updateStateToApply(String educationId);
 
 }
