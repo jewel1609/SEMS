@@ -116,7 +116,7 @@ public class MemberController {
 	@RequestMapping("/memberDetail/{id}")
 	public ModelAndView viewMemberDetailPage(@PathVariable String id) {
 		return memberService.getMemberDetailById(id);
-	}	
+	}
 	
 
 	@RequestMapping(value = "/doRegisterAction", method = RequestMethod.POST)
