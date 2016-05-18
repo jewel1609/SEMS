@@ -47,8 +47,8 @@ public class EducationController {
 	}
 
 	@RequestMapping("/educationHistory")
-	public ModelAndView viewEduHistoryManagePage(@RequestParam(required = false, defaultValue = "0") int pageNo) {
-		ModelAndView view = educationService.getAllEducationHistory(pageNo);
+	public ModelAndView viewEduHistoryManagePage(EducationHistorySearchVO eduHistorySearchVO, @RequestParam(required = false, defaultValue = "0") int pageNo) {
+		ModelAndView view = educationService.getAllEducationHistory(eduHistorySearchVO, pageNo);
 		return view;
 	}
 
