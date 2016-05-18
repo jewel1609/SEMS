@@ -166,7 +166,6 @@ public class CooperationServiceImpl implements CooperationService {
 		else {
 			
 			boolean result = cooperationBiz.doModifyCoo(cooperation);
-			String cooperationId = cooperation.getCooperationId();
 
 			if (result) {
 				view.setViewName("cooperation/cooperationDetail");
