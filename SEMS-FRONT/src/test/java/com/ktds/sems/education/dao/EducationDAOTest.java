@@ -172,6 +172,7 @@ public class EducationDAOTest extends SemsTestCase{
 		assertTrue(result == 1);
 	}
 	
+	
 	@Test
 	public void doReReplyInsertTest(){
 		QNAVO qnaVO = new QNAVO();
