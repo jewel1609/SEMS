@@ -15,7 +15,7 @@
 		$("#writeRequestMemberDetailBtn").click(function() {
 			
 			var form = $("#requestMemberDetailInfoForm");
-			form.attr("action", "<c:url value="/doWriteMemberDetailInfo" />");
+			form.attr("action", "<c:url value="/memberDetail" />");
 			form.submit();
 		});	
 		
