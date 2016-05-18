@@ -133,85 +133,138 @@
 		FROM	SML_CTGR
 	</select>
 		
-	<select id="getAllEducationHistory" resultType="EduHistoryVO">
-		SELECT	EDU_HTR_ID educationHistoryId
-				, EDU_ID educationId
-				, MBR_ID memberId
-				, EDU_HTR_DT educationHistoryDate
-				, STAT state
-				, IP ip
-				, CMNT cmnt
-				, FDBK fdbk
-		FROM	EDU_HTR
+	<select id="getAllEducationHistory" parameterType="eduHistorySearchVO" resultType="EduHistoryVO">
+				SELECT	JCE_HTR.EDU_HTR_ID educationHistoryId
+				, JCE_HTR.EDU_TTL educationTitle
+				, 	JCE_HTR.MBR_ID memberId
+				, 	JCE_HTR.EDU_HTR_DT educationHistoryDate
+				, 	JCE_HTR.STAT state
+				, 	JCE_HTR.IP ip
+				, 	JCE_HTR.CMNT cmnt
+				, 	JCE_HTR.FDBK fdbk
+		FROM	(
+					SELECT	ROWNUM AS RNUM
+							, EDU_HTR_KEYWORD.*
+					FROM	(
+									SELECT	EDU_HTR.*, EDU_INFO.EDU_TTL
+									FROM	EDU_HTR
+											, EDU_INFO
+									WHERE	EDU_HTR.EDU_ID = EDU_INFO.EDU_ID
+									<if test="searchKeyword != ''">
+									AND		EDU_HTR.EDU_ID IN 	(
+																	SELECT	EDU_ID
+																	FROM	EDU_INFO
+																	WHERE	EDU_TTL IN #{searchKeyword}
+																)
+									</if>
+							) EDU_HTR_KEYWORD
+					WHERE	ROWNUM <![CDATA[<=]]> #{endIndex}
+				) JCE_HTR
+		WHERE	RNUM <![CDATA[>=]]> #{startIndex}
 	</select>
 	
-	<select id="getJCEduHistoryHistory" resultType="EduHistoryVO">
-  SELECT	EDU_HTR.EDU_HTR_ID educationHistoryId
-				, EDU_INFO.EDU_TTL educationTitle
-				, 	EDU_HTR.MBR_ID memberId
-				, 	EDU_HTR.EDU_HTR_DT educationHistoryDate
-				, 	EDU_HTR.STAT state
-				, 	EDU_HTR.IP ip
-				, 	EDU_HTR.CMNT cmnt
-				, 	EDU_HTR.FDBK fdbk
-		FROM	EDU_HTR
-				, EDU_INFO
-		WHERE	EDU_HTR.EDU_ID = EDU_INFO.EDU_ID
-		AND		STAT = 'JOIN_CMPL'
-	</select>
-	
-	<select id="getAllEduHistoryCount" resultType="_int">
+	<select id="getAllEduHistoryCount" parameterType="eduHistorySearchVO" resultType="_int">
 		SELECT	COUNT(*)
 		FROM	EDU_HTR
+		WHERE	1 = 1
+		<if test="searchKeyword != ''">
+		AND		EDU_HTR.EDU_ID IN 	(
+										SELECT	EDU_INFO.EDU_ID
+										FROM	EDU_INFO
+										WHERE	EDU_INFO.EDU_TTL IN #{searchKeyword}
+							)
+		</if>
 	</select>
 	
-	<select id="getJCEduHistoryCount" resultType="_int">
+	<select id="getJCEduHistoryHistory" parameterType="EduHistorySearchVO" resultType="EduHistoryVO">
+ 		SELECT	JCE_HTR.EDU_HTR_ID educationHistoryId
+				, JCE_HTR.EDU_TTL educationTitle
+				, 	JCE_HTR.MBR_ID memberId
+				, 	JCE_HTR.EDU_HTR_DT educationHistoryDate
+				, 	JCE_HTR.STAT state
+				, 	JCE_HTR.IP ip
+				, 	JCE_HTR.CMNT cmnt
+				, 	JCE_HTR.FDBK fdbk
+		FROM	(
+					SELECT	ROWNUM AS RNUM
+							, EDU_HTR_KEYWORD.*
+					FROM	(
+									SELECT	EDU_HTR.*, EDU_INFO.EDU_TTL
+									FROM	EDU_HTR
+											, EDU_INFO
+									WHERE	EDU_HTR.EDU_ID = EDU_INFO.EDU_ID
+									AND		STAT = 'EDU_JN_C'
+									<if test="searchKeyword != null">
+									<if test="searchKeyword != ''">
+									AND		EDU_HTR.EDU_ID IN 	(
+																	SELECT	EDU_ID
+																	FROM	EDU_INFO
+																	WHERE	EDU_TTL IN #{searchKeyword}
+																)
+									</if>
+									</if>
+							) EDU_HTR_KEYWORD
+					WHERE	ROWNUM <![CDATA[<=]]> #{endIndex}
+				) JCE_HTR
+		WHERE	RNUM <![CDATA[>=]]> #{startIndex}
+	</select>
+	
+	<select id="getJCEduHistoryCount" parameterType="eduHistorySearchVO" resultType="_int">
 		SELECT	COUNT(*)
 		FROM	EDU_HTR
-		WHERE	STAT = 'JOIN_CMPL'
-	</select>
+		WHERE	EDU_HTR.STAT = 'EDU_JN_C'
+		<if test="searchKeyword != null">
+		<if test="searchKeyword != ''">
+		AND		EDU_HTR.EDU_ID IN 	(
+										SELECT	EDU_INFO.EDU_ID
+										FROM	EDU_INFO
+										WHERE	EDU_INFO.EDU_TTL IN #{searchKeyword}
+							)
+		</if>
+		</if>
+ 	</select>
 	
 	<update id="applyJoinEdcationByMemberId" parameterType="map">
 		UPDATE	 EDU_HTR
-		SET		 STAT = #{changeState}
-		WHERE	 EDU_HTR_ID = #{educationHistoryId}
+		SET		 STAT = 'JOIN_CMPL'
+		WHERE	 EDU_ID LIKE #{educationId}
+		AND		 MBR_ID LIKE #{memberId}	
 	</update>
 	
-	<update id="cancelJoinEducationByMemberId" parameterType="map">
-		UPDATE	 EDU_HTR
-		SET		 STAT = #{changeState}
-		WHERE	 EDU_HTR_ID = #{educationHistoryId}
-	</update>
-<!-- 	
+	<delete id="cancelJoinEducationByMemberId" parameterType="map">
+		DELETE	 EDU_HTR
+		WHERE	 EDU_ID LIKE #{educationId}
+		AND		 MBR_ID LIKE #{memberId}
+		AND		 STAT LIKE 'JOIN_APLY'
+	</delete>
+	
 		<update id="completeCancelEducationByMemberId" parameterType="map">
 		UPDATE	 EDU_HTR
-		SET		 STAT = 'EDU_CL_C'
-		WHERE	EDU_HTR_ID = #{educationHistoryId}
+		SET		 STAT = 'CNCL_CMPL'
+		WHERE	 EDU_ID LIKE #{educationId}
+		AND		 MBR_ID LIKE #{memberId}	
 	</update>
 	
-		<delete id="denyCancelEducationByMemberId" parameterType="map">
-		UPDATE	 EDU_HTR
-		SET		 STAT = 'EDU_CL_R'
-		WHERE	EDU_HTR_ID = #{educationHistoryId}
+		<delete id="denyCancleEducationByMemberId" parameterType="map">
+		DELETE	 EDU_HTR
+		WHERE	 EDU_ID LIKE #{educationId}
+		AND		 MBR_ID LIKE #{memberId}
+		AND		 STAT LIKE 'CNCL_APLY'
 	</delete>
 	
 		<update id="completeGiveUpEducationByMemberId" parameterType="map">
 		UPDATE	 EDU_HTR
-		SET		 STAT = 'EDU_GU_C'
-		WHERE	EDU_HTR_ID = #{educationHistoryId}
+		SET		 STAT = 'GVUP_APLY'
+		WHERE	 EDU_ID LIKE #{educationId}
+		AND		 MBR_ID LIKE #{memberId}	
 	</update>
 	
 		<delete id="denyGiveUpEducationByMemberId" parameterType="map">
-		UPDATE	 EDU_HTR
-		SET		 STAT = 'EDU_GU_R'
-		WHERE	EDU_HTR_ID = #{educationHistoryId}
-	</delete> -->
-	
-	<select id="getStateByEducationHistroyId" parameterType="String" resultType="String">
-		SELECT  STAT
-		FROM	EDU_HTR
-		WHERE	EDU_HTR_ID = #{educationHistoryId}
-	</select>
+		DELETE	 EDU_HTR
+		WHERE	 EDU_ID LIKE #{educationId}
+		AND		 MBR_ID LIKE #{memberId}
+		AND		 STAT LIKE 'GVUP_APLY'
+	</delete>
 	
 	
 </mapper>
