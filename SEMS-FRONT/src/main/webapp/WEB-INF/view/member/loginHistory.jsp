@@ -46,6 +46,14 @@
 			location.href="<c:url value='/member/loginHistoryInit' />";
 			
 		});
+		
+		$("#saveBtn").click(function() {
+			if(confirm("D:\ 드라이브에 엑셀파일이 저장됩니다. 저장하시겠습니까 ?")) {
+				location.href="<c:url value='/member/myPage/saveAsExcel' />";		
+			} else {
+				return;
+			}
+		});
 	});
 </script>
 <title>로그인 히스토리 확인 페이지</title>
@@ -101,8 +109,11 @@
 			<input type="time" name="beginTime" id="beginTime" d value="${loginHistorySearchVO.beginDate}" />
 			<input type="time" name="closeTime" id="closeTime" value="${loginHistorySearchVO.closeDate}" /> 
 		</div>
+		<div>
+			<input type="button" id="saveBtn" name="saveBtn" value="엑셀 파일로 저장" />
+		</div>
 		</form>
 	</div>
-	<a href="<c:url value="/member/myPage/saveAsExcel"/>">엑셀 파일로 저장</a>
+	<%-- <a href="<c:url value="/member/myPage/saveAsExcel"/>">엑셀 파일로 저장</a> --%>
 </body>
 </html>
