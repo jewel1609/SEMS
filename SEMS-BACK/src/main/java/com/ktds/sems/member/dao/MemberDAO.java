@@ -84,4 +84,5 @@ public interface MemberDAO {
 	public String getMemberTypeCode(String memberType);
 
 	public int modifyMemberTypeById(Map<String, String> modifyMemberType);
+	
 }

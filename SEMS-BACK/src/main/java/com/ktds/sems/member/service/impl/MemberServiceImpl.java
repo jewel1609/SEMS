@@ -551,8 +551,6 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public ModelAndView doWriteMemberDetailInfo(PersonalInfoReadVO personalInfoReadVO, Errors errors) {
-
-		
 		ModelAndView view = new ModelAndView();
 		
 		if ( errors.hasErrors() ) {
