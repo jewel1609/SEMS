@@ -13,12 +13,9 @@ import java.nio.file.Paths;
 import javax.servlet.http.HttpSession;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.mock.web.MockMultipartHttpServletRequest;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
@@ -26,13 +23,11 @@ import org.springframework.validation.Validator;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ktds.sems.SemsTestCase;
 import com.ktds.sems.common.Session;
 import com.ktds.sems.education.vo.EducationVO;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "/applicationContext.xml", "/educationContext.xml", "/fileContext.xml",
-		"/rootContext.xml", "/memberContext.xml" })
-public class EducationControllerTest {
+public class EducationControllerTest extends SemsTestCase {
 
 	@Autowired
 	private EducationController educationController;
