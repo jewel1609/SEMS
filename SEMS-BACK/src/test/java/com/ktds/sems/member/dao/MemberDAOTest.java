@@ -143,12 +143,25 @@ public class MemberDAOTest  {
 		}
 	}
 	
-	
-	
-	
-	
-	
-	
-	
+	@Test
+	public void massiveDeleteMemberTest () {
+		MemberVO member = new MemberVO();
+		member.setId("Junit1");
+		member.setPassword("4c5b7ab6a121aae1acda84fc71ed4b135e9f8eb7f1a25013515845e9c7ddc9f8");
+		member.setSalt("9ca0645b12e961ac");
+		member.setName("Junit");
+		member.setEmail("Junit@naver.com");
+		member.setHighestEducationLevel("대졸");
+		member.setUniversityName("서울대");
+		member.setMajorName("컴공");
+		member.setGraduationType("졸업");
+		member.setBirthDate("1991-01-01");
+		member.setPhoneNumber("010-1234-5678");
+		member.setMemberType("MBR");
+		memberDAO.addNewMember(member);
+		
+		int deleteCount = memberDAO.massiveDeleteMember(member.getId());
+		assertTrue(deleteCount > 0 );
+	}
 	
 }

@@ -8,6 +8,7 @@ import java.util.List;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.context.ContextConfiguration;
@@ -408,6 +409,39 @@ public class MemberControllerTest {
 		else{
 			fail("Fail...");
 		}		
-	}		
+	}
+	
+	@Test
+	public void massiveDeleteMemberTest() {
+		MemberVO member = new MemberVO();
+		member.setPassword("4c5b7ab6a121aae1acda84fc71ed4b135e9f8eb7f1a25013515845e9c7ddc9f8");
+		member.setSalt("9ca0645b12e961ac");
+		member.setName("Junit");
+		member.setEmail("Junit@naver.com");
+		member.setHighestEducationLevel("대졸");
+		member.setUniversityName("서울대");
+		member.setMajorName("컴공");
+		member.setGraduationType("졸업");
+		member.setBirthDate("1991-01-01");
+		member.setPhoneNumber("010-1234-5678");
+		member.setMemberType("MBR");
+		for ( int i = 1; i < 6; i++) {
+			member.setId("Junit" + i);
+			memberDAO.addNewMember(member);
+		}
+		MockHttpServletRequest request = new MockHttpServletRequest();
+		String[] deleteMemberId = {"Junit1", "Junit2", "Junit3", "Junit4", "Junit5"};
+		request.setParameter("deleteMemberId", deleteMemberId);
+		
+		String viewName = memberController.massiveDeleteMember(request);
+		
+		assertNotNull(viewName);
+		if ( viewName != null ) {
+			assertEquals(viewName, "redirect:/memberManage/memberList");
+		}
+		else { 
+			fail("Fail...");
+		}
+	}
 
 }
