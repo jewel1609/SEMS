@@ -24,7 +24,7 @@ import kr.co.hucloud.utilities.excel.write.ExcelWrite;
 public class EducationBizImpl implements EducationBiz {
 
 	private EducationDAO educationDAO;
-
+	
 	public void setEducationDAO(EducationDAO educationDAO) {
 		this.educationDAO = educationDAO;
 	}
@@ -43,26 +43,26 @@ public class EducationBizImpl implements EducationBiz {
 	public EducationVO getOneEducationDetail(String educationId) {
 		return educationDAO.getOneEducationDetail(educationId);
 	}
-
+	
 	@Override
 	public int getSearchedEducationCount(EducationVO educationVO) {
-		return educationDAO.getSearchedEducationCount(educationVO);
+		return educationDAO.getSearchedEducationCount( educationVO);
 	}
 
 	@Override
-	public List<String> getMemberRegInfo(String id) {
+	public List<EducationVO> getMemberRegInfo(String id) {
 		return educationDAO.getMemberRegInfo(id);
 
 	}
 
 	@Override
 	public List<EducationVO> doSearchList(EducationVO educationVO, EducationSearchVO searchVO) {
-		return educationDAO.doSearchList(educationVO, searchVO);
+		return educationDAO.doSearchList( educationVO , searchVO);
 	}
-
+	
 	@Override
 	public boolean writeNewComment(QNAVO qnaVO) {
-		// qnaVO.getReplyId();
+		//qnaVO.getReplyId();
 		return educationDAO.insertNewComment(qnaVO) > 0;
 	}
 
@@ -70,7 +70,7 @@ public class EducationBizImpl implements EducationBiz {
 	public boolean doApplyEducation(String educationId, String id) {
 		return educationDAO.doApplyEducation(educationId, id) > 0;
 	}
-
+	
 	@Override
 	public boolean doCancelEducation(String educationId, String id) {
 		return educationDAO.doCancelEducation(educationId, id) > 0;
@@ -87,7 +87,7 @@ public class EducationBizImpl implements EducationBiz {
 	}
 
 	@Override
-	public int isApplyMemberByEducationId(String educationId, String id) {
+	public String isApplyMemberByEducationId(String educationId, String id) {
 		return educationDAO.isApplyMemberByEducationId(educationId, id);
 	}
 
@@ -137,7 +137,7 @@ public class EducationBizImpl implements EducationBiz {
 	public List<QNAVO> getAllQNAList(QNASearchVO qnaSearchVO) {
 		return educationDAO.getAllQNAList(qnaSearchVO);
 	}
-
+	
 	@Override
 	public boolean doReReplyInsert(QNAVO qnaVO) {
 		return educationDAO.doReReplyInsert(qnaVO) > 0;
@@ -316,5 +316,21 @@ public class EducationBizImpl implements EducationBiz {
 	public boolean doRequestRetraction(String educationId, String retractionMsg, String memberId) {
 		return educationDAO.doRequestRetraction(educationId, retractionMsg, memberId) > 0;
 	}
-	
+
+	@Override
+	public int getTotalMemberNumber(String educationId) {
+		return educationDAO.getTotalMemberNumber(educationId);
+	}
+
+	@Override
+	public boolean doReserveEducation(String educationId, String id) {
+		return educationDAO.doReserveEducation(educationId, id) > 0;
+	}
+
+	@Override
+	public boolean updateStateToApply(String educationId) {
+		return educationDAO.updateStateToApply(educationId) > 0;
+	}
 }
+
+

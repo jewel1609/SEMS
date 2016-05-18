@@ -75,7 +75,7 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 	}
 
 	@Override
-	public List<String> getMemberRegInfo(String id) {
+	public List<EducationVO> getMemberRegInfo(String id) {
 		return getSqlSession().selectList("EducationDAO.getMemberRegInfo", id);
 	}
 
@@ -107,7 +107,7 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 	}
 
 	@Override
-	public int isApplyMemberByEducationId(String educationId, String id) {
+	public String isApplyMemberByEducationId(String educationId, String id) {
 		Map<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("educationId", educationId);
 		paramMap.put("id", id);
@@ -184,7 +184,7 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 	public List<QNAVO> exportQNAListAsExcel(String memberId) {
 		return getSqlSession().selectList("EducationDAO.exportQNAListAsExcel", memberId);
 	}
-
+	
 	@Override
 	public List<EducationVO> getApplyHistory(String memberId, String educationId) {
 		Map<String, String> map = new HashMap<String, String>();
@@ -246,5 +246,26 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 		map.put("memberId", memberId);
 		return getSqlSession().update("EducationDAO.doRequestRetraction", map);
 	}
+	
+	/**
+	 * @author 206-002 공정민
+	 */
+	@Override
+	public int getTotalMemberNumber(String educationId) {
+		return getSqlSession().selectOne("EducationDAO.getTotalMemberNumber", educationId);
+	}
 
+	@Override
+	public int doReserveEducation(String educationId, String id) {
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("educationId", educationId);
+		paramMap.put("id", id);
+		
+		return getSqlSession().insert("EducationDAO.doReserveEducation", paramMap);
+	}
+
+	@Override
+	public int updateStateToApply(String educationId) {		
+		return getSqlSession().update("EducationDAO.updateStateToApply", educationId);
+	}
 }

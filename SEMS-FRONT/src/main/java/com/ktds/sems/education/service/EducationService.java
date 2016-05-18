@@ -7,11 +7,9 @@ import javax.servlet.http.HttpSession;
 import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.ktds.sems.education.vo.EducationListVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.QNASearchVO;
 import com.ktds.sems.education.vo.QNAVO;
-import com.ktds.sems.file.vo.FileVO;
 
 public interface EducationService {
 
@@ -19,7 +17,7 @@ public interface EducationService {
 	
 	public ModelAndView getAllEducationList(int pageNo);
 
-	public String doApplyEducation(String educationId, String educationType, HttpSession session);
+	public String doApplyEducation(EducationVO educationVO, HttpSession session);
 	
 	public ModelAndView writeNewComment(HttpSession session, QNAVO qnaVO, Errors errors, String educationId);
 
@@ -48,5 +46,8 @@ public interface EducationService {
 	public String plusReReplyDislike(String replyId, HttpSession session);
 
 	public String doRequestRetraction(HttpServletRequest request, HttpSession session);
+
+	public String doReserveEducation(String educationId, HttpSession session);
+
 	
 }

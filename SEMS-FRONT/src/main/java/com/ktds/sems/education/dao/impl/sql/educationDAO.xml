@@ -223,31 +223,82 @@
 		AND		MBR_ID = #{id} 
 	</delete>
     
-    <select id="getMemberRegInfo" parameterType="string"  resultType="string">
-    	SELECT 	 DISTINCT EDU_TP
-	    FROM 	 EDU_INFO
-	    WHERE    EDU_ID IN (
+    <select id="getMemberRegInfo" parameterType="string"  resultType="EducationVO">
+    	SELECT	EDU.EDU_ID educationId
+				, EDU.EDU_CTGR educationCategory
+				, EDU.EDU_TTL educationTitle
+				, EDU.MBR_ID memberId
+				, EDU.MAX_MBR maxMember
+				, EDU.EDU_LOC educationLocation
+				, EDU.EDU_CLCM educationCurriculum
+				, EDU.EDU_INTR educationIntroduce
+				, EDU.SRT_DATE startDate
+				, EDU.END_DATE endDate
+				, EDU.START_TM startTime
+				, EDU.END_TM endTime
+				, EDU.EDU_TP educationType
+		 		, EDU_TIME.CD_NM typeName
+				, EDU_CST.CD_NM costName 
+		FROM	EDU_INFO EDU
+				, EDU_CST
+				, EDU_TIME
+		WHERE	EDU_ID IN (
 	                        SELECT  EDU_ID
 	                        FROM    EDU_HTR
 	                        WHERE   MBR_ID = #{id}
 	                        )
+		AND		EDU.COST = EDU_CST.CD_ID
+		AND		EDU.EDU_TP = EDU_TIME.CD_ID
     </select>
     
     <insert id="doApplyEducation" parameterType="map">
     	INSERT INTO SEMS.EDU_HTR (
-								   EDU_ID
-								   , EDU_HTR_ID
+								   EDU_HTR_ID
+								   , EDU_ID
 								   , MBR_ID
+								   , EDU_HTR_DT
+								   , STAT
+								   , IP
+								   , CMNT
+								   , FDBK
 								   ) 
 						VALUES ( 
-								#{educationId}
-								, EDU_HTR_ID_SEQ.NEXTVAL
+								EDU_HTR_ID_SEQ.NEXTVAL
+								, #{educationId}
 								, #{id}
+								, SYSDATE
+								, 'EDU_JN_A'
+								, '127.0.0.1'
+								, ''
+								, ''
+							 )
+   	</insert>
+   	
+   	<insert id="doReserveEducation" parameterType="map">
+    	INSERT INTO SEMS.EDU_HTR (
+								   EDU_HTR_ID
+								   , EDU_ID
+								   , MBR_ID
+								   , EDU_HTR_DT
+								   , STAT
+								   , IP
+								   , CMNT
+								   , FDBK
+								   ) 
+						VALUES ( 
+								EDU_HTR_ID_SEQ.NEXTVAL
+								, #{educationId}
+								, #{id}
+								, SYSDATE
+								, 'EDU_RE_A'
+								, '127.0.0.1'
+								, ''
+								, ''
 							 )
    	</insert>
     
-    <select id="isApplyMemberByEducationId" parameterType="map" resultType="_int">
-    	SELECT  COUNT(EDU_HTR_ID)
+    <select id="isApplyMemberByEducationId" parameterType="map" resultType="string">
+    	SELECT  STAT
     	FROM	EDU_HTR
     	WHERE	EDU_ID = #{educationId}
     	AND		MBR_ID = #{id}
@@ -558,5 +609,29 @@
 				, EDU_HTR_DT = SYSDATE
 		WHERE	EDU_ID = #{ educationId }
 		AND		MBR_ID = #{ memberId }
+	</update>
+		
+	<select id="getTotalMemberNumber" parameterType="string" resultType="_int">
+		SELECT	COUNT(EDU_HTR_ID)
+		FROM	EDU_HTR
+		WHERE	EDU_ID = #{educationId}
+		AND		( STAT = 'EDU_JN_A'
+		OR		STAT = 'EDU_JN_C' )
+	</select>
+	
+	<update id="updateStateToApply" parameterType="string">
+		UPDATE	EDU_HTR
+		SET		STAT = 'EDU_JN_A'
+		WHERE	EDU_HTR_ID = (
+								SELECT	EDU_HTR_ID
+								FROM	(
+											SELECT	*
+											FROM	EDU_HTR
+											WHERE	STAT = 'EDU_RE_A'
+											AND		EDU_ID = #{educationId}
+											ORDER BY	EDU_HTR_DT ASC
+										)
+								WHERE	ROWNUM = 1
+					    	)		
 	</update>
 </mapper>

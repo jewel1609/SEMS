@@ -1,6 +1,9 @@
 package com.ktds.sems.education.service.impl;
 
 import java.io.UnsupportedEncodingException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -75,17 +78,22 @@ public class EducationServiceImpl implements EducationService {
 		
 		
 		//이미 신청된 회원인지 비교해서 boolean 값 보내기
-/*		MemberVO loginMember = (MemberVO)session.getAttribute("_MEMBER_");
-		boolean isApply =  true;
-		if (educationBiz.isApplyMemberByEducationId(educationId, loginMember.getId()) > 0 ){
-			isApply = false;
+		MemberVO loginMember = (MemberVO)session.getAttribute("_MEMBER_");
+		
+		String status = "";
+		status = educationBiz.isApplyMemberByEducationId(educationId, loginMember.getId());
+		
+		if (status == null || status.equals("")) {
+			status = "";
+		} else if (status.equals("EDU_RE_A")) {
+			status = "예약신청";
+		} else if (status.equals("EDU_JN_A")) {
+			status = "참가신청";
 		}
-		else{
-			isApply = true;
-		}
-		view.addObject("isApply", isApply);*/
+		
 		String memberType = (String) session.getAttribute(Session.MEMBER_TYPE);
 		
+		view.addObject("status", status);
 		view.addObject("eduReplyListVO", eduReplyListVO);
 		view.addObject("education", education);
 		view.addObject("fileList", fileList);
@@ -137,34 +145,166 @@ public class EducationServiceImpl implements EducationService {
 		}
 		return view;
 	}
-
+	
+	/**
+	 * @author 206-002 공정민
+	 * 교육 참가 신청 조건 검사
+	 */
 	@Override
-	public String doApplyEducation(String educationId, String educationType, HttpSession session) {
-		// 현재 로그인된 멤버가 가입한 educationId에 해당하는 주/야간 정보 가져오기
+	public String doApplyEducation(EducationVO educationVO, HttpSession session) {
+		
+		// 현재 로그인된 멤버가 신청한 교육 정보 가져오기
 		MemberVO loginMember = (MemberVO)session.getAttribute("_MEMBER_");
-		List<String> eduType = educationBiz.getMemberRegInfo(loginMember.getId());
-		// 버튼을 통해 가져온 educationType에 해당하는 주/야간 정보와 비교하기
-		if ( eduType.size() == 0) {
-			boolean isResult = educationBiz.doApplyEducation(educationId, loginMember.getId());
-			if( isResult ){
-				return "OK";
-			} else{
-				throw new RuntimeException("일시적인 장애가 발생했습니다. 잠시 후 다시 시도해주세요.");
-			}
+		List<EducationVO> registeredEducationVO = educationBiz.getMemberRegInfo(loginMember.getId());
+		
+		String educationId = educationVO.getEducationId();
+		
+		// 1. 이미 시작했는지 확인
+		String nowDateAndTime = "";
+		String startDateAndTime = educationVO.getStartDate() + " " + educationVO.getStartTime();
+		boolean compareStartDate = compareDateAndTime(nowDateAndTime, startDateAndTime);
+		if ( compareStartDate ) {
+			return "DATE_FAIL";
 		}
-		else{
-			for (String eduTp : eduType) {
-				if( eduTp.equals(educationType) ){
-					return "FAIL";
+		
+		// 신청 내역이 있을 때
+		if ( registeredEducationVO.size() > 0 ) {
+			for (EducationVO regEdu : registeredEducationVO) {
+			
+				boolean compareRegisteredStartDate1 = compareDate(regEdu.getStartDate(), educationVO.getStartDate());
+				boolean compareRegisteredStartDate2 = compareDate(educationVO.getEndDate(), regEdu.getStartDate());
+				boolean compareRegisteredEndDate1 = compareDate(regEdu.getEndDate(), educationVO.getStartDate());
+				boolean compareRegisteredEndDate2 = compareDate(educationVO.getEndDate(), regEdu.getEndDate());
+				
+				boolean containNewDate1 = compareDate(educationVO.getStartDate(), regEdu.getStartDate());
+				boolean containNewDate2 = compareDate(regEdu.getEndDate(), educationVO.getEndDate());
+				boolean containRegisteredDate1 = compareDate(regEdu.getStartDate(), educationVO.getStartDate());
+				boolean containRegisteredDate2 = compareDate(educationVO.getEndDate(), regEdu.getEndDate());
+				
+				// 2. 등록 기간 비교
+				if ( (compareRegisteredStartDate1 && compareRegisteredStartDate2 )
+						|| ( compareRegisteredEndDate1 && compareRegisteredEndDate2 )
+						|| ( containNewDate1 && containNewDate2 )
+						|| ( containRegisteredDate1 && containRegisteredDate2 ) ) {
+					
+					// 3. 주/야간 정보 비교
+					if ( regEdu.getEducationType().equals(educationVO.getEducationType()) ){
+						return "TYPE_FAIL";
+					}
 				}
 			}
-			// 다르다면  for 문을 빠져나와서 insert시킨다.
-			boolean isResult = educationBiz.doApplyEducation(educationId, loginMember.getId());
-			if( isResult ){
-				return "OK";
-			} else{
-				throw new RuntimeException("일시적인 장애가 발생했습니다. 잠시 후 다시 시도해주세요.");
+		}
+		
+		// 4. 정원 찼는지 확인
+		if ( this.getTotalMemberNumber(educationId) >= educationVO.getMaxMember() ) {
+			System.out.println("this.getTotalMemberNumber(educationId) "+this.getTotalMemberNumber(educationId));
+			System.out.println("educationVO.getMaxMember() "+educationVO.getMaxMember());
+			// 정원 초과됐다는 알림 준다.
+			return "EX_MAX_MEM";
+		}
+		
+		// 모든 조건 충족하면 교육 참가 신청 등록
+		return this.insertEducation(educationId, loginMember.getId());
+	}
+	
+	/**
+	 * @author 206-002 공정민
+	 * 날짜 비교
+	 */
+	public boolean compareDate(String one, String two) { // day1 >= day2 일 때 true 반환
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		Date day1 = new Date();
+		Date day2 = new Date();
+		
+		try {
+			if (!one.equals("")) {
+				day1 = format.parse(one);
 			}
+			if (!two.equals("")) {
+				day2 = format.parse(two);
+			}
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		int compare = day1.compareTo(day2);
+		
+		if ( compare > 0 ) { // day1 > day2
+			return true;
+		} else if ( compare < 0) { // day1 < day2
+			return false;
+		} else { // day1 = day2
+			return true;
+		}
+	}
+	
+	/**
+	 * @author 206-002 공정민
+	 * 날짜, 시간 비교
+	 */
+	public boolean compareDateAndTime(String one, String two) {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		Date day1 = new Date();
+		Date day2 = new Date();
+		
+		try {
+			if (!one.equals("")) {
+				day1 = format.parse(one);
+			}
+			if (!two.equals("")) {
+				day2 = format.parse(two);
+			}
+			System.out.println(day2);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		int compare = day1.compareTo(day2);
+		
+		if ( compare > 0 ) { // day1 > day2
+			return true;
+		} else if ( compare < 0) { // day1 < day2
+			return false;
+		} else { // day1 = day2
+			return true;
+		}
+	}
+	
+	/**
+	 * @author 206-002 공정민
+	 * 교육 참가 신청
+	 */
+	public String insertEducation(String educationId, String memberId) {
+		boolean isResult = educationBiz.doApplyEducation(educationId, memberId);
+		
+		if( isResult ){
+			return "OK";
+		} else{
+			throw new RuntimeException("일시적인 장애가 발생했습니다. 잠시 후 다시 시도해주세요.");
+		}
+	}
+	
+	/**
+	 * @author 206-002 공정민
+	 * 강의 신청 인원 조회
+	 */
+	public int getTotalMemberNumber (String educationId) {
+		return educationBiz.getTotalMemberNumber(educationId);
+	}
+	
+	/**
+	 * @author 206-002 공정민
+	 * 교육 예약 신청
+	 */
+	@Override
+	public String doReserveEducation(String educationId, HttpSession session) {
+		MemberVO loginMember = (MemberVO)session.getAttribute("_MEMBER_");
+		
+		boolean isResult = educationBiz.doReserveEducation(educationId, loginMember.getId());
+		if( isResult ){
+			return "OK";
+		} else{
+			throw new RuntimeException("일시적인 장애가 발생했습니다. 잠시 후 다시 시도해주세요.");
 		}
 	}
 	
@@ -262,18 +402,26 @@ public class EducationServiceImpl implements EducationService {
 		
 		if(session.getAttribute("_MEMBER_") != null){
 			MemberVO loginMember = (MemberVO)session.getAttribute("_MEMBER_");
-			boolean result = educationBiz.doCancelEducation(educationId , loginMember.getId() );
+			boolean result1 = false;
+			
+			String status = educationBiz.isApplyMemberByEducationId(educationId, loginMember.getId());
+			
+			// 참가 신청자는 취소와 동시에, 첫번째 예약자를 참가신청자로 변경한다.
+			if (status.equals("EDU_JN_A")) {
+				result1 = educationBiz.updateStateToApply(educationId);
+			}
+			
+			// 예약 신청자는 취소만 이루어진다. 
+			boolean result2 = educationBiz.doCancelEducation(educationId , loginMember.getId());
 		
-			if( result ) {
+			if( result2 ) {
 				return "redirect:/educationList";
 			}else{
-				throw new RuntimeException("	실패하였습니다.	");
+				throw new RuntimeException("교육 신청 취소를 실패하였습니다.");
 			}
-		
 		} else{
 			return "redirect:/";
 		}
-
 	}
 
 
@@ -563,5 +711,4 @@ public class EducationServiceImpl implements EducationService {
 	}
 
 }
-
 

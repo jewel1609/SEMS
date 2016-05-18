@@ -119,8 +119,23 @@ public class EducationController {
 	}
 	
 	@RequestMapping("/doApplyEducation")
-	public void doApplyEducation(@RequestParam String educationId, @RequestParam String educationType, HttpSession session, HttpServletResponse response){
-		String applyStatus = educationService.doApplyEducation(educationId, educationType, session);
+	public void doApplyEducation(@RequestParam String educationId, @RequestParam String educationType, @RequestParam String startDate
+			, @RequestParam String endDate, @RequestParam String startTime, @RequestParam String maxMember, HttpSession session, HttpServletResponse response){
+		EducationVO educationVO = new EducationVO();
+		educationVO.setEducationId(educationId);
+		educationVO.setEducationType(educationType);
+		educationVO.setStartDate(startDate);
+		educationVO.setEndDate(endDate);
+		educationVO.setStartTime(startTime);
+		educationVO.setMaxMember(Integer.parseInt(maxMember));
+		
+		String applyStatus = educationService.doApplyEducation(educationVO, session);
+		AjaxUtil.sendResponse(response, applyStatus);
+	}
+	
+	@RequestMapping("/doReserveEducation")
+	public void doReserveEducation(@RequestParam String educationId, HttpSession session, HttpServletResponse response){
+		String applyStatus = educationService.doReserveEducation(educationId, session);
 		AjaxUtil.sendResponse(response, applyStatus);
 	}
 	
@@ -201,5 +216,3 @@ public class EducationController {
 	}
 	
 }
-
-
