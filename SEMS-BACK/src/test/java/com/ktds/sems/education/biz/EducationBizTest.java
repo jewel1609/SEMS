@@ -2,41 +2,29 @@ package com.ktds.sems.education.biz;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Enumeration;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
-import javax.servlet.http.HttpSessionContext;
-import javax.validation.constraints.AssertTrue;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.mock.web.MockMultipartHttpServletRequest;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
+import com.ktds.sems.SemsTestCase;
 import com.ktds.sems.common.Session;
-import com.ktds.sems.education.service.EducationServiceTest.EducationValidator;
 import com.ktds.sems.education.vo.EducationVO;
-import com.ktds.sems.member.vo.MemberVO;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "/applicationContext.xml", "/educationContext.xml", "/fileContext.xml", "/rootContext.xml" , "/memberContext.xml"})
-public class EducationBizTest {
+public class EducationBizTest extends SemsTestCase {
 
 	@Autowired
 	private EducationBiz educationBiz;
