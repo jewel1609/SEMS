@@ -3,27 +3,17 @@ package com.ktds.sems.cooperation.web;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletRequest;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ktds.sems.SemsTestCase;
 import com.ktds.sems.cooperation.vo.CooperationVO;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "/applicationContext.xml", "/educationContext.xml", "/fileContext.xml"
-		,"/memberContext.xml", "/rootContext.xml", "/cooperationContext.xml" })
-public class CooperationControllerTest {
+public class CooperationControllerTest extends SemsTestCase {
 
 	@Autowired
 	private CooperationController cooperationController;

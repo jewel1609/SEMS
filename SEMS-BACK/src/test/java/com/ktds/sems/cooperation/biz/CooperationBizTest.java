@@ -6,19 +6,14 @@ import static org.junit.Assert.assertTrue;
 import java.util.List;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletRequest;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.ktds.sems.SemsTestCase;
 import com.ktds.sems.cooperation.vo.CooperationSearchVO;
 import com.ktds.sems.cooperation.vo.CooperationVO;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "/applicationContext.xml", "/educationContext.xml", "/fileContext.xml"
-		,"/memberContext.xml", "/rootContext.xml", "/cooperationContext.xml" })
-public class CooperationBizTest {
+public class CooperationBizTest extends SemsTestCase {
 
 	@Autowired
 	private CooperationBiz cooperationBiz;

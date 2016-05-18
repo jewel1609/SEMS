@@ -14,14 +14,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.ktds.sems.SemsTestCase;
 import com.ktds.sems.member.vo.MemberSearchVO;
 import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.member.vo.PersonalInfoReadVO;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"/applicationContext.xml", "/educationContext.xml", "/memberContext.xml", "/fileContext.xml", "/rootContext.xml"})
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class MemberDAOTest  {
+public class MemberDAOTest extends SemsTestCase {
 
 	@Autowired
 	private MemberDAO memberDAO;

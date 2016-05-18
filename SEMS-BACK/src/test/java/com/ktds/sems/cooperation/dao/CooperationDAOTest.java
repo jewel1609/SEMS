@@ -1,26 +1,20 @@
 package com.ktds.sems.cooperation.dao;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.validation.constraints.AssertTrue;
-
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.ktds.sems.SemsTestCase;
 import com.ktds.sems.cooperation.vo.CooperationSearchVO;
 import com.ktds.sems.cooperation.vo.CooperationVO;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "/applicationContext.xml", "/educationContext.xml", "/fileContext.xml"
-		,"/memberContext.xml", "/rootContext.xml", "/cooperationContext.xml" })
-public class CooperationDAOTest {
+public class CooperationDAOTest extends SemsTestCase {
 
 	@Autowired
 	private CooperationDAO cooperationDAO;
