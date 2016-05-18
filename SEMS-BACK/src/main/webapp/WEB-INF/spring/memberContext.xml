@@ -12,7 +12,7 @@
 	<bean id="memberBiz" class="com.ktds.sems.member.biz.impl.MemberBizImpl">
 		<property name="memberDAO" ref="memberDAO" />
 	</bean>
-	
+		
 	<bean id="memberService" class="com.ktds.sems.member.service.impl.MemberServiceImpl">
 		<property name="memberBiz" ref="memberBiz" />
 	</bean>	
