@@ -9,7 +9,7 @@
 </head>
 <body>
 
-	<span>${ teacherInfo.id }</span><br/>
+	<span>${ teacherInfo.memberId}</span><br/>
 	<span>${ teacherInfo.name }</span><br/>
 	<span>${ teacherInfo.companyName }</span><br/>
 	<span>${ teacherInfo.businessNumber }</span><br/>
