@@ -330,6 +330,9 @@ public class MemberServiceImpl implements MemberService {
 
 		// 강사인지 아닌지 체크
 		boolean isTeacher = memberBiz.isTeacher(id);
+		// 관리자인지 아닌지 체크
+		boolean isAdmin = memberBiz.isAdmin(id);
+	
 
 		view.addObject("member", member);
 		view.addObject("graduationTypeList", graduationTypeCodeNameList);
@@ -342,6 +345,12 @@ public class MemberServiceImpl implements MemberService {
 		} else {
 			view.addObject("isTeacher", "T");
 		}
+		if (!isAdmin) {
+			view.addObject("isAdmin", "F");
+		} else {
+			view.addObject("isAdmin", "T");
+		}
+		
 		view.setViewName("member/modifyMyInfo");
 		return view;
 
@@ -353,8 +362,6 @@ public class MemberServiceImpl implements MemberService {
 		int changeCount = 0;
 		MemberVO changeMember = new MemberVO();
 		String inputPassword = member.getPassword();
-		String selectGraduationTypeCodeId = memberBiz.getGraduationTypeCodeId(graduationType);
-		String selecthelCodeId = memberBiz.gethelCodeId(helCodeName);
 
 		MemberVO originMember = memberBiz.getOneMember(member.getId());
 
@@ -377,17 +384,24 @@ public class MemberServiceImpl implements MemberService {
 			changeCount++;
 			changeMember.setEmail(member.getEmail());
 		}
-
-		if (!originMember.getHighestEducationLevel().equals(selecthelCodeId)) {
-			changeCount++;
-			changeMember.setHighestEducationLevel(selecthelCodeId);
+		
+		if (!graduationType.equals("") || !helCodeName.equals("") ) {
+			
+			String selectGraduationTypeCodeId = memberBiz.getGraduationTypeCodeId(graduationType);
+			String selecthelCodeId = memberBiz.gethelCodeId(helCodeName);
+		
+			if (!originMember.getHighestEducationLevel().equals(selecthelCodeId)) {
+				changeCount++;
+				changeMember.setHighestEducationLevel(selecthelCodeId);
+			}
+	
+			if (!originMember.getGraduationType().equals(selectGraduationTypeCodeId)) {
+				changeCount++;
+				changeMember.setGraduationType(selectGraduationTypeCodeId);
+			}
+			
 		}
-
-		if (!originMember.getGraduationType().equals(selectGraduationTypeCodeId)) {
-			changeCount++;
-			changeMember.setGraduationType(selectGraduationTypeCodeId);
-		}
-
+		
 		if (!originMember.getPhoneNumber().equals(member.getPhoneNumber())) {
 			changeCount++;
 			changeMember.setPhoneNumber(member.getPhoneNumber());
@@ -397,7 +411,6 @@ public class MemberServiceImpl implements MemberService {
 			changeCount++;
 			changeMember.setBirthDate(member.getBirthDate());
 		}
-
 		if (changeCount == 0) {
 		} else {
 			changeMember.setId(member.getId());
@@ -406,7 +419,7 @@ public class MemberServiceImpl implements MemberService {
 		}
 
 		ModelAndView view = new ModelAndView();
-		view.setViewName("member/myPage");
+		view.setViewName("redirect:/member/myPage");
 
 		return view;
 	}

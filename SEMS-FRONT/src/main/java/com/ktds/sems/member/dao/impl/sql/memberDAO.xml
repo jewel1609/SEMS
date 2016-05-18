@@ -420,6 +420,13 @@
 		AND		MBR_TP = 'TR'
 	</select>
 	
+	<select id="isAdmin" parameterType="string" resultType="_int">
+		SELECT	COUNT(ID)
+		FROM	MBR
+		WHERE	ID = #{id}
+		AND		MBR_TP = 'ADM'
+	</select>
+	
 	<delete id="delectJunitTestMember" parameterType="string">
 		DELETE
 		FROM	MBR

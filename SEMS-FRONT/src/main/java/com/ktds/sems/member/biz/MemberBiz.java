@@ -118,4 +118,6 @@ public interface MemberBiz {
 
 	public List<EducationHistoryVO> getJoinEducationList(String memberId);
 
+	public boolean isAdmin(String id);
+
 }

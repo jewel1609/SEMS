@@ -212,8 +212,8 @@ public class MemberController {
 	}
 
 	@RequestMapping("/member/myPage/doModifyAction")
-	public ModelAndView doModifyAction(@Valid MemberVO member, Errors errors, @RequestParam String graduationType,
-			@RequestParam String helCodeName) {
+	public ModelAndView doModifyAction(@Valid MemberVO member, Errors errors, @RequestParam(required = false, defaultValue = "") String graduationType,
+			@RequestParam(required = false, defaultValue = "") String helCodeName) {
 		return memberService.modifyMemberInfo(member, errors, graduationType, helCodeName);
 	}
 	

@@ -119,4 +119,6 @@ public interface MemberDAO {
 
 	public List<EducationHistoryVO> getJoinEducationList(String memberId);
 
+	public int isAdmin(String id);
+
 }

@@ -672,4 +672,9 @@ public class MemberBizImpl implements MemberBiz {
 	public List<EducationHistoryVO> getJoinEducationList(String memberId) {
 		return memberDAO.getJoinEducationList(memberId);
 	}
+
+	@Override
+	public boolean isAdmin(String id) {
+		return memberDAO.isAdmin(id) > 0;
+	}
 }

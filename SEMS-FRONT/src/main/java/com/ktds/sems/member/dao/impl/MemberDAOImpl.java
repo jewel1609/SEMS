@@ -298,4 +298,9 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 	public List<EducationHistoryVO> getJoinEducationList(String memberId) {
 		return getSqlSession().selectList("MemberDAO.getJoinEducationList", memberId);
 	}
+
+	@Override
+	public int isAdmin(String id) {
+		return getSqlSession().selectOne("MemberDAO.isAdmin", id);
+	}
 }
