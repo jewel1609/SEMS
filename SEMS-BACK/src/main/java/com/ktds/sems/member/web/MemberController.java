@@ -66,7 +66,7 @@ public class MemberController {
 		List<String> graduationTypeList = memberService.getGraduationType();
 		List<String> memberTypeCodeNameList = memberService.getMemberTypeCodeNameList();
 		
-		view.setViewName("/member/addMemberPage");
+		view.setViewName("member/addMemberPage");
 		view.addObject("highestEducationLevelCodeNameList", highestEducationLevelCodeNameList);
 		view.addObject("graduationTypeList", graduationTypeList);
 		view.addObject("memberTypeCodeNameList", memberTypeCodeNameList);
