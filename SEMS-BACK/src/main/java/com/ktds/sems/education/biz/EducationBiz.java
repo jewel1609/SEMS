@@ -27,9 +27,9 @@ public interface EducationBiz {
 
 	public int getAllEduHistoryCount();
 
-	public int getJCEduHistoryCount();
+	public int getJCEduHistoryCount(EducationHistorySearchVO eduHistorySearchVO);
 
-	public List<EducationHistoryVO> getJCEducationHistory();
+	public List<EducationHistoryVO> getJCEducationHistory(EducationHistorySearchVO eduHistorySearchVO);
 	
 	public boolean applyJoinEducationByMemberId(String educationHistoryId, String changeState);
 
