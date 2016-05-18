@@ -146,6 +146,7 @@ public class TeacherBizImpl implements TeacherBiz {
 				return false;
 			}
 		}
+		System.out.println("4");
 		return teacherDAO.doTeacherInfoModifyAction(teacherVO) > 0;
 	}
 
