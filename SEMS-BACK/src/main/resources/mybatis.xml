@@ -28,6 +28,6 @@
 		<mapper resource="com/ktds/sems/file/dao/impl/sql/fileDAO.xml"/>
 		<mapper resource="com/ktds/sems/member/dao/impl/sql/memberDAO.xml"/>
 		<mapper resource="com/ktds/sems/teacher/dao/impl/sql/teacherDAO.xml"/>
-		<mapper resource="/com/ktds/sems/cooperation/dao/impl/sql/cooperationDAO.xml"/>
+		<mapper resource="com/ktds/sems/cooperation/dao/impl/sql/cooperationDAO.xml"/>
 	</mappers>
 </configuration>
