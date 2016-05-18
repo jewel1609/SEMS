@@ -391,6 +391,39 @@
 		WHERE	ID = #{memberId}
 	</delete>
 	
+	<select id="getPersonalInfoIdSeq" resultType="_int">
+		SELECT	PRSN_INFO_RD_SEQ.NEXTVAL
+		FROM	DUAL
+	</select>
+	
+	<select id="getSysdate" resultType="string">
+		SELECT	TO_CHAR(SYSDATE, 'YYYYMMDD')
+		FROM	DUAL
+	</select>
+	
+	<insert id="doWriteMemberDetailInfo" parameterType="PersonalInfoReadVO">
+		INSERT INTO 	PRSN_INFO_RD (
+   										ID
+   										, MBR_ID
+   										, TRGT_MBR_ID
+   										, RD_DATE
+   										, DESCRIPTION
+   									) 
+		VALUES 						( 
+										#{id}
+										, #{memberId}
+										, #{targetMemberId}
+										, SYSDATE
+										, #{description}
+									)
+	</insert>
+	
+	<select id="getTargetMemberEmail" parameterType="string" resultType="string">
+		SELECT	EMAIL
+		FROM	MBR
+		WHERE	ID = #{targetMemberId}
+	</select>
+
 	<update id="changePassword" parameterType="MemberVO">
 		UPDATE	MBR
 		SET		SALT = #{salt}
@@ -425,5 +458,5 @@
 		FROM	MBR_TP
 		WHERE	CD_ID != 'ADM'
 	</select>
-	
+
 </mapper>
