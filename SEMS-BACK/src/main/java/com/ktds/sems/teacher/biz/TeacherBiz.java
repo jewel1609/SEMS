@@ -9,7 +9,7 @@ import com.ktds.sems.teacher.vo.TeacherBookVO;
 import com.ktds.sems.teacher.vo.TeacherVO;
 
 public interface TeacherBiz {
-
+	
 	TeacherVO getTeacherInfo(String memberId);
 
 	List<EducationHistoryVO> getTeacherEducationHistory(String memberId);
@@ -21,5 +21,17 @@ public interface TeacherBiz {
 	double getTeacherEducationGrade(String memberId);
 
 	List<EducationVO> getEducationHistory(String memberId);
+
+	public TeacherVO getOneTeacherInfo(String memberId);
+
+	public List<TeacherBookVO> getOneTeacherBookInfo(String memberId);
+
+	public List<ProjectHistoryVO> getOneTeacherProjectHistoryVO(String memberId);
+
+	public List<EducationHistoryVO> getOneEducationHistoryVO(String memberId);
+
+	public boolean doTeacherInfoModifyAction(TeacherVO teacherVO);
+
+	public boolean deleteTeacherBookEduProHistory(String id, String type);
 
 }
