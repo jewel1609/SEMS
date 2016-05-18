@@ -483,6 +483,45 @@ public class EducationServiceImpl implements EducationService {
 		}
 	}
 
+	@Override
+	public String plusReReplyDislike(String replyId, HttpSession session) {
+		MemberVO memberVO = (MemberVO) session.getAttribute(Session.MEMBER);
+		
+		ReRplyEvalVO reRplyEvalVO = new ReRplyEvalVO();
+		
+		String nowDate = educationBiz.getNowDate();
+		int nextSeq = educationBiz.getNextReReplyEval();
+		String replyEvalId = "RE-" + nowDate + "-" + lpad(nextSeq + "", 6, "0");
+		
+		//댓글ID
+		reRplyEvalVO.setReplyId(replyId);
+		
+		// 싫어요 누른 아이디
+		reRplyEvalVO.setMbrId(memberVO.getId());
+		
+		// REPLY_EVAL_ID (pk)
+		reRplyEvalVO.setReplyEvalId(replyEvalId);
+		
+		if (!educationBiz.checkReReplyEval(reRplyEvalVO)){
+			boolean result = educationBiz.insertReReplyEvalByDislike(reRplyEvalVO);
+			
+			if(!result){
+				return "FAIL";
+			}
+			else{
+				if(educationBiz.plusReReplyDislike(replyId)){
+					return "OK";
+				}
+				else {
+					return "FAIL";
+				}
+			} 
+		}
+		else {
+			return "FAIL";
+		}
+	}
+
 }
 
 

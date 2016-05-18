@@ -44,5 +44,7 @@ public interface EducationService {
 
 	public String plusReReplyLike(String replyId, HttpSession session);
 
+	public String plusReReplyDislike(String replyId, HttpSession session);
+
 	
 }

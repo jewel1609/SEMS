@@ -306,6 +306,16 @@ public class EducationBizImpl implements EducationBiz {
 	public String getEndYear() {
 		return educationDAO.getEndYear();
 	}
+
+	@Override
+	public boolean insertReReplyEvalByDislike(ReRplyEvalVO reRplyEvalVO) {
+		return educationDAO.insertReReplyEvalByDislike(reRplyEvalVO) > 0;
+	}
+
+	@Override
+	public boolean plusReReplyDislike(String replyId) {
+		return educationDAO.plusReReplyDislike(replyId) > 0;
+	}
 	
 }
 

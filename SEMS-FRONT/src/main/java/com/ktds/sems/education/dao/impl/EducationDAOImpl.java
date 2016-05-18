@@ -228,4 +228,14 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 		return getSqlSession().selectOne("EducationDAO.getEndYear");
 	}
 
+	@Override
+	public int insertReReplyEvalByDislike(ReRplyEvalVO reRplyEvalVO) {
+		return getSqlSession().insert("EducationDAO.insertReReplyEvalByDislike",reRplyEvalVO);
+	}
+
+	@Override
+	public int plusReReplyDislike(String replyId) {
+		return getSqlSession().update("EducationDAO.plusReReplyDislike", replyId);
+	}
+
 }

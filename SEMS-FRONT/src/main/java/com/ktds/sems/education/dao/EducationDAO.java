@@ -77,4 +77,8 @@ public interface EducationDAO {
 
 	public String getEndYear();
 
+	public int insertReReplyEvalByDislike(ReRplyEvalVO reRplyEvalVO);
+
+	public int plusReReplyDislike(String replyId);
+
 }

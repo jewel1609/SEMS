@@ -78,4 +78,8 @@ public interface EducationBiz {
 
 	public String getEndYear();
 
+	public boolean insertReReplyEvalByDislike(ReRplyEvalVO reRplyEvalVO);
+
+	public boolean plusReReplyDislike(String replyId);
+
 }

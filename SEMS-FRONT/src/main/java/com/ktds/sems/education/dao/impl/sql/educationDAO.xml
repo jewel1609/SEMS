@@ -419,7 +419,7 @@
 	</select>
 	
 	<select id="getNextReReplyEval" resultType="_int">
-		SELECT 	REPLY_ID_SEQ.NEXTVAL
+		SELECT 	REPEPLY_EVAL_ID_SEQ.NEXTVAL
 		FROM	DUAL
 	</select>
 	
@@ -429,7 +429,7 @@
 		WHERE	REPLY_ID = #{replyId}
 	</update>
 	
-	<insert id="insertReReplyEval">
+	<insert id="insertReReplyEval" parameterType="ReRplyEvalVO">
 		INSERT INTO RERPLY_EVAL (
 								   REPLY_ID
 								   , MBR_ID
@@ -454,7 +454,8 @@
 		FROM	RERPLY_EVAL
 		WHERE	MBR_ID = #{mbrId}
 		AND		REPLY_ID = #{replyId}
-		AND		LIKE_CNT = 'Y'
+		AND		(LIKE_CNT = 'Y'
+		OR		DISLIKE_CNT = 'Y')
 	</select>
 	
 	<select id="getStartYear" resultType="string">
@@ -477,4 +478,29 @@
 		WHERE   ROWNUM = 1
 	
 	</select>
+	
+	<insert id="insertReReplyEvalByDislike" parameterType="ReRplyEvalVO">
+		INSERT INTO RERPLY_EVAL (
+									   REPLY_ID
+									   , MBR_ID
+									   , LIKE_CNT
+									   , DISLIKE_CNT
+									   , CREATED_DATE
+									   , REPLY_EVAL_ID
+								   	) 
+		VALUES					( 
+										#{replyId}
+										, #{mbrId}
+										, 'N'
+								 		, 'Y'
+								 		, SYSDATE
+								 		, #{replyEvalId}
+									)
+	</insert>
+	
+	<update id="plusReReplyDislike" parameterType="string">
+		UPDATE	QNA
+		SET		DISLIKE_CNT = DISLIKE_CNT+1
+		WHERE	REPLY_ID = #{replyId}
+	</update>
 </mapper>

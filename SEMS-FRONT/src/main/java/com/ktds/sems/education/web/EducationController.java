@@ -182,8 +182,8 @@ public class EducationController {
 	public void plusReReplyDislike(HttpServletRequest request, HttpServletResponse response, HttpSession session){
 		String replyId = request.getParameter("replyId");
 		
-	/*	String status = educationService.plusReReplyDislike(replyId, session);
-		AjaxUtil.sendResponse(response, status);*/
+		String status = educationService.plusReReplyDislike(replyId, session);
+		AjaxUtil.sendResponse(response, status);
 	}
 	
 }
