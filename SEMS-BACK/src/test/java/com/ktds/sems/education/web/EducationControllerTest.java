@@ -28,7 +28,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.common.Session;
 import com.ktds.sems.education.vo.EducationVO;
-import com.ktds.sems.member.vo.MemberVO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "/applicationContext.xml", "/educationContext.xml", "/fileContext.xml",
