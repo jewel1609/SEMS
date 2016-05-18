@@ -28,7 +28,7 @@
 				 }
 			    else if(data == "OVER") {
 			       alert("비밀번호가 지속 실패하여, 계정이 잠겼습니다. 운영자에게 문의하세요.");
-			       location.href="<c:url value="/member/myPage"/>";
+			       location.href="<c:url value="/"/>";
 			    }		 
 			});
 		});	

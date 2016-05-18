@@ -55,12 +55,14 @@ $(document).ready(function() {
 				alert("통신 실패");
 			} else if (data == "OK") {
 				$("#messageByEmail").text("사용할 수 있는 이메일 입니다.").css("color", "green");
+				checkError = 0;
 			}  else if (data == "NO") {
 				$("#messageByEmail").text("올바른 이메일을 입력하세요!").css("color", "red");
 				checkError += 1;
 			}
 			else if (data == "EXIST") {
 				$("#messageByEmail").text("이미 사용중이거나 탈퇴한 회원입니다!").css("color", "red");
+				checkError += 1;
 			}
 		});
 	});
@@ -233,7 +235,7 @@ function daysInMonth(month, year) {
 	<form:errors path="email"></form:errors>
 	<br />
 	
-	<c:if test="${isTeacher eq 'F'}">
+	<c:if test="${memberTypeCodeName eq '수강생' || memberTypeCodeName eq '일반회원'}">
 	대학교 : ${member.universityName}  <br />	
 	<br />
 	전공 : ${member.majorName} <br /> 	
@@ -253,7 +255,7 @@ function daysInMonth(month, year) {
 	
 	회원구분 : ${memberTypeCodeName} <br />
 	<br />
-	<c:if test="${isTeacher eq 'F'}">
+	<c:if test="${memberTypeCodeName eq '수강생' || memberTypeCodeName eq '일반회원'}">
 	졸업구분 : 
 	<c:forEach items="${graduationTypeList}" var="graduationTypeCodeName">
 				<c:if test="${graduationTypeCodeName eq selectedGraduationTypeCodeName}">
@@ -275,6 +277,7 @@ function daysInMonth(month, year) {
 	</c:forEach>
 	</c:if>
 	<input type="hidden" name="id" id="id" value="${member.id}"/> <br/><br/>
+	<input type="hidden" name="memberType" id="memberType" value="${member.memberType}"/> 
 	<input type="button" id="modifyBtn" value="수정 완료" />
 	
 </form:form>
