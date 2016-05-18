@@ -17,6 +17,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.member.dao.MemberDAO;
+import com.ktds.sems.member.vo.MemberListVO;
+import com.ktds.sems.member.vo.MemberSearchVO;
 import com.ktds.sems.member.vo.MemberVO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -155,11 +157,257 @@ public class MemberControllerTest {
 		else {
 			fail("fail");
 		}
+	}
+	
+	@Test
+	public void viewMemberListPageTest(){
 		
+		MemberSearchVO memberSearchVO = new MemberSearchVO();
+		int pageNo = 0;
+		memberSearchVO.setSearchKeyword("");
+		memberSearchVO.setSearchType("");
+		memberSearchVO.setConnLock("");
+		memberSearchVO.setIsRgsn("");
+		memberSearchVO.setModLock("");
 		
+		ModelAndView view = memberController.viewMemberListPage(memberSearchVO, pageNo);
+		assertNotNull(view);
+
+		if ( view != null ){
+			String viewName = view.getViewName();
+			assertNotNull(viewName);
+			assertEquals(viewName, "member/memberListPage");
+			
+			
+			MemberListVO memberListVO = (MemberListVO) view.getModelMap().get("memberListVO");
+			assertNotNull(memberListVO);
+			
+			memberSearchVO = (MemberSearchVO) view.getModelMap().get("memberSearchVO");
+			assertNotNull(memberSearchVO);
+			
+			List<MemberVO> memberTypeList = (List<MemberVO>) view.getModelMap().get("memberTypeList");
+			assertNotNull(memberTypeList );
+			assertTrue(memberTypeList.size() > 0);
+			
+			List<String> searchTypeList = (List<String>) view.getModelMap().get("searchTypeList");
+			assertNotNull(searchTypeList );
+			assertTrue(searchTypeList.size() > 0);
+			
+		}
+		else{
+			fail("Fail...");
+		}
+	}
+	
+	@Test
+	public void viewMemberListPageTestSearchTypeId() { 
+		
+		MemberSearchVO memberSearchVO = new MemberSearchVO();
+		int pageNo = 0;
+		memberSearchVO.setSearchKeyword("test");
+		memberSearchVO.setSearchType("");
+		memberSearchVO.setConnLock("");
+		memberSearchVO.setIsRgsn("");
+		memberSearchVO.setModLock("");
+		
+		ModelAndView view = memberController.viewMemberListPage(memberSearchVO, pageNo);
+		assertNotNull(view);
+
+		if ( view != null ){
+			String viewName = view.getViewName();
+			assertNotNull(viewName);
+			assertEquals(viewName, "member/memberListPage");
+			
+			MemberListVO memberListVO = (MemberListVO) view.getModelMap().get("memberListVO");
+			assertNotNull(memberListVO);
+			for (MemberVO member : memberListVO.getMemberList()) {
+				assertTrue(member.getId().contains("test"));
+			}
+
+			memberSearchVO = (MemberSearchVO) view.getModelMap().get("memberSearchVO");
+			assertNotNull(memberSearchVO);
+			
+			List<MemberVO> memberTypeList = (List<MemberVO>) view.getModelMap().get("memberTypeList");
+			assertNotNull(memberTypeList );
+			assertTrue(memberTypeList.size() > 0);
+			
+			List<String> searchTypeList = (List<String>) view.getModelMap().get("searchTypeList");
+			assertNotNull(searchTypeList );
+			assertTrue(searchTypeList.size() > 0);
+			
+		}
+		else{
+			fail("Fail...");
+		}		
 	}
 	
 	
+	@Test
+	public void viewMemberListPageTestSearchTypeMemberType() { 
+		
+		MemberSearchVO memberSearchVO = new MemberSearchVO();
+		int pageNo = 0;
+		memberSearchVO.setSearchKeyword("");
+		memberSearchVO.setSearchType("강사");
+		memberSearchVO.setConnLock("");
+		memberSearchVO.setIsRgsn("");
+		memberSearchVO.setModLock("");
+		
+		ModelAndView view = memberController.viewMemberListPage(memberSearchVO, pageNo);
+		assertNotNull(view);
+
+		if ( view != null ){
+			String viewName = view.getViewName();
+			assertNotNull(viewName);
+			assertEquals(viewName, "member/memberListPage");
+			
+			MemberListVO memberListVO = (MemberListVO) view.getModelMap().get("memberListVO");
+			assertNotNull(memberListVO);
+			for (MemberVO member : memberListVO.getMemberList()) {
+				assertTrue(member.getMemberType().equals("강사"));
+			}
+			
+			memberSearchVO = (MemberSearchVO) view.getModelMap().get("memberSearchVO");
+			assertNotNull(memberSearchVO);
+			
+			List<MemberVO> memberTypeList = (List<MemberVO>) view.getModelMap().get("memberTypeList");
+			assertNotNull(memberTypeList );
+			assertTrue(memberTypeList.size() > 0);
+			
+			List<String> searchTypeList = (List<String>) view.getModelMap().get("searchTypeList");
+			assertNotNull(searchTypeList );
+			assertTrue(searchTypeList.size() > 0);
+			
+		}
+		else{
+			fail("Fail...");
+		}		
+	}
 	
 	
+	@Test
+	public void viewMemberListPageTestSearchTypeIsRgsn() { 
+		
+		MemberSearchVO memberSearchVO = new MemberSearchVO();
+		int pageNo = 0;
+		memberSearchVO.setSearchKeyword("");
+		memberSearchVO.setSearchType("");
+		memberSearchVO.setConnLock("");
+		memberSearchVO.setIsRgsn("Y");
+		memberSearchVO.setModLock("");
+		
+		ModelAndView view = memberController.viewMemberListPage(memberSearchVO, pageNo);
+		assertNotNull(view);
+
+		if ( view != null ){
+			String viewName = view.getViewName();
+			assertNotNull(viewName);
+			assertEquals(viewName, "member/memberListPage");
+			
+			MemberListVO memberListVO = (MemberListVO) view.getModelMap().get("memberListVO");
+			assertNotNull(memberListVO);
+			for (MemberVO member : memberListVO.getMemberList()) {
+				assertTrue(member.getIsResign().equals("Y"));
+			}
+			
+			memberSearchVO = (MemberSearchVO) view.getModelMap().get("memberSearchVO");
+			assertNotNull(memberSearchVO);
+			
+			List<MemberVO> memberTypeList = (List<MemberVO>) view.getModelMap().get("memberTypeList");
+			assertNotNull(memberTypeList );
+			assertTrue(memberTypeList.size() > 0);
+			
+			List<String> searchTypeList = (List<String>) view.getModelMap().get("searchTypeList");
+			assertNotNull(searchTypeList );
+			assertTrue(searchTypeList.size() > 0);
+			
+		}
+		else{
+			fail("Fail...");
+		}		
+	}	
+	
+	@Test
+	public void viewMemberListPageTestSearchTypeConnLock() { 
+		
+		MemberSearchVO memberSearchVO = new MemberSearchVO();
+		int pageNo = 0;
+		memberSearchVO.setSearchKeyword("");
+		memberSearchVO.setSearchType("");
+		memberSearchVO.setConnLock("Y");
+		memberSearchVO.setIsRgsn("");
+		memberSearchVO.setModLock("");
+		
+		ModelAndView view = memberController.viewMemberListPage(memberSearchVO, pageNo);
+		assertNotNull(view);
+
+		if ( view != null ){
+			String viewName = view.getViewName();
+			assertNotNull(viewName);
+			assertEquals(viewName, "member/memberListPage");
+			
+			MemberListVO memberListVO = (MemberListVO) view.getModelMap().get("memberListVO");
+			assertNotNull(memberListVO);
+			for (MemberVO member : memberListVO.getMemberList()) {
+				assertTrue(member.getIsAccountLock().equals("Y"));
+			}
+			
+			memberSearchVO = (MemberSearchVO) view.getModelMap().get("memberSearchVO");
+			assertNotNull(memberSearchVO);
+			
+			List<MemberVO> memberTypeList = (List<MemberVO>) view.getModelMap().get("memberTypeList");
+			assertNotNull(memberTypeList );
+			assertTrue(memberTypeList.size() > 0);
+			
+			List<String> searchTypeList = (List<String>) view.getModelMap().get("searchTypeList");
+			assertNotNull(searchTypeList );
+			assertTrue(searchTypeList.size() > 0);
+			
+		}
+		else{
+			fail("Fail...");
+		}		
+	}	
+	@Test
+	public void viewMemberListPageTestSearchTypeModLock() { 
+		
+		MemberSearchVO memberSearchVO = new MemberSearchVO();
+		int pageNo = 0;
+		memberSearchVO.setSearchKeyword("");
+		memberSearchVO.setSearchType("");
+		memberSearchVO.setConnLock("");
+		memberSearchVO.setIsRgsn("");
+		memberSearchVO.setModLock("Y");
+		
+		ModelAndView view = memberController.viewMemberListPage(memberSearchVO, pageNo);
+		assertNotNull(view);
+
+		if ( view != null ){
+			String viewName = view.getViewName();
+			assertNotNull(viewName);
+			assertEquals(viewName, "member/memberListPage");
+			
+			MemberListVO memberListVO = (MemberListVO) view.getModelMap().get("memberListVO");
+			assertNotNull(memberListVO);
+			for (MemberVO member : memberListVO.getMemberList()) {
+				assertTrue(member.getIsModifyLock().equals("Y"));
+			}
+			
+			memberSearchVO = (MemberSearchVO) view.getModelMap().get("memberSearchVO");
+			assertNotNull(memberSearchVO);
+			
+			List<MemberVO> memberTypeList = (List<MemberVO>) view.getModelMap().get("memberTypeList");
+			assertNotNull(memberTypeList );
+			assertTrue(memberTypeList.size() > 0);
+			
+			List<String> searchTypeList = (List<String>) view.getModelMap().get("searchTypeList");
+			assertNotNull(searchTypeList );
+			assertTrue(searchTypeList.size() > 0);
+			
+		}
+		else{
+			fail("Fail...");
+		}		
+	}		
+
 }
