@@ -7,6 +7,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationVO;
 
 
@@ -22,7 +23,7 @@ public interface EducationService {
 
 	public ModelAndView getAllEducationHistory(int pageNo);
 
-	public ModelAndView getJCEduHistory(int pageNo);
+	public ModelAndView getJCEduHistory(EducationHistorySearchVO eduHistorySearchVO, int pageNo);
 
 	public ModelAndView applyJoinEducationByMemberId(String educationHistoryId);
 
