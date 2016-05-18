@@ -12,6 +12,7 @@ import com.ktds.sems.member.vo.LoginHistoryVO;
 import com.ktds.sems.member.vo.MemberSearchVO;
 import com.ktds.sems.member.vo.LoginHistorySearchVO;
 import com.ktds.sems.member.vo.MemberVO;
+import com.ktds.sems.member.vo.PersonalInfoReadVO;
 
 public interface MemberService {
 
@@ -52,6 +53,10 @@ public interface MemberService {
 	public ModelAndView memberDeleteById(String id);
 
 	public List<String> getMemberTypeCodeNameList();
+
+	public ModelAndView requestMemberDetail(String id);
+
+	public ModelAndView doWriteMemberDetailInfo(PersonalInfoReadVO requestMemberDetailInfo, Errors errors);
 
 	public ModelAndView loginHistoryInit();
 	
