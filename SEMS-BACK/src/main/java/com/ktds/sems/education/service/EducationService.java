@@ -21,7 +21,7 @@ public interface EducationService {
 
 	public ModelAndView getAllEduCode();
 
-	public ModelAndView getAllEducationHistory(int pageNo);
+	public ModelAndView getAllEducationHistory(EducationHistorySearchVO eduHistorySearchVO, int pageNo);
 
 	public ModelAndView getJCEduHistory(EducationHistorySearchVO eduHistorySearchVO, int pageNo);
 
