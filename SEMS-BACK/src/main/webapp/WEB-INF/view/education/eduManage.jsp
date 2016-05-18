@@ -9,14 +9,13 @@
    src="<c:url value='/resources/js/jquery.min.js"'/>"></script>
 <script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
 <script type="text/javascript">
-   $(document).ready(function() {
-         
+   
+	$(document).ready(function() {
       $("#joinCnclBtn").click(function() {
             window.open('<c:url value="/webapp/WEB-INF/view/update.jsp"/>',
                      '1463457167300',
                      'width=700,height=500,toolbar=0,menubar=0,location=0,status=1,scrollbars=1,resizable=1,left=0,top=0');
                         });
-	$(document).ready(function() {
 
       $("#joinAplyBtn").click(function() {
             var eduHistoryId = $("#eduHistoryId").val();
@@ -86,94 +85,7 @@
          <td>거절버튼</td>
       </tr>
       
-      <c:forEach items="${ eduHistoryListVO.educationHistoryList }"
-         var="eduHistory">
-         <input type="hidden" id="eduHistoryId"
-            value="${eduHistory.educationHistoryId}" />
-         <c:if test="${ eduHistory.state eq 'JOIN_APLY' }">
-            <tr>
-               <td><input type="hidden" id="eduId" value="${eduHistory.educationId }"/>${eduHistory.educationId }</td>
-               <td>${eduHistory.memberId }</td>
-               <td>${eduHistory.ip }</td>
-               <td>${eduHistory.educationHistoryDate }</td>
-               <td>${eduHistory.state }</td>
-               <td><c:if test="${eduHistory.cmnt ne null }">
-                  ${eduHistory.cmnt }
-               </c:if> <c:if test="${eduHistory.fdbk ne null }">
-                  ${eduHistory.fdbk }
-               </c:if></td>
-               <td>
-                  <!-- 승인버튼 --> 
-                  <button class="btn btn-primary btn-sm" data-toggle="modal"
-      data-target="#myModal">교육참여승인</button>
-               </td>
-               <td>
-                  <button class="btn btn-primary btn-sm" data-toggle="modal"
-      data-target="#myModal">교육참여거절</button>
-               </td>
-            </tr>
-         </c:if>
-         <c:if test="${ eduHistory.state eq 'CNCL_APLY' }">
-            <tr>
-               <td>${eduHistory.educationId }</td>
-               <td>${eduHistory.memberId }</td>
-               <td>${eduHistory.ip }</td>
-               <td>${eduHistory.educationHistoryDate }</td>
-               <td>${eduHistory.state }</td>
-               <td><c:if test="${eduHistory.cmnt ne null }">
-                  ${eduHistory.cmnt }
-               </c:if> <c:if test="${eduHistory.fdbk ne null }">
-                  ${eduHistory.fdbk }
-               </c:if></td>
-               <td>
-                  <!-- 승인버튼 --> 
-                  <button class="btn btn-primary btn-sm" data-toggle="modal"
-      data-target="#myModal">교육취소승인</button>
-               </td>
-               <td>
-                <button class="btn btn-primary btn-sm" data-toggle="modal"
-      data-target="#myModal">교육취소거절</button>
-               </td>
-            </tr>
-         </c:if>
-         <c:if test="${ eduHistory.state eq 'GVUP_APLY' }">
-            <tr>
-               <td>${eduHistory.educationId }</td>
-               <td>${eduHistory.memberId }</td>
-               <td>${eduHistory.ip }</td>
-               <td>${eduHistory.educationHistoryDate }</td>
-               <td>${eduHistory.state }</td>
-               <td><c:if test="${eduHistory.cmnt ne null }">
-                  ${eduHistory.cmnt }
-               </c:if> <c:if test="${eduHistory.fdbk ne null }">
-                  ${eduHistory.fdbk }
-               </c:if></td>
-               <td>
-                  <!-- 승인버튼 -->
-                    <button class="btn btn-primary btn-sm" data-toggle="modal"
-      data-target="#myModal">교육포기승인</button>
-               </td>
-               <td>
-                  <!-- 거절버튼 --> 
-                   <button class="btn btn-primary btn-sm" data-toggle="modal"
-      data-target="#myModal">교육포기거절</button>
-               </td>
-            </tr>
-         </c:if>
-	<table>
-		<tr>
-			<td>교육명</td>
-			<td>학생아이디</td>
-			<td>신청자아이피</td>
-			<td>상태변경일</td>
-			<td>신청 상태</td>
-			<td>신청(거절/포기) 사유</td>
-			<!-- 상태마다 승인과 거절이있다. -->
-			<td>승인버튼</td>
-			<td>거절버튼</td>
-		</tr>
-		<c:forEach items="${ eduHistoryListVO.educationHistoryList }"
-			var="eduHistory">
+		<c:forEach items="${ eduHistoryListVO.educationHistoryList }"var="eduHistory">
 			<input type="hidden" id="eduHistoryId"
 				value="${eduHistory.educationHistoryId}" />
 			<c:if test="${ eduHistory.state eq 'JOIN_APLY' }">
