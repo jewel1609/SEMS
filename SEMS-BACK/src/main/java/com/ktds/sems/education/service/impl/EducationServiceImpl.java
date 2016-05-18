@@ -229,23 +229,23 @@ public class EducationServiceImpl implements EducationService {
 	}
 
 	@Override
-	public ModelAndView getJCEduHistory(int pageNo) {
+	public ModelAndView getJCEduHistory(EducationHistorySearchVO eduHistorySearchVO, int pageNo) {
 		EducationHistoryListVO eduHistoryListVO = new EducationHistoryListVO();
 		Paging paging = new Paging(15,15);
 		eduHistoryListVO.setPaging(paging);
 		paging.setPageNumber(pageNo + "");
 		
-		int eduHistoryCount = educationBiz.getJCEduHistoryCount();
+		int eduHistoryCount = educationBiz.getJCEduHistoryCount(eduHistorySearchVO);
+		logger.info("eduHistoryCount"+eduHistoryCount);
 		if(eduHistoryCount == 0 ){
 			eduHistoryCount ++;
 		}
 		paging.setTotalArticleCount(eduHistoryCount);
-		EducationHistorySearchVO searchVO = new EducationHistorySearchVO();
-		searchVO.setStartIndex(paging.getStartArticleNumber());
-		searchVO.setEndIndex(paging.getEndArticleNumber());	
+		eduHistorySearchVO.setStartIndex(paging.getStartArticleNumber());
+		eduHistorySearchVO.setEndIndex(paging.getEndArticleNumber());	
 		
 		ModelAndView view = new ModelAndView();
-		List<EducationHistoryVO> eduHistoryList = educationBiz.getJCEducationHistory();
+		List<EducationHistoryVO> eduHistoryList = educationBiz.getJCEducationHistory(eduHistorySearchVO);
 		eduHistoryListVO.setEducationHistoryList(eduHistoryList);
 		
 		view.addObject("eduHistoryListVO", eduHistoryListVO);
@@ -306,7 +306,7 @@ public class EducationServiceImpl implements EducationService {
 		
 		return view;
 	}
-	
+
 	/*@Override
 	public ModelAndView completeCancelEducationByMemberId(String educationHistoryId) {
 		
