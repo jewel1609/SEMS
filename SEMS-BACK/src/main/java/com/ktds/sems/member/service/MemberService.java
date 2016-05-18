@@ -36,8 +36,6 @@ public interface MemberService {
 	
 	public String massiveDeleteMember(String[] deleteMemberIds);
 
-	public ModelAndView getMemberDetailById(String id);
-
 	public ModelAndView addNewMember(MemberVO member, Errors errors, HttpSession session);
 
 	public List<String> getHighestEducationLevelCodeNames();
