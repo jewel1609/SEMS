@@ -140,7 +140,7 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value="/memberManage/doModifyMemberTypeAction", method = RequestMethod.POST)
-	public ModelAndView doModifyMemberTypeAction (@RequestParam String memberType,@RequestParam List<String> deleteMemberId) {
+	public ModelAndView doModifyMemberTypeAction (@RequestParam String memberType, @RequestParam List<String> deleteMemberId) {
 		return memberService.modifyMemberType(memberType, deleteMemberId);
 	}
 	
