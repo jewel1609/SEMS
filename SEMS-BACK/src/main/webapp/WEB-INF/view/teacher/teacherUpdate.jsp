@@ -32,14 +32,14 @@
 
 		$("#update").click(function() {
 			if (confirm("정말 등록하시겠습니까?") == true) {
-				if ($("#checkCheckedBox").val() == '1') {
+				if ($("#compCheckedBox").val() == '1') {
 					if ($.trim($('#companyName').val()) == '') {
 						alert("소속업체를 입력하시오.");
 						$('#companyName').focus();
 						return false;
 					}
 				}				
-				if ($("#checkCheckedBox").val() == '0') {
+				if ($("#preCheckedBox").val() == '1') {
 					if ($.trim($('#businessNumber').val()) == '') {
 						alert("사업자번호를 입력하시오.");
 						$('#businessNumber').focus();
@@ -106,17 +106,80 @@
 			}
 		});
 		<c:if test="${not empty teacherVO.companyName }">
-		$("#businessNumber").hide();
+		$("#generalBusinessNumber").hide();
+		$("#preCheckedBox").val('0');
 		</c:if>
 		$(".pre").click(function() {
 			var isChecked = $(this).prop("checked");
 			if (isChecked) {
-				$("#businessNumber").show();
-				$("#checkCheckedBox").val('0');
+				$("#companyMember").hide();
+				$("#generalBusinessNumber").show();
+				$("#compCheckedBox").val('0');
 				$("#companyName").val('');
-			} else {
-				$("#businessNumber").hide();
 			}
+		});
+		<c:if test="${not empty teacherVO.businessNumber }">
+		$("#companyMember").hide();
+		$("#compCheckedBox").val('0');
+		</c:if>
+		$(".noPre").click(function() {
+			var isChecked = $(this).prop("checked");
+			if (isChecked) {
+				$("#generalBusinessNumber").hide();
+				$("#companyMember").show();
+				$("#preCheckedBox").val('0');
+				$("#businessNumber").val('');
+			}
+		});
+		$("#addEduHis").click(function(){
+			var contents = '';
+			
+			contents +='<tr>';
+			contents +='<td><input type="date" id="eduStartDate" class="onlyText" name="eduStartDate"></td>';
+			contents +='<td><input type="date" id="eduEndDate" class="onlyText"	name="eduEndDate"></td>';
+			contents +='<td><input type="text" id="educationName" class="onlyText" name="educationName" maxlength="50"></td>';
+			contents +='<td><input type="text" id="educationLocation" class="onlyText"	name="educationLocation" maxlength="50"></td>';
+			contents +='<td><input type="button" class="removeEduHisTr" value="삭제"/></td>';
+			contents +='</tr>';
+
+			$("#EduHisTable").append(contents);
+		});
+		
+		$("#addBook").click(function(){
+			var contents = '';
+			
+			contents +='<tr>';
+			contents +='<td><input type="text" id="bookName" class="onlyText" name="bookName" maxlength="50"></td>';
+			contents +='<td><input type="text" id="bookCompany" class="onlyText" name="bookCompany" maxlength="20"></td>';
+			contents +='<td><input type="button" class="removeBookHisTr" value="삭제"/></td>';
+			contents +='</tr>';
+
+			$("#BookTable").append(contents);
+		});
+		
+		$("#addProHis").click(function(){
+			var contents = '';
+		
+			contents +='<tr>';
+			contents +='<td><input type="date" id="startDate" class="onlyText" name="startDate"></td>';
+			contents +='<td><input type="date" id="endDate" class="onlyText" name="endDate"></td>';
+			contents +='<td><input type="text" id="projectName" class="onlyText" name="projectName" maxlength="50"></td>';
+			contents +='<td><input type="text" id="projectLocation" class="onlyText" name="projectLocation" maxlength="50"></td>';
+			contents +='<td><input type="button" class="removeProHisTr" value="삭제"/></td>';
+			contents +='</tr>';
+
+			$("#ProHisTable").append(contents);
+		});
+		
+		$(".removeHisTr").click(function(){
+			if (confirm("정말 삭제하시겠습니까?") == true) {
+				
+				var id = $(this).parent().children().eq(0).val();
+				var type = $(this).parent().children().eq(1).val();
+				location.href="/backend/deleteTeacherBookEduProHistory/"+id+"/"+type;
+			}else{
+				return;
+			}			
 		});
 
 	});
@@ -125,128 +188,165 @@
 <body>
 
 	<div
-		style="width: 30%; height: 100%; border: thin; border-style: double; border-radius: 5px; padding: 5px;">
-		<form:form commandName="educationVO" method="post"
-			action="/backend/doTeacherModifyAction">
-
+		style="width: 40%; height: 100%; border: thin; border-style: double; border-radius: 5px; padding: 5px;">
+		<form:form commandName="teacherVO" method="post"
+			action="/backend/doTeacherInfoModifyAction">
+		강사 수정
+		<br />
+		<br />
 	     강사명 : ${teacherVO.name }
 			<br />
-		<c:if test="${not empty teacherVO.companyName }">
+			<br />
+		<div
+		style="width: 90%; height: 40%; border: thin; border-style: double; border-radius: 5px; padding: 5px;">
+		<div id="companyMember">
 	     소속업체 :  <input type="text" class="onlyText" id="companyName"
-				name="companyName" value="${teacherVO.companyName }" maxlength="20"/>
+				name="companyName" value="${teacherVO.companyName }" maxlength="30"/>
 				<input type="checkbox" name="pre"
 					class="tip pre" title="프리랜서" value="true" />
-				<input type="hidden" name="checkCheckedBox" id="checkCheckedBox" value="1" />
+				<input type="hidden" name="compCheckedBox" id="compCheckedBox" value="1" />
 			<br />
-		</c:if>
-		<c:if test="${not empty teacherVO.businessNumber }">
-	     사업자 번호 : <input type="text" class="onlyText" id="businessNumber"
-				name="businessNumber" value="${teacherVO.businessNumber }" />
 			<br />
-		</c:if>
+		</div>
+		<div id="generalBusinessNumber">
+	     개인 사업자 번호 : <input type="text" class="onlyText" id="businessNumber"
+				name="businessNumber" value="${teacherVO.businessNumber }" maxlength="30" />
+					<input type="checkbox" name="noPre"
+						class="tip noPre" title="사업체소속" value="true" />
+					<input type="hidden" name="preCheckedBox" id="preCheckedBox" value="1" />
+		</div>
+			<br />
+			<br />
 	     연차 : <input type="text" class="onlyText"
 				id="annual" name="annual"
 				value="${teacherVO.annual }" maxlength="20"/>년
 			<br />
 			<form:errors path="annual" />
 			<br />
-	   	강의 이력  : 
-			<table border="1">
+			<input type="hidden" name="memberId" value="${teacherVO.memberId }" />
+			
+			
+		</div>
+		<br />
+	   	강의 이력(<input type="button" id="addEduHis" value="추가"/>)  : 
+			<table border="1" id="EduHisTable">
 				<tr>
 					<th>시작날짜</th>
 					<th>종료날짜</th>
 					<th>교육명</th>
 					<th>교육장소</th>
+					<th>삭제</th>
 				</tr>
-				<c:forEach items="${educationHistoryVO}" var="list">
-				
-				</c:forEach>
+				<c:forEach items="${educationHistoryVO}" var="list" varStatus="status">
 				<tr>
 					<td>
-						<input type="date" id="eduStartDate"
-							name="eduStartDate"
-							value="${list.startDate }" maxlength="100">
+						<input type="date" id="eduStartDate" class="onlyText"
+							name="educationHistoryList[${status.index}].startDate"
+							value="${list.startDate }" >
 					</td>
 					<td>
-						<input type="date" id="eduEndDate"
-							name="eduEndDate"
-							value="${list.endDate }" maxlength="100">
+						<input type="date" id="eduEndDate" class="onlyText"
+							name="educationHistoryList[${status.index}].eduEndDate"
+							value="${list.endDate }" >
 					</td>
 					<td>
 						<input type="text" id="educationName" class="onlyText"
-							name="educationName"
-							value="${list.educationName }" maxlength="100">
+							name="educationHistoryList[${status.index}].educationName"
+							value="${list.educationName }" maxlength="50">
 					</td>
 					<td>
 						<input type="text" id="educationLocation" class="onlyText"
-							name="educationLocation"
-							value="${list.educationLocation }" maxlength="100">
+							name="educationHistoryList[${status.index}].educationLocation"
+							value="${list.educationLocation }" maxlength="50">
+					</td>
+					<td>
+						<input type="hidden" id="eduHisId" 
+							name="educationHistoryList[${status.index}].id"
+							value="${list.id }" >
+						<input type="hidden" id="type" name="type" value="edu" >
+						<input type="button" class="removeHisTr" value="삭제"/>
 					</td>
 				</tr>
+				</c:forEach>
 			</table>			
 			<br />
-	     집필 서적  :  
-	    	<table border="1">
+	     집필 서적(<input type="button" id="addBook" value="추가"/>)  :  
+	    	<table border="1" id="BookTable">
 				<tr>
 					<th>책이름</th>
 					<th>출판사</th>
+					<th>삭제</th>
 				</tr>
-				<c:forEach items="${teacherBookVO}" var="list">
+				<c:forEach items="${teacherBookVO}" var="list" varStatus="status">
 				
-				</c:forEach>
 				<tr>
 					<td>
 						<input type="text" id="bookName" class="onlyText"
-							name="bookName"
-							value="${list.bookName }" maxlength="100">
+							name="teacherBookList[${status.index}].bookName"
+							value="${list.bookName }" maxlength="50">
 					</td>
 					<td>
 						<input type="text" id="bookCompany" class="onlyText"
-							name="bookCompany"
-							value="${list.bookCompany }" maxlength="100">
+							name="teacherBookList[${status.index}].bookCompany"
+							value="${list.bookCompany }" maxlength="20">
+					</td>
+					<td>
+						<input type="hidden" id="bookHisId" 
+							name="teacherBookList[${status.index}].id"
+							value="${list.id }" >
+						<input type="hidden" id="type" name="type" value="book" >
+						<input type="button" class="removeHisTr" value="삭제"/>
 					</td>
 				</tr>
+				</c:forEach>
 			</table>
 			<br />
-	     프로젝트 이력  :  
-	     	<table border="1">
+	     프로젝트 이력(<input type="button" id="addProHis" value="추가"/>)  :  
+	     	<table border="1" id="ProHisTable">
 				<tr>
 					<th>시작날짜</th>
 					<th>종료날짜</th>
 					<th>프로젝트명</th>
 					<th>회사이름</th>
+					<th>삭제</th>
 				</tr>
-				<c:forEach items="${projectHistoryVO}" var="list">
+				<c:forEach items="${projectHistoryVO}" var="list" varStatus="status">
+				
 				<tr>
 					<td>
-						<input type="date" id="startDate"
-							name="startDate"
-							value="${list.startDate }" maxlength="100">
+						<input type="date" id="startDate" class="onlyText"
+							name="projectHistoryList[${status.index}].startDate" 
+							value="${list.startDate }" >
 					</td>
 					<td>
-						<input type="date" id="endDate"
-							name="endDate"
-							value="${list.endDate }" maxlength="100">
+						<input type="date" id="endDate" class="onlyText"
+							name="projectHistoryList[${status.index}].endDate" 
+							value="${list.endDate }" >
 					</td>
 					<td>
-						<input type="text" id="projectName"
-							name="projectName"
-							value="${list.projectName }" maxlength="100">
+						<input type="text" id="projectName" class="onlyText"
+							name="projectHistoryList[${status.index}].projectName" 
+							value="${list.projectName }" maxlength="50">
 					</td>
 					<td>
-						<input type="text" id="projectLocation"
-							name="projectLocation"
-							value="${list.projectLocation }" maxlength="100">
+						<input type="text" id="projectLocation" class="onlyText"
+							name="projectHistoryList[${status.index}].projectLocation" 
+							value="${list.projectLocation }" maxlength="50">
+					</td>
+					<td>
+						<input type="hidden" id="proHisId" 
+							name="projectHistoryList[${status.index}].id"
+							value="${list.id }" >
+						<input type="hidden" id="type" name="type" value="pro" >
+						<input type="button" class="removeHisTr" value="삭제"/>
 					</td>
 				</tr>
 				</c:forEach>
 			</table>			
 			<br />
-
-			<input type="hidden" name="id"	value="${teacherVO.id }" />
+			<input type="submit" id="update" value="수정하기" />
+		</form:form>	
 			
-			<input type="submit" id="update" value="등록하기" />
-		</form:form>
 	</div>
 </body>
 </html>
