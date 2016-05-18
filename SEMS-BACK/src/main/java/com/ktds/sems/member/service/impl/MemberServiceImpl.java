@@ -27,6 +27,9 @@ import com.ktds.sems.member.vo.MemberListVO;
 import com.ktds.sems.member.vo.MemberSearchVO;
 import com.ktds.sems.member.vo.MemberVO;
 
+import com.ktds.sems.member.vo.PersonalInfoReadVO;
+
+
 import kr.co.hucloud.utilities.SHA256Util;
 import kr.co.hucloud.utilities.web.AjaxUtil;
 import kr.co.hucloud.utilities.web.Paging;
@@ -514,6 +517,7 @@ public class MemberServiceImpl implements MemberService{
 		}
 		else {
 			boolean isdeleteMember = memberBiz.massiveDeleteMember(id);
+			System.out.println(id);
 			
 			if (!isdeleteMember) {
 				view.addObject("massage", "삭제 실패!");
@@ -521,15 +525,83 @@ public class MemberServiceImpl implements MemberService{
 			}
 			else {
 				view.addObject("massage", "삭제 성공!");
-				view.setViewName("member/memberListPage");
+				view.setViewName("redirect:/memberManage/memberList");
 			}
 		}
-		return null;
+		return view;
 	}
 
 	@Override
 	public List<String> getMemberTypeCodeNameList() {
 		return memberBiz.getMemberTypeCodeNameList();
+	}
+
+	@Override
+	public ModelAndView requestMemberDetail(String id) {
+		ModelAndView view = new ModelAndView();
+		view.addObject("id", id);
+		view.setViewName("member/requestMemberDetailPage");
+		return view;
+	}
+
+	@Override
+	public ModelAndView doWriteMemberDetailInfo(PersonalInfoReadVO personalInfoReadVO, Errors errors) {
+
+		
+		ModelAndView view = new ModelAndView();
+		
+		if ( errors.hasErrors() ) {
+			view.addObject("id", personalInfoReadVO.getTargetMemberId());
+			view.setViewName("member/requestMemberDetailPage");
+		}
+		else {
+			personalInfoReadVO.setId(personalInfoReadVO());
+			boolean isWrite = memberBiz.doWriteMemberDetailInfo(personalInfoReadVO);
+
+			if ( isWrite ) {
+			// TODO  EMAIL TEST	
+			//	sendMail(personalInfoReadVO);
+				view.setViewName("redirect:/memberDetail/"+personalInfoReadVO.getTargetMemberId());
+			}
+		}
+		
+		return view;
+	}
+	
+	private String personalInfoReadVO() {
+		String resultId = null;
+		String sysdate = memberBiz.getSysdate();
+		int personalInfoSeq = memberBiz.getPersonalInfoIdSeq();
+		
+		resultId = "PI-"+sysdate+"-"+lpad(personalInfoSeq, 6);
+		return resultId;
+	}
+	
+	private String lpad(int personalInfoSeq, int size) {
+		String personalInfo = String.valueOf(personalInfoSeq);
+		int length = personalInfo.length();
+		int needLength = size - length;
+		
+		for (int i = 0; i < needLength; i++) {
+			personalInfo = "0"+personalInfo;
+		}
+		return personalInfo;
+	}
+	
+	private void sendMail(PersonalInfoReadVO personalInfoReadVO) {
+	      SendMail sendMail = new SendMail();
+	      MailVO mailVO = new MailVO();
+
+	      mailVO.setFromId("testForSendEmailKtds@gmail.com");
+	      mailVO.setFromPassword("123qwe!@#qwe");
+	      mailVO.setSubject(personalInfoReadVO.getMemberId()+"님께서 "+
+	    		  personalInfoReadVO.getTargetMemberId()+"님의 상세 정보를 열람 신청했습니다.");
+	      mailVO.setText(personalInfoReadVO.getMemberId()+"님께서 "+
+	    		  personalInfoReadVO.getTargetMemberId()+"님의 상세 정보를 열람 신청했습니다."+
+	    		  "열람 사유"+personalInfoReadVO.getDescription());
+	      mailVO.setToId(memberBiz.getTargetMemberEmail(personalInfoReadVO.getTargetMemberId()));
+	
+	      sendMail.sendMailToCustomer(mailVO);
 	}
 
 	@Override
