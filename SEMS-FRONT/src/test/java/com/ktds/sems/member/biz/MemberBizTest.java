@@ -17,6 +17,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.ktds.sems.SemsTestCase;
+import com.ktds.sems.common.Session;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationHistoryVO;
 import com.ktds.sems.member.vo.LoginHistoryListVO;
@@ -460,4 +461,41 @@ public class MemberBizTest extends SemsTestCase {
 			fail("fail");
 		}
 	}
+	
+	@Test
+	public void stampLoginTimeTest() {
+		MockHttpSession session = new MockHttpSession();
+		MockHttpServletRequest request = new MockHttpServletRequest();
+		LoginHistoryVO loginHistoryVO = new LoginHistoryVO();
+		loginHistoryVO.setLgiHtrId(1048);
+		loginHistoryVO.setId("test04");
+		loginHistoryVO.setLgiIp(request.getRemoteHost());
+		
+		session.setAttribute(Session.LOGIN_HISTORY, loginHistoryVO);
+		
+		boolean check = memberBiz.stampLoginTime(session, request, loginHistoryVO);
+		assertTrue(check);
+		if( check ) {
+			assertNotNull(check);
+		} else {
+			fail("[Biz Part] stampLoginTimeTest Fail.");
+		}
+	}
+	
+	@Test
+	public void stampLogoutTimeTest() {
+		MockHttpSession session = new MockHttpSession();
+		LoginHistoryVO loginHistoryVO = new LoginHistoryVO();
+		loginHistoryVO.setLgiHtrId(1048);
+		session.setAttribute(Session.LOGIN_HISTORY, loginHistoryVO);
+		
+		boolean check = memberBiz.stampLogoutTime(session);
+		assertTrue(check);
+		if( check ) {
+			assertNotNull(check);
+		} else {
+			fail("[Biz Part] stampLogoutTimeTest Fail.");
+		}
+	}
+	
 }
