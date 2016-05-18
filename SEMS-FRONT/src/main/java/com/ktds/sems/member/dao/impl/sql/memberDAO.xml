@@ -444,7 +444,7 @@
 		WHERE	MBR_ID = #{id}
 	</select>
 	
-	<select id="getAllEducationHistoryListById" parameterType="EducationHistorySearchVO" resultType="EducationHistoryVO">
+	<select id="getAllEducationHistoryListByIdWithPaging" parameterType="EducationHistorySearchVO" resultType="EducationHistoryVO">
 		SELECT	EH.EDU_HTR_ID educationHistoryId
 				, EH.EDU_ID educationId
 				, EH.MBR_ID memberId
@@ -455,6 +455,8 @@
 				, EH.FDBK fdbk
 				, EI.SRT_DATE startDate
 				, EI.END_DATE endDate
+				, EI.EDU_TTL educationTitle
+				, EI.COST cost
 		FROM	EDU_INFO EI
 				, (
 					SELECT	ROWNUM AS RNUM
@@ -470,6 +472,25 @@
 		WHERE	RNUM <![CDATA[>=]]> #{startIndex}
 		AND		EI.EDU_ID = EH.EDU_ID
 	</select>
+	
+		<select id="getAllEducationHistoryListById" parameterType="EducationHistorySearchVO" resultType="EducationHistoryVO">
+		SELECT	EH.EDU_HTR_ID educationHistoryId
+				, EH.EDU_ID educationId
+				, EH.MBR_ID memberId
+				, EH.EDU_HTR_DT educationHistoryDate
+				, EH.STAT state
+				, EH.IP ip
+				, EH.CMNT cmnt
+				, EH.FDBK fdbk
+				, EI.SRT_DATE startDate
+				, EI.END_DATE endDate
+				, EI.EDU_TTL educationTitle
+				, EI.COST cost
+		FROM	EDU_HTR EH
+				, EDU_INFO EI
+		WHERE	EI.EDU_ID = EH.EDU_ID
+	</select>
+	
 	<select id="doCheckIp" parameterType="LoginHistoryVO" resultType="_int">
 		SELECT	'1'
 		FROM	LGI_HTR
