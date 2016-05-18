@@ -132,9 +132,9 @@ public class MemberServiceImpl implements MemberService{
 	}
 	
 	@Override
-	public ModelAndView getAllAdminHistory(int pageNo) {
+	public ModelAndView getAllAdminHistory(LoginHistorySearchVO loginHistorySearchVO, int pageNo) {
 		LoginHistoryListVO loginHistoryListVO = new LoginHistoryListVO();
-		Paging paging = new Paging(15, 15);
+		Paging paging = new Paging(20, 20);
 		
 		loginHistoryListVO.setPaging(paging);
 		int totalHistoryCount = memberBiz.getTotalAdminHistoryCount();
@@ -142,17 +142,17 @@ public class MemberServiceImpl implements MemberService{
 		paging.setPageNumber(pageNo + "");
 		paging.setTotalArticleCount(totalHistoryCount);
 		
-		LoginHistorySearchVO loginHistorySearchVO = new LoginHistorySearchVO();
 		loginHistorySearchVO.setStartIndex(paging.getStartArticleNumber());
 		loginHistorySearchVO.setEndIndex(paging.getEndArticleNumber());
 		
 		List<LoginHistoryVO> loginHistory = memberBiz.getAllAdminHistory(loginHistorySearchVO);
 		loginHistoryListVO.setLoginHistoryList(loginHistory);
 		
-		logger.info("loginHistorySize"+loginHistory.size());
+		//logger.info("loginHistorySize"+loginHistory.size());
 		ModelAndView view = new ModelAndView();
 		view.setViewName("member/adminHistory");
 		view.addObject("loginHistoryListVO", loginHistoryListVO);
+		view.addObject("loginHistorySearchVO", loginHistorySearchVO);
 		return view;
 	}
 
