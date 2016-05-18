@@ -36,7 +36,7 @@ public interface MemberDAO {
 
 	public List<LoginHistoryVO> getAllMemberHistory(LoginHistorySearchVO loginHistorySearchVO);
 
-	public int getTotalMemberCount();
+	public int getTotalMemberCount(MemberSearchVO memberSearchVO);
 
 	public List<MemberVO> getAllMemberList(MemberSearchVO searchVO);
 
