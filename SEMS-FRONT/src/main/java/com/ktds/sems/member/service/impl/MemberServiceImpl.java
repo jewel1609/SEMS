@@ -488,13 +488,14 @@ public class MemberServiceImpl implements MemberService {
 		MailVO mail = new MailVO();
 		MemberVO member = memberBiz.getOneMember(id);
 
-		mail.setFromId("showil2001@gmail.com");
-		mail.setFromPassword("whrudwns1355!");
+		mail.setFromId("testForSendEmailKtds@gmail.com");
+		mail.setFromPassword("123qwe!@#qwe");
 		mail.setSubject("[SEMS] 계정 차단 알림");
 		mail.setText("비밀번호 3회 이상 오류로, 계정이 차단되었습니다. 문의사항은 관리자에게 연락하세요.");
 		mail.setToId(member.getEmail());
 
-		sendMail.sendMailToCustomer(mail);
+		// TODO 이메일 테스트 시 주석 처리 해제
+		// sendMail.sendMailToCustomer(mail);
 	}
 
 	@Override
