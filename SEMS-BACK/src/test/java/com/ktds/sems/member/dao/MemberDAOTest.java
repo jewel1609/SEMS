@@ -59,5 +59,61 @@ public class MemberDAOTest  {
 		
 		assertTrue(updateCount > 0);
 	}
-
+	
+	@Test
+	public void getSaltByIdTest() {
+		String id = "test01";
+		String salt = memberDAO.getSaltById(id);
+		assertNotNull(salt);
+	}
+	
+	@Test
+	public void getHighestEducationLevelCodeNamesTest() {
+		List<String> helList = memberDAO.getHighestEducationLevelCodeNames();
+		assertNotNull(helList);
+	}
+	
+	@Test
+	public void getHelCodeIdTest() {
+		String highestEducationLevel = "대졸";
+		String helCodeId = memberDAO.getHelCodeId(highestEducationLevel);
+		
+		assertNotNull(helCodeId);
+		assertEquals(helCodeId, "UNIV");
+	}
+	
+	@Test
+	public void getGraduationTypeCodeIdTest() {
+		String graduationType = "졸업예정";
+		String grdtCodeId = memberDAO.getGraduationTypeCodeId(graduationType);
+		
+		assertNotNull(grdtCodeId);
+		assertEquals(grdtCodeId, "EXPT");
+	}
+	
+	@Test
+	public void getMemberTypeCodeNameListTest() {
+		List<String> memberTypeCodeNameList = memberDAO.getMemberTypeCodeNameList();
+		assertNotNull(memberTypeCodeNameList);
+	}
+	
+	@Test
+	public void getMemberTypeCodeIdTest() {
+		String memberType = "강사";
+		String memberTypeCodeId = memberDAO.getMemberTypeCodeId(memberType);
+		
+		assertNotNull(memberTypeCodeId);
+		assertEquals(memberTypeCodeId, "TR");
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
