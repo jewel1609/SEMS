@@ -142,8 +142,8 @@ public class MemberController {
 	}
 
 	@RequestMapping("/doCodeMngDelete/{cdId}")
-	public void doCodeMngDelete(@PathVariable String cdId, HttpServletResponse response) {
-		memberService.doCodeMngDelete(cdId);
+	public String doCodeMngDelete(@PathVariable String cdId) {
+		return memberService.doCodeMngDelete(cdId);
 	}
 
 	@RequestMapping("/doCodeMngModify")

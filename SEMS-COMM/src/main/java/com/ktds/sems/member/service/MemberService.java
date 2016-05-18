@@ -42,7 +42,7 @@ public interface MemberService {
 
 	public ModelAndView viewCodeMngPage();
 
-	public void doCodeMngDelete(String cdId);
+	public String doCodeMngDelete(String cdId);
 
 	public String doCodeMngModify(CodeMngVO codeMngVO);
 

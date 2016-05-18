@@ -297,8 +297,12 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public void doCodeMngDelete(String cdId) {
-		memberBiz.doCodeMngDelete(cdId);
+	public String doCodeMngDelete(String cdId) {
+		if (memberBiz.doCodeMngDelete(cdId)) {
+			return "redirect:/codeMngPage";
+		} else {
+			throw new RuntimeException("일시적인 오류가 발생했습니다.");
+		}
 	}
 
 	@Override

@@ -64,8 +64,8 @@
 					
 					if(data == 'OK') {
 						alert("수정되었습니다.");
+						location.href="<c:url value='/codeMngPage' />";
 					}
-					// location.href="<c:url value="/codeMngPage"/>";
 				});
 			}
 			else {
