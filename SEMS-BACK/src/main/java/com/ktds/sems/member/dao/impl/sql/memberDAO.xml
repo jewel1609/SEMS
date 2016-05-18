@@ -125,6 +125,10 @@
 													FROM	MBR
 													WHERE	MBR_TP = 'ADM'
 												)
+						<if test="startDate != null and startDate != '' ">
+							AND		LGI_DT <![CDATA[<=]]> TO_DATE(#{startDate}, 'YYYY-MM-DD')
+							AND		LGI_DT <![CDATA[<=]]> TO_DATE(#{endDate}, 'YYY-MM-DD')
+						</if>
 							ORDER BY	LGI_HTR_ID DESC
 						)LGI
 				WHERE	ROWNUM <![CDATA[<=]]> #{endIndex}
@@ -145,6 +149,10 @@
 								FROM	MBR
 								WHERE	MBR_TP ='ADM'
 							)
+	<if test="startDate != null and startDate != '' ">
+		AND		LGI_DT <![CDATA[<=]]> TO_DATE(#{startDate}, 'YYYY-MM-DD')
+		AND		LGI_DT <![CDATA[<=]]> TO_DATE(#{endDate}, 'YYY-MM-DD')
+	</if>
 		ORDER BY	LGI_HTR_ID	DESC
 	</select>
 		  
