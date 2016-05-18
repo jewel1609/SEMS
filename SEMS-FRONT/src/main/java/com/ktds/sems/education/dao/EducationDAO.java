@@ -35,7 +35,7 @@ public interface EducationDAO {
 
 	public int doCancelEducation(String educationId, String id);
 
-	public int isApplyMemberByEducationId(String educationId, String id);
+	public String isApplyMemberByEducationId(String educationId, String id);
 
 	public int getEduReplyCount(String educationId);
 
