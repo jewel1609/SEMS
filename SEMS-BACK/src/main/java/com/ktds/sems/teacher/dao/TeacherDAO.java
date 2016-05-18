@@ -2,26 +2,43 @@ package com.ktds.sems.teacher.dao;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.teacher.vo.EducationHistoryVO;
 import com.ktds.sems.teacher.vo.ProjectHistoryVO;
 import com.ktds.sems.teacher.vo.TeacherBookVO;
+import com.ktds.sems.teacher.vo.TeacherSearchVO;
 import com.ktds.sems.teacher.vo.TeacherVO;
 
 public interface TeacherDAO {
 	
-	TeacherVO getTeacherInfo(String memberId);
+	public TeacherVO getTeacherInfo(String memberId);
 
-	List<EducationHistoryVO> getTeacherEducationHistory(String memberId);
+	public List<EducationHistoryVO> getTeacherEducationHistory(String memberId);
 
-	List<ProjectHistoryVO> getTeacherProjectHistory(String memberId);
+	public List<ProjectHistoryVO> getTeacherProjectHistory(String memberId);
 
-	List<TeacherBookVO> getTeacherBook(String memberId);
+	public List<TeacherBookVO> getTeacherBook(String memberId);
 
-	List<EducationVO> getEducationHistory(String memberId);
+	public List<EducationVO> getEducationHistory(String memberId);
 
-	double getTeacherEducationGrade(String memberId);
+	public double getTeacherEducationGrade(String memberId);
+
+	public int getTotalTeacherCount(Map<String,String> searchInfo);
+
+	public List<TeacherVO> getAllTeacher(TeacherSearchVO searchVO);
+
+	public int getSearchedEducationCount(TeacherVO teacherVO);
+
+	public int doDeleteTeacher(String memberId);
+
+	public int doDeleteProjectHistory(String memberId);
+
+	public int doDeleteEducationHistory(String memberId);
+
+	public int doDeleteTeacherBook(String memberId);
+
 
 	public TeacherVO getOneTeacherInfo(String memberId);
 
