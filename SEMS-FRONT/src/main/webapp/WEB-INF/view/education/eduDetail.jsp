@@ -183,7 +183,7 @@
 				</tr>
 				<tr>
 					<td>강의 아이디</td>
-					<td id="eduId">${ education.educationId }</td>
+					<td>${ education.educationId }</td>
 				</tr>
 				<tr>
 					<td>교육 카테고리</td>
