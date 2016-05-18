@@ -7,35 +7,17 @@ import static org.junit.Assert.fail;
 
 import java.util.List;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.validation.BeanPropertyBindingResult;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
-import org.springframework.validation.Validator;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.ktds.sems.education.vo.CategoryVO;
-import com.ktds.sems.education.vo.JsonResponseVO;
+import com.ktds.sems.SemsTestCase;
 import com.ktds.sems.education.vo.CostVO;
 import com.ktds.sems.education.vo.TimeVO;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-								  "/applicationContext.xml"
-								, "/educationContext.xml"
-								, "/memberContext.xml"
-								, "/menuContext.xml"
-								, "/rootContext.xml"})
-public class EducationControllerTest {
+public class EducationControllerTest extends SemsTestCase{
 
 	@Autowired
 	private EducationController educationController;

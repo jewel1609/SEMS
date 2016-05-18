@@ -5,28 +5,15 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
-import org.junit.FixMethodOrder;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.ktds.sems.SemsTestCase;
+import com.ktds.sems.education.vo.CategoryVO;
 import com.ktds.sems.education.vo.CostVO;
 import com.ktds.sems.education.vo.TimeVO;
-import com.ktds.sems.education.vo.CategoryVO;
 
-
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-								  "/applicationContext.xml"
-								, "/educationContext.xml"
-								, "/memberContext.xml"
-								, "/menuContext.xml"
-								, "/rootContext.xml"})
-public class EducationDAOTest {
+public class EducationDAOTest extends SemsTestCase{
 
 	@Autowired
 	private EducationDAO educationDAO;
