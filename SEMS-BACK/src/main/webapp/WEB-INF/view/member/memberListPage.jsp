@@ -25,6 +25,9 @@
 		
 		$("#searchType").hide();
 		$("#searchKeyword").hide();
+		$("#isRgsn").hide();
+		$("#connLock").hide();
+		$("#modLock").hide();
 		
 		$("#massiveSelectCheckBox").click(function () {
 			var isChecked = $(this).prop("checked");
@@ -130,6 +133,24 @@
 					return;
 				}
 			}
+			else if( $("#search option:selected").val() == "connLockT") {
+				if ($("#connLock").val() == "") {
+					alert("접속 잠김 여부를 선택하세요!");
+					return;
+				}
+			}
+			else if( $("#search option:selected").val() == "isRgsnT") {
+				if ($("#isRgsn").val() == "") {
+					alert("탈퇴 여부를 선택하세요!");
+					return;
+				}
+			}
+			else if( $("#search option:selected").val() == "modLockT") {
+				if ($("#modLock").val() == "") {
+					alert("수정 잠김 여부를 선택하세요!");
+					return;
+				}
+			}
 			else{
 				alert("검색조건을 입력하세요.");
 			}
@@ -147,10 +168,37 @@
 			if (option == "id") {
 				$("#searchKeyword").show();
 				$("#searchType").hide();
+				$("#modLock").hide();
+				$("#isRgsn").hide();
+				$("#connLock").hide();
 			}
 			else if( option == "type"){
 				$("#searchType").show();
 				$("#searchKeyword").hide();
+				$("#modLock").hide();
+				$("#isRgsn").hide();
+				$("#connLock").hide();
+			}
+			else if( option == "connLockT"){
+				$("#connLock").show();
+				$("#searchType").hide();
+				$("#searchKeyword").hide();
+				$("#modLock").hide();
+				$("#isRgsn").hide();
+			}
+			else if( option == "isRgsnT"){
+				$("#isRgsn").show();
+				$("#searchType").hide();
+				$("#searchKeyword").hide();
+				$("#connLock").hide();
+				$("#modLock").hide();
+			}
+			else if( option == "modLockT"){
+				$("#modLock").show();
+				$("#searchType").hide();
+				$("#searchKeyword").hide();
+				$("#isRgsn").hide();
+				$("#connLock").hide();
 			}
 		});
 	});
@@ -199,8 +247,11 @@
 						<div style="text-align: right;">
 							<select id="search" name="search">
 								<option value="">선택</option>
-								<option id="id" value="id">회원 아이디</option>
+								<option id="id" value="id">아이디+이름</option>
 								<option id="type" value="type">회원 종류</option>
+								<option id="connLockT" value="connLockT">접속잠김</option>
+								<option id="isRgsnT" value="isRgsnT">탈퇴여부</option>
+								<option id="modLockT" value="modLockT">수정잠김</option>
 							</select>
 							
 							<input type="text" id="searchKeyword" name="searchKeyword" value="${ memberSearchVO.searchKeyword }"/>
@@ -213,6 +264,42 @@
 									</c:if>
 									<c:if test="${ memberSearchVO.searchType ne type}">
 										<option id="memType" value="${ type }">${ type }</option>
+									</c:if>
+								</c:forEach>
+							</select>
+							
+							<select id="connLock" name="connLock">
+								<option value="" selected="selected"></option>
+								<c:forEach items="${ searchTypeList }" var="type">
+									<c:if test="${ memberSearchVO.connLock eq type}">
+										<option id="sType" value="${ type }" selected="selected">${ type }</option>
+									</c:if>
+									<c:if test="${ memberSearchVO.connLock ne type}">
+										<option id="sType" value="${ type }">${ type }</option>
+									</c:if>
+								</c:forEach>
+							</select>
+							
+							<select id="isRgsn" name="isRgsn">
+								<option value="" selected="selected"></option>
+								<c:forEach items="${ searchTypeList }" var="type">
+									<c:if test="${ memberSearchVO.isRgsn eq type}">
+										<option id="sType" value="${ type }" selected="selected">${ type }</option>
+									</c:if>
+									<c:if test="${ memberSearchVO.isRgsn ne type}">
+										<option id="sType" value="${ type }">${ type }</option>
+									</c:if>
+								</c:forEach>
+							</select>
+							
+							<select id="modLock" name="modLock">
+								<option value="" selected="selected"></option>
+								<c:forEach items="${ searchTypeList }" var="type">
+									<c:if test="${ memberSearchVO.modLock eq type}">
+										<option id="sType" value="${ type }" selected="selected">${ type }</option>
+									</c:if>
+									<c:if test="${ memberSearchVO.modLock ne type}">
+										<option id="sType" value="${ type }">${ type }</option>
 									</c:if>
 								</c:forEach>
 							</select>
