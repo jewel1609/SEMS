@@ -61,4 +61,100 @@ public class MemberBizTest  {
 		
 		assertTrue(isSuccess);
 	}
+	
+	@Test
+	public void isDuplicationIdTest(){
+		String id = "test01";
+		boolean isSuccess = memberBiz.isDuplicationId(id);
+		
+		assertTrue(isSuccess);
+	}
+	
+	@Test
+	public void isVerifyPasswordTest() {
+		String password = "asdfasdf123!";
+		boolean isSuccess = memberBiz.isVerifyPassword(password);
+		
+		assertTrue(isSuccess);
+	}
+	
+	@Test
+	public void isVerifyEmailTest() {
+		String email = "test01@naver.com";
+		boolean isSuccess = memberBiz.isVerifyEmail(email);
+		
+		assertTrue(isSuccess);
+	}
+	
+	@Test
+	public void isExistEmailTest() {
+		String email = "teacher01@naver.com";
+		boolean isSuccess = memberBiz.isExistEmail(email);
+		
+		assertTrue(isSuccess);
+	}
+	
+	@Test
+	public void isVerifyPhoneNumberTest() {
+		String phoneNumber = "010-1234-1234";
+		boolean isSuccess = memberBiz.isVerifyPhoneNumber(phoneNumber);
+		
+		assertTrue(isSuccess);
+	}
+	
+	@Test
+	public void getHighestEducationLevelCodeNames() {
+		List<String> helCodeNameList = memberBiz.getHighestEducationLevelCodeNames();
+		
+		assertNotNull(helCodeNameList);
+	}
+	
+	@Test
+	public void getGraduationTypeTest() {
+		List<String> graduationTypeList = memberBiz.getGraduationType();
+		
+		assertNotNull(graduationTypeList);
+	}
+	
+	@Test
+	public void getHelCodeIdTest() {
+		String highestEducationLevel = "대졸";
+		String helCodeId = memberBiz.getHelCodeId(highestEducationLevel);
+		
+		assertNotNull(helCodeId);
+		assertEquals(helCodeId, "UNIV");
+	}
+	
+	@Test
+	public void getGraduationTypeCodeIdTest() {
+		String graduationType = "졸업예정";
+		String grdtCodeId = memberBiz.getGraduationTypeCodeId(graduationType);
+		
+		assertNotNull(grdtCodeId);
+		assertEquals(grdtCodeId, "EXPT");
+	}
+	
+	@Test
+	public void getMemberTypeCodeNameListTest() {
+		List<String> memberTypeCodeNameList = memberBiz.getMemberTypeCodeNameList();
+		
+		assertNotNull(memberTypeCodeNameList);
+	}
+	
+	@Test
+	public void getMemberTypeCodeIdTest() {
+		String memberType = "강사";
+		String memberTypeCodeId = memberBiz.getMemberTypeCodeId(memberType);
+		
+		assertNotNull(memberTypeCodeId);
+		assertEquals(memberTypeCodeId, "TR");
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 }
