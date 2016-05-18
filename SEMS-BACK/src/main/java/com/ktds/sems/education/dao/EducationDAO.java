@@ -20,8 +20,8 @@ public interface EducationDAO {
 	
 	public EducationVO getOneEducation(String educationId);
 	public int modifyNewEducation(EducationVO changedEducationVO);
-	public List<EducationHistoryVO> getAllEducationHistory();
-	public int getAllEduHistoryCount();
+	public List<EducationHistoryVO> getAllEducationHistory(EducationHistorySearchVO eduHistorySearchVO);
+	public int getAllEduHistoryCount(EducationHistorySearchVO eduHistorySearchVO);
 	public int getJCEduHistoryCount(EducationHistorySearchVO eduHistorySearchVO);
 	public List<EducationHistoryVO> getJCEduHistoryHistory(EducationHistorySearchVO eduHistorySearchVO);
 	public int applyJoinEducationByMemberId(String educationHistoryId, String changeState);
