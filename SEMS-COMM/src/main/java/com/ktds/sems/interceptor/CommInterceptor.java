@@ -21,9 +21,16 @@ public class CommInterceptor extends HandlerInterceptorAdapter {
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
 		String userType = (String) request.getSession().getAttribute(Session.MEMBER_TYPE);
-		if(userType == null || !userType.equals("ADM")) {
+		if(userType != null && userType.equals("ADM")) {
 			return;
 		}
+		/*
+		 * FIXME 원할한 테스트를 위해 주석처리함.
+		 * 테스트 완료후 주석 삭제
+		else {
+			response.sendRedirect("/comm");
+			return;
+		}*/
 	}
 
 	@Override

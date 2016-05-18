@@ -78,6 +78,30 @@
 			}
 		}
 		
+		$(".onlyText").keyup(function(event) {
+			regexp = /[\+*^!@\#$%<>&\()\=\’ \\/\?,.\:\;\''\""\{\}\[\]|\\~`]/gi;
+
+			v = $(this).val();
+			if (regexp.test(v)) {
+				alert("특수문자를 포함할 수 없습니다.");
+				$(this).val(v.replace(regexp, ''));
+			}
+		});
+		
+		$(".onlyText").on('paste', function(e){
+			e.preventDefault();
+		});
+		
+		$(".onlyEnglish").keypress(function(){
+			regexp = /[A-Za-z]/g;
+
+			v = $(this).val();
+			if (regexp.test(v)) {
+				alert("영문자외의 문자를 포함할 수 없습니다.");
+				$(this).val(v.replace(regexp, ''));
+			}
+		});
+		
 		$("#newLargeCategoryBtn").click(function(){
 			initCategoryIdAndName();
 			categoryType.val('large');
@@ -327,15 +351,15 @@
 			$("#newCategoryContainer").hide();
 			
 			parentCategoryId.val($(this).val());
+			$("#mediumCategoryList").empty();
+			$("#smallCategoryList").empty();
 			
 			$.post(
 					'<c:url value="/education/getChildCategory"/>'
 					, 'categoryId=' + parentCategoryId.val() + '&categoryType=large'
 					, function(response){
 						if ( response.result ) {
-							$("#smallCategoryList").empty();
 							var mediumCategoryList = $("#mediumCategoryList");
-							mediumCategoryList.empty();
 							for ( var i = 0; i < response.data.length; i++ ) {
 								mediumCategoryList.append($("<option></option>")
 						                    		.attr("value",response.data[i].categoryId)
@@ -355,6 +379,7 @@
 			$("#newCategoryContainer").hide();
 			
 			parentCategoryId.val($(this).val());
+			$("#smallCategoryList").empty();
 			
 			$.post(
 					'<c:url value="/education/getChildCategory"/>'
@@ -362,7 +387,6 @@
 					, function(response){
 						if ( response.result ) {
 							var smallCategoryList = $("#smallCategoryList");
-							smallCategoryList.empty();
 							for ( var i = 0; i < response.data.length; i++ ) {
 								smallCategoryList.append($("<option></option>")
 						                    		.attr("value",response.data[i].categoryId)
@@ -414,9 +438,9 @@
 			<form:form commandName="newCategoryForm" method="post">
 				<input type="hidden" id="parentCategoryId" name="parentCategoryId" >
 				<input type="hidden" id="categoryType" name="categoryType" value="large" >
-				<input type="text" id="categoryId" name="categoryId" placeholder="category id" maxlength="4">
+				<input type="text" id="categoryId" class="onlyText onlyEnglish" name="categoryId" placeholder="category id" maxlength="4">
 				<span id="categoryIdError"></span><br/>
-				<input type="text" id="categoryName" name="categoryName" placeholder="category name" maxlength="30">
+				<input type="text" id="categoryName" class="onlyText onlyEnglish" name="categoryName" placeholder="category name" maxlength="30">
 				<span id="categoryNameError"></span><br/>
 				<input type="button" id="addCategoryBtn" value="추가하기">
 				<input type="button" id="modifyCategoryBtn" value="수정하기">

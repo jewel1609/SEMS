@@ -16,7 +16,6 @@
 		if ( message == "FAIL" ) {
 			alert("삭제 실패 했습니다.");
 		}
-
 		
 		$(".modifyEduCostBtn").click(function () {
 			
@@ -67,6 +66,16 @@
 				checkDelete = "T";
 			}
 			
+		});
+
+		$(".onlyText").keyup(function(event) {
+			regexp = /[\+*^!@\#$%<>&\()\=\’ \\/\?,.\:\;\''\""\{\}\[\]|\\~`]/gi;
+
+			v = $(this).val();
+			if (regexp.test(v)) {
+				alert("특수문자를 포함할 수 없습니다.");
+				$(this).val(v.replace(regexp, ''));
+			}
 		});
 		
 		$("#insertEduBtn").click( function () {
@@ -123,8 +132,8 @@
 			</tr>
 		</c:forEach>
 			<tr>
-				<td>코드 : <input type="text" id="newCode" name="newCode" /></td>
-				<td>비용 : <input type="text" id="newCost" name="newCost" /></td>
+				<td>코드 : <input type="text" id="newCode" class="onlyText" name="newCode" /></td>
+				<td>비용 : <input type="text" id="newCost" class="onlyText" name="newCost" /></td>
 				<td colspan="2"><span id="insertEduBtn">추가</span></td>
 			</tr>
 	</table>
