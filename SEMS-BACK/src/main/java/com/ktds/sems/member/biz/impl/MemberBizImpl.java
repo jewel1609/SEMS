@@ -158,8 +158,8 @@ public class MemberBizImpl implements MemberBiz {
 
 
 	@Override
-	public int getTotalMemberCount() {
-		return memberDAO.getTotalMemberCount();
+	public int getTotalMemberCount(MemberSearchVO memberSearchVO) {
+		return memberDAO.getTotalMemberCount(memberSearchVO);
 	}
 
 	@Override
