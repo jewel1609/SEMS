@@ -1,6 +1,7 @@
 package com.ktds.sems.member.service.impl;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -490,12 +491,10 @@ public class MemberServiceImpl implements MemberService{
 			
 			for (String memberId : memberIds ) {
 				modifyMemberType.put("memberId", memberId);
-				
 				memberBiz.modifyMemberTypeById (modifyMemberType);
 			}
 			view.setViewName("redirect:/memberManage/memberList");
 		}
-		
 		return view;
 	}
 
