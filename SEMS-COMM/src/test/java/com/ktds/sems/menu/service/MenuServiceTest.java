@@ -7,21 +7,14 @@ import static org.junit.Assert.fail;
 
 import java.util.List;
 
-import javax.validation.constraints.AssertTrue;
-
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ktds.sems.SemsTestCase;
 import com.ktds.sems.menu.vo.MenuManageVO;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "/applicationContext.xml", "/educationContext.xml", "/memberContext.xml", "/rootContext.xml", "/menuContext.xml" })
-public class MenuServiceTest {
+public class MenuServiceTest extends SemsTestCase{
 
 	@Autowired
 	private MenuService menuService;
