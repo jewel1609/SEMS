@@ -148,13 +148,13 @@ public class EducationBizImpl implements EducationBiz {
 	}
 
 	@Override
-	public List<EducationHistoryVO> getAllEducationHistory() {
-		return educationDAO.getAllEducationHistory();
+	public List<EducationHistoryVO> getAllEducationHistory(EducationHistorySearchVO eduHistorySearchVO) {
+		return educationDAO.getAllEducationHistory(eduHistorySearchVO);
 	}
 
 	@Override
-	public int getAllEduHistoryCount() {
-		return educationDAO.getAllEduHistoryCount();
+	public int getAllEduHistoryCount(EducationHistorySearchVO eduHistorySearchVO) {
+		return educationDAO.getAllEduHistoryCount(eduHistorySearchVO);
 	}
 
 	@Override
@@ -201,9 +201,6 @@ public class EducationBizImpl implements EducationBiz {
 	public String getStateByEducationHistroyId(String educationHistoryId) {
 		return educationDAO.getStateByEducationHistroyId(educationHistoryId);
 	}
-
-	
-	
 
 
 }
