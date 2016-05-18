@@ -23,6 +23,9 @@
 		
 		$("#showMemberTypeDiv").hide();
 		
+		$("#searchType").hide();
+		$("#searchKeyword").hide();
+		
 		$("#massiveSelectCheckBox").click(function () {
 			var isChecked = $(this).prop("checked");
 			$(".deleteMemberId").prop("checked", isChecked);
@@ -103,18 +106,55 @@
 		});
 		
 		$("#modifyMemberTypeButton").on("click", function () {
-			var form = $("#searchForm");
+			var form = $("#memberListForm");
 			form.attr("action", "<c:url value="/memberManage/doModifyMemberTypeAction"/> ");
 			form.attr("method", "POST");
 			form.submit();
 		});
 		
+		$("#searchBtn").click( function() {
+			if( $("#search option:selected").val() == "id"){
+				if ($("#searchKeyword").val() == ""){
+					alert("검색어를 입력하세요!");
+					return;
+				}
+			}
+			else if( $("#search option:selected").val() == "type"){
+				if ($("#searchType").val() == ""){
+					alert("회원 종류를 선택하세요!");
+					return;
+				}
+			}
+			else{
+				alert("검색조건을 입력하세요.");
+			}
+			movePage('0');	
+		});
+		
+		$("#searchInitBtn").click(function() {
+			
+			location.href="<c:url value='/member/memberListInit' />";
+			
+		});
+		
+		$("#search").change(function() {
+			var option = $("#search option:selected").val();
+			if (option == "id") {
+				$("#searchKeyword").show();
+				$("#searchType").hide();
+			}
+			else if( option == "type"){
+				$("#searchType").show();
+				$("#searchKeyword").hide();
+			}
+		});
 	});
 </script>
 <title>MemberListPage</title>
 </head>
 <body>
 	
+	<form name="memberListForm" id="memberListForm">
 		<table style="text-align:center">
 			<tr>
 				<th style="width: 15px">
@@ -127,32 +167,55 @@
 				<th>탈퇴여부</th>
 				<th>수정잠김여부</th>
 			</tr>
-			<form name="memberListForm" id="memberListForm">
-				<c:forEach items="${ memberListVO.memberList }" var="member">
-					<tr>
-						<td>
-							<input class="deleteMemberId" name="deleteMemberId" value="${member.id}" type="checkbox"/>
-						</td>
-						<td>
-							<a href="<c:url value="/memberDetail/${member.id}"/>">${ member.id }</a>
-						</td>
-						<td>${member.name}</td>		
-						<td>${member.memberType}</td>	
-						<td>${member.isAccountLock}</td>
-						<td>${member.isResign}</td>	
-						<td>${member.isModifyLock}</td>	
-					</tr>
-				</c:forEach>
-			</form>
+					<c:forEach items="${ memberListVO.memberList }" var="member">
+						<tr>
+							<td>
+								<input class="deleteMemberId" name="deleteMemberId" value="${member.id}" type="checkbox"/>
+							</td>
+							<td>
+								<a href="<c:url value="/memberDetail/${member.id}"/>">${ member.id }</a>
+							</td>
+							<td>${member.name}</td>		
+							<td>${member.memberType}</td>	
+							<td>${member.isAccountLock}</td>
+							<td>${member.isResign}</td>	
+							<td>${member.isModifyLock}</td>	
+						</tr>
+					</c:forEach>
+
 			<tr>
 				<td colspan="7" align="center">
-					<form id="searchForm">
-						<div>
+
+						<div style="text-align:center">
 							<c:if test="${ memberListVO ne null }">
-								${memberListVO.paging.getPagingList("pageNo", "[@]", "이전", "다음", "searchForm")}
+								${memberListVO.paging.getPagingList("pageNo", "[@]", "이전", "다음", "memberListForm")}
 							</c:if> 
 						</div>
-					</form>
+						<div style="text-align: right;">
+							<select id="search" name="search">
+								<option value="">선택</option>
+								<option id="id" value="id">회원 아이디</option>
+								<option id="type" value="type">회원 종류</option>
+							</select>
+							
+							<input type="text" id="searchKeyword" name="searchKeyword" value="${ memberSearchVO.searchKeyword }"/>
+							
+							<select id="searchType" name="searchType">
+								<option value="" selected="selected"></option>
+								<c:forEach items="${ memberTypeList }" var="type">
+									<c:if test="${ memberSearchVO.searchType eq type}">
+										<option id="memType" value="${ type }" selected="selected">${ type }</option>
+									</c:if>
+									<c:if test="${ memberSearchVO.searchType ne type}">
+										<option id="memType" value="${ type }">${ type }</option>
+									</c:if>
+								</c:forEach>
+							</select>
+							
+							<input type="button" id="searchBtn" value="검색" />
+							<input type="button" id="searchInitBtn" value="검색 초기화" />
+						</div>
+
 				</td>
 			</tr>
 
@@ -165,10 +228,10 @@
 	</div>
 	<div id="showMemberTypeDiv">
 		<br/><br/>
-		<c:forEach items="${memberTypeList}" var="memberType">
-			<input type="radio" class="memberType" name="memberType" value="${memberType}"/>${memberType}
-		</c:forEach>
-		<input id="modifyMemberTypeButton" class="inputButton" type="button" value="변경" />
+			<c:forEach items="${memberTypeList}" var="memberType">
+				<input type="radio" class="memberType" name="memberType" value="${memberType}"/>${memberType}
+			</c:forEach>
+			<input id="modifyMemberTypeButton" class="inputButton" type="button" value="변경" />
 	</div>
 	</form>
 </body>
