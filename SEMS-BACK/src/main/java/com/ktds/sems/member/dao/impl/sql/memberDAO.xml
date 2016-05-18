@@ -229,6 +229,15 @@
 		<if test="searchType != null and searchType != '' ">
 		AND		MBR.CD_NM = #{searchType}
 		</if>
+		<if test="connLock != null and connLock != '' ">
+		AND		MBR.IS_ACC_LCK = #{connLock}
+		</if>
+		<if test="isRgsn != null and isRgsn != '' ">
+		AND		MBR.RSN = #{isRgsn}
+		</if>
+		<if test="modLock != null and modLock != '' ">
+		AND		MBR.IS_MDF_LCK = #{modLock}
+		</if>
 		ORDER	BY	ID  DESC
 	</select>
 	
@@ -256,6 +265,15 @@
 		</if>
 		<if test="searchType != null and searchType != '' ">
 		AND		MBR_TP.CD_NM = #{searchType}
+		</if>
+		<if test="connLock != null and connLock != '' ">
+		AND		MBR.IS_ACC_LCK = #{connLock}
+		</if>
+		<if test="isRgsn != null and isRgsn != '' ">
+		AND		MBR.RSN = #{isRgsn}
+		</if>
+		<if test="modLock != null and modLock != '' ">
+		AND		MBR.IS_MDF_LCK = #{modLock}
 		</if>
 		AND		RNUM >= #{startIndex}		
 		ORDER	BY	ID  DESC
