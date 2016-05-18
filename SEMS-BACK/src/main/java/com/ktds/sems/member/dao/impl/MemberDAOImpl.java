@@ -91,8 +91,6 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 
 	@Override
 	public List<MemberVO> getAllMemberList(MemberSearchVO searchVO) {
-		logger.info("DAO START : " + searchVO.getStartIndex());
-		logger.info("DAO END : " + searchVO.getEndIndex());
 		return getSqlSession().selectList("MemberDAO.getAllMemberList", searchVO);
 	}
 
