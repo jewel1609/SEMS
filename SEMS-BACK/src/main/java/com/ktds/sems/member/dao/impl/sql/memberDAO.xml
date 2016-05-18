@@ -158,32 +158,32 @@
 	     FROM 	(
 	             SELECT ROWNUM AS RNUM
 	              ,LGI.*
-	          FROM   (
-	                         SELECT   LGI_HTR.*
-	                        FROM   (
-	                                  SELECT  LGI_HTR.*, MBR_TP.CD_NM
-	                                  FROM   LGI_HTR, MBR, MBR_TP
-	                                  WHERE   MBR.MBR_TP = MBR_TP.CD_ID
-	                                  AND     LGI_HTR.MBR_ID = MBR.ID
-	                                  )LGI_HTR 
-	                        WHERE   MBR_ID IN (
-	                                    SELECT   ID
-	                                    FROM   MBR
-	                                    WHERE   MBR_TP != 'ADM'
-	                                    )
-                            <if test="searchKeyword != null and searchKeyword != '' ">
-							AND		LGI_HTR.MBR_ID = #{searchKeyword}
-							</if>
-							<if test="searchType != null and searchType != '' ">
-							AND		LGI_HTR.CD_NM = #{searchType}
-							</if>
-							<if test="startDate != null and startDate != '' ">
-							AND		LGI_DT <![CDATA[>=]]> TO_DATE(#{startDate}, 'YYYY-MM-DD')		
-							AND		LGI_DT <![CDATA[<=]]> TO_DATE(#{endDate}, 'YYYY-MM-DD')
-							</if>
-	                        ORDER   BY   LGI_HTR_ID  DESC
-	                )    LGI
-	             WHERE   ROWNUM <![CDATA[<=]]> #{endIndex}
+		          FROM   (
+		                         SELECT   LGI_HTR.*
+		                        FROM   (
+		                                  SELECT  LGI_HTR.*, MBR_TP.CD_NM
+		                                  FROM   LGI_HTR, MBR, MBR_TP
+		                                  WHERE   MBR.MBR_TP = MBR_TP.CD_ID
+		                                  AND     LGI_HTR.MBR_ID = MBR.ID
+		                                  )LGI_HTR 
+		                        WHERE   MBR_ID IN (
+		                                    SELECT   ID
+		                                    FROM   MBR
+		                                    WHERE   MBR_TP != 'ADM'
+		                                    )
+	                            <if test="searchKeyword != null and searchKeyword != '' ">
+								AND		LGI_HTR.MBR_ID = #{searchKeyword}
+								</if>
+								<if test="searchType != null and searchType != '' ">
+								AND		LGI_HTR.CD_NM = #{searchType}
+								</if>
+								<if test="startDate != null and startDate != '' ">
+								AND		LGI_DT <![CDATA[>=]]> TO_DATE(#{startDate}, 'YYYY-MM-DD')		
+								AND		LGI_DT <![CDATA[<=]]> TO_DATE(#{endDate}, 'YYYY-MM-DD')
+								</if>
+		                        ORDER   BY   LGI_HTR_ID  DESC
+		                )    LGI
+	             	WHERE   ROWNUM <![CDATA[<=]]> #{endIndex}
 	        ) HIS
 	        WHERE   RNUM >= #{startIndex}   
 	</select>
@@ -216,7 +216,20 @@
 	
 	<select id="getTotalMemberCount" resultType="_int">
 		SELECT 	COUNT(ID)
-		FROM	MBR
+		FROM	(
+				SELECT	MBR.*
+						, MBR_TP.CD_NM
+				FROM	MBR, MBR_TP
+				WHERE	MBR.MBR_TP = MBR_TP.CD_ID
+				) MBR
+		WHERE	1=1
+		<if test="searchKeyword != null and searchKeyword != '' ">
+		AND		ID = #{searchKeyword}
+		</if>
+		<if test="searchType != null and searchType != '' ">
+		AND		MBR.CD_NM = #{searchType}
+		</if>
+		ORDER	BY	ID  DESC
 	</select>
 	
 	<select id="getAllMemberList" parameterType="MemberSearchVO" resultType="MemberVO">
@@ -238,7 +251,14 @@
 				) MBR
 				, MBR_TP
 		WHERE	MBR.MBR_TP = MBR_TP.CD_ID
+		<if test="searchKeyword != null and searchKeyword != '' ">
+		AND		MBR.ID LIKE '%' || #{searchKeyword} || '%'
+		</if>
+		<if test="searchType != null and searchType != '' ">
+		AND		MBR_TP.CD_NM = #{searchType}
+		</if>
 		AND		RNUM >= #{startIndex}		
+		ORDER	BY	ID  DESC
 	</select>
 	
 	<select id="isExistEmail" parameterType="string" resultType="string">
