@@ -12,6 +12,7 @@
 		<typeAlias type="com.ktds.sems.education.vo.EducationTypeVO" alias="EducationTypeVO"/>
 		<typeAlias type="com.ktds.sems.education.vo.CategoryVO" alias="CategoryVO"/>
 		<typeAlias type="com.ktds.sems.education.vo.EducationHistoryVO" alias="EduHistoryVO"/>
+		<typeAlias type="com.ktds.sems.education.vo.EducationHistorySearchVO" alias="EduHistorySearchVO"/>
 		<typeAlias type="com.ktds.sems.member.vo.MemberVO" alias="MemberVO"/>
 		<typeAlias type="com.ktds.sems.teacher.vo.TeacherVO" alias="TeacherVO"/>
 		<typeAlias type="com.ktds.sems.teacher.vo.TeacherBookVO" alias="TeacherBookVO"/>
