@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
 import com.ktds.sems.member.vo.LoginHistoryVO;
+import com.ktds.sems.member.vo.MemberSearchVO;
 import com.ktds.sems.member.vo.LoginHistorySearchVO;
 import com.ktds.sems.member.vo.MemberVO;
 
@@ -20,7 +21,7 @@ public interface MemberService {
 
 	public ModelAndView getAllMemberHistory(LoginHistorySearchVO loginHistorySearchVO, int pageNo);
 	
-	public ModelAndView getAllMemberList(int pageNo);
+	public ModelAndView getAllMemberList(MemberSearchVO memberSearchVO, int pageNo);
 
 	public void checkValidationById(String id, HttpServletResponse response);
 
@@ -55,5 +56,7 @@ public interface MemberService {
 	public ModelAndView loginHistoryInit();
 	
 	public ModelAndView getAllAdminHistory(int pageNo);
+
+	public ModelAndView memberListInit();
 
 }
