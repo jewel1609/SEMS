@@ -202,26 +202,24 @@ public class EducationServiceImpl implements EducationService {
 	}
 
 	@Override
-	public ModelAndView getAllEducationHistory(int pageNo) {
+	public ModelAndView getAllEducationHistory(EducationHistorySearchVO eduHistorySearchVO, int pageNo) {
 		
 		EducationHistoryListVO eduHistoryListVO = new EducationHistoryListVO();
 		Paging paging = new Paging(15,15);
 		eduHistoryListVO.setPaging(paging);
 		paging.setPageNumber(pageNo + "");
 		
-		int eduHistoryCount = educationBiz.getAllEduHistoryCount();
+		int eduHistoryCount = educationBiz.getAllEduHistoryCount(eduHistorySearchVO);
 		if(eduHistoryCount == 0 ){
 			eduHistoryCount ++;
 		}
 		paging.setTotalArticleCount(eduHistoryCount);
-		EducationHistorySearchVO searchVO = new EducationHistorySearchVO();
-		searchVO.setStartIndex(paging.getStartArticleNumber());
-		searchVO.setEndIndex(paging.getEndArticleNumber());	
+		eduHistorySearchVO.setStartIndex(paging.getStartArticleNumber());
+		eduHistorySearchVO.setEndIndex(paging.getEndArticleNumber());	
 		
 		ModelAndView view = new ModelAndView();
-		List<EducationHistoryVO> eduHistoryList = educationBiz.getAllEducationHistory();
+		List<EducationHistoryVO> eduHistoryList = educationBiz.getAllEducationHistory(eduHistorySearchVO);
 		eduHistoryListVO.setEducationHistoryList(eduHistoryList);
-		
 		view.addObject("eduHistoryListVO", eduHistoryListVO);
 		logger.info("eduHistoryListSize"+eduHistoryList.size());
 		view.setViewName("education/eduManage");
