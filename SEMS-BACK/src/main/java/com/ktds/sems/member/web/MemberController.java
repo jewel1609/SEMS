@@ -105,8 +105,6 @@ public class MemberController {
 
 	@RequestMapping("/memberManage/memberList")
 	public ModelAndView viewMemberListPage(MemberSearchVO memberSearchVO, @RequestParam(required=false, defaultValue="0") int pageNo){
-		logger.info("MemberList 실행 페이지 : " + pageNo);
-		
 		return memberService.getAllMemberList(memberSearchVO, pageNo);
 	}
 	
