@@ -4,10 +4,6 @@ import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
-
-
-
-
 public class TeacherVO{
 
 	private String memberId;
