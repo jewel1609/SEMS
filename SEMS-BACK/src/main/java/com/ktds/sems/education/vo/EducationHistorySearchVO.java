@@ -6,7 +6,8 @@ public class EducationHistorySearchVO {
 	private int startIndex;
 	private int endIndex;
 	private String memberId;
-
+	private String searchKeyword;
+	
 	public int getPageNo() {
 		return pageNo;
 	}
@@ -39,4 +40,12 @@ public class EducationHistorySearchVO {
 		this.memberId = memberId;
 	}
 
+	public String getSearchKeyword() {
+		return searchKeyword;
+	}
+
+	public void setSearchKeyword(String searchKeyword) {
+		this.searchKeyword = searchKeyword;
+	}
+	
 }
