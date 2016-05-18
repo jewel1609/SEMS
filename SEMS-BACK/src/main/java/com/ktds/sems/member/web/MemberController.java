@@ -1,15 +1,14 @@
 package com.ktds.sems.member.web;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,7 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.member.service.MemberService;
 import com.ktds.sems.member.vo.LoginHistorySearchVO;
-import com.ktds.sems.member.vo.LoginHistoryVO;
+import com.ktds.sems.member.vo.MemberSearchVO;
 import com.ktds.sems.member.vo.MemberVO;
 
 import kr.co.hucloud.utilities.web.AjaxUtil;
@@ -103,10 +102,10 @@ public class MemberController {
 	}
 
 	@RequestMapping("/memberManage/memberList")
-	public ModelAndView viewMemberListPage(@RequestParam(required=false, defaultValue="0") int pageNo){
+	public ModelAndView viewMemberListPage(MemberSearchVO memberSearchVO, @RequestParam(required=false, defaultValue="0") int pageNo){
 		logger.info("MemberList 실행 페이지 : " + pageNo);
 		
-		return memberService.getAllMemberList(pageNo);
+		return memberService.getAllMemberList(memberSearchVO, pageNo);
 	}
 	
 	@RequestMapping("/memberHistory")
@@ -158,6 +157,11 @@ public class MemberController {
 	public ModelAndView viewAdminHistory(@RequestParam(required=false, defaultValue="0") int pageNo) {
 		//logger.info("pageNO : " + pageNo);
 		return memberService.getAllAdminHistory(pageNo);
+	}
+	
+	@RequestMapping("/member/memberListInit")
+	public ModelAndView memberListInit() {
+		return memberService.memberListInit();
 	}
 	
 }
