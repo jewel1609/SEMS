@@ -378,6 +378,10 @@
 		SET		SALT = #{salt}
 				, PWD = #{password}
 				, LATEST_LGI_DT = SYSDATE
+				, MDF_F_CT = 0
+				, IS_MDF_LCK = 'N'
+				, LGI_F_CT = 0
+				, IS_ACC_LCK = 'N'
 		WHERE	ID = #{id}
 	</update>	
 	
