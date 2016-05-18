@@ -1,5 +1,6 @@
 package com.ktds.sems.education.service;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -7,14 +8,19 @@ import java.util.List;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.mock.web.MockHttpSession;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.SemsTestCase;
+import com.ktds.sems.common.Session;
 import com.ktds.sems.education.biz.EducationBiz;
 import com.ktds.sems.education.vo.EduReplyListVO;
 import com.ktds.sems.education.vo.EducationListVO;
 import com.ktds.sems.education.vo.EducationSearchVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.QNAVO;
+import com.ktds.sems.member.vo.MemberVO;
 
 import kr.co.hucloud.utilities.web.Paging;
 
@@ -22,6 +28,9 @@ public class EducationServiceTest extends SemsTestCase {
 
 	@Autowired
 	private EducationBiz educationBiz;
+	
+	@Autowired
+	private EducationService educationService;
 	
 	@Test
 	public void doCancelEducation() {
@@ -162,6 +171,45 @@ public class EducationServiceTest extends SemsTestCase {
 		String loginMember = "huhu";
 	//	assertTrue(educationBiz.isApplyMemberByEducationId(educationId, loginMember) > 0 );
 		
+	}
+	
+	@Test
+	public void viewRequestRetractionPageTest(){
+		
+		MockHttpSession session = new MockHttpSession();
+		MemberVO memberVO = new MemberVO();
+		memberVO.setId("test04");
+		session.setAttribute(Session.MEMBER, memberVO);
+		
+		String educationId = "ED-20160516-000185";
+		
+		ModelAndView view = educationService.viewRequestRetractionPage(session, educationId);
+		assertNotNull(view);
+		String viewName = view.getViewName();
+		assertNotNull(viewName);
+		assertEquals(viewName, "education/retraction");
+		// 교육이 이미 시작되었을때
+		//assertEquals(viewName, "redirect:/member/myPage/course");
+	}
+
+	// 교육 아이디 ED-20160513-000173에 대한 멤버 test04의 신청 내역이 있고, 교육이 시작 전이어야 제대로된 테스트 진행.
+//	@Test
+	public void doRequestRetractionTest(){
+		MockHttpServletRequest request = new MockHttpServletRequest();
+		request.setParameter("educationId", "ED-20160513-000173");
+		request.setParameter("retractionMessage", "하기싫어요");
+		
+		MockHttpSession session = new MockHttpSession();
+		MemberVO memberVO = new MemberVO();
+		memberVO.setId("test04");
+		session.setAttribute(Session.MEMBER, memberVO);
+		
+		String result = educationService.doRequestRetraction(request, session);
+
+		assertNotNull(result);
+		assertEquals(result, "redirect:/member/myPage");
+		// 교육이 이미 시작 했을때
+		//assertEquals(result, "redirect:/member/myPage/course");
 	}
 
 }

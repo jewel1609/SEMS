@@ -1,8 +1,10 @@
 package com.ktds.sems.education.dao;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.junit.Test;
@@ -11,14 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.ktds.sems.education.dao.EducationDAO;
+import com.ktds.sems.SemsTestCase;
 import com.ktds.sems.education.vo.EducationSearchVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.QNAVO;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "/applicationContext.xml", "/educationContext.xml", "/memberContext.xml", "/rootContext.xml"})
-public class EducationDAOTest {
+public class EducationDAOTest extends SemsTestCase{
 	@Autowired
 	private EducationDAO educationDAO;
 	
@@ -151,6 +151,24 @@ public class EducationDAOTest {
 		searchVO.setEndIndex(9);
 		
 		assertNotNull( educationDAO.getAllCommentByEducationId(educationId, searchVO));
+	}
+	
+	@Test
+	public void getApplyHistoryTest(){
+		String memberId = "test04";
+		String educationId = "ED-20160516-000185";
+		List<EducationVO> educations = educationDAO.getApplyHistory(memberId, educationId);
+		assertNotNull(educations);
+	}
+	
+	@Test
+	public void doRequestRetractionTest(){
+		String educationId = "ED-20160513-000173";
+		String retractionMsg = "듣기 싫어요";
+		String memberId = "test04";
+		int result = educationDAO.doRequestRetraction(educationId, retractionMsg, memberId);
+		assertNotNull(result);
+		assertTrue(result == 1);
 	}
 }
 
