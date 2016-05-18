@@ -17,9 +17,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.member.dao.MemberDAO;
+import com.ktds.sems.member.validator.PersonalInfoValidator;
 import com.ktds.sems.member.vo.MemberListVO;
 import com.ktds.sems.member.vo.MemberSearchVO;
 import com.ktds.sems.member.vo.MemberVO;
+import com.ktds.sems.member.vo.PersonalInfoReadVO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "/applicationContext.xml", "/fileContext.xml", "/educationContext.xml", "/memberContext.xml",
@@ -296,7 +298,6 @@ public class MemberServiceTest {
 		}		
 	}
 	
-	
 	@Test
 	public void viewMemberListPageTestSearchTypeIsRgsn() { 
 		
@@ -451,4 +452,74 @@ public class MemberServiceTest {
 			fail("Fail...");
 		}
 	}
+	
+	/**
+	 * getMemberDetailById
+	 * memberDeleteById
+	 * requestMemberDetail
+	 * doWriteMemberDetailInfo
+	 * personalInfoReadVO
+	 * lpad
+	 * 
+	 */
+	//@Test
+	public void memberDeleteByIdTestError1() {
+		String id = "JunitTest";
+		
+		ModelAndView view = memberService.memberDeleteById(id);
+		
+		if( view != null ) {
+			String viewName = view.getViewName();
+			assertNotNull(viewName);
+			assertEquals(viewName , "redirect:/memberManage/memberList");
+		}
+		else {
+			fail("Fail....");
+		}
+		
+	}
+	
+	//@Test
+	public void memberDeleteByIdTestError2() {
+		String id = "";
+		
+		ModelAndView view = memberService.memberDeleteById(id);
+		
+		if( view != null ) {
+			String viewName = view.getViewName();
+			assertNotNull(viewName);
+			assertEquals(viewName , "redirect:/memberManage/memberList");
+		}
+		else {
+			fail("Fail....");
+		}
+		
+	}
+	
+	//@Test
+	public void doWriteMemberDetailInfo() {
+		PersonalInfoReadVO personalInfoReadVO = new PersonalInfoReadVO();
+		personalInfoReadVO.setMemberId("junitTest");
+		personalInfoReadVO.setTargetMemberId("test01");
+		personalInfoReadVO.setDescription("desc");
+		personalInfoReadVO.setReadDate("Junitdate");
+		
+		BindingResult errors = new BeanPropertyBindingResult(personalInfoReadVO, "requestMemberDetailInfoForm");
+		PersonalInfoValidator userValidator = new PersonalInfoValidator();
+		userValidator.validate(personalInfoReadVO, errors);
+		
+		ModelAndView view = memberService.doWriteMemberDetailInfo(personalInfoReadVO, errors);
+		assertNotNull(view);
+		
+		if (view != null) {
+			String viewName = view.getViewName();
+			assertNotNull(viewName);
+			assertEquals(viewName, "member/memberDetailPage");
+
+		}
+		else {
+			fail("Fail.....");
+		}
+	}
+
 }
