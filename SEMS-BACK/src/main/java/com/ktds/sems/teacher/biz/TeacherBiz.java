@@ -2,25 +2,43 @@ package com.ktds.sems.teacher.biz;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.teacher.vo.EducationHistoryVO;
 import com.ktds.sems.teacher.vo.ProjectHistoryVO;
 import com.ktds.sems.teacher.vo.TeacherBookVO;
+import com.ktds.sems.teacher.vo.TeacherSearchVO;
 import com.ktds.sems.teacher.vo.TeacherVO;
 
 public interface TeacherBiz {
 	
-	TeacherVO getTeacherInfo(String memberId);
+	public TeacherVO getTeacherInfo(String memberId);
 
-	List<EducationHistoryVO> getTeacherEducationHistory(String memberId);
+	public List<EducationHistoryVO> getTeacherEducationHistory(String memberId);
 
-	List<ProjectHistoryVO> getTeacherProjectHistory(String memberId);
+	public List<ProjectHistoryVO> getTeacherProjectHistory(String memberId);
 
-	List<TeacherBookVO> getTeacherBook(String memberId);
+	public List<TeacherBookVO> getTeacherBook(String memberId);
 
-	double getTeacherEducationGrade(String memberId);
+	public double getTeacherEducationGrade(String memberId);
 
-	List<EducationVO> getEducationHistory(String memberId);
+	public List<EducationVO> getEducationHistory(String memberId);
+
+	public int getTotalTeacherCount(HttpServletRequest request);
+
+	public List<TeacherVO> getAllTeacher(TeacherSearchVO searchVO);
+
+	public int getSearchedEducationCount(TeacherVO teacherVO);
+
+	public boolean doDeleteTeacher(String memberId);
+
+	public boolean doDeleteProjectHistory(String memberId);
+
+	public boolean doDeleteEducationHistory(String memberId);
+
+	public boolean doDeleteTeacherBook(String memberId);
+
 
 	public TeacherVO getOneTeacherInfo(String memberId);
 
