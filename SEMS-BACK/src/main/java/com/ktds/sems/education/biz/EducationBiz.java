@@ -23,9 +23,9 @@ public interface EducationBiz {
 
 	public List<CategoryVO> categoryCodeList();
 
-	public List<EducationHistoryVO> getAllEducationHistory();
+	public List<EducationHistoryVO> getAllEducationHistory(EducationHistorySearchVO eduHistorySearchVO);
 
-	public int getAllEduHistoryCount();
+	public int getAllEduHistoryCount(EducationHistorySearchVO eduHistorySearchVO);
 
 	public int getJCEduHistoryCount(EducationHistorySearchVO eduHistorySearchVO);
 
