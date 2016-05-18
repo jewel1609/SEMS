@@ -2,6 +2,7 @@ package com.ktds.sems.teacher.dao.impl;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 
@@ -10,6 +11,7 @@ import com.ktds.sems.teacher.dao.TeacherDAO;
 import com.ktds.sems.teacher.vo.EducationHistoryVO;
 import com.ktds.sems.teacher.vo.ProjectHistoryVO;
 import com.ktds.sems.teacher.vo.TeacherBookVO;
+import com.ktds.sems.teacher.vo.TeacherSearchVO;
 import com.ktds.sems.teacher.vo.TeacherVO;
 
 public class TeacherDAOImpl extends SqlSessionDaoSupport implements TeacherDAO{
@@ -88,5 +90,42 @@ public class TeacherDAOImpl extends SqlSessionDaoSupport implements TeacherDAO{
 	public int deleteTeacherBookEduProHistory(HashMap<String, Object> map) {
 		return getSqlSession().delete("TeacherDAO.deleteTeacherBookEduProHistory", map);
 	}
+
+	@Override
+	public int getTotalTeacherCount(Map<String,String> searchInfo) {
+		return getSqlSession().selectOne("TeacherDAO.getTotalTeacherCount", searchInfo);
+	}
+
+	@Override
+	public List<TeacherVO> getAllTeacher(TeacherSearchVO searchVO) {
+		return getSqlSession().selectList("TeacherDAO.getAllTeacher", searchVO);
+	}
+
+	@Override
+	public int getSearchedEducationCount(TeacherVO teacherVO) {
+		return getSqlSession().selectOne("TeacherDAO.getSearchedEducationCount", teacherVO);
+	}
+
+	@Override
+	public int doDeleteTeacher(String memberId) {
+		return getSqlSession().delete("TeacherDAO.doDeleteTeacher", memberId);
+	}
+
+	@Override
+	public int doDeleteProjectHistory(String memberId) {
+		return getSqlSession().delete("TeacherDAO.doDeleteProjectHistory", memberId);
+	}
+
+	@Override
+	public int doDeleteEducationHistory(String memberId) {
+		return getSqlSession().delete("TeacherDAO.doDeleteEducationHistory", memberId);
+	}
+
+	@Override
+	public int doDeleteTeacherBook(String memberId) {
+		return getSqlSession().delete("TeacherDAO.doDeleteTeacherBook", memberId);
+	}
+
+
 
 }
