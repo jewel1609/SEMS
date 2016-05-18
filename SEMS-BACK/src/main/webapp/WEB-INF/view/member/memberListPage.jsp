@@ -227,7 +227,7 @@
 						<input class="deleteMemberId" name="deleteMemberId" value="${member.id}" type="checkbox"/>
 					</td>
 					<td>
-						<a href="<c:url value="/memberDetail/${member.id}"/>">${ member.id }</a>
+						<a href="<c:url value="/requestMemberDetail/${member.id}"/>">${ member.id }</a>
 					</td>
 					<td>${member.name}</td>		
 					<td>${member.memberType}</td>	
