@@ -5,6 +5,7 @@ import java.util.List;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 
 import com.ktds.sems.member.dao.MemberDAO;
+import com.ktds.sems.member.vo.CodeMngVO;
 import com.ktds.sems.member.vo.GrdtTpVO;
 import com.ktds.sems.member.vo.HighestEduTpVO;
 import com.ktds.sems.member.vo.LoginHistoryVO;
@@ -161,6 +162,26 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 	@Override
 	public int nextLoginHistorySeq() {
 		return getSqlSession().selectOne("MemberDAO.nextLoginHistorySeq");
+	}
+
+	@Override
+	public List<CodeMngVO> getAllCodeMngList() {
+		return getSqlSession().selectList("MemberDAO.getAllCodeMngList");
+	}
+
+	@Override
+	public int doCodeMngDelete(String cdId) {
+		return getSqlSession().delete("MemberDAO.doCodeMngDelete", cdId);
+	}
+
+	@Override
+	public int doCodeMngModify(CodeMngVO codeMngVO) {
+		return getSqlSession().update("MemberDAO.doCodeMngModify", codeMngVO);
+	}
+
+	@Override
+	public int doCodeMngInsert(CodeMngVO codeMngVO) {
+		return getSqlSession().insert("MemberDAO.doCodeMngInsert", codeMngVO);
 	}
 
 }

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.member.service.MemberService;
+import com.ktds.sems.member.vo.CodeMngVO;
 import com.ktds.sems.member.vo.MemberVO;
 
 import kr.co.hucloud.utilities.web.AjaxUtil;
@@ -53,35 +54,6 @@ public class MemberController {
 		String cdNm = request.getParameter("cdNm");
 
 		String status = memberService.doGrdtInsert(cdId, cdNm);
-		AjaxUtil.sendResponse(response, status);
-	}
-
-	/* Highest Education */
-	@RequestMapping("/highestEduPage")
-	public ModelAndView viewHighestEduPage() {
-		return memberService.viewHighestEduPage();
-	}
-
-	@RequestMapping("/doHighestEduDelete/{cdId}")
-	public String doHighestEduDelete(@PathVariable String cdId) {
-		return memberService.doHighestEduDelete(cdId);
-	}
-
-	@RequestMapping("/doHighestEduModify")
-	public void doHighestEduModify(HttpServletRequest request, HttpServletResponse response) {
-
-		String cdId = request.getParameter("cdId");
-		String cdNm = request.getParameter("cdNm");
-
-		memberService.doHighestEduModify(cdId, cdNm);
-	}
-
-	@RequestMapping("/doHighestEduInsert")
-	public void doHighestEduInsert(HttpServletRequest request, HttpServletResponse response) {
-		String cdId = request.getParameter("cdId");
-		String cdNm = request.getParameter("cdNm");
-
-		String status = memberService.doHighestEduInsert(cdId, cdNm);
 		AjaxUtil.sendResponse(response, status);
 	}
 
@@ -132,5 +104,57 @@ public class MemberController {
 	@RequestMapping("/main")
 	public String viewMainPage() {
 		return "/common/main";
+	}
+	
+	/* Highest Education */
+	@RequestMapping("/highestEduPage")
+	public ModelAndView viewHighestEduPage() {
+		return memberService.viewHighestEduPage();
+	}
+
+	@RequestMapping("/doHighestEduDelete/{cdId}")
+	public String doHighestEduDelete(@PathVariable String cdId) {
+		return memberService.doHighestEduDelete(cdId);
+	}
+
+	@RequestMapping("/doHighestEduModify")
+	public void doHighestEduModify(HttpServletRequest request, HttpServletResponse response) {
+
+		String cdId = request.getParameter("cdId");
+		String cdNm = request.getParameter("cdNm");
+
+		memberService.doHighestEduModify(cdId, cdNm);
+	}
+
+	@RequestMapping("/doHighestEduInsert")
+	public void doHighestEduInsert(HttpServletRequest request, HttpServletResponse response) {
+		String cdId = request.getParameter("cdId");
+		String cdNm = request.getParameter("cdNm");
+
+		String status = memberService.doHighestEduInsert(cdId, cdNm);
+		AjaxUtil.sendResponse(response, status);
+	}
+	
+	/* Code Management */
+	@RequestMapping("/codeMngPage")
+	public ModelAndView viewCodeMngPage() {
+		return memberService.viewCodeMngPage();
+	}
+
+	@RequestMapping("/doCodeMngDelete/{cdId}")
+	public void doCodeMngDelete(@PathVariable String cdId, HttpServletResponse response) {
+		memberService.doCodeMngDelete(cdId);
+	}
+
+	@RequestMapping("/doCodeMngModify")
+	public void doCodeMngModify(CodeMngVO codeMngVO, HttpServletResponse response) {
+		String status = memberService.doCodeMngModify(codeMngVO);
+		AjaxUtil.sendResponse(response, status);
+	}
+
+	@RequestMapping("/doCodeMngInsert")
+	public void doCodeMngInsert(CodeMngVO codeMngVO, HttpServletResponse response) {
+		String status = memberService.doCodeMngInsert(codeMngVO);
+		AjaxUtil.sendResponse(response, status);
 	}
 }

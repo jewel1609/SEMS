@@ -234,4 +234,38 @@
 									WHERE	MBR_ID = #{memberId}
 								)
 	</update>
+	
+	<select id="getAllCodeMngList" resultType="CodeMngVO">
+		SELECT	CD_ID cdId
+				, CD_NM cdNm
+				, CD_TP cdTp
+				, CD_TP_2 cdTp2
+		FROM	CODE_MNG
+	</select>
+	
+	<delete id="doCodeMngDelete" parameterType="string">
+		DELETE
+		FROM	CODE_MNG
+		WHERE	CD_ID = #{cdId}
+	</delete>
+	<update id="doCodeMngModify" parameterType="codeMngVO">
+		UPDATE	CODE_MNG	
+		SET		CD_NM = #{cdNm}
+				, CD_TP_2 = #{cdTp2}
+		WHERE	CD_ID = #{cdId}
+	</update>
+	<insert id="doCodeMngInsert">
+		INSERT INTO CODE_MNG (
+			                    CD_ID
+			                    , CD_NM
+			                    , CD_TP
+			                    , CD_TP_2
+		                    ) 
+		VALUES				( 
+						        #{cdId}
+						        , #{cdNm}
+						        , #{cdTp}
+						        , #{cdTp2}
+					        )
+	</insert>
 </mapper>

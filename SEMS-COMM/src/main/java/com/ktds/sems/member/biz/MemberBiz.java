@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.ktds.sems.member.vo.CodeMngVO;
 import com.ktds.sems.member.vo.GrdtTpVO;
 import com.ktds.sems.member.vo.HighestEduTpVO;
 import com.ktds.sems.member.vo.MbrTpVO;
@@ -63,5 +64,13 @@ public interface MemberBiz {
 	public boolean stampLoginTime(HttpSession session, HttpServletRequest request, MemberVO loginVO);
 
 	public boolean stampLogoutTime(HttpSession session);
+
+	public List<CodeMngVO> getAllCodeMngList();
+
+	public boolean doCodeMngDelete(String cdId);
+
+	public boolean doCodeMngModify(CodeMngVO codeMngVO);
+
+	public boolean doCodeMngInsert(CodeMngVO codeMngVO);
 
 }

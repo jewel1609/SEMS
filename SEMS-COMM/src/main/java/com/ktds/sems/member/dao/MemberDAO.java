@@ -2,6 +2,7 @@ package com.ktds.sems.member.dao;
 
 import java.util.List;
 
+import com.ktds.sems.member.vo.CodeMngVO;
 import com.ktds.sems.member.vo.GrdtTpVO;
 import com.ktds.sems.member.vo.HighestEduTpVO;
 import com.ktds.sems.member.vo.LoginHistoryVO;
@@ -67,5 +68,13 @@ public interface MemberDAO {
 	public int nextLoginHistorySeq();
 
 	int stampLogoutTimeByMemberId(String memberId);
+
+	public List<CodeMngVO> getAllCodeMngList();
+
+	public int doCodeMngDelete(String cdId);
+
+	public int doCodeMngModify(CodeMngVO codeMngVO);
+
+	public int doCodeMngInsert(CodeMngVO codeMngVO);
 
 }

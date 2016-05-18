@@ -9,6 +9,7 @@ import com.ktds.sems.common.LoginStore;
 import com.ktds.sems.common.Session;
 import com.ktds.sems.member.biz.MemberBiz;
 import com.ktds.sems.member.dao.MemberDAO;
+import com.ktds.sems.member.vo.CodeMngVO;
 import com.ktds.sems.member.vo.GrdtTpVO;
 import com.ktds.sems.member.vo.HighestEduTpVO;
 import com.ktds.sems.member.vo.LoginHistoryVO;
@@ -216,6 +217,26 @@ public class MemberBizImpl implements MemberBiz{
 		session.removeAttribute("_LOGIN_HISTORY_");
 		
 		return memberDAO.stampLogoutTime(newLoginHistoryVO) > 0;
+	}
+
+	@Override
+	public List<CodeMngVO> getAllCodeMngList() {
+		return memberDAO.getAllCodeMngList();
+	}
+
+	@Override
+	public boolean doCodeMngDelete(String cdId) {
+		return memberDAO.doCodeMngDelete(cdId) > 0;
+	}
+
+	@Override
+	public boolean doCodeMngModify(CodeMngVO codeMngVO) {
+		return memberDAO.doCodeMngModify(codeMngVO) > 0;
+	}
+
+	@Override
+	public boolean doCodeMngInsert(CodeMngVO codeMngVO) {
+		return memberDAO.doCodeMngInsert(codeMngVO) > 0;
 	}
 	
 }

@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ktds.sems.member.vo.CodeMngVO;
 import com.ktds.sems.member.vo.MbrTpVO;
 import com.ktds.sems.member.vo.MemberVO;
 
@@ -38,5 +39,13 @@ public interface MemberService {
 	public String login(MemberVO memberVO, Errors errors, HttpSession session, HttpServletRequest request);
 
 	public void logout(HttpSession session);
+
+	public ModelAndView viewCodeMngPage();
+
+	public void doCodeMngDelete(String cdId);
+
+	public String doCodeMngModify(CodeMngVO codeMngVO);
+
+	public String doCodeMngInsert(CodeMngVO codeMngVO);
 
 }
