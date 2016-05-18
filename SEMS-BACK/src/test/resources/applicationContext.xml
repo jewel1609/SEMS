@@ -11,6 +11,8 @@
 	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/**"/>
+			<mvc:exclude-mapping path="/backend"/>
+			<mvc:exclude-mapping path="/backend/login"/>
 			<bean id="backendInterceptor" class="com.ktds.sems.interceptor.BackendInterceptor"/>
 		</mvc:interceptor>
 	</mvc:interceptors>
@@ -26,6 +28,8 @@
 		<property name="maxInMemorySize" value="100000000" />
 	</bean>
 	
+	<bean id="customExceptionHandler" class="com.ktds.sems.handler.CustomExceptionHandler"></bean>
+	
 	<bean id="educationController"
 			class="com.ktds.sems.education.web.EducationController">
 			<property name="educationService" ref="educationService" />
@@ -33,8 +37,17 @@
 
     <bean id="memberController"
     		class="com.ktds.sems.member.web.MemberController" >
-    		<property name="memberService" ref="memberService"></property>
+    		<property name="memberService" ref="memberService" />
     </bean>
-    		
+	
+	<bean id="teacherController" class="com.ktds.sems.teacher.web.TeacherController">
+		<property name="teacherService" ref="teacherService" />
+	</bean>
+    
+    <bean id="cooperationController"
+    		class="com.ktds.sems.cooperation.web.CooperationController" >
+    		<property name="cooperationService" ref="cooperationService" />
+    </bean>
 	
 </beans>
+
