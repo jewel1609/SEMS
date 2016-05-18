@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.education.service.EducationService;
+import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationVO;
 
 @Controller
@@ -52,9 +53,9 @@ public class EducationController {
 	}
 
 	@RequestMapping("/checkEduApplicant")
-	public ModelAndView viewCheckApplicantPage(@RequestParam(required = false, defaultValue = "0") int pageNo) {
+	public ModelAndView viewCheckApplicantPage(EducationHistorySearchVO eduHistorySearchVO, @RequestParam(required = false, defaultValue = "0") int pageNo) {
 		// JC (JOIN_CMPL)
-		ModelAndView view = educationService.getJCEduHistory(pageNo);
+		ModelAndView view = educationService.getJCEduHistory(eduHistorySearchVO, pageNo);
 		return view;
 	}
 
