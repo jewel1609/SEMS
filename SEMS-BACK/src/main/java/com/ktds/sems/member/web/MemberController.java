@@ -20,7 +20,9 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ktds.sems.member.service.MemberService;
 import com.ktds.sems.member.vo.LoginHistorySearchVO;
 import com.ktds.sems.member.vo.MemberSearchVO;
+
 import com.ktds.sems.member.vo.MemberVO;
+import com.ktds.sems.member.vo.PersonalInfoReadVO;
 
 import kr.co.hucloud.utilities.web.AjaxUtil;
 
@@ -152,7 +154,17 @@ public class MemberController {
 	public ModelAndView memberDeleteById(@PathVariable String id) {
 		return memberService.memberDeleteById(id);
 	}
+
+	@RequestMapping("/requestMemberDetail/{id}")
+	public ModelAndView requestMemberDetail(@PathVariable String id) {
+		return memberService.requestMemberDetail(id);
+	}
 	
+	@RequestMapping(value = "/doWriteMemberDetailInfo", method = RequestMethod.POST)
+	public ModelAndView doWriteMemberDetailInfo(@Valid PersonalInfoReadVO personalInfoReadVO, Errors errors) {
+		return memberService.doWriteMemberDetailInfo(personalInfoReadVO, errors);
+	}
+
 	@RequestMapping("/adminHistory")
 	public ModelAndView viewAdminHistory(@RequestParam(required=false, defaultValue="0") int pageNo) {
 		//logger.info("pageNO : " + pageNo);
@@ -163,5 +175,5 @@ public class MemberController {
 	public ModelAndView memberListInit() {
 		return memberService.memberListInit();
 	}
-	
+
 }
