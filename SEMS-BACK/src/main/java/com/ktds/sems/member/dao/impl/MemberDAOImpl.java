@@ -84,8 +84,8 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 	}
 
 	@Override
-	public int getTotalMemberCount() {
-		return getSqlSession().selectOne("MemberDAO.getTotalMemberCount");
+	public int getTotalMemberCount(MemberSearchVO memberSearchVO) {
+		return getSqlSession().selectOne("MemberDAO.getTotalMemberCount", memberSearchVO);
 	}
 
 	@Override
