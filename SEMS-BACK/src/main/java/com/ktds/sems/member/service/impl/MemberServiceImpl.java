@@ -454,14 +454,13 @@ public class MemberServiceImpl implements MemberService{
 		
 		SendMail sendMail = new SendMail();
 		MailVO mailVO = new MailVO();		
-		MemberVO member = new MemberVO();
+		MemberVO member = memberBiz.getMemberDetailById(memberId);
 		
 		String password = memberBiz.randomValue(10);
 		String salt = SHA256Util.generateSalt();
 		member.setSalt(salt);
 
 		String newPassword = SHA256Util.getEncrypt(password, salt);
-		member.setId(memberId);
 		member.setPassword(newPassword);
 
 		boolean isChangedPassword = memberBiz.changePassword(member);
@@ -470,7 +469,7 @@ public class MemberServiceImpl implements MemberService{
 			mailVO.setFromPassword("123qwe!@#qwe");
 			mailVO.setSubject("임시 비밀 번호입니다.");
 			mailVO.setText("<html><body>임시 비밀번호는 : " + password + "<a href='http://localhost/sems/'>로그인</a></body></html>");
-			mailVO.setToId(memberId);
+			mailVO.setToId(member.getEmail());
 			
 			// TODO 이메일 테스트
 			// sendMail.sendMailToCustomer(mailVO);
