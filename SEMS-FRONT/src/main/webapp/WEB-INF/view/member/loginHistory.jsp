@@ -11,7 +11,8 @@
 	$(document).ready(function() {
 		
 		$("#searchBtn").click(function() {
-			
+			var beginTime = $("#beginTime").val();
+			var closeTime = $("#closeTime").val();
 			var beginDate = $("#beginDate").val();
 			var closeDate = $("#closeDate").val();
 				
@@ -36,6 +37,14 @@
 					alert("검색 기간이 잘못 설정되었습니다.");
 					return;
 				}
+				
+				if (beginDate == closeDate) {
+					if ( beginTime > closeTime ) {
+						alert("시간 설정이 잘못 설정되었습니다.");
+						return;
+					}
+				}
+				
 			} 
 			movePage('0');
 			
