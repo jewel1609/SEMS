@@ -9,6 +9,7 @@ import com.ktds.sems.member.vo.LoginHistoryVO;
 import com.ktds.sems.member.vo.LoginHistorySearchVO;
 import com.ktds.sems.member.vo.MemberSearchVO;
 import com.ktds.sems.member.vo.MemberVO;
+import com.ktds.sems.member.vo.PersonalInfoReadVO;
 
 public interface MemberBiz {
 
@@ -79,6 +80,14 @@ public interface MemberBiz {
 	public List<String> getMemberTypeCodeNameList();
 
 	public String getMemberTypeCodeId(String memberType);
+
+	public boolean doWriteMemberDetailInfo(PersonalInfoReadVO personalInfoReadVO);
+
+	public int getPersonalInfoIdSeq();
+	
+	public String getSysdate();
+
+	public String getTargetMemberEmail(String targetMemberId);
 
 	public List<String> getTypeList();
 	
