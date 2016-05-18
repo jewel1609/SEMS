@@ -69,4 +69,122 @@
 		FROM	DUAL
 	</select>
 	
+	<select id="getOneTeacherInfo" parameterType="string" resultType="TeacherVO">
+		SELECT	T.MBR_ID memberId
+				, NM name
+				, COMP_NM companyName
+				, BUIS_NMB businessNumber
+				, ANNUAL annual
+		FROM 	TCHR_INFO T
+				, MBR M
+		WHERE	T.MBR_ID = #{memberId}
+		AND		T.MBR_ID = M.ID
+	</select>
+	<select id="getOneTeacherBookInfo" parameterType="string" resultType="TeacherBookVO">
+		SELECT	TB_ID id
+				, BOOK_NM bookName
+				, BOOK_COMP bookCompany
+		FROM	TCHR_BOOK
+		WHERE	MBR_ID = #{memberId}
+	</select>
+	<select id="getOneTeacherProjectHistoryVO" parameterType="string" resultType="ProjectHistoryVO">
+		SELECT	TPH_ID id
+				, STR_DATE startDate
+				, END_DATE endDate
+				, PROJ_NM projectName
+				, PROJ_LOC projectLocation
+		FROM 	TCHR_PROJ_HTR
+		WHERE	MBR_ID = #{memberId}
+	</select>
+	<select id="getOneEducationHistoryVO" parameterType="string" resultType="TeacherEduHistoryVO">
+		SELECT	TEH_ID id
+				, STR_DATE startDate
+				, END_DATE endDate
+				, EDU_NM  educationName
+				, EDU_LOC educationLocation
+		FROM 	TCHR_EDU_HTR
+		WHERE	MBR_ID = #{memberId}
+	</select>
+	<update id="doTeacherInfoModifyAction" parameterType="TeacherVO">
+		UPDATE	TCHR_INFO
+		SET		MBR_ID   = #{memberId}
+				<if test="companyName != null">
+				, COMP_NM  = #{companyName}
+				</if>
+				<if test="businessNumber != null">
+				, BUIS_NMB = #{businessNumber}
+				</if>
+				<if test="annual != null">
+				, ANNUAL   = #{annual}
+				</if>
+		WHERE	MBR_ID   = #{memberId}
+	</update>
+	<update id="doTeacherBookModifyAction" parameterType="teacherBookVO">
+		UPDATE	TCHR_BOOK
+		SET		TB_ID   = #{id}
+				<if test="bookName != null">
+				, BOOK_NM  = #{bookName}
+				</if>
+				<if test="bookCompany != null">
+				, BOOK_COMP = #{bookCompany}
+				</if>
+		WHERE	TB_ID   = #{id}
+	</update>
+	<update id="doTeacherProjectModifyAction" parameterType="projectHistoryVO">
+		UPDATE	TCHR_PROJ_HTR
+		SET		TPH_ID   = #{id}
+				<if test="startDate != null">
+				, STR_DATE  = #{startDate}
+				</if>
+				<if test="endDate != null">
+				, END_DATE = #{endDate}
+				</if>
+				<if test="projectName != null">
+				, PROJ_NM   = #{projectName}
+				</if>
+				<if test="projectLocation != null">
+				, PROJ_LOC   = #{projectLocation}
+				</if>
+		WHERE	TPH_ID   = #{id}
+	</update>
+	<update id="doTeacherEducationModifyAction" parameterType="TeacherEduHistoryVO">
+		UPDATE	TCHR_EDU_HTR
+		SET		TEH_ID   = #{id}
+				<if test="startDate != null">
+				, STR_DATE  = #{startDate}
+				</if>
+				<if test="endDate != null">
+				, END_DATE = #{endDate}
+				</if>
+				<if test="educationName != null">
+				, EDU_NM   = #{educationName}
+				</if>
+				<if test="educationLocation != null">
+				, EDU_LOC   = #{educationLocation}
+				</if>
+		WHERE	TEH_ID   = #{id}
+	</update>
+	<delete id="deleteTeacherBookEduProHistory" parameterType="hashMap">
+		DELETE
+		FROM	<if test="type == 'book'">
+				TCHR_BOOK
+				</if>
+				<if test="type == 'pro'">
+				TCHR_EDU_HTR
+				</if>
+				<if test="type == 'edu'">
+				TCHR_PROJ_HTR
+				</if>
+		WHERE	1=1
+		<if test="type == 'book'">
+		AND		TB_ID = #{id}
+		</if>
+		<if test="type == 'pro'">
+		AND		TPH_ID = #{id}
+		</if>
+		<if test="type == 'edu'">
+		AND		TEH_ID = #{id}
+		</if>
+	</delete>
+	
 </mapper>
