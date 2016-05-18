@@ -92,34 +92,30 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 	}
 	
 	@Override
-	public int completeCancelEducationByMemberId(String educationId, String memberId) {
+	public int completeCancelEducationByMemberId(String educationHistoryId) {
 		Map<String, String> paramMap = new HashMap<String, String>();
-		paramMap.put("educationId", educationId);
-		paramMap.put("memberId", memberId);
+		paramMap.put("educationHistoryId", educationHistoryId);
 		return getSqlSession().update("EducationDAO.completeCancelEducationByMemberId", paramMap);
 	}
 	
 	@Override
-	public int denyCancleEducationByMemberId(String educationId, String memberId) {
+	public int denyCancelEducationByMemberId(String educationHistoryId) {
 		Map<String, String> paramMap = new HashMap<String, String>();
-		paramMap.put("educationId", educationId);
-		paramMap.put("memberId", memberId);
-		return getSqlSession().update("EducationDAO.denyCancleEducationByMemberId", paramMap);
+		paramMap.put("educationHistoryId", educationHistoryId);
+		return getSqlSession().update("EducationDAO.denyCancelEducationByMemberId", paramMap);
 	}
 	
 	@Override
-	public int completeGiveUpEducationByMemberId(String educationId, String memberId) {
+	public int completeGiveUpEducationByMemberId(String educationHistoryId) {
 		Map<String, String> paramMap = new HashMap<String, String>();
-		paramMap.put("educationId", educationId);
-		paramMap.put("memberId", memberId);
+		paramMap.put("educationHistoryId", educationHistoryId);
 		return getSqlSession().update("EducationDAO.completeGiveUpEducationByMemberId", paramMap);
 	}
 	
 	@Override
-	public int denyGiveUpEducationByMemberId(String educationId, String memberId) {
+	public int denyGiveUpEducationByMemberId(String educationHistoryId) {
 		Map<String, String> paramMap = new HashMap<String, String>();
-		paramMap.put("educationId", educationId);
-		paramMap.put("memberId", memberId);
+		paramMap.put("educationHistoryId", educationHistoryId);
 		return getSqlSession().update("EducationDAO.denyGiveUpEducationByMemberId", paramMap);
 	}
 

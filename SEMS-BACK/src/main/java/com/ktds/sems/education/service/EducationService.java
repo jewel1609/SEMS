@@ -28,13 +28,13 @@ public interface EducationService {
 
 	public ModelAndView cancelJoinEducationByMemberId(String educationId, String memberId, String description);
 
-	public ModelAndView completeCancelEducationByMemberId(String educationId, String memberId);
+	public ModelAndView completeCancelEducationByMemberId(String educationHistoryId);
 	
-	public ModelAndView denyCancleEducationByMemberId(String educationId, String memberId, String description);
+	public ModelAndView denyCancelEducationByMemberId(String educationHistoryId);
 	
-	public ModelAndView completeGiveUpEducationByMemberId(String educationId, String memberId);
+	public ModelAndView completeGiveUpEducationByMemberId(String educationHistoryId);
 	
-	public ModelAndView denyGiveUpEducationByMemberId(String educationId, String memberId, String description);	
+	public ModelAndView denyGiveUpEducationByMemberId(String educationHistoryId);	
 
 
 }

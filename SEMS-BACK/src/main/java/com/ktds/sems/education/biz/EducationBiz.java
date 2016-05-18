@@ -37,13 +37,13 @@ public interface EducationBiz {
 
 	public boolean cancelJoinEducationByMemberId(String educationId, String memberId);
 	
-	public boolean completeCancelEducationByMemberId(String educationId, String memberId);
+	public boolean completeCancelEducationByMemberId(String educationHistoryId);
 	
-	public boolean denyCancleEducationByMemberId(String educationId, String memberId);
+	public boolean denyCancelEducationByMemberId(String educationHistoryId);
 	
-	public boolean completeGiveUpEducationByMemberId(String educationId, String memberId);
+	public boolean completeGiveUpEducationByMemberId(String educationHistoryId);
 	
-	public boolean denyGiveUpEducationByMemberId(String educationId, String memberId);
+	public boolean denyGiveUpEducationByMemberId(String educationHistoryId);
 	
 	
 

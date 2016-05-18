@@ -25,9 +25,9 @@ public interface EducationDAO {
 	public List<EducationHistoryVO> getJCEduHistoryHistory();
 	public int applyJoinEducationByMemberId(String educationId, String memberId);
 	public int cancelJoinEducationByMemberId(String educationId, String memberId);
-	public int completeCancelEducationByMemberId(String educationId, String memberId);
-	public int denyCancleEducationByMemberId(String educationId, String memberId);
-	public int completeGiveUpEducationByMemberId(String educationId, String memberId);
-	public int denyGiveUpEducationByMemberId(String educationId, String memberId);
+	public int completeCancelEducationByMemberId(String educationHistoryId);
+	public int denyCancelEducationByMemberId(String educationHistoryId);
+	public int completeGiveUpEducationByMemberId(String educationHistoryId);
+	public int denyGiveUpEducationByMemberId(String educationHistoryId);
 	
 }

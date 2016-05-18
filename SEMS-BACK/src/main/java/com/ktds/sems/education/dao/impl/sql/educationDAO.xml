@@ -187,30 +187,26 @@
 	
 		<update id="completeCancelEducationByMemberId" parameterType="map">
 		UPDATE	 EDU_HTR
-		SET		 STAT = 'CNCL_CMPL'
-		WHERE	 EDU_ID LIKE #{educationId}
-		AND		 MBR_ID LIKE #{memberId}	
+		SET		 STAT = 'EDU_CL_C'
+		WHERE	EDU_HTR_ID = #{educationHistoryId}
 	</update>
 	
-		<delete id="denyCancleEducationByMemberId" parameterType="map">
-		DELETE	 EDU_HTR
-		WHERE	 EDU_ID LIKE #{educationId}
-		AND		 MBR_ID LIKE #{memberId}
-		AND		 STAT LIKE 'CNCL_APLY'
+		<delete id="denyCancelEducationByMemberId" parameterType="map">
+		UPDATE	 EDU_HTR
+		SET		 STAT = 'EDU_CL_R'
+		WHERE	EDU_HTR_ID = #{educationHistoryId}
 	</delete>
 	
 		<update id="completeGiveUpEducationByMemberId" parameterType="map">
 		UPDATE	 EDU_HTR
-		SET		 STAT = 'GVUP_APLY'
-		WHERE	 EDU_ID LIKE #{educationId}
-		AND		 MBR_ID LIKE #{memberId}	
+		SET		 STAT = 'EDU_GU_C'
+		WHERE	EDU_HTR_ID = #{educationHistoryId}
 	</update>
 	
 		<delete id="denyGiveUpEducationByMemberId" parameterType="map">
-		DELETE	 EDU_HTR
-		WHERE	 EDU_ID LIKE #{educationId}
-		AND		 MBR_ID LIKE #{memberId}
-		AND		 STAT LIKE 'GVUP_APLY'
+		UPDATE	 EDU_HTR
+		SET		 STAT = 'EDU_GU_R'
+		WHERE	EDU_HTR_ID = #{educationHistoryId}
 	</delete>
 	
 	

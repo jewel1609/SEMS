@@ -283,11 +283,11 @@ public class EducationServiceImpl implements EducationService {
 	}
 	
 	@Override
-	public ModelAndView completeCancelEducationByMemberId(String educationId, String memberId) {
+	public ModelAndView completeCancelEducationByMemberId(String educationHistoryId) {
 		
 		ModelAndView view = new ModelAndView();
 		
-		boolean result = educationBiz.completeCancelEducationByMemberId(educationId, memberId);
+		boolean result = educationBiz.completeCancelEducationByMemberId(educationHistoryId);
 		
 		if ( result ) {
 		view.setViewName("redirect:/educationHistory");
@@ -297,25 +297,11 @@ public class EducationServiceImpl implements EducationService {
 	}
 	
 	@Override
-	public ModelAndView denyCancleEducationByMemberId(String educationId, String memberId, String description) {
-		ModelAndView view = new ModelAndView();
-		
-		boolean result = educationBiz.denyCancleEducationByMemberId(educationId, memberId);
-		
-		if ( result ) {
-			view.setViewName("redirect:/educationHistory");
-			return view;
-		}
-		
-		return view;
-	}
-	
-	@Override
-	public ModelAndView completeGiveUpEducationByMemberId(String educationId, String memberId) {
+	public ModelAndView denyCancelEducationByMemberId(String educationHistoryId) {
 		
 		ModelAndView view = new ModelAndView();
 		
-		boolean result = educationBiz.completeGiveUpEducationByMemberId(educationId, memberId);
+		boolean result = educationBiz.denyCancelEducationByMemberId(educationHistoryId);
 		
 		if ( result ) {
 		view.setViewName("redirect:/educationHistory");
@@ -325,17 +311,31 @@ public class EducationServiceImpl implements EducationService {
 	}
 	
 	@Override
-	public ModelAndView denyGiveUpEducationByMemberId(String educationId, String memberId, String description) {
+	public ModelAndView completeGiveUpEducationByMemberId(String educationHistoryId) {
+		
 		ModelAndView view = new ModelAndView();
 		
-		boolean result = educationBiz.denyGiveUpEducationByMemberId(educationId, memberId);
+		boolean result = educationBiz.completeGiveUpEducationByMemberId(educationHistoryId);
 		
 		if ( result ) {
-			view.setViewName("redirect:/educationHistory");
-			return view;
-		}
-		
+		view.setViewName("redirect:/educationHistory");
 		return view;
+		}
+		else return view;
+	}
+	
+	@Override
+	public ModelAndView denyGiveUpEducationByMemberId(String educationHistoryId) {
+	
+		ModelAndView view = new ModelAndView();
+		
+		boolean result = educationBiz.denyGiveUpEducationByMemberId(educationHistoryId);
+		
+		if ( result ) {
+		view.setViewName("redirect:/educationHistory");
+		return view;
+		}
+		else return view;
 	}
 	
 	

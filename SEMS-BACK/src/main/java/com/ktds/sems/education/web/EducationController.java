@@ -79,45 +79,37 @@ public class EducationController {
 	}
 
 	
-	@RequestMapping("/cnclAply/{educationId}/{memberId}")
-	public ModelAndView doCnclAply(@PathVariable String educationId,@PathVariable String memberId ){
-	System.out.println(memberId);
-	System.out.println(educationId);
+	@RequestMapping("/cancelComplete/{educationHistoryId}")
+	public ModelAndView doCancelComplete(@PathVariable String educationHistoryId){
+	System.out.println(educationHistoryId);
 	
-	ModelAndView view = educationService.completeCancelEducationByMemberId(educationId, memberId);
+	ModelAndView view = educationService.completeCancelEducationByMemberId(educationHistoryId);
 	return view;
 	}
 	  
-	@RequestMapping("/cnclCmpl/{educationId}/{memberId}/{description}")
-	public ModelAndView cmplCncl(@PathVariable String educationId, @PathVariable String memberId,
-			@PathVariable String description) {
-		System.out.println(memberId);
-		System.out.println(educationId);
-		System.out.println(description);
-
-		ModelAndView view = educationService.denyCancleEducationByMemberId(educationId, memberId, description);
+	@RequestMapping("/cancelDeny/{educationHistoryId}")
+	public ModelAndView doCancelDeny(@PathVariable String educationHistoryId){
+		System.out.println(educationHistoryId);
+		
+		ModelAndView view = educationService.denyCancelEducationByMemberId(educationHistoryId);
 		return view;
-	}
+		}
+		  
+	@RequestMapping("/giveUpComplete/{educationHistoryId}")
+	public ModelAndView doGiveUpComplete(@PathVariable String educationHistoryId){
+	System.out.println(educationHistoryId);
 	
-	@RequestMapping("/gyupAply/{educationId}/{memberId}")
-	public ModelAndView doGyupAply(@PathVariable String educationId,@PathVariable String memberId ){
-	System.out.println(memberId);
-	System.out.println(educationId);
-	
-	ModelAndView view = educationService.completeGiveUpEducationByMemberId(educationId, memberId);
+	ModelAndView view = educationService.completeGiveUpEducationByMemberId(educationHistoryId);
 	return view;
 	}
 	   
-	@RequestMapping("/gvupCmpl/{educationId}/{memberId}/{description}")
-	public ModelAndView cmplgvup(@PathVariable String educationId, @PathVariable String memberId,
-			@PathVariable String description) {
-		System.out.println(memberId);
-		System.out.println(educationId);
-		System.out.println(description);
-
-		ModelAndView view = educationService.denyGiveUpEducationByMemberId(educationId, memberId, description);
+	@RequestMapping("/giveUpDeny/{educationHistoryId}")
+	public ModelAndView doGiveUpDeny(@PathVariable String educationHistoryId){
+		System.out.println(educationHistoryId);
+		
+		ModelAndView view = educationService.denyGiveUpEducationByMemberId(educationHistoryId);
 		return view;
-	}
+		}
 	
 	
 }
