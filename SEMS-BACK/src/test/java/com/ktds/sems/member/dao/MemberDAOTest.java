@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.ktds.sems.member.vo.MemberSearchVO;
 import com.ktds.sems.member.vo.MemberVO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -106,7 +107,41 @@ public class MemberDAOTest  {
 		assertEquals(memberTypeCodeId, "TR");
 	}
 	
+	@Test
+	public void getTotalMemberCountTest(){
+		MemberSearchVO memberSearchVO = new MemberSearchVO();
+		memberSearchVO.setSearchKeyword("");
+		memberSearchVO.setSearchType("");
+		memberSearchVO.setConnLock("");
+		memberSearchVO.setIsRgsn("");
+		memberSearchVO.setModLock("");
+		
+		int totalCount = memberDAO.getTotalMemberCount(memberSearchVO);
+		assertTrue(totalCount >= 0);
+	}
 	
+	@Test
+	public void getAllMemberListTest(){
+		
+		MemberSearchVO memberSearchVO = new MemberSearchVO();
+		memberSearchVO.setSearchKeyword("");
+		memberSearchVO.setSearchType("");
+		memberSearchVO.setConnLock("");
+		memberSearchVO.setIsRgsn("");
+		memberSearchVO.setModLock("");		
+		memberSearchVO.setStartIndex(0);
+		memberSearchVO.setEndIndex(10);
+		
+		List<MemberVO> memberList = memberDAO.getAllMemberList(memberSearchVO);
+		
+		assertNotNull(memberList);
+		if(memberList != null){
+			assertTrue(memberList.size() == 10);
+		}
+		else{
+			fail("Fail...");
+		}
+	}
 	
 	
 	

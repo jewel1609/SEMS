@@ -1,8 +1,6 @@
 package com.ktds.sems.member.biz;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -16,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.ktds.sems.member.vo.MemberSearchVO;
 import com.ktds.sems.member.vo.MemberVO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -61,6 +60,45 @@ public class MemberBizTest  {
 		
 		assertTrue(isSuccess);
 	}
+
+	
+	@Test
+	public void getTotalMemberCountTest () { 
+		
+		MemberSearchVO memberSearchVO = new MemberSearchVO();
+		memberSearchVO.setSearchKeyword("");
+		memberSearchVO.setSearchType("");
+		memberSearchVO.setConnLock("");
+		memberSearchVO.setIsRgsn("");
+		memberSearchVO.setModLock("");
+		
+		int totalCount = memberBiz.getTotalMemberCount(memberSearchVO);
+		
+		assertTrue(totalCount >= 0);
+	}
+	
+	@Test
+	public void getAllMemberListTest () { 
+		MemberSearchVO memberSearchVO = new MemberSearchVO();
+		memberSearchVO.setSearchKeyword("");
+		memberSearchVO.setSearchType("");
+		memberSearchVO.setConnLock("");
+		memberSearchVO.setIsRgsn("");
+		memberSearchVO.setModLock("");
+		memberSearchVO.setStartIndex(0);
+		memberSearchVO.setEndIndex(10);
+		List<MemberVO> memberList = memberBiz.getAllMemberList(memberSearchVO);
+		
+		assertNotNull(memberList);
+		if(memberList != null){
+			assertTrue(memberList.size() == 10);
+		}
+		else{
+			fail("Fail...");
+		}
+	}
+	
+
 	
 	@Test
 	public void isDuplicationIdTest(){
@@ -150,11 +188,5 @@ public class MemberBizTest  {
 		assertEquals(memberTypeCodeId, "TR");
 	}
 	
-	
-	
-	
-	
-	
-	
-	
+
 }
