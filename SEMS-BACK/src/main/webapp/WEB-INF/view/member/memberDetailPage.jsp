@@ -9,17 +9,11 @@
 <script type="text/javascript">
 	
 	$(document).ready(function () {
-		
-		$("#updateBtn").click(function () {
 			
-			location.href = "<c:url value="/memberUpdate/"/>"+${member.id}
-			
-		});
-		
 		$("#deleteBtn").click(function () {
 			
 			if ( confirm("정말 회원을 삭제 하시겠습니까?") == true ) {
-				location.href = "<c:url value="/memberDelete/"/>"+${member.id}
+				location.href = "<c:url value="/memberDelete/${member.id}"/>";
 			}
 			
 		});
@@ -75,7 +69,6 @@
 			</tr>
 		</table>
 
-<span id="updateBtn">수정</span>
 <span id="deleteBtn">삭제</span>
 
 </body>

@@ -220,21 +220,22 @@
 				<th>탈퇴여부</th>
 				<th>수정잠김여부</th>
 			</tr>
-					<c:forEach items="${ memberListVO.memberList }" var="member">
-						<tr>
-							<td>
-								<input class="deleteMemberId" name="deleteMemberId" value="${member.id}" type="checkbox"/>
-							</td>
-							<td>
-								<a href="<c:url value="/memberDetail/${member.id}"/>">${ member.id }</a>
-							</td>
-							<td>${member.name}</td>		
-							<td>${member.memberType}</td>	
-							<td>${member.isAccountLock}</td>
-							<td>${member.isResign}</td>	
-							<td>${member.isModifyLock}</td>	
-						</tr>
-					</c:forEach>
+			
+			<c:forEach items="${ memberListVO.memberList }" var="member">
+				<tr>
+					<td>
+						<input class="deleteMemberId" name="deleteMemberId" value="${member.id}" type="checkbox"/>
+					</td>
+					<td>
+						<a href="<c:url value="/memberDetail/${member.id}"/>">${ member.id }</a>
+					</td>
+					<td>${member.name}</td>		
+					<td>${member.memberType}</td>	
+					<td>${member.isAccountLock}</td>
+					<td>${member.isResign}</td>	
+					<td>${member.isModifyLock}</td>	
+				</tr>
+			</c:forEach>
 
 			<tr>
 				<td colspan="7" align="center">
