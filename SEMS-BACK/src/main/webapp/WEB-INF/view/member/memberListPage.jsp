@@ -55,11 +55,14 @@
 		$("#changePasswordButton").click(function () {
 			var checkCount = 0;
 			var memberId = 0;
+			var member;
 			
 			$(".deleteMemberId").each(function (index, data) {
 				if(data.checked){
 					checkCount = checkCount + 1;
 					memberId = $(this).val();
+					memberLoginLock = $(this).parent().parent().children(":eq(4)");
+					memberModifyLock = $(this).parent().parent().children(":eq(6)");
 				}
 			});
 			
@@ -77,6 +80,8 @@
 						}
 						else if (data == "OK") {
 							alert("비밀번호 전송에 성공하였습니다.");
+							memberLoginLock.text("N");
+							memberModifyLock.text("N");
 						}
 					});
 				}
