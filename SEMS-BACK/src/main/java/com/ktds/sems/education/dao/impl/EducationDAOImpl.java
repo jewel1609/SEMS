@@ -57,13 +57,13 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 	}
 
 	@Override
-	public List<EducationHistoryVO> getAllEducationHistory() {
-		return getSqlSession().selectList("EducationDAO.getAllEducationHistory");
+	public List<EducationHistoryVO> getAllEducationHistory(EducationHistorySearchVO eduHistorySearchVO) {
+		return getSqlSession().selectList("EducationDAO.getAllEducationHistory",eduHistorySearchVO);
 	}
 
 	@Override
-	public int getAllEduHistoryCount() {
-		return getSqlSession().selectOne("EducationDAO.getAllEduHistoryCount");
+	public int getAllEduHistoryCount(EducationHistorySearchVO eduHistorySearchVO) {
+		return getSqlSession().selectOne("EducationDAO.getAllEduHistoryCount",eduHistorySearchVO);
 	}
 
 	@Override
@@ -125,7 +125,6 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 	public String getStateByEducationHistroyId(String educationHistoryId) {
 		return getSqlSession().selectOne("EducationDAO.getStateByEducationHistroyId", educationHistoryId);
 	}
-
 
 	
 }
