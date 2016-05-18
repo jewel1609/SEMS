@@ -418,7 +418,7 @@ public class EducationServiceImpl implements EducationService {
 	}
 	
 	@Override
-	public ModelAndView viewRequestRetractionPage(HttpSession session, HttpServletRequest request, String educationId) {
+	public ModelAndView viewRequestRetractionPage(HttpSession session, String educationId) {
 		ModelAndView view = new ModelAndView();
 		//교육참가 신청내역이 있는지 확인
 		MemberVO memberVO = (MemberVO) session.getAttribute(Session.MEMBER);
@@ -428,7 +428,7 @@ public class EducationServiceImpl implements EducationService {
 			boolean isEducationStarted = educationBiz.isEducationStarted(educationId);
 			if ( isEducationStarted ) {
 				//교육이 시작 되었다면 교육 포기 페이지로 이동
-				view.setViewName("redirect:/education/abandon");
+				view.setViewName("redirect:/member/myPage/course");
 			}
 			else {
 				//교육이 아직 시작 전이라면 취소신청 페이지로 이동
@@ -437,9 +437,8 @@ public class EducationServiceImpl implements EducationService {
 			}
 		}
 		else {
-			//교육참가 신청이 없을경우 접근 불가능
-			//TODO 어느 페이지로 보내야 하지?
-			return null;
+			//교육참가 신청이 없을경우
+			throw new RuntimeException("참가 신청을한 교육이 아닙니다.");
 		}
 		return view;
 	}
@@ -520,6 +519,42 @@ public class EducationServiceImpl implements EducationService {
 		else {
 			return "FAIL";
 		}
+	}
+
+	@Override
+	public String doRequestRetraction(HttpServletRequest request, HttpSession session) {
+		String educationId = request.getParameter("educationId");
+		String retractionMsg = request.getParameter("retractionMessage");
+		MemberVO memberVO = (MemberVO) session.getAttribute(Session.MEMBER);
+		String memberId = memberVO.getId();
+		
+		boolean hasApplyHistory = educationBiz.hasApplyHistory(memberId, educationId);
+		if ( hasApplyHistory ) {
+			//교육이 시작되었는지 확인
+			boolean isEducationStarted = educationBiz.isEducationStarted(educationId);
+			if ( isEducationStarted ) {
+				//교육이 시작 되었다면 교육 포기 페이지로 이동
+				return "redirect:/member/myPage/course";
+			}
+			else {
+				//교육이 아직 시작 전이라면 취소신청
+				boolean isRetracRquestSuccess = educationBiz.doRequestRetraction(educationId, retractionMsg, memberId);
+				if ( isRetracRquestSuccess ) {
+					// 취소신청이 제대로 완료 되었을때
+					// FIXME 어디로 가야하죠 아저씨 우는 손님이 처음인 가요
+					return "redirect:/member/myPage";
+				}
+				else {
+					// 취소신청이 제대로 이뤄지지 않았을때
+					return "redirect:/education/retraction/" + educationId;
+				}
+			}
+		}
+		else {
+			// 교육 아이디로 교육 신청 내역이 없을 경우
+			throw new RuntimeException("참가 신청을한 교육이 아닙니다.");
+		}
+		
 	}
 
 }

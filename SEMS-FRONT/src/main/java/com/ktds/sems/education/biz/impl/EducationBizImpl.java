@@ -242,7 +242,7 @@ public class EducationBizImpl implements EducationBiz {
 			educationStartDate = dateFormat.parse(startDate);
 			currentDate = dateFormat.parse(dateFormat.format(new Date(time)));
 			int compare = currentDate.compareTo(educationStartDate);
-			if ( compare <= 0 ) {
+			if ( compare < 0 ) {
 				return false;
 			}
 			else {
@@ -306,7 +306,7 @@ public class EducationBizImpl implements EducationBiz {
 	public String getEndYear() {
 		return educationDAO.getEndYear();
 	}
-
+	
 	@Override
 	public boolean insertReReplyEvalByDislike(ReRplyEvalVO reRplyEvalVO) {
 		return educationDAO.insertReReplyEvalByDislike(reRplyEvalVO) > 0;
@@ -315,6 +315,11 @@ public class EducationBizImpl implements EducationBiz {
 	@Override
 	public boolean plusReReplyDislike(String replyId) {
 		return educationDAO.plusReReplyDislike(replyId) > 0;
+	}
+
+	@Override
+	public boolean doRequestRetraction(String educationId, String retractionMsg, String memberId) {
+		return educationDAO.doRequestRetraction(educationId, retractionMsg, memberId) > 0;
 	}
 	
 }

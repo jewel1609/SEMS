@@ -40,11 +40,12 @@ public interface EducationService {
 
 	public String doReReplyInsert(String eduId, String id, String description, String description2, HttpSession session);
 
-	public ModelAndView viewRequestRetractionPage(HttpSession session, HttpServletRequest request, String educationId);
+	public ModelAndView viewRequestRetractionPage(HttpSession session, String educationId);
 
 	public String plusReReplyLike(String replyId, HttpSession session);
 
 	public String plusReReplyDislike(String replyId, HttpSession session);
 
+	public String doRequestRetraction(HttpServletRequest request, HttpSession session);
 	
 }

@@ -165,9 +165,10 @@ public class EducationController {
 		String status = educationService.doReReplyInsert(replyId, eduId, id, description,session);
 		AjaxUtil.sendResponse(response, status);
 	}
+	
 	@RequestMapping("/education/retraction/{educationId}")
-	public ModelAndView viewRequestRetractionPage(HttpSession session, HttpServletRequest request, @PathVariable String educationId){
-		return educationService.viewRequestRetractionPage(session, request, educationId);
+	public ModelAndView viewRequestRetractionPage(HttpSession session, @PathVariable String educationId){
+		return educationService.viewRequestRetractionPage(session, educationId);
 	}
 	
 	@RequestMapping("/plusReReplyLike")
@@ -184,6 +185,11 @@ public class EducationController {
 		
 		String status = educationService.plusReReplyDislike(replyId, session);
 		AjaxUtil.sendResponse(response, status);
+	}
+	
+	@RequestMapping("/education/doRetraction")
+	public String doRequestRetractionAction(HttpServletRequest request, HttpSession session){
+		return educationService.doRequestRetraction(request, session);
 	}
 	
 }

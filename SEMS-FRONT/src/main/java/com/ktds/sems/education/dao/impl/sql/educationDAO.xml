@@ -388,7 +388,8 @@
 		FROM	EDU_HTR
 		WHERE	MBR_ID = #{ memberId }
 		AND		EDU_ID = #{ educationId }
-		AND		STAT = 'JOIN_APLY'
+		AND		(STAT = 'EDU_JN_A'
+		OR		STAT = 'EDU_JN_C')
 	</select>
 
 	<insert id="doReReplyInsert" parameterType="QNAVO">
@@ -502,5 +503,14 @@
 		UPDATE	QNA
 		SET		DISLIKE_CNT = DISLIKE_CNT+1
 		WHERE	REPLY_ID = #{replyId}
+	</update>
+	
+	<update id="doRequestRetraction" parameterType="map">
+		UPDATE	EDU_HTR
+		SET		STAT = 'EDU_CL_A'
+				, CMNT = #{ retractionMsg }
+				, EDU_HTR_DT = SYSDATE
+		WHERE	EDU_ID = #{ educationId }
+		AND		MBR_ID = #{ memberId }
 	</update>
 </mapper>

@@ -238,4 +238,13 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 		return getSqlSession().update("EducationDAO.plusReReplyDislike", replyId);
 	}
 
+	@Override
+	public int doRequestRetraction(String educationId, String retractionMsg, String memberId) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("educationId", educationId);
+		map.put("retractionMsg", retractionMsg);
+		map.put("memberId", memberId);
+		return getSqlSession().update("EducationDAO.doRequestRetraction", map);
+	}
+
 }

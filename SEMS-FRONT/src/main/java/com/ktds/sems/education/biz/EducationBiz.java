@@ -82,4 +82,6 @@ public interface EducationBiz {
 
 	public boolean plusReReplyDislike(String replyId);
 
+	public boolean doRequestRetraction(String educationId, String retractionMsg, String memberId);
+
 }
