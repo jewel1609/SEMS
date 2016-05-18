@@ -1,5 +1,7 @@
 package com.ktds.sems.teacher.web;
 
+import javax.servlet.http.HttpServletRequest;
+
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.member.web.MemberController;
@@ -29,6 +32,25 @@ public class TeacherController {
 	@RequestMapping("/teacher/detail/{memberId}")
 	public ModelAndView viewDetailPage(@PathVariable String memberId){
 		return teacherService.viewDetail(memberId);
+	}
+	
+	@RequestMapping("/teacher/teaacherList")
+	public ModelAndView viewteaacherListPage(@RequestParam(required=false, defaultValue="0") int pageNo, HttpServletRequest request){
+		return teacherService.getAllTeaacherList(pageNo, request);
+	}
+	
+	@RequestMapping("/teacherDelete/{memberId}")
+	public ModelAndView doDeleteTeacher(@PathVariable String memberId){
+		return teacherService.doDeleteTeacher(memberId);
+	}
+
+	@RequestMapping("/massiveDeleteTeacher")
+	public String massiveDeleteTeacher(HttpServletRequest request){
+		String[] deleteTeacherIds = request.getParameterValues("deleteTeacherId");
+		for (String string : deleteTeacherIds) {
+			logger.info("Controller로 넘어온 ID : " + string);
+		}
+		return teacherService.massiveDeleteTeacher(deleteTeacherIds);
 	}
 	
 	@RequestMapping("/teacherModify/{memberId}")
