@@ -9,6 +9,7 @@ import org.mybatis.spring.support.SqlSessionDaoSupport;
 import com.ktds.sems.education.dao.EducationDAO;
 import com.ktds.sems.education.vo.CategoryVO;
 import com.ktds.sems.education.vo.CostVO;
+import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationHistoryVO;
 import com.ktds.sems.education.vo.EducationTypeVO;
 import com.ktds.sems.education.vo.EducationVO;
@@ -66,13 +67,14 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 	}
 
 	@Override
-	public int getJCEduHistoryCount() {
-		return getSqlSession().selectOne("EducationDAO.getJCEduHistoryCount");
+	public int getJCEduHistoryCount(EducationHistorySearchVO eduHistorySearchVO) {
+		logger.info(eduHistorySearchVO.getSearchKeyword());
+		return getSqlSession().selectOne("EducationDAO.getJCEduHistoryCount", eduHistorySearchVO);
 	}
 
 	@Override
-	public List<EducationHistoryVO> getJCEduHistoryHistory() {
-		return getSqlSession().selectList("EducationDAO.getJCEduHistoryHistory");
+	public List<EducationHistoryVO> getJCEduHistoryHistory(EducationHistorySearchVO eduHistorySearchVO) {
+		return getSqlSession().selectList("EducationDAO.getJCEduHistoryHistory", eduHistorySearchVO);
 	}
 
 	@Override
@@ -123,6 +125,7 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 	public String getStateByEducationHistroyId(String educationHistoryId) {
 		return getSqlSession().selectOne("EducationDAO.getStateByEducationHistroyId", educationHistoryId);
 	}
+
 
 	
 }
