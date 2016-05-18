@@ -197,8 +197,6 @@ public class EducationServiceImpl implements EducationService {
 		
 		// 4. 정원 찼는지 확인
 		if ( this.getTotalMemberNumber(educationId) >= educationVO.getMaxMember() ) {
-			System.out.println("this.getTotalMemberNumber(educationId) "+this.getTotalMemberNumber(educationId));
-			System.out.println("educationVO.getMaxMember() "+educationVO.getMaxMember());
 			// 정원 초과됐다는 알림 준다.
 			return "EX_MAX_MEM";
 		}
@@ -254,7 +252,6 @@ public class EducationServiceImpl implements EducationService {
 			if (!two.equals("")) {
 				day2 = format.parse(two);
 			}
-			System.out.println(day2);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
