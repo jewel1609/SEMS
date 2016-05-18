@@ -44,9 +44,8 @@
 		<property name="teacherService" ref="teacherService" />
 	</bean>
     
-    <bean id="cooperationController"
-    		class="com.ktds.sems.cooperation.web.CooperationController" >
-    		<property name="cooperationService" ref="cooperationService" />
+    <bean id="cooperationController" class="com.ktds.sems.cooperation.web.CooperationController" >
+    	<property name="cooperationService" ref="cooperationService" />
     </bean>
 	
 </beans>
