@@ -188,22 +188,21 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public ModelAndView getAllMemberList(int pageNo) {
+	public ModelAndView getAllMemberList(MemberSearchVO memberSearchVO, int pageNo) {
 
 		MemberListVO memberListVO = new MemberListVO();
 		Paging paging = new Paging();
 		
 		memberListVO.setPaging(paging);
-		int totalMemberCount = memberBiz.getTotalMemberCount();
+		int totalMemberCount = memberBiz.getTotalMemberCount(memberSearchVO);
 		
 		paging.setPageNumber(pageNo + "");
 		paging.setTotalArticleCount(totalMemberCount);
 		
-		MemberSearchVO searchVO = new MemberSearchVO();
-		searchVO.setStartIndex(paging.getStartArticleNumber());
-		searchVO.setEndIndex(paging.getEndArticleNumber());
+		memberSearchVO.setStartIndex(paging.getStartArticleNumber());
+		memberSearchVO.setEndIndex(paging.getEndArticleNumber());
 		
-		List<MemberVO> memberList = memberBiz.getAllMemberList(searchVO);
+		List<MemberVO> memberList = memberBiz.getAllMemberList(memberSearchVO);
 		memberListVO.setMemberList(memberList);
 		
 		List<String> memberTypeList = memberBiz.getMemberType();
@@ -211,6 +210,7 @@ public class MemberServiceImpl implements MemberService{
 		ModelAndView view = new ModelAndView();
 		view.setViewName("member/memberListPage");
 		view.addObject("memberListVO", memberListVO);
+		view.addObject("memberSearchVO", memberSearchVO);
 		view.addObject("memberTypeList", memberTypeList);
 		return view;
 	}
@@ -534,6 +534,17 @@ public class MemberServiceImpl implements MemberService{
 		view.addObject("searchKeyword", null);
 		view.addObject("searchType", null);
 		view.setViewName("redirect:/memberHistory");
+		
+		return view;
+	}
+
+	@Override
+	public ModelAndView memberListInit() {
+		ModelAndView view = new ModelAndView();
+		
+		view.addObject("searchKeyword", null);
+		view.addObject("searchType", null);
+		view.setViewName("redirect:/memberManage/memberList");
 		
 		return view;
 	}
