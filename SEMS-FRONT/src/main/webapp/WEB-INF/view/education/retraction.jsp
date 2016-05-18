@@ -28,7 +28,7 @@
 
 	<form id="retractionForm">
 		<input type="hidden" name="educationId" value="${ educationId }">
-		<input type="text" id="retractionMessage" name="retractionMessage">
+		<textarea id="retractionMessage"name="retractionMessage"></textarea>
 		<input type="button" id="retractionBtn" value="취소하기">
 	</form>
 
