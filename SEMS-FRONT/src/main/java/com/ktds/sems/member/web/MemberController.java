@@ -180,6 +180,10 @@ public class MemberController {
 			 * 3. IS_ACCOUNT_LOCK이 'Y'라면 브라우저에게 'OVER' 라고 보낸다.
 			 */
 			AjaxUtil.sendResponse(response, isLock ? "OVER" : "NO");
+			
+			if ( isLock ) {
+				session.invalidate();
+			}
 
 			view.setViewName("/member/checkPassword");
 		}

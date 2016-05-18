@@ -243,6 +243,11 @@ public class MemberServiceImpl implements MemberService {
 		if (memberBiz.isAccountLock(loginVO.getId())) {
 			return "OVER";
 		}
+		
+		//회원정보수정 3번실패 시 잠금됬기 때문에 로그인 못하도록 막는다.
+		if (memberBiz.isModifyAccountLock(loginVO.getId())) {
+			return "OVER";
+		}
 
 		// 로그인 30일 경과 계정
 		if (memberBiz.needToChangPassword(loginVO.getId())) {
