@@ -150,12 +150,14 @@
 									FROM	EDU_HTR
 											, EDU_INFO
 									WHERE	EDU_HTR.EDU_ID = EDU_INFO.EDU_ID
+									<if test="searchKeyword != null">
 									<if test="searchKeyword != ''">
 									AND		EDU_HTR.EDU_ID IN 	(
 																	SELECT	EDU_ID
 																	FROM	EDU_INFO
 																	WHERE	EDU_TTL IN #{searchKeyword}
 																)
+									</if>
 									</if>
 							) EDU_HTR_KEYWORD
 					WHERE	ROWNUM <![CDATA[<=]]> #{endIndex}
@@ -167,6 +169,7 @@
 		SELECT	COUNT(*)
 		FROM	EDU_HTR
 		WHERE	1 = 1
+		<if test="searchKeyword != null">
 		<if test="searchKeyword != ''">
 		AND		EDU_HTR.EDU_ID IN 	(
 										SELECT	EDU_INFO.EDU_ID
@@ -174,9 +177,10 @@
 										WHERE	EDU_INFO.EDU_TTL IN #{searchKeyword}
 							)
 		</if>
+		</if>
 	</select>
 	
-	<select id="getJCEduHistoryHistory" parameterType="EduHistorySearchVO" resultType="EduHistoryVO">
+	<select id="getJCEduHistoryHistory" parameterType="eduHistorySearchVO" resultType="EduHistoryVO">
  		SELECT	JCE_HTR.EDU_HTR_ID educationHistoryId
 				, JCE_HTR.EDU_TTL educationTitle
 				, 	JCE_HTR.MBR_ID memberId
