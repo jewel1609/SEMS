@@ -113,12 +113,6 @@ public class MemberController {
 		return memberService.getAllMemberHistory(loginHistorySearchVO ,pageNo);
 	}
 
-	@RequestMapping("/memberDetail/{id}")
-	public ModelAndView viewMemberDetailPage(@PathVariable String id) {
-		return memberService.getMemberDetailById(id);
-	}
-	
-
 	@RequestMapping(value = "/doRegisterAction", method = RequestMethod.POST)
 	public ModelAndView registerNewMember(@Valid MemberVO member, Errors errors, HttpSession session) {
 		return memberService.addNewMember(member, errors, session);
@@ -158,7 +152,7 @@ public class MemberController {
 		return memberService.requestMemberDetail(id);
 	}
 	
-	@RequestMapping(value = "/doWriteMemberDetailInfo", method = RequestMethod.POST)
+	@RequestMapping(value = "/memberDetail", method = RequestMethod.POST)
 	public ModelAndView doWriteMemberDetailInfo(@Valid PersonalInfoReadVO personalInfoReadVO, Errors errors) {
 		return memberService.doWriteMemberDetailInfo(personalInfoReadVO, errors);
 	}
