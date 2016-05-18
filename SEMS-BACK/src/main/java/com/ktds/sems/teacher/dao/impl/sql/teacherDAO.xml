@@ -5,7 +5,7 @@
 <mapper namespace="TeacherDAO">
 
 	<select id="getTeacherInfo" parameterType="string" resultType="TeacherVO">
-		SELECT	T.MBR_ID id
+		SELECT	T.MBR_ID memberId
 				, T.COMP_NM companyName
 				, T.BUIS_NMB businessNumber
 				, T.ANNUAL annual
@@ -192,4 +192,74 @@
 		</if>
 	</delete>
 	
+	<select id="getTotalTeacherCount" resultType="_int">
+		SELECT	COUNT(MBR_ID)
+		FROM 	TCHR_INFO
+		<if test="searchType == 1 and searchType != null">
+		</if>
+		<if test="searchType == 2 and searchType != null">
+		 	WHERE	COMP_NM  LIKE '%'||#{searchKeyword}||'%'
+		</if>
+		
+	</select>
+	
+	<select id="getAllTeacher" parameterType="TeacherSearchVO" resultType="TeacherVO" >
+		SELECT	M.NM name
+				, COMP_NM companyName
+				, BUIS_NMB businessNumber
+				, ANNUAL annual
+				, MBR_ID memberId
+		FROM	MBR M
+				, 	(
+						SELECT	ROWNUM AS RNUM
+								, TCHR_INFO.*
+						FROM	 (
+									SELECT	*
+									FROM 	MBR M
+											,TCHR_INFO T
+									WHERE	M.ID = T.MBR_ID
+									<if test="searchType == 1 and searchType != null">
+									AND		M.NM LIKE '%'||#{searchKeyword}||'%'
+									</if>
+									<if test="searchType == 2 and searchType != null">
+									AND		T.COMP_NM LIKE '%'||#{searchKeyword}||'%'
+									</if>
+									ORDER	BY MBR_ID DESC
+								) TCHR_INFO
+						WHERE	ROWNUM <![CDATA[<=]]> #{endIndex}
+					)	
+		WHERE 	M.ID = MBR_ID
+		AND		RNUM >= #{startIndex}		
+	</select>
+	
+ 
+	<select id="getAllTeacherBook" parameterType="TeacherSearchVO" resultType="TeacherBookVO">
+		SELECT	TB_ID id
+				, BOOK_NM bookName
+				, BOOK_COMP bookCompany
+		FROM	TCHR_BOOK
+		WHERE	MBR_ID = #{ memberId }
+	</select>
+
+	<delete id="doDeleteTeacher" parameterType="string" >
+		DELETE
+		FROM	TCHR_INFO
+		WHERE	MBR_ID = #{ memberId }
+	</delete>
+	<delete id="doDeleteProjectHistory" parameterType="string" >
+		DELETE
+		FROM	TCHR_PROJ_HTR
+		WHERE	MBR_ID = #{ memberId }
+	</delete>
+	<delete id="doDeleteEducationHistory" parameterType="string" >
+		DELETE
+		FROM	TCHR_PROJ_HTR
+		WHERE	MBR_ID = #{ memberId }
+	</delete>
+	<delete id="doDeleteTeacherBook" parameterType="string" >
+		DELETE
+		FROM	TCHR_BOOK
+		WHERE	MBR_ID = #{ memberId }
+	</delete>
+
 </mapper>
