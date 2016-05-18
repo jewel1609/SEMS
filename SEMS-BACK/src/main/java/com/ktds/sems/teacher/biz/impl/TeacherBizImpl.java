@@ -2,6 +2,9 @@ package com.ktds.sems.teacher.biz.impl;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,13 +16,14 @@ import com.ktds.sems.teacher.dao.TeacherDAO;
 import com.ktds.sems.teacher.vo.EducationHistoryVO;
 import com.ktds.sems.teacher.vo.ProjectHistoryVO;
 import com.ktds.sems.teacher.vo.TeacherBookVO;
+import com.ktds.sems.teacher.vo.TeacherSearchVO;
 import com.ktds.sems.teacher.vo.TeacherVO;
 
 public class TeacherBizImpl implements TeacherBiz {
 
 	private Logger logger = LoggerFactory.getLogger(MemberController.class);
 	private TeacherDAO teacherDAO;
-	
+
 	public void setTeacherDAO(TeacherDAO teacherDAO) {
 		this.teacherDAO = teacherDAO;
 	}
@@ -53,6 +57,50 @@ public class TeacherBizImpl implements TeacherBiz {
 	public List<EducationVO> getEducationHistory(String memberId) {
 		return teacherDAO.getEducationHistory(memberId);
 	}
+
+	@Override
+	public int getTotalTeacherCount(HttpServletRequest request) {
+		
+		String searchType = request.getParameter("searchType");
+		String searchKeyword = request.getParameter("searchKeyword");
+		
+		Map<String,String> searchInfo = new HashMap<String,String>();
+		searchInfo.put("searchType", searchType);
+		searchInfo.put("searchKeyword", searchKeyword);
+		
+		return teacherDAO.getTotalTeacherCount(searchInfo);
+	}
+
+	@Override
+	public List<TeacherVO> getAllTeacher(TeacherSearchVO searchVO) {
+		return teacherDAO.getAllTeacher(searchVO);
+	}
+
+	@Override
+	public int getSearchedEducationCount(TeacherVO teacherVO) {
+		return teacherDAO.getSearchedEducationCount(teacherVO);
+	}
+
+	@Override
+	public boolean doDeleteTeacher(String memberId) {
+		return  teacherDAO.doDeleteTeacher(memberId) > 0;
+	}
+
+	@Override
+	public boolean doDeleteProjectHistory(String memberId) {
+		return teacherDAO.doDeleteProjectHistory(memberId) > 0;
+	}
+
+	@Override
+	public boolean doDeleteEducationHistory(String memberId) {
+		return teacherDAO.doDeleteEducationHistory(memberId) > 0;
+	}
+
+	@Override
+	public boolean doDeleteTeacherBook(String memberId) {
+		return teacherDAO.doDeleteTeacherBook(memberId) > 0; 
+	}
+
 
 	@Override
 	public TeacherVO getOneTeacherInfo(String memberId) {
