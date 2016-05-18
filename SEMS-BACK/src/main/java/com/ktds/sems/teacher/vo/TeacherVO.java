@@ -8,6 +8,7 @@ import javax.validation.constraints.NotNull;
 
 public class TeacherVO{
 
+	
 	private String memberId;
 	private String companyName;
 	private String businessNumber;
