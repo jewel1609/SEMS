@@ -16,7 +16,7 @@ public interface EducationDAO {
 
 	public EducationVO getOneEducationDetail(String educationId);
 
-	public List<String> getMemberRegInfo(String id);
+	public List<EducationVO> getMemberRegInfo(String id);
 
 	public int doApplyEducation(String educationId, String id);
 
@@ -80,5 +80,11 @@ public interface EducationDAO {
 	public int plusReReplyDislike(String replyId);
 
 	public int doRequestRetraction(String educationId, String retractionMsg, String memberId);
+
+	public int getTotalMemberNumber(String educationId);
+
+	public int doReserveEducation(String educationId, String id);
+
+	public int updateStateToApply(String educationId);
 
 }
