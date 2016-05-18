@@ -6,6 +6,7 @@ import com.ktds.sems.education.biz.EducationBiz;
 import com.ktds.sems.education.dao.EducationDAO;
 import com.ktds.sems.education.vo.CategoryVO;
 import com.ktds.sems.education.vo.CostVO;
+import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationHistoryVO;
 import com.ktds.sems.education.vo.EducationTypeVO;
 import com.ktds.sems.education.vo.EducationVO;
@@ -157,13 +158,13 @@ public class EducationBizImpl implements EducationBiz {
 	}
 
 	@Override
-	public int getJCEduHistoryCount() {
-		return educationDAO.getJCEduHistoryCount();
+	public int getJCEduHistoryCount(EducationHistorySearchVO eduHistorySearchVO) {
+		return educationDAO.getJCEduHistoryCount(eduHistorySearchVO);
 	}
 
 	@Override
-	public List<EducationHistoryVO> getJCEducationHistory() {
-		return educationDAO.getJCEduHistoryHistory();
+	public List<EducationHistoryVO> getJCEducationHistory(EducationHistorySearchVO eduHistorySearchVO) {
+		return educationDAO.getJCEduHistoryHistory(eduHistorySearchVO);
 	}
 
 	@Override
@@ -200,7 +201,7 @@ public class EducationBizImpl implements EducationBiz {
 	public String getStateByEducationHistroyId(String educationHistoryId) {
 		return educationDAO.getStateByEducationHistroyId(educationHistoryId);
 	}
-	
+
 	
 	
 
