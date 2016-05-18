@@ -2,22 +2,23 @@ package com.ktds.sems.education.dao;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.ktds.sems.SemsTestCase;
 import com.ktds.sems.education.vo.EducationSearchVO;
 import com.ktds.sems.education.vo.EducationVO;
+import com.ktds.sems.education.vo.QNASearchVO;
 import com.ktds.sems.education.vo.QNAVO;
 import com.ktds.sems.education.vo.ReRplyEvalVO;
+
+import kr.co.hucloud.utilities.web.Paging;
 
 public class EducationDAOTest extends SemsTestCase{
 	@Autowired
@@ -259,5 +260,43 @@ public class EducationDAOTest extends SemsTestCase{
 		
 		assertTrue(educationDAO.checkReReplyEval(reRplyEvalVO) > 0);
 	}
+	
+	@Test
+	public void getAllQNAListTest() {
+		QNASearchVO qnaSearchVO = new QNASearchVO();
+		qnaSearchVO.setId("test02");
+		
+		Paging paging = new Paging();
+		paging.setPageNumber(0 + "");
+		
+		int totalCount = educationDAO.getTotalQNACount(qnaSearchVO);
+		paging.setTotalArticleCount(totalCount);
+		
+		qnaSearchVO.setPageNo(0);
+		qnaSearchVO.setStartIndex(paging.getStartArticleNumber());
+		qnaSearchVO.setEndIndex(paging.getEndArticleNumber());
+		
+		List<QNAVO> qnaList = educationDAO.getAllQNAList(qnaSearchVO);
+		
+		if(qnaList != null) {
+			
+			for (QNAVO qnavo : qnaList) {
+				assertNotNull(qnavo.getReplyId());
+				assertNotNull(qnavo.getEduId());
+				assertNotNull(qnavo.getCreatedDate());
+				assertNotNull(qnavo.getDescription());
+			}
+			
+		} else {
+			fail("fail");
+		}
+	}
 }
+
+
+
+
+
+
+
 

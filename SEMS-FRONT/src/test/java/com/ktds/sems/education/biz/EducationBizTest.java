@@ -1,14 +1,18 @@
 package com.ktds.sems.education.biz;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
+
+import java.util.List;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ktds.sems.SemsTestCase;
+import com.ktds.sems.education.vo.QNASearchVO;
 import com.ktds.sems.education.vo.QNAVO;
 import com.ktds.sems.education.vo.ReRplyEvalVO;
+
+import kr.co.hucloud.utilities.web.Paging;
 
 public class EducationBizTest extends SemsTestCase{
 
@@ -158,5 +162,37 @@ public class EducationBizTest extends SemsTestCase{
 		String replyId = "RP-20160517-000202";
 		boolean checkBoolean = educationBiz.plusReReplyDislike(replyId);
 		assertTrue(checkBoolean);
+	}
+	
+	@Test
+	public void getAllQNAListTest() {
+		
+		QNASearchVO qnaSearchVO = new QNASearchVO();
+		qnaSearchVO.setId("test02");
+		
+		Paging paging = new Paging();
+		paging.setPageNumber(0 + "");
+		
+		int totalCount = educationBiz.getTotalQNACount(qnaSearchVO);
+		paging.setTotalArticleCount(totalCount);
+		
+		qnaSearchVO.setPageNo(0);
+		qnaSearchVO.setStartIndex(paging.getStartArticleNumber());
+		qnaSearchVO.setEndIndex(paging.getEndArticleNumber());
+		
+		List<QNAVO> qnaList = educationBiz.getAllQNAList(qnaSearchVO);
+		
+		if(qnaList != null) {
+			
+			for (QNAVO qnavo : qnaList) {
+				assertNotNull(qnavo.getReplyId());
+				assertNotNull(qnavo.getEduId());
+				assertNotNull(qnavo.getCreatedDate());
+				assertNotNull(qnavo.getDescription());
+			}
+			
+		} else {
+			fail("fail");
+		}
 	}
 }

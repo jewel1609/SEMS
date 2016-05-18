@@ -1,7 +1,6 @@
 package com.ktds.sems.education.web;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.SemsTestCase;
 import com.ktds.sems.common.Session;
+import com.ktds.sems.education.vo.QNASearchVO;
 import com.ktds.sems.member.vo.MemberVO;
 
 @Transactional
@@ -53,6 +53,29 @@ public class EducationControllerTest extends SemsTestCase {
 		assertEquals(result, "redirect:/member/myPage");
 		// 교육이 이미 시작 했을때
 		//assertEquals(result, "redirect:/member/myPage/course");
+	}
+	
+	@Test
+	public void showMyQNAListTest() {
+		
+		QNASearchVO qnaSearchVO = new QNASearchVO();
+		MockHttpSession session = new MockHttpSession();
+		
+		MemberVO memberVO = new MemberVO();
+		memberVO.setId("test02");
+		
+		session.setAttribute(Session.MEMBER, memberVO);
+		
+		ModelAndView view = educationController.showMyQNAList(qnaSearchVO, session);
+		
+		if(view != null) {
+			
+			String viewName = view.getViewName();
+			assertNotNull(viewName);
+			
+		} else {
+			fail("fail");
+		}
 	}
 
 }

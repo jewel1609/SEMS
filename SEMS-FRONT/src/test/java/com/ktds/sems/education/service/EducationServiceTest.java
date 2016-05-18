@@ -3,16 +3,17 @@ package com.ktds.sems.education.service;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.SemsTestCase;
@@ -22,6 +23,7 @@ import com.ktds.sems.education.vo.EduReplyListVO;
 import com.ktds.sems.education.vo.EducationListVO;
 import com.ktds.sems.education.vo.EducationSearchVO;
 import com.ktds.sems.education.vo.EducationVO;
+import com.ktds.sems.education.vo.QNASearchVO;
 import com.ktds.sems.education.vo.QNAVO;
 import com.ktds.sems.member.vo.MemberVO;
 
@@ -253,5 +255,28 @@ public class EducationServiceTest extends SemsTestCase {
 		String replyId = "RP-20160517-000204";
 		String checkStr = educationService.plusReReplyDislike(replyId, session);
 		assertNotNull(checkStr);
+	}
+	
+	@Test
+	public void showMyQNAListTest() {
+		
+		QNASearchVO qnaSearchVO = new QNASearchVO();
+		MockHttpSession session = new MockHttpSession();
+		
+		MemberVO memberVO = new MemberVO();
+		memberVO.setId("test02");
+		
+		session.setAttribute(Session.MEMBER, memberVO);
+		
+		ModelAndView view = educationService.showMyQNAList(qnaSearchVO, session);
+		
+		if(view != null) {
+			
+			String viewName = view.getViewName();
+			assertNotNull(viewName);
+			
+		} else {
+			fail("fail");
+		}
 	}
 }
