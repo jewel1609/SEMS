@@ -15,7 +15,7 @@
 			var beginDate = $("#beginDate").val();
 			var closeDate = $("#closeDate").val();
 				
-/* 			if (beginDate == "" || closeDate == "") {
+			if (beginDate == "" || closeDate == "") {
 				// 검색 기간 입력 되지 않은 경우
 				if (beginDate == "") {
 					alert("검색시작일을 지정해주세요.");
@@ -36,7 +36,7 @@
 					alert("검색 기간이 잘못 설정되었습니다.");
 					return;
 				}
-			} */
+			} 
 			movePage('0');
 			
 		});
@@ -114,6 +114,5 @@
 		</div>
 		</form>
 	</div>
-	<%-- <a href="<c:url value="/member/myPage/saveAsExcel"/>">엑셀 파일로 저장</a> --%>
 </body>
 </html>
