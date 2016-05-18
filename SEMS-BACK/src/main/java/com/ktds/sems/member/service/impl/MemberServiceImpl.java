@@ -515,7 +515,6 @@ public class MemberServiceImpl implements MemberService{
 		}
 		else {
 			boolean isdeleteMember = memberBiz.massiveDeleteMember(id);
-			System.out.println(id);
 			
 			if (!isdeleteMember) {
 				view.addObject("massage", "삭제 실패!");
