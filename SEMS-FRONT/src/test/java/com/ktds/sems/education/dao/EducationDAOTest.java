@@ -17,6 +17,7 @@ import com.ktds.sems.SemsTestCase;
 import com.ktds.sems.education.vo.EducationSearchVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.QNAVO;
+import com.ktds.sems.education.vo.ReRplyEvalVO;
 
 public class EducationDAOTest extends SemsTestCase{
 	@Autowired
@@ -169,6 +170,93 @@ public class EducationDAOTest extends SemsTestCase{
 		int result = educationDAO.doRequestRetraction(educationId, retractionMsg, memberId);
 		assertNotNull(result);
 		assertTrue(result == 1);
+	}
+	
+	@Test
+	public void doReReplyInsertTest(){
+		QNAVO qnaVO = new QNAVO();
+		String realReplyId = "JUNIT Test replyId";
+		String replyId = "RP-20160513-000096";
+		String eduId = "ED-20160513-000130";
+		String description = "JUNIT DAO DESCRIPTION";
+		//강의ID
+		qnaVO.setEduId(eduId);
+		//대댓글 ID
+		qnaVO.setReplyId(realReplyId);
+		//댓글ID
+		qnaVO.setParentReplyId(replyId);
+		//내용
+		qnaVO.setDescription(description);
+		// 답글 쓴 아이디를 집어넣음
+		qnaVO.setMbrId("admin01");
+		
+		int checkInt = educationDAO.doReReplyInsert(qnaVO);
+		assertTrue(checkInt > 0);
+	}
+	
+	@Test
+	public void getEmailTest(){
+		assertNotNull(educationDAO.getEmail("test02"));
+	}
+	
+	@Test
+	public void getNextReReplyEvalTest(){
+		assertNotNull(educationDAO.getNextReReplyEval());
+	}
+	
+	@Test
+	public void plusReReplyLikeTest(){
+		assertTrue(educationDAO.plusReReplyLike("RP-20160517-000202") > 0);
+	}
+	
+	@Test
+	public void plusReReplyDislikeTest(){
+		assertTrue(educationDAO.plusReReplyDislike("RP-20160517-000202") > 0);
+	}
+
+	@Test
+	public void insertReReplEvalTest(){
+		ReRplyEvalVO reRplyEvalVO = new ReRplyEvalVO();
+		//댓글ID
+		reRplyEvalVO.setReplyId("RP-20160517-000202");
+		
+		// 좋아요 누른 아이디
+		reRplyEvalVO.setMbrId("test01");
+		
+		// REPLY_EVAL_ID (pk)
+		reRplyEvalVO.setReplyEvalId("JUNIT TEST EVAL ID3");
+		
+		assertTrue(educationDAO.insertReReplyEval(reRplyEvalVO) > 0);
+	}
+	
+	@Test
+	public void insertReReplEvalByDislikeTest(){
+		ReRplyEvalVO reRplyEvalVO = new ReRplyEvalVO();
+		//댓글ID
+		reRplyEvalVO.setReplyId("RP-20160517-000204");
+		
+		// 좋아요 누른 아이디
+		reRplyEvalVO.setMbrId("test03");
+		
+		// REPLY_EVAL_ID (pk)
+		reRplyEvalVO.setReplyEvalId("JUNIT DISLIKE 4");
+		
+		assertTrue(educationDAO.insertReReplyEvalByDislike(reRplyEvalVO) > 0);
+	}
+	
+	@Test
+	public void checkReReplyEvalTest(){
+		ReRplyEvalVO reRplyEvalVO = new ReRplyEvalVO();
+		//댓글ID
+		reRplyEvalVO.setReplyId("RP-20160517-000202");
+		
+		// 좋아요 누른 아이디
+		reRplyEvalVO.setMbrId("test01");
+		
+		// REPLY_EVAL_ID (pk)
+		reRplyEvalVO.setReplyEvalId("RE-20160517-000015");
+		
+		assertTrue(educationDAO.checkReReplyEval(reRplyEvalVO) > 0);
 	}
 }
 

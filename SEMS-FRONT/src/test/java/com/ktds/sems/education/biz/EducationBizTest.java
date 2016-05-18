@@ -7,6 +7,8 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ktds.sems.SemsTestCase;
+import com.ktds.sems.education.vo.QNAVO;
+import com.ktds.sems.education.vo.ReRplyEvalVO;
 
 public class EducationBizTest extends SemsTestCase{
 
@@ -40,5 +42,121 @@ public class EducationBizTest extends SemsTestCase{
 		assertNotNull(result);
 		assertTrue(result);
 	}
+	
+	@Test
+	public void getNowDateTest(){
+		String checkStr = educationBiz.getNowDate();
+		assertNotNull(checkStr);
+	}
+	
+	@Test
+	public void getNextReplySeq(){
+		int checkInt = educationBiz.getNextReplySeq();
+		assertTrue(checkInt > 0);
+	}
+	
+	@Test
+	public void doReReplyInsertTest(){
+		QNAVO qnaVO = new QNAVO();
+		String realReplyId = "JUNIT Test replyId";
+		String replyId = "RP-20160513-000096";
+		String eduId = "ED-20160513-000130";
+		String description = "JUNIT TEST DESCRIPTION";
+		//강의ID
+		qnaVO.setEduId(eduId);
+		//대댓글 ID
+		qnaVO.setReplyId(realReplyId);
+		//댓글ID
+		qnaVO.setParentReplyId(replyId);
+		//내용
+		qnaVO.setDescription(description);
+		// 답글 쓴 아이디를 집어넣음
+		qnaVO.setMbrId("admin01");
+		
+		boolean checkBoolean = educationBiz.doReReplyInsert(qnaVO);
+		assertTrue(checkBoolean);
+	}
 
+	@Test
+	public void getEmailTest(){
+		String id = "test02";
+		String checkStr = educationBiz.getEmail(id);
+		assertNotNull(checkStr);
+	}
+	
+	@Test
+	public void getSelectedQNA(){
+		QNAVO qnaVO = new QNAVO();
+		String replyId = "RP-20160513-000096";
+		qnaVO = educationBiz.getSelectedQNA(replyId);
+		assertNotNull(qnaVO);
+	}
+	
+	@Test
+	public void getNextReReplyEvalTest(){
+		int checkInt = educationBiz.getNextReReplyEval();
+		assertTrue(checkInt >0);
+	}
+	
+	@Test
+	public void checkReReplyEvalTest(){
+		ReRplyEvalVO reRplyEvalVO = new ReRplyEvalVO();
+		//댓글ID
+		reRplyEvalVO.setReplyId("RP-20160517-000202");
+		
+		// 좋아요 누른 아이디
+		reRplyEvalVO.setMbrId("test01");
+		
+		// REPLY_EVAL_ID (pk)
+		reRplyEvalVO.setReplyEvalId("RE-20160517-000015");
+		
+		boolean checkBoolean = educationBiz.checkReReplyEval(reRplyEvalVO);
+		assertTrue(checkBoolean);
+	}
+	
+	@Test
+	public void insertReReplyEvalTest(){
+		ReRplyEvalVO reRplyEvalVO = new ReRplyEvalVO();
+		//댓글ID
+		reRplyEvalVO.setReplyId("RP-20160517-000202");
+		
+		// 좋아요 누른 아이디
+		reRplyEvalVO.setMbrId("test01");
+		
+		// REPLY_EVAL_ID (pk)
+		reRplyEvalVO.setReplyEvalId("JUNIT TEST EVAL ID2");
+		
+		boolean checkBoolean = educationBiz.insertReReplyEval(reRplyEvalVO);
+		assertTrue(checkBoolean);
+	}
+	
+	@Test
+	public void plusReReplyLikeTest(){
+		String replyId = "RP-20160517-000202";
+		boolean checkBoolean = educationBiz.plusReReplyLike(replyId);
+		assertTrue(checkBoolean);
+	}
+	
+	@Test
+	public void insertReReplyEvalByDislikeTest(){
+		ReRplyEvalVO reRplyEvalVO = new ReRplyEvalVO();
+		//댓글ID
+		reRplyEvalVO.setReplyId("RP-20160517-000202");
+		
+		// 좋아요 누른 아이디
+		reRplyEvalVO.setMbrId("test01");
+		
+		// REPLY_EVAL_ID (pk)
+		reRplyEvalVO.setReplyEvalId("JUNIT TEST EVAL ID");
+		
+		boolean checkBoolean = educationBiz.insertReReplyEvalByDislike(reRplyEvalVO);
+		assertTrue(checkBoolean);
+	}
+	
+	@Test
+	public void plusReReplyDislikeTest(){
+		String replyId = "RP-20160517-000202";
+		boolean checkBoolean = educationBiz.plusReReplyDislike(replyId);
+		assertTrue(checkBoolean);
+	}
 }

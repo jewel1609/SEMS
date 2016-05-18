@@ -7,9 +7,12 @@ import static org.junit.Assert.assertTrue;
 import java.util.List;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpSession;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.SemsTestCase;
@@ -23,12 +26,12 @@ import com.ktds.sems.education.vo.QNAVO;
 import com.ktds.sems.member.vo.MemberVO;
 
 import kr.co.hucloud.utilities.web.Paging;
-
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = { "/applicationContext.xml", "/educationContext.xml", "/memberContext.xml", "/rootContext.xml"})
 public class EducationServiceTest extends SemsTestCase {
 
 	@Autowired
 	private EducationBiz educationBiz;
-	
 	@Autowired
 	private EducationService educationService;
 	
@@ -212,4 +215,43 @@ public class EducationServiceTest extends SemsTestCase {
 		//assertEquals(result, "redirect:/member/myPage/course");
 	}
 
+	@Test
+	public void doReReplyInsertTest(){
+		MockHttpSession session = new MockHttpSession();
+		MemberVO sessionMember = new MemberVO();
+		sessionMember.setId("admin01");
+		session.setAttribute("_MEMBER_", sessionMember);
+		
+		String replyId = "RP-20160513-000096";
+		String eduId = "ED-20160513-000130";
+		String id = "test02";
+		String description = "JUNIT TEST DESCRIPTION";
+		
+		String checkStr = educationService.doReReplyInsert(replyId, eduId, id, description, session);
+		assertNotNull(checkStr);
+	}
+	
+	@Test
+	public void plusReReplyLikeTest(){
+		MockHttpSession session = new MockHttpSession();
+		MemberVO sessionMember = new MemberVO();
+		sessionMember.setId("admin01");
+		session.setAttribute("_MEMBER_", sessionMember);
+		String replyId = "RP-20160513-000094";
+		
+		String checkStr = educationService.plusReReplyLike(replyId, session);
+		assertNotNull(checkStr);
+	}
+	
+	@Test
+	public void plusReReplyDislikeTest(){
+		MockHttpSession session = new MockHttpSession();
+		MemberVO sessionMember = new MemberVO();
+		sessionMember.setId("admin01");
+		session.setAttribute("_MEMBER_", sessionMember);
+		
+		String replyId = "RP-20160517-000204";
+		String checkStr = educationService.plusReReplyDislike(replyId, session);
+		assertNotNull(checkStr);
+	}
 }
