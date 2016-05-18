@@ -13,6 +13,7 @@ import com.ktds.sems.member.service.impl.MemberServiceImpl;
 import com.ktds.sems.member.vo.LoginHistoryVO;
 import com.ktds.sems.member.vo.MemberSearchVO;
 import com.ktds.sems.member.vo.MemberVO;
+import com.ktds.sems.member.vo.PersonalInfoReadVO;
 
 public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 
@@ -107,7 +108,7 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 
 	@Override
 	public int massiveDeleteMember(String memberId) {
-		return getSqlSession().delete("MemberDAO.massiveDeleteMember",memberId);
+		return getSqlSession().delete("MemberDAO.massiveDeleteMember", memberId);
 	}
 
 	@Override
@@ -171,6 +172,26 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 	}
 
 	@Override
+	public int doWriteMemberDetailInfo(PersonalInfoReadVO personalInfoReadVO) {
+		return getSqlSession().insert("MemberDAO.doWriteMemberDetailInfo", personalInfoReadVO);
+	}
+
+	@Override
+	public int getPersonalInfoIdSeq() {
+		return getSqlSession().selectOne("MemberDAO.getPersonalInfoIdSeq");
+	}
+
+	@Override
+	public String getSysdate() {
+		return getSqlSession().selectOne("MemberDAO.getSysdate");
+	}
+
+	@Override
+	public String getTargetMemberEmail(String targetMemberId) {
+		return getSqlSession().selectOne("MemberDAO.getTargetMemberEmail", targetMemberId);
+	}
+
+	@Override
 	public List<String> getTypeList() {
 		return getSqlSession().selectList("MemberDAO.getTypeList");
 	}
@@ -184,4 +205,5 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 	public int getTotalAdminHistoryCount() {
 		return getSqlSession().selectOne("MemberDAO.getTotalAdminHistoryCount");
 	}
+
 }
