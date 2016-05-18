@@ -17,6 +17,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.ktds.sems.member.dao.MemberDAO;
 import com.ktds.sems.member.vo.MemberSearchVO;
 import com.ktds.sems.member.vo.MemberVO;
+import com.ktds.sems.member.vo.PersonalInfoReadVO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"/applicationContext.xml", "/educationContext.xml", "/memberContext.xml", "/fileContext.xml", "/rootContext.xml"})
@@ -212,5 +213,52 @@ public class MemberBizTest  {
 		assertTrue(isSuccess);
 	}
 	
-
+	/**
+	 * getMemberDetailById
+	 * doWriteMemberDetailInfo
+	 * getSysdate
+	 * getPersonalInfoIdSeq
+	 * getTargetMemberEmail
+	 */
+	@Test
+	public void getTargetMemberEmailTest() {
+		String id = "test01";
+		String getTargetMemberEmail  = memberBiz.getTargetMemberEmail(id);
+		assertNotNull(getTargetMemberEmail);
+		assertEquals(getTargetMemberEmail, "hihelloho@nate.com");
+	}
+	
+	@Test
+	public void getSysdateTest() {
+		String getSysdate  = memberBiz.getSysdate();
+		assertNotNull(getSysdate);
+	}
+	
+	@Test
+	public void getPersonalInfoIdSeqTest() {
+		int getPersonalInfoIdSeq = memberBiz.getPersonalInfoIdSeq();
+		assertNotNull(getPersonalInfoIdSeq);
+		assertTrue(getPersonalInfoIdSeq > 0);
+	}
+	
+	@Test
+	public void getMemberDetailByIdTest() {
+		String id = "test01";
+		MemberVO memberVO = memberBiz.getMemberDetailById(id);
+		assertNotNull(memberVO);
+	}
+	
+	@Test
+	public void doWriteMemberDetailInfoTest() {
+		PersonalInfoReadVO personalInfoReadVO = new PersonalInfoReadVO();
+		personalInfoReadVO.setId("testJunitDAO");
+		personalInfoReadVO.setMemberId("junitTest");
+		personalInfoReadVO.setTargetMemberId("test01");
+		personalInfoReadVO.setDescription("desc");
+		personalInfoReadVO.setReadDate("Junitdate");
+		
+		boolean doWriteMemberDetailInfo = memberBiz.doWriteMemberDetailInfo(personalInfoReadVO);
+		assertNotNull(doWriteMemberDetailInfo);
+		assertTrue(doWriteMemberDetailInfo);
+	}
 }
