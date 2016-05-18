@@ -88,5 +88,37 @@ public class MemberControllerTest {
 	}
 	
 	
+	@Test
+	public void viewMemberManagePageTest() {
+		
+		ModelAndView view = memberController.viewMemberManagePage();
+		
+		if ( view != null ) {
+			String viewName = view.getViewName();
+			assertNotNull(view);
+			assertEquals(viewName, "member/memberManagePage");
+		}
+		else {
+			fail("view is null");
+		}
+		
+	}
+	
+	@Test
+	public void viewAddMemberPageTest() {
+		
+		ModelAndView view = memberController.viewAddMemberPage();
+		
+		if ( view != null ) {
+			String viewName = view.getViewName();
+			assertNotNull(view);
+			assertEquals(viewName, "member/addMemberPage");
+		}
+		else {
+			fail("view is null");
+		}
+		
+	}
+	
 	
 }
