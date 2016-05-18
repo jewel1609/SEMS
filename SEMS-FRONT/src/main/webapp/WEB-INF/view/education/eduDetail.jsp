@@ -1,37 +1,73 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="<c:url value='/resources/css/eduDetail.css'/>" rel="stylesheet">
 <script type="text/javascript" src="<c:url value='/resources/js/jquery.min.js"'/>"></script>
 <script type="text/javascript">
-	$(document).ready(function() {
-			$("#applyEdu").click(function() {
-				$.post(
-						"<c:url value='/doApplyEducation'/>",
-						{
-							"educationId" : $("#eduId").val(),
-							"educationType" : $("#eduType").val()
-						},
-						function(data) {
-							if (data == "OK") {
-								alert("신청완료!");
-								location.href = "<c:url value='/educationList'/>";
-								document.getElementById("#applyEdu").disabled = true;
-							} else if (data == "FAIL") {
-								alert("주간/야간 교육은 각 하나씩 신청할 수 있습니다. 이미 신청하신 교육타입(주간/야간)입니다.");
-								location.href = "<c:url value='/educationList'/>";
+	$(document).ready(function(){
+		$("#applyEdu").click(function(){
+			$.post("<c:url value='/doApplyEducation'/>"
+					, { "educationId" : $("#eduId").val(),
+						"educationType" : $("#eduType").val(),
+						"startDate" : $("#startDate").val(),
+						"endDate" : $("#endDate").val(),
+						"startTime" : $("#startTime").val(),
+						"maxMember" : $("#maxMember").val() }
+					, function(data){
+						if (data == "OK") {
+							alert("신청완료!");
+							location.href="<c:url value='/educationList'/>";
+							document.getElementById("#applyEdu").disabled=true;
+						}
+						else if( data == "TYPE_FAIL"){
+							alert("이미 신청하신 기간의 교육타입(주간/야간)입니다.");
+							location.href="<c:url value='/educationList'/>";
+						}
+						else if( data == "EX_MAX_MEM"){
+							if(confirm("정원이 초과됐습니다. 예약 신청하시겠습니까?")) {
+								doReserveEducation();
 							}
-						});
-				});
-
-			$("#cancleEdu").click(function() {
+							else {
+								location.href="<c:url value='/educationList'/>";
+							}
+						}
+						else if( data == "DATE_FAIL"){
+							alert("이미 시작한 교육입니다.");
+						}
+						else {
+							alert("에러가 발생했습니다.");
+						}
+					});
+		});
+		
+		function doReserveEducation () {
+			$.post("<c:url value='/doReserveEducation'/>"
+					, { "educationId" : $("#eduId").val() }
+					, function(data){
+						if (data == "OK") {
+							alert("예약 완료!");
+							location.href="<c:url value='/educationList'/>";
+							document.getElementById("#applyEdu").disabled=true;
+						}
+						else if( data == "TYPE_FAIL"){
+							alert("이미 신청하신 기간의 교육타입(주간/야간)입니다.");
+							location.href="<c:url value='/educationList'/>";
+						}
+						else {
+							alert("에러가 발생했습니다.");
+						}
+					});
+		}
+		
+		$("#cancleEdu").click(function() {
 				var educationId = $("#eduId").val();
 				location.href = "<c:url value='/doCancelEducation/"+ educationId +"'/>";
 			});
@@ -273,29 +309,34 @@
 				<input type="submit" value="댓글쓰기" />
 			</form:form>
 			<br /> 
-			<input type="hidden" value="${ education.educationId }" id="eduId" /> 
-			<input type="hidden" value="${ education.educationType }" id="eduType" />
-
-			<c:if test="${ isApply }">
-				<input type="button" id="applyEdu" name="applyEdu" value="교육 참가 신청" />
-			</c:if>
-
-			<c:if test="${ !isApply }">
-				<input type="button" id="cancleEdu" name="cancleEdu"
-					value="교육 참가 취소" />
-			</c:if>
-			<br />
-
-			<c:forEach items="${fileList}" var="fileVO">
-				파일다운로드: <a href="/downloadFile/${ education.educationId }">${fileVO.fileName}</a>
-			</c:forEach>
+		<input type="hidden" value="${ education.educationId }" id="eduId" />
+		<input type="hidden" value="${ education.educationType }" id="eduType" />
+		<input type="hidden" value="${ education.startDate }" id="startDate" />
+		<input type="hidden" value="${ education.endDate }" id="endDate" />
+		<input type="hidden" value="${ education.startTime }" id="startTime" />
+		<input type="hidden" value="${ education.maxMember }" id="maxMember" />
+		
+		<c:if test="${ status eq ''}">
+		<input type="button" id="applyEdu" name="applyEdu" value="교육 참가 신청" />
+		</c:if>
+		
+		<c:if test="${ status eq '참가신청'}">
+		<input type="button" id="cancleEdu" name="cancleEdu" value="교육 참가 취소" />
+		</c:if>
+		<c:if test="${ status eq '예약신청'}">
+		<input type="button" id="cancleEdu" name="cancleEdu" value="교육 예약 취소" />
+		</c:if>
+		<br/>
+		
+		<c:forEach items="${fileList}" var="fileVO">
+		파일다운로드: <a href="/downloadFile/${ education.educationId }">${fileVO.fileName}</a>
+		</c:forEach>
 		</div>
-
+		
 		<div id="calendar">
 			<jsp:include page="/WEB-INF/view/education/calendar.jsp"></jsp:include>
 		</div>
-
 	</div>
-
+	
 </body>
 </html>
