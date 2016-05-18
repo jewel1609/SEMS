@@ -31,9 +31,6 @@ import com.ktds.sems.validator.member.MemberValidator;
 
 import kr.co.hucloud.utilities.web.Paging;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "/applicationContext.xml", "/educationContext.xml", "/memberContext.xml",
-		"/rootContext.xml" })
 public class MemberControllerTest extends SemsTestCase {
 
 	@Autowired

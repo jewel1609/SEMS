@@ -28,8 +28,6 @@ import com.ktds.sems.member.vo.MenuManageVO;
 
 import kr.co.hucloud.utilities.web.Paging;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "/applicationContext.xml", "/educationContext.xml", "/memberContext.xml", "/rootContext.xml"})
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MemberBizTest extends SemsTestCase {
 
