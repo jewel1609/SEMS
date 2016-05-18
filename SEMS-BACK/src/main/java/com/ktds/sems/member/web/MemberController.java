@@ -143,6 +143,11 @@ public class MemberController {
 		return memberService.loginHistoryInit();
 	}
 	
+	@RequestMapping("/member/adminHistoryInit")
+	public ModelAndView adminHistoryInit() {
+		return memberService.adminHistoryInit();
+	}
+	
 	@RequestMapping("/memberDelete/{id}")
 	public ModelAndView memberDeleteById(@PathVariable String id) {
 		return memberService.memberDeleteById(id);
@@ -159,9 +164,9 @@ public class MemberController {
 	}
 
 	@RequestMapping("/adminHistory")
-	public ModelAndView viewAdminHistory(@RequestParam(required=false, defaultValue="0") int pageNo) {
+	public ModelAndView viewAdminHistory(LoginHistorySearchVO loginHistorySearchVO, @RequestParam(required=false, defaultValue="0") int pageNo) {
 		//logger.info("pageNO : " + pageNo);
-		return memberService.getAllAdminHistory(pageNo);
+		return memberService.getAllAdminHistory(loginHistorySearchVO, pageNo);
 	}
 	
 	@RequestMapping("/member/memberListInit")

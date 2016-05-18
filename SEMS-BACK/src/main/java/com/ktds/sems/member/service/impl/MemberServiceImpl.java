@@ -131,17 +131,16 @@ public class MemberServiceImpl implements MemberService{
 	}
 	
 	@Override
-	public ModelAndView getAllAdminHistory(int pageNo) {
+	public ModelAndView getAllAdminHistory(LoginHistorySearchVO loginHistorySearchVO, int pageNo) {
 		LoginHistoryListVO loginHistoryListVO = new LoginHistoryListVO();
 		Paging paging = new Paging(20, 20);
 		
 		loginHistoryListVO.setPaging(paging);
-		int totalHistoryCount = memberBiz.getTotalAdminHistoryCount();
+		int totalHistoryCount = memberBiz.getTotalAdminHistoryCount(loginHistorySearchVO);
 		logger.info("totalHistoryCount"+totalHistoryCount);
 		paging.setPageNumber(pageNo + "");
 		paging.setTotalArticleCount(totalHistoryCount);
 		
-		LoginHistorySearchVO loginHistorySearchVO = new LoginHistorySearchVO();
 		loginHistorySearchVO.setStartIndex(paging.getStartArticleNumber());
 		loginHistorySearchVO.setEndIndex(paging.getEndArticleNumber());
 		
@@ -151,6 +150,7 @@ public class MemberServiceImpl implements MemberService{
 		//logger.info("loginHistorySize"+loginHistory.size());
 		ModelAndView view = new ModelAndView();
 		view.setViewName("member/adminHistory");
+
 		view.addObject("loginHistoryListVO", loginHistoryListVO);
 		view.addObject("loginHistorySearchVO", loginHistorySearchVO);
 		return view;
@@ -309,7 +309,7 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 
-	private ModelAndView getMemberDetailById(String id) {
+	public ModelAndView getMemberDetailById(String id) {
 		ModelAndView view = new ModelAndView();
 		
 		if ( id == null || id.length() == 0 ) {
@@ -618,6 +618,7 @@ public class MemberServiceImpl implements MemberService{
 		
 		return view;
 	}
+	
 
 	@Override
 	public ModelAndView memberListInit() {
@@ -626,6 +627,18 @@ public class MemberServiceImpl implements MemberService{
 		view.addObject("searchKeyword", null);
 		view.addObject("searchType", null);
 		view.setViewName("redirect:/memberManage/memberList");
+		
+		return view;
+	}
+
+	@Override
+	public ModelAndView adminHistoryInit() {
+		
+		ModelAndView view = new ModelAndView();
+		
+		view.addObject("startDate", null);
+		view.addObject("endDate", null);
+		view.setViewName("redirect:/adminHistory");
 		
 		return view;
 	}

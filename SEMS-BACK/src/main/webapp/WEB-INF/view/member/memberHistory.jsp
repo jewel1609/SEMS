@@ -108,7 +108,7 @@
 				$("#startDate").hide();
 				$("#endDate").hide();
 			}
-			else if( option == "date"){
+			 else if( option == "date"){
 				$("#searchType").hide();
 				$("#searchKeyword").hide();
 				$("#startDate").show();

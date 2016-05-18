@@ -79,7 +79,7 @@ public interface MemberDAO {
 	
 	public List<LoginHistoryVO> getAllAdminHistory(LoginHistorySearchVO loginHistorySearchVO);
 	
-	public int getTotalAdminHistoryCount();
+	public int getTotalAdminHistoryCount(LoginHistorySearchVO loginHistorySearchVO);
 
 	public String getMemberTypeCode(String memberType);
 

@@ -59,8 +59,12 @@ public interface MemberService {
 
 	public ModelAndView loginHistoryInit();
 	
-	public ModelAndView getAllAdminHistory(int pageNo);
+	public ModelAndView getAllAdminHistory(LoginHistorySearchVO loginHistorySearchVO, int pageNo);
 
 	public ModelAndView memberListInit();
+	
+	public ModelAndView getMemberDetailById(String id);
+
+	public ModelAndView adminHistoryInit();
 
 }

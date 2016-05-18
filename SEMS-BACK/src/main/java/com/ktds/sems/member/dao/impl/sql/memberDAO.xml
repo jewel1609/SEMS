@@ -125,9 +125,11 @@
 													FROM	MBR
 													WHERE	MBR_TP = 'ADM'
 												)
-						<if test="startDate != null and startDate != '' ">
+						<if test="startDate != null">
+						<if test="startDate != ''">
 							AND		LGI_DT <![CDATA[<=]]> TO_DATE(#{startDate}, 'YYYY-MM-DD')
-							AND		LGI_DT <![CDATA[<=]]> TO_DATE(#{endDate}, 'YYY-MM-DD')
+							AND		LGI_DT <![CDATA[<=]]> TO_DATE(#{endDate}, 'YYYY-MM-DD')
+						</if>
 						</if>
 							ORDER BY	LGI_HTR_ID DESC
 						)LGI
@@ -136,7 +138,7 @@
 		WHERE   RNUM >= #{startIndex}
 	</select>
 
-	<select id="getTotalAdminHistoryCount" resultType="_int">
+	<select id="getTotalAdminHistoryCount" parameterType="loginHistorySearchVO" resultType="_int">
 		SELECT	COUNT(LGI_HTR_ID)
 		FROM	(
 					SELECT	LGI_HTR.*, MBR_TP.CD_NM
@@ -149,9 +151,11 @@
 								FROM	MBR
 								WHERE	MBR_TP ='ADM'
 							)
-	<if test="startDate != null and startDate != '' ">
+	<if test="startDate != null">
+	<if test="startDate != ''">
 		AND		LGI_DT <![CDATA[<=]]> TO_DATE(#{startDate}, 'YYYY-MM-DD')
-		AND		LGI_DT <![CDATA[<=]]> TO_DATE(#{endDate}, 'YYY-MM-DD')
+		AND		LGI_DT <![CDATA[<=]]> TO_DATE(#{endDate}, 'YYYY-MM-DD')
+	</if>
 	</if>
 		ORDER BY	LGI_HTR_ID	DESC
 	</select>
