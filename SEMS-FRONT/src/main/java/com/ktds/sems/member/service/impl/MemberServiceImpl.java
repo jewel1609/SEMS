@@ -448,7 +448,14 @@ public class MemberServiceImpl implements MemberService {
 	 */
 	@Override
 	public ModelAndView viewLoginHistoryPage(LoginHistorySearchVO loginHistorySearchVO, int pageNo,
-			HttpSession session) {
+			HttpSession session, HttpServletRequest request) {
+		
+		if ( request.getParameter("beginTime") != null ) {
+			if ( request.getParameter("beginTime") != "") {
+				loginHistorySearchVO.setBeginDate(loginHistorySearchVO.getBeginDate() + request.getParameter("beginTime"));
+				loginHistorySearchVO.setCloseDate(loginHistorySearchVO.getCloseDate() + request.getParameter("closeTime"));
+			}
+		}
 		
 		ModelAndView view = new ModelAndView();
 		

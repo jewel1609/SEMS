@@ -227,10 +227,14 @@
 		SELECT	COUNT(LGI_HTR_ID)
 		FROM	LGI_HTR
 		WHERE	MBR_ID = #{id}
-		<if test="beginDate != null and beginDate != '' ">
+		<if test="beginDate != null and beginDate != '' and beginDate.length() == 10">
 		AND		LGI_DT <![CDATA[>=]]> TO_DATE(#{beginDate}, 'YYYY-MM-DD')		
 		AND		LGI_DT <![CDATA[<=]]> TO_DATE(#{closeDate}, 'YYYY-MM-DD')
-		</if>
+		</if>								
+		<if test="beginDate != null and beginDate != '' ">
+		AND		LGI_DT <![CDATA[>=]]> TO_DATE(#{beginDate}, 'YYYY-MM-DD HH24:MI')		
+		AND		LGI_DT <![CDATA[<=]]> (TO_DATE(#{closeDate}, 'YYYY-MM-DD HH24:MI'))
+		</if>	
 	</select>
 	<select id="getAllLoginHistory" parameterType="LoginHistorySearchVO" resultType="LoginHistoryVO">
 		SELECT	LGI_HTR_ID lgiHtrId
@@ -247,9 +251,13 @@
 								SELECT	*
 								FROM	LGI_HTR
 								WHERE	MBR_ID = #{id}
-								<if test="beginDate != null and beginDate != '' ">
+								<if test="beginDate != null and beginDate != '' and beginDate.length() == 10">
 								AND		LGI_DT <![CDATA[>=]]> TO_DATE(#{beginDate}, 'YYYY-MM-DD')		
 								AND		LGI_DT <![CDATA[<=]]> TO_DATE(#{closeDate}, 'YYYY-MM-DD')
+								</if>								
+								<if test="beginDate != null and beginDate != '' ">
+								AND		LGI_DT <![CDATA[>=]]> TO_DATE(#{beginDate}, 'YYYY-MM-DD HH24:MI')		
+								AND		LGI_DT <![CDATA[<=]]> (TO_DATE(#{closeDate}, 'YYYY-MM-DD HH24:MI'))
 								</if>								
 								ORDER BY LGI_HTR_ID DESC
 							) LOGIN_HISTORY

@@ -15,7 +15,7 @@
 			var beginDate = $("#beginDate").val();
 			var closeDate = $("#closeDate").val();
 				
-			if (beginDate == "" || closeDate == "") {
+/* 			if (beginDate == "" || closeDate == "") {
 				// 검색 기간 입력 되지 않은 경우
 				if (beginDate == "") {
 					alert("검색시작일을 지정해주세요.");
@@ -36,7 +36,7 @@
 					alert("검색 기간이 잘못 설정되었습니다.");
 					return;
 				}
-			}
+			} */
 			movePage('0');
 			
 		});
@@ -96,7 +96,10 @@
 			<input type="date" name="closeDate" id="closeDate" value="${loginHistorySearchVO.closeDate}" /> 
 			<input type="button" id="searchBtn" name="searchBtn" value="검색" />
 			<input type="button" id="searchInitBtn" name="searchInitBtn" value="초기화" />
-			
+		</div>
+		<div align="center">
+			<input type="time" name="beginTime" id="beginTime" d value="${loginHistorySearchVO.beginDate}" />
+			<input type="time" name="closeTime" id="closeTime" value="${loginHistorySearchVO.closeDate}" /> 
 		</div>
 		</form>
 	</div>

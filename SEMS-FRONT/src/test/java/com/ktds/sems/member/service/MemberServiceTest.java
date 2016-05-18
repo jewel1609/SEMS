@@ -986,11 +986,12 @@ public class MemberServiceTest extends SemsTestCase {
 	@Test
 	public void viewLoginHistoryPageTest() {
 		MockHttpSession session = new MockHttpSession();
+		MockHttpServletRequest request = new MockHttpServletRequest();
 		LoginHistorySearchVO loginHistorySearchVO = new LoginHistorySearchVO();
 		loginHistorySearchVO.setId("test04");
 		session.setAttribute(Session.MEMBER, loginHistorySearchVO);
 
-		ModelAndView view = memberService.viewLoginHistoryPage(loginHistorySearchVO, 0, session);
+		ModelAndView view = memberService.viewLoginHistoryPage(loginHistorySearchVO, 0, session, request);
 
 		if (view != null) {
 			String viewName = view.getViewName();

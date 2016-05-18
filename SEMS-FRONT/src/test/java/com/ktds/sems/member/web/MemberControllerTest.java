@@ -10,6 +10,7 @@ import java.util.List;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -982,9 +983,10 @@ public class MemberControllerTest extends SemsTestCase {
 
 		int pageNo = 0;
 		MockHttpSession session = new MockHttpSession();
+		MockHttpServletRequest request = new MockHttpServletRequest();
 		session.setAttribute(Session.MEMBER, loginHistorySearchVO);
 
-		ModelAndView view = memberController.viewLoginHistoryPage(loginHistorySearchVO, pageNo, session);
+		ModelAndView view = memberController.viewLoginHistoryPage(loginHistorySearchVO, pageNo, session, request);
 
 		if (view != null) {
 			String viewName = view.getViewName();
