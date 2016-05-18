@@ -3,20 +3,26 @@ package com.ktds.sems.teacher.service.impl;
 
 import java.util.List;
 
-
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.mock.web.MockHttpSession;
 import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ktds.sems.cooperation.vo.CooperationSearchVO;
 import com.ktds.sems.common.Session;
 
 import com.ktds.sems.member.web.MemberController;
 import com.ktds.sems.teacher.biz.TeacherBiz;
 import com.ktds.sems.teacher.service.TeacherService;
-import com.ktds.sems.teacher.vo.EducationHistoryVO;
+import com.ktds.sems.teacher.vo.TeacherListVO;
+import com.ktds.sems.teacher.vo.TeacherSearchVO;
+import com.ktds.sems.teacher.vo.TeacherVO;
+
+import kr.co.hucloud.utilities.web.Paging;
 import com.ktds.sems.teacher.vo.ProjectHistoryVO;
 import com.ktds.sems.teacher.vo.TeacherBookVO;
 import com.ktds.sems.teacher.vo.TeacherVO;
@@ -45,6 +51,92 @@ public class TeacherServiceImpl implements TeacherService {
 		
 		return view;
 	}
+
+	@Override
+	public ModelAndView getAllTeaacherList(int pageNo, HttpServletRequest request) {
+		
+		MockHttpSession session = new MockHttpSession();
+		TeacherListVO searchedListVO = new TeacherListVO();
+		Paging paging = new Paging();
+		
+		searchedListVO.setPaging(paging);
+		paging.setPageNumber(pageNo + "");
+		
+		int totalTeacherCount = teacherBiz.getTotalTeacherCount(request);
+		paging.setTotalArticleCount(totalTeacherCount);
+		
+		TeacherSearchVO searchVO = new TeacherSearchVO();
+		searchVO.setStartIndex(paging.getStartArticleNumber());
+		searchVO.setEndIndex(paging.getEndArticleNumber());
+		
+		if ( request.getParameter("searchKeyword") != null ) {
+			searchVO.setPageNo(pageNo);
+			searchVO.setSearchKeyword(request.getParameter("searchKeyword"));
+			searchVO.setSearchType(request.getParameter("searchType"));
+		}
+		else {
+			searchVO = (TeacherSearchVO) session.getAttribute("_SEARCH_");
+			searchVO = new TeacherSearchVO();
+			searchVO.setStartIndex(paging.getStartArticleNumber());
+			searchVO.setEndIndex(paging.getEndArticleNumber());
+			searchVO.setPageNo(0);
+			searchVO.setSearchKeyword("");
+			searchVO.setSearchType("1");
+		}
+		
+		session.setAttribute("_SEARCH_", searchVO);
+		
+		List<TeacherVO> teacherList = teacherBiz.getAllTeacher(searchVO);
+		searchedListVO.setTeacherList(teacherList);
+		
+		ModelAndView view = new ModelAndView();
+		view.setViewName("teacher/teaacherList");
+		view.addObject("searchedListVO", searchedListVO);
+		view.addObject("searchVO", searchVO);
+		
+		return view;
+	}
+
+	@Override
+	public ModelAndView doDeleteTeacher(String memberId) {
+		
+		ModelAndView view = new ModelAndView();
+		
+		if ( memberId == null || memberId.length() == 0) {
+			view.setViewName("redirect:/teacher/teaacherList");
+		}
+		else {
+			boolean deleteResult = teacherBiz.doDeleteTeacher(memberId);
+			teacherBiz.doDeleteProjectHistory(memberId);
+			teacherBiz.doDeleteEducationHistory(memberId);
+			teacherBiz.doDeleteTeacherBook(memberId);
+			
+			if (!deleteResult) {
+				view.addObject("massage", "삭제 실패!");
+				view.setViewName("/teacher/detail/{memberId}");
+			}
+			else {
+				view.addObject("massage", "삭제 성공!");
+				view.setViewName("teacher/teaacherList");
+			}
+		
+		}
+		return null;
+	}
+
+	@Override
+	public String massiveDeleteTeacher(String[] deleteTeacherIds) {
+		
+		for(String memberId : deleteTeacherIds){
+			teacherBiz.doDeleteTeacher(memberId);
+			teacherBiz.doDeleteProjectHistory(memberId);
+			teacherBiz.doDeleteEducationHistory(memberId);
+			teacherBiz.doDeleteTeacherBook(memberId);
+		}
+		
+		return "redirect:/teacher/teaacherList";
+	}
+
 
 	@Override
 	public ModelAndView getOneTeacherInfoForUpdate(String memberId, HttpSession session) {
