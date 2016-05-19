@@ -42,10 +42,6 @@ public interface MemberService {
 
 	public ModelAndView addNewMember(MemberVO member, Errors errors, HttpSession session);
 
-	public List<String> getHighestEducationLevelCodeNames();
-
-	public List<String> getGraduationType();
-
 	public ModelAndView changeMemberPassword(String id);
 
 	public void sendAndChangePassword(String memberId, HttpServletResponse response);
@@ -53,8 +49,6 @@ public interface MemberService {
 	public ModelAndView modifyMemberType(String memberType, List<String> memberId);
 
 	public ModelAndView memberDeleteById(String id);
-
-	public List<String> getMemberTypeCodeNameList();
 
 	public ModelAndView requestMemberDetail(String id);
 

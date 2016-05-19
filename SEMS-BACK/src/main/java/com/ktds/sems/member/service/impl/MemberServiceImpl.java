@@ -212,7 +212,7 @@ public class MemberServiceImpl implements MemberService{
 		List<MemberVO> memberList = memberBiz.getAllMemberList(memberSearchVO);
 		memberListVO.setMemberList(memberList);
 		
-		List<String> memberTypeList = memberBiz.getMemberType();
+		List<MemberTypeVO> memberTypeList = memberBiz.getMemberTypes();
 		List<String> searchTypeList = searchTypeList();
 		
 		ModelAndView view = new ModelAndView();
@@ -436,16 +436,6 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public List<String> getHighestEducationLevelCodeNames() {
-		return memberBiz.getHighestEducationLevelCodeNames();
-	}
-
-	@Override
-	public List<String> getGraduationType() {
-		return memberBiz.getGraduationType();
-	}
-
-	@Override
 	public ModelAndView changeMemberPassword(String id) {
 		ModelAndView view = new ModelAndView();
 		view.setViewName("member/changeMemberPassword");
@@ -489,18 +479,13 @@ public class MemberServiceImpl implements MemberService{
 	public ModelAndView modifyMemberType(String memberType, List<String> memberIds) {
 		ModelAndView view = new ModelAndView();
 		if ( memberType != null && memberIds != null ) {
-			String memberTypeCode = memberBiz.getMemberTypeCode(memberType);
 			Map<String, String> modifyMemberType = new HashMap<String, String> ();
-			modifyMemberType.put("memberTypeCode", memberTypeCode);
+			modifyMemberType.put("memberTypeId", memberType);
 			
 			for (String memberId : memberIds ) {
 				modifyMemberType.put("memberId", memberId);
 				memberBiz.modifyMemberTypeById (modifyMemberType);
 			}
-			view.addObject("isModifySuccess", "OK");
-		}
-		else {
-			view.addObject("isModifySuccess", "NO");
 		}
 		view.setViewName("redirect:/memberManage/memberList");
 		
@@ -527,11 +512,6 @@ public class MemberServiceImpl implements MemberService{
 			}
 		}
 		return view;
-	}
-
-	@Override
-	public List<String> getMemberTypeCodeNameList() {
-		return memberBiz.getMemberTypeCodeNameList();
 	}
 
 	@Override

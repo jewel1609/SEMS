@@ -237,26 +237,6 @@ public class MemberBizImpl implements MemberBiz {
 	}
 
 	@Override
-	public List<String> getHighestEducationLevelCodeNames() {
-		return memberDAO.getHighestEducationLevelCodeNames();
-	}
-
-	@Override
-	public List<String> getGraduationType() {
-		return memberDAO.getGraduationType();
-	}
-
-	@Override
-	public String getHelCodeId(String highestEducationLevel) {
-		return memberDAO.getHelCodeId(highestEducationLevel);
-	}
-
-	@Override
-	public String getGraduationTypeCodeId(String graduationType) {
-		return memberDAO.getGraduationTypeCodeId(graduationType);
-	}
-
-	@Override
 	public void addNewMember(MemberVO member) {
 		memberDAO.addNewMember(member);
 	}
@@ -308,28 +288,8 @@ public class MemberBizImpl implements MemberBiz {
 	}
 
 	@Override
-	public List<String> getMemberType() {
-		return memberDAO.getMemberType();
-	}
-
-	@Override
-	public String getMemberTypeCode(String memberType) {
-		return memberDAO.getMemberTypeCode(memberType);
-	}
-
-	@Override
 	public boolean modifyMemberTypeById(Map<String, String> modifyMemberType) {
 		return memberDAO.modifyMemberTypeById(modifyMemberType) > 0;
-	}
-
-	@Override
-	public List<String> getMemberTypeCodeNameList() {
-		return memberDAO.getMemberTypeCodeNameList();
-	}
-
-	@Override
-	public String getMemberTypeCodeId(String memberType) {
-		return memberDAO.getMemberTypeCodeId(memberType);
 	}
 
 	@Override

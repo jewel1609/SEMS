@@ -94,6 +94,7 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 
 	@Override
 	public List<MemberVO> getAllMemberList(MemberSearchVO searchVO) {
+		System.out.println("=="+searchVO.getSearchType());
 		return getSqlSession().selectList("MemberDAO.getAllMemberList", searchVO);
 	}
 

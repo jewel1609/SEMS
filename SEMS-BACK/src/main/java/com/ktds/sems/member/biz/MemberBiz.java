@@ -60,29 +60,13 @@ public interface MemberBiz {
 
 	public MemberVO getMemberDetailById(String id);
 
-	public List<String> getHighestEducationLevelCodeNames();
-
-	public List<String> getGraduationType();
-
-	public String getHelCodeId(String highestEducationLevel);
-
-	public String getGraduationTypeCodeId(String graduationType);
-
 	public void addNewMember(MemberVO member);
 
 	public String randomValue(int i);
 
 	public boolean changePassword(MemberVO member);
 
-	public List<String> getMemberType();
-
-	public String getMemberTypeCode(String memberType);
-
 	public boolean modifyMemberTypeById(Map<String, String> modifyMemberType);
-
-	public List<String> getMemberTypeCodeNameList();
-
-	public String getMemberTypeCodeId(String memberType);
 
 	public boolean doWriteMemberDetailInfo(PersonalInfoReadVO personalInfoReadVO);
 

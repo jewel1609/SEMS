@@ -233,24 +233,23 @@
 						, MBR_TP.CD_NM
 				FROM	MBR, MBR_TP
 				WHERE	MBR.MBR_TP = MBR_TP.CD_ID
+				<if test="searchKeyword != null and searchKeyword != '' ">
+				AND		(ID = #{searchKeyword}
+				OR		NM =  #{searchKeyword} )
+				</if>
+				<if test="searchType != null and searchType != '' ">
+				AND		MBR_TP = #{searchType}
+				</if>
+				<if test="connLock != null and connLock != '' ">
+				AND		MBR.IS_ACC_LCK = #{connLock}
+				</if>
+				<if test="isRgsn != null and isRgsn != '' ">
+				AND		MBR.RSN = #{isRgsn}
+				</if>
+				<if test="modLock != null and modLock != '' ">
+				AND		MBR.IS_MDF_LCK = #{modLock}
+				</if>
 				) MBR
-		WHERE	1=1
-		<if test="searchKeyword != null and searchKeyword != '' ">
-		AND		ID = #{searchKeyword}
-		</if>
-		<if test="searchType != null and searchType != '' ">
-		AND		MBR.CD_NM = #{searchType}
-		</if>
-		<if test="connLock != null and connLock != '' ">
-		AND		MBR.IS_ACC_LCK = #{connLock}
-		</if>
-		<if test="isRgsn != null and isRgsn != '' ">
-		AND		MBR.RSN = #{isRgsn}
-		</if>
-		<if test="modLock != null and modLock != '' ">
-		AND		MBR.IS_MDF_LCK = #{modLock}
-		</if>
-		ORDER	BY	ID  DESC
 	</select>
 	
 	<select id="getAllMemberList" parameterType="MemberSearchVO" resultType="MemberVO">
@@ -261,32 +260,35 @@
 				, MBR.RSN isResign
 				, MBR.IS_MDF_LCK isModifyLock
 		FROM	(
-					SELECT	ROWNUM AS RNUM
+					SELECT	ROWNUM RNUM
 							, MBR_INFO.*
 					FROM	(
 								SELECT	*
 								FROM	MBR
+								WHERE 1=1
+								<if test="searchKeyword != null and searchKeyword != '' ">
+								AND		(MBR.ID LIKE '%' || #{searchKeyword} || '%'
+								OR		MBR.NM LIKE '%' || #{searchKeyword} || '%'
+								)
+								</if>
+								<if test="searchType != null and searchType != '' ">
+								AND		MBR_TP = #{searchType}
+								</if>
+								<if test="connLock != null and connLock != '' ">
+								AND		MBR.IS_ACC_LCK = #{connLock}
+								</if>
+								<if test="isRgsn != null and isRgsn != '' ">
+								AND		MBR.RSN = #{isRgsn}
+								</if>
+								<if test="modLock != null and modLock != '' ">
+								AND		MBR.IS_MDF_LCK = #{modLock}
+								</if>
 								ORDER	BY ID DESC
 							) MBR_INFO
 					WHERE	ROWNUM <![CDATA[<=]]> #{endIndex}
 				) MBR
 				, MBR_TP
 		WHERE	MBR.MBR_TP = MBR_TP.CD_ID
-		<if test="searchKeyword != null and searchKeyword != '' ">
-		AND		MBR.ID LIKE '%' || #{searchKeyword} || '%'
-		</if>
-		<if test="searchType != null and searchType != '' ">
-		AND		MBR_TP.CD_NM = #{searchType}
-		</if>
-		<if test="connLock != null and connLock != '' ">
-		AND		MBR.IS_ACC_LCK = #{connLock}
-		</if>
-		<if test="isRgsn != null and isRgsn != '' ">
-		AND		MBR.RSN = #{isRgsn}
-		</if>
-		<if test="modLock != null and modLock != '' ">
-		AND		MBR.IS_MDF_LCK = #{modLock}
-		</if>
 		AND		RNUM >= #{startIndex}		
 		ORDER	BY	ID  DESC
 	</select>
@@ -461,7 +463,7 @@
 	
 	<update id="modifyMemberTypeById" parameterType="map">
 		UPDATE	MBR
-		SET		MBR_TP = #{memberTypeCode}
+		SET		MBR_TP = #{memberTypeId}
 		WHERE	ID = #{memberId}
 	</update>
 
