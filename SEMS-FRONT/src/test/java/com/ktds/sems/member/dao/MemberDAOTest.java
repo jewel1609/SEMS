@@ -14,6 +14,7 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ktds.sems.SemsTestCase;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
@@ -26,6 +27,7 @@ import com.ktds.sems.member.vo.MenuManageVO;
 
 import kr.co.hucloud.utilities.web.Paging;
 
+@Transactional
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MemberDAOTest extends SemsTestCase {
 
