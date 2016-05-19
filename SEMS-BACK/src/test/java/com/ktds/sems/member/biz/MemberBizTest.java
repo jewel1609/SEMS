@@ -260,4 +260,7 @@ public class MemberBizTest extends SemsTestCase {
 		assertNotNull(doWriteMemberDetailInfo);
 		assertTrue(doWriteMemberDetailInfo);
 	}
+	
+	
+
 }

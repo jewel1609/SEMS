@@ -7,11 +7,15 @@ import java.util.ArrayList;
 import java.util.List;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.ModelAndView;
 import com.ktds.sems.SemsTestCase;
+import com.ktds.sems.teacher.dao.TeacherDAO;
+import com.ktds.sems.teacher.vo.TeacherListVO;
+import com.ktds.sems.teacher.vo.TeacherSearchVO;
 import com.ktds.sems.common.Session;
 import com.ktds.sems.teacher.vo.TeacherBookVO;
 import com.ktds.sems.teacher.vo.TeacherVO;
@@ -23,6 +27,8 @@ public class TeacherControllerTest extends SemsTestCase {
 
 	@Autowired
 	private TeacherController teacherController;
+	@Autowired
+	private TeacherDAO teacherDAO;
 
 	@Test
 	public void viewDetailPageTest() {
@@ -84,4 +90,47 @@ public class TeacherControllerTest extends SemsTestCase {
 			fail("fail");
 		}
 		}
+	@Test
+	public void viewteaacherListPageTest(){
+		
+		MockHttpServletRequest request = new MockHttpServletRequest();
+		int pageNo = 0;
+		ModelAndView view = teacherController.viewteaacherListPage(pageNo, request);
+		assertNotNull(view);
+		
+		if (view != null) {
+			String viewName = view.getViewName();
+			assertNotNull(viewName);
+			assertEquals(viewName, "teacher/teaacherList");
+			
+			TeacherSearchVO searchVO = (TeacherSearchVO) view.getModelMap().get("searchVO");
+			assertNotNull(searchVO);
+			
+			TeacherListVO searchedListVO = (TeacherListVO) view.getModelMap().get("searchedListVO");
+			assertNotNull(searchedListVO);
+
+		}
+		else{
+			fail("Fail...");
+		}
+		
+	}
+	
+	@Test
+	public void doDeleteTeacherTest(){
+		String deleteTeacherId = "skawnsgh1234";
+		ModelAndView view = teacherController.doDeleteTeacher(deleteTeacherId);
+		assertEquals(view.getViewName(), "/teacher/detail/skawnsgh1234");
+		
+	}
+	
+	@Test
+	public void massiveDeleteTeacherTest(){
+		
+		MockHttpServletRequest request = new MockHttpServletRequest();
+		String[] deleteTeacherIds = {"teacher03", "teacher02"};
+		request.setParameter("deleteTeacherId", deleteTeacherIds);
+		String result = teacherController.massiveDeleteTeacher(request);
+		assertEquals(result, "redirect:/teacher/teaacherList");
+	}
 }
