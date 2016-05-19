@@ -578,6 +578,7 @@ public class MemberDAOTest extends SemsTestCase {
 		}
 	}
 	
+	
 	@Test
 	public void getCourseList(){
 		EducationHistorySearchVO educationHistorySearchVO = new EducationHistorySearchVO();
