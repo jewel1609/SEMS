@@ -80,8 +80,8 @@
 		
 		$(".onlyText").keyup(function(event) {
 			var regexp = /[\+*^!@\#$%<>&\()\=\’ \\/\?,.\:\;\''\""\{\}\[\]|\\~`]/gi;
-			var engregexp = /[a-zA-Z0-9]/gi;
-			var noengregexp = /[^a-zA-Z0-9]/gi;
+			var engregexp = /[a-zA-Z0-9-_]/gi;
+			var noengregexp = /[^a-zA-Z0-9-_]/gi;
 
 			v = $(this).val();
 			if (regexp.test(v)) {
@@ -111,7 +111,7 @@
 		
 		$(".onlyEngText").keyup(function(event) {
 			regexp = /[\+*^!@\#$%<>&\()\=\’ \\/\?,.\:\;\''\""\{\}\[\]|\\~`]/gi;
-			engregexp = /[^a-zA-Z0-9]/gi;
+			engregexp = /[^a-zA-Z0-9-_]/gi;
 
 			v = $(this).val();
 			if (regexp.test(v)) {

@@ -67,6 +67,62 @@
 				return;
 			} 
 		});
+
+		$(".onlyText").keyup(function(event) {
+			var regexp = /[\+*^!@\#$%<>&\()\=\’ \\/\?,.\:\;\''\""\{\}\[\]|\\~`]/gi;
+			var engregexp = /[a-zA-Z0-9-_]/gi;
+			var noengregexp = /[^a-zA-Z0-9-_]/gi;
+
+			v = $(this).val();
+			if (regexp.test(v)) {
+				alert("특수문자를 포함할 수 없습니다.");
+				$(this).val(v.replace(regexp, ''));
+			}
+			
+			var tmpStr = $(this).val();
+			var tmpStr2 = $(this).val();
+			tmpStr = tmpStr.replace(engregexp, '');
+			tmpStr2 = tmpStr2.replace(noengregexp, '');
+			if ( (tmpStr.length * 3) + tmpStr2.length > 10 ) {
+				alert("글자 수가 너무 큽니다.");
+				while(v.length > 0){
+					v = v.substring(0, v.length - 1);
+					tmpStr = v;
+					tmpStr2 = v;
+					tmpStr = tmpStr.replace(engregexp, '');
+					tmpStr2 = tmpStr2.replace(noengregexp, '');
+					if ( (tmpStr.length * 3) + tmpStr2.length <= 10 ) {
+						break;
+					}
+				}
+				$(this).val(v);
+			} 
+		});
+		
+		$(".onlyEngText").keyup(function(event) {
+			regexp = /[\+*^!@\#$%<>&\()\=\’ \\/\?,.\:\;\''\""\{\}\[\]|\\~`]/gi;
+			engregexp = /[^a-zA-Z0-9-_]/gi;
+
+			v = $(this).val();
+			if (regexp.test(v)) {
+				alert("특수문자를 포함할 수 없습니다.");
+				$(this).val(v.replace(regexp, ''));
+			}
+			if (engregexp.test(v)) {
+				alert("숫자와 영문만 입력할 수 있습니다.");
+				$(this).val(v.replace(engregexp, ''));
+			}
+			
+			if ( v.length > 4 ) {
+				alert("글자수가 4를 넘을 수 없습니다.");
+				$(this).val(v.substring(0, 4));
+			}
+			
+		});
+		
+		$(".noPaste").on('paste', function(e){
+			e.preventDefault();
+		});
 		
 		//추가버튼 클릭시
 		$("#highestEduInsertBtn").click(function (){
@@ -121,10 +177,10 @@
 		
 		<c:forEach items="${highestEduTpList}" var="highestEdu">
 			<tr>
-				<input type="hidden" id="${highestEdu.cdId}" name="cdId" value="${highestEdu.cdId}"/>
+				<input type="hidden" id="${highestEdu.cdId}" class="onlyEngText" name="cdId" value="${highestEdu.cdId}"/>
 				<td style="text-align:center">${highestEdu.cdId}</td>
 				<td>
-					<input style="text-align:center" type="text" id="${highestEdu.cdNm}" name="cdNm" value="${highestEdu.cdNm}"/>
+					<input style="text-align:center" type="text" id="${highestEdu.cdNm}" class="onlyText noPaste" name="cdNm" value="${highestEdu.cdNm}"/>
 				</td>
 				
 				<td><input type="button" class="highestEduModifyBtn" value="수정"/></td>
@@ -134,10 +190,10 @@
 	
 		<tr>
 			<td>
-				<input type="text" id="cdId" name="newCdId" value=""/>
+				<input type="text" id="cdId" class="onlyEngText noPaste" name="newCdId" value=""/>
 			</td>
 			<td>
-				<input type="text" id="cdNm" name="newCdNm" value=""/>
+				<input type="text" id="cdNm" class="onlyText noPaste" name="newCdNm" value=""/>
 			</td>
 			<td><input type="button" id="highestEduInsertBtn" value="추가" /></td>
 			<td><input type="button" id="cancleBtn" value="취소" /></td>

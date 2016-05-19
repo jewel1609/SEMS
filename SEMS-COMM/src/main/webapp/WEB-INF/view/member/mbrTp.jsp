@@ -59,6 +59,62 @@
 			}
 		});
 
+		$(".onlyText").keyup(function(event) {
+			var regexp = /[\+*^!@\#$%<>&\()\=\’ \\/\?,.\:\;\''\""\{\}\[\]|\\~`]/gi;
+			var engregexp = /[a-zA-Z0-9-_]/gi;
+			var noengregexp = /[^a-zA-Z0-9-_]/gi;
+
+			v = $(this).val();
+			if (regexp.test(v)) {
+				alert("특수문자를 포함할 수 없습니다.");
+				$(this).val(v.replace(regexp, ''));
+			}
+			
+			var tmpStr = $(this).val();
+			var tmpStr2 = $(this).val();
+			tmpStr = tmpStr.replace(engregexp, '');
+			tmpStr2 = tmpStr2.replace(noengregexp, '');
+			if ( (tmpStr.length * 3) + tmpStr2.length > 10 ) {
+				alert("글자 수가 너무 큽니다.");
+				while(v.length > 0){
+					v = v.substring(0, v.length - 1);
+					tmpStr = v;
+					tmpStr2 = v;
+					tmpStr = tmpStr.replace(engregexp, '');
+					tmpStr2 = tmpStr2.replace(noengregexp, '');
+					if ( (tmpStr.length * 3) + tmpStr2.length <= 10 ) {
+						break;
+					}
+				}
+				$(this).val(v);
+			} 
+		});
+		
+		$(".onlyEngText").keyup(function(event) {
+			regexp = /[\+*^!@\#$%<>&\()\=\’ \\/\?,.\:\;\''\""\{\}\[\]|\\~`]/gi;
+			engregexp = /[^a-zA-Z0-9-_]/gi;
+
+			v = $(this).val();
+			if (regexp.test(v)) {
+				alert("특수문자를 포함할 수 없습니다.");
+				$(this).val(v.replace(regexp, ''));
+			}
+			if (engregexp.test(v)) {
+				alert("숫자와 영문만 입력할 수 있습니다.");
+				$(this).val(v.replace(engregexp, ''));
+			}
+			
+			if ( v.length > 4 ) {
+				alert("글자수가 4를 넘을 수 없습니다.");
+				$(this).val(v.substring(0, 4));
+			}
+			
+		});
+		
+		$(".noPaste").on('paste', function(e){
+			e.preventDefault();
+		});
+
 		$("#insertMbrTpBtn").click(function() {
 			
 			var cdId =  $("#cdId").val();
@@ -122,7 +178,7 @@
 				<input type="hidden" id="${mbrTp.cdId}" name="cdId"
 					value="${mbrTp.cdId}" />
 				<td>${mbrTp.cdId}</td>
-				<td><input type="text" value="${mbrTp.cdNm}" /></td>
+				<td><input type="text" class="onlyText noPaste" value="${mbrTp.cdNm}" /></td>
 				<td><button type="button" class="mbrTpModifyBtn"
 						style="font-size: 15px;">수정</button></td>
 				<td><button type="button" class="mbrTpDeleteBtn"
@@ -130,9 +186,9 @@
 			</tr>
 		</c:forEach>
 		<tr>
-				<td><input type="text" id="cdId" name="cdId"
+				<td><input type="text" id="cdId" class="onlyEngText noPaste" name="cdId"
 					placeholder="코드를 입력하세요." value="${mbrTpVO.cdId}" /></td>
-				<td><input type="text" id="cdNm" name="cdNm"
+				<td><input type="text" id="cdNm" class="onlyText noPaste" name="cdNm"
 					placeholder="등급 이름을 입력하세요." value="${mbrTpVO.cdNm}" /></td>
 				<td colspan="2"><input type="submit" id="insertMbrTpBtn"
 					value="submit" /></td>
