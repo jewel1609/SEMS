@@ -40,26 +40,26 @@ public class TeacherControllerTest extends SemsTestCase {
 		TeacherVO teacherVO = new TeacherVO();
 		
 		teacherVO.setAnnual(1); 
-		teacherVO.setMemberId("gangsa1");
+		teacherVO.setMemberId("teacher01");
 		teacherVO.setBusinessNumber("JUNIT...TT^TT");
 		teacherVO.setCompanyName("JUNIT...TT^TT");
 		teacherVO.setName("JUNIT...TT^TT");
 		
 		List<TeacherBookVO> teacherBookList = new ArrayList<TeacherBookVO>();
 		TeacherBookVO teacherBookVO = new TeacherBookVO();
-		teacherBookVO.setId("TB-20160519-000010");
+		teacherBookVO.setId("TB-20160519-000028");
 		teacherBookList.add(teacherBookVO);
 		teacherVO.setTeacherBookList(teacherBookList);
 		
 		List<ProjectHistoryVO> projectHistoryList = new ArrayList<ProjectHistoryVO>();
 		ProjectHistoryVO projectHistoryVO = new ProjectHistoryVO();
-		projectHistoryVO.setId("TPH-20160519-000011");
+		projectHistoryVO.setId("TPH-20160519-000017");
 		projectHistoryList.add(projectHistoryVO);
 		teacherVO.setProjectHistoryList(projectHistoryList);
 		
 		List<EducationHistoryVO> educationHistoryList = new ArrayList<EducationHistoryVO>();
 		EducationHistoryVO educationHistoryVO = new EducationHistoryVO();
-		educationHistoryVO.setId("TEH-20160519-000010");
+		educationHistoryVO.setId("TEH-20160519-000016");
 		educationHistoryList.add(educationHistoryVO);
 		teacherVO.setEducationHistoryList(educationHistoryList);
 		
