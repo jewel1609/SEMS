@@ -22,7 +22,6 @@
 		</c:forEach>
 	</table>
 
-	<a href="<c:url value="/member/myPage/resignMember" />">삭제</a>
 
 </body>
 </html>
