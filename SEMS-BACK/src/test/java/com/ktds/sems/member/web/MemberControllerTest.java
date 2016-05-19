@@ -35,7 +35,7 @@ public class MemberControllerTest extends SemsTestCase {
 
 	@Test
 	public void doModifyMemberTypeActionTest(){
-		String memberType = "일반회원";
+		String memberType = "강사";
 		List<String> deleteMemberId = new ArrayList<String>();
 		deleteMemberId.add("sosdig1");
 		
@@ -78,7 +78,7 @@ public class MemberControllerTest extends SemsTestCase {
 	@Test
 	public void doModifyMemberTypeActionTestErrorCaseMemberIds(){
 		
-		String memberType = "일반회원";
+		String memberType = "강사";
 		ModelAndView view = memberController.doModifyMemberTypeAction( memberType , null);
 		
 		if( view != null ) {
