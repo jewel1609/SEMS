@@ -502,4 +502,54 @@ public class MemberBizTest extends SemsTestCase {
 		}
 	}
 	
+	@Test
+	public void dropCourseApply(){
+		EducationHistoryVO educationHistory = new EducationHistoryVO();
+		educationHistory.setCmnt("JUnit!!!!!!!!test!!");
+		educationHistory.setEducationId("ED-20160516-000185");
+		educationHistory.setMemberId("test02");
+		
+		boolean dropCourseApply = memberBiz.dropCourseApply(educationHistory);
+		assertTrue(dropCourseApply);
+	}
+	
+	@Test
+	public void getOneEducationByIdAndEducationId(){
+		EducationHistoryVO educationHistory = new EducationHistoryVO();
+		String setEducationId = "ED-20160516-000185";
+		String setMemberId = "test02";
+
+		educationHistory = memberBiz.getOneEducationByIdAndEducationId(setEducationId, setMemberId);
+		
+		assertNotNull(educationHistory);
+	}
+	
+	@Test
+	public void getCourseCountById() {
+		String id = "test04";
+		int result = memberBiz.getCourseCountById(id);
+		
+		assertTrue(result > 0);
+	}
+	
+	@Test
+	public void getCourseList() {
+		EducationHistorySearchVO educationHistorySearchVO = new EducationHistorySearchVO();
+		
+		educationHistorySearchVO.setMemberId("test02");
+		educationHistorySearchVO.setEndIndex(5);
+		educationHistorySearchVO.setStartIndex(0);
+		
+		assertNotNull(memberBiz.getCourseList(educationHistorySearchVO));
+	}
+	
+	@Test
+	public void doResign(){
+		MemberVO memberVO = new MemberVO();
+		memberVO.setId("test02");
+		memberVO.setPassword("123qwe!@#qwe");
+		
+		assertTrue(memberBiz.doResign(memberVO));
+	}
+	
 }

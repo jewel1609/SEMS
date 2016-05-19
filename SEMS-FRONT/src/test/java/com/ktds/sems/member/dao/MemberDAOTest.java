@@ -577,5 +577,41 @@ public class MemberDAOTest extends SemsTestCase {
 			fail("[DAO Part] stampLogoutTimeByMemberIdTest Fail.");
 		}
 	}
+	
+	@Test
+	public void getCourseList(){
+		EducationHistorySearchVO educationHistorySearchVO = new EducationHistorySearchVO();
+		
+		educationHistorySearchVO.setMemberId("test02");
+		educationHistorySearchVO.setEndIndex(5);
+		educationHistorySearchVO.setStartIndex(0);
+	
+		memberDAO.getCourseList(educationHistorySearchVO);
+		
+		assertNotNull(educationHistorySearchVO);
+	}
+	
+	@Test
+	public void getCourseCountById(){
+		String id = "test04";
+		assertTrue(memberDAO.getCourseCountById(id) > 0);
+	}
+	
+	@Test
+	public void getOneEducationByIdAndEducationId(){
+		String id = "test02";
+		String eduId= "ED-20160516-000185";
+		assertNotNull(memberDAO.getOneEducationByIdAndEducationId(eduId, id));
+	}
+	
+	@Test
+	public void dropCourseApply(){
+		EducationHistoryVO educationHistory = new EducationHistoryVO();
+		educationHistory.setCmnt("JUnit!!!!!!!!test!!");
+		educationHistory.setEducationId("ED-20160516-000185");
+		educationHistory.setMemberId("test02");
+		
+		assertTrue( memberDAO.dropCourseApply(educationHistory) > 0 );
+	}
 
 }

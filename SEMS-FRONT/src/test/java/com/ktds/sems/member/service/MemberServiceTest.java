@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -1055,6 +1056,73 @@ public class MemberServiceTest extends SemsTestCase {
 		} else {
 			fail("[Service Part]doCheckIpTest Fail.");
 		}
+	}
+	
+	@Test
+	public void dropCourseApply(){
+		MockHttpSession session = new MockHttpSession();
+		MemberVO sessionMember = new MemberVO();
+		sessionMember.setId("test02");
+		session.setAttribute("_MEMBER_", sessionMember);
+		String educationId = "ED-20160516-000185";
+		String courseDropReason = "JUnit..............";
+		
+		String dropCourseApply = memberService.dropCourseApply(educationId, session, courseDropReason);
+		
+		assertEquals(dropCourseApply, "OK");
+	}
+	
+	@Test
+	public void writeResignCourse(){
+		
+		ModelAndView view = new ModelAndView();
+		MockHttpSession session = new MockHttpSession();
+		MemberVO sessionMember = new MemberVO();
+		sessionMember.setId("test02");
+		session.setAttribute("_MEMBER_", sessionMember);
+		String educationId = "ED-20160516-000185";
+		view.setViewName("member/resignCourseWrite");
+		
+		assertEquals(view.getViewName(),memberService.writeResignCourse(educationId, session).getViewName());
+	}
+	
+	@Test
+	public void doResign(){
+		
+		MemberVO memberVO = new MemberVO();
+		memberVO.setId("test02");
+		memberVO.setPassword("123qwe!@#qwe");
+		String resignCode = "3226f65a-5aec-4fe0-a56a-26f4b5d546b2";
+		BindingResult errors = new BeanPropertyBindingResult(memberVO, "loginForm");
+		
+		assertNotNull(memberService.doResign(memberVO, errors, resignCode));
+	}
+	
+	@Test
+	public void loginForResign(){
+		ModelAndView view = new ModelAndView();
+		
+		String resignCode = "3226f65a-5aec-4fe0-a56a-26f4b5d546b2";
+		MemberVO memberVO = new MemberVO();
+		memberVO.setId("test02");
+		
+		view.setViewName("member/loginForResign");
+		
+		assertEquals(view.getViewName(), memberService.loginForResign(resignCode, memberVO.getId()).getViewName());
+	}
+	
+	@Test
+	public void insertUuidForResign(){
+		MockHttpSession session = new MockHttpSession();
+		MemberVO memberVO = new MemberVO();
+		memberVO.setId("test02");
+		session.setAttribute("_MEMBER_", memberVO);
+		
+		String uuid = UUID.randomUUID().toString();
+		memberVO.setUuid(uuid);
+		
+		assertNotNull(memberService.insertUuidForResign(session));
+		
 	}
 	
 	/**
