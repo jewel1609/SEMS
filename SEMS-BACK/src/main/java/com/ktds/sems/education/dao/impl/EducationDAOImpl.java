@@ -92,34 +92,6 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 		paramMap.put("changeState", changeState);
 		return getSqlSession().update("EducationDAO.cancelJoinEducationByMemberId", paramMap);
 	}
-	
-	/*	@Override
-	public int completeCancelEducationByMemberId(String educationHistoryId) {
-		Map<String, String> paramMap = new HashMap<String, String>();
-		paramMap.put("educationHistoryId", educationHistoryId);
-		return getSqlSession().update("EducationDAO.completeCancelEducationByMemberId", paramMap);
-	}
-	
-	@Override
-	public int denyCancelEducationByMemberId(String educationHistoryId) {
-		Map<String, String> paramMap = new HashMap<String, String>();
-		paramMap.put("educationHistoryId", educationHistoryId);
-		return getSqlSession().update("EducationDAO.denyCancelEducationByMemberId", paramMap);
-	}
-	
-	@Override
-	public int completeGiveUpEducationByMemberId(String educationHistoryId) {
-		Map<String, String> paramMap = new HashMap<String, String>();
-		paramMap.put("educationHistoryId", educationHistoryId);
-		return getSqlSession().update("EducationDAO.completeGiveUpEducationByMemberId", paramMap);
-	}
-	
-	@Override
-	public int denyGiveUpEducationByMemberId(String educationHistoryId) {
-		Map<String, String> paramMap = new HashMap<String, String>();
-		paramMap.put("educationHistoryId", educationHistoryId);
-		return getSqlSession().update("EducationDAO.denyGiveUpEducationByMemberId", paramMap);
-	}*/
 
 	@Override
 	public String getStateByEducationHistroyId(String educationHistoryId) {

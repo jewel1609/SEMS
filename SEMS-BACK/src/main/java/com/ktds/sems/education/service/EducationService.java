@@ -27,6 +27,7 @@ public interface EducationService {
 
 	public ModelAndView applyJoinEducationByMemberId(String educationHistoryId);
 
-	public ModelAndView cancelJoinEducationByMemberId(String educationHistoryId, String memberId, String description);
+	public void rejectionMailAction(String educationHistoryId, String memberId, String description);
 
+	public ModelAndView cancelJoinEducationByMemberId(String educationHistoryId, String memberId, String description);
 }

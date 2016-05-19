@@ -9,6 +9,7 @@
    src="<c:url value='/resources/js/jquery.min.js"'/>"></script>
 <script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
 <script type="text/javascript">
+
    $(document).ready(function() {
 	 
 	   $("#searchInitBtn").click(function() {
@@ -27,14 +28,15 @@
 		});
 		
       $("#joinAplyBtn").click(function() {
-            var educationHistoryId = $("#historyId").val();
-            location.href = "<c:url value='/joinAply/"+educationHistoryId+"'/>";
-      });
-	  
+            var eduHistoryId = $("#eduHistoryId").val();
+                                 location.href = "<c:url value='/joinAply/"+eduHistoryId+"'/>";
+                              });
+
       $("#joinCnclBtn").click(function() {
     	    var educationHistoryId = $("#historyId2").val();
 			var memberId = $("#memberId2").val();
 			var description = $("#description").val();
+		
 			if( description == null || description ==""){
 				alert("내용을 입력해주세요.")
 				return;
@@ -49,6 +51,7 @@
 			 $("#memberId").val($(this).data('whatever'));
 		    /*  $('#JoinAplyModal').modal('show'); */
 	   });
+		
 		$(".cnclaply").click(function(){
 			 $("#historyId2").val($(this).data('id'));
 			 $("#memberId2").val($(this).data('whatever'));
@@ -115,6 +118,10 @@
 					<td>
 						<button class="btn btn-primary btn-sm cnclaply" data-toggle="modal" data-id="${eduHistory.educationHistoryId}" data-whatever="${eduHistory.memberId }"
 		data-target="#JoinCnclModal">교육참여거절</button>
+
+	<!-- 	data-target="#rejectionMyModal">교육참여거절</button> -->
+
+
 					</td>
 				</tr>
 			</c:if>
@@ -186,8 +193,6 @@
 		</tr>	
    </table>
 
-   
-   
 	<div class="modal fade" id="JoinAplyModal" tabindex="-1" role="dialog"
 		aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-sm">
@@ -238,7 +243,6 @@
 			</div>
 		</div>
 	</div>
-
 
 </body>
 </html>

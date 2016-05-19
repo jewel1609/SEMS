@@ -22,6 +22,8 @@ import com.ktds.sems.education.vo.EducationHistoryVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.file.biz.FileBiz;
 import com.ktds.sems.file.vo.FileVO;
+import com.ktds.sems.member.biz.MemberBiz;
+import com.ktds.sems.member.vo.MemberVO;
 
 import kr.co.hucloud.utilities.SHA256Util;
 import kr.co.hucloud.utilities.web.Paging;
@@ -31,7 +33,12 @@ public class EducationServiceImpl implements EducationService {
 	private Logger logger = LoggerFactory.getLogger(EducationServiceImpl.class);	
 	
 	private EducationBiz educationBiz;
+	private MemberBiz memberBiz;
 	private FileBiz fileBiz;
+
+	public void setMemberBiz(MemberBiz memberBiz) {
+		this.memberBiz = memberBiz;
+	}
 
 	public void setEducationBiz(EducationBiz educationBiz) {
 		this.educationBiz = educationBiz;
@@ -309,67 +316,12 @@ public class EducationServiceImpl implements EducationService {
 		return view;
 	}
 
-	/*@Override
-	public ModelAndView completeCancelEducationByMemberId(String educationHistoryId) {
-		
-		ModelAndView view = new ModelAndView();
-		
-		boolean result = educationBiz.completeCancelEducationByMemberId(educationHistoryId);
-		
-		if ( result ) {
-		view.setViewName("redirect:/educationHistory");
-		return view;
-		}
-		else return view;
-	}
-	
 	@Override
-	public ModelAndView denyCancelEducationByMemberId(String educationHistoryId) {
+	public void rejectionMailAction(String educationHistoryId, String memberId, String description) {
 		
-		ModelAndView view = new ModelAndView();
-		
-		boolean result = educationBiz.denyCancelEducationByMemberId(educationHistoryId);
-		
-		if ( result ) {
-		view.setViewName("redirect:/educationHistory");
-		return view;
-		}
-		else return view;
+		MemberVO member = memberBiz.getOneMember(memberId);
+		String email = member.getEmail();
+		String name = member.getName();
+		educationBiz.sendEmailRejection( educationHistoryId, memberId, description , email , name );
 	}
-	
-	@Override
-	public ModelAndView completeGiveUpEducationByMemberId(String educationHistoryId) {
-		
-		ModelAndView view = new ModelAndView();
-		
-		boolean result = educationBiz.completeGiveUpEducationByMemberId(educationHistoryId);
-		
-		if ( result ) {
-		view.setViewName("redirect:/educationHistory");
-		return view;
-		}
-		else return view;
-	}
-	
-	@Override
-	public ModelAndView denyGiveUpEducationByMemberId(String educationHistoryId) {
-	
-		ModelAndView view = new ModelAndView();
-		
-		boolean result = educationBiz.denyGiveUpEducationByMemberId(educationHistoryId);
-		
-		if ( result ) {
-		view.setViewName("redirect:/educationHistory");
-		return view;
-		}
-		else return view;
-	}
-	
-	*/
-
-
-
-
-
-
 }

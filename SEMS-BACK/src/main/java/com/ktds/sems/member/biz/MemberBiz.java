@@ -95,4 +95,6 @@ public interface MemberBiz {
 	
 	public int getTotalAdminHistoryCount(LoginHistorySearchVO loginHistorySearchVO);
 
+	public MemberVO getOneMember(String memberId);
+
 }

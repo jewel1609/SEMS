@@ -352,6 +352,9 @@ public class MemberBizImpl implements MemberBiz {
 	public List<String> getTypeList() {
 		return memberDAO.getTypeList();
 	}
-
 	
+	@Override
+	public MemberVO getOneMember(String memberId) {
+		return memberDAO.getOneMember(memberId);
+	}
 }

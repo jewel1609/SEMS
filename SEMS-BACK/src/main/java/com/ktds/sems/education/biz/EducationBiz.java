@@ -36,7 +36,7 @@ public interface EducationBiz {
 	public boolean cancelJoinEducationByMemberId(String educationHistoryId, String changeState);
 
 	public String getStateByEducationHistroyId(String educationHistoryId);
-	
-	
+
+	public void sendEmailRejection(String educationHistoryId, String memberId, String description, String email, String name);
 
 }

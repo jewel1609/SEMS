@@ -81,8 +81,10 @@ public interface MemberDAO {
 	
 	public int getTotalAdminHistoryCount(LoginHistorySearchVO loginHistorySearchVO);
 
+	public MemberVO getOneMember(String memberId);
+
 	public String getMemberTypeCode(String memberType);
 
 	public int modifyMemberTypeById(Map<String, String> modifyMemberType);
-	
+
 }

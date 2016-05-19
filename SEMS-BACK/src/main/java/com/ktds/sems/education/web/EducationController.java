@@ -65,8 +65,15 @@ public class EducationController {
 		return view;
 	}
 
+	/*@RequestMapping("/rejectionMail/{memberId}")
+	public String rejectionMailAction(@PathVariable String memberId, String textMail){
+		
+		return educationService.rejectionMailAction(memberId, textMail);
+	}*/
+
 	@RequestMapping("/joinCncl/{educationHistoryId}/{memberId}/{description}")
 	public ModelAndView cnclJoin(@PathVariable String educationHistoryId, @PathVariable String memberId, @PathVariable String description) {
+		educationService.rejectionMailAction(educationHistoryId, memberId, description);
 		ModelAndView view = educationService.cancelJoinEducationByMemberId(educationHistoryId, memberId, description);
 		return view;
 	}

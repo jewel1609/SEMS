@@ -2,6 +2,8 @@ package com.ktds.sems.education.biz.impl;
 
 import java.util.List;
 
+import com.ktds.sems.common.SendMail;
+import com.ktds.sems.common.vo.MailVO;
 import com.ktds.sems.education.biz.EducationBiz;
 import com.ktds.sems.education.dao.EducationDAO;
 import com.ktds.sems.education.vo.CategoryVO;
@@ -168,6 +170,23 @@ public class EducationBizImpl implements EducationBiz {
 	}
 
 	@Override
+	public void sendEmailRejection(String educationHistoryId, String memberId, String description, String email, String name) {
+		SendMail sendMail = new SendMail();
+		MailVO mailVO = new MailVO();
+		mailVO.setFromId("testForSendEmailKtds@gmail.com");
+		//mailVO.setFromId("semsjhg@gmail.com");
+		mailVO.setFromPassword("123qwe!@#qwe");
+		mailVO.setSubject("[sems] " + name + "님의 교육 포기/취소 신청에 대한 답변입니다.");
+		mailVO.setText(
+						memberId + "(" + name + ")" + "님이 신청하신 요청 번호 [" + educationHistoryId + "] 에 대해 검토해본 결과 관리자에 의해 요청이 거절되었음을 알립니다. "
+						+ " 요청에 대한 거절 사유: [ " + description + " ]"
+					  );
+		
+		mailVO.setToId(email);
+		sendMail.sendMailToCustomer(mailVO);
+		
+	}
+
 	public boolean applyJoinEducationByMemberId(String educationHistoryId, String changeState) {
 		return educationDAO.applyJoinEducationByMemberId(educationHistoryId, changeState) > 0;
 	}
@@ -177,30 +196,8 @@ public class EducationBizImpl implements EducationBiz {
 		return educationDAO.cancelJoinEducationByMemberId(educationHistoryId, changeState) > 0;
 	}
 	
-	/*@Override
-	public boolean completeCancelEducationByMemberId(String educationHistoryId) {
-		return educationDAO.completeCancelEducationByMemberId(educationHistoryId) > 0;
-	}
-	
-	@Override
-	public boolean denyCancelEducationByMemberId(String educationHistoryId) {
-		return educationDAO.denyCancelEducationByMemberId(educationHistoryId) > 0;
-	}
-	
-	@Override
-	public boolean completeGiveUpEducationByMemberId(String educationHistoryId) {
-		return educationDAO.completeGiveUpEducationByMemberId(educationHistoryId) > 0;
-	}
-	
-	@Override
-	public boolean denyGiveUpEducationByMemberId(String educationHistoryId) {
-		return educationDAO.denyGiveUpEducationByMemberId(educationHistoryId) > 0;
-	}*/
-
 	@Override
 	public String getStateByEducationHistroyId(String educationHistoryId) {
 		return educationDAO.getStateByEducationHistroyId(educationHistoryId);
 	}
-
-
 }
