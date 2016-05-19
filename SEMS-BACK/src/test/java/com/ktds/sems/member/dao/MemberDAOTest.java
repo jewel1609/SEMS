@@ -46,11 +46,11 @@ public class MemberDAOTest extends SemsTestCase {
 	
 	@Test
 	public void getMemberTypeCodeTest () {
-		String memberType = "JUNITTEST";
+		String memberType = "수강생";
 		String memberTypeCode = memberDAO.getMemberTypeCode(memberType);
 		
 		assertNotNull(memberTypeCode);
-		assertEquals(memberTypeCode, "TEST");
+		assertEquals(memberTypeCode, "STD");
 	}
 	
 	@Test
@@ -102,11 +102,11 @@ public class MemberDAOTest extends SemsTestCase {
 	
 	@Test
 	public void getMemberTypeCodeIdTest() {
-		String memberType = "JUNITTEST";
+		String memberType = "수강생";
 		String memberTypeCodeId = memberDAO.getMemberTypeCodeId(memberType);
 		
 		assertNotNull(memberTypeCodeId);
-		assertTrue(memberTypeCodeId.equals("TEST"));
+		assertTrue(memberTypeCodeId.equals("STD"));
 	}
 	
 	@Test
