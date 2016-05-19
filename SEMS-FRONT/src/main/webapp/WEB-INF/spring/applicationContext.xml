@@ -25,7 +25,7 @@
 			<mvc:exclude-mapping path="/checkValidationByRepeatPassword" />
 			<mvc:exclude-mapping path="/checkValidationByEmail" />
 			<mvc:exclude-mapping path="/checkValidationByPhoneNumber" />
-			<mvc:exclude-mapping path="/doRegisterAction" />
+			<mvc:exclude-mapping path="/doRegisterMemberAction" />
 			<mvc:exclude-mapping path="/changePassword/*" />
 			<mvc:exclude-mapping path="/doChangePasswordAction" />
 			<mvc:exclude-mapping path="/checkPassword" />

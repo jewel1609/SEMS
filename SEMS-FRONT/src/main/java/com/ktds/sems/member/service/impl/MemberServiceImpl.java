@@ -56,7 +56,6 @@ public class MemberServiceImpl implements MemberService {
 
 		boolean isNotError = true;
 		isNotError = isAllValidValue(member, repeatPassword, view);
-
 		if (errors.hasErrors() || !isNotError) {
 			List<HighestEducationLevelVO> highestEducationLevelList = memberBiz.getHighestEducationLevels();
 			List<GraduationTypeVO> graduationTypeList = memberBiz.getGraduationTypes();
@@ -198,17 +197,13 @@ public class MemberServiceImpl implements MemberService {
 		return;
 	}
 
+	/**
+	 * 준호 
+	 * 수정시 적길 바람
+	 */
 	@Override
-	public void checkValidationByEmail(String email, HttpServletResponse response, HttpSession session) {
+	public void checkValidationByEmail(String email, HttpServletResponse response) {
 		String message = "OK";
-		
-		MemberVO sessionMember = (MemberVO)session.getAttribute("_MEMBER_");
-		
-		if ( sessionMember.getEmail().equals(email) ) {
-			message = "OK";
-			AjaxUtil.sendResponse(response, message);
-			return;
-		}
 		
 		boolean isVerifyEmail = memberBiz.isVerifyEmail(email);
 		if (!isVerifyEmail) {
@@ -587,7 +582,6 @@ public class MemberServiceImpl implements MemberService {
 		else {
 			List<HighestEducationLevelVO> highestEducationLevelList = memberBiz.getHighestEducationLevels();
 			List<GraduationTypeVO> graduationTypeList = memberBiz.getGraduationTypes();
-			
 			view.setViewName("member/registerStudent");
 			view.addObject("graduationTypeList", graduationTypeList);
 			view.addObject("highestEducationLevelList", highestEducationLevelList);

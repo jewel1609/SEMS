@@ -223,7 +223,7 @@
 			form.attr("action", "<c:url value="/doRegisterMemberAction" />");
 			form.submit();
 			
-			$.post("<c:url value="/checkRegistState" />", { }, function(data) {
+/* 			$.post("<c:url value="/checkRegistState" />", { }, function(data) {
 				if (!data) {
 					alert("인터넷 연결이 끊겼습니다.");
 				} else if (data == "OK") {
@@ -231,7 +231,7 @@
 				} else if (data == "NO") {
 					alert("가입에 실패하였습니다. 다시 시도해주세요.");
 				}
-			});
+			}); */
 			
 		});
 		
