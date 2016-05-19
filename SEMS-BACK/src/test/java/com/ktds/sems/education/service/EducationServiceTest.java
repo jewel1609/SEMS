@@ -38,7 +38,9 @@ public class EducationServiceTest extends SemsTestCase {
 
 	@Autowired
 	private EducationService educationeService;
-
+	
+	/*
+	 * educationId 재설정하면 됩니다.
 	@Test
 	public void getOneEducationForUpdateTest(){
 		String educationId = "ED-20160518-000207";
@@ -47,6 +49,7 @@ public class EducationServiceTest extends SemsTestCase {
 		assertNotNull(view);
 		assertTrue(viewName == "education/update");
 	}
+	*/
 	
 //	@Test
 	public void doEducationModifyTest() {
