@@ -18,9 +18,8 @@
 		var ua = navigator.userAgent.toLowerCase();
 		if (ua.indexOf('chrome') == -1 ) // Internet Explorer일 경우
 	    {
-			console.log('ie');
-			$("#startDate").datepicker({ dateFormat: "yy-mm-dd",  minDate: new Date() });
-			$("#endDate").datepicker({ dateFormat: "yy-mm-dd",  minDate: new Date() });
+			$("#startDate").datepicker({ dateFormat: "yy-mm-dd",  minDate: new Date(), maxDate: '+2y' });
+			$("#endDate").datepicker({ dateFormat: "yy-mm-dd",  minDate: new Date(), maxDate: '+2y' });
 			/*
 			http://timepicker.co/ 참조
 			*/
@@ -28,13 +27,29 @@
 				 timeFormat: 'HH:mm',
 			        startHour: 9,
 			        startTime: new Date(0, 0, 0, 8, 20, 0),
-			        interval: 10
+			        interval: 10,
+			        change: function(time) {
+			        	var startTime = $(this).val();
+			        	var endTime = $("#endTime").val();
+			            
+			            if ( ( startTime != null || startTime != '' ) && ( endTime == '' || startTime > endTime ) ) {
+			            	$("#endTime").val(startTime);
+						}
+			        }
 			});
 			$("#endTime").timepicker({
 				 timeFormat: 'HH:mm',
 			        startHour: 9,
 			        startTime: new Date(0, 0, 0, 8, 20, 0),
-			        interval: 10
+			        interval: 10,
+			        change: function(time) {
+			        	var endTime = $(this).val();
+			        	var startTime = $("#startTime").val();
+			            
+			            if ( ( endTime != null || endTime != '' ) && ( startTime == '' || endTime < startTime ) ) {
+			            	$("#startTime").val(endTime);
+						}
+			        }
 			});
 	    }
 	    else  // Internet Explorer가 아닐경우
@@ -54,31 +69,34 @@
 		} 
 
 		today = yyyy + '-' + mm + '-' + dd;
+		maxday = yyyy + 2 + '-' + mm + '-' + dd;
 		
 		//개강 시작과 종료의 최소선택을 오늘로
 		$("#startDate").attr("min", today);
+		$("#startDate").attr("max", maxday);
 		$("#endDate").attr("min", today);
+		$("#endDate").attr("max", maxday);
 		
 		//날짜의 선택이 변경되면 새로고침
 		$("#startDate").change(function(){
-			if ( $("#endDate").val() == '' || $(this).val() > $("#endDate").val() ) {
+			if ( $(this).val() != '' && ( $("#endDate").val() == '' || $(this).val() > $("#endDate").val() ) ) {
 				$("#endDate").val($(this).val());
 			}
 		});
 		$("#endDate").change(function(){
-			if ( $("#startDate").val() == '' || $(this).val() < $("#startDate").val() ) {
+			if ( $(this).val() != '' && ( $("#startDate").val() == '' || $(this).val() < $("#startDate").val() ) ) {
 				$("#startDate").val($(this).val());
 			}
 		});
 		
 		//시간의 선택이 변경되면 새로고침
 		$("#startTime").change(function(){
-			if ( $("#endTime").val() == '' || $(this).val() > $("#endTime").val() ) {
+			if ( $(this).val() != '' && ( $("#endTime").val() == '' || $(this).val() > $("#endTime").val() ) ) {
 				$("#endTime").val($(this).val());
 			}
 		});
 		$("#endTime").change(function(){
-			if ( $("#startTime").val() == '' || $(this).val() < $("#startTime").val() ) {
+			if ( $(this).val() != '' && ( $("#startTime").val() == '' || $(this).val() < $("#startTime").val() ) ) {
 				$("#startTime").val($(this).val());
 			}
 		});
@@ -103,6 +121,15 @@
 				$(this).val(v.replace(regexp, ''));
 			}
 		});
+		
+		$(".noPaste").on('paste', function(e){
+			e.preventDefault();
+		});
+		
+		$(".noText").keypress(function(){
+			return false;
+		});
+		
 		$("#maxMember").keyup(function(event) {
 			reg = /[^0-9]/gi;
 	        v = $(this).val();
@@ -112,13 +139,13 @@
 	            $(this).focus();
 	            return;
 	        }
-	        if ( v == 0 ) {
+	        if ( v != '' && v == 0 ) {
 	        	alert("0이상의 숫자만 입력 하시오.");
 	            $(this).val('');
 	            $(this).focus();
 	            return;
 	        }
-	        if ( v > 2147483647 ) {
+	        if ( v != '' && v > 2147483647 ) {
 	        	alert("너무 큰 숫자의 입력입니다.");
 	            $(this).focus();
 	            return;
@@ -255,7 +282,7 @@
 			<br />
 			<form:errors path="memberId" />
 			<br />
-	     정원 : <input type="text" class="onlyText" id="maxMember"
+	     정원 : <input type="text" class="onlyText noPaste" id="maxMember"
 				name="maxMember" value="${educationVO.maxMember }" min="1" max="2147483647" />
 			<br />
 			<br />
@@ -281,23 +308,23 @@
 			<br />
 			<form:errors path="educationIntroduce" />
 			<br />
-	     개강일 :  <input type="date" id="startDate" name="startDate"
+	     개강일 :  <input type="date" id="startDate" class="noText" name="startDate"
 				value="${educationVO.startDate }" />
 			<br />
 			<form:errors path="startDate" />
 			<br />
-	     종강일 :  <input type="date" id="endDate" name="endDate"
+	     종강일 :  <input type="date" id="endDate" class="noText" name="endDate"
 				value="${educationVO.endDate }" />
 			<br />
 			<form:errors path="endDate" />
 			<br />
 	    
-	     강의 시간(시작) : <input type="time" id="startTime" name="startTime"
+	     강의 시간(시작) : <input type="time" id="startTime" class="noText" name="startTime"
 				value="${educationVO.startTime }" />
 			<br />
 			<form:errors path="startTime" />
 			<br />
-	     강의 시간(종료) :  <input type="time" id="endTime" name="endTime"
+	     강의 시간(종료) :  <input type="time" id="endTime" class="noText" name="endTime"
 				value="${educationVO.endTime }" />
 			<br />
 			<form:errors path="endTime" />
