@@ -51,6 +51,12 @@
 							else if(data == "FAIL_M"){
 								alert("수정 중 오류 발생했습니다. 잠시 후 다시 시도해 주세요.");
 							}
+							else if(data == "NO_DATA") {
+								alert("수정할 내용이 모두 입력되지 않았습니다. 입력 후 다시 시도해 주세요.");
+							}
+							else if(data == "DATAL_F") {
+								alert("입력한 데이터의 길이가 알맞지 않습니다.");
+							}
 							location.href = "<c:url value="/education/cost"/>";
 						}
 				)
@@ -63,7 +69,6 @@
 			
 			if ( confirm("해당 교육 비용 코드를 삭제 하시겠습니까?") == true ) {
 				location.href = "<c:url value="/education/deleteEduCost/"/>"+cdId;
-				checkDelete = "T";
 			}
 			
 		});
@@ -153,6 +158,12 @@
 							}
 							else if(data == "FAIL_I"){
 								alert("등록 중 오류 발생했습니다. 잠시 후 다시 시도해 주세요.");
+							}
+							else if(data == "NO_DATA") {
+								alert("코드 또는 교육 비용이 입력되지 않았습니다. 모두 입력 후 다시 시도해 주세요.");
+							}
+							else if(data == "DATAL_F") {
+								alert("입력한 데이터의 길이가 알맞지 않습니다.");
 							}
 							location.href = "<c:url value="/education/cost"/>";
 						}
