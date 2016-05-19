@@ -67,6 +67,7 @@ public interface MemberDAO {
 	public String isExistEmail(String email);
 
 	public int stampLogoutTime(LoginHistoryVO newLoginHistoryVO);
+	
 	public int stampLogoutTimeByMemberId(String memberId);
 
 	public int nextLoginHistorySeq();
@@ -127,4 +128,12 @@ public interface MemberDAO {
 
 	public List<EducationCostVO> getCostList();
 
+	public List<EducationHistoryVO> getCourseList(EducationHistorySearchVO educationHistorySearchVO);
+
+	public EducationHistoryVO getOneEducationByIdAndEducationId(String educationId, String id);
+
+	public int dropCourseApply(EducationHistoryVO educationHistory);
+	
+	public int getCourseCountById(String id);
+	
 }
