@@ -1,24 +1,22 @@
 package com.ktds.sems.cooperation.service.impl;
 
-import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.List;
-
-
 import com.ktds.sems.cooperation.biz.CooperationBiz;
 import com.ktds.sems.cooperation.service.CooperationService;
+import com.ktds.sems.cooperation.vo.CooperationListVO;
+import com.ktds.sems.cooperation.vo.CooperationSearchVO;
+import com.ktds.sems.cooperation.vo.CooperationTypeVO;
 import com.ktds.sems.cooperation.vo.CooperationVO;
 
 import kr.co.hucloud.utilities.web.AjaxUtil;
-import com.ktds.sems.cooperation.vo.CooperationListVO;
-import com.ktds.sems.cooperation.vo.CooperationSearchVO;
-
 import kr.co.hucloud.utilities.web.Paging;
 
 public class CooperationServiceImpl implements CooperationService {
@@ -33,7 +31,8 @@ public class CooperationServiceImpl implements CooperationService {
 	public ModelAndView viewRegistCooPage() {
 		ModelAndView view = new ModelAndView();
 		view.setViewName("cooperation/registerCoo");
-
+		List<CooperationTypeVO> cooTypeList = cooperationBiz.getCooTypeList();
+		view.addObject("cooTypeList", cooTypeList);
 		return view;
 	}
 
@@ -151,6 +150,10 @@ public class CooperationServiceImpl implements CooperationService {
 		
 		view.setViewName("cooperation/modifyCoo");
 		view.addObject("cooperation", cooperation);
+		
+		List<CooperationTypeVO> cooTypeList = cooperationBiz.getCooTypeList();
+		view.addObject("cooTypeList", cooTypeList);
+		
 		return view;
 	}
 
@@ -168,7 +171,7 @@ public class CooperationServiceImpl implements CooperationService {
 			boolean result = cooperationBiz.doModifyCoo(cooperation);
 
 			if (result) {
-				view.setViewName("cooperation/cooperationDetail");
+				view.setViewName("redirect:/cooDetail/"+cooperation.getCooperationId());
 				view.addObject("cooperationVO", cooperation);
 				
 			} 
@@ -178,6 +181,4 @@ public class CooperationServiceImpl implements CooperationService {
 		}
 		return view;
 	}
-
-	
 }

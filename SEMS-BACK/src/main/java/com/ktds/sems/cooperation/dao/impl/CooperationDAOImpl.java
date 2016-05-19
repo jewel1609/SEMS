@@ -8,6 +8,7 @@ import org.mybatis.spring.support.SqlSessionDaoSupport;
 import com.ktds.sems.cooperation.dao.CooperationDAO;
 import com.ktds.sems.cooperation.vo.CooperationVO;
 import com.ktds.sems.cooperation.vo.CooperationSearchVO;
+import com.ktds.sems.cooperation.vo.CooperationTypeVO;
 import com.ktds.sems.cooperation.vo.CooperationVO;
 
 public class CooperationDAOImpl extends SqlSessionDaoSupport implements CooperationDAO{
@@ -60,6 +61,15 @@ public class CooperationDAOImpl extends SqlSessionDaoSupport implements Cooperat
 	@Override
 	public void doModifyCoo(CooperationVO cooperation) {
 		getSqlSession().update("CooperationDAO.doModifyCoo", cooperation);
+	}
+	@Override
+	public List<CooperationTypeVO> getCooTypeList() {
+		return getSqlSession().selectList("CooperationDAO.getCooTypeList");
+	}
+	
+	@Override
+	public String getOneCooperationId() {
+		return getSqlSession().selectOne("CooperationDAO.getOneCooperationId");
 	}
 	
 }

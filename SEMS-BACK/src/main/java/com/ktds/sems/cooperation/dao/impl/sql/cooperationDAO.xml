@@ -48,12 +48,14 @@
 	
 	<select id="getTotalCooperationCount" parameterType="map" resultType="_int" >
 		SELECT	COUNT(COO_ID)
-		FROM	COO_INFO
+		FROM	COO_INFO CI
+				, CODE_MNG CM
+		WHERE	CI.COO_TP = CM.CD_ID
 		<if test="searchType == 1 and searchType != null">
-			WHERE	COO_TTL LIKE '%'||#{searchKeyword}||'%'
+			AND	COO_TTL LIKE '%'||#{searchKeyword}||'%'
 		</if>
 		<if test="searchType == 2 and searchType != null">
-			WHERE	COO_TP LIKE '%'||#{searchKeyword}||'%'
+			AND	COO_TP LIKE '%'||#{searchKeyword}||'%'
 		</if>
 	</select>
 	
@@ -66,19 +68,21 @@
 				, MGR_PH managerPhoneNumber
 				, COO_PH cooperationPhoneNumber
 				, MGR_EMAIL managerEmail
-				, COO_TP cooperationType
+				, CD_NM cooperationType
 		FROM 	(
 					SELECT	ROWNUM AS RNUM
 							, COO_INFO.*
 					FROM	(
 								SELECT	*
-								FROM	COO_INFO
-								<if test="searchType == 1 and searchType != null">
-								WHERE   COO_TTL LIKE '%'||#{searchKeyword}||'%'
+								FROM	COO_INFO CI
+                                        , CODE_MNG CM
+                                WHERE   CI.COO_TP = CM.CD_ID  
+                                <if test="searchType == 1 and searchType != null">
+								AND   COO_TTL LIKE '%'||#{searchKeyword}||'%'
 								</if>
 								<if test="searchType == 2 and searchType != null">
-								WHERE   COO_TP LIKE '%'||#{searchKeyword}||'%'
-								</if>
+								AND   COO_TP LIKE '%'||#{searchKeyword}||'%'
+								</if>                          
 								ORDER	BY COO_ID DESC
 							) COO_INFO
 					WHERE	ROWNUM <![CDATA[<=]]> #{endIndex}
@@ -95,9 +99,11 @@
 				, MGR_PH managerPhoneNumber
 				, COO_PH cooperationPhoneNumber
 				, MGR_EMAIL managerEmail
-				, COO_TP cooperationType
-		FROM	COO_INFO
+				, CM.CD_NM cooperationType
+		FROM	COO_INFO CI
+      			, CODE_MNG CM
 		WHERE	COO_ID = #{cooperationId}
+		AND     CI.COO_TP = CM.CD_ID
 	</select>
 	
 	<delete id="doDeleteCooperation" parameterType="string" >
@@ -135,5 +141,19 @@
 		      	</if>
 		WHERE  COO_ID    = #{cooperationId}
 	</update>
+	
+	<select id="getCooTypeList" resultType="CooperationTypeVO">
+		SELECT	CD_ID codeId
+				, CD_NM codeName
+		FROM	CODE_MNG
+		WHERE	CD_TP = 'COO'
+		AND		CD_TP_2 = 'TYP'
+	</select>
+	
+	<select id="getOneCooperationId" resultType="string">
+		SELECT  COO_ID
+		FROM    COO_INFO
+		WHERE   ROWNUM=1
+	</select>
 
 </mapper>

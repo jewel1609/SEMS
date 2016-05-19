@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import com.ktds.sems.cooperation.vo.CooperationSearchVO;
+import com.ktds.sems.cooperation.vo.CooperationTypeVO;
 import com.ktds.sems.cooperation.vo.CooperationVO;
 
 public interface CooperationBiz {
@@ -24,5 +25,7 @@ public interface CooperationBiz {
 	public boolean doDeleteCooperation(String cooperationId);
 
 	public boolean doModifyCoo(CooperationVO cooperation);
+
+	public List<CooperationTypeVO> getCooTypeList();
 
 }

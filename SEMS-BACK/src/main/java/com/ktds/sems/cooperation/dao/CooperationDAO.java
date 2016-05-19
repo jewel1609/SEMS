@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.ktds.sems.cooperation.vo.CooperationSearchVO;
+import com.ktds.sems.cooperation.vo.CooperationTypeVO;
 import com.ktds.sems.cooperation.vo.CooperationVO;
 
 public interface CooperationDAO {
@@ -22,5 +23,7 @@ public interface CooperationDAO {
 
 	public int doDeleteCooperation(String cooperationId);
 	public void doModifyCoo(CooperationVO changeCooperation);
+	public List<CooperationTypeVO> getCooTypeList();
+	public String getOneCooperationId();
 
 }

@@ -10,6 +10,7 @@ import com.ktds.sems.cooperation.biz.CooperationBiz;
 import com.ktds.sems.cooperation.dao.CooperationDAO;
 import com.ktds.sems.cooperation.vo.CooperationVO;
 import com.ktds.sems.cooperation.vo.CooperationSearchVO;
+import com.ktds.sems.cooperation.vo.CooperationTypeVO;
 
 public class CooperationBizImpl implements CooperationBiz{
 
@@ -133,5 +134,10 @@ public class CooperationBizImpl implements CooperationBiz{
 			cooperationDAO.doModifyCoo(changeCooperation);
 		}
 		return true;
+	}
+
+	@Override
+	public List<CooperationTypeVO> getCooTypeList() {
+		return cooperationDAO.getCooTypeList(); 
 	}
 }
