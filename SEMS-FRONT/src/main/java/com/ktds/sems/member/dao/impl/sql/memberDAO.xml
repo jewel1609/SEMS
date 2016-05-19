@@ -457,7 +457,7 @@
 				, EI.END_DATE endDate
 				, EI.EDU_TTL educationTitle
 				, EI.COST cost
-				, CD.CD_NAME cdNm
+				, CD.CD_NM cdNm
 		FROM	EDU_INFO EI
 				, CODE_MNG CD
 				, (
@@ -499,7 +499,7 @@
 				) EH
 		WHERE	RNUM <![CDATA[>=]]> #{startIndex}
 		AND		EI.EDU_ID = EH.EDU_ID
-		AND		EI.STAT = CD.CD_ID
+		AND		EH.STAT = CD.CD_ID
 	</select>
 	
 	<select id="getTotalEducationHistoryCountById" parameterType="EducationHistorySearchVO" resultType="_int">
@@ -523,7 +523,7 @@
 		</if>
 	</select>
 	
-	<select id="getAllEducationHistoryListById" parameterType="EducationHistorySearchVO" resultType="EducationHistoryVO">
+	<select id="getAllEducationHistoryListById" parameterType="string" resultType="EducationHistoryVO">
 		SELECT	EH.EDU_HTR_ID educationHistoryId
 				, EH.EDU_ID educationId
 				, EH.MBR_ID memberId
@@ -536,12 +536,13 @@
 				, EI.END_DATE endDate
 				, EI.EDU_TTL educationTitle
 				, EI.COST cost
-				, CM.CD_NAME cdNm
+				, CM.CD_NM cdNm
 		FROM	EDU_HTR EH
 				, EDU_INFO EI
 				, CODE_MNG CM
 		WHERE	EI.EDU_ID = EH.EDU_ID
 		AND		CM.CODE_ID = EH.STAT
+		AND		EH.MBR_ID = #{id}
 	</select>
 	
 	<select id="doCheckIp" parameterType="LoginHistoryVO" resultType="_int">
@@ -584,7 +585,7 @@
 				, EI.COST cost
 				, EI.SRT_DATE startDate
 				, EI.END_DATE endDate
-				, CM.CD_NAME cdNm
+				, CM.CD_NM cdNm
 		FROM	EDU_INFO EI
 				, EDU_HTR EH
 				, CODE_MNG CM

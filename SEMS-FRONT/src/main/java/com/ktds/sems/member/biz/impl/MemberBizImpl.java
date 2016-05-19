@@ -637,17 +637,20 @@ public class MemberBizImpl implements MemberBiz {
 		wo.setFilePath("D:\\");
 		List<String> titles = new ArrayList<String>();
 
-		// 10개
+		// 13개
+		titles.add("교육 이력 아이디");
+		titles.add("교육 아이디");
 		titles.add("교육명");
 		titles.add("비용");
 		titles.add("수강생 아이디");
 		titles.add("신청 날짜");
-		titles.add("신청 상태");
+		titles.add("신청 상태 아이디");
 		titles.add("신청 IP");
 		titles.add("코멘트");
 		titles.add("피드백");
 		titles.add("교육시작일자");
 		titles.add("교육종료일자");
+		titles.add("신청 상태");
 		wo.setTitles(titles);
 
 		List<String[]> contents = new ArrayList<String[]>();
@@ -656,6 +659,11 @@ public class MemberBizImpl implements MemberBiz {
 		// educationHistoryList 만들기
 		try {
 			educationHistoryList = memberDAO.getAllEducationHistoryListById(id);
+			
+			System.out.println("**");
+			System.out.println("애듀에이션" + educationHistoryList.size());
+			System.out.println("**");
+			
 			Iterator<EducationHistoryVO> tempIterator = educationHistoryList.iterator();
 
 			// TODO while문으로 null을 만날 때 까지 while문을 돌려야 할 것 같다
@@ -667,19 +675,22 @@ public class MemberBizImpl implements MemberBiz {
 				EducationHistoryVO tempEducationHistoryVO = new EducationHistoryVO();
 				tempEducationHistoryVO = tempIterator.next();
 
-				// 10개
-				String[] content = new String[10];
+				// 13개
+				String[] content = new String[13];
 
-				content[0] = tempEducationHistoryVO.getEducationTitle();
-				content[1] = tempEducationHistoryVO.getCost();
-				content[2] = tempEducationHistoryVO.getMemberId();
-				content[3] = tempEducationHistoryVO.getEducationHistoryDate();
-				content[4] = tempEducationHistoryVO.getState();
-				content[5] = tempEducationHistoryVO.getIp();
-				content[6] = tempEducationHistoryVO.getCmnt();
-				content[7] = tempEducationHistoryVO.getFdbk();
-				content[8] = tempEducationHistoryVO.getStartDate();
-				content[9] = tempEducationHistoryVO.getEndDate();
+				content[0] = tempEducationHistoryVO.getEducationHistoryId();
+				content[1] = tempEducationHistoryVO.getEducationId();
+				content[2] = tempEducationHistoryVO.getEducationTitle();
+				content[3] = tempEducationHistoryVO.getCost();
+				content[4] = tempEducationHistoryVO.getMemberId();
+				content[5] = tempEducationHistoryVO.getEducationHistoryDate();
+				content[6] = tempEducationHistoryVO.getState();
+				content[7] = tempEducationHistoryVO.getIp();
+				content[8] = tempEducationHistoryVO.getCmnt();
+				content[9] = tempEducationHistoryVO.getFdbk();
+				content[10] = tempEducationHistoryVO.getStartDate();
+				content[11] = tempEducationHistoryVO.getEndDate();
+				content[12] = tempEducationHistoryVO.getCdNm();
 				
 				contents.add(content);
 			}

@@ -11,6 +11,16 @@ public class EducationHistoryVO extends EducationVO {
 	private String cmnt;
 	private String fdbk;
 
+	private String cdNm;
+
+	public String getCdNm() {
+		return cdNm;
+	}
+
+	public void setCdNm(String cdNm) {
+		this.cdNm = cdNm;
+	}
+
 	public String getEducationHistoryId() {
 		return educationHistoryId;
 	}
