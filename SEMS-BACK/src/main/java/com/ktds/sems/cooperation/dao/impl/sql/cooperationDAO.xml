@@ -81,7 +81,7 @@
 								AND   COO_TTL LIKE '%'||#{searchKeyword}||'%'
 								</if>
 								<if test="searchType == 2 and searchType != null">
-								AND   COO_TP LIKE '%'||#{searchTypeName}||'%'
+								AND   COO_TP LIKE '%'||#{searchKeyword}||'%'
 								</if>                          
 								ORDER	BY COO_ID DESC
 							) COO_INFO
@@ -153,5 +153,5 @@
 		FROM    COO_INFO
 		WHERE   ROWNUM=1
 	</select>
-	
+
 </mapper>
