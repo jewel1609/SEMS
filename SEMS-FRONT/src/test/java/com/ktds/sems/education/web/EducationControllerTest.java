@@ -113,12 +113,16 @@ public class EducationControllerTest extends SemsTestCase {
 		}
 	}
 	
-	//TODO 광민이 educationHistory
 	@Test
 	public void exportQNAListAsExcelTest() {
-		
+		MemberVO memberVO = new MemberVO();
+		memberVO.setId("test02");
+		MockHttpSession session = new MockHttpSession();
+		session.setAttribute(Session.MEMBER, memberVO);
+		String viewName = educationController.exportQNAListAsExcel(session);
+		assertNotNull(viewName);
+		assertEquals(viewName, "redirect:/myPage/myQNAList");
 	}
-	
 	
 	// @Test
 	public void doWriteActionTest() {
