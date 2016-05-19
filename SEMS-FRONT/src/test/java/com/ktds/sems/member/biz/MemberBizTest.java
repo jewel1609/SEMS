@@ -254,7 +254,7 @@ public class MemberBizTest extends SemsTestCase {
 		member.setId("JunitIdTest1");
 		member.setPassword("44cc5a083ad03370997e88834c4de95460fc54dc0562c401b71b9d504fe9d9b3");
 		member.setHighestEducationLevel("HIGH");
-		member.setName("JunitName");
+		member.setName("으악");
 		member.setEmail("junit1@naver.com");
 		member.setUniversityName("JUNIT대학교");
 		member.setMajorName("JUNIT과");
