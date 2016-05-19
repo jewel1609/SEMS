@@ -17,12 +17,18 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.SemsTestCase;
+import com.ktds.sems.common.Session;
 import com.ktds.sems.member.dao.MemberDAO;
 import com.ktds.sems.member.validator.PersonalInfoValidator;
+import com.ktds.sems.member.vo.LoginHistoryListVO;
+import com.ktds.sems.member.vo.LoginHistorySearchVO;
+import com.ktds.sems.member.vo.LoginHistoryVO;
 import com.ktds.sems.member.vo.MemberListVO;
 import com.ktds.sems.member.vo.MemberSearchVO;
 import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.member.vo.PersonalInfoReadVO;
+
+import kr.co.hucloud.utilities.web.Paging;
 
 public class MemberServiceTest extends SemsTestCase {
 	
@@ -507,5 +513,83 @@ public class MemberServiceTest extends SemsTestCase {
 			fail("Fail.....");
 		}
 	}
-
+	
+	@Test
+	public void getAllAdminHistoryTest() {
+		
+		LoginHistorySearchVO loginHistorySearchVO = new LoginHistorySearchVO();
+		loginHistorySearchVO.setId("test04");
+		ModelAndView view = memberService.getAllAdminHistory(loginHistorySearchVO, 0);
+		
+		if ( view != null ) {
+			String viewName = view.getViewName();
+			assertNotNull(viewName);
+			assertEquals(viewName, "member/adminHistory");
+		
+		LoginHistoryListVO loginHistoryListVO = (LoginHistoryListVO) view.getModel().get("loginHistoryListVO");
+		LoginHistorySearchVO loginSearchVO = (LoginHistorySearchVO) view.getModel().get("loginHistorySearchVO");
+		assertNotNull(loginHistoryListVO);
+		assertNotNull(loginSearchVO);
+		
+		Paging paging = loginHistoryListVO.getPaging();
+		assertNotNull(paging);
+		assertTrue(paging.getTotalArticleCount() > 0);
+		
+		List<LoginHistoryVO> loginHistory = loginHistoryListVO.getLoginHistoryList();
+		assertNotNull(loginHistory);
+		assertTrue(loginHistory.size() > 0);
+		}
+		else {
+			fail("getAllAdminHistoryTest Fail");
+		}
+	}
+	
+	@Test
+	public void getAllMemberHistoryTest() {
+		
+		MockHttpSession session = new MockHttpSession();
+		LoginHistorySearchVO loginHistorySearchVO = new LoginHistorySearchVO();
+		loginHistorySearchVO.setId("admin01");
+		loginHistorySearchVO.setMemberType("ADM");
+		session.setAttribute(Session.MEMBER_TYPE, "ADM");
+		
+		ModelAndView view = memberService.getAllMemberHistory(loginHistorySearchVO, 0, session);
+		
+		if ( view != null ) {
+			String viewName = view.getViewName();
+			assertNotNull(viewName);
+			assertEquals(viewName, "member/memberHistory");
+		
+		List<String> typeList = (List<String>) view.getModel().get("typeList");
+		LoginHistoryListVO loginHistoryListVO = (LoginHistoryListVO) view.getModel().get("loginHistoryListVO");
+		LoginHistorySearchVO loginSearchVO = (LoginHistorySearchVO) view.getModel().get("loginHistorySearchVO");
+		assertNotNull(typeList);
+		assertNotNull(loginHistoryListVO);
+		assertNotNull(loginSearchVO);
+		
+		Paging paging = loginHistoryListVO.getPaging();
+		assertNotNull(paging);
+		assertTrue(paging.getTotalArticleCount() > 0);
+		
+		List<LoginHistoryVO> loginHistory = loginHistoryListVO.getLoginHistoryList();
+		assertNotNull(loginHistory);
+		assertTrue(loginHistory.size() > 0);
+		
+		}
+		else {
+			fail("getAllMemberHistoryTest Fail");
+		}
+	}
+	
+	@Test
+	public void loginHistoryInitTest() {
+		ModelAndView view = memberService.loginHistoryInit();
+		assertNotNull(view);
+	}
+	
+	@Test
+	public void adminHistoryInitTest() {
+		ModelAndView view = memberService.adminHistoryInit();
+		assertNotNull(view);
+	}
 }
