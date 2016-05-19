@@ -220,19 +220,19 @@ public class EducationBizTest extends SemsTestCase{
 	@Test
 	public void validCategoryIdTest(){
 		CategoryVO categoryVO = new CategoryVO();
-		categoryVO.setCategoryId("pppTestppp");
+		categoryVO.setCategoryId("ZCS");
 		categoryVO.setCategoryType("medium");
 		Boolean isExist = educationBiz.validCategoryId(categoryVO);
-		assertTrue(!isExist);
+		assertTrue(isExist);
 	}
 	
 	@Test
 	public void validCategoryNameTest(){
 		CategoryVO categoryVO = new CategoryVO();
-		categoryVO.setCategoryName("pppTestppp");
+		categoryVO.setCategoryName("데이터베이스");
 		categoryVO.setCategoryType("medium");
 		Boolean isExist = educationBiz.validCategoryName(categoryVO);
-		assertTrue(!isExist);
+		assertTrue(isExist);
 	}
 	
 	@Test
@@ -266,7 +266,7 @@ public class EducationBizTest extends SemsTestCase{
 	@Test
 	public void getChildCategoryTest(){
 		CategoryVO categoryVO = new CategoryVO();
-		categoryVO.setCategoryId("PAID");
+		categoryVO.setCategoryId("ZCS");
 		categoryVO.setCategoryType("large");
 		List<CategoryVO> childCategories = educationBiz.getChildCategory(categoryVO);
 		assertNotNull(childCategories);
@@ -275,9 +275,9 @@ public class EducationBizTest extends SemsTestCase{
 	@Test
 	public void modifyCategoryTest(){
 		CategoryVO categoryVO = new CategoryVO();
-		categoryVO.setCategoryId("TSMO");
+		categoryVO.setCategoryId("ZCS");
 		categoryVO.setCategoryType("medium");
-		categoryVO.setCategoryName("Test");
+		categoryVO.setCategoryName("데이터베이스");
 		boolean result = educationBiz.modifyCategory(categoryVO);
 		assertTrue(result);
 	}
