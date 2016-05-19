@@ -5,7 +5,9 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ktds.sems.SemsTestCase;
@@ -13,6 +15,7 @@ import com.ktds.sems.education.vo.CategoryVO;
 import com.ktds.sems.education.vo.CostVO;
 import com.ktds.sems.education.vo.TimeVO;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class EducationDAOTest extends SemsTestCase{
 
 	@Autowired
