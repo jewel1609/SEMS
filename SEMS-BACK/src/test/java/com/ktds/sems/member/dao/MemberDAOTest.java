@@ -89,7 +89,7 @@ public class MemberDAOTest extends SemsTestCase {
 		String grdtCodeId = memberDAO.getGraduationTypeCodeId(graduationType);
 		
 		assertNotNull(grdtCodeId);
-		assertEquals(grdtCodeId, "EXPT");
+		assertTrue(grdtCodeId.equals("EXPT"));
 	}
 	
 	@Test
@@ -104,7 +104,7 @@ public class MemberDAOTest extends SemsTestCase {
 		String memberTypeCodeId = memberDAO.getMemberTypeCodeId(memberType);
 		
 		assertNotNull(memberTypeCodeId);
-		assertEquals(memberTypeCodeId, "TR");
+		assertTrue(memberTypeCodeId.equals("TR"));
 	}
 	
 	@Test
