@@ -256,4 +256,11 @@
 		WHERE	EDU_HTR_ID = #{educationHistoryId}
 	</select>
 	
+	<update id= "changeEducationApplyState" parameterType ="String">
+		UPDATE  EDU_HTR
+		SET	STAT = 'EDU_JN_A'
+		WHERE	EDU_HTR_ID = #{educationHistoryId}
+	</update>
+	
+	
 </mapper>
