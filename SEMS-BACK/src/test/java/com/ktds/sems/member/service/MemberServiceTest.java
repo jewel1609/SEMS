@@ -426,7 +426,7 @@ public class MemberServiceTest extends SemsTestCase {
 		MemberVO member = new MemberVO();
 		member.setPassword("4c5b7ab6a121aae1acda84fc71ed4b135e9f8eb7f1a25013515845e9c7ddc9f8");
 		member.setSalt("9ca0645b12e961ac");
-		member.setName("Junitaa");
+		member.setName("Junit");
 		member.setEmail("Junit@naver.com");
 		member.setHighestEducationLevel("UNIV");
 		member.setUniversityName("서울대");
@@ -436,10 +436,10 @@ public class MemberServiceTest extends SemsTestCase {
 		member.setPhoneNumber("010-1234-5678");
 		member.setMemberType("MBR");
 		for ( int i = 1; i < 6; i++) {
-			member.setId("Junit" + i);
+			member.setId("Junitaa" + i);
 			memberDAO.addNewMember(member);
 		}
-		String[] deleteMemberIds = {"Junit1", "Junit2", "Junit3", "Junit4", "Junit5"};
+		String[] deleteMemberIds = {"Junitaa1", "Junitaa2", "Junitaa3", "Junitaa4", "Junitaa5"};
 		
 		String viewName = memberService.massiveDeleteMember(deleteMemberIds);
 		assertNotNull(viewName);
