@@ -89,4 +89,10 @@ public interface MemberService {
 
 	public void checkValidationByMajorName(String majorName, HttpServletResponse response);
 
+	public ModelAndView getCourseList(HttpSession session, int pageNo);
+
+	public ModelAndView writeResignCourse(String educationId, HttpSession session);
+	
+	public String dropCourseApply(String educationId, HttpSession session, String courseDropReason);
+
 }
