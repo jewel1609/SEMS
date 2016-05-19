@@ -47,11 +47,11 @@ public class MemberBizTest extends SemsTestCase {
 	
 	@Test
 	public void getMemberTypeCodeTest () {
-		String memberType = "TES";
+		String memberType = "JUNITTEST";
 		String memberTypeCode = memberBiz.getMemberTypeCode(memberType);
 		
 		assertNotNull(memberTypeCode);
-		assertEquals(memberTypeCode, "TES");
+		assertEquals(memberTypeCode, "TEST");
 	}
 	
 	@Test
