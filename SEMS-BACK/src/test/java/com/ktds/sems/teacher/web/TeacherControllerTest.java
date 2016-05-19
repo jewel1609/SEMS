@@ -26,7 +26,7 @@ public class TeacherControllerTest extends SemsTestCase {
 
 	@Test
 	public void viewDetailPageTest() {
-		String memberId = "teacher02";
+		String memberId = "teacher01";
 		ModelAndView view = teacherController.viewDetailPage(memberId);
 		assertNotNull(view);
 		String viewName = view.getViewName();

@@ -22,42 +22,42 @@ public class TeacherBizTest extends SemsTestCase{
 	
 	@Test
 	public void getTeacherInfoTest(){
-		String memberId = "teacher02";
+		String memberId = "teacher01";
 		TeacherVO teacherVO = teacherBiz.getTeacherInfo(memberId);
 		assertNotNull(teacherVO);
 	}
 	
 	@Test
 	public void getTeacherEducationHistoryTest(){
-		String memberId = "teacher02";
+		String memberId = "teacher01";
 		List<EducationHistoryVO> teacherEducationHistories = teacherBiz.getTeacherEducationHistory(memberId);
 		assertNotNull(teacherEducationHistories);
 	}
 	
 	@Test
 	public void getTeacherProjectHistoryTest(){
-		String memberId = "teacher02";
+		String memberId = "teacher01";
 		List<ProjectHistoryVO> teacherProjectHistories = teacherBiz.getTeacherProjectHistory(memberId);
 		assertNotNull(teacherProjectHistories);
 	}
 	
 	@Test
 	public void getTeacherBookTest(){
-		String memberId = "teacher02";
+		String memberId = "teacher01";
 		List<TeacherBookVO> teacherBooks = teacherBiz.getTeacherBook(memberId);
 		assertNotNull(teacherBooks);
 	}
 	
 	@Test
 	public void getEducationHistoryTest(){
-		String memberId = "teacher02";
+		String memberId = "teacher01";
 		List<EducationVO> educationHistories = teacherBiz.getEducationHistory(memberId);
 		assertNotNull(educationHistories);
 	}
 	
 	@Test
 	public void getTeacherEducationGradeTest(){
-		String memberId = "teacher02";
+		String memberId = "teacher01";
 		double grade = teacherBiz.getTeacherEducationGrade(memberId);
 		assertNotNull(grade);
 	}

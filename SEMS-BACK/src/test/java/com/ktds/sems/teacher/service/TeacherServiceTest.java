@@ -16,7 +16,7 @@ public class TeacherServiceTest extends SemsTestCase{
 	
 	@Test
 	public void viewDetailTest(){
-		String memberId = "teacher02";
+		String memberId = "teacher01";
 		ModelAndView view = teacherService.viewDetail(memberId);
 		assertNotNull(view);
 		String viewName = view.getViewName();
