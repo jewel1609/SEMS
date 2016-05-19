@@ -93,7 +93,7 @@ public class MemberServiceTest extends SemsTestCase {
 		BindingResult errors = new BeanPropertyBindingResult(member, "member");
 		MockHttpSession session = new MockHttpSession();
 		
-		sessionMember.setId("admin01");
+		sessionMember.setId("cocomo12");
 		session.setAttribute("_MEMBER_", sessionMember);
 		
 		member.setId("jewel1324");
