@@ -41,9 +41,8 @@ public class CooperationDAOTest extends SemsTestCase {
 	}
 	@Test
 	public void doRegisterCooTest() {
-		String cooperationId = cooperationDAO.getOneCooperationId();
 		CooperationVO cooperationVO = new CooperationVO();
-		cooperationVO.setCooperationId(cooperationId);
+		cooperationVO.setCooperationId("JunitTest");
 		cooperationVO.setCooperationTitle("JunitTest");
 		cooperationVO.setCooperationLocation("JunitTest");
 		cooperationVO.setCooperationNumber("JunitTest");
@@ -57,8 +56,7 @@ public class CooperationDAOTest extends SemsTestCase {
 	}
 	@Test
 	public void isExistCooperationTitleTest() {
-		String cooperationId = cooperationDAO.getOneCooperationId();
-		String result = cooperationDAO.isExistCooperationTitle(cooperationId);
+		String result = cooperationDAO.isExistCooperationTitle("JunitTest");
 		assertNotNull(result);
 	}
 	@Test
