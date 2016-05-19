@@ -161,9 +161,9 @@ public class MemberBizTest extends SemsTestCase {
 	public void getHelCodeIdTest() {
 		String highestEducationLevel = "대졸";
 		String helCodeId = memberBiz.getHelCodeId(highestEducationLevel);
-		
+
 		assertNotNull(helCodeId);
-		assertEquals(helCodeId, "UNIV");
+		assertTrue(helCodeId.equals("UNIV"));
 	}
 	
 	@Test
@@ -172,7 +172,7 @@ public class MemberBizTest extends SemsTestCase {
 		String grdtCodeId = memberBiz.getGraduationTypeCodeId(graduationType);
 		
 		assertNotNull(grdtCodeId);
-		assertEquals(grdtCodeId, "ABST");
+		assertTrue(grdtCodeId.equals("ABST"));
 	}
 	
 	@Test
@@ -188,7 +188,7 @@ public class MemberBizTest extends SemsTestCase {
 		String memberTypeCodeId = memberBiz.getMemberTypeCodeId(memberType);
 		
 		assertNotNull(memberTypeCodeId);
-		assertEquals(memberTypeCodeId, "TR");
+		assertTrue(memberTypeCodeId.equals("TR"));
 	}
 	
 	@Test
