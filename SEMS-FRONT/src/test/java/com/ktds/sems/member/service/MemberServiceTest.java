@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ktds.sems.SemsTestCase;
 import com.ktds.sems.common.Session;
 import com.ktds.sems.education.vo.EducationHistoryListVO;
+import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationHistoryVO;
 import com.ktds.sems.member.dao.MemberDAO;
 import com.ktds.sems.member.vo.LoginHistoryListVO;
@@ -925,13 +926,14 @@ public class MemberServiceTest extends SemsTestCase {
 	public void getAllEducationHistoryListByIdWithPagingTest() {
 
 		MemberVO memberVO = new MemberVO();
+		EducationHistorySearchVO educationHistorySearchVO = new EducationHistorySearchVO();
 		memberVO.setId("test01");
 
 		int pageNo = 0;
 		MockHttpSession session = new MockHttpSession();
 		session.setAttribute(Session.MEMBER, memberVO);
 
-		ModelAndView view = memberService.getAllEducationHistoryListByIdWithPaging(pageNo, session);
+		ModelAndView view = memberService.getAllEducationHistoryListByIdWithPaging(educationHistorySearchVO,pageNo, session);
 
 		if (view != null) {
 

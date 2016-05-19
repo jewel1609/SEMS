@@ -315,13 +315,15 @@ public class MemberBizTest extends SemsTestCase {
 		
 		Paging paging = new Paging();
 		paging.setPageNumber(0 + "");
+		EducationHistorySearchVO educationHistorySearchVO = new EducationHistorySearchVO();
+		educationHistorySearchVO.setMemberId("test04");
 		
-		int totalArticleNumber = memberBiz.getTotalEducationHistoryCountById("test01");
+		int totalArticleNumber = memberBiz.getTotalEducationHistoryCountById(educationHistorySearchVO);
 		
 		if(totalArticleNumber != 0) {
 			
 			paging.setTotalArticleCount(totalArticleNumber);
-			EducationHistorySearchVO educationHistorySearchVO = new EducationHistorySearchVO();
+			educationHistorySearchVO = new EducationHistorySearchVO();
 			educationHistorySearchVO.setPageNo(0);
 			educationHistorySearchVO.setStartIndex(paging.getStartArticleNumber());
 			educationHistorySearchVO.setEndIndex(paging.getEndArticleNumber());
