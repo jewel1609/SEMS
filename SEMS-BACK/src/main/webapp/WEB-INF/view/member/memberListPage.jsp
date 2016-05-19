@@ -260,11 +260,11 @@
 							<select id="searchType" name="searchType">
 								<option value="" selected="selected"></option>
 								<c:forEach items="${ memberTypeList }" var="type">
-									<c:if test="${ memberSearchVO.searchType eq type}">
-										<option id="memType" value="${ type }" selected="selected">${ type }</option>
+									<c:if test="${ memberSearchVO.searchType eq type.cdId}">
+										<option id="memType" value="${type.cdId}" selected="selected">${ type.cdNm }</option>
 									</c:if>
-									<c:if test="${ memberSearchVO.searchType ne type}">
-										<option id="memType" value="${ type }">${ type }</option>
+									<c:if test="${ memberSearchVO.searchType ne type.cdId}">
+										<option id="memType" value="${type.cdId}">${ type.cdNm }</option>
 									</c:if>
 								</c:forEach>
 							</select>
@@ -322,7 +322,7 @@
 	<div id="showMemberTypeDiv">
 		<br/><br/>
 			<c:forEach items="${memberTypeList}" var="memberType">
-				<input type="radio" class="memberType" name="memberType" value="${memberType}"/>${memberType}
+				<input type="radio" class="memberType" name="memberType" value="${memberType.cdId}"/>${memberType.cdNm}
 			</c:forEach>
 			<input id="modifyMemberTypeButton" class="inputButton" type="button" value="변경" />
 	</div>
