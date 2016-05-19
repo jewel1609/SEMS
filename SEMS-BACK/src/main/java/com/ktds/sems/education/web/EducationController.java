@@ -78,4 +78,8 @@ public class EducationController {
 		return view;
 	}
 
+	public void changeEducationApplyState(String educationHistoryId) {
+		educationService.changeEducationApplyState(educationHistoryId);
+	}
+
 }
