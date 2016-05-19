@@ -41,8 +41,9 @@ public class CooperationDAOTest extends SemsTestCase {
 	}
 	@Test
 	public void doRegisterCooTest() {
+		String cooperationId = cooperationDAO.getOneCooperationId();
 		CooperationVO cooperationVO = new CooperationVO();
-		cooperationVO.setCooperationId("JunitTest");
+		cooperationVO.setCooperationId(cooperationId);
 		cooperationVO.setCooperationTitle("JunitTest");
 		cooperationVO.setCooperationLocation("JunitTest");
 		cooperationVO.setCooperationNumber("JunitTest");
@@ -56,7 +57,8 @@ public class CooperationDAOTest extends SemsTestCase {
 	}
 	@Test
 	public void isExistCooperationTitleTest() {
-		String result = cooperationDAO.isExistCooperationTitle("JunitTest");
+		String cooperationId = cooperationDAO.getOneCooperationId();
+		String result = cooperationDAO.isExistCooperationTitle(cooperationId);
 		assertNotNull(result);
 	}
 	@Test
@@ -78,13 +80,15 @@ public class CooperationDAOTest extends SemsTestCase {
 	}
 	@Test
 	public void getOneCooperationTest() {
-		CooperationVO cooperationVO = cooperationDAO.getOneCooperation("JunitTest");
+		String cooperationId = cooperationDAO.getOneCooperationId();
+		CooperationVO cooperationVO = cooperationDAO.getOneCooperation(cooperationId);
 		assertNotNull(cooperationVO);
 	}
 	
 	@Test
 	public void doDeleteCooperation() {
-		int result = cooperationDAO.doDeleteCooperation("JunitTest");
+		String cooperationId = cooperationDAO.getOneCooperationId();
+		int result = cooperationDAO.doDeleteCooperation(cooperationId);
 		assertNotNull(result);
 	}
 	

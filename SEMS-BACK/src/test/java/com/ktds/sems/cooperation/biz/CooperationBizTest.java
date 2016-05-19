@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletRequest;
 
 import com.ktds.sems.SemsTestCase;
+import com.ktds.sems.cooperation.dao.CooperationDAO;
 import com.ktds.sems.cooperation.vo.CooperationSearchVO;
 import com.ktds.sems.cooperation.vo.CooperationVO;
 
@@ -17,6 +18,8 @@ public class CooperationBizTest extends SemsTestCase {
 
 	@Autowired
 	private CooperationBiz cooperationBiz;
+	@Autowired
+	private CooperationDAO cooperationDAO;
 	
 	@Test
 	public void getTotalCooperationCountTest() {
@@ -56,26 +59,27 @@ public class CooperationBizTest extends SemsTestCase {
 	
 	@Test
 	public void getOneCooperationTest() {
-		String cooperationId ="CO-20160518-000021";
+		String cooperationId = cooperationDAO.getOneCooperationId();
 		CooperationVO coo = cooperationBiz.getOneCooperation(cooperationId);
 		assertNotNull(coo);
 	}
 	@Test
 	public void doDeleteCooperationTest() {
-		String cooperationId ="CO-20160518-000021";
+		String cooperationId = cooperationDAO.getOneCooperationId();
 		boolean result = cooperationBiz.doDeleteCooperation(cooperationId);
 		assertTrue(result);
 	}
 	@Test
 	public void isExistCooperationTitleTest() {
-		String cooperationTitle ="tod";
+		String cooperationTitle ="JunitTest";
 		boolean result = cooperationBiz.isExistCooperationTitle(cooperationTitle);
 		assertTrue(result);
 	}
 	@Test
 	public void doModifyCooTest() {
+		String cooperationId = cooperationDAO.getOneCooperationId();
 		CooperationVO cooperationVO = new CooperationVO();
-		cooperationVO.setCooperationId("CO-20160518-000022");
+		cooperationVO.setCooperationId(cooperationId);
 		cooperationVO.setCooperationTitle("JunitTest");
 		cooperationVO.setCooperationLocation("JunitTest");
 		cooperationVO.setManagerEmail("JunitTest");
