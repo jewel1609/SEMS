@@ -1,7 +1,6 @@
 package com.ktds.sems.education.biz;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -21,7 +20,9 @@ import org.springframework.validation.Validator;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.ktds.sems.SemsTestCase;
+import com.ktds.sems.common.SendMail;
 import com.ktds.sems.common.Session;
+import com.ktds.sems.common.vo.MailVO;
 import com.ktds.sems.education.vo.EducationVO;
 
 public class EducationBizTest extends SemsTestCase {
@@ -160,4 +161,25 @@ public class EducationBizTest extends SemsTestCase {
 			}
 		}
 	}
+	
+	@Test
+	public void getStateByEducationHistroyIdTest(){
+		String educationHistoryId = "56";
+		assertNotNull(educationBiz.getStateByEducationHistroyId(educationHistoryId));
+	}
+	
+	@Test
+	public void applyJoinEducationByMemberIdTest(){
+		String educationHistoryId = "36";
+		String changeState = "EDU_CL_C";
+		assertTrue(educationBiz.applyJoinEducationByMemberId(educationHistoryId, changeState));
+	}
+	
+	@Test
+	public void cancelJoinEducationByMemberIdTest(){
+		String educationHistoryId = "80";
+		String changeState = "EDU_JN_A";
+		assertTrue(educationBiz.cancelJoinEducationByMemberId(educationHistoryId, changeState));
+	}
+	
 }
