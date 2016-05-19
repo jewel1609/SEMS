@@ -842,8 +842,6 @@ public class MemberServiceImpl implements MemberService {
 		if (isVerifyName) {
 			message = "OK";
 		}
-		System.out.println("*******************");
-		System.out.println(message);
 		AjaxUtil.sendResponse(response, message);
 		return;
 	}
@@ -858,8 +856,6 @@ public class MemberServiceImpl implements MemberService {
 		if (isVerifyName) {
 			message = "OK";
 		}
-		System.out.println("*******************");
-		System.out.println(message);
 		AjaxUtil.sendResponse(response, message);
 		return;
 	}
@@ -871,8 +867,6 @@ public class MemberServiceImpl implements MemberService {
 		if (isVerifyName) {
 			message = "OK";
 		}
-		System.out.println("*******************");
-		System.out.println(message);
 		AjaxUtil.sendResponse(response, message);
 		return;
 	}
