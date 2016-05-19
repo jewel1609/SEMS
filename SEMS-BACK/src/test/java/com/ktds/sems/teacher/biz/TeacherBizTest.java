@@ -22,7 +22,7 @@ public class TeacherBizTest extends SemsTestCase{
 	
 	@Test
 	public void getTeacherInfoTest(){
-		String memberId = "gangsa1";
+		String memberId = "teacher02";
 		TeacherVO teacherVO = teacherBiz.getTeacherInfo(memberId);
 		assertNotNull(teacherVO);
 	}

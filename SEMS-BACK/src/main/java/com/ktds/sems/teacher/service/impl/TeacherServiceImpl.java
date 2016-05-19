@@ -42,7 +42,11 @@ public class TeacherServiceImpl implements TeacherService {
 		
 		ModelAndView view = new ModelAndView();
 		view.setViewName("teacher/detail");
-		view.addObject("teacherInfo", teacherBiz.getTeacherInfo(memberId));
+		TeacherVO teacherVO = teacherBiz.getTeacherInfo(memberId);
+		if ( teacherVO == null ) {
+			throw new RuntimeException("존재하지 않는 강사입니다.");
+		}
+		view.addObject("teacherInfo", teacherVO);
 		view.addObject("teacherEducationHistory", teacherBiz.getTeacherEducationHistory(memberId));
 		view.addObject("teacherProjectHistory", teacherBiz.getTeacherProjectHistory(memberId));
 		view.addObject("teacherBook", teacherBiz.getTeacherBook(memberId));
