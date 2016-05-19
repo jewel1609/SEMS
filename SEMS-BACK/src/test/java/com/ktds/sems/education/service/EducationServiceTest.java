@@ -50,8 +50,10 @@ public class EducationServiceTest extends SemsTestCase {
 		assertTrue(viewName == "education/update");
 	}
 	*/
-	
-//	@Test
+
+	/*
+	 * educationId 재설정하면 됩니다.
+	@Test
 	public void doEducationModifyTest() {
 		EducationVO educationVO = new EducationVO();
 		
@@ -109,6 +111,7 @@ public class EducationServiceTest extends SemsTestCase {
 			fail("fail...");
 		}
 	}
+	*/
 	
 	/*
 	 * D:\\핸드폰.xlsx 해당 파일이 있어야 insert 가능합니다.
