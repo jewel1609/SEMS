@@ -224,7 +224,7 @@
 		
 		$('input[type=radio][name=memberType]').change(function() {
 			
-			if( this.value == '수강생' || this.value == '일반회원' ) {
+			if( this.value == 'MBR' || this.value == 'STD' ) {
 				$("#studentForm").show();	
 			}
 			else {
