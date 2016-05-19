@@ -9,8 +9,11 @@ import com.ktds.sems.education.vo.EducationHistoryVO;
 import com.ktds.sems.education.vo.EducationStateVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.member.vo.AttendVO;
+import com.ktds.sems.member.vo.GraduationTypeVO;
+import com.ktds.sems.member.vo.HighestEducationLevelVO;
 import com.ktds.sems.member.vo.LoginHistorySearchVO;
 import com.ktds.sems.member.vo.LoginHistoryVO;
+import com.ktds.sems.member.vo.MemberTypeVO;
 import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.member.vo.MenuManageVO;
 
@@ -78,23 +81,9 @@ public interface MemberDAO {
 
 	public String isResign(String id);
 
-	public List<String> getGraduationType();
-
 	public void insertUuidForResign(MemberVO member);
 
 	public int doDeleteMember(String id);
-
-	public String selectedGraduationTypeCodeName(String id);
-
-	public List<String> getHighestEducationLevelCodeNames();
-
-	public String getSelectedHighestEducationLevelCodeName(String id);
-
-	public String getGraduationTypeCodeId(String graduationType);
-
-	public String gethelCodeId(String helCodeName);
-
-	public String memberTypeCodeName(String id);
 
 	public int changePassword(MemberVO memberVO);
 
@@ -135,5 +124,11 @@ public interface MemberDAO {
 	public int dropCourseApply(EducationHistoryVO educationHistory);
 	
 	public int getCourseCountById(String id);
+
+	public List<HighestEducationLevelVO> getHighestEducationLevels();
+
+	public List<GraduationTypeVO> getGraduationTypes();
+
+	public List<MemberTypeVO> getMemberTypes();
 	
 }
