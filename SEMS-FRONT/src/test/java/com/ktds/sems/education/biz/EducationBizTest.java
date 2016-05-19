@@ -119,7 +119,10 @@ public class EducationBizTest extends SemsTestCase{
 		assertTrue(checkBoolean);
 	}
 	
-	@Test
+	/*
+	 * 새로운 Reply Id값으로 설정해야함
+	 * 
+	 * @Test
 	public void insertReReplyEvalTest(){
 		ReRplyEvalVO reRplyEvalVO = new ReRplyEvalVO();
 		//댓글ID
@@ -134,7 +137,7 @@ public class EducationBizTest extends SemsTestCase{
 		boolean checkBoolean = educationBiz.insertReReplyEval(reRplyEvalVO);
 		assertTrue(checkBoolean);
 		assertTrue(educationBiz.deleteReReplyEval(reRplyEvalVO));
-	}
+	}*/
 	
 	@Test
 	public void plusReReplyLikeTest(){
@@ -143,7 +146,10 @@ public class EducationBizTest extends SemsTestCase{
 		assertTrue(checkBoolean);
 	}
 	
-	@Test
+	/*
+	 * 새로운 Reply Id값으로 설정해야함
+	 * 
+	 * @Test
 	public void insertReReplyEvalByDislikeTest(){
 		ReRplyEvalVO reRplyEvalVO = new ReRplyEvalVO();
 		//댓글ID
@@ -158,7 +164,7 @@ public class EducationBizTest extends SemsTestCase{
 		boolean checkBoolean = educationBiz.insertReReplyEvalByDislike(reRplyEvalVO);
 		assertTrue(checkBoolean);
 		assertTrue(educationBiz.deleteReReplyEval(reRplyEvalVO));
-	}
+	}*/
 	
 	@Test
 	public void plusReReplyDislikeTest(){
