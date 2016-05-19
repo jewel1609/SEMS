@@ -33,7 +33,12 @@ public class CooperationControllerTest extends SemsTestCase {
 
 	@Test
 	public void doRegisterCooTest() {
+		int nextRegisterCooperationId = cooperationDAO.nextCooSeq();
+		String nowDate = cooperationDAO.nowDate();
+		String cooperationId = "JunitTest"+nowDate+nextRegisterCooperationId;
+		
 		CooperationVO cooperationVO = new CooperationVO();
+		cooperationVO.setCooperationId(cooperationId);
 		cooperationVO.setCooperationTitle("JunitTest");
 		cooperationVO.setCooperationLocation("JunitTest");
 		cooperationVO.setCooperationNumber("JunitTest");
