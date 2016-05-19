@@ -118,7 +118,7 @@ public class MemberControllerTest extends SemsTestCase {
 		member.setId("JunitId1");
 		member.setPassword("JunitPassword1@");
 		String repeatPasswrod = ("JunitPassword1@");
-		member.setName("Junit");
+		member.setName("으악");
 		member.setEmail("Junit@naver.com");
 		member.setBirthDate("1991-01-01");
 		member.setPhoneNumber("010-1234-5678");
@@ -151,7 +151,7 @@ public class MemberControllerTest extends SemsTestCase {
 		member.setId("JunitId1");
 		member.setPassword("JunitPassword1@");
 		String repeatPasswrod = ("JunitPassword1@");
-		member.setName("Junit");
+		member.setName("으악");
 		member.setEmail("Junit@naver.com");
 		member.setHighestEducationLevel("대졸");
 		member.setUniversityName("서울대");
@@ -187,7 +187,7 @@ public class MemberControllerTest extends SemsTestCase {
 		member.setId("JunitId1");
 		member.setPassword("JunitPassword1@");
 		String repeatPasswrod = ("JunitPassword1@");
-		member.setName("Junit");
+		member.setName("으악");
 		member.setEmail("Junit@naver.com");
 		member.setHighestEducationLevel("대졸");
 		member.setUniversityName("서울대");
@@ -223,7 +223,7 @@ public class MemberControllerTest extends SemsTestCase {
 		MemberVO member = new MemberVO();
 		member.setPassword("JunitPassword1@");
 		String repeatPasswrod = ("JunitPassword1@");
-		member.setName("Junit");
+		member.setName("으악");
 		member.setEmail("Junit@naver.com");
 		member.setHighestEducationLevel("대졸");
 		member.setUniversityName("서울대");
@@ -267,7 +267,7 @@ public class MemberControllerTest extends SemsTestCase {
 	public void doRegisterMemberActionTestErrorCasePassword() {
 		MemberVO member = new MemberVO();
 		member.setId("JunitError1");
-		member.setName("Junit");
+		member.setName("으악");
 		String repeatPasswrod = ("JunitPassword1@");
 		member.setEmail("Junit@naver.com");
 		member.setHighestEducationLevel("대졸");
@@ -359,7 +359,7 @@ public class MemberControllerTest extends SemsTestCase {
 		member.setId("JunitError1");
 		member.setPassword("JunitPassword1@");
 		String repeatPasswrod = ("JunitPassword1@");
-		member.setName("Junit");
+		member.setName("으악");
 		member.setHighestEducationLevel("대졸");
 		member.setUniversityName("서울대");
 		member.setMajorName("컴공");
@@ -404,7 +404,7 @@ public class MemberControllerTest extends SemsTestCase {
 		member.setId("JunitError1");
 		member.setPassword("JunitPassword1@");
 		String repeatPasswrod = ("JunitPassword1@");
-		member.setName("Junit");
+		member.setName("으악");
 		member.setEmail("Junit@naver.com");
 		member.setUniversityName("서울대");
 		member.setMajorName("컴공");
@@ -452,7 +452,7 @@ public class MemberControllerTest extends SemsTestCase {
 		member.setId("JunitError1");
 		member.setPassword("JunitPassword1@");
 		String repeatPasswrod = ("JunitPassword1@");
-		member.setName("Junit");
+		member.setName("으악");
 		member.setEmail("Junit@naver.com");
 		member.setHighestEducationLevel("대졸");
 		member.setMajorName("컴공");
@@ -500,7 +500,7 @@ public class MemberControllerTest extends SemsTestCase {
 		member.setId("JunitError1");
 		member.setPassword("JunitPassword1@");
 		String repeatPasswrod = ("JunitPassword1@");
-		member.setName("Junit");
+		member.setName("으악");
 		member.setEmail("Junit@naver.com");
 		member.setHighestEducationLevel("대졸");
 		member.setUniversityName("서울대");
@@ -548,7 +548,7 @@ public class MemberControllerTest extends SemsTestCase {
 		member.setId("JunitError1");
 		member.setPassword("JunitPassword1@");
 		String repeatPasswrod = ("JunitPassword1@");
-		member.setName("Junit");
+		member.setName("으악");
 		member.setEmail("Junit@naver.com");
 		member.setHighestEducationLevel("대졸");
 		member.setUniversityName("서울대");
@@ -596,7 +596,7 @@ public class MemberControllerTest extends SemsTestCase {
 		member.setId("JunitError1");
 		member.setPassword("JunitPassword1@");
 		String repeatPasswrod = ("JunitPassword1@");
-		member.setName("Junit");
+		member.setName("으악");
 		member.setEmail("Junit@naver.com");
 		member.setHighestEducationLevel("대졸");
 		member.setUniversityName("서울대");
@@ -641,7 +641,7 @@ public class MemberControllerTest extends SemsTestCase {
 		member.setId("JunitError1");
 		member.setPassword("JunitPassword1@");
 		String repeatPasswrod = ("JunitPassword1@");
-		member.setName("Junit");
+		member.setName("으악");
 		member.setEmail("Junit@naver.com");
 		member.setHighestEducationLevel("대졸");
 		member.setUniversityName("서울대");
@@ -686,7 +686,7 @@ public class MemberControllerTest extends SemsTestCase {
 		member.setId("JunitError1");
 		member.setPassword("JunitPassword1@");
 		String repeatPasswrod = ("JunitPassword1@");
-		member.setName("Junit");
+		member.setName("으악");
 		member.setEmail("Junit@naver.com");
 		member.setHighestEducationLevel("대졸");
 		member.setUniversityName("서울대");
@@ -720,7 +720,7 @@ public class MemberControllerTest extends SemsTestCase {
 		member.setId("JunitError1");
 		member.setPassword("JunitPassword1@");
 		String repeatPasswrod = ("Junit");
-		member.setName("Junit");
+		member.setName("으악");
 		member.setEmail("Junit@naver.com");
 		member.setHighestEducationLevel("대졸");
 		member.setUniversityName("서울대");
@@ -767,7 +767,7 @@ public class MemberControllerTest extends SemsTestCase {
 		MemberVO member = new MemberVO();
 		member.setId("JunitError1");
 		member.setPassword("JunitPassword1@");
-		member.setName("Junit");
+		member.setName("으악");
 		member.setEmail("Junit@naver.com");
 		member.setHighestEducationLevel("대졸");
 		member.setUniversityName("서울대");
