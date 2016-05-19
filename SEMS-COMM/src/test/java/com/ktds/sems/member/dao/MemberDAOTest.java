@@ -205,11 +205,14 @@ public class MemberDAOTest extends SemsTestCase {
 	@Test
 	public void doMbrTpModifyTest(){
 		MbrTpVO mbrTpVO = new MbrTpVO();
-		mbrTpVO.setCdId("TEST");
-		mbrTpVO.setCdNm("JUNITTEST");
+		mbrTpVO.setCdId("MBR");
+		mbrTpVO.setCdNm("일반회");
 		
 		int checkMbrTpModify = memberDAO.doMbrTpModify(mbrTpVO);
 		assertTrue(checkMbrTpModify >= 1);
+		mbrTpVO.setCdId("MBR");
+		mbrTpVO.setCdNm("일반회원");
+		memberDAO.doMbrTpModify(mbrTpVO);
 	}
 	
 	@Test
@@ -222,8 +225,8 @@ public class MemberDAOTest extends SemsTestCase {
 	@Test
 	public void isExistMbrTpDataTest(){
 		MbrTpVO mbrTpVO = new MbrTpVO();
-		mbrTpVO.setCdId("TEST");
-		mbrTpVO.setCdNm("JUNITTEST");
+		mbrTpVO.setCdId("STD");
+		mbrTpVO.setCdNm("수강생");
 		
 		int checkExistMbrTpData = memberDAO.isExistMbrTpData(mbrTpVO);
 		assertTrue(checkExistMbrTpData >= 1);
