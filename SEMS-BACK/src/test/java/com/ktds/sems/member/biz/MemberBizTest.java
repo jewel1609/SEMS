@@ -168,11 +168,11 @@ public class MemberBizTest extends SemsTestCase {
 	
 	@Test
 	public void getGraduationTypeCodeIdTest() {
-		String graduationType = "졸업예정";
+		String graduationType = "JUNIT";
 		String grdtCodeId = memberBiz.getGraduationTypeCodeId(graduationType);
 		
 		assertNotNull(grdtCodeId);
-		assertEquals(grdtCodeId, "EXPT");
+		assertEquals(grdtCodeId, "TEST");
 	}
 	
 	@Test
