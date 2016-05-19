@@ -56,7 +56,7 @@ public class TeacherServiceTest extends SemsTestCase{
 		
 	}
 	
-	@Test
+
 	public void doDeleteTeacher(){
 		String deleteTeacherId = "skawnsgh1234";
 		ModelAndView view = teacherService.doDeleteTeacher(deleteTeacherId);
@@ -64,7 +64,7 @@ public class TeacherServiceTest extends SemsTestCase{
 		
 	}
 	
-	@Test
+
 	public void massiveDeleteTeacherTest(){
 		
 		String[] deleteTeacherIds = {"teacher03", "teacher02"};

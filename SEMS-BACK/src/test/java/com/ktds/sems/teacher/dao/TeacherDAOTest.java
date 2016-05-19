@@ -56,36 +56,34 @@ public class TeacherDAOTest extends SemsTestCase {
 			fail("Fail...");
 		}
 	}
-	@Test
-	public void getSearchedEducationCountTest() {
-		
-	}
 	
-	@Test
+	
+
 	public void doDeleteTeacherTest() {
 		
 		String deleteTeacherId = teacherDAO.getOneTeacherId();
 		int result = teacherDAO.doDeleteTeacher(deleteTeacherId);
 		assertNotNull(result);
 	}
-	@Test
+
 	public void doDeleteProjectHistoryTest() {
 		String deleteTeacherId = teacherDAO.getOneTeacherId();
 		int result = teacherDAO.doDeleteProjectHistory(deleteTeacherId);
 		assertNotNull(result);
 	}
-	@Test
+
 	public void doDeleteEducationHistoryTest() {
 		String deleteTeacherId = teacherDAO.getOneTeacherId();
 		int result = teacherDAO.doDeleteEducationHistory(deleteTeacherId);
 		assertNotNull(result);
 	}
-	@Test
+	
 	public void doDeleteTeacherBookTest() {
 		String deleteTeacherId = teacherDAO.getOneTeacherId();
 		int result = teacherDAO.doDeleteTeacherBook(deleteTeacherId);
 		assertNotNull(result);
 	}
+	
 	@Test
 	public void getTeacherInfoTest(){
 		String memberId = "teacher01";

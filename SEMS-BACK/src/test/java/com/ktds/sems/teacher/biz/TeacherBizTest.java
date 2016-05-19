@@ -105,7 +105,7 @@ public class TeacherBizTest extends SemsTestCase{
 		}
 	}
 	
-	@Test 
+
 	public void doDeleteTeacherTest(){
 		
 		String memberId = teacherDAO.getOneTeacherId();
@@ -113,7 +113,7 @@ public class TeacherBizTest extends SemsTestCase{
 		assertTrue(result);
 	}
 	
-	@Test 
+
 	public void doDeleteProjectHistoryTest(){
 		
 		String memberId = teacherDAO.getOneTeacherId();
@@ -121,7 +121,7 @@ public class TeacherBizTest extends SemsTestCase{
 		assertTrue(result);
 	}
 	
-	@Test 
+
 	public void doDeleteEducationHistoryTest(){
 		
 		String memberId = teacherDAO.getOneTeacherId();
@@ -129,7 +129,7 @@ public class TeacherBizTest extends SemsTestCase{
 		assertTrue(result);
 	}
 	
-	@Test 
+
 	public void doDeleteTeacherBookTest(){
 		
 		String memberId = teacherDAO.getOneTeacherId();
