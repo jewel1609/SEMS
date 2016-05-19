@@ -72,11 +72,7 @@ public class CooperationServiceImpl implements CooperationService {
 	}
 
 	@Override
-	public ModelAndView getAllCooperationList(CooperationSearchVO cooperationSearchVO, int pageNo, HttpServletRequest request) {
-		
-		System.out.println(cooperationSearchVO.getSearchKeyword());
-		System.out.println(cooperationSearchVO.getSearchType());
-		System.out.println(cooperationSearchVO.getSearchTypeName());
+	public ModelAndView getAllCooperationList(CooperationSearchVO cooperationSearchVO, int pageNo) {
 		
 		MockHttpSession session = new MockHttpSession();
 		CooperationListVO cooperationListVO = new CooperationListVO();
@@ -88,28 +84,9 @@ public class CooperationServiceImpl implements CooperationService {
 		int totalCooperationCount = cooperationBiz.getTotalCooperationCount(cooperationSearchVO);
 		paging.setTotalArticleCount(totalCooperationCount);
 		
-		System.out.println(totalCooperationCount);
-	
 		cooperationSearchVO.setStartIndex(paging.getStartArticleNumber());
 		cooperationSearchVO.setEndIndex(paging.getEndArticleNumber());
 		cooperationSearchVO.setPageNo(0);
-		
-		/*if ( request.getParameter("searchKeyword") != null ) {
-			searchVO.setPageNo(pageNo);
-			searchVO.setSearchKeyword(request.getParameter("searchKeyword"));
-			searchVO.setSearchType(request.getParameter("searchType"));
-			searchVO.setSearchTypeName(request.getParameter("searchTypeName"));
-		}
-		else {
-			searchVO = (CooperationSearchVO) session.getAttribute("_SEARCH_");
-			searchVO = new CooperationSearchVO();
-			searchVO.setStartIndex(paging.getStartArticleNumber());
-			searchVO.setEndIndex(paging.getEndArticleNumber());
-			searchVO.setPageNo(0);
-			searchVO.setSearchKeyword("");
-			searchVO.setSearchType("1");
-			searchVO.setSearchTypeName("");
-		}*/
 		
 		List<CooperationTypeVO> typeNameList = cooperationBiz.getCooTypeList();
 		

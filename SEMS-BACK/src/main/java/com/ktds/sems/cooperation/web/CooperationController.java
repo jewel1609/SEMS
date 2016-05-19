@@ -53,8 +53,8 @@ public class CooperationController {
 	
 	
 	@RequestMapping("/cooList")
-	public ModelAndView viewCooListPage(CooperationSearchVO cooperationSearchVO, @RequestParam(required=false, defaultValue="0") int pageNo, HttpServletRequest request) {
-		return cooperationService.getAllCooperationList(cooperationSearchVO,pageNo, request);
+	public ModelAndView viewCooListPage(CooperationSearchVO cooperationSearchVO, @RequestParam(required=false, defaultValue="0") int pageNo) {
+		return cooperationService.getAllCooperationList(cooperationSearchVO,pageNo);
 	}
 	
 	@RequestMapping("/cooDetail/{cooperationId}")
