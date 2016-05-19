@@ -91,10 +91,10 @@ public class MemberController {
 	}*/
 	
 	@RequestMapping("/checkValidationByEmail")
-	public void checkValidationByEmail(@RequestParam String email, HttpServletResponse response) {
-		memberService.checkValidationByEmail(email, response);
+	public void checkValidationByEmail(@RequestParam String email, HttpServletResponse response, HttpSession session) {
+		memberService.checkValidationByEmail(email, response, session);
 	}
-
+	
 	@RequestMapping("/checkValidationByPhoneNumber")
 	public void checkValidationByPhoneNumber(@RequestParam String phoneNumber, HttpServletResponse response) {
 		memberService.checkValidationByPhoneNumber(phoneNumber, response);

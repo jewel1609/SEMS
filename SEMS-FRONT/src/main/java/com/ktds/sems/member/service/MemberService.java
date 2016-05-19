@@ -43,7 +43,7 @@ public interface MemberService {
 
 	public String getPasswordById(String id);
 
-	public void checkValidationByEmail(String email, HttpServletResponse response);
+	public void checkValidationByEmail(String email, HttpServletResponse response, HttpSession session);
 	
 	public void checkValidationByRepeatPassword(String password, String repeatPassword, HttpServletResponse response);
 

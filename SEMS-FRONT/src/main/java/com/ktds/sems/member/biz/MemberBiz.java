@@ -96,7 +96,7 @@ public interface MemberBiz {
 
 	public boolean isVerifyPhoneNumber(String phoneNumber);
 
-	boolean isVerifyEmail(String phoneNumber);
+	boolean isVerifyEmail(String email);
 
 	public List<MenuManageVO> getMenuCategoryList();
 

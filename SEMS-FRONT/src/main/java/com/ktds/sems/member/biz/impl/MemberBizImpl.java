@@ -190,7 +190,9 @@ public class MemberBizImpl implements MemberBiz {
 	
 	@Override
 	public boolean isVerifyEmail (String email) {
-		String emailPolicy = "(^[a-zA-Z\\d][\\w\\d\\_\\.-]+@[a-z\\d][\\w\\d-]+[\\.][a-z\\.]{2,8}$)";
+		//이메일 정규표현식 수정 by SM Team
+		//String emailPolicy = "(^[a-zA-Z\\d][\\w\\d\\_\\.-]+@[a-z\\d][\\w\\d-]+[\\.][a-z\\.]{2,8}$)";
+		String emailPolicy = "(^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$)";
 		Pattern pattern = Pattern.compile(emailPolicy);
 		Matcher matcher = pattern.matcher(email);
 		return matcher.matches();

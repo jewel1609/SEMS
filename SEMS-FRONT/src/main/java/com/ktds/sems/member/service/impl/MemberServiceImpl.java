@@ -211,8 +211,17 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public void checkValidationByEmail(String email, HttpServletResponse response) {
+	public void checkValidationByEmail(String email, HttpServletResponse response, HttpSession session) {
 		String message = "OK";
+		
+		MemberVO sessionMember = (MemberVO)session.getAttribute("_MEMBER_");
+		
+		if ( sessionMember.getEmail().equals(email) ) {
+			message = "OK";
+			AjaxUtil.sendResponse(response, message);
+			return;
+		}
+		
 		boolean isVerifyEmail = memberBiz.isVerifyEmail(email);
 		if (!isVerifyEmail) {
 			message = "NO";
@@ -811,6 +820,7 @@ public class MemberServiceImpl implements MemberService {
 			return "redirect:/member/myPage";
 		}
 	}
+
 
 	@Override
 	public void checkRegistState(HttpServletResponse response) {
