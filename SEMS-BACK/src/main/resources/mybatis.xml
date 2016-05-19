@@ -20,6 +20,7 @@
 		<typeAlias type="com.ktds.sems.teacher.vo.EducationHistoryVO" alias="TeacherEduHistoryVO"/>
 		<typeAlias type="com.ktds.sems.cooperation.vo.CooperationVO" alias="CooperationVO"/>
 		<typeAlias type="com.ktds.sems.cooperation.vo.CooperationSearchVO" alias="CooperationSearchVO"/>
+		<typeAlias type="com.ktds.sems.cooperation.vo.CooperationTypeVO" alias="CooperationTypeVO"/>
 		<typeAlias type="com.ktds.sems.member.vo.MemberSearchVO" alias="MemberSearchVO"/>
 		<typeAlias type="com.ktds.sems.member.vo.PersonalInfoReadVO" alias="PersonalInfoReadVO"/>
 		<typeAlias type="com.ktds.sems.teacher.vo.TeacherListVO" alias="TeacherListVO"/>
