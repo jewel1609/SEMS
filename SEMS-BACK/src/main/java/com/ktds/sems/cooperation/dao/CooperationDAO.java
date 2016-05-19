@@ -9,7 +9,7 @@ import com.ktds.sems.cooperation.vo.CooperationVO;
 
 public interface CooperationDAO {
 
-	public int getTotalCooperationCount(Map<String,String> searchInfo);
+	public int getTotalCooperationCount(CooperationSearchVO cooperationSearchVO);
 	public int nextCooSeq();
 	public String nowDate();
 	public int doRegisterCoo(CooperationVO cooperation);

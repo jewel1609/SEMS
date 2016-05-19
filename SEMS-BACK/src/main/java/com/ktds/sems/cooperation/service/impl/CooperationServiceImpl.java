@@ -72,7 +72,11 @@ public class CooperationServiceImpl implements CooperationService {
 	}
 
 	@Override
-	public ModelAndView getAllCooperationList(int pageNo, HttpServletRequest request) {
+	public ModelAndView getAllCooperationList(CooperationSearchVO cooperationSearchVO, int pageNo, HttpServletRequest request) {
+		
+		System.out.println(cooperationSearchVO.getSearchKeyword());
+		System.out.println(cooperationSearchVO.getSearchType());
+		System.out.println(cooperationSearchVO.getSearchTypeName());
 		
 		MockHttpSession session = new MockHttpSession();
 		CooperationListVO cooperationListVO = new CooperationListVO();
@@ -81,17 +85,20 @@ public class CooperationServiceImpl implements CooperationService {
 		
 		paging.setPageNumber(pageNo + "");
 		
-		int totalCooperationCount = cooperationBiz.getTotalCooperationCount(request);
+		int totalCooperationCount = cooperationBiz.getTotalCooperationCount(cooperationSearchVO);
 		paging.setTotalArticleCount(totalCooperationCount);
 		
-		CooperationSearchVO searchVO = new CooperationSearchVO();
-		searchVO.setStartIndex(paging.getStartArticleNumber());
-		searchVO.setEndIndex(paging.getEndArticleNumber());
+		System.out.println(totalCooperationCount);
+	
+		cooperationSearchVO.setStartIndex(paging.getStartArticleNumber());
+		cooperationSearchVO.setEndIndex(paging.getEndArticleNumber());
+		cooperationSearchVO.setPageNo(0);
 		
-		if ( request.getParameter("searchKeyword") != null ) {
+		/*if ( request.getParameter("searchKeyword") != null ) {
 			searchVO.setPageNo(pageNo);
 			searchVO.setSearchKeyword(request.getParameter("searchKeyword"));
 			searchVO.setSearchType(request.getParameter("searchType"));
+			searchVO.setSearchTypeName(request.getParameter("searchTypeName"));
 		}
 		else {
 			searchVO = (CooperationSearchVO) session.getAttribute("_SEARCH_");
@@ -101,17 +108,21 @@ public class CooperationServiceImpl implements CooperationService {
 			searchVO.setPageNo(0);
 			searchVO.setSearchKeyword("");
 			searchVO.setSearchType("1");
-		}
+			searchVO.setSearchTypeName("");
+		}*/
 		
-		session.setAttribute("_SEARCH_", searchVO);
+		List<CooperationTypeVO> typeNameList = cooperationBiz.getCooTypeList();
 		
-		List<CooperationVO> cooperationList = cooperationBiz.getAllCooperation(searchVO);
+		session.setAttribute("_SEARCH_", cooperationSearchVO);
+		
+		List<CooperationVO> cooperationList = cooperationBiz.getAllCooperation(cooperationSearchVO);
 		cooperationListVO.setCooperationList(cooperationList);
 		
 		ModelAndView view = new ModelAndView();
 		view.setViewName("cooperation/cooperationList");
 		view.addObject("cooperationListVO", cooperationListVO);
-		view.addObject("searchVO", searchVO);
+		view.addObject("typeNameList", typeNameList);
+		view.addObject("searchVO", cooperationSearchVO);
 		
 		return view;
 	}

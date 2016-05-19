@@ -8,7 +8,15 @@ public class CooperationSearchVO {
 	
 	private String searchType;
 	private String searchKeyword;
+	private String searchTypeName;
 	
+	
+	public String getSearchTypeName() {
+		return searchTypeName;
+	}
+	public void setSearchTypeName(String searchTypeName) {
+		this.searchTypeName = searchTypeName;
+	}
 	public int getPageNo() {
 		return pageNo;
 	}

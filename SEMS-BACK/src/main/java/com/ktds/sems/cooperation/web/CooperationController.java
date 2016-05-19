@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.cooperation.service.CooperationService;
+import com.ktds.sems.cooperation.vo.CooperationSearchVO;
 import com.ktds.sems.cooperation.vo.CooperationVO;
 
 @Controller
@@ -52,8 +53,8 @@ public class CooperationController {
 	
 	
 	@RequestMapping("/cooList")
-	public ModelAndView viewCooListPage(@RequestParam(required=false, defaultValue="0") int pageNo, HttpServletRequest request) {
-		return cooperationService.getAllCooperationList(pageNo, request);
+	public ModelAndView viewCooListPage(CooperationSearchVO cooperationSearchVO, @RequestParam(required=false, defaultValue="0") int pageNo, HttpServletRequest request) {
+		return cooperationService.getAllCooperationList(cooperationSearchVO,pageNo, request);
 	}
 	
 	@RequestMapping("/cooDetail/{cooperationId}")

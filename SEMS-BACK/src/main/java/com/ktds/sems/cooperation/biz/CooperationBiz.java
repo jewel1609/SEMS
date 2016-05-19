@@ -10,7 +10,7 @@ import com.ktds.sems.cooperation.vo.CooperationVO;
 
 public interface CooperationBiz {
 
-	public int getTotalCooperationCount(HttpServletRequest request);
+	public int getTotalCooperationCount(CooperationSearchVO cooperationSearchVO);
 	
 	public boolean doRegisterCoo(CooperationVO cooperation);
 

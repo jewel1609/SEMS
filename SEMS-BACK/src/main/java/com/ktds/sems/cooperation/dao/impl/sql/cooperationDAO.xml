@@ -46,7 +46,7 @@
 		AND		ROWNUM=1
 	</select>
 	
-	<select id="getTotalCooperationCount" parameterType="map" resultType="_int" >
+	<select id="getTotalCooperationCount" parameterType="CooperationSearchVO" resultType="_int" >
 		SELECT	COUNT(COO_ID)
 		FROM	COO_INFO CI
 				, CODE_MNG CM
@@ -55,7 +55,7 @@
 			AND	COO_TTL LIKE '%'||#{searchKeyword}||'%'
 		</if>
 		<if test="searchType == 2 and searchType != null">
-			AND	COO_TP LIKE '%'||#{searchKeyword}||'%'
+			AND	COO_TP LIKE '%'||#{searchTypeName}||'%'
 		</if>
 	</select>
 	
@@ -81,7 +81,7 @@
 								AND   COO_TTL LIKE '%'||#{searchKeyword}||'%'
 								</if>
 								<if test="searchType == 2 and searchType != null">
-								AND   COO_TP LIKE '%'||#{searchKeyword}||'%'
+								AND   COO_TP LIKE '%'||#{searchTypeName}||'%'
 								</if>                          
 								ORDER	BY COO_ID DESC
 							) COO_INFO
@@ -153,5 +153,5 @@
 		FROM    COO_INFO
 		WHERE   ROWNUM=1
 	</select>
-
+	
 </mapper>

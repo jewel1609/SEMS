@@ -21,16 +21,9 @@ public class CooperationBizImpl implements CooperationBiz{
 	}
 
 	@Override
-	public int getTotalCooperationCount(HttpServletRequest request) {
+	public int getTotalCooperationCount(CooperationSearchVO cooperationSearchVO) {
 		
-		String searchType = request.getParameter("searchType");
-		String searchKeyword = request.getParameter("searchKeyword");
-		
-		Map<String,String> searchInfo = new HashMap<String,String>();
-		searchInfo.put("searchType", searchType);
-		searchInfo.put("searchKeyword", searchKeyword);
-		
-		return cooperationDAO.getTotalCooperationCount(searchInfo);
+		return cooperationDAO.getTotalCooperationCount(cooperationSearchVO);
 	}
 	
 	public boolean doRegisterCoo(CooperationVO cooperation) {
@@ -140,4 +133,5 @@ public class CooperationBizImpl implements CooperationBiz{
 	public List<CooperationTypeVO> getCooTypeList() {
 		return cooperationDAO.getCooTypeList(); 
 	}
+
 }

@@ -14,8 +14,8 @@ import com.ktds.sems.cooperation.vo.CooperationVO;
 public class CooperationDAOImpl extends SqlSessionDaoSupport implements CooperationDAO{
 
 	@Override
-	public int getTotalCooperationCount(Map<String,String> searchInfo) {
-		return getSqlSession().selectOne("CooperationDAO.getTotalCooperationCount", searchInfo);
+	public int getTotalCooperationCount(CooperationSearchVO cooperationSearchVO) {
+		return getSqlSession().selectOne("CooperationDAO.getTotalCooperationCount", cooperationSearchVO);
 	}
 	public int nextCooSeq() {
 		return getSqlSession().selectOne("CooperationDAO.nextCooSeq");
@@ -36,8 +36,6 @@ public class CooperationDAOImpl extends SqlSessionDaoSupport implements Cooperat
 		return getSqlSession().selectOne("CooperationDAO.isExistCooperationTitle", cooperationTitle);
 	}
 	
-	
-
 	@Override
 	public int getTotalCooperationCount() {
 		return getSqlSession().selectOne("CooperationDAO.getTotalCooperationCount");

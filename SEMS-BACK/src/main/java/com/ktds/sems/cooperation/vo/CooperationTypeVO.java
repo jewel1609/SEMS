@@ -4,6 +4,8 @@ public class CooperationTypeVO {
 
 	private String codeId;
 	private String codeName;
+	
+	
 	public String getCodeId() {
 		return codeId;
 	}
