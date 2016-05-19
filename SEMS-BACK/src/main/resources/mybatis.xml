@@ -25,6 +25,10 @@
 		<typeAlias type="com.ktds.sems.member.vo.PersonalInfoReadVO" alias="PersonalInfoReadVO"/>
 		<typeAlias type="com.ktds.sems.teacher.vo.TeacherListVO" alias="TeacherListVO"/>
 		<typeAlias type="com.ktds.sems.teacher.vo.TeacherSearchVO" alias="TeacherSearchVO"/>
+		<typeAlias type="com.ktds.sems.member.vo.GraduationTypeVO" alias="GraduationTypeVO"/>
+		<typeAlias type="com.ktds.sems.member.vo.HighestEducationLevelVO" alias="HighestEducationLevelVO"/>
+		<typeAlias type="com.ktds.sems.member.vo.MemberTypeVO" alias="MemberTypeVO"/>
+		
 	</typeAliases>
 
 	<mappers>
