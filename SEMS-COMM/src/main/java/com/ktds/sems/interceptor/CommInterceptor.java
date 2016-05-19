@@ -24,13 +24,10 @@ public class CommInterceptor extends HandlerInterceptorAdapter {
 		if(userType != null && userType.equals("ADM")) {
 			return;
 		}
-		/*
-		 * FIXME 원할한 테스트를 위해 주석처리함.
-		 * 테스트 완료후 주석 삭제
 		else {
 			response.sendRedirect("/comm");
 			return;
-		}*/
+		}
 	}
 
 	@Override
