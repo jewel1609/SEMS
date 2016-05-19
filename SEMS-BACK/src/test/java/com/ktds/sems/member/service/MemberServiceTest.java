@@ -91,7 +91,7 @@ public class MemberServiceTest extends SemsTestCase {
 		
 	}
 	
-	@Test
+	//@Test
 	public void addNewMemberTest() {
 		
 		MemberVO member = new MemberVO();
