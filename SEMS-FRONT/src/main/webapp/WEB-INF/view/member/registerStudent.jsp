@@ -111,11 +111,9 @@
 				if (!data) {
 					alert("인터넷 연결이 끊겼습니다.");
 				} else if (data == "OK") {
-					alert("check true");
 					isCheckedName = true;
 				} else if (data == "NO") {
-					alert("check");
-					$("#messageByName").text("이름에 특수문자가 들어갈 수 없습니다.").css("color", "red");
+					$("#messageByName").text("이름은 한글만 입력해주세요.").css("color", "red");
 					isCheckedName = false;
 				}
 			});
@@ -174,7 +172,7 @@
 				} else if (data == "OK") {
 					isCheckedUniversityName = true;
 				} else if (data == "NO") {
-					$("#messageByUniversityName").text("학교 명에 특수문자가 들어갈 수 없습니다.").css("color", "red");
+					$("#messageByUniversityName2").text("정확한 학교명을 입력하세요.").css("color", "red");
 					isCheckedUniversityName = false;
 				}
 			});
@@ -191,7 +189,7 @@
 				} else if (data == "OK") {
 					isCheckedMajorName = true;
 				} else if (data == "NO") {
-					$("#messageByMajorName").text("학과 명에 특수문자가 들어갈 수 없습니다.").css("color", "red");
+					$("#messageByMajorName2").text("정확한 학과명을 입력하세요.").css("color", "red");
 					isCheckedMajorName = false;
 				}
 			});
@@ -392,6 +390,7 @@
 			<c:if test="${isEmptyUniversityName ne null}">
 				<span class="deleteMessageUniversityName" id="messageByUniversityName" style="color: red;">학교를 입력하세요!</span>
 			</c:if>
+			<span class="deleteMessageUniversityName" id="messageByUniversityName2" style="color: red;"></span>
 		<br/>
 		
 		학과 : <input type="text" id="majorName" name="majorName" value="${ member.majorName }" maxlength="20"/>
@@ -399,6 +398,7 @@
 			<c:if test="${isEmptyMajorName ne null}">
 				<span class="deleteMessageMajorName" id="messageByMajorName" style="color: red;">학과를 입력하세요!</span>
 			</c:if>
+				<span class="deleteMessageMajorName" id="messageByMajorName2" style="color: red;"></span>
 		<br/>
 		
 		졸업구분 : 
