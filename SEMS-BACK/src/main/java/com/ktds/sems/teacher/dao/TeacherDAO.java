@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.ktds.sems.education.vo.EducationVO;
+import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.teacher.vo.EducationHistoryVO;
 import com.ktds.sems.teacher.vo.ProjectHistoryVO;
 import com.ktds.sems.teacher.vo.TeacherBookVO;
@@ -58,4 +59,23 @@ public interface TeacherDAO {
 	public int deleteTeacherBookEduProHistory(HashMap<String, Object> map);
 
 	public String getOneTeacherId();
+	
+	public List<MemberVO> getTeacherMemberInfo();
+
+	public int doInsertTeacherBookHis(TeacherBookVO teacherBookVO);
+
+	public int doInsertTeacherProHis(ProjectHistoryVO projectHistoryVO);
+
+	public int doInsertTeacherEduHis(EducationHistoryVO teacherEduHistoryVO);
+
+	public int doInsertNewTeacher(TeacherVO teacherVO);
+
+	public int bookNextSeq();
+
+	public int projHisNextSeq();
+
+	public int eduHisNextSeq();
+	
+	public String nowDate();
+
 }

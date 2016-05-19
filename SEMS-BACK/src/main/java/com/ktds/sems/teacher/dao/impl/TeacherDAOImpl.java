@@ -7,6 +7,7 @@ import java.util.Map;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 
 import com.ktds.sems.education.vo.EducationVO;
+import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.teacher.dao.TeacherDAO;
 import com.ktds.sems.teacher.vo.EducationHistoryVO;
 import com.ktds.sems.teacher.vo.ProjectHistoryVO;
@@ -90,7 +91,7 @@ public class TeacherDAOImpl extends SqlSessionDaoSupport implements TeacherDAO{
 	public int deleteTeacherBookEduProHistory(HashMap<String, Object> map) {
 		return getSqlSession().delete("TeacherDAO.deleteTeacherBookEduProHistory", map);
 	}
-
+	
 	@Override
 	public int getTotalTeacherCount(Map<String,String> searchInfo) {
 		System.out.println("getTotalTeacherCount");
@@ -132,6 +133,49 @@ public class TeacherDAOImpl extends SqlSessionDaoSupport implements TeacherDAO{
 		return getSqlSession().selectOne("TeacherDAO.getOneTeacherId");
 	}
 
+	@Override
+	public List<MemberVO> getTeacherMemberInfo() {
+		return getSqlSession().selectList("TeacherDAO.getTeacherMemberInfo");
+	}
 
+	@Override
+	public int doInsertTeacherBookHis(TeacherBookVO teacherBookVO) {
+		return getSqlSession().insert("TeacherDAO.doInsertTeacherBookHis", teacherBookVO);
+	}
+
+	@Override
+	public int doInsertTeacherProHis(ProjectHistoryVO projectHistoryVO) {
+		return getSqlSession().insert("TeacherDAO.doInsertTeacherProHis", projectHistoryVO);
+	}
+
+	@Override
+	public int doInsertTeacherEduHis(EducationHistoryVO teacherEduHistoryVO) {
+		return getSqlSession().insert("TeacherDAO.doInsertTeacherEduHis", teacherEduHistoryVO);
+	}
+
+	@Override
+	public int doInsertNewTeacher(TeacherVO teacherVO) {
+		return getSqlSession().insert("TeacherDAO.doInsertNewTeacher", teacherVO);
+	}
+
+	@Override
+	public int bookNextSeq() {
+		return getSqlSession().selectOne("TeacherDAO.bookNextSeq");
+	}
+
+	@Override
+	public String nowDate() {
+		return getSqlSession().selectOne("TeacherDAO.nowDate");
+	}
+
+	@Override
+	public int projHisNextSeq() {
+		return getSqlSession().selectOne("TeacherDAO.projHisNextSeq");
+	}
+
+	@Override
+	public int eduHisNextSeq() {
+		return getSqlSession().selectOne("TeacherDAO.eduHisNextSeq");
+	}
 
 }

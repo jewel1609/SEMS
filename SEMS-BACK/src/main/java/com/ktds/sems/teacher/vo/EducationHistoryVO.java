@@ -7,6 +7,7 @@ public class EducationHistoryVO {
 	private String endDate;
 	private String educationName;
 	private String educationLocation;
+	private String memberId;
 	
 	public String getId() {
 		return id;
@@ -38,5 +39,12 @@ public class EducationHistoryVO {
 	public void setEducationLocation(String educationLocation) {
 		this.educationLocation = educationLocation;
 	}
+	public String getMemberId() {
+		return memberId;
+	}
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
+	}
+	
 
 }

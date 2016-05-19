@@ -191,6 +191,96 @@
 		AND		TEH_ID = #{id}
 		</if>
 	</delete>
+	<select id="getTeacherMemberInfo" resultType="MemberVO">
+		SELECT	ID id
+				, NM name
+		FROM	MBR
+		WHERE	MBR_TP = 'TR'
+		AND		ID NOT IN (
+                            SELECT  MBR_ID
+                            FROM    TCHR_INFO
+                           )
+	</select>
+	<insert id="doInsertNewTeacher" parameterType="TeacherVO">
+		INSERT INTO TCHR_INFO	(
+								   MBR_ID
+								   , COMP_NM
+								   , BUIS_NMB
+								   , ANNUAL
+								) 
+		VALUES					( 
+									#{memberId}
+									, #{companyName}
+									, #{businessNumber}
+									, #{annual}
+								 )
+	</insert>
+	<insert id="doInsertTeacherBookHis" parameterType="TeacherBookVO">
+		INSERT INTO TCHR_BOOK	(
+								   TB_ID
+								   , MBR_ID
+								   , BOOK_NM
+								   , BOOK_COMP
+								) 
+		VALUES					( 
+									#{id}
+									, #{memberId}
+									, #{bookName}
+									, #{bookCompany}
+								 )
+	</insert>
+	<insert id="doInsertTeacherProHis" parameterType="ProjectHistoryVO">
+		INSERT INTO TCHR_PROJ_HTR	(
+									   TPH_ID
+									   , MBR_ID
+									   , STR_DATE
+									   , END_DATE
+									   , PROJ_NM
+									   , PROJ_LOC
+									) 
+		VALUES						( 
+										#{id}
+										, #{memberId}
+										, #{startDate}
+										, #{endDate}
+										, #{projectName}
+										, #{projectLocation}
+									 )
+	</insert>
+	<insert id="doInsertTeacherEduHis" parameterType="TeacherEduHistoryVO">
+		INSERT INTO TCHR_EDU_HTR	(
+									   TEH_ID
+									   , MBR_ID
+									   , STR_DATE
+									   , END_DATE
+									   , EDU_NM
+									   , EDU_LOC
+									) 
+		VALUES						( 
+										#{id}
+										, #{memberId}
+										, #{startDate}
+										, #{endDate}
+										, #{educationName}
+										, #{educationLocation}
+									 )
+	</insert>
+	<select id="bookNextSeq" resultType="_int">
+		SELECT	TB_ID_SEQ.NEXTVAL
+		FROM	DUAL
+	</select>
+	<select id="projHisNextSeq" resultType="_int">
+		SELECT	TPH_ID_SEQ.NEXTVAL
+		FROM	DUAL
+	</select>
+	<select id="eduHisNextSeq" resultType="_int">
+		SELECT	TEH_ID_SEQ.NEXTVAL
+		FROM	DUAL
+	</select>
+	<select id="nowDate" resultType="string">
+		SELECT	TO_CHAR(SYSDATE, 'YYYYMMDD')
+		FROM	DUAL
+	</select>
 	
 	<select id="getTotalTeacherCount" resultType="_int">
 		SELECT	COUNT(MBR_ID)

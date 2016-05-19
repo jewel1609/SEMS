@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.ktds.sems.education.vo.EducationVO;
+import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.member.web.MemberController;
 import com.ktds.sems.teacher.biz.TeacherBiz;
 import com.ktds.sems.teacher.dao.TeacherDAO;
@@ -23,7 +24,7 @@ public class TeacherBizImpl implements TeacherBiz {
 
 	private Logger logger = LoggerFactory.getLogger(MemberController.class);
 	private TeacherDAO teacherDAO;
-
+	
 	public void setTeacherDAO(TeacherDAO teacherDAO) {
 		this.teacherDAO = teacherDAO;
 	}
@@ -146,7 +147,6 @@ public class TeacherBizImpl implements TeacherBiz {
 				return false;
 			}
 		}
-		System.out.println("4");
 		return teacherDAO.doTeacherInfoModifyAction(teacherVO) > 0;
 	}
 
@@ -156,6 +156,80 @@ public class TeacherBizImpl implements TeacherBiz {
 		map.put("id", id);
 		map.put("type", type);
 		return teacherDAO.deleteTeacherBookEduProHistory(map) > 0;
+	}
+
+	@Override
+	public List<MemberVO> getTeacherMemberInfo() {
+		return teacherDAO.getTeacherMemberInfo();
+	}
+
+	@Override
+	public boolean doInsertNewTeacher(TeacherVO teacherVO) {
+		
+		int result = 0;
+		
+		if ( teacherVO.getTeacherBookList() != null ) {
+			List<TeacherBookVO> teacherBookList = teacherVO.getTeacherBookList();
+			for (TeacherBookVO teacherBookVO : teacherBookList) {
+				teacherBookVO.setMemberId(teacherVO.getMemberId());
+				teacherBookVO.setId(getLpadeId(1));
+				result = teacherDAO.doInsertTeacherBookHis(teacherBookVO);
+				if( result < 1 ){
+					return false;
+				}
+			}
+		}
+		if ( teacherVO.getProjectHistoryList() != null ) {
+			List<ProjectHistoryVO> projectHistoryList = teacherVO.getProjectHistoryList();
+			for (ProjectHistoryVO projectHistoryVO : projectHistoryList) {
+				projectHistoryVO.setMemberId(teacherVO.getMemberId());
+				projectHistoryVO.setId(getLpadeId(2));
+				result = teacherDAO.doInsertTeacherProHis(projectHistoryVO);
+				if( result < 1 ){
+					return false;
+				}
+			}
+		}
+		if ( teacherVO.getEducationHistoryList() != null ) {
+			List<EducationHistoryVO> educationHistoryList = teacherVO.getEducationHistoryList();
+			for (EducationHistoryVO teacherEduHistoryVO : educationHistoryList) {
+				teacherEduHistoryVO.setMemberId(teacherVO.getMemberId());
+				teacherEduHistoryVO.setId(getLpadeId(3));
+				result = teacherDAO.doInsertTeacherEduHis(teacherEduHistoryVO);
+				if( result < 1 ){
+					return false;
+				}
+			}
+		}
+		
+		return teacherDAO.doInsertNewTeacher(teacherVO) > 0;
+	}
+	private String lpad(String source, int length, String defValue) {
+		int sourceLength = source.length();
+		int needLength = length - sourceLength;
+		
+		for (int i = 0; i < needLength; i++) {
+			source = defValue + source;
+		}
+		return source;
+		
+	}
+	private String getLpadeId(int num) {
+		int nextSeq = 0;
+		String id = "";
+		String nowDate = teacherDAO.nowDate();
+		
+		if ( num == 1 ) {
+			nextSeq = teacherDAO.bookNextSeq();
+			id = "TB-" + nowDate + "-" + lpad(nextSeq + "", 6, "0");
+		}else if ( num == 2 ) {
+			nextSeq = teacherDAO.projHisNextSeq();
+			id = "TPH-" + nowDate + "-" + lpad(nextSeq + "", 6, "0");
+		}else if ( num == 3 ) {
+			nextSeq = teacherDAO.eduHisNextSeq();
+			id = "TEH-" + nowDate + "-" + lpad(nextSeq + "", 6, "0");
+		}
+		return id;
 	}
 
 }

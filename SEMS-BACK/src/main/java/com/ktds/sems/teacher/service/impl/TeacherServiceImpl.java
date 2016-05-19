@@ -14,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.cooperation.vo.CooperationSearchVO;
 import com.ktds.sems.common.Session;
-
+import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.member.web.MemberController;
 import com.ktds.sems.teacher.biz.TeacherBiz;
 import com.ktds.sems.teacher.service.TeacherService;
@@ -206,6 +206,48 @@ public class TeacherServiceImpl implements TeacherService {
 		if ( memberType.equals("ADM") ) {
 			boolean result = teacherBiz.deleteTeacherBookEduProHistory(id, type);
 		}else {
+			throw new RuntimeException("접근 가능한 권한이 아닙니다.");
+		}
+		return view;
+	}
+
+	@Override
+	public ModelAndView insertNewTeacher(HttpSession session) {
+		ModelAndView view = new ModelAndView();
+		List<MemberVO> memberVO = teacherBiz.getTeacherMemberInfo();
+		String memberType = (String) session.getAttribute(Session.MEMBER_TYPE);
+		
+		if ( memberType.equals("ADM") ) {
+			view.addObject("memberVO", memberVO);
+			view.setViewName("teacher/teacherInsert");
+		}else {
+			throw new RuntimeException("접근 가능한 권한이 아닙니다.");
+		}
+		return view;
+	}
+
+	@Override
+	public ModelAndView doInsertNewTeacher(TeacherVO teacherVO, Errors errors, HttpSession session) {
+		ModelAndView view = new ModelAndView();
+
+		String memberType = (String) session.getAttribute(Session.MEMBER_TYPE);
+		if ( memberType.equals("ADM") ) {
+			if ( errors.hasErrors() ) {
+				view.setViewName("teacher/teacherInsert"+"/"+teacherVO.getMemberId());
+				view.addObject("teacherVO", teacherVO);
+				return view;
+			}
+			else{
+				boolean result = teacherBiz.doInsertNewTeacher(teacherVO);
+				if ( result) {
+					view.setViewName("redirect:/teacherModify/" + teacherVO.getMemberId());
+				}
+				else {
+					throw new RuntimeException("에러가 발생했습니다. 잠시 후 다시 시도해주세요.");
+				}
+			}
+		}
+		else {
 			throw new RuntimeException("접근 가능한 권한이 아닙니다.");
 		}
 		return view;

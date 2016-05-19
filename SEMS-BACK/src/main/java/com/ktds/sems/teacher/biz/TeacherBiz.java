@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import com.ktds.sems.education.vo.EducationVO;
+import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.teacher.vo.EducationHistoryVO;
 import com.ktds.sems.teacher.vo.ProjectHistoryVO;
 import com.ktds.sems.teacher.vo.TeacherBookVO;
@@ -39,7 +40,6 @@ public interface TeacherBiz {
 
 	public boolean doDeleteTeacherBook(String memberId);
 
-
 	public TeacherVO getOneTeacherInfo(String memberId);
 
 	public List<TeacherBookVO> getOneTeacherBookInfo(String memberId);
@@ -51,5 +51,9 @@ public interface TeacherBiz {
 	public boolean doTeacherInfoModifyAction(TeacherVO teacherVO);
 
 	public boolean deleteTeacherBookEduProHistory(String id, String type);
+	
+	public List<MemberVO> getTeacherMemberInfo();
+
+	public boolean doInsertNewTeacher(TeacherVO teacherVO);
 
 }

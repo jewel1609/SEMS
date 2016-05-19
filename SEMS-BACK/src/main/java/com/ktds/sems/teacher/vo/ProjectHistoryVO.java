@@ -7,6 +7,7 @@ public class ProjectHistoryVO {
 	private String endDate;
 	private String projectName;
 	private String projectLocation;
+	private String memberId;
 	
 	public String getId() {
 		return id;
@@ -38,5 +39,12 @@ public class ProjectHistoryVO {
 	public void setProjectLocation(String projectLocation) {
 		this.projectLocation = projectLocation;
 	}
+	public String getMemberId() {
+		return memberId;
+	}
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
+	}
+	
 
 }
