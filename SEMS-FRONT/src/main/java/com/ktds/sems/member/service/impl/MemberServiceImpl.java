@@ -813,4 +813,70 @@ public class MemberServiceImpl implements MemberService {
 		}
 	}
 
+	@Override
+	public void checkRegistState(HttpServletResponse response) {
+//		String message = "OK";
+//		
+//		boolean isVerifyId = memberBiz.checkRegistState();
+//		if (!isVerifyId) {
+//			message = "NO";
+//			AjaxUtil.sendResponse(response, message);
+//			return;
+//		}
+//
+//		boolean isExistId = memberBiz.isExistId(id);
+//		if (isExistId) {
+//			message = "EXIST";
+//		}
+//		AjaxUtil.sendResponse(response, message);
+		return;
+	}
+
+	/**
+	 * SM 기연
+	 */
+	@Override
+	public void checkValidationByName(String name, HttpServletResponse response) {
+		String message = "NO";
+		boolean isVerifyName = memberBiz.checkValidationByName(name);
+		if (isVerifyName) {
+			message = "OK";
+		}
+		System.out.println("*******************");
+		System.out.println(message);
+		AjaxUtil.sendResponse(response, message);
+		return;
+	}
+
+	/**
+	 * SM 기연
+	 */
+	@Override
+	public void checkValidationByUniversityName(String universityName, HttpServletResponse response) {
+		String message = "NO";
+		boolean isVerifyName = memberBiz.checkValidationByUniversityName(universityName);
+		if (isVerifyName) {
+			message = "OK";
+		}
+		System.out.println("*******************");
+		System.out.println(message);
+		AjaxUtil.sendResponse(response, message);
+		return;
+	}
+
+	@Override
+	public void checkValidationByMajorName(String majorName, HttpServletResponse response) {
+		String message = "NO";
+		boolean isVerifyName = memberBiz.checkValidationByMajorName(majorName);
+		if (isVerifyName) {
+			message = "OK";
+		}
+		System.out.println("*******************");
+		System.out.println(message);
+		AjaxUtil.sendResponse(response, message);
+		return;
+	}
+	
+
+
 }
