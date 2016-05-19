@@ -318,11 +318,13 @@ public class MemberServiceImpl implements MemberService {
 
 		// 졸업 구분 값들을 보낸다. 유저가 회원가입시 선택한 졸업구분을 보낸다.
 		List<GraduationTypeVO> graduationTypeList = memberBiz.getGraduationTypes();
-		String selectedGraduationTypeCodeId = member.getMemberType();
+		String selectedGraduationTypeCodeId = member.getGraduationType();
 		
 		// 최종학력 구분 값들을 보낸다. 유저가 회원가입시 선택한 최종학력을 보낸다.
 		List<HighestEducationLevelVO> highestEducationLevelList = memberBiz.getHighestEducationLevels();
 		String selectedHighestEducationLevelCodeId = member.getHighestEducationLevel();
+		
+		String selectedMemberTypeCodeId = member.getMemberType();
 
 		// 강사인지 아닌지 체크
 		boolean isTeacher = memberBiz.isTeacher(id);
@@ -335,6 +337,7 @@ public class MemberServiceImpl implements MemberService {
 		view.addObject("highestEducationLevelList", highestEducationLevelList);
 		view.addObject("selectedGraduationTypeCodeId", selectedGraduationTypeCodeId);
 		view.addObject("selectedHighestEducationLevelCodeId", selectedHighestEducationLevelCodeId);
+		view.addObject("selectedMemberTypeCodeId", selectedMemberTypeCodeId);
 		if (!isTeacher) {
 			view.addObject("isTeacher", "F");
 		} else {
@@ -382,8 +385,8 @@ public class MemberServiceImpl implements MemberService {
 		
 		if (!graduationType.equals("") || !helCodeName.equals("") ) {
 			
-			String selectGraduationTypeCodeId = memberBiz.getGraduationTypeCodeId(graduationType);
-			String selecthelCodeId = memberBiz.gethelCodeId(helCodeName);
+			String selectGraduationTypeCodeId = graduationType;
+			String selecthelCodeId = helCodeName;
 		
 			if (!originMember.getHighestEducationLevel().equals(selecthelCodeId)) {
 				changeCount++;
