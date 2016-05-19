@@ -34,7 +34,7 @@ public class MemberServiceTest extends SemsTestCase {
 	@Test	
 	public void modifyMemberTypeTest(){
 		
-		String memberType = "일반회원";
+		String memberType = "강사";
 		List<String> memberIds = new ArrayList<String>();
 		memberIds.add("sosdig1");
 		
@@ -71,7 +71,7 @@ public class MemberServiceTest extends SemsTestCase {
 	@Test	
 	public void modifyMemberTypeTestErrorCaseMemberIds(){
 		
-		String memberType = "일반회원";
+		String memberType = "강사";
 		ModelAndView view = memberService.modifyMemberType( memberType , null);
 		
 		if( view != null ) {
@@ -102,7 +102,7 @@ public class MemberServiceTest extends SemsTestCase {
 		member.setEmail("JUNIT@naver.com");
 		member.setPhoneNumber("010-1234-1234");
 		member.setBirthDate("1999-12-01");
-		member.setMemberType("일반회원");
+		member.setMemberType("강사");
 		member.setUniversityName("A대학");
 		member.setMajorName("B학과");
 		member.setHighestEducationLevel("고졸");
