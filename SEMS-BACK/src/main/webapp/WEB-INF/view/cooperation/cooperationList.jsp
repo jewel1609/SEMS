@@ -10,11 +10,15 @@
 <script type="text/javascript" src="<c:url value='/resources/js/jquery.min.js' />"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
+		$("#searchTypeName").hide();
+		
 		$("#searchBtn").click(function(){
 			
-			if ( $("#searchKeyword").val() == "" ) {
-				alert("검색어를 입력하세요!");
-				return;
+			if( $("#searchType option:selected").val() == "1"){
+				if ($("#searchKeyword").val() == ""){
+					alert("검색어를 입력하세요!");
+					return;
+				}
 			}
 			
 			movePage('0');
@@ -24,6 +28,29 @@
 		$("#cooRegisterBtn").click(function(){
 			location.href ="<c:url value='/registerCoo' />";
 		});
+		$("#searchType").click(function(){
+			if ( $("#searchType option:selected").val() == '1' ) {
+				$("#searchKeyword").show();
+				$("#searchTypeName").hide();
+			}
+			
+			if ( $("#searchType option:selected").val() == '2') {
+				$("#searchTypeName").show();
+				$("#searchKeyword").hide();
+			}
+		});
+		
+		var option = $("#searchType option:selected").val();
+		if (option == "1") {
+			$("#searchKeyword").show();
+			$("#searchTypeName").hide();
+
+		}
+		else if( option == "2"){
+			$("#searchTypeName").show();
+			$("#searchKeyword").hide();
+		}
+		
 		
 	});
 </script>
@@ -60,17 +87,33 @@
 					<form id="searchForm">
 						${cooperationListVO.paging.getPagingList("pageNo", "[@]", "이전", "다음", "searchForm") }
 						<div style="float:right;">
-							<select name="searchType">
-								<c:if test="${searchVO.searchType eq '1' }">
+							<select id="searchType" name="searchType">
+							<c:if test="${searchVO.searchType eq '1' }">
 								<option value="1" selected="selected">협약사명</option>
-								<option value="2">협력사/협약사</option>
+							</c:if>
+							<c:if test="${searchVO.searchType ne '1' }">
+								<option value="1">협약사명</option>
 							</c:if>
 							<c:if test="${searchVO.searchType eq '2' }">
-								<option value="1">협약사명</option>
-								<option value="2"  selected="selected">협력사/협약사</option>
+								<option value="2" selected="selected">협력사/협약사</option>
+							</c:if>
+							<c:if test="${searchVO.searchType ne '2' }">
+								<option value="2">협력사/협약사</option>
 							</c:if>
 							</select>
+							
 							<input type="text" id="searchKeyword" name="searchKeyword" value="${searchVO.searchKeyword }"/>
+							
+							<select id="searchTypeName" name="searchTypeName" >
+								<c:forEach items="${typeNameList }" var="typeNameList" >
+								<c:if test="${searchVO.searchTypeName eq typeNameList.codeId }">
+										<option value="${ typeNameList.codeId }" selected="selected">${ typeNameList.codeName }</option>
+								</c:if>
+								<c:if test="${searchVO.searchTypeName ne typeNameList.codeId }">
+										<option value="${ typeNameList.codeId }">${ typeNameList.codeName }</option>
+								</c:if>
+								</c:forEach>
+							</select>
 							<input type="button" id="searchBtn" value="검색" />
 							<input type="button" id="cooRegisterBtn" value="등록하기" />
 						</div>
