@@ -65,7 +65,11 @@
 			</tr>
 			<tr>
 				<td>협력사/협약사 선택지 : </td>
-				<td> ${cooperationVO.cooperationType }</td>
+			<c:forEach items="${cooTypeList}" var="cooType">
+					<c:if test="${cooperationVO.cooperationType eq cooType.codeId}" >
+						<td> ${cooType.codeName}</td>
+					</c:if>
+				</c:forEach> 
 			</tr>
 		</table>
 		<hr>
