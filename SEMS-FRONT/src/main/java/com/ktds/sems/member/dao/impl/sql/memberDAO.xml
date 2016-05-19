@@ -383,12 +383,12 @@
 	<select id="getGraduationTypeCodeId" parameterType="string" resultType="string">
 		SELECT	CD_ID cdId
 		FROM	GRDT_TP
-		WHERE	CD_NM = #{cdNm}
+		WHERE	CD_NM = #{graduationType}
 	</select>
 	<select id="gethelCodeId" parameterType="string" resultType="string">
 		SELECT	CD_ID cdId
 		FROM	HIGHEST_EDU_LV
-		WHERE	CD_NM = #{cdNm}
+		WHERE	CD_NM = #{helCodeName}
 	</select>
 	<select id="isExistEmail" parameterType="string" resultType="string">
 		SELECT	ID
