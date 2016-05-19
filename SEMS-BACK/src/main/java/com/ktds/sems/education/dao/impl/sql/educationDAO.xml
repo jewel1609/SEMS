@@ -230,17 +230,16 @@
 	
 	<update id="applyJoinEdcationByMemberId" parameterType="map">
 		UPDATE	 EDU_HTR
-		SET		 STAT = 'JOIN_CMPL'
-		WHERE	 EDU_ID LIKE #{educationId}
-		AND		 MBR_ID LIKE #{memberId}	
+		SET		 STAT = #{changeState}
+		WHERE	 EDU_HTR_ID = #{educationHistoryId}
 	</update>
-
+	
 	<update id="cancelJoinEducationByMemberId" parameterType="map">
 		UPDATE	 EDU_HTR
 		SET		 STAT = #{changeState}
 		WHERE	 EDU_HTR_ID = #{educationHistoryId}
 	</update>
-
+	
 	<select id="getStateByEducationHistroyId" parameterType="String" resultType="String">
 		SELECT  STAT
 		FROM	EDU_HTR
