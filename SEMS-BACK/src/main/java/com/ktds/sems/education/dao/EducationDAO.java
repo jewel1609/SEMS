@@ -27,5 +27,6 @@ public interface EducationDAO {
 	public int applyJoinEducationByMemberId(String educationHistoryId, String changeState);
 	public int cancelJoinEducationByMemberId(String educationHistoryId, String changeState);
 	public String getStateByEducationHistroyId(String educationHistoryId);
+	public int changeEducationApplyState(String educationHistoryId);
 	
 }
