@@ -149,6 +149,7 @@ public class MemberBizTest extends SemsTestCase {
 		String result = memberBiz.getGraduationTypeCodeId(graduationType);
 		if ( result != null ) {
 			assertNotNull(result);
+			assertTrue(result.equals("ABST"));
 		}
 		else {
 			fail("result is null");
