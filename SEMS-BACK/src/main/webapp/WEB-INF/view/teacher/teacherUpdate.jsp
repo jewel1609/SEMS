@@ -189,7 +189,7 @@
 
 	<div
 		style="width: 40%; height: 100%; border: thin; border-style: double; border-radius: 5px; padding: 5px;">
-		<form:form commandName="teacherVO" method="post"
+		<form:form commandName="teacherVO" id="teacherUpdateForm" method="post"
 			action="/backend/doTeacherInfoModifyAction">
 		강사 수정
 		<br />
