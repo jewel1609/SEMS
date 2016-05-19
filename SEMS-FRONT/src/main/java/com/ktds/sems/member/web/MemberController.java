@@ -5,7 +5,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-import org.hibernate.validator.internal.util.IgnoreJava6Requirement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -272,9 +271,35 @@ public class MemberController {
 		String checkPrevPasswordStatus = memberService.doCheckPrevPassword(id, prevPassword, request);
 		AjaxUtil.sendResponse(response, checkPrevPasswordStatus);
 	}
+	
 	@RequestMapping(value="/member/doRequestIpHistory/{lgiHtrId}", method=RequestMethod.GET)
 	public ModelAndView doRequestIpHistory (@PathVariable int lgiHtrId, HttpSession session) {
 		return memberService.doRequestIpHistory(lgiHtrId, session);
+	}
+	
+	/**
+	 * 강의포기를 위한 강의리스트
+	 */
+	@RequestMapping("/member/myPage/course")
+	public ModelAndView viewResignPage (@RequestParam(required=false, defaultValue="0") int pageNo, HttpSession session) {
+		return memberService.getCourseList(session, pageNo);
+	}
+	
+	/**
+	 * 강의포기 신청서 작성
+	 */
+	@RequestMapping("/resignCourse/{educationId}")
+	public ModelAndView writeResignCourse(@PathVariable String educationId, HttpSession session) {
+		return memberService.writeResignCourse(educationId, session);
+	}
+	
+	/**
+	 * 강의포기 신청
+	 */
+	@RequestMapping(value = ("/dropCourseApply/{educationId}"), method = RequestMethod.POST)
+	public void dropCourseApply(@PathVariable String educationId, HttpSession session, String courseDropReason, @Valid HttpServletResponse response) {
+		String checkPrevPasswordStatus = memberService.dropCourseApply(educationId, session, courseDropReason);
+		AjaxUtil.sendResponse(response, checkPrevPasswordStatus);
 	}
 	
 	@RequestMapping("/member/loginHistoryInit")
