@@ -131,5 +131,13 @@ public interface MemberBiz {
 	public List<EducationStateVO> getStatList();
 
 	public List<EducationCostVO> getCostList();
+	
+	public EducationHistoryVO getOneEducationByIdAndEducationId(String educationId, String id);
+
+	public boolean dropCourseApply(EducationHistoryVO educationHistory);
+	
+	public List<EducationHistoryVO> getCourseList(EducationHistorySearchVO educationHistorySearchVO);
+
+	public int getCourseCountById(String id);
 
 }
