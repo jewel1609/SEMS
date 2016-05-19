@@ -486,10 +486,10 @@ public class MemberControllerTest extends SemsTestCase {
 		member.setSalt("9ca0645b12e961ac");
 		member.setName("Junit");
 		member.setEmail("Junit@naver.com");
-		member.setHighestEducationLevel("대졸");
+		member.setHighestEducationLevel("UNIV");
 		member.setUniversityName("서울대");
 		member.setMajorName("컴공");
-		member.setGraduationType("휴학");
+		member.setGraduationType("ABST");
 		member.setBirthDate("1991-01-01");
 		member.setPhoneNumber("010-1234-5678");
 		member.setMemberType("MBR");
