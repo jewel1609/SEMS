@@ -124,6 +124,10 @@ public class CooperationServiceImpl implements CooperationService {
 		
 		view.setViewName("cooperation/cooperationDetail");
 		view.addObject("cooperationVO", cooperationVO);
+		
+		List<CooperationTypeVO> cooTypeList = cooperationBiz.getCooTypeList();
+		view.addObject("cooTypeList", cooTypeList);
+		
 		return view;
 	}
 

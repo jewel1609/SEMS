@@ -99,11 +99,9 @@
 				, MGR_PH managerPhoneNumber
 				, COO_PH cooperationPhoneNumber
 				, MGR_EMAIL managerEmail
-				, CM.CD_NM cooperationType
-		FROM	COO_INFO CI
-      			, CODE_MNG CM
+				, COO_TP cooperationType
+		FROM	COO_INFO
 		WHERE	COO_ID = #{cooperationId}
-		AND     CI.COO_TP = CM.CD_ID
 	</select>
 	
 	<delete id="doDeleteCooperation" parameterType="string" >
