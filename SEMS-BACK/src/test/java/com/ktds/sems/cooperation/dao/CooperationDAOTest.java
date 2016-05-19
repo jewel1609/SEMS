@@ -41,8 +41,16 @@ public class CooperationDAOTest extends SemsTestCase {
 	}
 	@Test
 	public void doRegisterCooTest() {
+		
+		int nextRegisterCooperationId = cooperationDAO.nextCooSeq();
+		String nextSeq = ""+nextRegisterCooperationId;
+		String nowDate = cooperationDAO.nowDate();
+		String cooperationId = "JunitTest"+nowDate+nextSeq;
+		
+		System.out.println(cooperationId);
+		
 		CooperationVO cooperationVO = new CooperationVO();
-		cooperationVO.setCooperationId("JunitTest");
+		cooperationVO.setCooperationId(cooperationId);
 		cooperationVO.setCooperationTitle("JunitTest");
 		cooperationVO.setCooperationLocation("JunitTest");
 		cooperationVO.setCooperationNumber("JunitTest");
@@ -68,7 +76,7 @@ public class CooperationDAOTest extends SemsTestCase {
 	public void getAllCooperationTest() {
 		CooperationSearchVO searchVO = new CooperationSearchVO();
 		searchVO.setPageNo(10);
-		searchVO.setStartIndex(10);
+		searchVO.setStartIndex(1);
 		searchVO.setEndIndex(10);
 		searchVO.setSearchKeyword("e");
 		searchVO.setSearchKeyword("1");
