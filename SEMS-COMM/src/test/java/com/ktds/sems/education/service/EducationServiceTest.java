@@ -115,6 +115,17 @@ public class EducationServiceTest extends SemsTestCase {
 	}
 	
 	@Test
+	public void ainsertEduCostTestError8() {
+		CostVO cost = new CostVO();
+		cost.setCdId("CSTA");
+		cost.setCdNm("유료");
+		
+		String insertEduCost = educationService.insertEduCost(cost);
+		assertNotNull(insertEduCost);
+		assertEquals(insertEduCost, "FAIL_V");
+	}
+	
+	@Test
 	public void modifyEduCostTestError5() {
 		CostVO cost = new CostVO();
 		cost.setCdId("TES2");
@@ -268,16 +279,6 @@ public class EducationServiceTest extends SemsTestCase {
 		String modifyEduTime = educationService.modifyEduTime(time);
 		assertNotNull(modifyEduTime);
 		assertEquals(modifyEduTime, "OK");
-	}
-	
-	public void modifyEduTimeTestError1() {
-		CostVO cost = new CostVO();
-		cost.setCdId("TEST1");
-		cost.setCdNm("TEST1");
-		
-		String modifyEduCost = educationService.modifyEduCost(cost);
-		assertNotNull(modifyEduCost);
-		assertEquals(modifyEduCost, "DATAL_F");
 	}
 	
 	@Test
