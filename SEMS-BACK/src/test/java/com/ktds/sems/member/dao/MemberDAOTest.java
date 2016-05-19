@@ -87,11 +87,11 @@ public class MemberDAOTest extends SemsTestCase {
 	
 	@Test
 	public void getGraduationTypeCodeIdTest() {
-		String graduationType = "졸업예정";
+		String graduationType = "TES";
 		String grdtCodeId = memberDAO.getGraduationTypeCodeId(graduationType);
 		
 		assertNotNull(grdtCodeId);
-		assertTrue(grdtCodeId.equals("EXPT"));
+		assertTrue(grdtCodeId.equals("TES"));
 	}
 	
 	@Test
@@ -102,11 +102,11 @@ public class MemberDAOTest extends SemsTestCase {
 	
 	@Test
 	public void getMemberTypeCodeIdTest() {
-		String memberType = "강사";
+		String memberType = "JUNITTEST";
 		String memberTypeCodeId = memberDAO.getMemberTypeCodeId(memberType);
 		
 		assertNotNull(memberTypeCodeId);
-		assertTrue(memberTypeCodeId.equals("TR"));
+		assertTrue(memberTypeCodeId.equals("TEST"));
 	}
 	
 	@Test
