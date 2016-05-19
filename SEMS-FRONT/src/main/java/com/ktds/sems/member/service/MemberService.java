@@ -81,4 +81,12 @@ public interface MemberService {
 
 	public String eduationHistoryExportExcel(HttpSession session);
 
+	public void checkRegistState(HttpServletResponse response);
+
+	public void checkValidationByName(String name, HttpServletResponse response);
+
+	public void checkValidationByUniversityName(String universityName, HttpServletResponse response);
+
+	public void checkValidationByMajorName(String majorName, HttpServletResponse response);
+
 }
