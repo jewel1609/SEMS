@@ -732,5 +732,10 @@ public class MemberBizImpl implements MemberBiz {
 		return memberDAO.getGraduationTypes();
 	}
 
+	@Override
+	public String getSelectMemberTypeCodeName(String memberType) {
+		return memberDAO.getSelectMemberTypeCodeName(memberType);
+	}
+
 
 }

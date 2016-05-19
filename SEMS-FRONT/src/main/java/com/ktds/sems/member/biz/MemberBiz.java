@@ -134,5 +134,8 @@ public interface MemberBiz {
 	public List<HighestEducationLevelVO> getHighestEducationLevels();
 
 	public List<GraduationTypeVO> getGraduationTypes();
+
+	public String getSelectMemberTypeCodeName(String memberType);
+
 	
 }

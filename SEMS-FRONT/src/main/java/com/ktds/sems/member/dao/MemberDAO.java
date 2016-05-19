@@ -125,10 +125,13 @@ public interface MemberDAO {
 	
 	public int getCourseCountById(String id);
 
-	public List<HighestEducationLevelVO> getHighestEducationLevels();
-
 	public List<GraduationTypeVO> getGraduationTypes();
 
+	public List<HighestEducationLevelVO> getHighestEducationLevels();
+
 	public List<MemberTypeVO> getMemberTypes();
+
+	public String getSelectMemberTypeCodeName(String memberType);
+
 	
 }

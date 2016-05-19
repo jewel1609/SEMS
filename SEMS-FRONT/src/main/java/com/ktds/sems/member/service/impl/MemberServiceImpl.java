@@ -325,6 +325,7 @@ public class MemberServiceImpl implements MemberService {
 		String selectedHighestEducationLevelCodeId = member.getHighestEducationLevel();
 		
 		String selectedMemberTypeCodeId = member.getMemberType();
+		String selectedMemberTypeCodeName = memberBiz.getSelectMemberTypeCodeName(member.getMemberType());
 
 		// 강사인지 아닌지 체크
 		boolean isTeacher = memberBiz.isTeacher(id);
@@ -338,6 +339,8 @@ public class MemberServiceImpl implements MemberService {
 		view.addObject("selectedGraduationTypeCodeId", selectedGraduationTypeCodeId);
 		view.addObject("selectedHighestEducationLevelCodeId", selectedHighestEducationLevelCodeId);
 		view.addObject("selectedMemberTypeCodeId", selectedMemberTypeCodeId);
+		view.addObject("selectedMemberTypeCodeName", selectedMemberTypeCodeName);
+		
 		if (!isTeacher) {
 			view.addObject("isTeacher", "F");
 		} else {

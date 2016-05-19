@@ -325,4 +325,9 @@ public class MemberDAOImpl  extends SqlSessionDaoSupport implements MemberDAO {
 	public List<MemberTypeVO> getMemberTypes() {
 		return getSqlSession().selectList("MemberDAO.getMemberTypes");
 	}
+
+	@Override
+	public String getSelectMemberTypeCodeName(String memberType) {
+		return getSqlSession().selectOne("MemberDAO.getSelectMemberTypeCodeName", memberType);
+	}
 }

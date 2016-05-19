@@ -656,5 +656,11 @@
 				, CD_NM cdNm
 		FROM	MBR_TP
 	</select>
+	
+	<select id="getSelectMemberTypeCodeName" resultType="string" parameterType="string">
+		SELECT	CD_NM cdNm
+		FROM	MBR_TP
+		WHERE	CD_ID = #{cdId}
+	</select>
 		
 </mapper>
