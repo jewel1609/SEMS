@@ -31,7 +31,7 @@ public class EducationBizTest extends SemsTestCase {
 
 	@Test
 	public void getOneEducationTest() {
-		String educationId = "ED-20160512-000069";
+		String educationId = "ED-20160518-000206";
 		EducationVO educationVO = educationBiz.getOneEducation(educationId);
 		assertNotNull(educationVO);
 	}
@@ -41,7 +41,7 @@ public class EducationBizTest extends SemsTestCase {
 		
 		EducationVO educationVO = new EducationVO();
 		
-		educationVO.setEducationId("ED-20160512-000066");
+		educationVO.setEducationId("ED-20160518-000206");
 		educationVO.setEducationCategory("ZCS");
 		educationVO.setEducationTitle("JUNIT...");
 		educationVO.setMemberId("JUNIT...");
