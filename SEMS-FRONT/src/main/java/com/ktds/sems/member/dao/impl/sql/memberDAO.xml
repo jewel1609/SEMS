@@ -325,7 +325,7 @@
 		FROM	EDU_INFO E_I, EDU_HTR E_H
 		WHERE   E_I.EDU_ID = E_H.EDU_ID
 		AND		E_H.MBR_ID = #{id}
-		AND     E_H.STAT = 'JOIN_CMPL'
+		AND     E_H.STAT = 'EDU_JN_C'
 	</select>
 	
 	<insert id="insertAttendByMember" parameterType="AttendVO">
@@ -354,7 +354,6 @@
 		        )
 		WHERE  ROWNUM = 1
 	</select>
-	
 	
 	<select id="selectedGraduationTypeCodeName" parameterType="string" resultType="string">
 		SELECT	CD_NM cdNm
@@ -385,11 +384,13 @@
 		FROM	GRDT_TP
 		WHERE	CD_NM = #{graduationType}
 	</select>
+	
 	<select id="gethelCodeId" parameterType="string" resultType="string">
 		SELECT	CD_ID cdId
 		FROM	HIGHEST_EDU_LV
 		WHERE	CD_NM = #{helCodeName}
 	</select>
+	
 	<select id="isExistEmail" parameterType="string" resultType="string">
 		SELECT	ID
 		FROM	MBR
@@ -438,6 +439,7 @@
 		WHERE	LGI_HTR_ID = #{lgiHtrId}
 		AND		MBR_ID = #{id}
 	</select>
+	
 	<update id="doRequestIpHistory" parameterType="_int">
 		UPDATE	LGI_HTR 
 		SET		IS_REQ = 'Y'
@@ -504,7 +506,7 @@
 		AND		EH.STAT = CD.CD_ID
 		AND		EI.COST = EC.CD_ID
 	</select>
-	
+		
 	<select id="getTotalEducationHistoryCountById" parameterType="EducationHistorySearchVO" resultType="_int">
 		SELECT	COUNT(EH.EDU_HTR_ID)
 		FROM	EDU_HTR EH
@@ -615,5 +617,72 @@
 				, CD_ID codeId
 		FROM	EDU_CST
 	</select>
+
+	<select id="getCourseCountById" parameterType="string" resultType="_int">
+		SELECT	COUNT(EDU_HTR_ID)
+		FROM	EDU_HTR
+		WHERE	STAT = 'EDU_JN_C'
+		AND		MBR_ID = #{id}
+	</select>
 	
+	<select id="getCourseList" parameterType="EducationHistorySearchVO" resultType="EducationHistoryVO">
+		SELECT	EH.EDU_HTR_ID educationHistoryId
+				, EH.EDU_ID educationId
+				, EH.MBR_ID memberId
+				, EH.EDU_HTR_DT educationHistoryDate
+				, EH.STAT state
+				, EH.IP ip
+				, EH.CMNT cmnt
+				, EH.FDBK fdbk
+				, EI.SRT_DATE startDate
+				, EI.END_DATE endDate
+		FROM	EDU_INFO EI
+				, (
+					SELECT	ROWNUM AS RNUM
+							, EDUCATION_HISTORY.*
+					FROM	(
+								SELECT	*
+								FROM	EDU_HTR
+								WHERE	MBR_ID = #{memberId}
+								AND		STAT = 'EDU_JN_C'
+								ORDER BY EDU_HTR_ID DESC
+							) EDUCATION_HISTORY
+					WHERE	ROWNUM <![CDATA[<=]]> #{endIndex}
+				) EH
+		WHERE	RNUM <![CDATA[>=]]> #{startIndex}
+		AND		EI.EDU_ID = EH.EDU_ID
+		AND		EI.END_DATE <![CDATA[>=]]> SYSDATE
+	</select>
+
+	<select id="getOneEducationByIdAndEducationId" parameterType="map" resultType="EducationHistoryVO">
+		SELECT	EH.EDU_HTR_ID educationHistoryId
+				, EH.EDU_ID educationId
+				, EH.MBR_ID memberId
+				, EH.EDU_HTR_DT educationHistoryDate
+				, EH.STAT state
+				, EH.IP ip
+				, EH.CMNT cmnt
+				, EH.FDBK fdbk
+				, EI.SRT_DATE startDate
+				, EI.END_DATE endDate
+				, EI.EDU_TTL educationTitle
+		FROM	EDU_HTR EH
+                , EDU_INFO EI
+		WHERE	EH.EDU_ID = #{educationId}
+		AND     EH.EDU_ID = EI.EDU_ID
+		AND		EH.MBR_ID = #{id}
+		AND     EH.STAT = 'EDU_JN_C'
+		AND     EI.END_DATE <![CDATA[>=]]> SYSDATE
+	</select>
+	
+	<update id="dropCourseApply" parameterType="EducationHistoryVO">
+		UPDATE	SEMS.EDU_HTR
+		SET		EDU_HTR_DT = SYSDATE
+				<!-- , STAT = 'EDU_GU_A' -->
+				, STAT = 'EDU_JN_C'
+				, CMNT = #{cmnt}
+		WHERE	EDU_ID = #{educationId}
+		AND		MBR_ID = #{memberId}
+	</update>
+		
 </mapper>
