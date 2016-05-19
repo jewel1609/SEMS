@@ -44,6 +44,7 @@ public class EducationDAOTest extends SemsTestCase{
 	
 	@Test
 	public void getOneEducationDetailTest(){
+		String educationId= "ED-20160518-000204";
 		String educationId= "ED-20160519-000233";
 		assertNotNull( educationDAO.getOneEducationDetail(educationId));
 	}
@@ -86,7 +87,10 @@ public class EducationDAOTest extends SemsTestCase{
 	}
 	
 	// qnaVO에 set된 pk data 값은 테스트시 변경 요망.
+	/*@Test
+=======
 	//@Test
+>>>>>>> .r1305
 	public void writeNewCommentTest(){
 		QNAVO qnaVO = new QNAVO();
 //		qnaVO.setReplyId("RP-20160813-000088");
@@ -99,14 +103,14 @@ public class EducationDAOTest extends SemsTestCase{
 		qnaVO.setCreatedDate("2016/05/13 오전 10:22:27");
 		
 		assertTrue(educationDAO.insertNewComment(qnaVO) > 0);
-	}
+	}*/
 	
-	@Test
+	/*@Test
 	public void doApplyEducationTest(){
-		String educationId = "ED-20160512-000088";
+		String educationId = "ED-20160518-000204";
 		String id = "test02";
 		assertNotNull( educationDAO.doApplyEducation(educationId, id) > 0);
-	}
+	}*/
 	
 	// doApplyEducation ( 위 메소드 )와 동일한 educationId 사용중. 이 메소드 동작 시 doApplyEducation는 동작을 안함
 	@Test
@@ -178,8 +182,8 @@ public class EducationDAOTest extends SemsTestCase{
 	//@Test
 	public void doReReplyInsertTest(){
 		QNAVO qnaVO = new QNAVO();
-		String realReplyId = "JUNIT Test replyId";
-		String replyId = "RP-20160513-000096";
+		String realReplyId = "JUNIT Test replyId22";
+		String replyId = "RP-20160513-000086";
 		String eduId = "ED-20160513-000130";
 		String description = "JUNIT DAO DESCRIPTION";
 		//강의ID
@@ -195,6 +199,7 @@ public class EducationDAOTest extends SemsTestCase{
 		
 		int checkInt = educationDAO.doReReplyInsert(qnaVO);
 		assertTrue(checkInt > 0);
+		assertTrue(educationDAO.doReReplyDelete(qnaVO) > 0);
 	}
 	
 	@Test
@@ -230,6 +235,7 @@ public class EducationDAOTest extends SemsTestCase{
 		reRplyEvalVO.setReplyEvalId("JUNIT TEST EVAL ID3");
 		
 		assertTrue(educationDAO.insertReReplyEval(reRplyEvalVO) > 0);
+		assertTrue(educationDAO.deleteReReplyEval(reRplyEvalVO) > 0);
 	}
 	
 //	@Test
@@ -245,6 +251,7 @@ public class EducationDAOTest extends SemsTestCase{
 		reRplyEvalVO.setReplyEvalId("JUNIT DISLIKE 4");
 		
 		assertTrue(educationDAO.insertReReplyEvalByDislike(reRplyEvalVO) > 0);
+		assertTrue(educationDAO.deleteReReplyEval(reRplyEvalVO) > 0);
 	}
 	
 	@Test
