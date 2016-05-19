@@ -50,7 +50,7 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>2.11</version>
 				<configuration>
-					<skipTests>true</skipTests>
+					<skipTests>false</skipTests>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -58,7 +58,7 @@
 				<artifactId>cobertura-maven-plugin</artifactId>
 				<version>2.5</version>
 				<configuration>
-					<skip>test</skip>
+					<skip>false</skip>
 					<formats>
 						<format>xml</format>
 					</formats>
