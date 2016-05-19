@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -24,8 +25,14 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.SemsTestCase;
+import com.ktds.sems.education.vo.EducationHistoryListVO;
+import com.ktds.sems.education.vo.EducationHistorySearchVO;
+import com.ktds.sems.education.vo.EducationHistoryVO;
 import com.ktds.sems.education.vo.EducationVO;
+import com.ktds.sems.member.vo.LoginHistoryVO;
+import com.ktds.sems.member.vo.MemberVO;
 
+import kr.co.hucloud.utilities.web.Paging;
 
 public class EducationServiceTest extends SemsTestCase {
 
@@ -34,14 +41,14 @@ public class EducationServiceTest extends SemsTestCase {
 
 	@Test
 	public void getOneEducationForUpdateTest(){
-		String educationId = "ED-20160518-000206";
+		String educationId = "ED-20160518-000207";
 		ModelAndView view = educationeService.getOneEducationForUpdate(educationId);
 		String viewName = view.getViewName();
 		assertNotNull(view);
 		assertTrue(viewName == "education/update");
 	}
 	
-	@Test
+//	@Test
 	public void doEducationModifyTest() {
 		EducationVO educationVO = new EducationVO();
 		
@@ -950,5 +957,61 @@ public class EducationServiceTest extends SemsTestCase {
 		}
 	}
 	
+	@Test
+	public void getAllEducationHistoryTest() {
+		
+		EducationHistorySearchVO educationHistorySearchVO = new EducationHistorySearchVO();
+		educationHistorySearchVO.setMemberId("양지한");
+		
+		ModelAndView view = educationeService.getAllEducationHistory(educationHistorySearchVO, 0);
+		
+		if ( view != null ) {
+			String viewName = view.getViewName();
+			assertNotNull(viewName);
+			assertEquals(viewName, "education/eduManage");
+		
+		EducationHistoryListVO EduHistoryListVO = (EducationHistoryListVO) view.getModel().get("eduHistoryListVO");
+		assertNotNull(EduHistoryListVO);
+		
+		Paging paging = EduHistoryListVO.getPaging();
+		assertNotNull(paging);
+		assertTrue(paging.getTotalArticleCount() > 0);
+		
+		List<EducationHistoryVO> eduHistory = EduHistoryListVO.getEducationHistoryList();
+		assertNotNull(eduHistory);
+		assertTrue(eduHistory.size() > 0);
+		}
+		else {
+			fail("getAllEducationHistoryTest Fail");
+		}
+	}
 	
+	@Test
+	public void getJCEduHistoryTest() {
+		
+		EducationHistorySearchVO educationHistorySearchVO = new EducationHistorySearchVO();
+		educationHistorySearchVO.setMemberId("test04");
+		
+		ModelAndView view = educationeService.getJCEduHistory(educationHistorySearchVO, 0);
+		
+		if ( view != null ) {
+			String viewName = view.getViewName();
+			assertNotNull(viewName);
+			assertEquals(viewName, "education/checkApplicant");
+		
+		EducationHistoryListVO EduHistoryListVO = (EducationHistoryListVO) view.getModel().get("eduHistoryListVO");
+		assertNotNull(EduHistoryListVO);
+		
+		Paging paging = EduHistoryListVO.getPaging();
+		assertNotNull(paging);
+		assertTrue(paging.getTotalArticleCount() > 0);
+		
+		List<EducationHistoryVO> eduHistory = EduHistoryListVO.getEducationHistoryList();
+		assertNotNull(eduHistory);
+		assertTrue(eduHistory.size() > 0);
+		}
+		else {
+			fail("getJCEduHistoryTest Fail");
+		}
+	}
 }
