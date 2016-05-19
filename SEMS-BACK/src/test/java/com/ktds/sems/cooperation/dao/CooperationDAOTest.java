@@ -21,11 +21,13 @@ public class CooperationDAOTest extends SemsTestCase {
 	
 	@Test
 	public void getTotalCooperationTest() {
-		Map<String,String> searchInfo = new HashMap<String,String>();
-		searchInfo.put("searchType", "1");
-		searchInfo.put("searchKeyword", "e");
-		
-		int result = cooperationDAO.getTotalCooperationCount(searchInfo);
+		CooperationSearchVO searchVO = new CooperationSearchVO();
+		searchVO.setEndIndex(5);
+		searchVO.setPageNo(1);
+		searchVO.setSearchKeyword("e");
+		searchVO.setSearchType("1");
+		searchVO.setStartIndex(1);
+		int result = cooperationDAO.getTotalCooperationCount(searchVO);
 		assertNotNull(result);
 	}
 	

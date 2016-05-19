@@ -23,10 +23,13 @@ public class CooperationBizTest extends SemsTestCase {
 	
 	@Test
 	public void getTotalCooperationCountTest() {
-		MockHttpServletRequest request = new MockHttpServletRequest();
-		request.setParameter("searchType", "1");
-		request.setParameter("searchKeyword", "e");
-		int result = cooperationBiz.getTotalCooperationCount(request);
+		CooperationSearchVO searchVO = new CooperationSearchVO();
+		searchVO.setEndIndex(5);
+		searchVO.setPageNo(1);
+		searchVO.setSearchKeyword("e");
+		searchVO.setSearchType("1");
+		searchVO.setStartIndex(1);
+		int result = cooperationBiz.getTotalCooperationCount(searchVO);
 		assertNotNull(result);
 	}
 	

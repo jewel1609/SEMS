@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.SemsTestCase;
 import com.ktds.sems.cooperation.dao.CooperationDAO;
+import com.ktds.sems.cooperation.vo.CooperationSearchVO;
 import com.ktds.sems.cooperation.vo.CooperationVO;
 
 public class CooperationControllerTest extends SemsTestCase {
@@ -75,11 +76,15 @@ public class CooperationControllerTest extends SemsTestCase {
 	@Test
 	public void viewCooListPageTest() {
 		int pageNo = 1;
-		MockHttpServletRequest request = new MockHttpServletRequest();
-		request.setParameter("searchType", "1");
-		request.setParameter("searchKeyword", "e");
+
+		CooperationSearchVO searchVO = new CooperationSearchVO();
+		searchVO.setEndIndex(5);
+		searchVO.setPageNo(1);
+		searchVO.setSearchKeyword("e");
+		searchVO.setSearchType("1");
+		searchVO.setStartIndex(1);
 		
-		ModelAndView view = cooperationController.viewCooListPage(pageNo, request);
+		ModelAndView view = cooperationController.viewCooListPage(searchVO, pageNo);
 		
 		String viewName = view.getViewName();
 		assertNotNull(viewName);
