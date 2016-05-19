@@ -89,8 +89,6 @@ public class EducationControllerTest extends SemsTestCase {
 	/*
 	 D:\\핸드폰.xlsx 파일 있어야 함
 	 * 
-	 * 
-	 */
 	@Test
 	public void doWriteActionTest() {
 		// List 보는건 차 후에 test 시도
@@ -147,7 +145,9 @@ public class EducationControllerTest extends SemsTestCase {
 			fail("Fail");
 		}
 	}
-
+	 */
+	
+	/*
 	@Test
 	public void doEducationModifyTest() {
 		EducationVO educationVO = new EducationVO();
@@ -204,6 +204,7 @@ public class EducationControllerTest extends SemsTestCase {
 			fail("fail...");
 		}
 	}
+	*/
 
 	
 	@Test
@@ -1081,7 +1082,8 @@ public class EducationControllerTest extends SemsTestCase {
 			fail("fail...");
 		}
 	}
-
+	
+	/*
 	@Test
 	public void doEducationModifyTestWithError5() {
 		EducationVO educationVO = new EducationVO();
@@ -1140,6 +1142,7 @@ public class EducationControllerTest extends SemsTestCase {
 			fail("fail...");
 		}
 	}
+	*/
 
 	@Test
 	public void doEducationModifyTestWithError6() {
