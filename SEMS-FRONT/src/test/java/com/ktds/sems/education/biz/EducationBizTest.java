@@ -241,4 +241,11 @@ public class EducationBizTest extends SemsTestCase{
 		}
 		
 	}
+	
+	@Test
+	public void exportQNAListAsExcelTest() {
+		String memberId = "test02";
+		boolean test = educationBiz.exportQNAListAsExcel(memberId);
+		assertTrue(test);
+	}
 }
