@@ -632,8 +632,8 @@
 	<update id="dropCourseApply" parameterType="EducationHistoryVO">
 		UPDATE	SEMS.EDU_HTR
 		SET		EDU_HTR_DT = SYSDATE
-				<!-- , STAT = 'EDU_GU_A' -->
-				, STAT = 'EDU_JN_C'
+				, STAT = 'EDU_GU_A'
+				<!-- , STAT = 'EDU_JN_C'  -->
 				, CMNT = #{cmnt}
 		WHERE	EDU_ID = #{educationId}
 		AND		MBR_ID = #{memberId}
