@@ -96,8 +96,8 @@ public class EducationBizTest extends SemsTestCase{
 	@Test
 	public void bisExistCostTestError4() {
 		CostVO cost = new CostVO();
-		cost.setCdId("TES2");
-		cost.setCdNm("TES2");
+		cost.setCdId("TES1");
+		cost.setCdNm("TES1");
 		
 		boolean isExistCost = educationBiz.isExistCost(cost);
 		assertTrue(isExistCost == true);
