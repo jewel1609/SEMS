@@ -87,7 +87,9 @@ public class EducationServiceImpl implements EducationService {
 								fileVO.setFileLocation(filePath);
 								fileBiz.doWriteFile(fileVO);
 								
-							} catch (IllegalStateException | IOException e) {
+							} catch (IllegalStateException e) {
+								e.printStackTrace();
+							} catch (IOException e) {
 								e.printStackTrace();
 							}
 						}
