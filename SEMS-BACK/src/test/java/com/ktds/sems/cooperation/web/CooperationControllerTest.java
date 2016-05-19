@@ -11,12 +11,15 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.SemsTestCase;
+import com.ktds.sems.cooperation.dao.CooperationDAO;
 import com.ktds.sems.cooperation.vo.CooperationVO;
 
 public class CooperationControllerTest extends SemsTestCase {
 
 	@Autowired
 	private CooperationController cooperationController;
+	@Autowired
+	private CooperationDAO cooperationDAO;
 	
 	@Test
 	public void viewRegistCooPageTest() {
@@ -45,7 +48,7 @@ public class CooperationControllerTest extends SemsTestCase {
 	
 	@Test
 	public void viewModifyCooPageTest() {
-		String cooperationId = "JunitTest";
+		String cooperationId = cooperationDAO.getOneCooperationId();
 		ModelAndView view = cooperationController.viewModifyCooPage(cooperationId);
 		String viewName = view.getViewName();
 		assertNotNull(viewName);
@@ -54,23 +57,19 @@ public class CooperationControllerTest extends SemsTestCase {
 	
 	@Test
 	public void doModifyCooTest() {
+		String cooperationId = cooperationDAO.getOneCooperationId();
 		CooperationVO cooperationVO = new CooperationVO();
-		cooperationVO.setCooperationId("CO-20160517-000008");
+		cooperationVO.setCooperationId(cooperationId);
 		cooperationVO.setCooperationTitle("JunitTest");
 		cooperationVO.setCooperationLocation("JunitTest");
-		cooperationVO.setCooperationNumber("JunitTest");
-		cooperationVO.setRepresentativeName("JunitTest");
-		cooperationVO.setManagerPhoneNumber("JunitTest");
-		cooperationVO.setCooperationPhoneNumber("JunitTest");
-		cooperationVO.setManagerEmail("JunitTest");
-		cooperationVO.setCooperationType("JunitTest");
+		cooperationVO.setCooperationNumber("JunitTest2");
 		
 		BindingResult errors = new BeanPropertyBindingResult(cooperationVO,"registerForm");
 		ModelAndView view = cooperationController.doModifyCoo(cooperationVO, errors);
 		
 		String viewName = view.getViewName();
 		assertNotNull(viewName);
-		assertEquals(viewName, "cooperation/cooperationDetail");
+		assertEquals(viewName, "redirect:/cooDetail/"+cooperationId);
 	}
 	
 	@Test
@@ -88,14 +87,16 @@ public class CooperationControllerTest extends SemsTestCase {
 	}
 	@Test
 	public void viewCooDetailPageTest() {
-		ModelAndView view = cooperationController.viewCooDetailPage("JunitTest");
+		String cooperationId = cooperationDAO.getOneCooperationId();
+		ModelAndView view = cooperationController.viewCooDetailPage(cooperationId);
 		String viewName = view.getViewName();
 		assertNotNull(viewName);
 		assertEquals(viewName, "cooperation/cooperationDetail");
 	}
 	@Test
 	public void doDeleteCooperationTest() {
-		String result = cooperationController.doDeleteCooperation("CO-20160516-000003");
+		String cooperationId = cooperationDAO.getOneCooperationId();
+		String result = cooperationController.doDeleteCooperation(cooperationId);
 		assertEquals(result, "redirect:/cooList");
 	}
 }

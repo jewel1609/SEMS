@@ -11,12 +11,15 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.SemsTestCase;
+import com.ktds.sems.cooperation.dao.CooperationDAO;
 import com.ktds.sems.cooperation.vo.CooperationVO;
 
 public class CooperationServiceTest extends SemsTestCase {
 
 	@Autowired
 	private CooperationService cooperationService;
+	@Autowired
+	private CooperationDAO cooperationDAO;
 	
 	@Test
 	public void viewRegistCooPageTest() {
@@ -60,27 +63,31 @@ public class CooperationServiceTest extends SemsTestCase {
 	}
 	@Test
 	public void getOneCooperationTest() {
-		ModelAndView view = cooperationService.getOneCooperation("JunitTest");
+		String cooperationId = cooperationDAO.getOneCooperationId();
+		ModelAndView view = cooperationService.getOneCooperation(cooperationId);
 		String viewName = view.getViewName();
 		assertNotNull(viewName);
 		assertEquals(viewName, "cooperation/cooperationDetail");
 	}
 	@Test
 	public void doDeleteCooperationTest() {
-		String result = cooperationService.doDeleteCooperation("CO-20160516-000003");
+		String cooperationId = cooperationDAO.getOneCooperationId();
+		String result = cooperationService.doDeleteCooperation(cooperationId);
 		assertEquals(result, "redirect:/cooList");
 	}
 	@Test
 	public void viewModifyCooPageTest() {
-		ModelAndView view = cooperationService.viewModifyCooPage("JunitTest");
+		String cooperationId = cooperationDAO.getOneCooperationId();
+		ModelAndView view = cooperationService.viewModifyCooPage(cooperationId);
 		String viewName = view.getViewName();
 		assertNotNull(viewName);
 		assertEquals(viewName, "cooperation/modifyCoo");
 	}
 	@Test
 	public void doModifyCooTest() {
+		String cooperationId = cooperationDAO.getOneCooperationId();
 		CooperationVO cooperationVO = new CooperationVO();
-		cooperationVO.setCooperationId("CO-20160517-000008");
+		cooperationVO.setCooperationId(cooperationId);
 		cooperationVO.setCooperationTitle("JunitTest");
 		cooperationVO.setCooperationLocation("JunitTest");
 		cooperationVO.setCooperationNumber("JunitTest");
@@ -95,7 +102,7 @@ public class CooperationServiceTest extends SemsTestCase {
 		
 		String viewName = view.getViewName();
 		assertNotNull(viewName);
-		assertEquals(viewName, "cooperation/cooperationDetail");
+		assertEquals(viewName, "redirect:/cooDetail/"+cooperationId);
 	}
 
 }
