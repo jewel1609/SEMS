@@ -214,7 +214,7 @@ public class MemberDAOTest extends SemsTestCase {
 	 */
 	@Test
 	public void getGraduationTypeCodeIdTest() {
-		String graduationType = "휴학";
+		String graduationType = "TES";
 		String checkStr = memberDAO.getGraduationTypeCodeId(graduationType);
 		assertNotNull(checkStr);
 	}
@@ -224,7 +224,7 @@ public class MemberDAOTest extends SemsTestCase {
 	 */
 	@Test
 	public void gethelCodeIdTest() {
-		String helCodeName = "대졸";
+		String helCodeName = "TEST";
 		String checkStr = memberDAO.gethelCodeId(helCodeName);
 		assertNotNull(checkStr);
 	}

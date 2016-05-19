@@ -150,7 +150,7 @@ public class MemberBizTest extends SemsTestCase {
 	@Test
 	public void getGraduationTypeCodeIdTest(){
 		
-		String graduationType = "휴학";
+		String graduationType = "TES";
 		String result = memberBiz.getGraduationTypeCodeId(graduationType);
 		
 		if ( result != null ) {
@@ -163,11 +163,11 @@ public class MemberBizTest extends SemsTestCase {
 	
 	@Test
 	public void gethelCodeIdTest(){
-		String helCodeName = "대졸";
+		String helCodeName = "TEST";
 		String result = memberBiz.gethelCodeId(helCodeName);
 		if ( result != null ) {
 			assertNotNull(result);
-			assertTrue(result.equals("UNIV"));
+			assertTrue(result.equals("TEST"));
 		}
 		else {
 			fail("result is null");
