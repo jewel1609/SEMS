@@ -44,7 +44,6 @@ public class EducationDAOTest extends SemsTestCase{
 	
 	@Test
 	public void getOneEducationDetailTest(){
-		String educationId= "ED-20160518-000204";
 		String educationId= "ED-20160519-000233";
 		assertNotNull( educationDAO.getOneEducationDetail(educationId));
 	}

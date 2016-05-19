@@ -386,8 +386,8 @@ public class MemberBizTest extends SemsTestCase {
 					assertNotNull(loginHistoryVO.getId());
 					assertNotNull(loginHistoryVO.getLgiIp());
 					assertNotNull(loginHistoryVO.getLgiDt());
-					assertNotNull(loginHistoryVO.getLgoDt());
-					assertNotNull(loginHistoryVO.getIsReq());
+//					assertNotNull(loginHistoryVO.getLgoDt());
+//					assertNotNull(loginHistoryVO.getIsReq());
 					assertNotNull(loginHistoryVO.getChkCnt());
 				}
 			}
