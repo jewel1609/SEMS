@@ -129,7 +129,7 @@ public class MemberDAOImpl  extends SqlSessionDaoSupport implements MemberDAO {
 
 	@Override
 	public String getLastDate(Map<String,String> eduIdAndMemberId) {
-		return getSqlSession().selectOne("MemberDAO.getLastDate", eduIdAndMemberId ) == null ? "" : this.getSqlSession().selectOne("MemberDAO.getLastDate", eduIdAndMemberId);
+		return (String) (getSqlSession().selectOne("MemberDAO.getLastDate", eduIdAndMemberId ) == null ? "" : this.getSqlSession().selectOne("MemberDAO.getLastDate", eduIdAndMemberId));
 	}
 
 	/**
