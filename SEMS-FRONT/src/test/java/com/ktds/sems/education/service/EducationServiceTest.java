@@ -32,7 +32,7 @@ public class EducationServiceTest extends SemsTestCase {
 	@Autowired
 	private EducationService educationService;
 	
-	@Test
+//	@Test
 	public void doCancelEducation() {
 		
 		String educationId = "ED-20160510-000011";
@@ -156,11 +156,11 @@ public class EducationServiceTest extends SemsTestCase {
 		EducationSearchVO searchVO = new EducationSearchVO();
 		searchVO.setStartIndex(paging.getStartArticleNumber());
 		searchVO.setEndIndex(paging.getEndArticleNumber());
-
+		educationId = "ED-20160519-000227";
 		EducationVO education = educationBiz.getOneEducationDetail(educationId);
 		assertNotNull(education);
 	//	List<FileVO> fileList = fileBiz.getOneFileId(educationId);
-		
+		educationId = "ED-20160512-000066";
 		List<QNAVO> qnas = educationBiz.getAllCommentByEducationId(educationId, searchVO);
 		assertTrue(qnas.size() > 0);
 		eduReplyListVO.setQnaList(qnas);
