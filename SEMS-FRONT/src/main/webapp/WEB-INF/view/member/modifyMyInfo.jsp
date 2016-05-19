@@ -257,7 +257,7 @@ function daysInMonth(month, year) {
 	<form:errors path="email" />
 	<br />
 	
-	<c:if test="${memberTypeCodeName eq '수강생' || memberTypeCodeName eq '일반회원'}">
+	<c:if test="${selectedMemberTypeCodeId eq 'STD' || selectedMemberTypeCodeId eq 'MBR'}">
 	대학교 : ${member.universityName}  <br />	
 	<br />
 	전공 : ${member.majorName} <br /> 	
@@ -275,26 +275,26 @@ function daysInMonth(month, year) {
 	<form:errors path="phoneNumber"></form:errors>
 	<br />
 	
-	회원구분 : ${memberTypeCodeName} <br />
+	회원구분 : ${selectedMemberTypeCodeName} <br />
 	<br />
-	<c:if test="${memberTypeCodeName eq '수강생' || memberTypeCodeName eq '일반회원'}">
+	<c:if test="${selectedMemberTypeCodeId eq 'STD' || selectedMemberTypeCodeId eq 'MBR'}">
 	졸업구분 : 
-	<c:forEach items="${graduationTypeList}" var="graduationTypeCodeName">
-				<c:if test="${graduationTypeCodeName eq selectedGraduationTypeCodeName}">
-				<input type="radio" class="graduationType" name="graduationType" value="${graduationTypeCodeName}" checked="checked"/>${graduationTypeCodeName}
+	<c:forEach items="${graduationTypeList}" var="graduationType">
+				<c:if test="${graduationType.cdId eq selectedGraduationTypeCodeId}">
+				<input type="radio" class="graduationType" name="graduationType" value="${graduationType.cdId}" checked="checked"/>${graduationType.cdNm}
 				</c:if>
-				<c:if test="${graduationTypeCodeName ne selectedGraduationTypeCodeName}">
-				<input type="radio" class="graduationType" name="graduationType" value="${graduationTypeCodeName}"/>${graduationTypeCodeName}
+				<c:if test="${graduationTypeCodeName ne selectedGraduationTypeCodeId}">
+				<input type="radio" class="graduationType" name="graduationType" value="${graduationType.cdId}"/>${graduationType.cdNm}
 				</c:if>
 	</c:forEach>
 	<br/><br/>
 	최종학력 : 
-	<c:forEach items="${highestEducationLevelCodeNameList}" var="helCodeName">
-				<c:if test="${helCodeName eq selectedHighestEducationLevelCodeName}">
-				<input type="radio" class="helCodeName" name="helCodeName" value="${helCodeName}" checked="checked"/>${helCodeName}
+	<c:forEach items="${highestEducationLevelList}" var="helCodeName">
+				<c:if test="${helCodeName.cdId eq selectedHighestEducationLevelCodeId}">
+				<input type="radio" class="helCodeName" name="helCodeName" value="${helCodeName.cdId}" checked="checked"/>${helCodeName.cdNm}
 				</c:if>
-				<c:if test="${helCodeName ne selectedHighestEducationLevelCodeName}">
-				<input type="radio" class="helCodeName" name="helCodeName" value="${helCodeName}"/>${helCodeName}
+				<c:if test="${helCodeName ne selectedHighestEducationLevelCodeId}">
+				<input type="radio" class="helCodeName" name="helCodeName" value="${helCodeName.cdId}"/>${helCodeName.cdNm}
 				</c:if>
 	</c:forEach>
 	</c:if>
