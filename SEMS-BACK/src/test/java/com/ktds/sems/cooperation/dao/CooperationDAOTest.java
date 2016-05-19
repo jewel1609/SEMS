@@ -51,7 +51,7 @@ public class CooperationDAOTest extends SemsTestCase {
 		cooperationVO.setManagerPhoneNumber("JunitTest");
 		cooperationVO.setCooperationPhoneNumber("JunitTest");
 		cooperationVO.setManagerEmail("JunitTest");
-		cooperationVO.setCooperationType("JunitTest");
+		cooperationVO.setCooperationType("COO_COPR");
 		int result = cooperationDAO.doRegisterCoo(cooperationVO);
 		assertNotNull(result);
 	}

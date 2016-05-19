@@ -38,7 +38,7 @@ public class CooperationServiceTest extends SemsTestCase {
 		cooperationVO.setManagerPhoneNumber("JunitTest");
 		cooperationVO.setCooperationPhoneNumber("JunitTest");
 		cooperationVO.setManagerEmail("JunitTest");
-		cooperationVO.setCooperationType("JunitTest");
+		cooperationVO.setCooperationType("COO_COPR");
 
 		BindingResult errors = new BeanPropertyBindingResult(cooperationVO,"registerForm");
 		ModelAndView view = cooperationService.doRegisterCoo(cooperationVO, errors);
@@ -95,7 +95,7 @@ public class CooperationServiceTest extends SemsTestCase {
 		cooperationVO.setManagerPhoneNumber("JunitTest");
 		cooperationVO.setCooperationPhoneNumber("JunitTest");
 		cooperationVO.setManagerEmail("JunitTest");
-		cooperationVO.setCooperationType("JunitTest");
+		cooperationVO.setCooperationType("COO_COPR");
 		
 		BindingResult errors = new BeanPropertyBindingResult(cooperationVO,"registerForm");
 		ModelAndView view = cooperationService.doModifyCoo(cooperationVO, errors);

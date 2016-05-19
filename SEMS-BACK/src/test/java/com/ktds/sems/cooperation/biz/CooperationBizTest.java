@@ -40,7 +40,7 @@ public class CooperationBizTest extends SemsTestCase {
 		cooperationVO.setManagerPhoneNumber("JunitTest");
 		cooperationVO.setCooperationPhoneNumber("JunitTest");
 		cooperationVO.setManagerEmail("JunitTest");
-		cooperationVO.setCooperationType("JunitTest");
+		cooperationVO.setCooperationType("COO_COPR");
 		boolean result = cooperationBiz.doRegisterCoo(cooperationVO);
 		assertTrue(result);
 	}
@@ -83,7 +83,7 @@ public class CooperationBizTest extends SemsTestCase {
 		cooperationVO.setCooperationTitle("JunitTest");
 		cooperationVO.setCooperationLocation("JunitTest");
 		cooperationVO.setManagerEmail("JunitTest");
-		cooperationVO.setCooperationType("JunitTest1");
+		cooperationVO.setCooperationType("COO_COPR");
 		boolean result = cooperationBiz.doModifyCoo(cooperationVO);
 		assertTrue(result);
 	}

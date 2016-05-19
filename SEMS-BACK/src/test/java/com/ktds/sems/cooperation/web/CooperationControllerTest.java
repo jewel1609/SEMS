@@ -40,7 +40,7 @@ public class CooperationControllerTest extends SemsTestCase {
 		cooperationVO.setManagerPhoneNumber("JunitTest");
 		cooperationVO.setCooperationPhoneNumber("JunitTest");
 		cooperationVO.setManagerEmail("JunitTest");
-		cooperationVO.setCooperationType("JunitTest");
+		cooperationVO.setCooperationType("COO_COPR");
 		BindingResult errors = new BeanPropertyBindingResult(cooperationVO,"registerForm");
 		ModelAndView view = cooperationController.doRegisterCoo(cooperationVO, errors);
 		assertNotNull(view);
