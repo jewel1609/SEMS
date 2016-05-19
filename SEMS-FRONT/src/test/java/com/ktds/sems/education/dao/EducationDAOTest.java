@@ -162,8 +162,9 @@ public class EducationDAOTest extends SemsTestCase{
 		List<EducationVO> educations = educationDAO.getApplyHistory(memberId, educationId);
 		assertNotNull(educations);
 	}
-	
-	@Test
+
+	// 교육 아이디 ED-20160513-000173에 대한 멤버 test04의 신청 내역이 있고, 교육이 시작 전이어야 제대로된 테스트 진행.
+//	@Test
 	public void doRequestRetractionTest(){
 		String educationId = "ED-20160513-000173";
 		String retractionMsg = "듣기 싫어요";
