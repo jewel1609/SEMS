@@ -880,6 +880,65 @@ public class MemberServiceImpl implements MemberService {
 		return;
 	}
 	
+	@Override
+	public ModelAndView writeResignCourse(String educationId, HttpSession session) {
+		ModelAndView view = new ModelAndView();
+		MemberVO memberVO = (MemberVO) session.getAttribute(Session.MEMBER);
+		
+		EducationHistoryVO educationHistory = memberBiz.getOneEducationByIdAndEducationId(educationId, memberVO.getId());
+		view.addObject("educationHistory", educationHistory);
+		view.setViewName("member/resignCourseWrite");
+		
+		return view;
+	}
 
+	@Override
+	public String dropCourseApply(String educationId, HttpSession session, String courseDropReason) {
+
+		MemberVO memberVO = (MemberVO) session.getAttribute(Session.MEMBER);
+		
+		EducationHistoryVO educationHistory = new EducationHistoryVO();
+		
+		educationHistory.setCmnt(courseDropReason);
+		educationHistory.setMemberId(memberVO.getId());
+		educationHistory.setEducationId(educationId);
+		
+		boolean dropCourseApply = memberBiz.dropCourseApply(educationHistory);
+		if(dropCourseApply){
+			return "OK";
+		}
+		
+		return "OK";
+	}
+	
+	@Override
+	public ModelAndView getCourseList(HttpSession session, int pageNo) {
+
+		EducationHistoryListVO educationHistoryListVO = new EducationHistoryListVO();
+		Paging paging = new Paging();
+		educationHistoryListVO.setPaging(paging);
+
+		paging.setPageNumber(pageNo + "");
+		
+		MemberVO memberVO = (MemberVO) session.getAttribute(Session.MEMBER);
+		int totalEducationHistoryCountById = memberBiz.getCourseCountById(memberVO.getId());
+		paging.setTotalArticleCount(totalEducationHistoryCountById);
+
+		EducationHistorySearchVO educationHistorySearchVO = new EducationHistorySearchVO();
+		educationHistorySearchVO.setPageNo(pageNo);
+		educationHistorySearchVO.setStartIndex(paging.getStartArticleNumber());
+		educationHistorySearchVO.setEndIndex(paging.getEndArticleNumber());
+		educationHistorySearchVO.setMemberId(memberVO.getId());
+		
+		List<EducationHistoryVO> educationHistoryList = memberBiz.getCourseList(educationHistorySearchVO);
+		educationHistoryListVO.setEducationHistoryList(educationHistoryList);
+
+		ModelAndView view = new ModelAndView();
+		view.setViewName("member/resignCourseList");
+		view.addObject("educationHistoryListVO", educationHistoryListVO);
+		
+		return view;
+
+	}
 
 }
