@@ -1628,6 +1628,25 @@ public class EducationControllerTest extends SemsTestCase {
 			fail("fail...");
 		}
 	}
+	
+	
+	@Test
+    public void doJoinApplyTest( ) {
+
+		String educationHistoryId = "41";
+	      //String memberId = "test04";
+		 educationController.changeEducationApplyState(educationHistoryId);
+	      ModelAndView view = educationController.doJoinApply(educationHistoryId);
+	      assertNotNull(view);
+	      
+	      if (view != null) {
+	         String viewName = view.getViewName();
+	         assertNotNull(viewName);
+	         assertEquals(viewName, "redirect:/educationHistory");
+	      } else {
+	         fail("fail...");
+	      }
+	   }
 
 	public class EducationValidator implements Validator {
 
@@ -1702,4 +1721,5 @@ public class EducationControllerTest extends SemsTestCase {
 			}
 		}
 	}
+	
 }
