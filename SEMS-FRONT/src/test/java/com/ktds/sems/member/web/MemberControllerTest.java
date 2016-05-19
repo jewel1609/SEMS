@@ -35,10 +35,10 @@ public class MemberControllerTest extends SemsTestCase {
 	private MemberController memberController;
 	@Autowired
 	private MemberDAO memberDAO;
-
+	
 	@Test
 	public void viewModifyPageTest() {
-
+		
 		MockHttpSession session = new MockHttpSession();
 		MemberVO member = new MemberVO();
 		member.setId("aaa12");
@@ -1066,5 +1066,73 @@ public class MemberControllerTest extends SemsTestCase {
 		
 		String returnString = memberController.eduationHistoryExportExcel(session);
 		assertNotNull(returnString);
+	}
+
+	@Test
+	public void writeResignCourseTest(){
+		String educationId = "ED-20160516-000185";
+		MockHttpSession session = new MockHttpSession();
+		MemberVO sessionMember = new MemberVO();
+		sessionMember.setId("test02");
+		session.setAttribute("_MEMBER_", sessionMember);
+		
+		ModelAndView view = new ModelAndView();
+		view.setViewName("member/resignCourseWrite");
+		
+		if( view != null ){
+			assertEquals(view.getViewName(), memberController.writeResignCourse(educationId,session).getViewName());
+		}
+		else{
+			fail("Fail...");
+		}
+	}
+	
+	@Test
+	public void viewResignPage() {
+		
+		MemberVO memberVO = new MemberVO();
+		memberVO.setId("test02");
+
+		int pageNo = 0;
+		MockHttpSession session = new MockHttpSession();
+		session.setAttribute(Session.MEMBER, memberVO);
+
+		ModelAndView view = memberController.viewResignPage(pageNo, session);
+
+		if (view != null) {
+
+			String viewName = view.getViewName();
+			assertNotNull(viewName);
+			assertEquals(viewName, "member/resignCourseList");
+
+			EducationHistoryListVO educationHistoryListVO = (EducationHistoryListVO) view.getModelMap()
+					.get("educationHistoryListVO");
+			assertNotNull(educationHistoryListVO);
+
+			List<EducationHistoryVO> educationHistoryList = educationHistoryListVO.getEducationHistoryList();
+			assertNotNull(educationHistoryList);
+			assertTrue(educationHistoryList.size() > 0);
+
+			Paging paging = educationHistoryListVO.getPaging();
+			assertNotNull(paging);
+			assertTrue(paging.getTotalArticleCount() > 0);
+
+		} else {
+			fail("fail");
+		}
+	}
+	
+	@Test
+	public void loginForResine(){
+		
+		ModelAndView view = new ModelAndView();
+		
+		String resignCode = "3226f65a-5aec-4fe0-a56a-26f4b5d546b2";
+		String id = "test02";
+		String viewName = "member/loginForResign";
+		view = memberController.loginForResine(resignCode, id);
+		
+		assertEquals(viewName, view.getViewName());
+		
 	}
 }
