@@ -198,7 +198,7 @@ public class MemberServiceTest extends SemsTestCase {
 		member.setHighestEducationLevel("대졸");
 		member.setUniversityName("서울대");
 		member.setMajorName("컴공");
-		member.setGraduationType("졸업");
+		member.setGraduationType("휴학");
 		member.setBirthDate("1991-01-01");
 		member.setPhoneNumber("010-1234-5678");
 		member.setMemberType("MBR");
@@ -234,7 +234,7 @@ public class MemberServiceTest extends SemsTestCase {
 		member.setHighestEducationLevel("대졸");
 		member.setUniversityName("서울대");
 		member.setMajorName("컴공");
-		member.setGraduationType("졸업");
+		member.setGraduationType("휴학");
 		member.setBirthDate("1991-01-01");
 		member.setPhoneNumber("010-1234-5678");
 		member.setMemberType("MBR");
@@ -279,7 +279,7 @@ public class MemberServiceTest extends SemsTestCase {
 		member.setHighestEducationLevel("대졸");
 		member.setUniversityName("서울대");
 		member.setMajorName("컴공");
-		member.setGraduationType("졸업");
+		member.setGraduationType("휴학");
 		member.setBirthDate("1991-01-01");
 		member.setPhoneNumber("010-1234-5678");
 		member.setMemberType("MBR");
@@ -324,7 +324,7 @@ public class MemberServiceTest extends SemsTestCase {
 		member.setHighestEducationLevel("대졸");
 		member.setUniversityName("서울대");
 		member.setMajorName("컴공");
-		member.setGraduationType("졸업");
+		member.setGraduationType("휴학");
 		member.setBirthDate("1991-01-01");
 		member.setPhoneNumber("010-1234-5678");
 		member.setMemberType("MBR");
@@ -369,7 +369,7 @@ public class MemberServiceTest extends SemsTestCase {
 		member.setHighestEducationLevel("대졸");
 		member.setUniversityName("서울대");
 		member.setMajorName("컴공");
-		member.setGraduationType("졸업");
+		member.setGraduationType("휴학");
 		member.setBirthDate("1991-01-01");
 		member.setPhoneNumber("010-1234-5678");
 		member.setMemberType("MBR");
@@ -414,7 +414,7 @@ public class MemberServiceTest extends SemsTestCase {
 		member.setEmail("Junit@naver.com");
 		member.setUniversityName("서울대");
 		member.setMajorName("컴공");
-		member.setGraduationType("졸업");
+		member.setGraduationType("휴학");
 		member.setBirthDate("1991-01-01");
 		member.setPhoneNumber("010-1234-5678");
 		member.setMemberType("MBR");
@@ -462,7 +462,7 @@ public class MemberServiceTest extends SemsTestCase {
 		member.setEmail("Junit@naver.com");
 		member.setHighestEducationLevel("대졸");
 		member.setMajorName("컴공");
-		member.setGraduationType("졸업");
+		member.setGraduationType("휴학");
 		member.setBirthDate("1991-01-01");
 		member.setPhoneNumber("010-1234-5678");
 		member.setMemberType("MBR");
@@ -510,7 +510,7 @@ public class MemberServiceTest extends SemsTestCase {
 		member.setEmail("Junit@naver.com");
 		member.setHighestEducationLevel("대졸");
 		member.setUniversityName("서울대");
-		member.setGraduationType("졸업");
+		member.setGraduationType("휴학");
 		member.setBirthDate("1991-01-01");
 		member.setPhoneNumber("010-1234-5678");
 		member.setMemberType("MBR");
@@ -607,7 +607,7 @@ public class MemberServiceTest extends SemsTestCase {
 		member.setHighestEducationLevel("대졸");
 		member.setUniversityName("서울대");
 		member.setMajorName("컴공");
-		member.setGraduationType("졸업");
+		member.setGraduationType("휴학");
 		member.setPhoneNumber("010-1234-5678");
 		member.setMemberType("MBR");
 
@@ -652,7 +652,7 @@ public class MemberServiceTest extends SemsTestCase {
 		member.setHighestEducationLevel("대졸");
 		member.setUniversityName("서울대");
 		member.setMajorName("컴공");
-		member.setGraduationType("졸업");
+		member.setGraduationType("휴학");
 		member.setBirthDate("1991-01-01");
 		member.setMemberType("MBR");
 
@@ -697,7 +697,7 @@ public class MemberServiceTest extends SemsTestCase {
 		member.setHighestEducationLevel("대졸");
 		member.setUniversityName("서울대");
 		member.setMajorName("컴공");
-		member.setGraduationType("졸업");
+		member.setGraduationType("휴학");
 		member.setBirthDate("1991-01-01");
 		member.setPhoneNumber("010-1234-5678");
 
@@ -731,7 +731,7 @@ public class MemberServiceTest extends SemsTestCase {
 		member.setHighestEducationLevel("대졸");
 		member.setUniversityName("서울대");
 		member.setMajorName("컴공");
-		member.setGraduationType("졸업");
+		member.setGraduationType("휴학");
 		member.setBirthDate("1991-01-01");
 		member.setPhoneNumber("010-1234-5678");
 		member.setMemberType("MBR");
@@ -778,7 +778,7 @@ public class MemberServiceTest extends SemsTestCase {
 		member.setHighestEducationLevel("대졸");
 		member.setUniversityName("서울대");
 		member.setMajorName("컴공");
-		member.setGraduationType("졸업");
+		member.setGraduationType("휴학");
 		member.setBirthDate("1991-01-01");
 		member.setPhoneNumber("010-1234-5678");
 		member.setMemberType("MBR");
