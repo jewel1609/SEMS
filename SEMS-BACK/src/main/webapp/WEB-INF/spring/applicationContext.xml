@@ -13,6 +13,8 @@
 			<mvc:mapping path="/**"/>
 			<mvc:exclude-mapping path="/backend"/>
 			<mvc:exclude-mapping path="/backend/login"/>
+			<mvc:exclude-mapping path="/fabicon.ico" />
+			<mvc:exclude-mapping path="/resources/**" />
 			<bean id="backendInterceptor" class="com.ktds.sems.interceptor.BackendInterceptor"/>
 		</mvc:interceptor>
 	</mvc:interceptors>
