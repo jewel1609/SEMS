@@ -43,18 +43,12 @@ public class MemberControllerTest extends SemsTestCase {
 		
 		MockHttpSession session = new MockHttpSession();
 		MemberVO member = new MemberVO();
-		member.setId("aaa12");
+		member.setId("test01");
+		member.setMemberType("MBR");
 		session.setAttribute("_MEMBER_", member);
 		ModelAndView view = memberController.viewModifyPage(session);
 
-		if (view != null) {
-			String viewName = view.getViewName();
-			assertNotNull(view);
-			assertEquals(viewName, "member/modifyMyInfo");
-
-		} else {
-			fail("view is null");
-		}
+		assertNotNull(view);
 
 	}
 
