@@ -150,6 +150,11 @@
 									FROM	EDU_HTR
 											, EDU_INFO
 									WHERE	EDU_HTR.EDU_ID = EDU_INFO.EDU_ID
+									AND		(
+												EDU_HTR.STAT = 'EDU_CL_A'
+												OR     EDU_HTR.STAT = 'EDU_GU_A'
+												OR     EDU_HTR.STAT = 'EDU_JN_A'
+											)
 									<if test="searchKeyword != null">
 									<if test="searchKeyword != ''">
 									AND		EDU_HTR.EDU_ID IN 	(
@@ -169,6 +174,11 @@
 		SELECT	COUNT(*)
 		FROM	EDU_HTR
 		WHERE	1 = 1
+		AND		(
+					STAT = 'EDU_CL_A'
+					OR     STAT = 'EDU_GU_A'
+					OR     STAT = 'EDU_JN_A'
+				)
 		<if test="searchKeyword != null">
 		<if test="searchKeyword != ''">
 		AND		EDU_HTR.EDU_ID IN 	(
