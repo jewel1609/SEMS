@@ -26,6 +26,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ktds.sems.SemsTestCase;
 import com.ktds.sems.education.vo.EducationVO;
 
+
 public class EducationServiceTest extends SemsTestCase {
 
 	@Autowired
@@ -948,4 +949,6 @@ public class EducationServiceTest extends SemsTestCase {
 			}
 		}
 	}
+	
+	
 }

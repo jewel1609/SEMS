@@ -240,7 +240,11 @@
 				<div class="modal-body">거절 사유와 함께 상태를 변경하겠습니다.<br/>
 				<input type="hidden" id="historyId2" name="historyId2" value="" />
 				<input type="hidden" id="memberId2" name="memberId2" value="" />
+<<<<<<< .mine
+				<textarea id="description" rows="5" cols="50"></textarea>
+=======
 				<textarea id="description" rows="7" cols="35"></textarea>
+>>>>>>> .r1349
 				</div>
 				<div class="modal-footer">
 					

@@ -25,13 +25,52 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.SemsTestCase;
 import com.ktds.sems.common.Session;
+import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationVO;
 
 public class EducationControllerTest extends SemsTestCase {
 
 	@Autowired
 	private EducationController educationController;
+	//private EducationService educationService;
 
+	@Test
+	public void viewEduHistoryManagePage() {
+		EducationHistorySearchVO eduHisSchVO = new EducationHistorySearchVO();
+		int pageNo = 0;
+		
+		ModelAndView view = educationController.viewEduHistoryManagePage(eduHisSchVO, pageNo);
+		
+		assertNotNull(view);
+		
+		if (view != null) {
+			String viewName = view.getViewName();
+			assertNotNull(viewName);
+			assertEquals(viewName, "education/eduManage");
+		} else {
+			fail("fail...");
+		}
+	}
+
+	@Test
+	public void viewCheckApplicantPage() {
+		EducationHistorySearchVO eduHisSchVO = new EducationHistorySearchVO();
+		int pageNo = 0;
+		
+		ModelAndView view = educationController.viewCheckApplicantPage(eduHisSchVO, pageNo);
+		
+		assertNotNull(view);
+		
+		if (view != null) {
+			String viewName = view.getViewName();
+			assertNotNull(viewName);
+			assertEquals(viewName, "education/checkApplicant");
+		} else {
+			fail("fail...");
+		}
+	}
+
+	
 	@Test
 	public void viewEduWritePageTest() {
 
@@ -47,9 +86,12 @@ public class EducationControllerTest extends SemsTestCase {
 		}
 	}
 	
-	/* D:\\핸드폰.xlsx 파일 있어야 함
+	/*
+	 D:\\핸드폰.xlsx 파일 있어야 함
 	 * 
-	 * @Test
+	 * 
+	 */
+	@Test
 	public void doWriteActionTest() {
 		// List 보는건 차 후에 test 시도
 
@@ -104,7 +146,7 @@ public class EducationControllerTest extends SemsTestCase {
 		} else {
 			fail("Fail");
 		}
-	}*/
+	}
 
 	@Test
 	public void doEducationModifyTest() {
@@ -163,6 +205,7 @@ public class EducationControllerTest extends SemsTestCase {
 		}
 	}
 
+	
 	@Test
 	public void doWriteActionTestWithError() {
 		// List 보는건 차 후에 test 시도

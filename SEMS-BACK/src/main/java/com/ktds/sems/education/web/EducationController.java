@@ -18,7 +18,8 @@ import com.ktds.sems.education.vo.EducationVO;
 public class EducationController {
 
 	private EducationService educationService;
-
+	
+	
 	public void setEducationService(EducationService educationService) {
 		this.educationService = educationService;
 	}
@@ -64,7 +65,7 @@ public class EducationController {
 		ModelAndView view = educationService.applyJoinEducationByMemberId(educationHistoryId);
 		return view;
 	}
-
+	
 	/*@RequestMapping("/rejectionMail/{memberId}")
 	public String rejectionMailAction(@PathVariable String memberId, String textMail){
 		
@@ -72,7 +73,7 @@ public class EducationController {
 	}*/
 
 	@RequestMapping("/joinCncl/{educationHistoryId}/{memberId}/{description}")
-	public ModelAndView cnclJoin(@PathVariable String educationHistoryId, @PathVariable String memberId, @PathVariable String description) {
+	public ModelAndView doCnclJoin(@PathVariable String educationHistoryId, @PathVariable String memberId, @PathVariable String description) {
 		educationService.rejectionMailAction(educationHistoryId, memberId, description);
 		ModelAndView view = educationService.cancelJoinEducationByMemberId(educationHistoryId, memberId, description);
 		return view;

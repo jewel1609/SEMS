@@ -267,6 +267,7 @@ public class EducationServiceImpl implements EducationService {
 	public ModelAndView applyJoinEducationByMemberId(String educationHistoryId) {
 		
 		ModelAndView view = new ModelAndView();
+		
 		String state = educationBiz.getStateByEducationHistroyId(educationHistoryId);
 		String changeState = "";
 		if( state.equals("EDU_JN_A") ){
@@ -281,14 +282,16 @@ public class EducationServiceImpl implements EducationService {
 		boolean result = educationBiz.applyJoinEducationByMemberId(educationHistoryId, changeState);
 		
 		if ( result ) {
-		view.setViewName("redirect:/educationHistory");
-		return view;
+			view.setViewName("redirect:/educationHistory");
+			return view;
 		}
-		else return view;
+		
+		return view;
 	}
 
 	@Override
 	public ModelAndView cancelJoinEducationByMemberId(String educationHistoryId, String memberId, String description) {
+		
 		ModelAndView view = new ModelAndView();
 		
 		String state = educationBiz.getStateByEducationHistroyId(educationHistoryId);
