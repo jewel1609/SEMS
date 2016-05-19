@@ -24,9 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.SemsTestCase;
-import com.ktds.sems.common.Session;
 import com.ktds.sems.education.vo.EducationVO;
-import com.ktds.sems.member.vo.MemberVO;
 
 public class EducationServiceTest extends SemsTestCase {
 
@@ -35,7 +33,7 @@ public class EducationServiceTest extends SemsTestCase {
 
 	@Test
 	public void getOneEducationForUpdateTest(){
-		String educationId = "ED-20160512-000069";
+		String educationId = "ED-20160518-000206";
 		ModelAndView view = educationeService.getOneEducationForUpdate(educationId);
 		String viewName = view.getViewName();
 		assertNotNull(view);
@@ -46,7 +44,7 @@ public class EducationServiceTest extends SemsTestCase {
 	public void doEducationModifyTest() {
 		EducationVO educationVO = new EducationVO();
 		
-		educationVO.setEducationId("ED-20160512-000066");
+		educationVO.setEducationId("ED-20160518-000206");
 		educationVO.setEducationCategory("ZCS");
 		educationVO.setEducationTitle("JUNIT...");
 		educationVO.setMemberId("JUNIT...");
@@ -86,7 +84,8 @@ public class EducationServiceTest extends SemsTestCase {
 		
 		HttpSession session = null;
 		session = request.getSession();
-		session.setAttribute(Session.MEMBER_TYPE, "ADM");
+		
+		session.setAttribute("_MEMBER_TYPE_", "ADM");
 		
 		ModelAndView view = educationeService.modifyNewEducation(educationVO, errors, request);
 		assertNotNull(view);
@@ -94,11 +93,16 @@ public class EducationServiceTest extends SemsTestCase {
 		if (view != null) {
 			String viewName = view.getViewName();
 			assertNotNull(viewName);
-			assertEquals(viewName, "redirect:/detail/ED-20160512-000066");
+			assertEquals(viewName, "redirect:/detail/ED-20160518-000206");
 		} else {
 			fail("fail...");
 		}
 	}
+	
+	/*
+	 * D:\\핸드폰.xlsx 해당 파일이 있어야 insert 가능합니다.
+	 * 
+	 * 
 	@Test
 	public void writeNewEducationTest() {
 		// List 보는건 차 후에 test 시도
@@ -144,9 +148,7 @@ public class EducationServiceTest extends SemsTestCase {
 		HttpSession session = null;
 		session = request.getSession();
 		
-		MemberVO memberVO = new MemberVO();
-		memberVO.setMemberType("ADM");
-		session.setAttribute("_MEMBER_", memberVO);
+		session.setAttribute("_MEMBER_TYPE_", "ADM");
 
 		ModelAndView view = educationeService.writeNewEducation(educationVO, errors, request);
 		assertNotNull(view);
@@ -204,9 +206,7 @@ public class EducationServiceTest extends SemsTestCase {
 		HttpSession session = null;
 		session = request.getSession();
 
-		MemberVO memberVO = new MemberVO();
-		memberVO.setMemberType("ADM");
-		session.setAttribute("_MEMBER_", memberVO);
+		session.setAttribute("_MEMBER_TYPE_", "ADM");
 		
 		ModelAndView view = educationeService.writeNewEducation(educationVO, errors, request);
 		assertNotNull(view);
@@ -265,9 +265,7 @@ public class EducationServiceTest extends SemsTestCase {
 		HttpSession session = null;
 		session = request.getSession();
 		
-		MemberVO memberVO = new MemberVO();
-		memberVO.setMemberType("ADM");
-		session.setAttribute("_MEMBER_", memberVO);
+		session.setAttribute("_MEMBER_TYPE_", "ADM");
 		
 		ModelAndView view = educationeService.writeNewEducation(educationVO, errors, request);
 		assertNotNull(view);
@@ -328,9 +326,7 @@ public class EducationServiceTest extends SemsTestCase {
 		HttpSession session = null;
 		session = request.getSession();
 
-		MemberVO memberVO = new MemberVO();
-		memberVO.setMemberType("ADM");
-		session.setAttribute("_MEMBER_", memberVO);
+		session.setAttribute("_MEMBER_TYPE_", "ADM");
 		
 		ModelAndView view = educationeService.writeNewEducation(educationVO, errors, request);
 		assertNotNull(view);
@@ -390,9 +386,7 @@ public class EducationServiceTest extends SemsTestCase {
 		HttpSession session = null;
 		session = request.getSession();
 
-		MemberVO memberVO = new MemberVO();
-		memberVO.setMemberType("ADM");
-		session.setAttribute("_MEMBER_", memberVO);
+		session.setAttribute("_MEMBER_TYPE_", "ADM");
 		
 		ModelAndView view = educationeService.writeNewEducation(educationVO, errors, request);
 		assertNotNull(view);
@@ -451,9 +445,7 @@ public class EducationServiceTest extends SemsTestCase {
 		HttpSession session = null;
 		session = request.getSession();
 
-		MemberVO memberVO = new MemberVO();
-		memberVO.setMemberType("ADM");
-		session.setAttribute("_MEMBER_", memberVO);
+		session.setAttribute("_MEMBER_TYPE_", "ADM");
 		
 		ModelAndView view = educationeService.writeNewEducation(educationVO, errors, request);
 		assertNotNull(view);
@@ -512,9 +504,7 @@ public class EducationServiceTest extends SemsTestCase {
 		HttpSession session = null;
 		session = request.getSession();
 
-		MemberVO memberVO = new MemberVO();
-		memberVO.setMemberType("ADM");
-		session.setAttribute("_MEMBER_", memberVO);
+		session.setAttribute("_MEMBER_TYPE_", "ADM");
 		
 		ModelAndView view = educationeService.writeNewEducation(educationVO, errors, request);
 		assertNotNull(view);
@@ -573,9 +563,7 @@ public class EducationServiceTest extends SemsTestCase {
 		HttpSession session = null;
 		session = request.getSession();
 
-		MemberVO memberVO = new MemberVO();
-		memberVO.setMemberType("ADM");
-		session.setAttribute("_MEMBER_", memberVO);
+		session.setAttribute("_MEMBER_TYPE_", "ADM");
 		
 		ModelAndView view = educationeService.writeNewEducation(educationVO, errors, request);
 		assertNotNull(view);
@@ -634,9 +622,7 @@ public class EducationServiceTest extends SemsTestCase {
 		HttpSession session = null;
 		session = request.getSession();
 
-		MemberVO memberVO = new MemberVO();
-		memberVO.setMemberType("ADM");
-		session.setAttribute("_MEMBER_", memberVO);
+		session.setAttribute("_MEMBER_TYPE_", "ADM");
 		
 		ModelAndView view = educationeService.writeNewEducation(educationVO, errors, request);
 		assertNotNull(view);
@@ -695,9 +681,7 @@ public class EducationServiceTest extends SemsTestCase {
 		HttpSession session = null;
 		session = request.getSession();
 
-		MemberVO memberVO = new MemberVO();
-		memberVO.setMemberType("ADM");
-		session.setAttribute("_MEMBER_", memberVO);
+		session.setAttribute("_MEMBER_TYPE_", "ADM");
 		
 		ModelAndView view = educationeService.writeNewEducation(educationVO, errors, request);
 		assertNotNull(view);
@@ -756,9 +740,7 @@ public class EducationServiceTest extends SemsTestCase {
 		HttpSession session = null;
 		session = request.getSession();
 
-		MemberVO memberVO = new MemberVO();
-		memberVO.setMemberType("ADM");
-		session.setAttribute("_MEMBER_", memberVO);
+		session.setAttribute("_MEMBER_TYPE_", "ADM");
 		
 		ModelAndView view = educationeService.writeNewEducation(educationVO, errors, request);
 		assertNotNull(view);
@@ -817,9 +799,7 @@ public class EducationServiceTest extends SemsTestCase {
 		HttpSession session = null;
 		session = request.getSession();
 		
-		MemberVO memberVO = new MemberVO();
-		memberVO.setMemberType("ADM");
-		session.setAttribute("_MEMBER_", memberVO);
+		session.setAttribute("_MEMBER_TYPE_", "ADM");
 		
 		ModelAndView view = educationeService.writeNewEducation(educationVO, errors, request);
 		assertNotNull(view);
@@ -878,9 +858,7 @@ public class EducationServiceTest extends SemsTestCase {
 		HttpSession session = null;
 		session = request.getSession();
 		
-		MemberVO memberVO = new MemberVO();
-		memberVO.setMemberType("ADM");
-		session.setAttribute("_MEMBER_", memberVO);
+		session.setAttribute("_MEMBER_TYPE_", "ADM");
 		
 		ModelAndView view = educationeService.writeNewEducation(educationVO, errors, request);
 		assertNotNull(view);
@@ -894,6 +872,9 @@ public class EducationServiceTest extends SemsTestCase {
 			fail("Fail");
 		}
 	}
+	
+	*/
+	
 	public class EducationValidator implements Validator {
 		
 		@Override
