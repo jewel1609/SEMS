@@ -25,8 +25,6 @@
 	<mappers>
 		<mapper resource="com/ktds/sems/member/dao/impl/sql/memberDAO.xml"/>
 		<mapper resource="com/ktds/sems/education/dao/impl/sql/educationDAO.xml" />
-		<mapper resource="com/ktds/sems/member/dao/impl/sql/memberDAO.xml"/>
-		<mapper resource="com/ktds/sems/education/dao/impl/sql/educationDAO.xml" />
 		<mapper resource="com/ktds/sems/file/dao/impl/sql/fileDAO.xml"/>
 	</mappers>
 	
