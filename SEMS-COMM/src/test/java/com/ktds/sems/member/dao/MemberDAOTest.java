@@ -165,8 +165,8 @@ public class MemberDAOTest extends SemsTestCase {
 	@Test
 	public void isExistDataTest(){
 		GrdtTpVO grdtTpVO = new GrdtTpVO();
-		grdtTpVO.setCdId("ABST");
-		grdtTpVO.setCdNm("휴학");
+		grdtTpVO.setCdId("TES");
+		grdtTpVO.setCdNm("TES");
 		
 		int checkExistData = memberDAO.isExistData(grdtTpVO);
 		assertTrue(checkExistData >= 1);
@@ -175,7 +175,7 @@ public class MemberDAOTest extends SemsTestCase {
 	@Test
 	public void isExistCdNmDataTest(){
 		GrdtTpVO grdtTpVO = new GrdtTpVO();
-		grdtTpVO.setCdNm("휴학");
+		grdtTpVO.setCdNm("TES");
 		
 		int checkExistCdNmData = memberDAO.isExistCdNmData(grdtTpVO);
 		assertTrue(checkExistCdNmData >= 1);
