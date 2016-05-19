@@ -78,8 +78,9 @@
 		<form:errors class="message" path="managerEmail"/><br/><br/>
 
 		협력사/협약사 : <select id="cooperationType" name="cooperationType" tabindex="8">
-					  <option value="협력사" >협력사</option>
-					  <option value="협약사" >협약사</option>
+					<c:forEach items="${cooTypeList}" var="cooType">
+					  <option value="${cooType.codeId}" >${cooType.codeName}</option>
+					</c:forEach>				  
 					</select><br/><br/>
 				
 
