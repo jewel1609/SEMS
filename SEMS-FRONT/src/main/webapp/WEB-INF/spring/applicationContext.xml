@@ -24,6 +24,9 @@
 				<mvc:exclude-mapping path="/register/student"/>
 				<mvc:exclude-mapping path="/checkValidationById"/>
 				<mvc:exclude-mapping path="/checkValidationByPassword"/>
+				<mvc:exclude-mapping path="/checkValidationByName"/>
+				<mvc:exclude-mapping path="/checkValidationByUniversityName"/>
+				<mvc:exclude-mapping path="/checkValidationByMajorName"/>
 				<mvc:exclude-mapping path="/checkValidationByRepeatPassword"/>
 				<mvc:exclude-mapping path="/checkValidationByEmail"/>
 				<mvc:exclude-mapping path="/checkValidationByPhoneNumber"/>
