@@ -8,7 +8,9 @@ import static org.junit.Assert.fail;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.BindingResult;
@@ -22,6 +24,7 @@ import com.ktds.sems.education.vo.CostVO;
 import com.ktds.sems.education.vo.JsonResponseVO;
 import com.ktds.sems.education.vo.TimeVO;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class EducationServiceTest extends SemsTestCase {
 
 	@Autowired
@@ -192,7 +195,7 @@ public class EducationServiceTest extends SemsTestCase {
 	}
 	
 	@Test
-	public void insertEduCostTestError1() {
+	public void ainsertEduCostTestError1() {
 		CostVO cost = new CostVO();
 		cost.setCdId("TES2");
 		cost.setCdNm("TES2");
