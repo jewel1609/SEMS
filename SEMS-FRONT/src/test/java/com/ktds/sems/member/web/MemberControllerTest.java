@@ -996,6 +996,17 @@ public class MemberControllerTest extends SemsTestCase {
 			assertNotNull(paging);
 			assertTrue(paging.getTotalArticleCount() > 0);
 			List<LoginHistoryVO> loginHistoryList = loginHistoryListVO.getLoginHistoryList();
+			
+			for (LoginHistoryVO loginHistoryVO : loginHistoryList) {
+				assertNotNull(loginHistoryVO.getLgiHtrId());
+				assertNotNull(loginHistoryVO.getId());
+				assertNotNull(loginHistoryVO.getLgiIp());
+				assertNotNull(loginHistoryVO.getLgiDt());
+		//		assertNotNull(loginHistoryVO.getLgoDt());
+		//		assertNotNull(loginHistoryVO.getIsReq());
+		//		assertNotNull(loginHistoryVO.getChkCnt());
+			}
+			
 			assertNotNull(loginHistoryList);
 			assertTrue(loginHistoryList.size() > 0);
 
