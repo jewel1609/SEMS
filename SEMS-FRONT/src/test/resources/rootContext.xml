@@ -16,7 +16,6 @@
          class="org.apache.commons.dbcp.BasicDataSource"> <!-- Connection 만들어 주는것 -->
          <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"></property>
          <property name="url" value="jdbc:oracle:thin:@${db.url}:1521:XE"></property>
-
          <property name="username" value="sems"></property>
          <property name="password" value="hcsems"></property>
    </bean>
