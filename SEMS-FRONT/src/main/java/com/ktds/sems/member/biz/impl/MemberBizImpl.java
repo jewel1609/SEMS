@@ -30,8 +30,11 @@ import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.member.biz.MemberBiz;
 import com.ktds.sems.member.dao.MemberDAO;
 import com.ktds.sems.member.vo.AttendVO;
+import com.ktds.sems.member.vo.GraduationTypeVO;
+import com.ktds.sems.member.vo.HighestEducationLevelVO;
 import com.ktds.sems.member.vo.LoginHistorySearchVO;
 import com.ktds.sems.member.vo.LoginHistoryVO;
+import com.ktds.sems.member.vo.MemberTypeVO;
 import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.member.vo.MenuManageVO;
 
@@ -487,11 +490,6 @@ public class MemberBizImpl implements MemberBiz {
 	}
 	
 	@Override
-	public List<String> getGraduationType() {
-		return memberDAO.getGraduationType();
-	}
-
-	@Override
 	public void insertUuidForResign(MemberVO member) {
 		memberDAO.insertUuidForResign(member);
 	}
@@ -501,35 +499,6 @@ public class MemberBizImpl implements MemberBiz {
 		return memberDAO.doDeleteMember(id) > 0;
 	}
 
-	@Override
-	public String selectedGraduationTypeCodeName(String id) {
-		return memberDAO.selectedGraduationTypeCodeName(id);
-	}
-
-	@Override
-	public List<String> getHighestEducationLevelCodeNames() {
-		return memberDAO.getHighestEducationLevelCodeNames();
-	}
-
-	@Override
-	public String getSelectedHighestEducationLevelCodeName(String id) {
-		return memberDAO.getSelectedHighestEducationLevelCodeName(id);
-	}
-
-	@Override
-	public String getGraduationTypeCodeId(String graduationType) {
-		return memberDAO.getGraduationTypeCodeId(graduationType);
-	}
-
-	@Override
-	public String gethelCodeId(String helCodeName) {
-		return memberDAO.gethelCodeId(helCodeName);
-	}
-
-	@Override
-	public String memberTypeCodeName(String id) {
-		return memberDAO.memberTypeCodeName(id);
-	}
 
 	@Override
 	public boolean changePassword(MemberVO memberVO) {
@@ -746,6 +715,21 @@ public class MemberBizImpl implements MemberBiz {
 	@Override
 	public int getCourseCountById(String id) {
 		return memberDAO.getCourseCountById(id);
+	}
+
+	@Override
+	public List<MemberTypeVO> getMemberTypes() {
+		return memberDAO.getMemberTypes();
+	}
+
+	@Override
+	public List<HighestEducationLevelVO> getHighestEducationLevels() {
+		return memberDAO.getHighestEducationLevels();
+	}
+
+	@Override
+	public List<GraduationTypeVO> getGraduationTypes() {
+		return memberDAO.getGraduationTypes();
 	}
 
 

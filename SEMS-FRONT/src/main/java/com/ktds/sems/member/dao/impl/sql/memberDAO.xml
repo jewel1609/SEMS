@@ -297,16 +297,6 @@
 		WHERE	ID = #{id}
 	</update>
 	
-	<select id="getGraduationType" resultType="string">
-		SELECT	CD_NM cdNm	
-		FROM	GRDT_TP
-	</select>
-	
-	<select id="getHighestEducationLevelCodeNames" resultType="string">
-		SELECT	CD_NM cdNm
-		FROM	HIGHEST_EDU_LV
-	</select>
-	
 	<select id="getEduListByMember" parameterType="MemberVO" resultType="EducationVO">
 		SELECT	E_I.EDU_ID educationId
 				, EDU_CTGR educationCategory
@@ -353,42 +343,6 @@
 		            ORDER	BY ATD1 DESC
 		        )
 		WHERE  ROWNUM = 1
-	</select>
-	
-	<select id="selectedGraduationTypeCodeName" parameterType="string" resultType="string">
-		SELECT	CD_NM cdNm
-		FROM	MBR
-				, GRDT_TP
-		WHERE	MBR.GRDT_TP = GRDT_TP.CD_ID
-		AND		ID = #{id}
-	</select>
-	
-	<select id="getSelectedHighestEducationLevelCodeName" parameterType="string" resultType="string">
-		SELECT	CD_NM cdNm
-		FROM	MBR M
-				, HIGHEST_EDU_LV H
-		WHERE	M.HIGHEST_EDU_LV = H.CD_ID
-		AND		ID = #{id}
-	</select>
-	
-	<select id="memberTypeCodeName" parameterType="string" resultType="string">
-		SELECT	CD_NM cdNm
-		FROM	MBR M
-				, MBR_TP MT
-		WHERE	M.MBR_TP = MT.CD_ID
-		AND		ID = #{id}
-	</select>
-	
-	<select id="getGraduationTypeCodeId" parameterType="string" resultType="string">
-		SELECT	CD_ID cdId
-		FROM	GRDT_TP
-		WHERE	CD_NM = #{graduationType}
-	</select>
-	
-	<select id="gethelCodeId" parameterType="string" resultType="string">
-		SELECT	CD_ID cdId
-		FROM	HIGHEST_EDU_LV
-		WHERE	CD_NM = #{helCodeName}
 	</select>
 	
 	<select id="isExistEmail" parameterType="string" resultType="string">
@@ -684,5 +638,20 @@
 		WHERE	EDU_ID = #{educationId}
 		AND		MBR_ID = #{memberId}
 	</update>
+		
+	<select id="getGraduationTypes"	resultType="GraduationTypeVO">
+		SELECT	*
+		FROM	GRDT_TP
+	</select>
+		
+	<select id="getHighestEducationLevels"	resultType="HighestEducationLevelVO">
+		SELECT	*
+		FROM	HIGHEST_EDU_LV
+	</select>
+		
+	<select id="getMemberTypes"	resultType="MemberTypeVO">
+		SELECT	*
+		FROM	MBR_TP
+	</select>
 		
 </mapper>

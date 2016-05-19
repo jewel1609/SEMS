@@ -13,8 +13,11 @@ import com.ktds.sems.education.vo.EducationStateVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.member.dao.MemberDAO;
 import com.ktds.sems.member.vo.AttendVO;
+import com.ktds.sems.member.vo.GraduationTypeVO;
+import com.ktds.sems.member.vo.HighestEducationLevelVO;
 import com.ktds.sems.member.vo.LoginHistorySearchVO;
 import com.ktds.sems.member.vo.LoginHistoryVO;
+import com.ktds.sems.member.vo.MemberTypeVO;
 import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.member.vo.MenuManageVO;
 
@@ -191,10 +194,6 @@ public class MemberDAOImpl  extends SqlSessionDaoSupport implements MemberDAO {
 		return getSqlSession().selectOne("MemberDAO.isResign", id);
 	}
 
-	@Override
-	public List<String> getGraduationType() {
-		return getSqlSession().selectList("MemberDAO.getGraduationType");
-	}
 
 	@Override
 	public void insertUuidForResign(MemberVO member) {
@@ -204,36 +203,6 @@ public class MemberDAOImpl  extends SqlSessionDaoSupport implements MemberDAO {
 	@Override
 	public int doDeleteMember(String id) {
 		return getSqlSession().update("MemberDAO.doDeleteMember", id);
-	}
-
-	@Override
-	public String selectedGraduationTypeCodeName(String id) {
-		return getSqlSession().selectOne("MemberDAO.selectedGraduationTypeCodeName", id);
-	}
-
-	@Override
-	public List<String> getHighestEducationLevelCodeNames() {
-		return getSqlSession().selectList("MemberDAO.getHighestEducationLevelCodeNames");
-	}
-
-	@Override
-	public String getSelectedHighestEducationLevelCodeName(String id) {
-		return getSqlSession().selectOne("MemberDAO.getSelectedHighestEducationLevelCodeName", id);
-	}
-
-	@Override
-	public String getGraduationTypeCodeId(String graduationType) {
-		return getSqlSession().selectOne("MemberDAO.getGraduationTypeCodeId", graduationType);
-	}
-
-	@Override
-	public String gethelCodeId(String helCodeName) {
-		return getSqlSession().selectOne("MemberDAO.gethelCodeId", helCodeName);
-	}
-
-	@Override
-	public String memberTypeCodeName(String id) {
-		return getSqlSession().selectOne("MemberDAO.memberTypeCodeName", id);
 	}
 
 	@Override
@@ -251,7 +220,6 @@ public class MemberDAOImpl  extends SqlSessionDaoSupport implements MemberDAO {
 		return getSqlSession().selectOne("MemberDAO.isTeacher", id);
 	}
 	
-	// 준호
 	@Override
 	public int delectJunitTestMember(String id) {
 		return getSqlSession().delete("MemberDAO.delectJunitTestMember", id);
@@ -341,5 +309,20 @@ public class MemberDAOImpl  extends SqlSessionDaoSupport implements MemberDAO {
 	@Override
 	public int getCourseCountById(String id) {
 		return getSqlSession().selectOne("MemberDAO.getCourseCountById", id);
+	}
+
+	@Override
+	public List<GraduationTypeVO> getGraduationTypes() {
+		return getSqlSession().selectList("MemberDAO.getGraduationTypes");
+	}
+
+	@Override
+	public List<HighestEducationLevelVO> getHighestEducationLevels() {
+		return getSqlSession().selectList("MemberDAO.getHighestEducationLevels");
+	}
+
+	@Override
+	public List<MemberTypeVO> getMemberTypes() {
+		return getSqlSession().selectList("MemberDAO.getMemberTypes");
 	}
 }

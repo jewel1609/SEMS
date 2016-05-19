@@ -1,6 +1,6 @@
 package com.ktds.sems.member.vo;
 
-public class HighestEducationLevelVO {
+public class MemberTypeVO {
 
 	private String cdId;
 	private String cdNm;
@@ -17,4 +17,5 @@ public class HighestEducationLevelVO {
 	public void setCdNm(String cdNm) {
 		this.cdNm = cdNm;
 	}
+	
 }

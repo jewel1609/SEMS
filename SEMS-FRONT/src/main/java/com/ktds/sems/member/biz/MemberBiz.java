@@ -9,8 +9,11 @@ import com.ktds.sems.education.vo.EducationCostVO;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationHistoryVO;
 import com.ktds.sems.education.vo.EducationStateVO;
+import com.ktds.sems.member.vo.GraduationTypeVO;
+import com.ktds.sems.member.vo.HighestEducationLevelVO;
 import com.ktds.sems.member.vo.LoginHistorySearchVO;
 import com.ktds.sems.member.vo.LoginHistoryVO;
+import com.ktds.sems.member.vo.MemberTypeVO;
 import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.member.vo.MenuManageVO;
 
@@ -68,21 +71,7 @@ public interface MemberBiz {
 
 	public String getPasswordById(String id);
 
-	public List<String> getGraduationType();
-
 	public boolean isResign(String id);
-
-	public String selectedGraduationTypeCodeName(String id);
-
-	public List<String> getHighestEducationLevelCodeNames();
-
-	public String getSelectedHighestEducationLevelCodeName(String id);
-
-	public String getGraduationTypeCodeId(String graduationType);
-
-	public String gethelCodeId(String helCodeName);
-
-	public String memberTypeCodeName(String id);
 
 	public boolean changePassword(MemberVO memberVO);
 
@@ -139,5 +128,11 @@ public interface MemberBiz {
 	public List<EducationHistoryVO> getCourseList(EducationHistorySearchVO educationHistorySearchVO);
 
 	public int getCourseCountById(String id);
+	
+	public List<MemberTypeVO> getMemberTypes();
+	
+	public List<HighestEducationLevelVO> getHighestEducationLevels();
 
+	public List<GraduationTypeVO> getGraduationTypes();
+	
 }
