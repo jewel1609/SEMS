@@ -172,7 +172,7 @@ public class MemberBizTest extends SemsTestCase {
 		String grdtCodeId = memberBiz.getGraduationTypeCodeId(graduationType);
 		
 		assertNotNull(grdtCodeId);
-		assertTrue(grdtCodeId.equals("ABST"));
+		assertEquals(grdtCodeId, "ABST");
 	}
 	
 	@Test
