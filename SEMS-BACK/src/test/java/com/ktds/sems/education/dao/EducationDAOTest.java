@@ -23,6 +23,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.ktds.sems.SemsTestCase;
 import com.ktds.sems.education.vo.CategoryVO;
 import com.ktds.sems.education.vo.CostVO;
+import com.ktds.sems.education.vo.EducationHistorySearchVO;
+import com.ktds.sems.education.vo.EducationHistoryVO;
 import com.ktds.sems.education.vo.EducationTypeVO;
 import com.ktds.sems.education.vo.EducationVO;
 
@@ -203,4 +205,72 @@ public class EducationDAOTest extends SemsTestCase {
 			}
 		}
 	}
+	
+	/**
+	 * 민정
+	 */
+	@Test
+	public void getAllEduHistoryCountTest(){
+		EducationHistorySearchVO educationHistorySearchVO = new EducationHistorySearchVO();
+		educationHistorySearchVO.setMemberId("JUnit");
+		educationHistorySearchVO.setEndIndex(0);
+		educationHistorySearchVO.setPageNo(0);
+		educationHistorySearchVO.setSearchKeyword("JUnit");
+		educationHistorySearchVO.setStartIndex(0);
+		
+		int totalCount = educationDAO.getAllEduHistoryCount(educationHistorySearchVO);
+		assertTrue(totalCount >= 0);
+	}
+	
+	/**
+	 * 민정
+	 */
+	@Test
+	public void getAllEducationHistoryTest(){
+		EducationHistorySearchVO educationHistorySearchVO = new EducationHistorySearchVO();
+		educationHistorySearchVO.setMemberId("JUnit");
+		educationHistorySearchVO.setEndIndex(0);
+		educationHistorySearchVO.setPageNo(0);
+		educationHistorySearchVO.setSearchKeyword("JUnit");
+		educationHistorySearchVO.setStartIndex(0);
+		
+		List<EducationHistoryVO> educationHistryList = educationDAO.getAllEducationHistory(educationHistorySearchVO);
+		assertNotNull(educationHistryList);
+	}
+	
+	/**
+	 * 민정
+	 */
+	@Test
+	public void getStateByEducationHistroyIdTest(){
+		String educationHistoryId = "33";
+		String result = educationDAO.getStateByEducationHistroyId(educationHistoryId);
+		
+		assertNotNull(result);
+	}
+	
+	/**
+	 * 민정
+	 */
+	@Test
+	public void applyJoinEducationByMemberIdTest(){
+		String educationHistoryId = "33";
+		String changeState ="JUnit";
+		
+		int result = educationDAO.applyJoinEducationByMemberId(educationHistoryId, changeState);
+		assertTrue(result >= 0);		
+	}
+	
+	/**
+	 * 민정
+	 */
+	@Test
+	public void cancelJoinEducationByMemberIdTest(){
+		String educationHistoryId = "33";
+		String changeState ="JUnit";
+		
+		int result = educationDAO.cancelJoinEducationByMemberId(educationHistoryId, changeState);
+		assertTrue(result >= 0);		
+	}
+	
 }

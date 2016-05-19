@@ -1,6 +1,9 @@
 package com.ktds.sems.member.dao;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.HashMap;
 import java.util.List;
@@ -8,13 +11,12 @@ import java.util.Map;
 
 import org.junit.FixMethodOrder;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.ktds.sems.SemsTestCase;
+import com.ktds.sems.member.vo.LoginHistorySearchVO;
+import com.ktds.sems.member.vo.LoginHistoryVO;
 import com.ktds.sems.member.vo.MemberSearchVO;
 import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.member.vo.PersonalInfoReadVO;
@@ -105,6 +107,12 @@ public class MemberDAOTest extends SemsTestCase {
 		
 		assertNotNull(memberTypeCodeId);
 		assertTrue(memberTypeCodeId.equals("TR"));
+	}
+	
+	@Test
+	public void getTypeListTest(){
+		List<String> typeList = memberDAO.getTypeList();
+		assertNotNull(typeList);
 	}
 	
 	@Test
@@ -207,4 +215,88 @@ public class MemberDAOTest extends SemsTestCase {
 		assertTrue(doWriteMemberDetailInfo > 0);
 	}
 	
+	/**
+	 * 민정
+	 */
+	@Test
+	public void getTotalMemberHistoryCountTest() {
+		LoginHistorySearchVO loginHistorySearchVO = new LoginHistorySearchVO();
+		loginHistorySearchVO.setEndDate("");
+		loginHistorySearchVO.setEndIndex(0);
+		loginHistorySearchVO.setPageNo(0);
+		loginHistorySearchVO.setStartIndex(0);
+		loginHistorySearchVO.setSearchKeyword("");
+		loginHistorySearchVO.setSearchType("");
+		loginHistorySearchVO.setStartDate("");
+		
+		int getTotalMemberHistoryCount = memberDAO.getTotalMemberHistoryCount(loginHistorySearchVO);
+		assertNotNull(getTotalMemberHistoryCount);
+		assertTrue(getTotalMemberHistoryCount > 0);
+	}
+	
+	/**
+	 * 민정
+	 */
+	@Test
+	public void getAllMemberHistoryTest() {
+		LoginHistorySearchVO loginHistorySearchVO = new LoginHistorySearchVO();
+		loginHistorySearchVO.setEndDate("");
+		loginHistorySearchVO.setEndIndex(0);
+		loginHistorySearchVO.setPageNo(0);
+		loginHistorySearchVO.setStartIndex(0);
+		loginHistorySearchVO.setSearchKeyword("");
+		loginHistorySearchVO.setSearchType("");
+		loginHistorySearchVO.setStartDate("");
+		
+		List<LoginHistoryVO> getAllMemberHistory = memberDAO.getAllMemberHistory(loginHistorySearchVO);
+		assertNotNull(getAllMemberHistory);
+	}
+	
+	/**
+	 * 민정
+	 */
+	@Test
+	public void getTotalAdminHistoryCountTest() {
+		LoginHistorySearchVO loginHistorySearchVO = new LoginHistorySearchVO();
+		loginHistorySearchVO.setEndDate("");
+		loginHistorySearchVO.setEndIndex(0);
+		loginHistorySearchVO.setPageNo(0);
+		loginHistorySearchVO.setStartIndex(0);
+		loginHistorySearchVO.setSearchKeyword("");
+		loginHistorySearchVO.setSearchType("");
+		loginHistorySearchVO.setStartDate("");
+		
+		int getTotalAdminHistoryCount = memberDAO.getTotalAdminHistoryCount(loginHistorySearchVO);
+		assertNotNull(getTotalAdminHistoryCount);
+		assertTrue(getTotalAdminHistoryCount > 0);
+	}
+	
+	/**
+	 * 민정
+	 */
+	@Test
+	public void getAllAdminHistoryTest() {
+		LoginHistorySearchVO loginHistorySearchVO = new LoginHistorySearchVO();
+		loginHistorySearchVO.setEndDate("");
+		loginHistorySearchVO.setEndIndex(0);
+		loginHistorySearchVO.setPageNo(0);
+		loginHistorySearchVO.setStartIndex(0);
+		loginHistorySearchVO.setSearchKeyword("");
+		loginHistorySearchVO.setSearchType("");
+		loginHistorySearchVO.setStartDate("");
+		
+		List<LoginHistoryVO> getAllAdminHistory = memberDAO.getAllAdminHistory(loginHistorySearchVO);
+		assertNotNull(getAllAdminHistory);
+	}
+	
+	/**
+	 * 민정
+	 */
+	@Test
+	public void getOneMemberTest(){
+		MemberVO memberVO = new MemberVO();
+		String memberId = "cocomo12";
+		memberVO = memberDAO.getOneMember(memberId);
+		assertNotNull(memberVO);
+	}
 }
