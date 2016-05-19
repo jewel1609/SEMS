@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.hibernate.validator.internal.util.IgnoreJava6Requirement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -40,7 +41,7 @@ public class MemberController {
 
 	@RequestMapping("/main")
 	public String viewMainPage() {
-		return "/common/main";
+		return "common/main";
 	}
 
 	@RequestMapping("/changePassword/{id}")
@@ -84,6 +85,11 @@ public class MemberController {
 		memberService.checkValidationByRepeatPassword(password, repeatPassword, response);
 	}
 
+	@RequestMapping("/checkValidationByName")
+	public void checkValidationByName(@RequestParam String name, HttpServletResponse response) {
+		memberService.checkValidationByName(name, response);
+	}
+	
 	@RequestMapping("/checkValidationByEmail")
 	public void checkValidationByEmail(@RequestParam String email, HttpServletResponse response) {
 		memberService.checkValidationByEmail(email, response);
@@ -94,6 +100,22 @@ public class MemberController {
 		memberService.checkValidationByPhoneNumber(phoneNumber, response);
 	}
 
+	@RequestMapping("/checkValidationByUniversityName")
+	public void checkValidationByUniversityName(@RequestParam String universityName, HttpServletResponse response) {
+		memberService.checkValidationByUniversityName(universityName, response);
+	}
+	
+	@RequestMapping("/checkValidationByMajorName")
+	public void checkValidationByMajorName(@RequestParam String majorName, HttpServletResponse response) {
+		memberService.checkValidationByMajorName(majorName, response);
+	}
+	
+	
+	@RequestMapping("/loginPage")
+	public String viewLoginPage() {
+		return "common/login";
+	}
+	
 	@RequestMapping(value = ("/login"), method = RequestMethod.POST)
 	public void login(@Valid MemberVO memberVO, Errors errors, HttpSession session, HttpServletResponse response,
 			HttpServletRequest request) {
@@ -279,5 +301,17 @@ public class MemberController {
 	@RequestMapping("/member/myPage/educationHistory/exportExcel")
 	public String eduationHistoryExportExcel(HttpSession session) {
 		return memberService.eduationHistoryExportExcel(session);
+	}
+	
+	@RequestMapping("/error/invalidAccess")
+	public ModelAndView invalidAccess() {
+		ModelAndView view = new ModelAndView();
+		view.setViewName("/invalidAccess");
+		return view;
+	}
+	
+	@RequestMapping("/checkRegistState")
+	public void checkRegistState(HttpServletResponse response) {
+		memberService.checkRegistState(response);
 	}
 }
