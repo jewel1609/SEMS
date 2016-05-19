@@ -640,17 +640,20 @@
 	</update>
 		
 	<select id="getGraduationTypes"	resultType="GraduationTypeVO">
-		SELECT	*
+		SELECT	CD_ID cdId
+				, CD_NM cdNm
 		FROM	GRDT_TP
 	</select>
 		
 	<select id="getHighestEducationLevels"	resultType="HighestEducationLevelVO">
-		SELECT	*
+		SELECT	CD_ID cdId
+				, CD_NM cdNm
 		FROM	HIGHEST_EDU_LV
 	</select>
 		
 	<select id="getMemberTypes"	resultType="MemberTypeVO">
-		SELECT	*
+		SELECT	CD_ID cdId
+				, CD_NM cdNm
 		FROM	MBR_TP
 	</select>
 		
