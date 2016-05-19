@@ -3,14 +3,17 @@ package com.ktds.sems.member.web;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.List;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.SemsTestCase;
+import com.ktds.sems.member.vo.CodeMngVO;
 import com.ktds.sems.member.vo.MemberVO;
 
 public class MemberControllerTest extends SemsTestCase {
@@ -65,6 +68,45 @@ public class MemberControllerTest extends SemsTestCase {
 		String cdId = "JunitTest";		
 		String view = memberController.doMbrTpDelete(cdId);
 		assertNotNull(view);		
+	}
+	
+	/* Code viewCodeMngPage */
+	@Test
+	public void viewCodeMngPageTest() {
+		
+		ModelAndView view = memberController.viewCodeMngPage();
+		if(view != null) {
+			String viewName = view.getViewName();
+			assertNotNull(viewName);
+			assertEquals(viewName, "member/codeMngPage");
+		} else {
+			fail("fail");
+		}
+		
+	}
+	
+	/* Code doCodeMngInsert */
+	@Test
+	public void doCodeMngInsert() {
+		CodeMngVO codeMngVO = new CodeMngVO();
+		codeMngVO.setCdId("TE_ST");
+		codeMngVO.setCdNm("테스트");
+		codeMngVO.setCdTp("TE");
+		codeMngVO.setCdTp2("ST");
+		
+		MockHttpServletResponse response = new MockHttpServletResponse();
+		
+		memberController.doCodeMngInsert(codeMngVO, response);
+	}
+
+	/* Code doCodeMngDelete */
+	@Test
+	public void doCodeMngDeleteTest() {
+		String cdId = "TE_ST";
+		String viewName = memberController.doCodeMngDelete(cdId);
+		
+		assertNotNull(viewName);
+		assertEquals(viewName,"redirect:/codeMngPage");
 	}
 
 }

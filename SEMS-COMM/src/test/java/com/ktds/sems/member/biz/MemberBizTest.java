@@ -1,7 +1,6 @@
 package com.ktds.sems.member.biz;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.util.List;
 
@@ -10,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpSession;
 
 import com.ktds.sems.SemsTestCase;
+import com.ktds.sems.member.vo.CodeMngVO;
 import com.ktds.sems.member.vo.GrdtTpVO;
 import com.ktds.sems.member.vo.MbrTpVO;
 import com.ktds.sems.member.vo.MemberVO;
@@ -216,4 +216,57 @@ public class MemberBizTest extends SemsTestCase {
 		assertTrue(checkExistData >= 1);
 	}
 	
+	/**
+	 * getAllCodeMngListTest
+	 */
+	@Test
+	public void getAllCodeMngListTest() {
+
+		List<CodeMngVO> codeMngList = memberBiz.getAllCodeMngList();
+		
+		if( codeMngList != null ) {
+			for (CodeMngVO codeMngVO : codeMngList) {
+				assertNotNull(codeMngVO.getCdId());
+				assertNotNull(codeMngVO.getCdNm());
+				assertNotNull(codeMngVO.getCdTp());
+				assertNotNull(codeMngVO.getCdTp2());
+			}
+		} else {
+			fail("fail");
+		}
+	}
+
+	@Test
+	public void doCodeMngInsertTest() {
+		
+		CodeMngVO codeMngVO = new CodeMngVO();
+		codeMngVO.setCdId("TE_ST3");
+		codeMngVO.setCdNm("테스트3");
+		codeMngVO.setCdTp("TE3");
+		codeMngVO.setCdTp2("ST3");
+		
+		boolean isSuccess = memberBiz.doCodeMngInsert(codeMngVO);
+		assertTrue(isSuccess);
+	}
+	
+	@Test
+	public void doCodeMngModifyTest() {
+		
+		CodeMngVO codeMngVO = new CodeMngVO();
+		codeMngVO.setCdId("TE_ST3");
+		codeMngVO.setCdNm("테스트33");
+		codeMngVO.setCdTp("TE33");
+		codeMngVO.setCdTp2("ST33");
+		
+		boolean isSuccess = memberBiz.doCodeMngModify(codeMngVO);
+		assertTrue(isSuccess);
+	}
+	
+	@Test
+	public void doCodeMngDeleteTest() {
+		
+		String cdId = "TE_ST3";
+		boolean isSuccess = memberBiz.doCodeMngDelete(cdId);
+		assertTrue(isSuccess);
+	}
 }

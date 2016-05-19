@@ -15,6 +15,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.SemsTestCase;
+import com.ktds.sems.member.vo.CodeMngVO;
 import com.ktds.sems.member.vo.GrdtTpVO;
 import com.ktds.sems.member.vo.MbrTpVO;
 import com.ktds.sems.member.vo.MemberVO;
@@ -132,4 +133,56 @@ public class MemberServiceTest extends SemsTestCase {
 		
 	}
 	
+	/**
+	 * viewCodeMngPage
+	 */
+	@Test
+	public void viewCodeMngPage() {
+		
+		ModelAndView view = memberService.viewCodeMngPage();
+		assertNotNull(view);
+	}
+
+	/**
+	 * doCodeMngInsert
+	 */
+	@Test
+	public void doCodeMngInsert() {
+		CodeMngVO codeMngVO = new CodeMngVO();
+		codeMngVO.setCdId("TE_ST2");
+		codeMngVO.setCdNm("테스트2");
+		codeMngVO.setCdTp("TE2");
+		codeMngVO.setCdTp2("ST2");
+		
+		String testStr = memberService.doCodeMngInsert(codeMngVO);
+		assertNotNull(testStr);
+		assertEquals(testStr, "redirect:/codeMngPage");
+	}
+	
+	/**
+	 * doCodeMngModify
+	 */
+	@Test
+	public void doCodeMngModify() {
+		CodeMngVO codeMngVO = new CodeMngVO();
+		codeMngVO.setCdId("TE_ST2");
+		codeMngVO.setCdNm("테스트2");
+		codeMngVO.setCdTp2("ST2");
+		
+		String testStr = memberService.doCodeMngModify(codeMngVO);
+		assertNotNull(testStr);
+		assertEquals(testStr, "OK");
+	}
+	
+	/**
+	 *  doCodeMngDelete
+	 */
+	@Test
+	public void doCodeMngDelete() {
+		String cdId = "TE_ST2";
+		String testStr = memberService.doCodeMngDelete(cdId);
+		
+		assertNotNull(testStr);
+		assertEquals(testStr, "redirect:/codeMngPage");
+	}
 }

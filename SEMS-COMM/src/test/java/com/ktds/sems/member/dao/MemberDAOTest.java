@@ -11,6 +11,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ktds.sems.SemsTestCase;
+import com.ktds.sems.member.vo.CodeMngVO;
 import com.ktds.sems.member.vo.GrdtTpVO;
 import com.ktds.sems.member.vo.MbrTpVO;
 import com.ktds.sems.member.vo.MemberVO;
@@ -225,4 +226,52 @@ public class MemberDAOTest extends SemsTestCase {
 		assertTrue(checkExistMbrTpData >= 1);
 	}
 	
+	@Test
+	public void getAllCodeMngListTest() {
+		List<CodeMngVO> codeMngList = memberDAO.getAllCodeMngList();
+		if (codeMngList != null) {
+			for (CodeMngVO codeMngVO : codeMngList) {
+				assertNotNull(codeMngVO.getCdId());
+				assertNotNull(codeMngVO.getCdNm());
+				assertNotNull(codeMngVO.getCdTp());
+				assertNotNull(codeMngVO.getCdTp2());
+			}
+		} else {
+			fail("fail");
+		}
+	}
+
+	@Test
+	public void doCodeMngInsertTest() {
+
+		CodeMngVO codeMngVO = new CodeMngVO();
+		codeMngVO.setCdId("TE_ST4");
+		codeMngVO.setCdNm("테스트");
+		codeMngVO.setCdTp("TE");
+		codeMngVO.setCdTp2("ST4");
+		
+		int testInt = memberDAO.doCodeMngInsert(codeMngVO);
+		assertTrue(testInt > 0);
+	}
+	
+	@Test
+	public void doCodeMngModifyTest() {
+
+		CodeMngVO codeMngVO = new CodeMngVO();
+		codeMngVO.setCdId("TE_ST4");
+		codeMngVO.setCdNm("테스트");
+		codeMngVO.setCdTp("TE");
+		codeMngVO.setCdTp2("ST4");
+		
+		int testInt = memberDAO.doCodeMngModify(codeMngVO);
+		assertTrue(testInt > 0);
+	}
+	
+	@Test
+	public void doCodeMngDeleteTest() {
+		String cdId = "TE_ST4";
+		
+		int testInt = memberDAO.doCodeMngDelete(cdId);
+		assertTrue(testInt > 0);
+	}
 }
