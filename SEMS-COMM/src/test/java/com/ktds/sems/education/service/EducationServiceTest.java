@@ -351,7 +351,7 @@ public class EducationServiceTest extends SemsTestCase {
 		}
 	}
 	public void validCategoryIdTest(){
-		String categoryId = "PAID";
+		String categoryId = "ZCS";
 		String categoryType = "medium";
 		String isExist = educationService.validCategoryId(categoryId, categoryType);
 		assertTrue(isExist == "true");
@@ -359,7 +359,7 @@ public class EducationServiceTest extends SemsTestCase {
 	
 	@Test
 	public void validCategoryNameTest(){
-		String categoryName = "유료과정";
+		String categoryName = "데이터베이스";
 		String categoryType = "medium";
 		String isExist = educationService.validCategoryName(categoryName, categoryType);
 		assertTrue(isExist == "true");
@@ -483,7 +483,7 @@ public class EducationServiceTest extends SemsTestCase {
 	
 	@Test
 	public void getChildCategoryTest(){
-		String categoryId = "PAID";
+		String categoryId = "ZCS";
 		String categoryType = "large";
 		JsonResponseVO jsonResponseVO = educationService.getChildCategory(categoryId, categoryType);
 		assertTrue(jsonResponseVO.getResult());
@@ -494,8 +494,8 @@ public class EducationServiceTest extends SemsTestCase {
 		
 		CategoryVO categoryVO = new CategoryVO();
 		categoryVO.setCategoryType("medium");
-		categoryVO.setCategoryId("TSMO");
-		categoryVO.setCategoryName("Test modify");
+		categoryVO.setCategoryId("ZCS");
+		categoryVO.setCategoryName("데이터베이스");
 		
 		BindingResult errors = new BeanPropertyBindingResult(categoryVO,  "newCategoryForm");
 		CategoryVOValidator validator = new CategoryVOValidator();
