@@ -89,8 +89,8 @@ public class EducationDAOTest extends SemsTestCase{
 	//@Test
 	public void writeNewCommentTest(){
 		QNAVO qnaVO = new QNAVO();
-		
-		qnaVO.setReplyId("RP-20160813-000088");
+//		qnaVO.setReplyId("RP-20160813-000088");
+		qnaVO.setReplyId( String.valueOf( educationDAO.getNextReplySeq() ));
 		qnaVO.setEduId("ED-20160913-000130");
 		qnaVO.setParentReplyId("0");
 		qnaVO.setOrderNo(4);
@@ -127,7 +127,7 @@ public class EducationDAOTest extends SemsTestCase{
 	}
 	
 	// doCancelEducationTest, doApplyEducationTest 와 같은 educationId, id 사용중
-	@Test
+//	@Test
 	public void isApplyMemberByEducationIdTest(){
 		Map<String, String> paramMap = new HashMap<String, String>();
 		String educationId = "ED-20160512-000088";
