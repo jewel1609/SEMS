@@ -9,11 +9,13 @@
 </head>
 <body>
 
-	<span>${ teacherInfo.memberId}</span><br/>
+	<span>${ teacherInfo.memberId }</span><br/>
 	<span>${ teacherInfo.name }</span><br/>
 	<span>${ teacherInfo.companyName }</span><br/>
 	<span>${ teacherInfo.businessNumber }</span><br/>
 	<span>${ teacherInfo.annual }</span><br/>
+	<br/><br/>
+	<span>${ teacherEducationGrade }</span>
 	<br/><br/>
 	<c:forEach items="${ teacherEducationHistory }" var="educationHistory">
 	 	<span>${ educationHistory.id }</span><br/>
