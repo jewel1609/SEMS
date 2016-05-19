@@ -99,7 +99,7 @@
 		
 		$("#searchInitBtn").click(function() {
 			
-			location.href="<c:url value='/member/loginHistoryInit' />";
+			location.href="<c:url value='/member/myPage/educationHistoryInit' />";
 			
 		});
 		
@@ -207,13 +207,11 @@
 		<th>교육 종료일</th>
 	</tr>
 	<c:forEach items="${ educationHistoryListVO.educationHistoryList }" var="educationHistoryVO">
-		<tr>
+		<tr align="center">
 			<td>${ educationHistoryVO.educationTitle }</td>
-			<td>${ educationHistoryVO.cost }</td>
+			<td>${ educationHistoryVO.costName }</td>
 			<td>${ educationHistoryVO.educationHistoryDate }</td>
-			<td>
-				상태
-			</td>
+			<td>${ educationHistoryVO.cdNm }</td>
 			<td>${ educationHistoryVO.cmnt }</td>
 			<td>${ educationHistoryVO.fdbk }</td>
 			<td>${ educationHistoryVO.startDate }</td>
@@ -257,24 +255,24 @@
 					
 					<select id="searchCost" name="searchCost">
 						<option value="" selected="selected"></option>
-						<c:forEach items="${ eduCostList }" var="eduCost">
-							<c:if test="${ educationHistorySearchVO.searchCost eq eduCost}">
-								<option id="eduCostType" value="${ eduCost }" selected="selected">${ eduCost }</option>
+						<c:forEach items="${ educationHistoryListVO.costList }" var="eduCost">
+							<c:if test="${ educationHistorySearchVO.searchCost eq eduCost.codeId}">
+								<option id="eduCostType" value="${ eduCost.codeId }" selected="selected">${ eduCost.codeName }</option>
 							</c:if>
-							<c:if test="${ educationHistorySearchVO.searchCost ne eduCost}">
-								<option id="eduCostType" value="${ eduCost }">${ eduCost }</option>
+							<c:if test="${ educationHistorySearchVO.searchCost ne eduCost.codeId}">
+								<option id="eduCostType" value="${ eduCost.codeId }">${ eduCost.codeName }</option>
 							</c:if>
 						</c:forEach>
 					</select>
 					
 					<select id="searchApplyState" name="searchApplyState">
 						<option value="" selected="selected"></option>
-						<c:forEach items="${ applyStateList }" var="applyState">
-							<c:if test="${ educationHistorySearchVO.searchApplyState eq applyState}">
-								<option id="applyStateType" value="${ applyState }" selected="selected">${ applyState }</option>
+						<c:forEach items="${ educationHistoryListVO.statList }" var="applyState">
+							<c:if test="${ educationHistorySearchVO.searchApplyState eq applyState.codeId}">
+								<option id="applyStateType" value="${ applyState.codeId }" selected="selected">${ applyState.codeName }</option>
 							</c:if>
-							<c:if test="${ educationHistorySearchVO.searchApplyState ne applyState}">
-								<option id="applyStateType" value="${ applyState }">${ applyState }</option>
+							<c:if test="${ educationHistorySearchVO.searchApplyState ne applyState.codeId}">
+								<option id="applyStateType" value="${ applyState.codeId }">${ applyState.codeName }</option>
 							</c:if>
 						</c:forEach>
 					</select>

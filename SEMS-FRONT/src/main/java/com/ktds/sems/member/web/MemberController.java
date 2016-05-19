@@ -85,10 +85,10 @@ public class MemberController {
 		memberService.checkValidationByRepeatPassword(password, repeatPassword, response);
 	}
 
-	@RequestMapping("/checkValidationByName")
+	/*@RequestMapping("/checkValidationByName")
 	public void checkValidationByName(@RequestParam String name, HttpServletResponse response) {
 		memberService.checkValidationByName(name, response);
-	}
+	}*/
 	
 	@RequestMapping("/checkValidationByEmail")
 	public void checkValidationByEmail(@RequestParam String email, HttpServletResponse response) {
@@ -100,7 +100,7 @@ public class MemberController {
 		memberService.checkValidationByPhoneNumber(phoneNumber, response);
 	}
 
-	@RequestMapping("/checkValidationByUniversityName")
+	/*@RequestMapping("/checkValidationByUniversityName")
 	public void checkValidationByUniversityName(@RequestParam String universityName, HttpServletResponse response) {
 		memberService.checkValidationByUniversityName(universityName, response);
 	}
@@ -108,7 +108,7 @@ public class MemberController {
 	@RequestMapping("/checkValidationByMajorName")
 	public void checkValidationByMajorName(@RequestParam String majorName, HttpServletResponse response) {
 		memberService.checkValidationByMajorName(majorName, response);
-	}
+	}*/
 	
 	
 	@RequestMapping("/loginPage")
@@ -310,8 +310,13 @@ public class MemberController {
 		return view;
 	}
 	
-	@RequestMapping("/checkRegistState")
+/*	@RequestMapping("/checkRegistState")
 	public void checkRegistState(HttpServletResponse response) {
 		memberService.checkRegistState(response);
+	}*/
+	
+	@RequestMapping("/member/myPage/educationHistoryInit")
+	public String educationHistoryPageInit() {
+		return "redirect:/member/myPage/educationHistory";
 	}
 }

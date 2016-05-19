@@ -8,6 +8,26 @@ public class EducationHistoryListVO {
 
 	private List<EducationHistoryVO> educationHistoryList;
 	private Paging paging;
+	
+	private List<EducationStateVO> statList;
+	private List<EducationCostVO> costList;
+	
+
+	public List<EducationStateVO> getStatList() {
+		return statList;
+	}
+
+	public void setStatList(List<EducationStateVO> statList) {
+		this.statList = statList;
+	}
+
+	public List<EducationCostVO> getCostList() {
+		return costList;
+	}
+
+	public void setCostList(List<EducationCostVO> costList) {
+		this.costList = costList;
+	}
 
 	public List<EducationHistoryVO> getEducationHistoryList() {
 		return educationHistoryList;

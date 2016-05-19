@@ -5,8 +5,10 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.ktds.sems.education.vo.EducationCostVO;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationHistoryVO;
+import com.ktds.sems.education.vo.EducationStateVO;
 import com.ktds.sems.member.vo.LoginHistorySearchVO;
 import com.ktds.sems.member.vo.LoginHistoryVO;
 import com.ktds.sems.member.vo.MemberVO;
@@ -125,5 +127,9 @@ public interface MemberBiz {
 	public boolean checkValidationByMajorName(String majorName);
 
 	public boolean isAdmin(String id);
+
+	public List<EducationStateVO> getStatList();
+
+	public List<EducationCostVO> getCostList();
 
 }

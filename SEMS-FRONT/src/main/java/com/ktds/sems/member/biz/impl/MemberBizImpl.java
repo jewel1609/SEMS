@@ -22,8 +22,10 @@ import com.ktds.sems.common.LoginStore;
 import com.ktds.sems.common.SendMail;
 import com.ktds.sems.common.Session;
 import com.ktds.sems.common.vo.MailVO;
+import com.ktds.sems.education.vo.EducationCostVO;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationHistoryVO;
+import com.ktds.sems.education.vo.EducationStateVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.member.biz.MemberBiz;
 import com.ktds.sems.member.dao.MemberDAO;
@@ -568,6 +570,7 @@ public class MemberBizImpl implements MemberBiz {
 
 	@Override
 	public List<EducationHistoryVO> getAllEducationHistoryListByIdWithPaging(EducationHistorySearchVO educationHistorySearchVO) {
+		
 		return memberDAO.getAllEducationHistoryListByIdWithPaging(educationHistorySearchVO);
 	}
 
@@ -714,5 +717,15 @@ public class MemberBizImpl implements MemberBiz {
 	@Override
 	public boolean isAdmin(String id) {
 		return memberDAO.isAdmin(id) > 0;
+	}
+
+	@Override
+	public List<EducationStateVO> getStatList() {
+		return memberDAO.getStatList();
+	}
+
+	@Override
+	public List<EducationCostVO> getCostList() {
+		return memberDAO.getCostList();
 	}
 }

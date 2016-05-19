@@ -3,8 +3,10 @@ package com.ktds.sems.member.dao;
 import java.util.List;
 import java.util.Map;
 
+import com.ktds.sems.education.vo.EducationCostVO;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationHistoryVO;
+import com.ktds.sems.education.vo.EducationStateVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.member.vo.AttendVO;
 import com.ktds.sems.member.vo.LoginHistorySearchVO;
@@ -120,5 +122,9 @@ public interface MemberDAO {
 	public List<EducationHistoryVO> getJoinEducationList(String memberId);
 
 	public int isAdmin(String id);
+
+	public List<EducationStateVO> getStatList();
+
+	public List<EducationCostVO> getCostList();
 
 }

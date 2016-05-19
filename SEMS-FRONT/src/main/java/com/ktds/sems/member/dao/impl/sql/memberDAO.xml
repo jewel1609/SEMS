@@ -457,9 +457,11 @@
 				, EI.END_DATE endDate
 				, EI.EDU_TTL educationTitle
 				, EI.COST cost
+				, EC.CD_NM costName
 				, CD.CD_NM cdNm
 		FROM	EDU_INFO EI
 				, CODE_MNG CD
+				, EDU_CST EC
 				, (
 					SELECT	ROWNUM AS RNUM
 							, EDUCATION_HISTORY.*
@@ -484,7 +486,7 @@
 								AND		EI.EDU_TTL LIKE '%'||#{searchEduName}||'%'
 								</if>
 								<if test="searchType == 'cost'">
-								AND		EI.COST = '%'||#{searchCost}||'%'
+								AND		EI.COST LIKE '%'||#{searchCost}||'%'
 								</if>
 								<if test="searchType == 'applyDate'">
 								AND		EH.EDU_HTR_DT <![CDATA[>=]]> TO_DATE(#{startDate}, 'YYYY-MM-DD')	
@@ -500,6 +502,7 @@
 		WHERE	RNUM <![CDATA[>=]]> #{startIndex}
 		AND		EI.EDU_ID = EH.EDU_ID
 		AND		EH.STAT = CD.CD_ID
+		AND		EI.COST = EC.CD_ID
 	</select>
 	
 	<select id="getTotalEducationHistoryCountById" parameterType="EducationHistorySearchVO" resultType="_int">
@@ -512,7 +515,7 @@
 		AND		EI.EDU_TTL LIKE '%'||#{searchEduName}||'%'
 		</if>
 		<if test="searchType == 'cost'">
-		AND		EI.COST = '%'||#{searchCost}||'%'
+		AND		EI.COST LIKE '%'||#{searchCost}||'%'
 		</if>
 		<if test="searchType == 'applyDate'">
 		AND		EI.SRT_DATE <![CDATA[>=]]> TO_DATE(#{startDate}, 'YYYY-MM-DD')	
@@ -583,18 +586,34 @@
 				, EH.FDBK fdbk
 				, EI.EDU_TTL educationTitle
 				, EI.COST cost
+				, EC.CD_NM costName
 				, EI.SRT_DATE startDate
 				, EI.END_DATE endDate
 				, CM.CD_NM cdNm
 		FROM	EDU_INFO EI
 				, EDU_HTR EH
 				, CODE_MNG CM
+				, EDU_CST EC
 		WHERE	EI.EDU_ID = EH.EDU_ID
 		AND		CM.CD_ID = EH.STAT
 		AND		EH.MBR_ID = #{memberId}	
 		AND		EH.STAT LIKE 'JOIN_CMPL'	
+		AND		EI.COST = EC.CD_ID
 		AND		TO_DATE(EI.SRT_DATE,'YYYY-MM-DD') <![CDATA[<=]]> SYSDATE
 		AND		(TO_DATE(EI.END_DATE,'YYYY-MM-DD') + 1) <![CDATA[>=]]> SYSDATE
+	</select>
+	
+	<select id="getStatList" resultType="EducationStateVO">
+		SELECT	CD_NM codeName
+				, CD_ID codeId
+		FROM	CODE_MNG
+		WHERE	CD_ID LIKE 'EDU_%'
+	</select>
+	
+	<select id="getCostList" resultType="EducationCostVO">
+		SELECT	CD_NM codeName
+				, CD_ID codeId
+		FROM	EDU_CST
 	</select>
 	
 </mapper>

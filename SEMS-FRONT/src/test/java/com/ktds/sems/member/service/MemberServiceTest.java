@@ -17,9 +17,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.SemsTestCase;
 import com.ktds.sems.common.Session;
+import com.ktds.sems.education.vo.EducationCostVO;
 import com.ktds.sems.education.vo.EducationHistoryListVO;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationHistoryVO;
+import com.ktds.sems.education.vo.EducationStateVO;
 import com.ktds.sems.member.dao.MemberDAO;
 import com.ktds.sems.member.vo.LoginHistoryListVO;
 import com.ktds.sems.member.vo.LoginHistorySearchVO;
@@ -948,7 +950,15 @@ public class MemberServiceTest extends SemsTestCase {
 			List<EducationHistoryVO> educationHistoryList = educationHistoryListVO.getEducationHistoryList();
 			assertNotNull(educationHistoryList);
 			assertTrue(educationHistoryList.size() > 0);
-
+			
+			List<EducationCostVO> educationCostList = educationHistoryListVO.getCostList();
+			assertNotNull(educationCostList);
+			assertTrue(educationCostList.size() > 0);
+			
+			List<EducationStateVO> educationStateList = educationHistoryListVO.getStatList();
+			assertNotNull(educationStateList);
+			assertTrue(educationStateList.size() > 0);
+			
 			Paging paging = educationHistoryListVO.getPaging();
 			assertNotNull(paging);
 			assertTrue(paging.getTotalArticleCount() > 0);

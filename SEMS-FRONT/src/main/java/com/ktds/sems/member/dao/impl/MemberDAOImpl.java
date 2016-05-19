@@ -5,8 +5,10 @@ import java.util.Map;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 
+import com.ktds.sems.education.vo.EducationCostVO;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationHistoryVO;
+import com.ktds.sems.education.vo.EducationStateVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.member.dao.MemberDAO;
 import com.ktds.sems.member.vo.AttendVO;
@@ -15,7 +17,7 @@ import com.ktds.sems.member.vo.LoginHistoryVO;
 import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.member.vo.MenuManageVO;
 
-public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
+public class MemberDAOImpl  extends SqlSessionDaoSupport implements MemberDAO {
 
 	// 준호
 	@Override
@@ -303,5 +305,15 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 	@Override
 	public int isAdmin(String id) {
 		return getSqlSession().selectOne("MemberDAO.isAdmin", id);
+	}
+
+	@Override
+	public List<EducationStateVO> getStatList() {
+		return getSqlSession().selectList("MemberDAO.getStatList");
+	}
+
+	@Override
+	public List<EducationCostVO> getCostList() {
+		return getSqlSession().selectList("MemberDAO.getCostList");
 	}
 }

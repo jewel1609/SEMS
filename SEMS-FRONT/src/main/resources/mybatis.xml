@@ -18,6 +18,8 @@
 		<typeAlias type="com.ktds.sems.file.vo.FileVO" alias="FileVO"/>
 		<typeAlias type="com.ktds.sems.member.vo.MenuManageVO" alias="MenuManageVO"/>
 		<typeAlias type="com.ktds.sems.education.vo.ReRplyEvalVO" alias="ReRplyEvalVO"/>
+		<typeAlias type="com.ktds.sems.education.vo.EducationStateVO" alias="EducationStateVO"/>
+		<typeAlias type="com.ktds.sems.education.vo.EducationCostVO" alias="EducationCostVO"/>
 	</typeAliases>
 
 	<mappers>

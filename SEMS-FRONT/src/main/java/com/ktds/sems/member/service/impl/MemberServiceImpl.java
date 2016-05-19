@@ -15,9 +15,11 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ktds.sems.common.SendMail;
 import com.ktds.sems.common.Session;
 import com.ktds.sems.common.vo.MailVO;
+import com.ktds.sems.education.vo.EducationCostVO;
 import com.ktds.sems.education.vo.EducationHistoryListVO;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationHistoryVO;
+import com.ktds.sems.education.vo.EducationStateVO;
 import com.ktds.sems.member.biz.MemberBiz;
 import com.ktds.sems.member.service.MemberService;
 import com.ktds.sems.member.vo.LoginHistoryListVO;
@@ -698,9 +700,6 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public ModelAndView getAllEducationHistoryListByIdWithPaging(EducationHistorySearchVO educationHistorySearchVO, int pageNo, HttpSession session) {
 		
-		// TODO 검색 구현
-		System.out.println(educationHistorySearchVO.getSearchType());
-		
 		EducationHistoryListVO educationHistoryListVO = new EducationHistoryListVO();
 		Paging paging = new Paging();
 		MemberVO memberVO = (MemberVO) session.getAttribute(Session.MEMBER);
@@ -716,18 +715,18 @@ public class MemberServiceImpl implements MemberService {
 
 		
 		int totalEducationHistoryCountById = memberBiz.getTotalEducationHistoryCountById(educationHistorySearchVO);
-		System.out.println(totalEducationHistoryCountById);
 		paging.setTotalArticleCount(totalEducationHistoryCountById);
 
-		// TODO 상태 값 가져오기
 		List<EducationHistoryVO> educationHistoryList = memberBiz.getAllEducationHistoryListByIdWithPaging(educationHistorySearchVO);
 		List<EducationHistoryVO> joinEducationList = memberBiz.getJoinEducationList(educationHistorySearchVO.getMemberId());
+		List<EducationStateVO> statList = memberBiz.getStatList();
+		List<EducationCostVO> costList = memberBiz.getCostList();
 		educationHistoryListVO.setEducationHistoryList(educationHistoryList);
-
+		educationHistoryListVO.setCostList(costList);
+		educationHistoryListVO.setStatList(statList);
+		
 		ModelAndView view = new ModelAndView();
 		view.setViewName("education/educationHistory");
-		/*view.addObject("eduCostList", eduCostList);
-		view.addObject("applyStateList", applyStateList);*/
 		view.addObject("educationHistoryListVO", educationHistoryListVO);
 		view.addObject("educationHistorySearchVO", educationHistorySearchVO);
 		view.addObject("joinEducationList", joinEducationList);
