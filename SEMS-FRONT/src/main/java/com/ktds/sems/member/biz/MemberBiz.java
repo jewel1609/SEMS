@@ -118,6 +118,12 @@ public interface MemberBiz {
 
 	public List<EducationHistoryVO> getJoinEducationList(String memberId);
 
+	public boolean checkValidationByName(String name);
+
+	public boolean checkValidationByUniversityName(String universityName);
+
+	public boolean checkValidationByMajorName(String majorName);
+
 	public boolean isAdmin(String id);
 
 }
