@@ -130,7 +130,9 @@ public class TeacherDAOImpl extends SqlSessionDaoSupport implements TeacherDAO{
 
 	@Override
 	public String getOneTeacherId() {
-		return getSqlSession().selectOne("TeacherDAO.getOneTeacherId");
+		
+		String memberId ="teacher01";
+		return getSqlSession().selectOne("TeacherDAO.getOneTeacherId", memberId);
 	}
 
 	@Override

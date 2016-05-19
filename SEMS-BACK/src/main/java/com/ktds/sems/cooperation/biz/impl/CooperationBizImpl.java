@@ -133,5 +133,4 @@ public class CooperationBizImpl implements CooperationBiz{
 	public List<CooperationTypeVO> getCooTypeList() {
 		return cooperationDAO.getCooTypeList(); 
 	}
-
 }

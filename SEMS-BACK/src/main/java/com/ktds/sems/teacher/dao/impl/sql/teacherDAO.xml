@@ -355,10 +355,11 @@
 		WHERE	MBR_ID = #{ memberId }
 	</delete>
 	
-	<select id="getOneTeacherId" resultType="string">
-		SELECT  MBR_ID
-		FROM    TCHR_INFO
-		WHERE   ROWNUM=1
+	<select id="getOneTeacherId" resultType="string" parameterType="string">
+			SELECT  MBR_ID
+			FROM    TCHR_INFO
+			WHERE  MBR_ID != #{ memberId }
+			AND     ROWNUM = 1;
 	</select>
 
 </mapper>
