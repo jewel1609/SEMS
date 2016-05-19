@@ -194,14 +194,14 @@ public class MemberDAOTest extends SemsTestCase {
 		assertNotNull(getSysdate);
 	}
 	
-	//@Test
+	@Test
 	public void getPersonalInfoIdSeq() {
 		int getPersonalInfoIdSeq = memberDAO.getPersonalInfoIdSeq();
 		assertNotNull(getPersonalInfoIdSeq);
 		assertTrue(getPersonalInfoIdSeq > 0);
 	}
 	
-	//@Test
+	@Test
 	public void doWriteMemberDetailInfo() {
 		PersonalInfoReadVO personalInfoReadVO = new PersonalInfoReadVO();
 		personalInfoReadVO.setId("testJunitDAO");
@@ -213,6 +213,8 @@ public class MemberDAOTest extends SemsTestCase {
 		int doWriteMemberDetailInfo = memberDAO.doWriteMemberDetailInfo(personalInfoReadVO);
 		assertNotNull(doWriteMemberDetailInfo);
 		assertTrue(doWriteMemberDetailInfo > 0);
+		
+		memberDAO.deleteMemberDetailInfo(personalInfoReadVO.getMemberId());
 	}
 	
 	/**

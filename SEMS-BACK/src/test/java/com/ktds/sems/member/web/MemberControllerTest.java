@@ -97,9 +97,23 @@ public class MemberControllerTest extends SemsTestCase {
 	
 	//@Test
 	public void memberDeleteByIdTestError1() {
-		String id = "JunitTest";
+		MemberVO member = new MemberVO();
+		member.setPassword("4c5b7ab6a121aae1acda84fc71ed4b135e9f8eb7f1a25013515845e9c7ddc9f8");
+		member.setSalt("9ca0645b12e961ac");
+		member.setName("Junitaa");
+		member.setEmail("Junit@naver.com");
+		member.setHighestEducationLevel("UNIV");
+		member.setUniversityName("서울대");
+		member.setMajorName("컴공");
+		member.setGraduationType("ABST");
+		member.setBirthDate("1991-01-01");
+		member.setPhoneNumber("010-1234-5678");
+		member.setMemberType("MBR");
+		member.setId("JunitPE");
+
+		memberDAO.addNewMember(member);
 		
-		ModelAndView view = memberController.memberDeleteById(id);
+		ModelAndView view = memberController.memberDeleteById(member.getId());
 		
 		if( view != null ) {
 			String viewName = view.getViewName();
@@ -112,7 +126,7 @@ public class MemberControllerTest extends SemsTestCase {
 		
 	}
 	
-	//@Test
+	@Test
 	public void memberDeleteByIdTestError2() {
 		String id = "";
 		
@@ -162,6 +176,8 @@ public class MemberControllerTest extends SemsTestCase {
 		
 		ModelAndView view = memberController.doWriteMemberDetailInfo(personalInfoReadVO, errors);
 		assertNotNull(view);
+		
+		memberDAO.deleteMemberDetailInfo(personalInfoReadVO.getMemberId());
 	}
 	
 	@Test
