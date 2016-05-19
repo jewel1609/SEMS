@@ -150,7 +150,7 @@ public class EducationServiceTest extends SemsTestCase {
 	public void modifyEduCostTestError2() {
 		CostVO cost = new CostVO();
 		cost.setCdId("CSTA");
-		cost.setCdNm("유료");
+		cost.setCdNm("TES2");
 		
 		String modifyEduCost = educationService.modifyEduCost(cost);
 		assertNotNull(modifyEduCost);
@@ -285,7 +285,7 @@ public class EducationServiceTest extends SemsTestCase {
 	public void modifyEduTimeTestError2() {
 		TimeVO time = new TimeVO();
 		time.setCdId("TIMA");
-		time.setCdNm("오전");
+		time.setCdNm("TES2");
 		
 		String modifyEduTime = educationService.modifyEduTime(time);
 		assertNotNull(modifyEduTime);
