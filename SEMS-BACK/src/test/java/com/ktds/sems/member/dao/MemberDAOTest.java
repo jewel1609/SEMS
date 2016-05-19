@@ -78,11 +78,11 @@ public class MemberDAOTest extends SemsTestCase {
 	
 	@Test
 	public void getHelCodeIdTest() {
-		String highestEducationLevel = "대졸";
+		String highestEducationLevel = "TEST";
 		String helCodeId = memberDAO.getHelCodeId(highestEducationLevel);
 		
 		assertNotNull(helCodeId);
-		assertEquals(helCodeId, "UNIV");
+		assertEquals(helCodeId, "TEST");
 	}
 	
 	@Test
