@@ -115,17 +115,6 @@ public class EducationServiceTest extends SemsTestCase {
 	}
 	
 	@Test
-	public void ainsertEduCostTestError8() {
-		CostVO cost = new CostVO();
-		cost.setCdId("CSTA");
-		cost.setCdNm("유료");
-		
-		String insertEduCost = educationService.insertEduCost(cost);
-		assertNotNull(insertEduCost);
-		assertEquals(insertEduCost, "FAIL_V");
-	}
-	
-	@Test
 	public void modifyEduCostTestError5() {
 		CostVO cost = new CostVO();
 		cost.setCdId("TES2");
