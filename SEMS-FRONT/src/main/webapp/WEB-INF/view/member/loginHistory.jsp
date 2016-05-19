@@ -115,8 +115,8 @@
 			<input type="button" id="searchInitBtn" name="searchInitBtn" value="초기화" />
 		</div>
 		<div align="center">
-			<input type="time" name="beginTime" id="beginTime" d value="${loginHistorySearchVO.beginDate}" />
-			<input type="time" name="closeTime" id="closeTime" value="${loginHistorySearchVO.closeDate}" /> 
+			<input type="time" name="beginTime" id="beginTime" d value="${loginHistorySearchVO.beginTime}" />
+			<input type="time" name="closeTime" id="closeTime" value="${loginHistorySearchVO.closeTime}" /> 
 		</div>
 		<div>
 			<input type="button" id="saveBtn" name="saveBtn" value="엑셀 파일로 저장" />

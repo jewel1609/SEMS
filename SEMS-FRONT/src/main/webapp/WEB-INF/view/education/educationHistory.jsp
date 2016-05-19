@@ -6,6 +6,167 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>교육 이력</title>
+<script type="text/javascript" src="<c:url value='/resources/js/jquery.min.js"'/>"></script>
+<script type="text/javascript">
+	$(document).ready( function() {
+		
+		$("#startDate").hide();
+		$("#endDate").hide();
+		$("#searchApplyState").hide();
+		$("#searchCost").hide();
+		$("#searchEduName").hide();
+		
+		$("#searchBtn").click( function() {
+			
+/* 			var startDate = $("#startDate").val();
+			var closeDate = $("#endDate").val();
+				
+			if (startDate == "" || endDate == "") {
+				// 검색 기간 입력 되지 않은 경우
+				if (startDate == "") {
+					alert("검색시작일을 지정해주세요.");
+					$("#startDate").focus();
+					return;
+				}
+				
+				if (endDate == "") {
+					alert("검색 마지막일을 지정해주세요.");
+					$("#endDate").focus();
+					return;
+				}
+			} 
+			else{
+				// 검색 기간 입력 되었지만
+				// 검색 시작일이 더 클 경우
+				if(startDate > endDate){
+					alert("검색 기간이 잘못 설정되었습니다.");
+					return;
+				}
+			} */
+			
+			if( $("#searchType option:selected").val() == "eduName"){
+				if ($("#searchEduName").val() == ""){
+					alert("검색어를 입력하세요!");
+					return;
+				}
+			}
+			else if( $("#searchType option:selected").val() == "cost"){
+				if ($("#searchCost").val() == ""){
+					alert("비용 종류를 선택하세요!");
+					return;
+				}
+			}
+			else if( $("#searchType option:selected").val() == "applyState"){
+				if ($("#searchApplyState").val() == ""){
+					alert("신청상태를 선택하세요!");
+					return;
+				}
+			}
+			else if( $("#searchType option:selected").val() == "applyDate"){
+				var startDate = $("#startDate").val();
+				var endDate = $("#endDate").val();
+					
+				if (startDate == "" || endDate == "") {
+					// 검색 기간 입력 되지 않은 경우
+					if (startDate == "") {
+						alert("검색시작일을 지정해주세요.");
+						$("#startDate").focus();
+						return;
+					}
+					
+					if (endDate == "") {
+						alert("검색 마지막일을 지정해주세요.");
+						$("#endDate").focus();
+						return;
+					}
+				} 
+				else{
+					// 검색 기간 입력 되었지만
+					// 검색 시작일이 더 클 경우
+					if(startDate > endDate){
+						alert("검색 기간이 잘못 설정되었습니다.");
+						return;
+					}
+				}
+			}
+			else{
+				alert("검색조건을 입력하세요.");
+			}
+			
+			movePage('0');
+			
+		});
+		
+		$("#searchInitBtn").click(function() {
+			
+			location.href="<c:url value='/member/loginHistoryInit' />";
+			
+		});
+		
+		$("#searchType").change(function() {
+			var option = $("#searchType option:selected").val();
+			if (option == "eduName") {
+				$("#searchEduName ").show();
+				$("#searchCost ").hide();
+				$("#searchApplyState").hide();
+				$("#startDate").hide();
+				$("#endDate").hide();
+			}
+			else if( option == "cost"){
+				$("#searchCost").show();
+				$("#searchEduName").hide();
+				$("#searchApplyState").hide();
+				$("#startDate").hide();
+				$("#endDate").hide();
+			}
+			else if( option == "applyDate"){
+				$("#searchCost").hide();
+				$("#searchEduName").hide();
+				$("#searchApplyState").hide();
+				$("#startDate").show();
+				$("#endDate").show();
+			}
+			else if( option == "applyState"){
+				$("#searchCost").hide();
+				$("#searchEduName").hide();
+				$("#searchApplyState").show();
+				$("#startDate").hide();
+				$("#endDate").hide();
+			}
+		});
+		
+		var option = $("#searchType option:selected").val();
+		if (option == "eduName") {
+			$("#searchEduName ").show();
+			$("#searchCost ").hide();
+			$("#searchApplyState").hide();
+			$("#startDate").hide();
+			$("#endDate").hide();
+		}
+		else if( option == "cost"){
+			$("#searchCost").show();
+			$("#searchEduName").hide();
+			$("#searchApplyState").hide();
+			$("#startDate").hide();
+			$("#endDate").hide();
+		}
+		else if( option == "applyDate"){
+			$("#searchCost").hide();
+			$("#searchEduName").hide();
+			$("#searchApplyState").hide();
+			$("#startDate").show();
+			$("#endDate").show();
+		}
+		else if( option == "applyState"){
+			$("#searchCost").hide();
+			$("#searchEduName").hide();
+			$("#searchApplyState").show();
+			$("#startDate").hide();
+			$("#endDate").hide();
+		}
+		
+	});
+</script>
 </head>
 <body>
 
@@ -51,18 +212,7 @@
 			<td>${ educationHistoryVO.cost }</td>
 			<td>${ educationHistoryVO.educationHistoryDate }</td>
 			<td>
-				<c:if test="${ educationHistoryVO.state eq 'GVUP_APLY' }">
-					참가 포기
-				</c:if>
-				<c:if test="${ educationHistoryVO.state eq 'JOIN_APLY' }">
-					참가 신청
-				</c:if>
-				<c:if test="${ educationHistoryVO.state eq 'JOIN_CMPL' }">
-					참가 완료
-				</c:if>
-				<c:if test="${ educationHistoryVO.state eq 'CNCL_APLY' }">
-					참가 취소
-				</c:if>
+				상태
 			</td>
 			<td>${ educationHistoryVO.cmnt }</td>
 			<td>${ educationHistoryVO.fdbk }</td>
@@ -74,6 +224,67 @@
 		<td colspan="10">
 			<form id="pagingForm">
 				${ educationHistoryListVO.paging.getPagingList("pageNo", "[@]", "이전", "다음", "pagingForm") }
+			<div style="text-align: right;">
+					<select id="searchType" name="searchType">
+						<option value="">선택</option>
+						<c:if test="${educationHistorySearchVO.searchType eq 'eduName' }">
+							<option id="eduName" value="eduName" selected="selected">교육 명</option>
+						</c:if>
+						<c:if test="${educationHistorySearchVO.searchType ne 'eduName' }">
+							<option id="eduName" value="eduName" >교육 명</option>
+						</c:if>
+						<c:if test="${educationHistorySearchVO.searchType eq 'cost' }">
+							<option id="eduName" value="cost" selected="selected">비용</option>
+						</c:if>
+						<c:if test="${educationHistorySearchVO.searchType ne 'cost' }">
+							<option id="eduName" value="cost" >비용</option>
+						</c:if>
+						<c:if test="${educationHistorySearchVO.searchType eq 'applyDate' }">
+							<option id="eduName" value="applyDate" selected="selected">신청 날짜</option>
+						</c:if>
+						<c:if test="${educationHistorySearchVO.searchType ne 'applyDate' }">
+							<option id="eduName" value="applyDate" >신청 날짜</option>
+						</c:if>
+						<c:if test="${educationHistorySearchVO.searchType eq 'applyState' }">
+							<option id="eduName" value="applyState" selected="selected">신청 상태</option>
+						</c:if>
+						<c:if test="${educationHistorySearchVO.searchType ne 'applyState' }">
+							<option id="eduName" value="applyState" >신청 상태</option>
+						</c:if>
+					</select>
+					
+					<input type="text" id="searchEduName" name="searchEduName" value="${ educationHistorySearchVO.searchEduName }"/>
+					
+					<select id="searchCost" name="searchCost">
+						<option value="" selected="selected"></option>
+						<c:forEach items="${ eduCostList }" var="eduCost">
+							<c:if test="${ educationHistorySearchVO.searchCost eq eduCost}">
+								<option id="eduCostType" value="${ eduCost }" selected="selected">${ eduCost }</option>
+							</c:if>
+							<c:if test="${ educationHistorySearchVO.searchCost ne eduCost}">
+								<option id="eduCostType" value="${ eduCost }">${ eduCost }</option>
+							</c:if>
+						</c:forEach>
+					</select>
+					
+					<select id="searchApplyState" name="searchApplyState">
+						<option value="" selected="selected"></option>
+						<c:forEach items="${ applyStateList }" var="applyState">
+							<c:if test="${ educationHistorySearchVO.searchApplyState eq applyState}">
+								<option id="applyStateType" value="${ applyState }" selected="selected">${ applyState }</option>
+							</c:if>
+							<c:if test="${ educationHistorySearchVO.searchApplyState ne applyState}">
+								<option id="applyStateType" value="${ applyState }">${ applyState }</option>
+							</c:if>
+						</c:forEach>
+					</select>
+					
+					<input type="date" name="startDate" id="startDate" value="${educationHistorySearchVO.startDate}" />
+					<input type="date" name="endDate" id="endDate" value="${educationHistorySearchVO.endDate}" /> 
+					
+					<input type="button" id="searchBtn" value="검색" />
+					<input type="button" id="searchInitBtn" value="검색 초기화" />
+				</div>
 			</form>
 		</td>
 	</tr>
