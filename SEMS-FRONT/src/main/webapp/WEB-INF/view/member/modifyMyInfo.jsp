@@ -33,6 +33,7 @@ $(document).ready(function() {
 				alert("통신 실패");
 			} else if (data == "OK") {
 				$("#messageByPhoneNumber").text("사용할 수 있는 전화번호 입니다.").css("color", "green");
+				checkError = 0;
 			} else if (data == "NO") {
 				$("#messageByPhoneNumber").text("정확한 전화번호를 입력하세요!").css("color", "red");
 				checkError += 1;
@@ -45,7 +46,7 @@ $(document).ready(function() {
 	});
 	
 	
-	$("#email").blur ( function () {
+	$("#email").blur( function () {
 		if($("#email").val()=="") {
 			$("#messageByEmail").text("");
 			return;
@@ -67,11 +68,22 @@ $(document).ready(function() {
 		});
 	});
 	
+	$("#name").keyup(function(event) {
+         regexp = /[\+*^!@\#$%<>&\()\=\’ \\/\?,.\:\;\''\""\{\}\[\]|\\~`]/gi;
+
+         v = $(this).val();
+         if (regexp.test(v)) {
+            alert("특수문자를 포함할 수 없습니다.");
+            $(this).val(v.replace(regexp, ''));
+         }
+         
+      });
+	
 	$("#email").focus(function () {
 		$("#messageByEmail").text("");
 	});	
 	
-	$("#password").blur(function () {
+	$("#password").keyup(function () {
 		$.post("<c:url value="/checkValidationByPassword" />", { "password" : $("#password").val() }, function(data) {
 			if($("#password").val()=="") {
 				$("#messageByPassword").text("");
@@ -82,6 +94,7 @@ $(document).ready(function() {
 				alert("통신 실패");
 			} else if (data == "OK") {
 				$("#messageByPassword").text("안전한 비밀번호 입니다.").css("color", "green");
+				checkError = 0;
 			} else if (data == "NO") {
 				$("#messageByPassword").text("영문, 숫자, 특수문자 조합의 10~16 글자이어야 합니다!").css("color", "red");
 				checkError += 1;
@@ -89,12 +102,20 @@ $(document).ready(function() {
 		});
 	});
 	
+	
+	
 	$("#password").focus(function () {
 		$("#messageByPassword").text("");
 	});	
 	
 	
 	$("#modifyBtn").click(function(){
+		
+		if ( $("#name").val() == "") {
+			alert("이름을 입력하세요.")
+			$("#name").focus();
+			return;
+		}
 		
 		if( checkError != 0 ) { 
 			alert("항목을 수정하세요.");
@@ -227,12 +248,13 @@ function daysInMonth(month, year) {
 	<br />
 	
 	이름 : <input type="text" name="name" id="name" value="${member.name}" placeholder="이름을 입력하세요." tabindex="1" maxlength="10"/>
+	<br /><span id="messageByName"></span>
 	<form:errors path="name" /><br/>
 	<br />
 		
 	이메일 : <input type="text" name="email" id="email"  value="${member.email}" placeholder="이메일을 입력하세요. " tabindex="2"  maxlength="30"/> 
 	<br /><span id="messageByEmail"></span>
-	<form:errors path="email"></form:errors>
+	<form:errors path="email" />
 	<br />
 	
 	<c:if test="${memberTypeCodeName eq '수강생' || memberTypeCodeName eq '일반회원'}">
