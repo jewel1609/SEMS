@@ -118,7 +118,7 @@ public class EducationServiceTest extends SemsTestCase {
 	public void ainsertEduCostTestError8() {
 		CostVO cost = new CostVO();
 		cost.setCdId("CSTS");
-		cost.setCdNm("유료");
+		cost.setCdNm("TES2");
 		
 		String insertEduCost = educationService.insertEduCost(cost);
 		assertNotNull(insertEduCost);
