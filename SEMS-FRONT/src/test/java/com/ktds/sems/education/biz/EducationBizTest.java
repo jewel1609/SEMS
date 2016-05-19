@@ -62,8 +62,8 @@ public class EducationBizTest extends SemsTestCase{
 	@Test
 	public void doReReplyInsertTest(){
 		QNAVO qnaVO = new QNAVO();
-		String realReplyId = "JUNIT Test replyId";
-		String replyId = "RP-20160513-000096";
+		String realReplyId = "JUNIT Test replyId44";
+		String replyId = "RP-20160513-000086";
 		String eduId = "ED-20160513-000130";
 		String description = "JUNIT TEST DESCRIPTION";
 		//강의ID
@@ -79,6 +79,7 @@ public class EducationBizTest extends SemsTestCase{
 		
 		boolean checkBoolean = educationBiz.doReReplyInsert(qnaVO);
 		assertTrue(checkBoolean);
+		assertTrue(educationBiz.doReReplyDelete(qnaVO));
 	}
 
 	@Test
@@ -132,6 +133,7 @@ public class EducationBizTest extends SemsTestCase{
 		
 		boolean checkBoolean = educationBiz.insertReReplyEval(reRplyEvalVO);
 		assertTrue(checkBoolean);
+		assertTrue(educationBiz.deleteReReplyEval(reRplyEvalVO));
 	}
 	
 	@Test
@@ -155,6 +157,7 @@ public class EducationBizTest extends SemsTestCase{
 		
 		boolean checkBoolean = educationBiz.insertReReplyEvalByDislike(reRplyEvalVO);
 		assertTrue(checkBoolean);
+		assertTrue(educationBiz.deleteReReplyEval(reRplyEvalVO));
 	}
 	
 	@Test
