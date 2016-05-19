@@ -197,7 +197,7 @@
 			contents +='<td><input type="date" class="eduEndDate'+count+'" name="educationHistoryList[' + count + '].endDate"></td>';
 			contents +='<td><input type="text" class="educationName'+count+' onlyText" name="educationHistoryList[' + count + '].educationName" maxlength="50"></td>';
 			contents +='<td><input type="text" class="educationLocation'+count+' onlyText" name="educationHistoryList[' + count + '].educationLocation" maxlength="50"></td>';
-			contents +='<td><input type="button" class="removeHisTr" value="삭제"/></td>';
+			contents +='<td><input type="button" class="removeEduHisTr" value="삭제"/></td>';
 			contents +='</tr>';
 	
 			$("#EduHisTable").append(contents);
@@ -210,7 +210,7 @@
 			contents +='<tr>';
 			contents +='<td><input type="text" class="bookName'+count+' onlyText" name="teacherBookList[' + count + '].bookName" maxlength="50"></td>';
 			contents +='<td><input type="text" class="bookCompany'+count+' onlyText" name="teacherBookList[' + count + '].bookCompany" maxlength="20"></td>';
-			contents +='<td><input type="button" class="removeHisTr" value="삭제"/></td>';
+			contents +='<td><input type="button" class="removeBookHisTr" value="삭제"/></td>';
 			contents +='</tr>';
 	
 			$("#BookTable").append(contents);
@@ -225,13 +225,51 @@
 			contents +='<td><input type="date" class="proEndDate'+count+'" name="projectHistoryList[' + count + '].endDate"></td>';
 			contents +='<td><input type="text" class="projectName'+count+' onlyText" name="projectHistoryList[' + count + '].projectName" maxlength="50"></td>';
 			contents +='<td><input type="text" class="projectLocation'+count+' onlyText" name="projectHistoryList[' + count + '].projectLocation" maxlength="50"></td>';
-			contents +='<td><input type="button" class="removeHisTr" value="삭제"/></td>';
+			contents +='<td><input type="button" class="removeProHisTr" value="삭제"/></td>';
 			contents +='</tr>';
 	
 			$("#ProHisTable").append(contents);
 		});
+		$(document).on("click",".removeEduHisTr",function(){
+			var index = $(this).parent().parent().index()-1;
+			var count = $("#EduHisTable tr").length;
+			for( var i = index; i<=count-3; i++) {
+				$(".eduStartDate"+(i+1)).attr('class','eduStartDate'+i);
+				$(".eduEndDate"+(i+1)).attr('class','eduEndDate'+i);
+				$(".educationName"+(i+1)).attr('class','educationName'+i+' onlyText');
+				$(".educationLocation"+(i+1)).attr('class','educationLocation'+i+' onlyText');
+				$(".eduStartDate"+i).attr('name','educationHistoryList['+i+'].startDate');
+				$(".eduEndDate"+i).attr('name','educationHistoryList['+i+'].endDate');
+				$(".educationName"+i).attr('name','educationHistoryList['+i+'].educationName');
+				$(".educationLocation"+i).attr('name','educationHistoryList['+i+'].educationLocation');
+			}
+			$(this).parent().parent().remove();
+		});
+		$(document).on("click",".removeBookHisTr",function(){
+			var index = $(this).parent().parent().index()-1;
+			var count = $("#BookTable tr").length;
+			for( var i = index; i<=count-3; i++) {
+				$(".bookName"+(i+1)).attr('class','bookName'+i+' onlyText');
+				$(".bookCompany"+(i+1)).attr('class','bookCompany'+i+' onlyText');
+				$(".bookName"+i).attr('name','teacherBookList['+i+'].bookName');
+				$(".bookCompany"+i).attr('name','teacherBookList['+i+'].bookCompany');
+			}
+			$(this).parent().parent().remove();
+		});
 		
-		$(document).on("click",".removeHisTr",function(){
+		$(document).on("click",".removeProHisTr",function(){
+			var index = $(this).parent().parent().index()-1;
+			var count = $("#ProHisTable tr").length;
+			for( var i = index; i<=count-3; i++) {
+				$(".proStartDate"+(i+1)).attr('class','proStartDate'+i);
+				$(".proEndDate"+(i+1)).attr('class','proEndDate'+i);
+				$(".projectName"+(i+1)).attr('class','projectName'+i+' onlyText');
+				$(".projectLocation"+(i+1)).attr('class','projectLocation'+i+' onlyText');
+				$(".proStartDate"+i).attr('name','projectHistoryList['+i+'].startDate');
+				$(".proEndDate"+i).attr('name','projectHistoryList['+i+'].endDate');
+				$(".projectName"+i).attr('name','projectHistoryList['+i+'].projectName');
+				$(".projectLocation"+i).attr('name','projectHistoryList['+i+'].projectLocation');
+			}
 			$(this).parent().parent().remove();
 		});
 
