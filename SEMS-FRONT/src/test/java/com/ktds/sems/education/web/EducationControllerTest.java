@@ -88,7 +88,7 @@ public class EducationControllerTest extends SemsTestCase {
 	
 	
 	@Test
-	public void showMyQNADetail() {
+	public void showMyQNADetailTest() {
 		String replyId = "RP-20160512-000028";
 		MockHttpSession session = new MockHttpSession();
 		
@@ -109,17 +109,6 @@ public class EducationControllerTest extends SemsTestCase {
 		}
 	}
 	
-	@Test
-	public void exportQNAListAsExcel() {
-		MockHttpSession session = new MockHttpSession();
-		
-		MemberVO memberVO = new MemberVO();
-		memberVO.setId("test02");
-		
-		session.setAttribute(Session.MEMBER, memberVO);
-		
-	}
-
 	// @Test
 	public void doWriteActionTest() {
 		String educationId = "ED-20160510-000011";
