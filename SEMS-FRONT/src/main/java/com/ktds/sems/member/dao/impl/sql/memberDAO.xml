@@ -457,7 +457,7 @@
 				, EI.END_DATE endDate
 				, EI.EDU_TTL educationTitle
 				, EI.COST cost
-				, CD.CD_NAME
+				, CD.CD_NAME cdNm
 		FROM	EDU_INFO EI
 				, CODE_MNG CD
 				, (
@@ -536,9 +536,12 @@
 				, EI.END_DATE endDate
 				, EI.EDU_TTL educationTitle
 				, EI.COST cost
+				, CM.CD_NAME cdNm
 		FROM	EDU_HTR EH
 				, EDU_INFO EI
+				, CODE_MNG CM
 		WHERE	EI.EDU_ID = EH.EDU_ID
+		AND		CM.CODE_ID = EH.STAT
 	</select>
 	
 	<select id="doCheckIp" parameterType="LoginHistoryVO" resultType="_int">
@@ -581,9 +584,12 @@
 				, EI.COST cost
 				, EI.SRT_DATE startDate
 				, EI.END_DATE endDate
+				, CM.CD_NAME cdNm
 		FROM	EDU_INFO EI
 				, EDU_HTR EH
+				, CODE_MNG CM
 		WHERE	EI.EDU_ID = EH.EDU_ID
+		AND		CM.CD_ID = EH.STAT
 		AND		EH.MBR_ID = #{memberId}	
 		AND		EH.STAT LIKE 'JOIN_CMPL'	
 		AND		TO_DATE(EI.SRT_DATE,'YYYY-MM-DD') <![CDATA[<=]]> SYSDATE
