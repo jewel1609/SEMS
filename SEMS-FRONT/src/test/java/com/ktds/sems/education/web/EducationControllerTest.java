@@ -86,7 +86,6 @@ public class EducationControllerTest extends SemsTestCase {
 		}
 	}
 	
-	
 	@Test
 	public void showMyQNADetailTest() {
 		String replyId = "RP-20160512-000028";
@@ -108,6 +107,13 @@ public class EducationControllerTest extends SemsTestCase {
 			fail("fail");
 		}
 	}
+	
+	//TODO 광민이 educationHistory
+	@Test
+	public void exportQNAListAsExcelTest() {
+		
+	}
+	
 	
 	// @Test
 	public void doWriteActionTest() {

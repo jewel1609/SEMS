@@ -7,6 +7,8 @@ import static org.junit.Assert.fail;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletRequest;
@@ -274,4 +276,22 @@ public class EducationServiceTest extends SemsTestCase {
 			fail("fail");
 		}
 	}
+	
+	@Test
+	public void showMyQNADetailTest() {
+		String replyId = "RP-20160517-000204";
+		MockHttpSession session = new MockHttpSession();
+		
+		ModelAndView view = educationService.showMyQNADetail(replyId, session);
+		if(view != null) {
+			
+			String viewName = view.getViewName();
+			assertNotNull(viewName);
+			assertEquals(viewName, "myPage/myQNADetail");
+			
+		} else {
+			fail("fail");
+		}
+	}
+	
 }

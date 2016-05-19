@@ -292,6 +292,51 @@ public class EducationDAOTest extends SemsTestCase{
 			fail("fail");
 		}
 	}
+	
+	@Test
+	public void getSelectedQNATest() {
+		String replyId = "RP-20160517-000202";
+		QNAVO qnaVO = educationDAO.getSelectedQNA(replyId);
+		
+		if (qnaVO != null) {
+			assertNotNull(qnaVO.getReplyId());
+			assertNotNull(qnaVO.getEduId());
+			assertNotNull(qnaVO.getParentReplyId());
+			assertNotNull(qnaVO.getOrderNo());
+			assertNotNull(qnaVO.getDescription());
+			assertNotNull(qnaVO.getMbrId());
+			assertNotNull(qnaVO.getLikeCnt());
+			assertNotNull(qnaVO.getDislikeCnt());
+			assertNotNull(qnaVO.getCreatedDate());
+		} else {
+			fail("fail");
+		}
+		
+	}
+	
+	@Test
+	public void getSelectedQNAAnswerTest() {
+		String replyId = "RP-20160517-000202";
+		List<QNAVO> qnaList = educationDAO.getSelectedQNAAnswer(replyId);
+		
+		if(qnaList != null) {
+			
+			for (QNAVO qnaVO : qnaList) {
+				assertNotNull(qnaVO.getReplyId());
+				assertNotNull(qnaVO.getEduId());
+				assertNotNull(qnaVO.getParentReplyId());
+				assertNotNull(qnaVO.getOrderNo());
+				assertNotNull(qnaVO.getDescription());
+				assertNotNull(qnaVO.getMbrId());
+				assertNotNull(qnaVO.getLikeCnt());
+				assertNotNull(qnaVO.getDislikeCnt());
+				assertNotNull(qnaVO.getCreatedDate());
+			}
+			
+		} else {
+			fail("fail");
+		}
+	}
 }
 
 

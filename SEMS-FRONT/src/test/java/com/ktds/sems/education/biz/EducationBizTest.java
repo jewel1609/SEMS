@@ -195,4 +195,41 @@ public class EducationBizTest extends SemsTestCase{
 			fail("fail");
 		}
 	}
+	
+	@Test
+	public void getSelectedQNATest() {
+		String replyId = "RP-20160517-000202";
+		QNAVO qnaVO = educationBiz.getSelectedQNA(replyId);
+		if ( qnaVO != null ) {
+			assertNotNull(qnaVO);
+		} else {
+			fail("fail");
+		}
+	}
+	
+	@Test
+	public void getSelectedQNAAnswerTest() {
+		//List<QNAVO>
+		String replyId = "RP-20160517-000202";
+		List<QNAVO> qnaList= educationBiz.getSelectedQNAAnswer(replyId);
+		
+		if(qnaList != null) {
+			
+			for (QNAVO qnavo : qnaList) {
+				assertNotNull(qnavo.getReplyId());
+				assertNotNull(qnavo.getEduId());
+				assertNotNull(qnavo.getParentReplyId());
+				assertNotNull(qnavo.getCreatedDate());
+				assertNotNull(qnavo.getOrderNo());
+				assertNotNull(qnavo.getDescription());
+				assertNotNull(qnavo.getMbrId());
+				assertNotNull(qnavo.getLikeCnt());
+				assertNotNull(qnavo.getDislikeCnt());
+			}
+			
+		} else {
+			fail("fail");
+		}
+		
+	}
 }
