@@ -58,22 +58,22 @@ public class MemberControllerTest extends SemsTestCase {
 	@Test
 	public void doModifyActionTest() {
 		MemberVO member = new MemberVO();
-		member.setId("aaa");
-		member.setPassword("1234");
+		member.setId("aaa12");
+		member.setPassword("123qwe!@#qwe");
 		member.setName("JUNIT홍길동");
 		member.setEmail("JUNIT@naver.com");
 		member.setPhoneNumber("010-1234-1234");
 		member.setBirthDate("1999-12-01");
-		String graduationType = "JUNIT졸업";
-		String helCodeName = "초졸";
+		String graduationType = "휴학";
+		String helCodeName = "대졸";
 		BindingResult errors = new BeanPropertyBindingResult(member, "member");
 
 		ModelAndView view = memberController.doModifyAction(member, errors, graduationType, helCodeName);
 
 		if (view != null) {
 			String viewName = view.getViewName();
-			assertNotNull(view);
-			assertEquals(viewName, "member/myPage");
+			assertNotNull(viewName);
+			assertEquals(viewName, "redirect:/member/myPage");
 
 		} else {
 			fail("view is null");
