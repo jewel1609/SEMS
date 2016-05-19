@@ -1768,4 +1768,19 @@ public class EducationControllerTest extends SemsTestCase {
 		}
 	}
 	
+	@Test
+	public void viewEducationModifyPageTest() {
+		String educationId = "ED-20160513-000165";
+		ModelAndView view = educationController.viewEducationModifyPage(educationId);
+		assertNotNull(view);
+		
+		if ( view != null) {
+			String ViewName = view.getViewName();
+			view.setViewName("edcation/update");
+		}
+		else {
+			fail("view is null");
+		}
+	}
+	
 }
