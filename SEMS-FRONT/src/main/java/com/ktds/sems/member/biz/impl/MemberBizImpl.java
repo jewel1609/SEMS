@@ -195,6 +195,33 @@ public class MemberBizImpl implements MemberBiz {
 	}
 
 	/**
+	 * SM 기연 (이름에 특수문자 들어가지 않게 체크)
+	 */
+	@Override
+	public boolean checkValidationByName(String name) {
+		String namePolicy = "(^[가-힣]*$)";
+		Pattern pattern = Pattern.compile(namePolicy);
+		Matcher matcher = pattern.matcher(name);
+		return matcher.matches();
+	}
+	
+	@Override
+	public boolean checkValidationByUniversityName(String universityName) {
+		String universityNamePolicy = "(^[가-힣a-zA-Z0-9]*$)";
+		Pattern pattern = Pattern.compile(universityNamePolicy);
+		Matcher matcher = pattern.matcher(universityName);
+		return matcher.matches();
+	}
+	
+	@Override
+	public boolean checkValidationByMajorName(String majorName) {
+		String universityNamePolicy = "(^[가-힣]*$)";
+		Pattern pattern = Pattern.compile(universityNamePolicy);
+		Matcher matcher = pattern.matcher(majorName);
+		return matcher.matches();
+	}
+	
+	/**
 	 * @author 이기연
 	 */
 	@Override
