@@ -81,6 +81,10 @@ public interface EducationDAO {
 
 	public int doRequestRetraction(String educationId, String retractionMsg, String memberId);
 
+	public int doReReplyDelete(QNAVO qnaVO);
+
+	public int deleteReReplyEval(ReRplyEvalVO reRplyEvalVO);
+
 	public int getTotalMemberNumber(String educationId);
 
 	public int doReserveEducation(String educationId, String id);
