@@ -177,67 +177,6 @@ public class MemberDAOTest extends SemsTestCase {
 		assertTrue(executeQuery == 0);
 	}
 
-	/**
-	 * 졸업 유형 이름 가져오기
-	 */
-	@Test
-	public void selectedGraduationTypeCodeNameTest() {
-		String id = "aaa12";
-		String checkStr = memberDAO.selectedGraduationTypeCodeName(id);
-		assertNotNull(checkStr);
-	}
-
-	/**
-	 * 최종학력 리스트 가져오기
-	 */
-	@Test
-	public void getHighestEducationLevelCodeNamesTest() {
-
-		List<String> checkList = memberDAO.getHighestEducationLevelCodeNames();
-		assertNotNull(checkList);
-		assertTrue(checkList.size() >= 0);
-
-	}
-
-	/**
-	 * 최종학력 이름 가져오기
-	 */
-	@Test
-	public void getSelectedHighestEducationLevelCodeNameTest() {
-		String id = "aaa12";
-		String checkStr = memberDAO.getSelectedHighestEducationLevelCodeName(id);
-		assertNotNull(checkStr);
-	}
-
-	/**
-	 * 졸업유형 이름을 코드 아이디로 변환
-	 */
-	@Test
-	public void getGraduationTypeCodeIdTest() {
-		String graduationType = "TES";
-		String checkStr = memberDAO.getGraduationTypeCodeId(graduationType);
-		assertNotNull(checkStr);
-	}
-
-	/**
-	 * 최종학력 이름을 코드 아이디로 변환
-	 */
-	@Test
-	public void gethelCodeIdTest() {
-		String helCodeName = "TEST";
-		String checkStr = memberDAO.gethelCodeId(helCodeName);
-		assertNotNull(checkStr);
-	}
-
-	/**
-	 * 회원 코드 이름 가져오기
-	 */
-	@Test
-	public void memberTypeCodeNameTest() {
-		String id = "aaa12";
-		String checkStr = memberDAO.memberTypeCodeName(id);
-		assertNotNull(checkStr);
-	}
 
 	// /**
 	// * 탈퇴 회원 업데이트
