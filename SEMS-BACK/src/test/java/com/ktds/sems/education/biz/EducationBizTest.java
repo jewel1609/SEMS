@@ -32,7 +32,7 @@ public class EducationBizTest extends SemsTestCase {
 
 	@Test
 	public void getOneEducationTest() {
-		String educationId = "ED-20160518-000206";
+		String educationId = "ED-20160513-000173";
 		EducationVO educationVO = educationBiz.getOneEducation(educationId);
 		assertNotNull(educationVO);
 	}
