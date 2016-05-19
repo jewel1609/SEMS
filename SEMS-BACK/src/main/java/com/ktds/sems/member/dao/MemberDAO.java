@@ -87,4 +87,6 @@ public interface MemberDAO {
 
 	public int modifyMemberTypeById(Map<String, String> modifyMemberType);
 
+	public void deleteMemberDetailInfo(String memberId);
+
 }

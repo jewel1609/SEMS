@@ -208,4 +208,9 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 		return getSqlSession().selectOne("MemberDAO.getOneMember", memberId);
 	}
 
+	@Override
+	public void deleteMemberDetailInfo(String memberId) {
+		getSqlSession().delete("MemberDAO.deleteMemberDetailInfo", memberId);
+	}
+
 }

@@ -487,4 +487,9 @@
 		FROM	MBR
 		WHERE	ID = #{memberId}
 	</select>
+	<delete id="deleteMemberDetailInfo" parameterType="string">
+		DELETE
+		FROM	PRSN_INFO_RD
+		WHERE	MBR_ID = #{memberId}
+	</delete>
 </mapper>
