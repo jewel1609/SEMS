@@ -8,9 +8,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.ktds.sems.SemsTestCase;
-
-public class MenuControllerTest extends SemsTestCase{
+public class MenuControllerTest {
 
 	@Autowired
 	private MenuController menuController;

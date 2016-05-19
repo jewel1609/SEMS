@@ -13,11 +13,10 @@ import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.ktds.sems.SemsTestCase;
 import com.ktds.sems.education.vo.CostVO;
 import com.ktds.sems.education.vo.TimeVO;
 
-public class EducationControllerTest extends SemsTestCase{
+public class EducationControllerTest {
 
 	@Autowired
 	private EducationController educationController;

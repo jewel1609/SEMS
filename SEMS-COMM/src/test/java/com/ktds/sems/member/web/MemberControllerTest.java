@@ -14,12 +14,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.ktds.sems.SemsTestCase;
 import com.ktds.sems.member.vo.CodeMngVO;
 import com.ktds.sems.member.vo.MemberVO;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class MemberControllerTest extends SemsTestCase {
+public class MemberControllerTest {
 
 	@Autowired
 	private MemberController memberController;
