@@ -29,7 +29,7 @@ public class EducationBizTest extends SemsTestCase {
 
 	@Autowired
 	private EducationBiz educationBiz;
-
+	
 	@Test
 	public void getOneEducationTest() {
 		String educationId = "ED-20160513-000173";
@@ -37,6 +37,8 @@ public class EducationBizTest extends SemsTestCase {
 		assertNotNull(educationVO);
 	}
 	
+	/*
+	 * educationId 값 재설정
 	@Test
 	public void doEducationModifyTest() {
 		
@@ -87,6 +89,7 @@ public class EducationBizTest extends SemsTestCase {
 		boolean result = educationBiz.modifyNewEducation(educationVO);
 		assertEquals(result, true);
 	}
+	*/
 	
 	public class EducationValidator implements Validator {
 		
