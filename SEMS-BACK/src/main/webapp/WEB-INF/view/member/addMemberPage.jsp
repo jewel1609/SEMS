@@ -149,7 +149,7 @@
 			
 			var selectMemberType = $(':radio[name="memberType"]:checked').val();
 			
-			if ( selectMemberType == "수강생" || selectMemberType == "일반회원") {
+			if ( selectMemberType == "MBR" || selectMemberType == "STD") {
 				
 				var universityName = $("#universityName").val();
 				if (universityName == "") {
@@ -218,7 +218,7 @@
 			$("#birthDate").val(date);
 		});
 		
-		if( $(".memberType").val() == '수강생' || $(".memberType").val() == '일반회원') {
+		if( $(".memberType").val() == 'MBR' || $(".memberType").val() == 'STD') {
 			$("#studentForm").show();
 		}
 		
