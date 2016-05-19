@@ -318,6 +318,17 @@ public class EducationBizImpl implements EducationBiz {
 	}
 
 	@Override
+	public boolean doReReplyDelete(QNAVO qnaVO) {
+		return educationDAO.doReReplyDelete(qnaVO) > 0;
+	}
+
+	@Override
+	public boolean deleteReReplyEval(ReRplyEvalVO reRplyEvalVO) {
+		return educationDAO.deleteReReplyEval(reRplyEvalVO) > 0;
+	}
+	
+
+	@Override
 	public int getTotalMemberNumber(String educationId) {
 		return educationDAO.getTotalMemberNumber(educationId);
 	}

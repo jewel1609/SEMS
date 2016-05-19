@@ -265,6 +265,17 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 	}
 
 	@Override
+	public int doReReplyDelete(QNAVO qnaVO) {
+		
+		return getSqlSession().delete("EducationDAO.doReReplyDelete",qnaVO);
+	}
+
+	@Override
+	public int deleteReReplyEval(ReRplyEvalVO reRplyEvalVO) {
+		return getSqlSession().delete("EducationDAO.deleteReReplyEval", reRplyEvalVO);
+	}
+
+	@Override
 	public int updateStateToApply(String educationId) {		
 		return getSqlSession().update("EducationDAO.updateStateToApply", educationId);
 	}

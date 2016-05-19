@@ -610,6 +610,24 @@
 		WHERE	EDU_ID = #{ educationId }
 		AND		MBR_ID = #{ memberId }
 	</update>
+	
+	<delete id="doReReplyDelete" parameterType="QNAVO">
+		DELETE
+		FROM	QNA
+		WHERE	REPLY_ID = #{replyId}
+	</delete>
+	
+	<delete id="deleteReReplyEvalByDislike">
+		DELETE
+		FROM	RERPLY_EVAL
+		WHERE	REPLY_EVAL_ID = #{replyEvalId}
+	</delete>
+	
+	<delete id="deleteReReplyEval">
+		DELETE
+		FROM	RERPLY_EVAL
+		WHERE	REPLY_EVAL_ID = #{replyEvalId}
+	</delete>
 		
 	<select id="getTotalMemberNumber" parameterType="string" resultType="_int">
 		SELECT	COUNT(EDU_HTR_ID)

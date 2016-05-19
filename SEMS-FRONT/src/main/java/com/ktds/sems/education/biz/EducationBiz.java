@@ -83,6 +83,10 @@ public interface EducationBiz {
 	public boolean plusReReplyDislike(String replyId);
 
 	public boolean doRequestRetraction(String educationId, String retractionMsg, String memberId);
+	
+	public boolean doReReplyDelete(QNAVO qnaVO);
+	
+	public boolean deleteReReplyEval(ReRplyEvalVO reRplyEvalVO);
 
 	public int getTotalMemberNumber(String educationId);
 
