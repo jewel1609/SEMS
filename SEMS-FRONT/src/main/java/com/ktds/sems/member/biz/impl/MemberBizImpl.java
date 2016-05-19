@@ -634,6 +634,7 @@ public class MemberBizImpl implements MemberBiz {
 
 	@Override
 	public boolean eduationHistoryExportExcel(String id) {
+		
 		WriteOption wo = new WriteOption();
 		wo.setSheetName("나의 교육 이력");
 		wo.setFileName("나의교육이력.xlsx");
@@ -662,10 +663,6 @@ public class MemberBizImpl implements MemberBiz {
 		// educationHistoryList 만들기
 		try {
 			educationHistoryList = memberDAO.getAllEducationHistoryListById(id);
-			
-			System.out.println("**");
-			System.out.println("애듀에이션" + educationHistoryList.size());
-			System.out.println("**");
 			
 			Iterator<EducationHistoryVO> tempIterator = educationHistoryList.iterator();
 

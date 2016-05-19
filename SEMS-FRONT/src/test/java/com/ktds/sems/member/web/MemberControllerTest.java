@@ -1048,7 +1048,7 @@ public class MemberControllerTest extends SemsTestCase {
 	public void eduationHistoryExportExcelTest() {
 		
 		MemberVO memberVO = new MemberVO();
-		memberVO.setId("test02");
+		memberVO.setId("test04");
 		
 		MockHttpSession session = new MockHttpSession();
 		session.setAttribute(Session.MEMBER, memberVO);

@@ -544,8 +544,8 @@
 				, EDU_INFO EI
 				, CODE_MNG CM
 		WHERE	EI.EDU_ID = EH.EDU_ID
-		AND		CM.CODE_ID = EH.STAT
-		AND		EH.MBR_ID = #{id}
+		AND		CM.CD_ID = EH.STAT
+		AND		EH.EDU_ID = #{id}
 	</select>
 	
 	<select id="doCheckIp" parameterType="LoginHistoryVO" resultType="_int">
