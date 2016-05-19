@@ -98,5 +98,10 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 		return getSqlSession().selectOne("EducationDAO.getStateByEducationHistroyId", educationHistoryId);
 	}
 
+	@Override
+	public int changeEducationApplyState(String educationHistoryId) {
+		return getSqlSession().update("EducationDAO.changeEducationApplyState", educationHistoryId);
+	}
+
 	
 }
