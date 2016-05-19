@@ -1,5 +1,6 @@
 package com.ktds.sems.member.dao.impl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -315,5 +316,30 @@ public class MemberDAOImpl  extends SqlSessionDaoSupport implements MemberDAO {
 	@Override
 	public List<EducationCostVO> getCostList() {
 		return getSqlSession().selectList("MemberDAO.getCostList");
+	}
+
+	@Override
+	public List<EducationHistoryVO> getCourseList(EducationHistorySearchVO educationHistorySearchVO) {
+		return getSqlSession().selectList("MemberDAO.getCourseList", educationHistorySearchVO);
+	}
+	
+	@Override
+	public EducationHistoryVO getOneEducationByIdAndEducationId(String educationId, String id) {
+		
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("educationId", educationId);
+		paramMap.put("id", id);
+		
+		return getSqlSession().selectOne("MemberDAO.getOneEducationByIdAndEducationId", paramMap);
+	}
+
+	@Override
+	public int dropCourseApply(EducationHistoryVO educationHistory) {
+		return getSqlSession().update("MemberDAO.dropCourseApply", educationHistory);
+	}
+	
+	@Override
+	public int getCourseCountById(String id) {
+		return getSqlSession().selectOne("MemberDAO.getCourseCountById", id);
 	}
 }
