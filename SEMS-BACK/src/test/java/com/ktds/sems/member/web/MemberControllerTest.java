@@ -484,7 +484,7 @@ public class MemberControllerTest extends SemsTestCase {
 		MemberVO member = new MemberVO();
 		member.setPassword("4c5b7ab6a121aae1acda84fc71ed4b135e9f8eb7f1a25013515845e9c7ddc9f8");
 		member.setSalt("9ca0645b12e961ac");
-		member.setName("Junit");
+		member.setName("Junitaa");
 		member.setEmail("Junit@naver.com");
 		member.setHighestEducationLevel("UNIV");
 		member.setUniversityName("서울대");
