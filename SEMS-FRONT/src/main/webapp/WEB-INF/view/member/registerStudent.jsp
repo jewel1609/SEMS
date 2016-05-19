@@ -402,12 +402,12 @@
 		<br/>
 		
 		졸업구분 : 
-		<c:forEach items="${graduationTypeList}" var="graduationTypeCodeName">
-			<c:if test="${graduationTypeCodeName eq member.graduationType}">
-			<input type="radio" class="graduationType" name="graduationType" value="${graduationTypeCodeName}" checked="checked"/>${graduationTypeCodeName}
+		<c:forEach items="${graduationTypeList}" var="graduationType">
+			<c:if test="${graduationType.cdId eq member.graduationType}">
+			<input type="radio" class="graduationType" name="graduationType" value="${graduationType.cdId}" checked="checked"/>${graduationType.cdNm}
 			</c:if>
-			<c:if test="${graduationTypeCodeName ne member.graduationType}">
-			<input type="radio" class="graduationType" name="graduationType" value="${graduationTypeCodeName}"/>${graduationTypeCodeName}
+			<c:if test="${graduationType.cdId ne member.graduationType}">
+			<input type="radio" class="graduationType" name="graduationType" value="${graduationType.cdId}"/>${graduationType.cdNm}
 			</c:if>
 		</c:forEach>
 		<br/>
@@ -417,12 +417,12 @@
 		<br/>
 		
 		최종학력 : 
-		<c:forEach items="${highestEducationLevelCodeNameList}" var="helCodeName">
-			<c:if test="${helCodeName eq member.highestEducationLevel }">
-			<input type="radio" class="highestEducationLevel" name="highestEducationLevel" value="${helCodeName}" checked="checked"/>${helCodeName}
+		<c:forEach items="${highestEducationLevelList}" var="highestEducationLevel">
+			<c:if test="${highestEducationLevel eq member.highestEducationLevel }">
+			<input type="radio" class="highestEducationLevel" name="highestEducationLevel" value="${highestEducationLevel.cdId}" checked="checked"/>${highestEducationLevel.cdNm}
 			</c:if>
-			<c:if test="${helCodeName ne member.highestEducationLevel }">
-			<input type="radio" class="highestEducationLevel" name="highestEducationLevel" value="${helCodeName}"/>${helCodeName}
+			<c:if test="${highestEducationLevel ne member.highestEducationLevel }">
+			<input type="radio" class="highestEducationLevel" name="highestEducationLevel" value="${highestEducationLevel.cdId}"/>${highestEducationLevel.cdNm}
 			</c:if>
 		</c:forEach>
 		<br/>
