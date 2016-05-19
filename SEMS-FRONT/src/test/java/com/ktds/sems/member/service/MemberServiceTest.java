@@ -53,6 +53,7 @@ public class MemberServiceTest extends SemsTestCase {
 		BindingResult errors = new BeanPropertyBindingResult(memberVO, "loginForm");
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		MockHttpSession session = new MockHttpSession();
+		session.setAttribute(Session.LOGIN_HISTORY, new LoginHistoryVO());
 
 		String checkStr = memberService.login(memberVO, errors, session, request);
 		assertNotNull(checkStr);
