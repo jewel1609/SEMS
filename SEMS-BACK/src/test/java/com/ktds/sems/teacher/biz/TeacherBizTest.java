@@ -2,6 +2,7 @@ package com.ktds.sems.teacher.biz;
 
 import static org.junit.Assert.assertNotNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
@@ -21,7 +22,7 @@ public class TeacherBizTest extends SemsTestCase{
 	
 	@Test
 	public void getTeacherInfoTest(){
-		String memberId = "teacher02";
+		String memberId = "gangsa1";
 		TeacherVO teacherVO = teacherBiz.getTeacherInfo(memberId);
 		assertNotNull(teacherVO);
 	}
@@ -60,5 +61,4 @@ public class TeacherBizTest extends SemsTestCase{
 		double grade = teacherBiz.getTeacherEducationGrade(memberId);
 		assertNotNull(grade);
 	}
-
 }
