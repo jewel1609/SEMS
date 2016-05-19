@@ -77,5 +77,39 @@ public class EducationControllerTest extends SemsTestCase {
 			fail("fail");
 		}
 	}
+	
+	
+	@Test
+	public void showMyQNADetail() {
+		String replyId = "RP-20160512-000028";
+		MockHttpSession session = new MockHttpSession();
+		
+		MemberVO memberVO = new MemberVO();
+		memberVO.setId("test02");
+		
+		session.setAttribute(Session.MEMBER, memberVO);
+		
+		ModelAndView view = educationController.showMyQNADetail(replyId, session);
+		
+		if(view != null) {
+			
+			String viewName = view.getViewName();
+			assertNotNull(viewName);
+			
+		} else {
+			fail("fail");
+		}
+	}
+	
+	@Test
+	public void exportQNAListAsExcel() {
+		MockHttpSession session = new MockHttpSession();
+		
+		MemberVO memberVO = new MemberVO();
+		memberVO.setId("test02");
+		
+		session.setAttribute(Session.MEMBER, memberVO);
+		
+	}
 
 }
