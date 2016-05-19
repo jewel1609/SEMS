@@ -247,7 +247,7 @@ public class MemberBizTest extends SemsTestCase {
 		assertNotNull(memberVO);
 	}
 	
-	@Test
+	//@Test
 	public void doWriteMemberDetailInfoTest() {
 		PersonalInfoReadVO personalInfoReadVO = new PersonalInfoReadVO();
 		personalInfoReadVO.setId("testJunitDAO");
