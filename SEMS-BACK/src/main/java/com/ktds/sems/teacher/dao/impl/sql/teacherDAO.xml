@@ -194,11 +194,14 @@
 	
 	<select id="getTotalTeacherCount" resultType="_int">
 		SELECT	COUNT(MBR_ID)
-		FROM 	TCHR_INFO
+		FROM 	TCHR_INFO T
+				, MBR M
+		WHERE	T.MBR_ID = M.ID
 		<if test="searchType == 1 and searchType != null">
+			AND NM LIKE '%'||#{searchKeyword}||'%'
 		</if>
 		<if test="searchType == 2 and searchType != null">
-		 	WHERE	COMP_NM  LIKE '%'||#{searchKeyword}||'%'
+		 	AND	COMP_NM  LIKE '%'||#{searchKeyword}||'%'
 		</if>
 		
 	</select>
@@ -253,7 +256,7 @@
 	</delete>
 	<delete id="doDeleteEducationHistory" parameterType="string" >
 		DELETE
-		FROM	TCHR_PROJ_HTR
+		FROM	TCHR_EDU_HTR
 		WHERE	MBR_ID = #{ memberId }
 	</delete>
 	<delete id="doDeleteTeacherBook" parameterType="string" >
@@ -261,5 +264,11 @@
 		FROM	TCHR_BOOK
 		WHERE	MBR_ID = #{ memberId }
 	</delete>
+	
+	<select id="getOneTeacherId" resultType="string">
+		SELECT  MBR_ID
+		FROM    TCHR_INFO
+		WHERE   ROWNUM=1
+	</select>
 
 </mapper>
