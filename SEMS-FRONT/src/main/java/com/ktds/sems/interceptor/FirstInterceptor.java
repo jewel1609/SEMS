@@ -16,7 +16,7 @@ public class FirstInterceptor extends HandlerInterceptorAdapter {
 		boolean wasLogin = request.getSession().getAttribute(Session.MEMBER) != null;
 		
 		if ( wasLogin ) {
-			response.sendRedirect("/main");
+			response.sendRedirect("/invalidAccess");
 		}
 		
 		return true;
