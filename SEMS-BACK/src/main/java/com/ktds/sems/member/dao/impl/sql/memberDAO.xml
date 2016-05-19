@@ -377,13 +377,13 @@
 	<select id="getHelCodeId" parameterType="string" resultType="string">
 		SELECT	CD_ID cdId
 		FROM	HIGHEST_EDU_LV
-		WHERE	CD_NM = #{cdNm}
+		WHERE	CD_NM = #{highestEducationLevel}
 	</select>
 	
 	<select id="getGraduationTypeCodeId" parameterType="string" resultType="string">
 		SELECT	CD_ID cdId
 		FROM	GRDT_TP
-		WHERE	CD_NM = #{cdNm}
+		WHERE	CD_NM = #{memberType}
 	</select>
 	
 	<select id="getMemberTypeCodeNameList" resultType="string">
@@ -394,7 +394,7 @@
 	<select id="getMemberTypeCodeId" parameterType="string" resultType="string">
 		SELECT	CD_ID cdId
 		FROM	MBR_TP
-		WHERE	CD_NM = #{cdNm}
+		WHERE	CD_NM = #{memberType}
 	</select>
 	
 	<delete id="massiveDeleteMember" parameterType="string">
