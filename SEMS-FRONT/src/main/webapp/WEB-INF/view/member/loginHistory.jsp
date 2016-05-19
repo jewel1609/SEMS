@@ -111,15 +111,15 @@
 		<div align="center">
 			<input type="date" name="beginDate" id="beginDate" value="${loginHistorySearchVO.beginDate}" />
 			<input type="date" name="closeDate" id="closeDate" value="${loginHistorySearchVO.closeDate}" /> 
-			<input type="button" id="searchBtn" name="searchBtn" value="검색" />
-			<input type="button" id="searchInitBtn" name="searchInitBtn" value="초기화" />
+			<input type="button" id="searchBtn" value="검색" />
+			<input type="button" id="searchInitBtn" value="초기화" />
 		</div>
 		<div align="center">
 			<input type="time" name="beginTime" id="beginTime" d value="${loginHistorySearchVO.beginTime}" />
 			<input type="time" name="closeTime" id="closeTime" value="${loginHistorySearchVO.closeTime}" /> 
 		</div>
 		<div>
-			<input type="button" id="saveBtn" name="saveBtn" value="엑셀 파일로 저장" />
+			<input type="button" id="saveBtn" value="엑셀 파일로 저장" />
 		</div>
 		</form>
 	</div>
