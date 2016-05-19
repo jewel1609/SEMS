@@ -317,15 +317,12 @@ public class MemberServiceImpl implements MemberService {
 		MemberVO member = memberBiz.getOneMember(id);
 
 		// 졸업 구분 값들을 보낸다. 유저가 회원가입시 선택한 졸업구분을 보낸다.
-		List<String> graduationTypeCodeNameList = memberBiz.getGraduationType();
-		String selectedGraduationTypeCodeName = memberBiz.selectedGraduationTypeCodeName(id);
-
+		List<GraduationTypeVO> graduationTypeList = memberBiz.getGraduationTypes();
+		String selectedGraduationTypeCodeId = member.getMemberType();
+		
 		// 최종학력 구분 값들을 보낸다. 유저가 회원가입시 선택한 최종학력을 보낸다.
-		List<String> highestEducationLevelCodeNameList = memberBiz.getHighestEducationLevelCodeNames();
-		String selectedHighestEducationLevelCodeName = memberBiz.getSelectedHighestEducationLevelCodeName(id);
-
-		// 회원구분을 조인해서 한글로 보여준다.
-		String memberTypeCodeName = memberBiz.memberTypeCodeName(id);
+		List<HighestEducationLevelVO> highestEducationLevelList = memberBiz.getHighestEducationLevels();
+		String selectedHighestEducationLevelCodeId = member.getHighestEducationLevel();
 
 		// 강사인지 아닌지 체크
 		boolean isTeacher = memberBiz.isTeacher(id);
@@ -334,11 +331,10 @@ public class MemberServiceImpl implements MemberService {
 	
 
 		view.addObject("member", member);
-		view.addObject("graduationTypeList", graduationTypeCodeNameList);
-		view.addObject("selectedGraduationTypeCodeName", selectedGraduationTypeCodeName);
-		view.addObject("highestEducationLevelCodeNameList", highestEducationLevelCodeNameList);
-		view.addObject("selectedHighestEducationLevelCodeName", selectedHighestEducationLevelCodeName);
-		view.addObject("memberTypeCodeName", memberTypeCodeName);
+		view.addObject("graduationTypeList", graduationTypeList);
+		view.addObject("highestEducationLevelList", highestEducationLevelList);
+		view.addObject("selectedGraduationTypeCodeId", selectedGraduationTypeCodeId);
+		view.addObject("selectedHighestEducationLevelCodeId", selectedHighestEducationLevelCodeId);
 		if (!isTeacher) {
 			view.addObject("isTeacher", "F");
 		} else {
