@@ -24,6 +24,8 @@ import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationHistoryVO;
 import com.ktds.sems.education.vo.EducationStateVO;
 import com.ktds.sems.member.dao.MemberDAO;
+import com.ktds.sems.member.vo.GraduationTypeVO;
+import com.ktds.sems.member.vo.HighestEducationLevelVO;
 import com.ktds.sems.member.vo.LoginHistoryListVO;
 import com.ktds.sems.member.vo.LoginHistorySearchVO;
 import com.ktds.sems.member.vo.LoginHistoryVO;
@@ -256,11 +258,10 @@ public class MemberServiceTest extends SemsTestCase {
 			assertNotNull(viewName);
 			assertEquals(viewName, "member/registerStudent");
 
-			List<String> highestEducationLevelCodeNameList = (List<String>) view.getModel()
-					.get("highestEducationLevelCodeNameList");
-			assertNotNull(highestEducationLevelCodeNameList);
+			List<HighestEducationLevelVO> highestEducationLevelList = (List<HighestEducationLevelVO>) view.getModel().get("highestEducationLevelList");
+			assertNotNull(highestEducationLevelList);
 
-			List<String> graduationTypeList = (List<String>) view.getModel().get("graduationTypeList");
+			List<GraduationTypeVO> graduationTypeList = (List<GraduationTypeVO>) view.getModel().get("graduationTypeList");
 			assertNotNull(graduationTypeList);
 
 			MemberVO viewMember = (MemberVO) view.getModelMap().get("member");
@@ -301,11 +302,10 @@ public class MemberServiceTest extends SemsTestCase {
 			assertNotNull(viewName);
 			assertEquals(viewName, "member/registerStudent");
 
-			List<String> highestEducationLevelCodeNameList = (List<String>) view.getModel()
-					.get("highestEducationLevelCodeNameList");
-			assertNotNull(highestEducationLevelCodeNameList);
+			List<HighestEducationLevelVO> highestEducationLevelList = (List<HighestEducationLevelVO>) view.getModel().get("highestEducationLevelList");
+			assertNotNull(highestEducationLevelList);
 
-			List<String> graduationTypeList = (List<String>) view.getModel().get("graduationTypeList");
+			List<GraduationTypeVO> graduationTypeList = (List<GraduationTypeVO>) view.getModel().get("graduationTypeList");
 			assertNotNull(graduationTypeList);
 
 			MemberVO viewMember = (MemberVO) view.getModelMap().get("member");
@@ -346,11 +346,10 @@ public class MemberServiceTest extends SemsTestCase {
 			assertNotNull(viewName);
 			assertEquals(viewName, "member/registerStudent");
 
-			List<String> highestEducationLevelCodeNameList = (List<String>) view.getModel()
-					.get("highestEducationLevelCodeNameList");
-			assertNotNull(highestEducationLevelCodeNameList);
+			List<HighestEducationLevelVO> highestEducationLevelList = (List<HighestEducationLevelVO>) view.getModel().get("highestEducationLevelList");
+			assertNotNull(highestEducationLevelList);
 
-			List<String> graduationTypeList = (List<String>) view.getModel().get("graduationTypeList");
+			List<GraduationTypeVO> graduationTypeList = (List<GraduationTypeVO>) view.getModel().get("graduationTypeList");
 			assertNotNull(graduationTypeList);
 
 			MemberVO viewMember = (MemberVO) view.getModelMap().get("member");
@@ -391,11 +390,10 @@ public class MemberServiceTest extends SemsTestCase {
 			assertNotNull(viewName);
 			assertEquals(viewName, "member/registerStudent");
 
-			List<String> highestEducationLevelCodeNameList = (List<String>) view.getModel()
-					.get("highestEducationLevelCodeNameList");
-			assertNotNull(highestEducationLevelCodeNameList);
+			List<HighestEducationLevelVO> highestEducationLevelList = (List<HighestEducationLevelVO>) view.getModel().get("highestEducationLevelList");
+			assertNotNull(highestEducationLevelList);
 
-			List<String> graduationTypeList = (List<String>) view.getModel().get("graduationTypeList");
+			List<GraduationTypeVO> graduationTypeList = (List<GraduationTypeVO>) view.getModel().get("graduationTypeList");
 			assertNotNull(graduationTypeList);
 
 			MemberVO viewMember = (MemberVO) view.getModelMap().get("member");
@@ -436,11 +434,10 @@ public class MemberServiceTest extends SemsTestCase {
 			assertNotNull(viewName);
 			assertEquals(viewName, "member/registerStudent");
 
-			List<String> highestEducationLevelCodeNameList = (List<String>) view.getModel()
-					.get("highestEducationLevelCodeNameList");
-			assertNotNull(highestEducationLevelCodeNameList);
+			List<HighestEducationLevelVO> highestEducationLevelList = (List<HighestEducationLevelVO>) view.getModel().get("highestEducationLevelList");
+			assertNotNull(highestEducationLevelList);
 
-			List<String> graduationTypeList = (List<String>) view.getModel().get("graduationTypeList");
+			List<GraduationTypeVO> graduationTypeList = (List<GraduationTypeVO>) view.getModel().get("graduationTypeList");
 			assertNotNull(graduationTypeList);
 
 			String isEmptyHighestEducationLevel = (String) view.getModelMap().get("isEmptyHighestEducationLevel");
@@ -484,11 +481,10 @@ public class MemberServiceTest extends SemsTestCase {
 			assertNotNull(viewName);
 			assertEquals(viewName, "member/registerStudent");
 
-			List<String> highestEducationLevelCodeNameList = (List<String>) view.getModel()
-					.get("highestEducationLevelCodeNameList");
-			assertNotNull(highestEducationLevelCodeNameList);
+			List<HighestEducationLevelVO> highestEducationLevelList = (List<HighestEducationLevelVO>) view.getModel().get("highestEducationLevelList");
+			assertNotNull(highestEducationLevelList);
 
-			List<String> graduationTypeList = (List<String>) view.getModel().get("graduationTypeList");
+			List<GraduationTypeVO> graduationTypeList = (List<GraduationTypeVO>) view.getModel().get("graduationTypeList");
 			assertNotNull(graduationTypeList);
 
 			String isEmptyUniversityName = (String) view.getModelMap().get("isEmptyUniversityName");
@@ -532,11 +528,10 @@ public class MemberServiceTest extends SemsTestCase {
 			assertNotNull(viewName);
 			assertEquals(viewName, "member/registerStudent");
 
-			List<String> highestEducationLevelCodeNameList = (List<String>) view.getModel()
-					.get("highestEducationLevelCodeNameList");
-			assertNotNull(highestEducationLevelCodeNameList);
+			List<HighestEducationLevelVO> highestEducationLevelList = (List<HighestEducationLevelVO>) view.getModel().get("highestEducationLevelList");
+			assertNotNull(highestEducationLevelList);
 
-			List<String> graduationTypeList = (List<String>) view.getModel().get("graduationTypeList");
+			List<GraduationTypeVO> graduationTypeList = (List<GraduationTypeVO>) view.getModel().get("graduationTypeList");
 			assertNotNull(graduationTypeList);
 
 			String isEmptyMajorName = (String) view.getModelMap().get("isEmptyMajorName");
@@ -580,11 +575,10 @@ public class MemberServiceTest extends SemsTestCase {
 			assertNotNull(viewName);
 			assertEquals(viewName, "member/registerStudent");
 
-			List<String> highestEducationLevelCodeNameList = (List<String>) view.getModel()
-					.get("highestEducationLevelCodeNameList");
-			assertNotNull(highestEducationLevelCodeNameList);
+			List<HighestEducationLevelVO> highestEducationLevelList = (List<HighestEducationLevelVO>) view.getModel().get("highestEducationLevelList");
+			assertNotNull(highestEducationLevelList);
 
-			List<String> graduationTypeList = (List<String>) view.getModel().get("graduationTypeList");
+			List<GraduationTypeVO> graduationTypeList = (List<GraduationTypeVO>) view.getModel().get("graduationTypeList");
 			assertNotNull(graduationTypeList);
 
 			String isEmptyGraduationType = (String) view.getModelMap().get("isEmptyGraduationType");
@@ -628,11 +622,10 @@ public class MemberServiceTest extends SemsTestCase {
 			assertNotNull(viewName);
 			assertEquals(viewName, "member/registerStudent");
 
-			List<String> highestEducationLevelCodeNameList = (List<String>) view.getModel()
-					.get("highestEducationLevelCodeNameList");
-			assertNotNull(highestEducationLevelCodeNameList);
+			List<HighestEducationLevelVO> highestEducationLevelList = (List<HighestEducationLevelVO>) view.getModel().get("highestEducationLevelList");
+			assertNotNull(highestEducationLevelList);
 
-			List<String> graduationTypeList = (List<String>) view.getModel().get("graduationTypeList");
+			List<GraduationTypeVO> graduationTypeList = (List<GraduationTypeVO>) view.getModel().get("graduationTypeList");
 			assertNotNull(graduationTypeList);
 
 			MemberVO viewMember = (MemberVO) view.getModelMap().get("member");
@@ -673,11 +666,10 @@ public class MemberServiceTest extends SemsTestCase {
 			assertNotNull(viewName);
 			assertEquals(viewName, "member/registerStudent");
 
-			List<String> highestEducationLevelCodeNameList = (List<String>) view.getModel()
-					.get("highestEducationLevelCodeNameList");
-			assertNotNull(highestEducationLevelCodeNameList);
+			List<HighestEducationLevelVO> highestEducationLevelList = (List<HighestEducationLevelVO>) view.getModel().get("highestEducationLevelList");
+			assertNotNull(highestEducationLevelList);
 
-			List<String> graduationTypeList = (List<String>) view.getModel().get("graduationTypeList");
+			List<GraduationTypeVO> graduationTypeList = (List<GraduationTypeVO>) view.getModel().get("graduationTypeList");
 			assertNotNull(graduationTypeList);
 
 			MemberVO viewMember = (MemberVO) view.getModelMap().get("member");
@@ -753,11 +745,10 @@ public class MemberServiceTest extends SemsTestCase {
 			assertNotNull(viewName);
 			assertEquals(viewName, "member/registerStudent");
 
-			List<String> highestEducationLevelCodeNameList = (List<String>) view.getModel()
-					.get("highestEducationLevelCodeNameList");
-			assertNotNull(highestEducationLevelCodeNameList);
+			List<HighestEducationLevelVO> highestEducationLevelList = (List<HighestEducationLevelVO>) view.getModel().get("highestEducationLevelList");
+			assertNotNull(highestEducationLevelList);
 
-			List<String> graduationTypeList = (List<String>) view.getModel().get("graduationTypeList");
+			List<GraduationTypeVO> graduationTypeList = (List<GraduationTypeVO>) view.getModel().get("graduationTypeList");
 			assertNotNull(graduationTypeList);
 
 			String isEqualsPassword = (String) view.getModelMap().get("isEqualsPassword");
@@ -800,11 +791,10 @@ public class MemberServiceTest extends SemsTestCase {
 			assertNotNull(viewName);
 			assertEquals(viewName, "member/registerStudent");
 
-			List<String> highestEducationLevelCodeNameList = (List<String>) view.getModel()
-					.get("highestEducationLevelCodeNameList");
-			assertNotNull(highestEducationLevelCodeNameList);
+			List<HighestEducationLevelVO> highestEducationLevelList = (List<HighestEducationLevelVO>) view.getModel().get("highestEducationLevelList");
+			assertNotNull(highestEducationLevelList);
 
-			List<String> graduationTypeList = (List<String>) view.getModel().get("graduationTypeList");
+			List<GraduationTypeVO> graduationTypeList = (List<GraduationTypeVO>) view.getModel().get("graduationTypeList");
 			assertNotNull(graduationTypeList);
 
 			String isEmptyRepeatPassword = (String) view.getModelMap().get("isEmptyRepeatPassword");
@@ -863,11 +853,10 @@ public class MemberServiceTest extends SemsTestCase {
 			assertNotNull(viewName);
 			assertEquals(viewName, "member/registerStudent");
 
-			List<String> highestEducationLevelCodeNameList = (List<String>) view.getModel()
-					.get("highestEducationLevelCodeNameList");
-			assertNotNull(highestEducationLevelCodeNameList);
+			List<HighestEducationLevelVO> highestEducationLevelList = (List<HighestEducationLevelVO>) view.getModel().get("highestEducationLevelList");
+			assertNotNull(highestEducationLevelList);
 
-			List<String> graduationTypeList = (List<String>) view.getModel().get("graduationTypeList");
+			List<GraduationTypeVO> graduationTypeList = (List<GraduationTypeVO>) view.getModel().get("graduationTypeList");
 			assertNotNull(graduationTypeList);
 		} else {
 			fail("Fail...");
