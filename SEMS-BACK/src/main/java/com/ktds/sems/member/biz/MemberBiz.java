@@ -6,8 +6,11 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import com.ktds.sems.member.vo.LoginHistoryVO;
+import com.ktds.sems.member.vo.GraduationTypeVO;
+import com.ktds.sems.member.vo.HighestEducationLevelVO;
 import com.ktds.sems.member.vo.LoginHistorySearchVO;
 import com.ktds.sems.member.vo.MemberSearchVO;
+import com.ktds.sems.member.vo.MemberTypeVO;
 import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.member.vo.PersonalInfoReadVO;
 
@@ -96,5 +99,11 @@ public interface MemberBiz {
 	public int getTotalAdminHistoryCount(LoginHistorySearchVO loginHistorySearchVO);
 
 	public MemberVO getOneMember(String memberId);
+	
+	public List<MemberTypeVO> getMemberTypes();
+	
+	public List<HighestEducationLevelVO> getHighestEducationLevels();
+
+	public List<GraduationTypeVO> getGraduationTypes();
 
 }

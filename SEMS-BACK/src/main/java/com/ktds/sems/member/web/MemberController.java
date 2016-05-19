@@ -19,9 +19,11 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.member.service.MemberService;
+import com.ktds.sems.member.vo.GraduationTypeVO;
+import com.ktds.sems.member.vo.HighestEducationLevelVO;
 import com.ktds.sems.member.vo.LoginHistorySearchVO;
 import com.ktds.sems.member.vo.MemberSearchVO;
-
+import com.ktds.sems.member.vo.MemberTypeVO;
 import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.member.vo.PersonalInfoReadVO;
 
@@ -65,14 +67,14 @@ public class MemberController {
 
 		ModelAndView view = new ModelAndView();
 		
-		List<String> highestEducationLevelCodeNameList = memberService.getHighestEducationLevelCodeNames();
-		List<String> graduationTypeList = memberService.getGraduationType();
-		List<String> memberTypeCodeNameList = memberService.getMemberTypeCodeNameList();
+		List<HighestEducationLevelVO> highestEducationLevelList = memberService.getHighestEducationLevels();
+		List<GraduationTypeVO> graduationTypeList = memberService.getGraduationTypes();
+		List<MemberTypeVO> memberTypeList = memberService.getMemberTypes();
 		
 		view.setViewName("member/addMemberPage");
-		view.addObject("highestEducationLevelCodeNameList", highestEducationLevelCodeNameList);
+		view.addObject("highestEducationLevelList", highestEducationLevelList);
 		view.addObject("graduationTypeList", graduationTypeList);
-		view.addObject("memberTypeCodeNameList", memberTypeCodeNameList);
+		view.addObject("memberTypeList", memberTypeList);
 		
 
 		return view;

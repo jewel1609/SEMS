@@ -21,11 +21,14 @@ import com.ktds.sems.common.Session;
 import com.ktds.sems.common.vo.MailVO;
 import com.ktds.sems.member.biz.MemberBiz;
 import com.ktds.sems.member.service.MemberService;
+import com.ktds.sems.member.vo.GraduationTypeVO;
+import com.ktds.sems.member.vo.HighestEducationLevelVO;
 import com.ktds.sems.member.vo.LoginHistoryListVO;
 import com.ktds.sems.member.vo.LoginHistorySearchVO;
 import com.ktds.sems.member.vo.LoginHistoryVO;
 import com.ktds.sems.member.vo.MemberListVO;
 import com.ktds.sems.member.vo.MemberSearchVO;
+import com.ktds.sems.member.vo.MemberTypeVO;
 import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.member.vo.PersonalInfoReadVO;
 
@@ -339,36 +342,26 @@ public class MemberServiceImpl implements MemberService{
 
 		String memberType = member.getMemberType();
 		isNotError = isAllValidValue(member, view);
-		selectMemberTypeCodeId = memberBiz.getMemberTypeCodeId(memberType);
+		selectMemberTypeCodeId = member.getMemberType();
 
 		if (sessionMember == null) {
 			throw new RuntimeException("유효한 접근이 아닙니다.");
 		} else if (errors.hasErrors() || !isNotError) {
 			
-			List<String> highestEducationLevelCodeNameList = memberBiz.getHighestEducationLevelCodeNames();
-			List<String> graduationTypeList = memberBiz.getGraduationType();
+			List<HighestEducationLevelVO> highestEducationLevelList = memberBiz.getHighestEducationLevels();
+			List<GraduationTypeVO> graduationTypeList = memberBiz.getGraduationTypes();
 
 			view.addObject("graduationTypeList", graduationTypeList);
-			view.addObject("highestEducationLevelCodeNameList", highestEducationLevelCodeNameList);
+			view.addObject("highestEducationLevelList", highestEducationLevelList);
 
 			view.addObject("member", member);
 		} else if (isNotError) {
-			if (memberType.equals("수강생") || memberType.equals("일반회원")) {
+			if (memberType.equals("MBR") || memberType.equals("STD")) {
 				String graduationType = member.getGraduationType();
 				String highestEducationLevel = member.getHighestEducationLevel();
-
-				String selectGraduationTypeCodeId = null;
-				String selecthelCodeId = null;
 				
-				
-				
-				selecthelCodeId = memberBiz.getHelCodeId(highestEducationLevel);
-				selectGraduationTypeCodeId = memberBiz.getGraduationTypeCodeId(graduationType);
-				System.out.println(selectGraduationTypeCodeId);
-				
-				
-				member.setGraduationType(selectGraduationTypeCodeId);
-				member.setHighestEducationLevel(selecthelCodeId);
+				member.setGraduationType(graduationType);
+				member.setHighestEducationLevel(highestEducationLevel);
 				member.setUniversityName(member.getUniversityName());
 				member.setMajorName(member.getMajorName());
 			}
@@ -641,6 +634,21 @@ public class MemberServiceImpl implements MemberService{
 		view.setViewName("redirect:/adminHistory");
 		
 		return view;
+	}
+
+	@Override
+	public List<MemberTypeVO> getMemberTypes() {
+		return memberBiz.getMemberTypes();
+	}
+
+	@Override
+	public List<HighestEducationLevelVO> getHighestEducationLevels() {
+		return memberBiz.getHighestEducationLevels();
+	}
+
+	@Override
+	public List<GraduationTypeVO> getGraduationTypes() {
+		return memberBiz.getGraduationTypes();
 	}
 
 }

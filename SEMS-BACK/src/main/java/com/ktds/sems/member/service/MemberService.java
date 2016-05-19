@@ -11,6 +11,9 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import com.ktds.sems.member.vo.LoginHistoryVO;
 import com.ktds.sems.member.vo.MemberSearchVO;
+import com.ktds.sems.member.vo.MemberTypeVO;
+import com.ktds.sems.member.vo.GraduationTypeVO;
+import com.ktds.sems.member.vo.HighestEducationLevelVO;
 import com.ktds.sems.member.vo.LoginHistorySearchVO;
 import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.member.vo.PersonalInfoReadVO;
@@ -66,5 +69,11 @@ public interface MemberService {
 	public ModelAndView getMemberDetailById(String id);
 
 	public ModelAndView adminHistoryInit();
+
+	public List<MemberTypeVO> getMemberTypes();
+	
+	public List<HighestEducationLevelVO> getHighestEducationLevels();
+
+	public List<GraduationTypeVO> getGraduationTypes();
 
 }

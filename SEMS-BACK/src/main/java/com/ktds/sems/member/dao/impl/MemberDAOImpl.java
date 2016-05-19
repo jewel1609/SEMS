@@ -8,10 +8,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.ktds.sems.member.dao.MemberDAO;
+import com.ktds.sems.member.vo.GraduationTypeVO;
+import com.ktds.sems.member.vo.HighestEducationLevelVO;
 import com.ktds.sems.member.vo.LoginHistorySearchVO;
 import com.ktds.sems.member.service.impl.MemberServiceImpl;
 import com.ktds.sems.member.vo.LoginHistoryVO;
 import com.ktds.sems.member.vo.MemberSearchVO;
+import com.ktds.sems.member.vo.MemberTypeVO;
 import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.member.vo.PersonalInfoReadVO;
 
@@ -206,6 +209,21 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 	@Override
 	public MemberVO getOneMember(String memberId) {
 		return getSqlSession().selectOne("MemberDAO.getOneMember", memberId);
+	}
+	
+	@Override
+	public List<GraduationTypeVO> getGraduationTypes() {
+		return getSqlSession().selectList("MemberDAO.getGraduationTypes");
+	}
+
+	@Override
+	public List<HighestEducationLevelVO> getHighestEducationLevels() {
+		return getSqlSession().selectList("MemberDAO.getHighestEducationLevels");
+	}
+
+	@Override
+	public List<MemberTypeVO> getMemberTypes() {
+		return getSqlSession().selectList("MemberDAO.getMemberTypes");
 	}
 
 	@Override

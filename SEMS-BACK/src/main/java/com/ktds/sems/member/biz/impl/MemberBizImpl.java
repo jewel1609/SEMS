@@ -14,9 +14,12 @@ import com.ktds.sems.common.LoginStore;
 import com.ktds.sems.common.Session;
 import com.ktds.sems.member.biz.MemberBiz;
 import com.ktds.sems.member.dao.MemberDAO;
+import com.ktds.sems.member.vo.GraduationTypeVO;
+import com.ktds.sems.member.vo.HighestEducationLevelVO;
 import com.ktds.sems.member.vo.LoginHistorySearchVO;
 import com.ktds.sems.member.vo.LoginHistoryVO;
 import com.ktds.sems.member.vo.MemberSearchVO;
+import com.ktds.sems.member.vo.MemberTypeVO;
 import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.member.vo.PersonalInfoReadVO;
 
@@ -198,7 +201,8 @@ public class MemberBizImpl implements MemberBiz {
 
 	@Override
 	public boolean isVerifyEmail(String email) {
-		String emailPolicy = "(^[a-z\\d][\\w\\d\\_\\.-]+@[a-z\\d][\\w\\d-]+[\\.][a-z\\.]{2,8}$)";
+		//String emailPolicy = "(^[a-z\\d][\\w\\d\\_\\.-]+@[a-z\\d][\\w\\d-]+[\\.][a-z\\.]{2,8}$)";
+		String emailPolicy = "(^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$)";
 		Pattern pattern = Pattern.compile(emailPolicy);
 		Matcher matcher = pattern.matcher(email);
 		return matcher.matches();
@@ -356,5 +360,20 @@ public class MemberBizImpl implements MemberBiz {
 	@Override
 	public MemberVO getOneMember(String memberId) {
 		return memberDAO.getOneMember(memberId);
+	}
+	
+	@Override
+	public List<MemberTypeVO> getMemberTypes() {
+		return memberDAO.getMemberTypes();
+	}
+
+	@Override
+	public List<HighestEducationLevelVO> getHighestEducationLevels() {
+		return memberDAO.getHighestEducationLevels();
+	}
+
+	@Override
+	public List<GraduationTypeVO> getGraduationTypes() {
+		return memberDAO.getGraduationTypes();
 	}
 }
