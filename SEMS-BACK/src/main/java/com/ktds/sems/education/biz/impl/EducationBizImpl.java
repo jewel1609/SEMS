@@ -200,4 +200,9 @@ public class EducationBizImpl implements EducationBiz {
 	public String getStateByEducationHistroyId(String educationHistoryId) {
 		return educationDAO.getStateByEducationHistroyId(educationHistoryId);
 	}
+
+	@Override
+	public int changeEducationApplyState(String educationHistoryId) {
+		return educationDAO.changeEducationApplyState(educationHistoryId);
+	}
 }
