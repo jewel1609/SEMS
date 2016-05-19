@@ -71,6 +71,11 @@
 		</plugins>
 	</build>
 	
+	<properties>
+		<project.build.sourceencoding>UTF-8</project.build.sourceencoding>
+		<project.reporting.outputencoding>UTF-8</project.reporting.outputencoding>
+	</properties>
+	
 	<reporting>
 		<plugins>
 			<plugin>
