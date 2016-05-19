@@ -67,15 +67,62 @@
 			}
 			
 		});
-
+		
 		$(".onlyText").keyup(function(event) {
-			regexp = /[\+*^!@\#$%<>&\()\=\’ \\/\?,.\:\;\''\""\{\}\[\]|\\~`]/gi;
+			var regexp = /[\+*^!@\#$%<>&\()\=\’ \\/\?,.\:\;\''\""\{\}\[\]|\\~`]/gi;
+			var engregexp = /[a-zA-Z0-9]/gi;
+			var noengregexp = /[^a-zA-Z0-9]/gi;
 
 			v = $(this).val();
 			if (regexp.test(v)) {
 				alert("특수문자를 포함할 수 없습니다.");
 				$(this).val(v.replace(regexp, ''));
 			}
+			
+			var tmpStr = $(this).val();
+			var tmpStr2 = $(this).val();
+			tmpStr = tmpStr.replace(engregexp, '');
+			tmpStr2 = tmpStr2.replace(noengregexp, '');
+			if ( (tmpStr.length * 3) + tmpStr2.length > 10 ) {
+				alert("글자 수가 너무 큽니다.");
+				while(v.length > 0){
+					v = v.substring(0, v.length - 1);
+					tmpStr = v;
+					tmpStr2 = v;
+					tmpStr = tmpStr.replace(engregexp, '');
+					tmpStr2 = tmpStr2.replace(noengregexp, '');
+					if ( (tmpStr.length * 3) + tmpStr2.length <= 10 ) {
+						break;
+					}
+				}
+				$(this).val(v);
+			} 
+		});
+
+		$(".onlyEngText").keyup(function(event) {
+			regexp = /[\+*^!@\#$%<>&\()\=\’ \\/\?,.\:\;\''\""\{\}\[\]|\\~`]/gi;
+			engregexp = /[^a-zA-Z0-9]/gi;
+
+			v = $(this).val();
+			if (regexp.test(v)) {
+				alert("특수문자를 포함할 수 없습니다.");
+				$(this).val(v.replace(regexp, ''));
+			}
+			
+			if (engregexp.test(v)) {
+				alert("숫자와 영문만 입력할 수 있습니다.");
+				$(this).val(v.replace(engregexp, ''));
+			}
+			
+			if ( v.length > 4 ) {
+				alert("글자수가 4를 넘을 수 없습니다.");
+				$(this).val(v.substring(0, 4));
+			}
+			
+		});
+		
+		$(".noPaste").on('paste', function(e){
+			e.preventDefault();
 		});
 		
 		$("#insertEduBtn").click( function () {
@@ -126,14 +173,14 @@
 		<c:forEach items="${costList}" var="cost">
 			<tr>
 				<td><input type="hidden" id="cdNm${cost.cdId}" name="cdNm" value="${cost.cdId}" />${cost.cdId}</td>
-				<td><input type="text" class="cdNm" id="cdNm${cost.cdId}" name="cdNm" value="${cost.cdNm}" /></td>
+				<td><input type="text" class="cdNm onlyText noPaste" id="cdNm${cost.cdId}" name="cdNm" value="${cost.cdNm}" /></td>
 				<td><span class="modifyEduCostBtn" id="${cost.cdId}">수정</span></td>
 				<td><span class="deleteEduCostBtn" id="deleteEduCostBtn${cost.cdId}">삭제</span></td>
 			</tr>
 		</c:forEach>
 			<tr>
-				<td>코드 : <input type="text" id="newCode" class="onlyText" name="newCode" /></td>
-				<td>비용 : <input type="text" id="newCost" class="onlyText" name="newCost" /></td>
+				<td>코드 : <input type="text" id="newCode" class="onlyEngText noPaste" name="newCode" /></td>
+				<td>비용 : <input type="text" id="newCost" class="onlyText noPaste" name="newCost" /></td>
 				<td colspan="2"><span id="insertEduBtn">추가</span></td>
 			</tr>
 	</table>

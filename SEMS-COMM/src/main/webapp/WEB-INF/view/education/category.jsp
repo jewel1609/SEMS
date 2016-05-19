@@ -79,27 +79,59 @@
 		}
 		
 		$(".onlyText").keyup(function(event) {
-			regexp = /[\+*^!@\#$%<>&\()\=\’ \\/\?,.\:\;\''\""\{\}\[\]|\\~`]/gi;
+			var regexp = /[\+*^!@\#$%<>&\()\=\’ \\/\?,.\:\;\''\""\{\}\[\]|\\~`]/gi;
+			var engregexp = /[a-zA-Z0-9]/gi;
+			var noengregexp = /[^a-zA-Z0-9]/gi;
 
 			v = $(this).val();
 			if (regexp.test(v)) {
 				alert("특수문자를 포함할 수 없습니다.");
 				$(this).val(v.replace(regexp, ''));
 			}
+			
+			var tmpStr = $(this).val();
+			var tmpStr2 = $(this).val();
+			tmpStr = tmpStr.replace(engregexp, '');
+			tmpStr2 = tmpStr2.replace(noengregexp, '');
+			if ( (tmpStr.length * 3) + tmpStr2.length > 30 ) {
+				alert("글자 수가 너무 큽니다.");
+				while(v.length > 0){
+					v = v.substring(0, v.length - 1);
+					tmpStr = v;
+					tmpStr2 = v;
+					tmpStr = tmpStr.replace(engregexp, '');
+					tmpStr2 = tmpStr2.replace(noengregexp, '');
+					if ( (tmpStr.length * 3) + tmpStr2.length <= 30 ) {
+						break;
+					}
+				}
+				$(this).val(v);
+			} 
 		});
 		
-		$(".onlyText").on('paste', function(e){
-			e.preventDefault();
-		});
-		
-		$(".onlyEnglish").keypress(function(){
-			regexp = /[A-Za-z]/g;
+		$(".onlyEngText").keyup(function(event) {
+			regexp = /[\+*^!@\#$%<>&\()\=\’ \\/\?,.\:\;\''\""\{\}\[\]|\\~`]/gi;
+			engregexp = /[^a-zA-Z0-9]/gi;
 
 			v = $(this).val();
 			if (regexp.test(v)) {
-				alert("영문자외의 문자를 포함할 수 없습니다.");
+				alert("특수문자를 포함할 수 없습니다.");
 				$(this).val(v.replace(regexp, ''));
 			}
+			if (engregexp.test(v)) {
+				alert("숫자와 영문만 입력할 수 있습니다.");
+				$(this).val(v.replace(engregexp, ''));
+			}
+			
+			if ( v.length > 4 ) {
+				alert("글자수가 4를 넘을 수 없습니다.");
+				$(this).val(v.substring(0, 4));
+			}
+			
+		});
+		
+		$(".noPaste").on('paste', function(e){
+			e.preventDefault();
 		});
 		
 		$("#newLargeCategoryBtn").click(function(){
@@ -438,9 +470,9 @@
 			<form:form commandName="newCategoryForm" method="post">
 				<input type="hidden" id="parentCategoryId" name="parentCategoryId" >
 				<input type="hidden" id="categoryType" name="categoryType" value="large" >
-				<input type="text" id="categoryId" class="onlyText onlyEnglish" name="categoryId" placeholder="category id" maxlength="4">
+				<input type="text" id="categoryId" class="onlyEngText noPaste" name="categoryId" placeholder="category id" maxlength="4">
 				<span id="categoryIdError"></span><br/>
-				<input type="text" id="categoryName" class="onlyText onlyEnglish" name="categoryName" placeholder="category name" maxlength="30">
+				<input type="text" id="categoryName" class="onlyText noPaste" name="categoryName" placeholder="category name" maxlength="30">
 				<span id="categoryNameError"></span><br/>
 				<input type="button" id="addCategoryBtn" value="추가하기">
 				<input type="button" id="modifyCategoryBtn" value="수정하기">

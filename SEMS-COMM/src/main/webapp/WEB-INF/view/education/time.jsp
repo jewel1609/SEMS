@@ -57,6 +57,63 @@
 				)
 			}
 		});
+						
+		$(".onlyText").keyup(function(event) {
+			var regexp = /[\+*^!@\#$%<>&\()\=\’ \\/\?,.\:\;\''\""\{\}\[\]|\\~`]/gi;
+			var engregexp = /[a-zA-Z0-9]/gi;
+			var noengregexp = /[^a-zA-Z0-9]/gi;
+	
+			v = $(this).val();
+			if (regexp.test(v)) {
+				alert("특수문자를 포함할 수 없습니다.");
+				$(this).val(v.replace(regexp, ''));
+			}
+			
+			var tmpStr = $(this).val();
+			var tmpStr2 = $(this).val();
+			tmpStr = tmpStr.replace(engregexp, '');
+			tmpStr2 = tmpStr2.replace(noengregexp, '');
+			if ( (tmpStr.length * 3) + tmpStr2.length > 10 ) {
+				alert("글자 수가 너무 큽니다.");
+				while(v.length > 0){
+					v = v.substring(0, v.length - 1);
+					tmpStr = v;
+					tmpStr2 = v;
+					tmpStr = tmpStr.replace(engregexp, '');
+					tmpStr2 = tmpStr2.replace(noengregexp, '');
+					if ( (tmpStr.length * 3) + tmpStr2.length <= 10 ) {
+						break;
+					}
+				}
+				$(this).val(v);
+			} 
+		});
+
+		$(".onlyEngText").keyup(function(event) {
+			regexp = /[\+*^!@\#$%<>&\()\=\’ \\/\?,.\:\;\''\""\{\}\[\]|\\~`]/gi;
+			engregexp = /[^a-zA-Z0-9]/gi;
+
+			v = $(this).val();
+			if (regexp.test(v)) {
+				alert("특수문자를 포함할 수 없습니다.");
+				$(this).val(v.replace(regexp, ''));
+			}
+			
+			if (engregexp.test(v)) {
+				alert("숫자와 영문만 입력할 수 있습니다.");
+				$(this).val(v.replace(engregexp, ''));
+			}
+			
+			if ( v.length > 4 ) {
+				alert("글자수가 4를 넘을 수 없습니다.");
+				$(this).val(v.substring(0, 4));
+			}
+			
+		});
+		
+		$(".noPaste").on('paste', function(e){
+			e.preventDefault();
+		});
 		
 		$("#insertEduBtn").click( function() {
 			
@@ -105,14 +162,14 @@
 		<c:forEach items="${timeList}" var="time">
 			<tr>
 				<td><input type="hidden" id="cdId${time.cdId}" value="${time.cdId}"/>${time.cdId}</td>
-				<td><input type="text" class="timeNm" id="timeNm${time.cdId}" value="${time.cdNm}"/></td>
+				<td><input type="text" class="timeNm onlyText noPaste" id="timeNm${time.cdId}" value="${time.cdNm}"/></td>
 				<td><span class="modifyEduTimeBtn" id="${time.cdId}">수정</span></td>
 				<td><span class="deleteEduTimeBtn" id="deleteEduTimeBtn${time.cdId}">삭제</span></td>
 			</tr>
 		</c:forEach>
 			<tr>
-				<td>코드 : <input type="text" id="newCode" name="newCode" /></td>
-				<td>시간 : <input type="text" id="newTime" name="newTime" /></td>
+				<td>코드 : <input type="text" id="newCode" class="onlyEngText noPaste" name="newCode" /></td>
+				<td>시간 : <input type="text" id="newTime" class="onlyText noPaste" name="newTime" /></td>
 				<td colspan="2"><span id="insertEduBtn">추가</span></td>
 			</tr>
 	</table>
