@@ -43,10 +43,6 @@ public class MemberServiceTest extends SemsTestCase {
 			String viewName = view.getViewName();
 			assertNotNull(viewName);
 			assertEquals(viewName, "redirect:/memberManage/memberList");
-			
-			String isModifySuccess = (String) view.getModelMap().get("isModifySuccess");
-			assertNotNull(isModifySuccess );
-			assertEquals(isModifySuccess , "OK");
 		}
 		else{
 			fail("Fail...");
@@ -65,10 +61,6 @@ public class MemberServiceTest extends SemsTestCase {
 			String viewName = view.getViewName();
 			assertNotNull(viewName);
 			assertEquals(viewName, "redirect:/memberManage/memberList");
-			
-			String isModifySuccess = (String) view.getModelMap().get("isModifySuccess");
-			assertNotNull(isModifySuccess );
-			assertEquals(isModifySuccess , "NO");
 		}
 		else{
 			fail("Fail....");
@@ -86,10 +78,6 @@ public class MemberServiceTest extends SemsTestCase {
 			String viewName = view.getViewName();
 			assertNotNull(viewName);
 			assertEquals(viewName, "redirect:/memberManage/memberList");
-			
-			String isModifySuccess = (String) view.getModelMap().get("isModifySuccess");
-			assertNotNull(isModifySuccess );
-			assertEquals(isModifySuccess , "NO");
 		}
 		else{
 			fail("Fail....");
