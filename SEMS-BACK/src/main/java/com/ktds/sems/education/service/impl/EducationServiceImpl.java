@@ -324,4 +324,9 @@ public class EducationServiceImpl implements EducationService {
 		String name = member.getName();
 		educationBiz.sendEmailRejection( educationHistoryId, memberId, description , email , name );
 	}
+
+	@Override
+	public int changeEducationApplyState(String educationHistoryId) {
+		return educationBiz.changeEducationApplyState(educationHistoryId);
+	}
 }
