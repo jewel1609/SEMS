@@ -227,13 +227,13 @@
 		SELECT	COUNT(LGI_HTR_ID)
 		FROM	LGI_HTR
 		WHERE	MBR_ID = #{id}
-		<if test="beginDate != null and beginDate != '' and beginDate.length() == 10">
+		<if test="beginDate != null and beginDate != '' and beginDateTime == null">
 		AND		LGI_DT <![CDATA[>=]]> TO_DATE(#{beginDate}, 'YYYY-MM-DD')		
-		AND		LGI_DT <![CDATA[<=]]> TO_DATE(#{closeDate}, 'YYYY-MM-DD')
+		AND		LGI_DT <![CDATA[<=]]> TO_DATE(#{closeDate}, 'YYYY-MM-DD') + 1
 		</if>								
-		<if test="beginDate != null and beginDate != '' ">
-		AND		LGI_DT <![CDATA[>=]]> TO_DATE(#{beginDate}, 'YYYY-MM-DD HH24:MI')		
-		AND		LGI_DT <![CDATA[<=]]> (TO_DATE(#{closeDate}, 'YYYY-MM-DD HH24:MI'))
+		<if test="beginDate != null and beginDate != '' and beginDateTime != null ">
+		AND		LGI_DT <![CDATA[>=]]> TO_DATE(#{beginDateTime}, 'YYYY-MM-DD HH24:MI')		
+		AND		LGI_DT <![CDATA[<=]]> (TO_DATE(#{closeDateTime}, 'YYYY-MM-DD HH24:MI'))
 		</if>	
 	</select>
 	<select id="getAllLoginHistory" parameterType="LoginHistorySearchVO" resultType="LoginHistoryVO">
@@ -251,13 +251,13 @@
 								SELECT	*
 								FROM	LGI_HTR
 								WHERE	MBR_ID = #{id}
-								<if test="beginDate != null and beginDate != '' and beginDate.length() == 10">
+								<if test="beginDate != null and beginDate != '' and beginDateTime == null">
 								AND		LGI_DT <![CDATA[>=]]> TO_DATE(#{beginDate}, 'YYYY-MM-DD')		
-								AND		LGI_DT <![CDATA[<=]]> TO_DATE(#{closeDate}, 'YYYY-MM-DD')
+								AND		LGI_DT <![CDATA[<=]]> TO_DATE(#{closeDate}, 'YYYY-MM-DD') + 1
 								</if>								
-								<if test="beginDate != null and beginDate != '' ">
-								AND		LGI_DT <![CDATA[>=]]> TO_DATE(#{beginDate}, 'YYYY-MM-DD HH24:MI')		
-								AND		LGI_DT <![CDATA[<=]]> (TO_DATE(#{closeDate}, 'YYYY-MM-DD HH24:MI'))
+								<if test="beginDate != null and beginDate != '' and beginDateTime != null ">
+								AND		LGI_DT <![CDATA[>=]]> TO_DATE(#{beginDateTime}, 'YYYY-MM-DD HH24:MI')		
+								AND		LGI_DT <![CDATA[<=]]> (TO_DATE(#{closeDateTime}, 'YYYY-MM-DD HH24:MI'))
 								</if>								
 								ORDER BY LGI_HTR_ID DESC
 							) LOGIN_HISTORY
@@ -444,13 +444,6 @@
 		WHERE  	LGI_HTR_ID = #{lgiHtrId}
 	</update>
 	
-	
-	<select id="getTotalEducationHistoryCountById" parameterType="string" resultType="_int">
-		SELECT	COUNT(EDU_HTR_ID)
-		FROM	EDU_HTR
-		WHERE	MBR_ID = #{id}
-	</select>
-	
 	<select id="getAllEducationHistoryListByIdWithPaging" parameterType="EducationHistorySearchVO" resultType="EducationHistoryVO">
 		SELECT	EH.EDU_HTR_ID educationHistoryId
 				, EH.EDU_ID educationId
@@ -464,23 +457,73 @@
 				, EI.END_DATE endDate
 				, EI.EDU_TTL educationTitle
 				, EI.COST cost
+				, CD.CD_NAME
 		FROM	EDU_INFO EI
+				, CODE_MNG CD
 				, (
 					SELECT	ROWNUM AS RNUM
 							, EDUCATION_HISTORY.*
 					FROM	(
-								SELECT	*
-								FROM	EDU_HTR
-								WHERE	MBR_ID = #{memberId}
-								ORDER BY EDU_HTR_ID DESC
+								SELECT	EH.EDU_HTR_ID
+										, EH.EDU_ID
+										, EH.MBR_ID
+										, EH.EDU_HTR_DT
+										, EH.STAT
+										, EH.IP
+										, EH.CMNT
+										, EH.FDBK
+										, EI.SRT_DATE
+										, EI.END_DATE
+										, EI.EDU_TTL
+										, EI.COST
+								FROM	EDU_HTR EH
+										, EDU_INFO EI
+								WHERE	EH.MBR_ID = #{memberId}
+								AND		EH.EDU_ID = EI.EDU_ID
+								<if test="searchType == 'eduName'">
+								AND		EI.EDU_TTL LIKE '%'||#{searchEduName}||'%'
+								</if>
+								<if test="searchType == 'cost'">
+								AND		EI.COST = '%'||#{searchCost}||'%'
+								</if>
+								<if test="searchType == 'applyDate'">
+								AND		EH.EDU_HTR_DT <![CDATA[>=]]> TO_DATE(#{startDate}, 'YYYY-MM-DD')	
+								AND		EH.EDU_HTR_DT <![CDATA[<=]]> TO_DATE(#{endDate}, 'YYYY-MM-DD') + 1
+								</if>
+								<if test="searchType == 'applyState'">
+								AND		EH.STAT LIKE '%'||#{searchApplyState}||'%'
+								</if>
+								ORDER BY EH.EDU_HTR_ID DESC
 							) EDUCATION_HISTORY
 					WHERE	ROWNUM <![CDATA[<=]]> #{endIndex}
 				) EH
 		WHERE	RNUM <![CDATA[>=]]> #{startIndex}
 		AND		EI.EDU_ID = EH.EDU_ID
+		AND		EI.STAT = CD.CD_ID
 	</select>
 	
-		<select id="getAllEducationHistoryListById" parameterType="EducationHistorySearchVO" resultType="EducationHistoryVO">
+	<select id="getTotalEducationHistoryCountById" parameterType="EducationHistorySearchVO" resultType="_int">
+		SELECT	COUNT(EH.EDU_HTR_ID)
+		FROM	EDU_HTR EH
+				, EDU_INFO EI
+		WHERE	EH.MBR_ID = #{memberId}
+		AND		EH.EDU_ID = EI.EDU_ID
+		<if test="searchType == 'eduName'">
+		AND		EI.EDU_TTL LIKE '%'||#{searchEduName}||'%'
+		</if>
+		<if test="searchType == 'cost'">
+		AND		EI.COST = '%'||#{searchCost}||'%'
+		</if>
+		<if test="searchType == 'applyDate'">
+		AND		EI.SRT_DATE <![CDATA[>=]]> TO_DATE(#{startDate}, 'YYYY-MM-DD')	
+		AND		EI.END_DATE <![CDATA[<=]]> TO_DATE(#{endDate}, 'YYYY-MM-DD') + 1
+		</if>
+		<if test="searchType == 'applyState'">
+		AND		EH.STAT LIKE '%'||#{searchApplyState}||'%'
+		</if>
+	</select>
+	
+	<select id="getAllEducationHistoryListById" parameterType="EducationHistorySearchVO" resultType="EducationHistoryVO">
 		SELECT	EH.EDU_HTR_ID educationHistoryId
 				, EH.EDU_ID educationId
 				, EH.MBR_ID memberId
@@ -524,4 +567,27 @@
 		WHERE	LGI_HTR_ID = #{lgiHtrId}
 		AND		MBR_ID = #{id}
 	</update>
+	
+	<select id="getJoinEducationList" parameterType="string" resultType="EducationHistoryVO">
+		SELECT	EH.EDU_HTR_ID educationHistoryId
+				, EH.EDU_ID educationId
+				, EH.MBR_ID memberId
+				, EH.EDU_HTR_DT educationHistoryDate
+				, EH.STAT state
+				, EH.IP ip
+				, EH.CMNT cmnt
+				, EH.FDBK fdbk
+				, EI.EDU_TTL educationTitle
+				, EI.COST cost
+				, EI.SRT_DATE startDate
+				, EI.END_DATE endDate
+		FROM	EDU_INFO EI
+				, EDU_HTR EH
+		WHERE	EI.EDU_ID = EH.EDU_ID
+		AND		EH.MBR_ID = #{memberId}	
+		AND		EH.STAT LIKE 'JOIN_CMPL'	
+		AND		TO_DATE(EI.SRT_DATE,'YYYY-MM-DD') <![CDATA[<=]]> SYSDATE
+		AND		(TO_DATE(EI.END_DATE,'YYYY-MM-DD') + 1) <![CDATA[>=]]> SYSDATE
+	</select>
+	
 </mapper>
