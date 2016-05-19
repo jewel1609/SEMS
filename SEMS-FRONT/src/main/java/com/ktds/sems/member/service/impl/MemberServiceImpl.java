@@ -22,6 +22,8 @@ import com.ktds.sems.education.vo.EducationHistoryVO;
 import com.ktds.sems.education.vo.EducationStateVO;
 import com.ktds.sems.member.biz.MemberBiz;
 import com.ktds.sems.member.service.MemberService;
+import com.ktds.sems.member.vo.GraduationTypeVO;
+import com.ktds.sems.member.vo.HighestEducationLevelVO;
 import com.ktds.sems.member.vo.LoginHistoryListVO;
 import com.ktds.sems.member.vo.LoginHistorySearchVO;
 import com.ktds.sems.member.vo.LoginHistoryVO;
@@ -56,28 +58,14 @@ public class MemberServiceImpl implements MemberService {
 		isNotError = isAllValidValue(member, repeatPassword, view);
 
 		if (errors.hasErrors() || !isNotError) {
-			List<String> highestEducationLevelCodeNameList = memberBiz.getHighestEducationLevelCodeNames();
-			List<String> graduationTypeList = memberBiz.getGraduationType();
+			List<HighestEducationLevelVO> highestEducationLevelList = memberBiz.getHighestEducationLevels();
+			List<GraduationTypeVO> graduationTypeList = memberBiz.getGraduationTypes();
 
 			view.addObject("graduationTypeList", graduationTypeList);
-			view.addObject("highestEducationLevelCodeNameList", highestEducationLevelCodeNameList);
+			view.addObject("highestEducationLevelList", highestEducationLevelList);
 
 			view.addObject("member", member);
 		} else if (isNotError) {
-			if (memberType.equals("MBR")) {
-				String graduationType = member.getGraduationType();
-				String highestEducationLevel = member.getHighestEducationLevel();
-
-				String selectGraduationTypeCodeId = null;
-				String selecthelCodeId = null;
-
-				selecthelCodeId = memberBiz.gethelCodeId(highestEducationLevel);
-				selectGraduationTypeCodeId = memberBiz.getGraduationTypeCodeId(graduationType);
-
-				member.setGraduationType(selectGraduationTypeCodeId);
-				member.setHighestEducationLevel(selecthelCodeId);
-			}
-
 			setSaltAndPassword(member);
 			memberBiz.addNewMember(member);
 			view.setViewName("redirect:/");
@@ -595,12 +583,12 @@ public class MemberServiceImpl implements MemberService {
 			view.setViewName("member/registErrorPage");
 		}
 		else {
-			List<String> highestEducationLevelCodeNameList = memberBiz.getHighestEducationLevelCodeNames();
-			List<String> graduationTypeList = memberBiz.getGraduationType();
+			List<HighestEducationLevelVO> highestEducationLevelList = memberBiz.getHighestEducationLevels();
+			List<GraduationTypeVO> graduationTypeList = memberBiz.getGraduationTypes();
 			
 			view.setViewName("member/registerStudent");
 			view.addObject("graduationTypeList", graduationTypeList);
-			view.addObject("highestEducationLevelCodeNameList", highestEducationLevelCodeNameList);
+			view.addObject("highestEducationLevelList", highestEducationLevelList);
 		}
 
 		return view;
