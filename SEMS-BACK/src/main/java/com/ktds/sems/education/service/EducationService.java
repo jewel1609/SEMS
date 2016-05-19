@@ -30,4 +30,6 @@ public interface EducationService {
 	public void rejectionMailAction(String educationHistoryId, String memberId, String description);
 
 	public ModelAndView cancelJoinEducationByMemberId(String educationHistoryId, String memberId, String description);
+
+	public int changeEducationApplyState(String educationHistoryId);
 }
