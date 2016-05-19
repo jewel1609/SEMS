@@ -163,7 +163,7 @@ public class EducationBizImpl implements EducationBiz {
 	 * @author 206-025 이기연
 	 */
 	@Override
-	public void exportQNAListAsExcel(String memberId) {
+	public boolean exportQNAListAsExcel(String memberId) {
 		WriteOption wo = new WriteOption();
 		wo.setSheetName("교육 문의 내역");
 		wo.setFileName("교육 문의 내역.xlsx");
@@ -175,7 +175,6 @@ public class EducationBizImpl implements EducationBiz {
 		titles.add("문의 날짜");
 		titles.add("문의 내용");
 		titles.add("답변 여부");
-		titles.add("답변");
 		wo.setTitles(titles);
 
 		List<String[]> contents = new ArrayList<String[]>();
@@ -192,26 +191,24 @@ public class EducationBizImpl implements EducationBiz {
 				QNAVO tempQnaVO = new QNAVO();
 				tempQnaVO = tempIterator.next();
 
-				String[] content = new String[6];
+				String[] content = new String[5];
 
 				content[0] = tempQnaVO.getReplyId();
 				content[1] = tempQnaVO.getEduId();
 				content[2] = tempQnaVO.getCreatedDate();
 				content[3] = tempQnaVO.getDescription();
 				content[4] = tempQnaVO.getIsAnswered();
-				content[5] = tempQnaVO.getAnswer();
 
 				contents.add(content);
 			}
-
 			wo.setContents(contents);
 
 			File excelFile = ExcelWrite.write(wo);
-
+			
+			return true;
 		} catch (Exception e) {
 			throw new RuntimeException();
 		}
-
 	}
 
 	@Override

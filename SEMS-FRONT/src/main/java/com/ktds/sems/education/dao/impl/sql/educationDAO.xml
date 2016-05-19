@@ -454,19 +454,10 @@
 					, Q.DISLIKE_CNT dislikeCnt
 					, Q.CREATED_DATE createdDate
 					, NVL ( (
-						SELECT	'Y'
+						SELECT	DISTINCT 'Y'
 						FROM	QNA
 						WHERE	PARENT_REPLY_ID = Q.REPLY_ID
 					 ) , 'N' ) isAnswered
-					 , NVL ( (
-                            SELECT  DESCRIPTION
-                            FROM    QNA
-                            WHERE   REPLY_ID = (
-                                        SELECT  REPLY_ID
-                                        FROM    QNA
-                                        WHERE   PARENT_REPLY_ID = Q.REPLY_ID
-                                    ) 
-					 ) , '0' ) answer 
 		FROM	QNA Q
 		WHERE	Q.MBR_ID = #{memberId}
 		AND		Q.PARENT_REPLY_ID = '0'
