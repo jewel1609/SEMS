@@ -173,7 +173,9 @@ public class EducationServiceImpl implements EducationService {
 							
 							fileBiz.updateFile(fileVO);
 							
-						} catch (IllegalStateException | IOException e) {
+						} catch (IllegalStateException e) {
+							e.printStackTrace();
+						} catch (IOException e) {
 							e.printStackTrace();
 						}
 						
