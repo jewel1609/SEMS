@@ -11,6 +11,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpSession;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.ModelAndView;
@@ -31,6 +32,7 @@ import com.ktds.sems.validator.member.MemberValidator;
 
 import kr.co.hucloud.utilities.web.Paging;
 
+@Transactional
 public class MemberControllerTest extends SemsTestCase {
 
 	@Autowired
