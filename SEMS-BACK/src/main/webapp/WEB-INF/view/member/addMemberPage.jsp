@@ -355,8 +355,8 @@
 		<form:errors path="phoneNumber" /><br/>
 		
 		회원권한 : 
-		<c:forEach items="${memberTypeCodeNameList}" var="memberTypeCodeName">
-			<input type="radio" class="memberType" name="memberType" value="${memberTypeCodeName}"/>${memberTypeCodeName}
+		<c:forEach items="${memberTypeList}" var="memberType">
+			<input type="radio" class="memberType" name="memberType" value="${memberType.cdId}"/>${memberType.cdNm}
 		</c:forEach>
 		
 		<br/>
@@ -378,8 +378,8 @@
 		<br/>
 		
 		졸업구분 : 
-		<c:forEach items="${graduationTypeList}" var="graduationTypeCodeName">
-			<input type="radio" class="graduationType" name="graduationType" value="${graduationTypeCodeName}"/>${graduationTypeCodeName}
+		<c:forEach items="${graduationTypeList}" var="graduationType">
+			<input type="radio" class="graduationType" name="graduationType" value="${graduationType.cdId}"/>${graduationType.cdNm}
 		</c:forEach>
 		<br/>
 			<c:if test="${isEmptyGraduationType ne null}">
@@ -388,8 +388,8 @@
 		<br/>
 		
 		최종학력 : 
-		<c:forEach items="${highestEducationLevelCodeNameList}" var="helCodeName">
-			<input type="radio" class="highestEducationLevel" name="highestEducationLevel" value="${helCodeName}"/>${helCodeName}
+		<c:forEach items="${highestEducationLevelList}" var="helCodeName">
+			<input type="radio" class="highestEducationLevel" name="highestEducationLevel" value="${helCodeName.cdId}"/>${helCodeName.cdNm}
 		</c:forEach>
 		<br/>
 			<c:if test="${isEmptyHighestEducationLevel ne null}">
