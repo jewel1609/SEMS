@@ -101,7 +101,7 @@ public interface MemberDAO {
 	
 	public int delectJunitTestMember(String id);
 
-	public int getTotalEducationHistoryCountById(String id);
+	public int getTotalEducationHistoryCountById(EducationHistorySearchVO educationHistorySearchVO);
 
 	public List<EducationHistoryVO> getAllEducationHistoryListByIdWithPaging(EducationHistorySearchVO educationHistorySearchVO);
 

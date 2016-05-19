@@ -467,15 +467,15 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public ModelAndView viewLoginHistoryPage(LoginHistorySearchVO loginHistorySearchVO, int pageNo,
 			HttpSession session, HttpServletRequest request) {
+
+		ModelAndView view = new ModelAndView();
 		
-		if ( request.getParameter("beginTime") != null ) {
-			if ( request.getParameter("beginTime") != "") {
-				loginHistorySearchVO.setBeginDate(loginHistorySearchVO.getBeginDate() + request.getParameter("beginTime"));
-				loginHistorySearchVO.setCloseDate(loginHistorySearchVO.getCloseDate() + request.getParameter("closeTime"));
+		if ( loginHistorySearchVO.getBeginTime() != null ) {
+			if ( loginHistorySearchVO.getBeginTime() != "") {
+				loginHistorySearchVO.setBeginDateTime(loginHistorySearchVO.getBeginDate() + " " +  loginHistorySearchVO.getBeginTime());
+				loginHistorySearchVO.setCloseDateTime(loginHistorySearchVO.getCloseDate() +  " " + loginHistorySearchVO.getCloseTime());
 			}
 		}
-		
-		ModelAndView view = new ModelAndView();
 		
 		int totalLoginHistoryCount = 0;
 		List<LoginHistoryVO> loginHistoryList = null;
@@ -696,31 +696,40 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public ModelAndView getAllEducationHistoryListByIdWithPaging(int pageNo, HttpSession session) {
+	public ModelAndView getAllEducationHistoryListByIdWithPaging(EducationHistorySearchVO educationHistorySearchVO, int pageNo, HttpSession session) {
+		
+		// TODO 검색 구현
+		System.out.println(educationHistorySearchVO.getSearchType());
 		
 		EducationHistoryListVO educationHistoryListVO = new EducationHistoryListVO();
 		Paging paging = new Paging();
-		educationHistoryListVO.setPaging(paging);
-
+		MemberVO memberVO = (MemberVO) session.getAttribute(Session.MEMBER);
+		
 		paging.setPageNumber(pageNo + "");
 		
-		MemberVO memberVO = (MemberVO) session.getAttribute(Session.MEMBER);
-		int totalEducationHistoryCountById = memberBiz.getTotalEducationHistoryCountById(memberVO.getId());
-		paging.setTotalArticleCount(totalEducationHistoryCountById);
-
-		EducationHistorySearchVO educationHistorySearchVO = new EducationHistorySearchVO();
+		educationHistoryListVO.setPaging(paging);
+		
 		educationHistorySearchVO.setPageNo(pageNo);
 		educationHistorySearchVO.setStartIndex(paging.getStartArticleNumber());
 		educationHistorySearchVO.setEndIndex(paging.getEndArticleNumber());
 		educationHistorySearchVO.setMemberId(memberVO.getId());
+
 		
+		int totalEducationHistoryCountById = memberBiz.getTotalEducationHistoryCountById(educationHistorySearchVO);
+		System.out.println(totalEducationHistoryCountById);
+		paging.setTotalArticleCount(totalEducationHistoryCountById);
+
+		// TODO 상태 값 가져오기
 		List<EducationHistoryVO> educationHistoryList = memberBiz.getAllEducationHistoryListByIdWithPaging(educationHistorySearchVO);
 		List<EducationHistoryVO> joinEducationList = memberBiz.getJoinEducationList(educationHistorySearchVO.getMemberId());
 		educationHistoryListVO.setEducationHistoryList(educationHistoryList);
 
 		ModelAndView view = new ModelAndView();
 		view.setViewName("education/educationHistory");
+		/*view.addObject("eduCostList", eduCostList);
+		view.addObject("applyStateList", applyStateList);*/
 		view.addObject("educationHistoryListVO", educationHistoryListVO);
+		view.addObject("educationHistorySearchVO", educationHistorySearchVO);
 		view.addObject("joinEducationList", joinEducationList);
 		
 		return view;

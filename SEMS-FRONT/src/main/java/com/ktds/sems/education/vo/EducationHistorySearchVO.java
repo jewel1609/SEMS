@@ -6,6 +6,23 @@ public class EducationHistorySearchVO {
 	private int startIndex;
 	private int endIndex;
 	private String memberId;
+	
+	private String searchType;
+	private String searchEduName;
+	private String searchCost;
+	private String searchApplyState;
+	private String startDate;
+	private String endDate;
+	
+	
+
+	public String getSearchType() {
+		return searchType;
+	}
+
+	public void setSearchType(String searchType) {
+		this.searchType = searchType;
+	}
 
 	public int getPageNo() {
 		return pageNo;
@@ -38,5 +55,46 @@ public class EducationHistorySearchVO {
 	public void setMemberId(String memberId) {
 		this.memberId = memberId;
 	}
+
+	public String getSearchEduName() {
+		return searchEduName;
+	}
+
+	public void setSearchEduName(String searchEduName) {
+		this.searchEduName = searchEduName;
+	}
+
+	public String getSearchCost() {
+		return searchCost;
+	}
+
+	public void setSearchCost(String searchCost) {
+		this.searchCost = searchCost;
+	}
+
+	public String getSearchApplyState() {
+		return searchApplyState;
+	}
+
+	public void setSearchApplyState(String searchApplyState) {
+		this.searchApplyState = searchApplyState;
+	}
+
+	public String getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+
+	public String getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
+	
 
 }

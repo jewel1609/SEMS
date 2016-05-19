@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.member.vo.LoginHistorySearchVO;
 import com.ktds.sems.member.vo.MemberVO;
 
@@ -68,7 +69,7 @@ public interface MemberService {
 
 	public String registerTeacher(HttpSession session);
 
-	public ModelAndView getAllEducationHistoryListByIdWithPaging(int pageNo, HttpSession session);
+	public ModelAndView getAllEducationHistoryListByIdWithPaging(EducationHistorySearchVO educationHistorySearchVO, int pageNo, HttpSession session);
 
 	public String registerPolicy(HttpSession session);
 

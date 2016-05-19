@@ -7,10 +7,47 @@ public class LoginHistorySearchVO extends LoginHistoryVO{
 	private int pageNo;
 	private int startIndex;
 	private int endIndex;
-	@NotEmpty(message="설정을 다시해주세요.")
+
 	private String beginDate;
-	@NotEmpty(message="설정을 다시해주세요.")
 	private String closeDate;
+	
+	private String beginTime;
+	private String closeTime;
+	
+	private String beginDateTime;
+	private String closeDateTime;
+	
+	public String getBeginDateTime() {
+		return beginDateTime;
+	}
+
+	public void setBeginDateTime(String beginDateTime) {
+		this.beginDateTime = beginDateTime;
+	}
+
+	public String getCloseDateTime() {
+		return closeDateTime;
+	}
+
+	public void setCloseDateTime(String closeDateTime) {
+		this.closeDateTime = closeDateTime;
+	}
+
+	public String getBeginTime() {
+		return beginTime;
+	}
+
+	public void setBeginTime(String beginTime) {
+		this.beginTime = beginTime;
+	}
+
+	public String getCloseTime() {
+		return closeTime;
+	}
+
+	public void setCloseTime(String closeTime) {
+		this.closeTime = closeTime;
+	}
 
 	public int getPageNo() {
 		return pageNo;

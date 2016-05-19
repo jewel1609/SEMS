@@ -535,8 +535,8 @@ public class MemberBizImpl implements MemberBiz {
 	}
 
 	@Override
-	public int getTotalEducationHistoryCountById(String id) {
-		return memberDAO.getTotalEducationHistoryCountById(id);
+	public int getTotalEducationHistoryCountById(EducationHistorySearchVO educationHistorySearchVO) {
+		return memberDAO.getTotalEducationHistoryCountById(educationHistorySearchVO);
 	}
 
 	@Override

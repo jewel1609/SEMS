@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.member.service.MemberService;
 import com.ktds.sems.member.vo.LoginHistorySearchVO;
 import com.ktds.sems.member.vo.MemberVO;
@@ -263,8 +264,8 @@ public class MemberController {
 	 *	나의 교육 이력 보기 
 	 */
 	@RequestMapping("/member/myPage/educationHistory")
-	public ModelAndView viewEducationHistroyPage(@RequestParam(required = false, defaultValue = "0") int pageNo, HttpSession session) {
-		return memberService.getAllEducationHistoryListByIdWithPaging(pageNo, session);
+	public ModelAndView viewEducationHistroyPage(EducationHistorySearchVO educationHistorySearchVO, @RequestParam(required = false, defaultValue = "0") int pageNo, HttpSession session) {
+		return memberService.getAllEducationHistoryListByIdWithPaging(educationHistorySearchVO, pageNo, session);
 	}
 	
 	@RequestMapping(value=("/member/doCheckIp/{lgiHtrId}"), method=RequestMethod.GET)
