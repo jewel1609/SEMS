@@ -7,7 +7,9 @@ import static org.junit.Assert.fail;
 
 import java.util.List;
 
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ktds.sems.SemsTestCase;
@@ -16,6 +18,7 @@ import com.ktds.sems.member.vo.GrdtTpVO;
 import com.ktds.sems.member.vo.MbrTpVO;
 import com.ktds.sems.member.vo.MemberVO;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MemberDAOTest extends SemsTestCase {
 
 	@Autowired
@@ -242,10 +245,10 @@ public class MemberDAOTest extends SemsTestCase {
 	}
 
 	@Test
-	public void doCodeMngInsertTest() {
+	public void doCodeMng_A_InsertTest() {
 
 		CodeMngVO codeMngVO = new CodeMngVO();
-		codeMngVO.setCdId("TE_ST4");
+		codeMngVO.setCdId("TEST4");
 		codeMngVO.setCdNm("테스트");
 		codeMngVO.setCdTp("TE");
 		codeMngVO.setCdTp2("ST4");
@@ -255,10 +258,10 @@ public class MemberDAOTest extends SemsTestCase {
 	}
 	
 	@Test
-	public void doCodeMngModifyTest() {
+	public void doCodeMng_B_ModifyTest() {
 
 		CodeMngVO codeMngVO = new CodeMngVO();
-		codeMngVO.setCdId("TE_ST4");
+		codeMngVO.setCdId("TEST4");
 		codeMngVO.setCdNm("테스트");
 		codeMngVO.setCdTp("TE");
 		codeMngVO.setCdTp2("ST4");
@@ -268,8 +271,8 @@ public class MemberDAOTest extends SemsTestCase {
 	}
 	
 	@Test
-	public void doCodeMngDeleteTest() {
-		String cdId = "TE_ST4";
+	public void doCodeMng_C_DeleteTest() {
+		String cdId = "TEST4";
 		
 		int testInt = memberDAO.doCodeMngDelete(cdId);
 		assertTrue(testInt > 0);

@@ -7,7 +7,9 @@ import static org.junit.Assert.fail;
 
 import java.util.List;
 
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.web.servlet.ModelAndView;
@@ -16,6 +18,7 @@ import com.ktds.sems.SemsTestCase;
 import com.ktds.sems.member.vo.CodeMngVO;
 import com.ktds.sems.member.vo.MemberVO;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MemberControllerTest extends SemsTestCase {
 
 	@Autowired
@@ -87,9 +90,9 @@ public class MemberControllerTest extends SemsTestCase {
 	
 	/* Code doCodeMngInsert */
 	@Test
-	public void doCodeMngInsert() {
+	public void doCodeMng_A_Insert() {
 		CodeMngVO codeMngVO = new CodeMngVO();
-		codeMngVO.setCdId("TE_ST");
+		codeMngVO.setCdId("TEST");
 		codeMngVO.setCdNm("테스트");
 		codeMngVO.setCdTp("TE");
 		codeMngVO.setCdTp2("ST");
@@ -101,8 +104,8 @@ public class MemberControllerTest extends SemsTestCase {
 
 	/* Code doCodeMngDelete */
 	@Test
-	public void doCodeMngDeleteTest() {
-		String cdId = "TE_ST";
+	public void doCodeMng_B_DeleteTest() {
+		String cdId = "TEST";
 		String viewName = memberController.doCodeMngDelete(cdId);
 		
 		assertNotNull(viewName);

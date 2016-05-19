@@ -6,7 +6,9 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpSession;
@@ -20,6 +22,7 @@ import com.ktds.sems.member.vo.GrdtTpVO;
 import com.ktds.sems.member.vo.MbrTpVO;
 import com.ktds.sems.member.vo.MemberVO;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MemberServiceTest extends SemsTestCase {
 
 	@Autowired
@@ -147,9 +150,9 @@ public class MemberServiceTest extends SemsTestCase {
 	 * doCodeMngInsert
 	 */
 	@Test
-	public void doCodeMngInsert() {
+	public void doCodeMng_A_Insert() {
 		CodeMngVO codeMngVO = new CodeMngVO();
-		codeMngVO.setCdId("TE_ST2");
+		codeMngVO.setCdId("TEST2");
 		codeMngVO.setCdNm("테스트2");
 		codeMngVO.setCdTp("TE2");
 		codeMngVO.setCdTp2("ST2");
@@ -163,9 +166,9 @@ public class MemberServiceTest extends SemsTestCase {
 	 * doCodeMngModify
 	 */
 	@Test
-	public void doCodeMngModify() {
+	public void doCodeMng_B_Modify() {
 		CodeMngVO codeMngVO = new CodeMngVO();
-		codeMngVO.setCdId("TE_ST2");
+		codeMngVO.setCdId("TEST2");
 		codeMngVO.setCdNm("테스트2");
 		codeMngVO.setCdTp2("ST2");
 		
@@ -178,8 +181,8 @@ public class MemberServiceTest extends SemsTestCase {
 	 *  doCodeMngDelete
 	 */
 	@Test
-	public void doCodeMngDelete() {
-		String cdId = "TE_ST2";
+	public void doCodeMng_C_Delete() {
+		String cdId = "TEST2";
 		String testStr = memberService.doCodeMngDelete(cdId);
 		
 		assertNotNull(testStr);
