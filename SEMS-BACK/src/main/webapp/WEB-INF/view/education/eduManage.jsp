@@ -49,16 +49,25 @@
 		$(".joinaply").click(function(){
 			 $("#historyId").val($(this).data('id'));
 			 $("#memberId").val($(this).data('whatever'));
-		    /*  $('#JoinAplyModal').modal('show'); */
 	   });
 		
 		$(".cnclaply").click(function(){
 			 $("#historyId2").val($(this).data('id'));
 			 $("#memberId2").val($(this).data('whatever'));
-		    /*  $('#JoinAplyModal').modal('show'); */
 	   });
    });
 </script>
+<style>
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  th, td {
+    border-top: 1px solid #bcbcbc;
+    border-bottom: 1px solid #bcbcbc;
+    padding: 5px 10px;
+  }
+</style>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
@@ -172,7 +181,7 @@
 
       </c:forEach>
       	<tr>
-			<td colspan="5" align="center">
+			<td colspan="8" align="center">
 				<form name="searchForm" id="searchForm">
 					<div style = "text-align:center;">
 						<c:if test="${ eduHistoryListVO ne null }">
@@ -231,7 +240,7 @@
 				<div class="modal-body">거절 사유와 함께 상태를 변경하겠습니다.<br/>
 				<input type="hidden" id="historyId2" name="historyId2" value="" />
 				<input type="hidden" id="memberId2" name="memberId2" value="" />
-				<textarea id="description" rows="7" cols="70"></textarea>
+				<textarea id="description" rows="7" cols="35"></textarea>
 				</div>
 				<div class="modal-footer">
 					
