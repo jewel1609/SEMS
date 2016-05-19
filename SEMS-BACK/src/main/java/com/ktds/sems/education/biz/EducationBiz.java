@@ -39,4 +39,6 @@ public interface EducationBiz {
 
 	public void sendEmailRejection(String educationHistoryId, String memberId, String description, String email, String name);
 
+	public int changeEducationApplyState(String educationHistoryId);
+
 }
