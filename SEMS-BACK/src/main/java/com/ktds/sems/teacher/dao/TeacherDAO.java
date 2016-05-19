@@ -39,7 +39,6 @@ public interface TeacherDAO {
 
 	public int doDeleteTeacherBook(String memberId);
 
-
 	public TeacherVO getOneTeacherInfo(String memberId);
 
 	public List<TeacherBookVO> getOneTeacherBookInfo(String memberId);
@@ -58,4 +57,5 @@ public interface TeacherDAO {
 
 	public int deleteTeacherBookEduProHistory(HashMap<String, Object> map);
 
+	public String getOneTeacherId();
 }
