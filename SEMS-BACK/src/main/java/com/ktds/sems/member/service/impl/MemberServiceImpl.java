@@ -137,7 +137,7 @@ public class MemberServiceImpl implements MemberService{
 		
 		loginHistoryListVO.setPaging(paging);
 		int totalHistoryCount = memberBiz.getTotalAdminHistoryCount(loginHistorySearchVO);
-		logger.info("totalHistoryCount"+totalHistoryCount);
+		//logger.info("totalHistoryCount"+totalHistoryCount);
 		paging.setPageNumber(pageNo + "");
 		paging.setTotalArticleCount(totalHistoryCount);
 		
@@ -504,6 +504,10 @@ public class MemberServiceImpl implements MemberService{
 				modifyMemberType.put("memberId", memberId);
 				memberBiz.modifyMemberTypeById (modifyMemberType);
 			}
+			view.addObject("isModifySuccess", "OK");
+		}
+		else {
+			view.addObject("isModifySuccess", "NO");
 		}
 		view.setViewName("redirect:/memberManage/memberList");
 		
