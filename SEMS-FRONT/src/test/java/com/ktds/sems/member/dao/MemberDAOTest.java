@@ -182,7 +182,7 @@ public class MemberDAOTest extends SemsTestCase {
 	 */
 	@Test
 	public void selectedGraduationTypeCodeNameTest() {
-		String id = "aaa";
+		String id = "aaa12";
 		String checkStr = memberDAO.selectedGraduationTypeCodeName(id);
 		assertNotNull(checkStr);
 	}
@@ -204,7 +204,7 @@ public class MemberDAOTest extends SemsTestCase {
 	 */
 	@Test
 	public void getSelectedHighestEducationLevelCodeNameTest() {
-		String id = "aaa";
+		String id = "aaa12";
 		String checkStr = memberDAO.getSelectedHighestEducationLevelCodeName(id);
 		assertNotNull(checkStr);
 	}
@@ -214,7 +214,7 @@ public class MemberDAOTest extends SemsTestCase {
 	 */
 	@Test
 	public void getGraduationTypeCodeIdTest() {
-		String graduationType = "졸업";
+		String graduationType = "휴학";
 		String checkStr = memberDAO.getGraduationTypeCodeId(graduationType);
 		assertNotNull(checkStr);
 	}
@@ -234,7 +234,7 @@ public class MemberDAOTest extends SemsTestCase {
 	 */
 	@Test
 	public void memberTypeCodeNameTest() {
-		String id = "aaa";
+		String id = "aaa12";
 		String checkStr = memberDAO.memberTypeCodeName(id);
 		assertNotNull(checkStr);
 	}

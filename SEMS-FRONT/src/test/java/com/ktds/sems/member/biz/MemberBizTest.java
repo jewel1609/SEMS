@@ -133,7 +133,7 @@ public class MemberBizTest extends SemsTestCase {
 	
 	@Test
 	public void memberTypeCodeName(){
-		String id = "aaa";
+		String id = "aaa12";
 		String result = memberBiz.memberTypeCodeName(id);
 		if ( result != null ) {
 			assertNotNull(result);
@@ -145,7 +145,7 @@ public class MemberBizTest extends SemsTestCase {
 	
 	@Test
 	public void getGraduationTypeCodeIdTest(){
-		String graduationType = "JUNIT졸업";
+		String graduationType = "휴학";
 		String result = memberBiz.getGraduationTypeCodeId(graduationType);
 		if ( result != null ) {
 			assertNotNull(result);
@@ -157,7 +157,7 @@ public class MemberBizTest extends SemsTestCase {
 	
 	@Test
 	public void gethelCodeIdTest(){
-		String helCodeName = "초졸";
+		String helCodeName = "대졸";
 		String result = memberBiz.gethelCodeId(helCodeName);
 		if ( result != null ) {
 			assertNotNull(result);
@@ -169,7 +169,7 @@ public class MemberBizTest extends SemsTestCase {
 	
 	@Test
 	public void getSelectedHighestEducationLevelCodeNameTest(){
-		String id = "aaa";
+		String id = "aaa12";
 		String result = memberBiz.getSelectedHighestEducationLevelCodeName(id);
 		if ( result != null ) {
 			assertNotNull(result);
@@ -200,7 +200,7 @@ public class MemberBizTest extends SemsTestCase {
 	
 	@Test
 	public void selectedGraduationTypeCodeNameTest(){
-		String id = "aaa";
+		String id = "aaa12";
 		String result = memberBiz.selectedGraduationTypeCodeName(id);
 		if ( result != null ) {
 			assertNotNull(result);
@@ -212,7 +212,7 @@ public class MemberBizTest extends SemsTestCase {
 	
 	@Test
 	public void getSaltByIdTest(){
-		String id = "aaa";
+		String id = "aaa12";
 		String result = memberBiz.getSaltById(id);
 		if ( result != null ) {
 			assertNotNull(result);
@@ -224,7 +224,7 @@ public class MemberBizTest extends SemsTestCase {
 	
 	@Test
 	public void getPasswordByIdTest(){
-		String id = "aaa";
+		String id = "aaa12";
 		String result = memberBiz.getPasswordById(id);
 		if ( result != null ) {
 			assertNotNull(result);
