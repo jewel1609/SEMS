@@ -116,9 +116,8 @@ public class MemberServiceTest extends SemsTestCase {
 		ModelAndView view = memberService.addNewMember(member, errors, session);
 		
 		if ( view != null ) {
-			String viewName = view.getViewName();
 			assertNotNull(view);
-			assertEquals(viewName, "member/registerStudent");
+			memberService.memberDeleteById("jewel1324");
 		}
 		else {
 			fail("view is null");
