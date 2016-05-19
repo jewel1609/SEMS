@@ -727,4 +727,26 @@ public class MemberBizImpl implements MemberBiz {
 	public List<EducationCostVO> getCostList() {
 		return memberDAO.getCostList();
 	}
+
+	@Override
+	public EducationHistoryVO getOneEducationByIdAndEducationId(String educationId, String id) {
+		return memberDAO.getOneEducationByIdAndEducationId(educationId, id);
+	}
+
+	@Override
+	public boolean dropCourseApply(EducationHistoryVO educationHistory) {
+		return memberDAO.dropCourseApply(educationHistory) > 0;
+	}
+
+	@Override
+	public List<EducationHistoryVO> getCourseList(EducationHistorySearchVO educationHistorySearchVO) {
+		return memberDAO.getCourseList(educationHistorySearchVO);
+	}
+
+	@Override
+	public int getCourseCountById(String id) {
+		return memberDAO.getCourseCountById(id);
+	}
+
+
 }
