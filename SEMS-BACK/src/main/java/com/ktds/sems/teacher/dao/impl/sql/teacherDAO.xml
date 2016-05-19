@@ -359,7 +359,7 @@
 			SELECT  MBR_ID
 			FROM    TCHR_INFO
 			WHERE  MBR_ID != #{ memberId }
-			AND     ROWNUM = 1;
+			AND     ROWNUM = 1
 	</select>
 
 </mapper>
