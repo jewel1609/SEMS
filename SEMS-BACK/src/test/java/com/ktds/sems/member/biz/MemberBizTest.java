@@ -159,11 +159,11 @@ public class MemberBizTest extends SemsTestCase {
 	
 	@Test
 	public void getHelCodeIdTest() {
-		String highestEducationLevel = "대졸";
+		String highestEducationLevel = "TEST";
 		String helCodeId = memberBiz.getHelCodeId(highestEducationLevel);
 
 		assertNotNull(helCodeId);
-		assertTrue(helCodeId.equals("UNIV"));
+		assertTrue(helCodeId.equals("TEST"));
 	}
 	
 	@Test
