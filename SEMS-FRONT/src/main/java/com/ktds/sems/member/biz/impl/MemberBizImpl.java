@@ -215,7 +215,7 @@ public class MemberBizImpl implements MemberBiz {
 	
 	@Override
 	public boolean checkValidationByMajorName(String majorName) {
-		String universityNamePolicy = "(^[가-힣]*$)";
+		String universityNamePolicy = "(^[가-힣a-zA-Z]*$)";
 		Pattern pattern = Pattern.compile(universityNamePolicy);
 		Matcher matcher = pattern.matcher(majorName);
 		return matcher.matches();
