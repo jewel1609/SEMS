@@ -51,7 +51,7 @@ public class EducationServiceTest extends SemsTestCase {
 	}
 	
 	@Test
-	public void insertEduCostTestError2() {
+	public void ainsertEduCostTestError2() {
 		CostVO cost = new CostVO();
 		cost.setCdId("TEST");
 		
@@ -61,7 +61,7 @@ public class EducationServiceTest extends SemsTestCase {
 	}
 	
 	@Test
-	public void insertEduCostTestError3() {
+	public void ainsertEduCostTestError3() {
 		CostVO cost = new CostVO();
 		cost.setCdNm("TEST");
 		
@@ -71,7 +71,7 @@ public class EducationServiceTest extends SemsTestCase {
 	}
 	
 
-	public void insertEduCostTestError4() {
+	public void ainsertEduCostTestError4() {
 		CostVO cost = new CostVO();
 		cost.setCdId("TEST1");
 		cost.setCdNm("TEST1");
@@ -82,7 +82,7 @@ public class EducationServiceTest extends SemsTestCase {
 	}
 	
 
-	public void insertEduCostTestError5() {
+	public void ainsertEduCostTestError5() {
 		CostVO cost = new CostVO();
 		cost.setCdId("TEST1");
 		cost.setCdNm("TEST1");
@@ -93,7 +93,7 @@ public class EducationServiceTest extends SemsTestCase {
 	}
 	
 	@Test
-	public void insertEduCostTestError6() {
+	public void ainsertEduCostTestError6() {
 		CostVO cost = new CostVO();
 		cost.setCdId("CSTC");
 		cost.setCdNm("유료");
@@ -104,7 +104,7 @@ public class EducationServiceTest extends SemsTestCase {
 	}
 	
 	@Test
-	public void insertEduCostTestError7() {
+	public void ainsertEduCostTestError7() {
 		CostVO cost = new CostVO();
 		cost.setCdId("CSTC");
 		cost.setCdNm("유");
@@ -115,7 +115,7 @@ public class EducationServiceTest extends SemsTestCase {
 	}
 	
 	@Test
-	public void insertEduCostTestError8() {
+	public void ainsertEduCostTestError8() {
 		CostVO cost = new CostVO();
 		cost.setCdId("CSTA");
 		cost.setCdNm("유료");
@@ -269,18 +269,7 @@ public class EducationServiceTest extends SemsTestCase {
 		assertNotNull(insertEduTime);
 		assertEquals(insertEduTime, "FAIL_V");
 	}
-	
-	@Test
-	public void insertEduTimeTestError8() {
-		TimeVO time = new TimeVO();
-		time.setCdId("TIMA");
-		time.setCdNm("오전");
 		
-		String insertEduTime = educationService.insertEduTime(time);
-		assertNotNull(insertEduTime);
-		assertEquals(insertEduTime, "FAIL_V");
-	}
-	
 	@Test
 	public void modifyEduTimeTestError5() {
 		TimeVO time = new TimeVO();
