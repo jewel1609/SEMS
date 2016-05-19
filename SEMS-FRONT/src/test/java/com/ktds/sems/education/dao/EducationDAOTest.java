@@ -343,6 +343,32 @@ public class EducationDAOTest extends SemsTestCase{
 			fail("fail");
 		}
 	}
+	
+	@Test
+	public void exportQNAListAsExcelTest() {
+		//List<QNAVO> return type
+		String memberId = "test02";
+		
+		List<QNAVO> qnaList = educationDAO.exportQNAListAsExcel(memberId);
+		
+		if(qnaList != null) {
+			
+			for (QNAVO qnaVO : qnaList) {
+				assertNotNull(qnaVO.getReplyId());
+				assertNotNull(qnaVO.getEduId());
+				assertNotNull(qnaVO.getParentReplyId());
+				assertNotNull(qnaVO.getOrderNo());
+				assertNotNull(qnaVO.getDescription());
+				assertNotNull(qnaVO.getMbrId());
+				assertNotNull(qnaVO.getLikeCnt());
+				assertNotNull(qnaVO.getDislikeCnt());
+				assertNotNull(qnaVO.getCreatedDate());
+			}
+			
+		} else {
+			fail("fail");
+		}
+	}
 }
 
 
