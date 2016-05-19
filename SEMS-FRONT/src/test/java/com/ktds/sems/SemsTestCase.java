@@ -1,7 +1,9 @@
 package com.ktds.sems;
 
+import static org.junit.Assert.assertTrue;
+
+import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -11,7 +13,12 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 		, "file:src/main/webapp/WEB-INF/spring/educationContext.xml"
 		, "file:src/main/webapp/WEB-INF/spring/memberContext.xml"
 		, "/rootContext.xml"})
-@PropertySource("file:src/main/webapp/WEB-INF/spring/db.properties")
+//@PropertySource("file:src/main/webapp/WEB-INF/spring/db.properties")
 public class SemsTestCase {
 
+	@Test
+	public void semsTestCaseTest() {
+		assertTrue(1==1);
+	}
+	
 }
