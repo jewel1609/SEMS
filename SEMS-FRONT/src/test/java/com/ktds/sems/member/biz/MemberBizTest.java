@@ -51,6 +51,10 @@ public class MemberBizTest extends SemsTestCase {
 	public void loginTest() {
 
 		MockHttpSession session = new MockHttpSession();
+		LoginHistoryVO historyVO = new LoginHistoryVO();
+		historyVO.setId("213231213");
+		session.setAttribute("_LOGIN_HISTORY_", historyVO);
+		
 		MockHttpServletRequest reqeust = new MockHttpServletRequest();
 
 		MemberVO memberVO = new MemberVO();
