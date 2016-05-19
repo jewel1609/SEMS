@@ -5,7 +5,30 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css">
+.inputButton {
+	border: none;
+	border-radius: 5px;
+	padding: 6px 12px;
+	font-weight: bold;
+	text-transform: uppercase;
+	color: #FFFFFF;
+	background-color: #E05149;
+}
+</style>
 <title>강사 상세정보</title>
+<script type="text/javascript" src="<c:url value='/resources/js/jquery.min.js' />"></script>
+<script type="text/javascript">
+
+	$(document).ready(function(){
+		
+		$("#deleteBtn").click(function(){
+			if (confirm("정말로 삭제하시겠습니까?")) {
+				location.href = "<c:url value='/teacherDelete/${ teacherInfo.memberId}'/>";
+			}
+		});
+	});
+</script>
 </head>
 <body>
 
@@ -56,5 +79,6 @@
 		<span>${ book.bookCompany }</span><br/>
 	</c:forEach>
 
+	<input type="button" id="deleteBtn" class="inputButton" value="삭제" />
 </body>
 </html>

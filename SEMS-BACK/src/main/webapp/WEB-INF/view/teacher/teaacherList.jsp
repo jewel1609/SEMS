@@ -36,12 +36,33 @@
 			$(".deleteTeacherId").prop("checked", isChecked);
 		});
 		
-		$("#massiveDeleteBtn").click(function(){
+		$("#massiveDeleteBtn").click(function() {
+			var isChecked = false;
+			$(".deleteTeacherId").each(function (index, data) {
+				if(data.checked){
+					isChecked = data.checked;
+				}
+			});
+			
+			if(!isChecked) {
+				alert("삭제할 대상을 선택하세요.")
+				return;
+			}
+			
+			if (confirm("정말 삭제하시겠습니까?")) {
+				var form = $("#teacherListForm");
+				form.attr("method", "post");
+				form.attr("action", "<c:url value="/massiveDeleteTeacher" />");
+				form.submit();
+			}
+		});
+		
+/* 		$("#massiveDeleteBtn").click(function(){
 			if (confirm("정말로 삭제하시겠습니까?")) {
 				location.href = "<c:url value='/massiveDeleteTeacher'/>";
 			}
 		});
-
+ */
 		$("#initSearch").click(function() {
 			location.href = "<c:url value='/teacher/teaacherList'/>";
 		});
@@ -113,16 +134,14 @@
 						<input type="button"  value="검색 초기화" id="initSearch" class="inputButton"  name="initSearch" />
 							
 					</div>
+		<div>
+			<input id="massiveDeleteBtn" class="inputButton" type="button"
+				value="일괄삭제" style="cursor: pointer;" />
+		</div>
 				</form>
 			</td>
 		</tr>
 	</table>
 
-	<form name="searchForm" id="searchForm">
-		<div>
-			<input id="massiveDeleteBtn" class="inputButton" type="button"
-				value="일괄삭제" style="cursor: pointer;" />
-		</div>
-	</form>
 </body>
 </html>
