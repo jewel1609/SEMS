@@ -144,21 +144,21 @@ public class EducationDAOTest extends SemsTestCase{
 	@Test
 	public void validCategoryIdTest(){
 		CategoryVO categoryVO = new CategoryVO();
-		categoryVO.setCategoryId("pppTESTppp");
+		categoryVO.setCategoryId("ZCS");
 		categoryVO.setCategoryType("medium");
 		
 		int result = educationDAO.validCategoryId(categoryVO);
-		assertTrue(result == 0);
+		assertTrue(result == 1);
 	}
 	
 	@Test
 	public void validCategoryNameTest(){
 		CategoryVO categoryVO = new CategoryVO();
-		categoryVO.setCategoryName("pppTESTppp");
+		categoryVO.setCategoryName("데이터베이스");
 		categoryVO.setCategoryType("medium");
 		
 		int result = educationDAO.validCategoryName(categoryVO);
-		assertTrue(result == 0);
+		assertTrue(result == 1);
 	}
 	
 	@Test
@@ -192,7 +192,7 @@ public class EducationDAOTest extends SemsTestCase{
 	public void getChildCategoryTest(){
 		CategoryVO categoryVO = new CategoryVO();
 		categoryVO.setCategoryType("large");
-		categoryVO.setCategoryId("PAID");
+		categoryVO.setCategoryId("ZCS");
 		List<CategoryVO> childCategories = educationDAO.getChildCategory(categoryVO);
 		assertNotNull(childCategories);
 	}
@@ -201,8 +201,8 @@ public class EducationDAOTest extends SemsTestCase{
 	public void modifyCategoryTest(){
 		CategoryVO categoryVO = new CategoryVO();
 		categoryVO.setCategoryType("medium");
-		categoryVO.setCategoryId("TSMO");
-		categoryVO.setCategoryName("Test modify");
+		categoryVO.setCategoryId("ZCS");
+		categoryVO.setCategoryName("데이터베이스");
 		int result = educationDAO.modifyCategory(categoryVO);
 		assertTrue(result == 1);
 	}
