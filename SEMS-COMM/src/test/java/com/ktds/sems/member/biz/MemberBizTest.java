@@ -159,8 +159,8 @@ public class MemberBizTest extends SemsTestCase {
 	@Test
 	public void isExistDataTest(){
 		GrdtTpVO grdtTpVO = new GrdtTpVO();
-		grdtTpVO.setCdId("TES");
-		grdtTpVO.setCdNm("TES");
+		grdtTpVO.setCdId("ABST");
+		grdtTpVO.setCdNm("휴학");
 		
 		int checkExistData = memberBiz.isExistData(grdtTpVO);
 		assertTrue(checkExistData > 0);
@@ -169,7 +169,7 @@ public class MemberBizTest extends SemsTestCase {
 	@Test
 	public void isExistCdNmDataTest(){
 		GrdtTpVO grdtTpVO = new GrdtTpVO();
-		grdtTpVO.setCdNm("TES");
+		grdtTpVO.setCdNm("휴학");
 		
 		int checkExistCdNmData = memberBiz.isExistCdNmData(grdtTpVO);
 		assertTrue(checkExistCdNmData > 0);
