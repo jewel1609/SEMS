@@ -83,6 +83,24 @@ public class MemberServiceTest extends SemsTestCase {
 		assertNotNull(checkStr);
 	}
 	
+	/**
+	 * 로그인 아이디 틀리는 경우
+	 */
+	@Test
+	public void noMemberloginTest() {
+
+		MemberVO memberVO = new MemberVO();
+		memberVO.setId("NoMember");
+		memberVO.setPassword("123qwe!@#qwe");
+
+		BindingResult errors = new BeanPropertyBindingResult(memberVO, "loginForm");
+		MockHttpServletRequest request = new MockHttpServletRequest();
+		MockHttpSession session = new MockHttpSession();
+
+		String checkStr = memberService.login(memberVO, errors, session, request);
+		assertNotNull(checkStr);
+	}
+	
 	@Test
 	public void viewGrdtPageTest(){
 		ModelAndView view = memberService.viewGrdtPage();
