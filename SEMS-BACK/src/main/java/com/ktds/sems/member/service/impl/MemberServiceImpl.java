@@ -135,12 +135,14 @@ public class MemberServiceImpl implements MemberService{
 	
 	@Override
 	public ModelAndView getAllAdminHistory(LoginHistorySearchVO loginHistorySearchVO, int pageNo) {
+		
 		LoginHistoryListVO loginHistoryListVO = new LoginHistoryListVO();
 		Paging paging = new Paging(20, 20);
 		
 		loginHistoryListVO.setPaging(paging);
 		int totalHistoryCount = memberBiz.getTotalAdminHistoryCount(loginHistorySearchVO);
 		//logger.info("totalHistoryCount"+totalHistoryCount);
+		//System.out.println("카운트" + totalHistoryCount);
 		paging.setPageNumber(pageNo + "");
 		paging.setTotalArticleCount(totalHistoryCount);
 		

@@ -125,10 +125,15 @@
 													FROM	MBR
 													WHERE	MBR_TP = 'ADM'
 												)
-						<if test="startDate != null">
-						<if test="startDate != ''">
+						<if test="search != null and search != ''">
+						<if test="search == 'id'">
+							AND		LGI_HTR.MBR_ID LIKE '%'||#{searchKeyword}||'%'
+						</if>
+						</if>
+						<if test="search != null and search != ''">
+						<if test="search == 'date'">
 							AND		LGI_DT <![CDATA[>=]]> TO_DATE(#{startDate}, 'YYYY-MM-DD')
-							AND		LGI_DT <![CDATA[<=]]> TO_DATE(#{endDate}, 'YYYY-MM-DD')
+							AND		LGI_DT <![CDATA[<=]]> ( TO_DATE(#{endDate}, 'YYYY-MM-DD') + 1 )
 						</if>
 						</if>
 							ORDER BY	LGI_HTR_ID DESC
@@ -151,10 +156,15 @@
 								FROM	MBR
 								WHERE	MBR_TP ='ADM'
 							)
-	<if test="startDate != null">
-	<if test="startDate != ''">
+	<if test="search != null and search != ''">
+	<if test="search == 'id'">
+		AND		LGI_HTR.MBR_ID LIKE '%'||#{searchKeyword}||'%'
+	</if>
+	</if>
+	<if test="search != null and search != ''">
+	<if test="search == 'date'">
 		AND		LGI_DT <![CDATA[>=]]> TO_DATE(#{startDate}, 'YYYY-MM-DD')
-		AND		LGI_DT <![CDATA[<=]]> TO_DATE(#{endDate}, 'YYYY-MM-DD')
+		AND		LGI_DT <![CDATA[<=]]> ( TO_DATE(#{endDate}, 'YYYY-MM-DD') + 1 )
 	</if>
 	</if>
 		ORDER BY	LGI_HTR_ID	DESC

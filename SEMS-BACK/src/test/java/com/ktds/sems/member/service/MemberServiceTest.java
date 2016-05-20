@@ -58,7 +58,6 @@ public class MemberServiceTest extends SemsTestCase {
 		else{
 			fail("Fail...");
 		}
-		
 	}
 
 	@Test	
