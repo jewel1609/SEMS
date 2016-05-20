@@ -76,6 +76,10 @@
 					</formats>
 					<instrumentation>
 						<exclude>**/vo/*VO.class</exclude>
+						<exclude>**/handler/*.class</exclude>
+						<exclude>**/interceptor/*.class</exclude>
+						<exclude>**/web/*.class</exclude>
+						<exclude>**/common/*.class</exclude>
 					</instrumentation>
 				</configuration>
 			</plugin>
