@@ -30,8 +30,6 @@ import com.ktds.sems.education.vo.EducationHistoryListVO;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationHistoryVO;
 import com.ktds.sems.education.vo.EducationVO;
-import com.ktds.sems.member.vo.LoginHistoryVO;
-import com.ktds.sems.member.vo.MemberVO;
 
 import kr.co.hucloud.utilities.web.Paging;
 
@@ -866,7 +864,7 @@ public class EducationServiceTest extends SemsTestCase {
 	/*
 	 * D:\\핸드폰.xlsx 해당 파일이 있어야 insert 가능합니다.
 	 * 
-	 * 
+	 */
 	@Test
 	public void writeNewEducationTest() {
 		// List 보는건 차 후에 test 시도
@@ -1637,7 +1635,7 @@ public class EducationServiceTest extends SemsTestCase {
 		}
 	}
 	
-	*/
+	
 	
 	public class EducationValidator implements Validator {
 		
