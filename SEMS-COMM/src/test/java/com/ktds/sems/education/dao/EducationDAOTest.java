@@ -5,6 +5,8 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
@@ -12,25 +14,69 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ktds.sems.SemsTestCase;
+import com.ktds.sems.Testable;
 import com.ktds.sems.education.vo.CategoryVO;
 import com.ktds.sems.education.vo.CostVO;
 import com.ktds.sems.education.vo.TimeVO;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
+@Transactional
 public class EducationDAOTest extends SemsTestCase{
 
 	@Autowired
 	private EducationDAO educationDAO;
 	
-	// costTest
-	@Test
-	public void ainsertEduCostTest() {
-		CostVO cost = new CostVO();
-		cost.setCdId("TES1");
-		cost.setCdNm("TES1");
+	@Before
+	public void setUp() {
+		// TestCase 준비
+		testHelper(new Testable() {
+			@Override
+			public void preparedTest() {
+				CostVO cost = new CostVO();
+				cost.setCdId("TES1");
+				cost.setCdNm("TES1");
+				educationDAO.insertEduCost(cost);
+			}
+		});
 		
-		int insertEduCost = educationDAO.insertEduCost(cost);
-		assertTrue(insertEduCost > 0);
+		testHelper(new Testable() {
+			@Override
+			public void preparedTest() {
+				TimeVO time = new TimeVO();
+				time.setCdId("TES1");
+				time.setCdNm("TES1");
+				educationDAO.insertEduTime(time);
+			}
+		});
+		
+		testHelper(new Testable() {
+			@Override
+			public void preparedTest() {
+				CategoryVO categoryVO = new CategoryVO();
+				categoryVO.setParentCategoryId("PAID");
+				categoryVO.setCategoryType("medium");
+				categoryVO.setCategoryId("TEST");
+				categoryVO.setCategoryName("pppTestppp");
+				educationDAO.addNewCategory(categoryVO);
+			}
+		});
+	}
+	
+	@After
+	public void tearDown() {
+		testHelper(new Testable() {
+			@Override
+			public void preparedTest() {
+				educationDAO.deleteEduTime("TES1");
+				educationDAO.deleteEduCost("TES1");
+				
+				CategoryVO categoryVO = new CategoryVO();
+				categoryVO.setParentCategoryId("PAID");
+				categoryVO.setCategoryType("medium");
+				categoryVO.setCategoryId("TEST");
+				educationDAO.deleteCategory(categoryVO);
+			}
+		});
 	}
 	
 	@Test
@@ -50,11 +96,7 @@ public class EducationDAOTest extends SemsTestCase{
 		assertTrue(costList.size() >=0);
 	}
 
-	@Test
-	public void zdeleteEduCostTest() {
-		int deleteEduCost = educationDAO.deleteEduCost("TES1");
-		assertTrue(deleteEduCost > 0);
-	}
+	
 	
 	@Test
 	public void getEduCostByCdIdTest() {
@@ -82,17 +124,6 @@ public class EducationDAOTest extends SemsTestCase{
 		assertTrue(isExistCostNm > 0);
 	}
 	
-	// timeTest
-	@Test
-	public void ainsertEduTimeTest() {
-		TimeVO time = new TimeVO();
-		time.setCdId("TES1");
-		time.setCdNm("TES1");
-		
-		int insertEduTime = educationDAO.insertEduTime(time);
-		assertTrue(insertEduTime > 0);
-	}
-	
 	@Test
 	public void modifyEduTimeTest() {
 		TimeVO time = new TimeVO();
@@ -110,12 +141,6 @@ public class EducationDAOTest extends SemsTestCase{
 		assertTrue(timeList.size() >=0);
 	}
 
-	@Test
-	public void zdeleteEduTimeTest() {
-		int deleteEduTime = educationDAO.deleteEduTime("TES1");
-		assertTrue(deleteEduTime > 0);
-	}
-	
 	@Test
 	public void getEduTimeByCdIdTest() {
 		TimeVO time = educationDAO.getEduTimeByCdId("TES1");
@@ -162,7 +187,7 @@ public class EducationDAOTest extends SemsTestCase{
 		assertTrue(result == 1);
 	}
 	
-	@Test
+	@Test(expected=RuntimeException.class)
 	public void addNewCategoryTest(){
 		CategoryVO categoryVO = new CategoryVO();
 		categoryVO.setParentCategoryId("PAID");
