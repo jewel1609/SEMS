@@ -100,7 +100,10 @@
 					<td><input class="deleteTeacherId" name="deleteTeacherId"
 						value="${teacher.memberId}" type="checkbox" /></td>
 					<td><a href="<c:url value='/teacher/detail/${teacher.memberId}' />">${ teacher.name }</a></td>
-					<td>${ teacher.companyName }</td>
+					
+					<c:if test="${ not empty teacher.companyName  }">
+						<td>${ teacher.companyName }</td>
+					</c:if>
 					<c:if test="${ empty teacher.companyName  }">
 						<td>프리랜서</td>
 					</c:if>
