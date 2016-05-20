@@ -30,13 +30,49 @@ public class MemberServiceTest extends SemsTestCase {
 	private MemberService memberService;
 
 	/**
-	 * 로그인
+	 * 일반회원 로그인
 	 */
 	@Test
 	public void loginTest() {
 
 		MemberVO memberVO = new MemberVO();
-		memberVO.setId("cocomo12");
+		memberVO.setId("junitTest1316");
+		memberVO.setPassword("123qwe!@#qwe");
+
+		BindingResult errors = new BeanPropertyBindingResult(memberVO, "loginForm");
+		MockHttpServletRequest request = new MockHttpServletRequest();
+		MockHttpSession session = new MockHttpSession();
+
+		String checkStr = memberService.login(memberVO, errors, session, request);
+		assertNotNull(checkStr);
+	}
+	
+	/**
+	 * 정지된 회원 로그인
+	 */
+	@Test
+	public void banMemberLoginTest() {
+
+		MemberVO memberVO = new MemberVO();
+		memberVO.setId("junitTestBan1316");
+		memberVO.setPassword("123qwe!@#qwe");
+
+		BindingResult errors = new BeanPropertyBindingResult(memberVO, "loginForm");
+		MockHttpServletRequest request = new MockHttpServletRequest();
+		MockHttpSession session = new MockHttpSession();
+
+		String checkStr = memberService.login(memberVO, errors, session, request);
+		assertNotNull(checkStr);
+	}
+	
+	/**
+	 * 탈퇴한 회원 로그인
+	 */
+	@Test
+	public void resignMemberLoginTest() {
+
+		MemberVO memberVO = new MemberVO();
+		memberVO.setId("junitTestResign1316");
 		memberVO.setPassword("123qwe!@#qwe");
 
 		BindingResult errors = new BeanPropertyBindingResult(memberVO, "loginForm");
