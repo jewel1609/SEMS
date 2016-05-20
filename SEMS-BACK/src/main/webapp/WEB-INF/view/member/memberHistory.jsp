@@ -8,11 +8,21 @@
 <script type="text/javascript" src="<c:url value='/resources/js/jquery.min.js"'/>"></script>
 <script type="text/javascript">
 	$(document).ready( function() {
+		
 		$("#searchType").hide();
 		$("#searchKeyword").hide();
 		$("#startDate").hide();
 		$("#endDate").hide();
 		
+		$(".onlyText").keyup(function(event) {
+			regexp = /[@\#$%<>&\()\=_\’]/gi;
+	
+			v = $(this).val();
+			if (regexp.test(v)) {
+				alert("특수문자를 포함할 수 없습니다.");
+				$(this).val(v.replace(regexp, ''));
+			}
+		});
 		
 		$("#searchBtn").click( function() {
 			
@@ -200,7 +210,7 @@
 						</c:if>
 					</select>
 					
-					<input type="text" id="searchKeyword" name="searchKeyword" value="${ loginHistorySearchVO.searchKeyword }"/>
+					<input type="text" class="onlyText" id="searchKeyword" name="searchKeyword" value="${ loginHistorySearchVO.searchKeyword }"/>
 					
 					<select id="searchType" name="searchType">
 						<option value="" selected="selected"></option>
