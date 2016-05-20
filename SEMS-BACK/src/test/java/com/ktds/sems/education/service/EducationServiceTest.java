@@ -30,6 +30,8 @@ import com.ktds.sems.education.vo.EducationHistoryListVO;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationHistoryVO;
 import com.ktds.sems.education.vo.EducationVO;
+import com.ktds.sems.file.biz.FileBiz;
+import com.ktds.sems.file.vo.FileVO;
 
 import kr.co.hucloud.utilities.web.Paging;
 
@@ -38,6 +40,9 @@ public class EducationServiceTest extends SemsTestCase {
 
 	@Autowired
 	private EducationService educationeService;
+	
+	@Autowired
+	private FileBiz fileBiz;
 	
 	@Test
 	public void getOneEducationForUpdateTest(){
@@ -884,17 +889,19 @@ public class EducationServiceTest extends SemsTestCase {
 		educationVO.setEndTime("01:00");
 		educationVO.setEducationType("TIMM");
 		educationVO.setCost("CSTC");
-
+	
 		BindingResult errors = new BeanPropertyBindingResult(educationVO, "writeForm");
 		EducationValidator validator = new EducationValidator();
 		validator.validate(educationVO, errors);
 
 		MockMultipartHttpServletRequest request = new MockMultipartHttpServletRequest();
-
+		request.setAttribute("file", "");
+		
 		Path path = Paths.get("D:\\핸드폰.xlsx");
 		String name = "file";
 		String originalFileName = "핸드폰";
 		String contentType = "text/plain";
+		
 
 		byte[] content = null;
 
@@ -907,10 +914,9 @@ public class EducationServiceTest extends SemsTestCase {
 		MultipartFile file = new MockMultipartFile(name, originalFileName, contentType, content);
 		request.addFile(file);
 
-		HttpSession session = null;
-		session = request.getSession();
-		
+		HttpSession session = request.getSession();
 		session.setAttribute("_MEMBER_TYPE_", "ADM");
+		
 
 		ModelAndView view = educationeService.writeNewEducation(educationVO, errors, request);
 		assertNotNull(view);
