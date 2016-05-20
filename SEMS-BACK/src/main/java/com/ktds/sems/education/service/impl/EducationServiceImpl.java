@@ -215,10 +215,6 @@ public class EducationServiceImpl implements EducationService {
 	@Override
 	public ModelAndView getAllEducationHistory(EducationHistorySearchVO eduHistorySearchVO, int pageNo) {
 		
-		logger.info("1" +eduHistorySearchVO.getSearchKeyword());
-		logger.info("2" +eduHistorySearchVO.getSearchType());
-		logger.info("3" +eduHistorySearchVO.getSearchDate());
-		
 		EducationHistoryListVO eduHistoryListVO = new EducationHistoryListVO();
 		Paging paging = new Paging(15,15);
 		eduHistoryListVO.setPaging(paging);
@@ -244,6 +240,11 @@ public class EducationServiceImpl implements EducationService {
 
 	@Override
 	public ModelAndView getJCEduHistory(EducationHistorySearchVO eduHistorySearchVO, int pageNo) {
+		
+		logger.info("1" +eduHistorySearchVO.getSearchKeyword());
+		logger.info("2" +eduHistorySearchVO.getSearchType());
+		logger.info("3" +eduHistorySearchVO.getSearchDate());
+		
 		EducationHistoryListVO eduHistoryListVO = new EducationHistoryListVO();
 		Paging paging = new Paging(15,15);
 		eduHistoryListVO.setPaging(paging);
