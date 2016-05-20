@@ -39,7 +39,7 @@ public class MemberBizTest extends SemsTestCase {
 		assertTrue(isSuccess);
 	}
 	
-	@Test
+/*	@Test
 	public void modifyMemberTypeByIdTest () {
 		Map<String, String> modifyMemberType = new HashMap<String, String>();
 		modifyMemberType.put("memberId", "sosdig1");
@@ -47,7 +47,7 @@ public class MemberBizTest extends SemsTestCase {
 		boolean isSuccess = memberBiz.modifyMemberTypeById(modifyMemberType);
 		
 		assertTrue(isSuccess);
-	}
+	}*/
 
 	
 	@Test
