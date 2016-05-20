@@ -895,7 +895,6 @@ public class EducationServiceTest extends SemsTestCase {
 		validator.validate(educationVO, errors);
 
 		MockMultipartHttpServletRequest request = new MockMultipartHttpServletRequest();
-		request.setAttribute("file", "");
 		
 		Path path = Paths.get("D:\\핸드폰.xlsx");
 		String name = "file";
