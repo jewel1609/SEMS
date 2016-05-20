@@ -96,9 +96,12 @@ public class MemberBizTest extends SemsTestCase {
 	@Test
 	public void isDuplicationIdTest(){
 		String id = "test01";
+		String secondId = "asdfasdf123";
 		boolean isSuccess = memberBiz.isDuplicationId(id);
+		boolean isFail = memberBiz.isDuplicationId(secondId);
 		
 		assertTrue(isSuccess);
+		assertFalse(isFail);
 	}
 	
 	@Test
@@ -233,6 +236,16 @@ public class MemberBizTest extends SemsTestCase {
 	public void getOneMemberTest(){
 		String memberId = "test04";
 		assertNotNull(memberBiz.getOneMember(memberId));
+	}
+	
+	@Test
+	public void isVerifyIdTest() {
+		String id = "test001";
+		
+		boolean isSuccess = memberBiz.isVerifyId(id);
+		
+		assertTrue(isSuccess);
+		
 	}
 
 }
