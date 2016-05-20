@@ -107,9 +107,16 @@ public class TeacherServiceImpl implements TeacherService {
 			view.setViewName("redirect:/teacher/teaacherList");
 		} else {
 			boolean deleteResult = teacherBiz.doDeleteTeacher(memberId);
-			teacherBiz.doDeleteProjectHistory(memberId);
-			teacherBiz.doDeleteEducationHistory(memberId);
-			teacherBiz.doDeleteTeacherBook(memberId);
+			
+			if (teacherBiz.getTeacherEducationHistory(memberId) != null) {
+				teacherBiz.doDeleteEducationHistory(memberId);
+			}
+			if (teacherBiz.getTeacherProjectHistory(memberId) != null){
+				teacherBiz.doDeleteProjectHistory(memberId);
+			}
+			if (teacherBiz.getTeacherBook(memberId) != null){
+				teacherBiz.doDeleteTeacherBook(memberId);
+			}
 
 			if (!deleteResult) {
 				view.addObject("massage", "삭제 실패!");

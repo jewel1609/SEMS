@@ -103,10 +103,6 @@ public class TeacherDAOImpl extends SqlSessionDaoSupport implements TeacherDAO{
 		return getSqlSession().selectList("TeacherDAO.getAllTeacher", searchVO);
 	}
 
-	@Override
-	public int getSearchedEducationCount(TeacherVO teacherVO) {
-		return getSqlSession().selectOne("TeacherDAO.getSearchedEducationCount", teacherVO);
-	}
 
 	@Override
 	public int doDeleteTeacher(String memberId) {
@@ -120,6 +116,7 @@ public class TeacherDAOImpl extends SqlSessionDaoSupport implements TeacherDAO{
 
 	@Override
 	public int doDeleteEducationHistory(String memberId) {
+		System.out.println("memberId "+memberId);
 		return getSqlSession().delete("TeacherDAO.doDeleteEducationHistory", memberId);
 	}
 

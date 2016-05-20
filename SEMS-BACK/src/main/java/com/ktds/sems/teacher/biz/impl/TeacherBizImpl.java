@@ -77,10 +77,6 @@ public class TeacherBizImpl implements TeacherBiz {
 		return teacherDAO.getAllTeacher(searchVO);
 	}
 
-	@Override
-	public int getSearchedEducationCount(TeacherVO teacherVO) {
-		return teacherDAO.getSearchedEducationCount(teacherVO);
-	}
 
 	@Override
 	public boolean doDeleteTeacher(String memberId) {
@@ -89,6 +85,7 @@ public class TeacherBizImpl implements TeacherBiz {
 
 	@Override
 	public boolean doDeleteProjectHistory(String memberId) {
+		
 		return teacherDAO.doDeleteProjectHistory(memberId) > 0;
 	}
 

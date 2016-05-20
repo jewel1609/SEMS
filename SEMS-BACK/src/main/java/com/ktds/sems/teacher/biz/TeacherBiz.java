@@ -30,8 +30,6 @@ public interface TeacherBiz {
 
 	public List<TeacherVO> getAllTeacher(TeacherSearchVO searchVO);
 
-	public int getSearchedEducationCount(TeacherVO teacherVO);
-
 	public boolean doDeleteTeacher(String memberId);
 
 	public boolean doDeleteProjectHistory(String memberId);

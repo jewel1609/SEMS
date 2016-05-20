@@ -30,8 +30,6 @@ public interface TeacherDAO {
 
 	public List<TeacherVO> getAllTeacher(TeacherSearchVO searchVO);
 
-	public int getSearchedEducationCount(TeacherVO teacherVO);
-
 	public int doDeleteTeacher(String memberId);
 
 	public int doDeleteProjectHistory(String memberId);
