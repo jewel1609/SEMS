@@ -14,11 +14,18 @@
 	 
 	   $("#searchInitBtn").click(function() {
 			location.href="<c:url value='/${educationId}/eduFile' />";
-		})
-		;
+		});
+	   
 	   $("#searchBtn").click( function() {
 			
-			if( $("#search option:selected").val() == "title"){
+			if( $("#searchType option:selected").val() == "1"){
+				if ($("#searchKeyword").val() == ""){
+					alert("검색어를 입력하세요!");
+					return;
+				}
+			}
+			
+			if( $("#searchType option:selected").val() == "2"){
 				if ($("#searchKeyword").val() == ""){
 					alert("검색어를 입력하세요!");
 					return;
@@ -26,35 +33,6 @@
 			}
 			movePage('0');
 		});
-		
-      $("#joinAplyBtn").click(function() {
-            var eduHistoryId = $("#eduHistoryId").val();
-                                 location.href = "<c:url value='/joinAply/"+eduHistoryId+"'/>";
-                              });
-
-      $("#joinCnclBtn").click(function() {
-    	    var educationHistoryId = $("#historyId2").val();
-			var memberId = $("#memberId2").val();
-			var description = $("#description").val();
-		
-			if( description == null || description ==""){
-				alert("내용을 입력해주세요.")
-				return;
-			}
-			console.log(educationHistoryId);
-			console.log(memberId);
-			location.href = "<c:url value='/joinCncl/"+educationHistoryId+"/"+memberId+"/"+description+"'/>";
-	   }); 
-		
-		$(".joinaply").click(function(){
-			 $("#historyId").val($(this).data('id'));
-			 $("#memberId").val($(this).data('whatever'));
-	   });
-		
-		$(".cnclaply").click(function(){
-			 $("#historyId2").val($(this).data('id'));
-			 $("#memberId2").val($(this).data('whatever'));
-	   });
    });
 </script>
 <style>
@@ -108,7 +86,8 @@
 					</div>
 					<div style="text-align: right;">
 						<select id="search" name="search">
-							<option id="title" value="title">제목</option>
+							<option id="title" value="2">제목</option>
+							<option id="id" value="1">아이디</option>
 						</select>
 						<input type="text" id="searchKeyword" name="searchKeyword" value="${ eduFileSearchVO.searchKeyword }"/>
 						<input type="button" id="searchBtn" value="검색" />
