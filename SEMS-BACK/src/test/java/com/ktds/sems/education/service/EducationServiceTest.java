@@ -896,9 +896,9 @@ public class EducationServiceTest extends SemsTestCase {
 
 		MockMultipartHttpServletRequest request = new MockMultipartHttpServletRequest();
 		
-		Path path = Paths.get("D:\\핸드폰.xlsx");
+		Path path = Paths.get("D:\\test.xlsx");
 		String name = "file";
-		String originalFileName = "핸드폰";
+		String originalFileName = "test";
 		String contentType = "text/plain";
 		
 
