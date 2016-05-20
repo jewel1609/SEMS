@@ -228,10 +228,10 @@ public class MemberBizTest extends SemsTestCase {
 	
 	//오름차순에서 맨마지막에 실행하기위해
 	@Test
-	public void zdoDeleteTest(){
-		String id = "JunitIdTest1";
-		int doDeleteTest = memberBiz.delectJunitTestMember(id);
-		assertTrue(doDeleteTest > 0);
+	public void doDeleteTest(){
+		String id = "sosdig1";
+		boolean doDeleteTest = memberBiz.doDeleteMember(id);
+		assertTrue(doDeleteTest);
 	}
 	
 	/**
