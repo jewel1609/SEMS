@@ -16,10 +16,19 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ktds.sems.common.Session;
 import com.ktds.sems.education.biz.EducationBiz;
 import com.ktds.sems.education.service.EducationService;
+import com.ktds.sems.education.vo.EduFileListVO;
+import com.ktds.sems.education.vo.EduFileSearchVO;
+import com.ktds.sems.education.vo.EduFileVO;
+import com.ktds.sems.education.vo.EduQnaListVO;
+import com.ktds.sems.education.vo.EduReportSearchVO;
+import com.ktds.sems.education.vo.EduReportVO;
 import com.ktds.sems.education.vo.EducationHistoryListVO;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationHistoryVO;
 import com.ktds.sems.education.vo.EducationVO;
+import com.ktds.sems.education.vo.EduQnaSearchVO;
+import com.ktds.sems.education.vo.EduQnaVO;
+import com.ktds.sems.education.vo.EduReportListVO;
 import com.ktds.sems.file.biz.FileBiz;
 import com.ktds.sems.file.vo.FileVO;
 import com.ktds.sems.member.biz.MemberBiz;
@@ -321,6 +330,84 @@ public class EducationServiceImpl implements EducationService {
 			view.setViewName("redirect:/educationHistory");
 			return view;
 		}
+		
+		return view;
+	}
+
+	/**
+	 * Q&A게시판/ 과제게시판/ 강의자료게시판
+	 */
+
+	@Override
+	public ModelAndView getAllReportArticle(EduReportSearchVO eduReportSearchVO, int pageNo) {
+		EduReportListVO eduReportListVO = new EduReportListVO();
+		Paging paging = new Paging(20,20);
+		
+		eduReportListVO.setPaging(paging);
+		int totalReportCount = educationBiz.getTotalEduReportCount(eduReportSearchVO);
+		
+		paging.setPageNumber(pageNo + "");
+		paging.setTotalArticleCount(totalReportCount);
+		
+		eduReportSearchVO.setStartIndex(paging.getStartArticleNumber());
+		eduReportSearchVO.setEndIndex(paging.getEndArticleNumber());
+
+		List<EduReportVO> eduReport = educationBiz.getAllEduReport(eduReportSearchVO);
+		eduReportListVO.setEduReportList(eduReport);
+		
+		ModelAndView view = new ModelAndView();
+		view.setViewName("education/eduReportPage");
+		view.addObject("eduReportListVO", eduReportListVO);
+		view.addObject("eduReportSearchVO", eduReportSearchVO);
+		
+		return view;
+	}
+
+	@Override
+	public ModelAndView getAllQnaArticle(EduQnaSearchVO eduQnaSearchVO, int pageNo) {
+		EduQnaListVO eduQnaListVO = new EduQnaListVO();
+		Paging paging = new Paging(20,20);
+		
+		eduQnaListVO.setPaging(paging);
+		int totalReportCount = educationBiz.getTotalEduQnaCount(eduQnaSearchVO);
+		
+		paging.setPageNumber(pageNo + "");
+		paging.setTotalArticleCount(totalReportCount);
+		
+		eduQnaSearchVO.setStartIndex(paging.getStartArticleNumber());
+		eduQnaSearchVO.setEndIndex(paging.getEndArticleNumber());
+
+		List<EduQnaVO> eduQna = educationBiz.getAllEduQna(eduQnaSearchVO);
+		eduQnaListVO.setEduQnaList(eduQna);
+		
+		ModelAndView view = new ModelAndView();
+		view.setViewName("education/eduQnaPage");
+		view.addObject("eduQnaListVO", eduQnaListVO);
+		view.addObject("eduQnaSearchVO", eduQnaSearchVO);
+		
+		return view;
+	}
+
+	@Override
+	public ModelAndView getAllEduFileArticle(EduFileSearchVO eduFileSearchVO, int pageNo) {
+		EduFileListVO eduFileListVO = new EduFileListVO();
+		Paging paging = new Paging(20,20);
+		
+		eduFileListVO.setPaging(paging);
+		int totalReportCount = educationBiz.getTotalEduFileCount(eduFileSearchVO);
+		paging.setPageNumber(pageNo + "");
+		paging.setTotalArticleCount(totalReportCount);
+		
+		eduFileSearchVO.setStartIndex(paging.getStartArticleNumber());
+		eduFileSearchVO.setEndIndex(paging.getEndArticleNumber());
+
+		List<EduFileVO> eduFile = educationBiz.getAllEduFile(eduFileSearchVO);
+		eduFileListVO.setEduFileList(eduFile);
+		
+		ModelAndView view = new ModelAndView();
+		view.setViewName("education/eduFilePage");
+		view.addObject("eduFileListVO", eduFileListVO);
+		view.addObject("eduFileSearchVO", eduFileSearchVO);
 		
 		return view;
 	}

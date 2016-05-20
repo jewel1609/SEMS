@@ -9,6 +9,12 @@ import org.mybatis.spring.support.SqlSessionDaoSupport;
 import com.ktds.sems.education.dao.EducationDAO;
 import com.ktds.sems.education.vo.CategoryVO;
 import com.ktds.sems.education.vo.CostVO;
+import com.ktds.sems.education.vo.EduFileSearchVO;
+import com.ktds.sems.education.vo.EduFileVO;
+import com.ktds.sems.education.vo.EduQnaSearchVO;
+import com.ktds.sems.education.vo.EduQnaVO;
+import com.ktds.sems.education.vo.EduReportSearchVO;
+import com.ktds.sems.education.vo.EduReportVO;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationHistoryVO;
 import com.ktds.sems.education.vo.EducationTypeVO;
@@ -103,5 +109,34 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 		return getSqlSession().update("EducationDAO.changeEducationApplyState", educationHistoryId);
 	}
 
+	@Override
+	public int getTotalEduReportCount(EduReportSearchVO eduReportSearchVO) {
+		return getSqlSession().selectOne("EducationDAO.getTotalEduReportCount", eduReportSearchVO);
+	}
 	
+	@Override
+	public List<EduReportVO> getAllEduReport(EduReportSearchVO eduReportSearchVO) {
+		return getSqlSession().selectList("EducationDAO.getAllEduReport", eduReportSearchVO);
+	}
+
+	@Override
+	public int getTotalEduQnaCount(EduQnaSearchVO eduQnaSearchVO) {
+		return getSqlSession().selectOne("EducationDAO.getTotalEduQnaCount", eduQnaSearchVO);
+	}
+
+	@Override
+	public List<EduQnaVO> getAllEduQna(EduQnaSearchVO eduQnaSearchVO) {
+		return getSqlSession().selectList("EducationDAO.getAllEduQna", eduQnaSearchVO);
+	}
+
+	@Override
+	public int getTotalEduFileCount(EduFileSearchVO eduFileSearchVO) {
+		return getSqlSession().selectOne("EducationDAO.getTotalEduFileCount", eduFileSearchVO);
+	}
+
+	@Override
+	public List<EduFileVO> getAllEduFile(EduFileSearchVO eduFileSearchVO) {
+		return getSqlSession().selectList("EducationDAO.getAllEduFile", eduFileSearchVO);
+	}
+
 }

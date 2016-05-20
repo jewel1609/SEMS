@@ -11,8 +11,11 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.education.service.EducationService;
+import com.ktds.sems.education.vo.EduFileSearchVO;
+import com.ktds.sems.education.vo.EduReportSearchVO;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationVO;
+import com.ktds.sems.education.vo.EduQnaSearchVO;
 
 @Controller
 public class EducationController {
@@ -77,6 +80,24 @@ public class EducationController {
 		educationService.rejectionMailAction(educationHistoryId, memberId, description);
 		ModelAndView view = educationService.cancelJoinEducationByMemberId(educationHistoryId, memberId, description);
 		return view;
+	}
+	
+	@RequestMapping("/{educationId}/eduQna")
+	public ModelAndView viewQnAPage(EduQnaSearchVO eduQnaSearchVO, @PathVariable String educationId, @RequestParam(required = false, defaultValue = "0") int pageNo){
+		eduQnaSearchVO.setEducationId(educationId);
+		return educationService.getAllQnaArticle(eduQnaSearchVO, pageNo);
+	}
+	
+	@RequestMapping("/{educationId}/eduReport")
+	public ModelAndView viewEduReportPage(EduReportSearchVO eduReportSearchVO, @PathVariable String educationId, @RequestParam(required = false, defaultValue = "0") int pageNo){
+		eduReportSearchVO.setEducationId(educationId);
+		return educationService.getAllReportArticle(eduReportSearchVO, pageNo);
+	}
+
+	@RequestMapping("/{educationId}/eduFile")
+	public ModelAndView viewEduFilePage(@PathVariable String educationId, EduFileSearchVO eduFileSearchVO, @RequestParam(required = false, defaultValue = "0") int pageNo){
+		eduFileSearchVO.setEducationId(educationId);
+		return educationService.getAllEduFileArticle(eduFileSearchVO, pageNo);
 	}
 
 	public void changeEducationApplyState(String educationHistoryId) {

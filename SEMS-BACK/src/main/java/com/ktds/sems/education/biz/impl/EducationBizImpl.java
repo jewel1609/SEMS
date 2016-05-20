@@ -8,6 +8,12 @@ import com.ktds.sems.education.biz.EducationBiz;
 import com.ktds.sems.education.dao.EducationDAO;
 import com.ktds.sems.education.vo.CategoryVO;
 import com.ktds.sems.education.vo.CostVO;
+import com.ktds.sems.education.vo.EduFileSearchVO;
+import com.ktds.sems.education.vo.EduFileVO;
+import com.ktds.sems.education.vo.EduQnaSearchVO;
+import com.ktds.sems.education.vo.EduQnaVO;
+import com.ktds.sems.education.vo.EduReportSearchVO;
+import com.ktds.sems.education.vo.EduReportVO;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationHistoryVO;
 import com.ktds.sems.education.vo.EducationTypeVO;
@@ -199,6 +205,36 @@ public class EducationBizImpl implements EducationBiz {
 	@Override
 	public String getStateByEducationHistroyId(String educationHistoryId) {
 		return educationDAO.getStateByEducationHistroyId(educationHistoryId);
+	}
+
+	@Override
+	public int getTotalEduReportCount(EduReportSearchVO eduReportSearchVO) {
+		return educationDAO.getTotalEduReportCount(eduReportSearchVO);
+	}
+	
+	@Override
+	public List<EduReportVO> getAllEduReport(EduReportSearchVO eduReportSearchVO) {
+		return educationDAO.getAllEduReport(eduReportSearchVO);
+	}
+	
+	@Override
+	public int getTotalEduQnaCount(EduQnaSearchVO eduQnaSearchVO) {
+		return educationDAO.getTotalEduQnaCount(eduQnaSearchVO);
+	}
+
+	@Override
+	public List<EduQnaVO> getAllEduQna(EduQnaSearchVO eduQnaSearchVO) {
+		return educationDAO.getAllEduQna(eduQnaSearchVO);
+	}
+
+	@Override
+	public int getTotalEduFileCount(EduFileSearchVO eduFileSearchVO) {
+		return educationDAO.getTotalEduFileCount(eduFileSearchVO);
+	}
+
+	@Override
+	public List<EduFileVO> getAllEduFile(EduFileSearchVO eduFileSearchVO) {
+		return educationDAO.getAllEduFile(eduFileSearchVO);
 	}
 
 	@Override

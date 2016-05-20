@@ -296,5 +296,164 @@
 		WHERE	EDU_HTR_ID = #{educationHistoryId}
 	</update>
 	
+	<delete id="denyGiveUpEducationByMemberId" parameterType="map">
+		DELETE	 EDU_HTR
+		WHERE	 EDU_ID LIKE #{educationId}
+		AND		 MBR_ID LIKE #{memberId}
+		AND		 STAT LIKE 'GVUP_APLY'
+	</delete>
+
+	<select id="getTotalEduReportCount" parameterType="EduReportSearchVO" resultType="_int" >
+		SELECT	COUNT(ATC_ID)
+		FROM	EDU_RPT_BBS
+		<if test="searchType == 1 and searchType != null">
+		WHERE	MRB_ID = #{searchKeyword}
+		AND		EDU_ID = #{educationId}
+		</if>
+		<if test="searchType == 2 and searchType != null">
+		WHERE	TITLE = #{searchKeyword}
+		AND		EDU_ID = #{educationId}
+		</if>
+		<if test="searchType == null">
+		WHERE	EDU_ID = #{educationId}
+		</if>
+		ORDER	BY	ATC_ID DESC
+	</select>
+	
+	<select id="getAllEduReport" parameterType="EduReportSearchVO" resultType="EduReportVO">
+		 SELECT ATC_ID eduReportId
+		 		, EDU_ID educationId
+		 		, IS_DELETE isDelete
+		 		, MRB_ID memberId
+		 		, TITLE title
+		 		, CONTENTS contents
+		 		, CREATE_DATE createDate
+		 		, MODIFY_DATE modifyDate
+		 		, HITS hits
+		FROM	(
+					SELECT	ROWNUM AS RNUM
+							, EDU_RPT.*
+					FROM	(
+								SELECT	*
+								FROM	EDU_RPT_BBS
+								<if test="searchType == 1 and searchType != null">
+								WHERE	MRB_ID LIKE '%'||#{searchKeyword}||'%'
+								AND		EDU_ID = #{educationId}
+								</if>
+								<if test="searchType == 2 and searchType != null">
+								WHERE	TITLE LIKE '%'||#{searchKeyword}||'%'
+								AND		EDU_ID = #{educationId}
+								</if>
+								<if test="searchType == null">
+								WHERE	EDU_ID = #{educationId}
+								</if>
+								ORDER	BY ATC_ID
+							)EDU_RPT
+					WHERE	ROWNUM <![CDATA[<=]]> #{endIndex}
+				)
+		WHERE	RNUM <![CDATA[>=]]> #{startIndex}
+	</select>
+	
+	<select id="getTotalEduQnaCount" parameterType="EduQnaSearchVO" resultType="_int" >
+		SELECT	COUNT(ATC_ID)
+		FROM	EDU_QA_BBS
+		<if test="searchType == 1 and searchType != null">
+		WHERE	MRB_ID = #{searchKeyword}
+		AND		EDU_ID = #{educationId}
+		</if>
+		<if test="searchType == 2 and searchType != null">
+		WHERE	TITLE = #{searchKeyword}
+		AND		EDU_ID = #{educationId}
+		</if>
+		<if test="searchType == null">
+		WHERE	EDU_ID = #{educationId}
+		</if>
+		ORDER	BY	ATC_ID DESC
+	</select>
+	
+	<select id="getAllEduQna" parameterType="EduQnaSearchVO" resultType="EduQnaVO">
+		 SELECT ATC_ID eduQnaId
+		 		, EDU_ID educationId
+		 		, IS_DELETE isDelete
+		 		, MRB_ID memberId
+		 		, TITLE title
+		 		, CONTENTS contents
+		 		, CREATE_DATE createDate
+		 		, MODIFY_DATE modifyDate
+		 		, HITS hits
+		FROM	(
+					SELECT	ROWNUM AS RNUM
+							, EDU_QNA.*
+					FROM	(
+								SELECT	*
+								FROM	EDU_QA_BBS
+								<if test="searchType == 1 and searchType != null">
+								WHERE	MRB_ID LIKE '%'||#{searchKeyword}||'%'
+								AND		EDU_ID = #{educationId}
+								</if>
+								<if test="searchType == 2 and searchType != null">
+								WHERE	TITLE LIKE '%'||#{searchKeyword}||'%'
+								AND		EDU_ID = #{educationId}
+								</if>
+								<if test="searchType == null">
+								WHERE	EDU_ID = #{educationId}
+								</if>
+								ORDER	BY ATC_ID
+							)EDU_QNA
+					WHERE	ROWNUM <![CDATA[<=]]> #{endIndex}
+				)
+		WHERE	RNUM <![CDATA[>=]]> #{startIndex}
+	</select>
+	
+	<select id="getTotalEduFileCount" parameterType="EduFileSearchVO" resultType="_int" >
+		SELECT	COUNT(ATC_ID)
+		FROM	EDU_FILE_BBS
+		<if test="searchType == 1 and searchType != null">
+		WHERE	MRB_ID = #{searchKeyword}
+		AND		EDU_ID = #{educationId}
+		</if>
+		<if test="searchType == 2 and searchType != null">
+		WHERE	TITLE = #{searchKeyword}
+		AND		EDU_ID = #{educationId}
+		</if>
+		<if test="searchType == null">
+		WHERE	EDU_ID = #{educationId}
+		</if>
+		ORDER	BY	ATC_ID DESC
+	</select>
+	
+	<select id="getAllEduFile" parameterType="EduFileSearchVO" resultType="EduFileVO">
+		 SELECT ATC_ID eduFileId
+		 		, EDU_ID educationId
+		 		, IS_DELETE isDelete
+		 		, MRB_ID memberId
+		 		, TITLE title
+		 		, CONTENTS contents
+		 		, CREATE_DATE createDate
+		 		, MODIFY_DATE modifyDate
+		 		, HITS hits
+		FROM	(
+					SELECT	ROWNUM AS RNUM
+							, EDU_FILE.*
+					FROM	(
+								SELECT	*
+								FROM	EDU_FILE_BBS
+								<if test="searchType == 1 and searchType != null">
+								WHERE	MRB_ID LIKE '%'||#{searchKeyword}||'%'
+								AND		EDU_ID = #{educationId}
+								</if>
+								<if test="searchType == 2 and searchType != null">
+								WHERE	TITLE LIKE '%'||#{searchKeyword}||'%'
+								AND		EDU_ID = #{educationId}
+								</if>
+								<if test="searchType == null">
+								WHERE	EDU_ID = #{educationId}
+								</if>
+								ORDER	BY ATC_ID
+							)EDU_FILE
+					WHERE	ROWNUM <![CDATA[<=]]> #{endIndex}
+				)
+		WHERE	RNUM <![CDATA[>=]]> #{startIndex}
+	</select>
 	
 </mapper>

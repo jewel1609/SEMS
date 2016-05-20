@@ -4,6 +4,12 @@ import java.util.List;
 
 import com.ktds.sems.education.vo.CategoryVO;
 import com.ktds.sems.education.vo.CostVO;
+import com.ktds.sems.education.vo.EduFileSearchVO;
+import com.ktds.sems.education.vo.EduFileVO;
+import com.ktds.sems.education.vo.EduQnaSearchVO;
+import com.ktds.sems.education.vo.EduQnaVO;
+import com.ktds.sems.education.vo.EduReportSearchVO;
+import com.ktds.sems.education.vo.EduReportVO;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationHistoryVO;
 import com.ktds.sems.education.vo.EducationTypeVO;
@@ -29,4 +35,11 @@ public interface EducationDAO {
 	public String getStateByEducationHistroyId(String educationHistoryId);
 	public int changeEducationApplyState(String educationHistoryId);
 	
+	public int getTotalEduReportCount(EduReportSearchVO eduReportSearchVO);
+	public List<EduReportVO> getAllEduReport(EduReportSearchVO eduReportSearchVO);
+	public int getTotalEduQnaCount(EduQnaSearchVO eduQnaSearchVO);
+	public List<EduQnaVO> getAllEduQna(EduQnaSearchVO eduQnaSearchVO);
+	public int getTotalEduFileCount(EduFileSearchVO eduFileSearchVO);
+	public List<EduFileVO> getAllEduFile(EduFileSearchVO eduFileSearchVO);
+
 }

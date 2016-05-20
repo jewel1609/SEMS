@@ -7,8 +7,11 @@ import org.springframework.validation.Errors;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ktds.sems.education.vo.EduFileSearchVO;
+import com.ktds.sems.education.vo.EduReportSearchVO;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationVO;
+import com.ktds.sems.education.vo.EduQnaSearchVO;
 
 
 public interface EducationService {
@@ -31,5 +34,11 @@ public interface EducationService {
 
 	public ModelAndView cancelJoinEducationByMemberId(String educationHistoryId, String memberId, String description);
 
+	public ModelAndView getAllReportArticle(EduReportSearchVO eduReportSearchVO, int pageNo);
+
+	public ModelAndView getAllQnaArticle(EduQnaSearchVO qnaArticleSearchVO, int pageNo);
+
+	public ModelAndView getAllEduFileArticle(EduFileSearchVO eduFileSearchVO, int pageNo);
+	
 	public int changeEducationApplyState(String educationHistoryId);
 }

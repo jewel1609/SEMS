@@ -8,8 +8,6 @@ public class EduQnaSearchVO extends EducationVO {
 	
 	private String searchKeyword;
 	private String searchType;
-	private String startDate;
-	private String endDate;
 	
 	public int getPageNo() {
 		return pageNo;
@@ -41,18 +39,5 @@ public class EduQnaSearchVO extends EducationVO {
 	public void setSearchType(String searchType) {
 		this.searchType = searchType;
 	}
-	public String getStartDate() {
-		return startDate;
-	}
-	public void setStartDate(String startDate) {
-		this.startDate = startDate;
-	}
-	public String getEndDate() {
-		return endDate;
-	}
-	public void setEndDate(String endDate) {
-		this.endDate = endDate;
-	}
-	
 	
 }
