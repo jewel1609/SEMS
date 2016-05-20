@@ -11,6 +11,7 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ktds.sems.SemsTestCase;
@@ -187,7 +188,7 @@ public class EducationDAOTest extends SemsTestCase{
 		assertTrue(result == 1);
 	}
 	
-	@Test(expected=RuntimeException.class)
+	@Test(expected=DuplicateKeyException.class)
 	public void addNewCategoryTest(){
 		CategoryVO categoryVO = new CategoryVO();
 		categoryVO.setParentCategoryId("PAID");
