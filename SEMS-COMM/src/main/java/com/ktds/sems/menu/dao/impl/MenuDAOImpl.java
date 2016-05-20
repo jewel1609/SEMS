@@ -14,16 +14,26 @@ public class MenuDAOImpl extends SqlSessionDaoSupport implements MenuDAO{
 	public List<MenuManageVO> getMenuCategoryList() {
 		return getSqlSession().selectList("MenuDAO.getMenuCategoryList");
 	}
-
-	@Override
+	
+	/**
+	 * 기능 대체로 사용 안함
+	 * 
+	 * @author 유병훈
+	 */
+	/*@Override
 	public int doMenuUpdate(MenuManageVO menuManageVO) {
 		return getSqlSession().update("MenuDAO.doMenuUpdate", menuManageVO);
-	}
-
-	@Override
+	}*/
+	
+	/**
+	 * 기능 대체로 사용 안함
+	 * 
+	 * @author 유병훈
+	 */
+	/*@Override
 	public MenuManageVO getOneMenuCategory(String codeId) {
 		return getSqlSession().selectOne("MenuDAO.getOneMenuCategory", codeId);
-	}
+	}*/
 
 
 	@Override

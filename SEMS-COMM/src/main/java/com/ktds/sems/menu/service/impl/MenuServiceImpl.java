@@ -34,9 +34,13 @@ public class MenuServiceImpl implements MenuService{
 		return view;	
 		
 	}
-
-
-	@Override
+	
+	/**
+	 * 기능 대체로 사용 안함
+	 * 
+	 * @author 유병훈
+	 */
+	/*@Override
 	public ModelAndView doMenuUpdate(MenuManageVO menuManageVO, Errors errors, HttpServletRequest request) {
 		
 		ModelAndView view = new ModelAndView();
@@ -68,7 +72,7 @@ public class MenuServiceImpl implements MenuService{
 		}
 
 		return view;
-	}
+	}*/
 
 
 	@Override

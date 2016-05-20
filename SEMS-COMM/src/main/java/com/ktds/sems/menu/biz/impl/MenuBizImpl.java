@@ -22,17 +22,25 @@ public class MenuBizImpl implements MenuBiz{
 		return menuDAO.getMenuCategoryList();
 	}
 
-
-	@Override
+	/**
+	 * 기능 대체로 사용 안함
+	 * 
+	 * @author 유병훈
+	 */
+	/*@Override
 	public boolean doMenuUpdate(MenuManageVO menuManageVO) {
 		return menuDAO.doMenuUpdate(menuManageVO) > 0;
-	}
+	*/
 
-
-	@Override
+	/**
+	 * 기능 대체로 사용 안함
+	 * 
+	 * @author 유병훈
+	 */
+	/*@Override
 	public MenuManageVO getOneMenuCategory(String codeId) {
 		return menuDAO.getOneMenuCategory(codeId);
-	}
+	}*/
 
 
 	@Override

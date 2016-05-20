@@ -13,7 +13,7 @@ public interface MenuService {
 
 	public ModelAndView viewMenuManagePage();
 
-	public ModelAndView doMenuUpdate(MenuManageVO menuManageVO, Errors errors, HttpServletRequest request);
+	//public ModelAndView doMenuUpdate(MenuManageVO menuManageVO, Errors errors, HttpServletRequest request);
 
 	public String upMenuList(int sortNumber, int codeId);
 

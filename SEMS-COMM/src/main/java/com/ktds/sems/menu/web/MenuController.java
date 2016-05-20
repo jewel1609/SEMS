@@ -26,11 +26,20 @@ public class MenuController {
 		return menuService.viewMenuManagePage();
 	}
 	
-	@RequestMapping("/doMenuUpdate")
+	/**
+	 * 기능 대체로 사용 안함
+	 * 
+	 * @author 유병훈
+	 * 
+	 * @param sortNumber
+	 * @param codeId
+	 * @return
+	 */
+	/*@RequestMapping("/doMenuUpdate")
 	public ModelAndView doMenuUpdate(@Valid MenuManageVO menuManageVO, Errors errors, HttpServletRequest request) {
 	
 		return menuService.doMenuUpdate(menuManageVO, errors, request);
-	}
+	}*/
 	
 	@RequestMapping("/upMenuList/{sortNumber}/{codeId}")
 	public String upMenuList(@PathVariable int sortNumber, @PathVariable int codeId) {

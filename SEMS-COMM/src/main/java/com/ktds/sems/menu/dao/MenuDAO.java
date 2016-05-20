@@ -9,9 +9,9 @@ public interface MenuDAO {
 
 	public List<MenuManageVO> getMenuCategoryList();
 
-	public int doMenuUpdate(MenuManageVO menuManageVO);
+	//public int doMenuUpdate(MenuManageVO menuManageVO);
 
-	public MenuManageVO getOneMenuCategory(String codeId);
+	//public MenuManageVO getOneMenuCategory(String codeId);
 
 	public void downMenuList(Map<String, Integer> sortNo);
 
