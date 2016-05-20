@@ -43,7 +43,7 @@ public class EducationBizTest extends SemsTestCase {
 	
 	// educationId 값 재설정
 	@Test
-	public void doEducationModifyTest() {
+	public void modifyNewEducationTest() {
 		
 		EducationVO educationVO = new EducationVO();
 		
@@ -95,7 +95,7 @@ public class EducationBizTest extends SemsTestCase {
 	
 	
 	@Test
-	public void doEducationModifyTestWithError1() {
+	public void modifyNewEducationTestWithError1() {
 		EducationVO educationVO = new EducationVO();
 		
 		educationVO.setEducationId("ED-20160513-000173");
@@ -146,7 +146,7 @@ public class EducationBizTest extends SemsTestCase {
 	}
 	
 	@Test
-	public void doEducationModifyTestWithError2() {
+	public void modifyNewEducationTestWithError2() {
 		EducationVO educationVO = new EducationVO();
 		
 		educationVO.setEducationId("ED-20160513-000173");
@@ -197,7 +197,7 @@ public class EducationBizTest extends SemsTestCase {
 	}
 	
 	@Test
-	public void doEducationModifyTestWithError3() {
+	public void modifyNewEducationTestWithError3() {
 		EducationVO educationVO = new EducationVO();
 		
 		educationVO.setEducationId("ED-20160513-000173");
@@ -248,7 +248,7 @@ public class EducationBizTest extends SemsTestCase {
 	}
 	
 	@Test
-	public void doEducationModifyTestWithError4() {
+	public void modifyNewEducationTestWithError4() {
 		EducationVO educationVO = new EducationVO();
 		
 		educationVO.setEducationId("ED-20160513-000173");
@@ -299,7 +299,7 @@ public class EducationBizTest extends SemsTestCase {
 	}
 	
 	@Test
-	public void doEducationModifyTestWithError5() {
+	public void modifyNewEducationTestWithError5() {
 		EducationVO educationVO = new EducationVO();
 		
 		educationVO.setEducationId("ED-20160513-000173");
@@ -350,7 +350,7 @@ public class EducationBizTest extends SemsTestCase {
 	}
 	
 	@Test
-	public void doEducationModifyTestWithError6() {
+	public void modifyNewEducationTestWithError6() {
 		EducationVO educationVO = new EducationVO();
 		
 		educationVO.setEducationId("ED-20160513-000173");
@@ -401,7 +401,7 @@ public class EducationBizTest extends SemsTestCase {
 	}
 	
 	@Test
-	public void doEducationModifyTestWithError7() {
+	public void modifyNewEducationTestWithError7() {
 		EducationVO educationVO = new EducationVO();
 		
 		educationVO.setEducationId("ED-20160513-000173");
@@ -452,7 +452,7 @@ public class EducationBizTest extends SemsTestCase {
 	}
 	
 	@Test
-	public void doEducationModifyTestWithError8() {
+	public void modifyNewEducationTestWithError8() {
 		EducationVO educationVO = new EducationVO();
 		
 		educationVO.setEducationId("ED-20160513-000173");
@@ -503,7 +503,7 @@ public class EducationBizTest extends SemsTestCase {
 	}
 	
 	@Test
-	public void doEducationModifyTestWithError9() {
+	public void modifyNewEducationTestWithError9() {
 		EducationVO educationVO = new EducationVO();
 		
 		educationVO.setEducationId("ED-20160513-000173");
@@ -554,7 +554,7 @@ public class EducationBizTest extends SemsTestCase {
 	}
 	
 	@Test
-	public void doEducationModifyTestWithError10() {
+	public void modifyNewEducationTestWithError10() {
 		EducationVO educationVO = new EducationVO();
 		
 		educationVO.setEducationId("ED-20160513-000173");
@@ -605,7 +605,7 @@ public class EducationBizTest extends SemsTestCase {
 	}
 	
 	@Test
-	public void doEducationModifyTestWithError11() {
+	public void modifyNewEducationTestWithError11() {
 		EducationVO educationVO = new EducationVO();
 		
 		educationVO.setEducationId("ED-20160513-000173");
@@ -656,7 +656,7 @@ public class EducationBizTest extends SemsTestCase {
 	}
 	
 	@Test
-	public void doEducationModifyTestWithError12() {
+	public void modifyNewEducationTestWithError12() {
 		EducationVO educationVO = new EducationVO();
 		
 		educationVO.setEducationId("ED-20160513-000173");
@@ -707,7 +707,7 @@ public class EducationBizTest extends SemsTestCase {
 	}
 	
 	@Test
-	public void doEducationModifyTestWithError14() {
+	public void modifyNewEducationTestWithError14() {
 		EducationVO educationVO = new EducationVO();
 		
 		educationVO.setEducationId("ED-20160513-000173");
