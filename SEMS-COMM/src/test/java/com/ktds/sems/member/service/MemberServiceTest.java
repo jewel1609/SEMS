@@ -144,7 +144,7 @@ public class MemberServiceTest extends SemsTestCase {
 		grdtTpVO.setCdId("JunitTestCdId");
 		grdtTpVO.setCdNm("JunitTestCdNm");
 
-		String checkStr = memberService.doGrdtModify(grdtTpVO.getCdId(), grdtTpVO.getCdNm());
+		String checkStr = memberService.doGrdtInsert(grdtTpVO.getCdId(), grdtTpVO.getCdNm());
 		assertNotNull(checkStr);
 	}
 
