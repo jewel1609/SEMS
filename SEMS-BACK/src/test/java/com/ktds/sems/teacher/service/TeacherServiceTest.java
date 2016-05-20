@@ -204,10 +204,13 @@ public class TeacherServiceTest extends SemsTestCase{
 		session.setAttribute(Session.MEMBER_TYPE, "ADM");
 	
 		ModelAndView view = teacherService.insertNewTeacher(session);
-		if ( view != null);
-		String viewName = view.getViewName();
-		assertNotNull(view);
-		assertEquals(viewName,"teacher/teacherInsert");
+		if ( view != null) {
+			String viewName = view.getViewName();
+			assertNotNull(view);
+			assertEquals(viewName,"teacher/teacherInsert");
+		} else {
+			fail("fail");
+		}
 	}
 	/*
 	 * 윤후

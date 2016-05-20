@@ -192,7 +192,14 @@ public class TeacherBizTest extends SemsTestCase{
 	public void getOneTeacherBookInfoTest() {
 		String memberId = "teacher01";
 		List<TeacherBookVO> teacherBookList = teacherBiz.getOneTeacherBookInfo(memberId);
-		assertNotNull(teacherBookList);
+		if (teacherBookList != null){
+			for (TeacherBookVO teacherBookVO : teacherBookList) {
+				assertNotNull(teacherBookVO.getId());
+			}
+		}
+		else{
+			fail("Fail...");
+		}
 	}
 	/*
 	 * 윤후
@@ -201,9 +208,10 @@ public class TeacherBizTest extends SemsTestCase{
 	public void getOneTeacherProjectHistoryVOTest(){
 		String memberId = "teacher01";
 		List<ProjectHistoryVO> projectHistoryList = teacherBiz.getOneTeacherProjectHistoryVO(memberId);
-		assertNotNull(projectHistoryList);
 		if (projectHistoryList != null){
-			assertTrue(projectHistoryList.size() >0);
+			for (ProjectHistoryVO projectHistoryVO : projectHistoryList) {
+				assertNotNull(projectHistoryVO.getId());
+			}
 		}
 		else{
 			fail("Fail...");
@@ -216,7 +224,14 @@ public class TeacherBizTest extends SemsTestCase{
 	public void getgetOneEducationHistoryVOTest() {
 		String memberId = "teacher01";
 		List<EducationHistoryVO> educationHistoryList = teacherBiz.getOneEducationHistoryVO(memberId);
-		assertNotNull(educationHistoryList);
+		if(educationHistoryList != null) {
+			for (EducationHistoryVO educationHistoryVO : educationHistoryList) {
+				assertNotNull(educationHistoryVO.getId());
+			}
+			
+		} else {
+			fail("fail");
+		}
 	}
 	/*
 	 * 윤후
@@ -224,7 +239,14 @@ public class TeacherBizTest extends SemsTestCase{
 	@Test
 	public void getTeacherMemberInfo() {
 		List<MemberVO> memberList = teacherBiz.getTeacherMemberInfo();
-		assertNotNull(memberList);
+		if(memberList != null) {
+			for (MemberVO memberVO : memberList) {
+				assertNotNull(memberVO.getId());
+			}
+			
+		} else {
+			fail("fail");
+		}
 	} 
 	/*
 	 * 윤후
@@ -271,7 +293,7 @@ public class TeacherBizTest extends SemsTestCase{
 		teacherVO.setEducationHistoryList(educationHistoryList);
 		
 		boolean result = teacherBiz.doInsertNewTeacher(teacherVO);
-		assertNotNull(result);
+		assertTrue(result);
 		
 	}
 	/*
@@ -319,15 +341,15 @@ public class TeacherBizTest extends SemsTestCase{
 		teacherVO.setEducationHistoryList(educationHistoryList);
 		
 		boolean result = teacherBiz.doInsertNewTeacher(teacherVO);
-		assertNotNull(result);
+		assertTrue(result);
 	}
 	@Test
 	public void deleteTeacherBookEduProHistory	() {
-		String id = "TB-20160520-000052";
+		String id = "TB-20160519-000028";
 		String type = "book";
 		
 		boolean result = teacherBiz.deleteTeacherBookEduProHistory(id, type);
-		assertNotNull(result);
+		assertTrue(result);
 	}
 	
 }

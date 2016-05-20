@@ -182,9 +182,10 @@ public class TeacherDAOTest extends SemsTestCase {
 		teacherBooKVO.setId("test");
 		teacherBooKVO.setMemberId("test");
 		
+		// OK : 1, NO : 0
 		int result = teacherDAO.doInsertTeacherBookHis(teacherBooKVO);
+		assertTrue(result > 0);
 		
-		assertNotNull(result);
 	}
 	/**
 	 * 윤후
@@ -201,8 +202,7 @@ public class TeacherDAOTest extends SemsTestCase {
 		projectHistoryVO.setProjectLocation("test");
 		
 		int result = teacherDAO.doInsertTeacherProHis(projectHistoryVO);
-		
-		assertNotNull(result);
+		assertTrue(result > 0);
 	}
 	/**
 	 * 윤후
@@ -219,8 +219,7 @@ public class TeacherDAOTest extends SemsTestCase {
 		teacherEduHistoryVO.setStartDate("test");
 		
 		int result = teacherDAO.doInsertTeacherEduHis(teacherEduHistoryVO);
-		
-		assertNotNull(result);
+		assertTrue(result > 0);
 	}
 	/**
 	 * 윤후
@@ -229,16 +228,15 @@ public class TeacherDAOTest extends SemsTestCase {
 	public void doTeacherEducationModifyActionTest() {
 		EducationHistoryVO teacherEduHistoryVO = new EducationHistoryVO();
 		
+		teacherEduHistoryVO.setId("TEH-20160519-000016");
 		teacherEduHistoryVO.setEducationLocation("test");
 		teacherEduHistoryVO.setEducationName("test");
 		teacherEduHistoryVO.setEndDate("test");
-		teacherEduHistoryVO.setId("test");
 		teacherEduHistoryVO.setMemberId("teacher01");
 		teacherEduHistoryVO.setStartDate("test");
 		
 		int result = teacherDAO.doTeacherEducationModifyAction(teacherEduHistoryVO);
-		
-		assertNotNull(result);
+		assertTrue(result > 0);
 	}
 	/**
 	 * 윤후
@@ -247,16 +245,14 @@ public class TeacherDAOTest extends SemsTestCase {
 	public void doTeacherProjectModifyAction() {
 		ProjectHistoryVO projectHistoryVO = new ProjectHistoryVO();
 		
-		projectHistoryVO.setEndDate("");
-		projectHistoryVO.setId("");
-		projectHistoryVO.setMemberId("");
-		projectHistoryVO.setProjectLocation("");
-		projectHistoryVO.setProjectName("");
-		projectHistoryVO.setStartDate("");
+		projectHistoryVO.setId("TPH-20160519-000017");
+		projectHistoryVO.setEndDate("11");
+		projectHistoryVO.setProjectLocation("22");
+		projectHistoryVO.setProjectName("33");
+		projectHistoryVO.setStartDate("44");
 		
 		int result = teacherDAO.doTeacherProjectModifyAction(projectHistoryVO);
-		
-		assertNotNull(result);
+		assertTrue(result > 0);
 	}
 	/**
 	 * 윤후
@@ -265,14 +261,13 @@ public class TeacherDAOTest extends SemsTestCase {
 	public void doTeacherBookModifyAction() {
 		TeacherBookVO teacherBookVO = new TeacherBookVO();
 		
+		teacherBookVO.setId("TB-20160519-000028");
 		teacherBookVO.setBookCompany("test");
 		teacherBookVO.setBookName("test");
-		teacherBookVO.setId("test");
 		teacherBookVO.setMemberId("teacher01");
 		
 		int result = teacherDAO.doTeacherBookModifyAction(teacherBookVO);
-		
-		assertNotNull(result);
+		assertTrue(result > 0);
 	}
 	/**
 	 * 윤후
@@ -281,7 +276,13 @@ public class TeacherDAOTest extends SemsTestCase {
 	public void getOneEducationHistoryVO() {
 		String memberId = "teacher01";
 		List<EducationHistoryVO> teacherEducations = teacherDAO.getOneEducationHistoryVO(memberId);
-		assertNotNull(teacherEducations);
+		if (teacherEducations != null ){
+			for (EducationHistoryVO educationHistoryVO : teacherEducations) {
+				assertNotNull(educationHistoryVO.getId());
+			}
+		} else {
+			fail("fail");
+		}
 	}
 	/**
 	 * 윤후
@@ -290,7 +291,13 @@ public class TeacherDAOTest extends SemsTestCase {
 	public void getOneTeacherProjectHistoryVO() {
 		String memberId = "teacher01";
 		List<ProjectHistoryVO> teacherProjectHistoryVO = teacherDAO.getOneTeacherProjectHistoryVO(memberId);
-		assertNotNull(teacherProjectHistoryVO);
+		if (teacherProjectHistoryVO != null ){
+			for (ProjectHistoryVO projectHistoryVO : teacherProjectHistoryVO) {
+				assertNotNull(projectHistoryVO.getId());
+			}
+		} else {
+			fail("fail");
+		}
 	}
 	/**
 	 * 윤후
@@ -299,7 +306,13 @@ public class TeacherDAOTest extends SemsTestCase {
 	public void getOneTeacherBookInfo() {
 		String memberId = "teacher01";
 		List<TeacherBookVO> oneTeacherBookInfo = teacherDAO.getOneTeacherBookInfo(memberId);
-		assertNotNull(oneTeacherBookInfo);
+		if (oneTeacherBookInfo != null ){
+			for (TeacherBookVO teacherBookVO : oneTeacherBookInfo) {
+				assertNotNull(teacherBookVO.getId());
+			}
+		} else {
+			fail("fail");
+		}
 	}
 	/**
 	 * 윤후
@@ -308,7 +321,11 @@ public class TeacherDAOTest extends SemsTestCase {
 	public void getOneTeacherInfo() {
 		String memberId = "teacher01";
 		TeacherVO teacherVO = teacherDAO.getOneTeacherInfo(memberId);
-		assertNotNull(teacherVO);
+		if(teacherVO != null) {
+			assertNotNull(teacherVO.getMemberId());
+		} else {
+			fail("fail");
+		}
 	}
 	/**
 	 * 윤후
@@ -317,7 +334,7 @@ public class TeacherDAOTest extends SemsTestCase {
 	public void doDeleteTeacherBook() {
 		String memberId = "teacher01";
 		int result = teacherDAO.doDeleteTeacherBook(memberId);
-		assertNotNull(result);
+		assertTrue(result > 0);
 	}
 	/**
 	 * 윤후
@@ -326,7 +343,7 @@ public class TeacherDAOTest extends SemsTestCase {
 	public void doDeleteEducationHistory() {
 		String memberId = "teacher01";
 		int result = teacherDAO.doDeleteEducationHistory(memberId);
-		assertNotNull(result);
+		assertTrue(result > 0);
 	}
 	/**
 	 * 윤후
@@ -335,6 +352,6 @@ public class TeacherDAOTest extends SemsTestCase {
 	public void doDeleteProjectHistory() {
 		String memberId = "teacher01";
 		int result = teacherDAO.doDeleteProjectHistory(memberId);
-		assertNotNull(result);
+		assertTrue(result > 0);
 	}
 }
