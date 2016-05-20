@@ -91,13 +91,11 @@ public class EducationDAOTest extends SemsTestCase {
 	}
 	*/
 	
-	/* 
-	 * educationId 값 재설정
 	@Test
 	public void doEducationModifyTest() {
 		EducationVO educationVO = new EducationVO();
 		
-		educationVO.setEducationId("ED-20160518-000207");
+		educationVO.setEducationId("ED-20160513-000173");
 		educationVO.setEducationCategory("ZCS");
 		educationVO.setEducationTitle("JUNIT...");
 		educationVO.setMemberId("JUNIT...");
@@ -138,7 +136,6 @@ public class EducationDAOTest extends SemsTestCase {
 		int result = educationDAO.modifyNewEducation(educationVO);
 		assertEquals(result, 1);
 	}
-	*/
 	
 	public class EducationValidator implements Validator {
 		

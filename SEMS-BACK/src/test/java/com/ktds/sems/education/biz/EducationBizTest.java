@@ -39,14 +39,13 @@ public class EducationBizTest extends SemsTestCase {
 		assertNotNull(educationVO);
 	}
 	
-	/*
-	 * educationId 값 재설정
+	// educationId 값 재설정
 	@Test
 	public void doEducationModifyTest() {
 		
 		EducationVO educationVO = new EducationVO();
 		
-		educationVO.setEducationId("ED-20160518-000206");
+		educationVO.setEducationId("ED-20160513-000173");
 		educationVO.setEducationCategory("ZCS");
 		educationVO.setEducationTitle("JUNIT...");
 		educationVO.setMemberId("JUNIT...");
@@ -91,7 +90,6 @@ public class EducationBizTest extends SemsTestCase {
 		boolean result = educationBiz.modifyNewEducation(educationVO);
 		assertEquals(result, true);
 	}
-	*/
 	
 	public class EducationValidator implements Validator {
 		

@@ -149,12 +149,11 @@ public class EducationControllerTest extends SemsTestCase {
 	}
 	 */
 	
-	/*
 	@Test
 	public void doEducationModifyTest() {
 		EducationVO educationVO = new EducationVO();
 
-		educationVO.setEducationId("ED-20160518-000206");
+		educationVO.setEducationId("ED-20160513-000169");
 		educationVO.setEducationCategory("ZCS");
 		educationVO.setEducationTitle("JUNIT...");
 		educationVO.setMemberId("JUNIT...");
@@ -162,8 +161,8 @@ public class EducationControllerTest extends SemsTestCase {
 		educationVO.setEducationLocation("JUNIT...");
 		educationVO.setEducationCurriculum("JUNIT...");
 		educationVO.setEducationIntroduce("JUNIT...");
-		educationVO.setStartDate("JUNIT...");
-		educationVO.setEndDate("JUNIT...");
+		educationVO.setStartDate("2016-11-11");
+		educationVO.setEndDate("2016-11-11");
 		educationVO.setStartTime("01:00");
 		educationVO.setEndTime("01:00");
 		educationVO.setEducationType("TIMM");
@@ -201,12 +200,11 @@ public class EducationControllerTest extends SemsTestCase {
 		if (view != null) {
 			String viewName = view.getViewName();
 			assertNotNull(viewName);
-			assertEquals(viewName, "redirect:/detail/ED-20160518-000206");
+			assertEquals(viewName, "redirect:/detail/ED-20160513-000169");
 		} else {
 			fail("fail...");
 		}
 	}
-	*/
 
 	
 	@Test

@@ -41,25 +41,20 @@ public class EducationServiceTest extends SemsTestCase {
 	@Autowired
 	private EducationService educationeService;
 	
-	/*
-	 * educationId 재설정하면 됩니다.
 	@Test
 	public void getOneEducationForUpdateTest(){
-		String educationId = "ED-20160518-000207";
+		String educationId = "ED-20160513-000173";
 		ModelAndView view = educationeService.getOneEducationForUpdate(educationId);
 		String viewName = view.getViewName();
 		assertNotNull(view);
 		assertTrue(viewName == "education/update");
 	}
-	*/
 
-	/*
-	 * educationId 재설정하면 됩니다.
 	@Test
 	public void doEducationModifyTest() {
 		EducationVO educationVO = new EducationVO();
 		
-		educationVO.setEducationId("ED-20160518-000206");
+		educationVO.setEducationId("ED-20160513-000173");
 		educationVO.setEducationCategory("ZCS");
 		educationVO.setEducationTitle("JUNIT...");
 		educationVO.setMemberId("JUNIT...");
@@ -108,12 +103,11 @@ public class EducationServiceTest extends SemsTestCase {
 		if (view != null) {
 			String viewName = view.getViewName();
 			assertNotNull(viewName);
-			assertEquals(viewName, "redirect:/detail/ED-20160518-000206");
+			assertEquals(viewName, "redirect:/detail/ED-20160513-000173");
 		} else {
 			fail("fail...");
 		}
 	}
-	*/
 	
 	/*
 	 * D:\\핸드폰.xlsx 해당 파일이 있어야 insert 가능합니다.
