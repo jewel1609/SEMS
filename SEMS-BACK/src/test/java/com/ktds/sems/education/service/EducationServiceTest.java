@@ -870,7 +870,6 @@ public class EducationServiceTest extends SemsTestCase {
 	 * D:\\핸드폰.xlsx 해당 파일이 있어야 insert 가능합니다.
 	 * 
 	 */
-	@Test
 	public void writeNewEducationTest() {
 		// List 보는건 차 후에 test 시도
 
