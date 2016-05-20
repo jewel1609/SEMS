@@ -5,10 +5,13 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ktds.sems.SemsTestCase;
@@ -17,14 +20,49 @@ import com.ktds.sems.education.vo.CostVO;
 import com.ktds.sems.education.vo.TimeVO;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
+@Transactional
 public class EducationBizTest extends SemsTestCase{
 
 	@Autowired
 	private EducationBiz educationBiz;
 	
+	@Before
+	public void setUp(){
+		CostVO cost = new CostVO();
+		cost.setCdId("TES1");
+		cost.setCdNm("TES1");
+		educationBiz.insertEduCost(cost);
+		
+		TimeVO time = new TimeVO();
+		time.setCdId("TES1");
+		time.setCdNm("TES1");
+		educationBiz.insertEduTime(time);
+		
+		CategoryVO categoryVO = new CategoryVO();
+		categoryVO.setParentCategoryId("PAID");
+		categoryVO.setCategoryType("medium");
+		categoryVO.setCategoryId("TEST");
+		categoryVO.setCategoryName("pppTestppp");
+		educationBiz.addNewCategory(categoryVO);
+	}
+	
+	@After
+	public void tearDown(){
+		educationBiz.deleteEduCost("TES1");
+		
+		educationBiz.deleteEduTime("TES1");
+		
+		CategoryVO categoryVO = new CategoryVO();
+		categoryVO.setParentCategoryId("PAID");
+		categoryVO.setCategoryType("medium");
+		categoryVO.setCategoryId("TEST");
+		categoryVO.setCategoryName("pppTestppp");
+		educationBiz.deleteCategory(categoryVO);
+	}
+	
 	//costTime
-	@Test
-	public void ainsertEduCostTest() {
+	@Test(expected=DuplicateKeyException.class)
+	public void insertEduCostTest() {
 		CostVO cost = new CostVO();
 		cost.setCdId("TES1");
 		cost.setCdNm("TES1");
@@ -125,8 +163,8 @@ public class EducationBizTest extends SemsTestCase{
 	}
 	
 	// timeTest
-	@Test
-	public void ainsertEduTimeTest() {
+	@Test(expected=DuplicateKeyException.class)
+	public void insertEduTimeTest() {
 		TimeVO time = new TimeVO();
 		time.setCdId("TES1");
 		time.setCdNm("TES1");
@@ -236,7 +274,7 @@ public class EducationBizTest extends SemsTestCase{
 		assertTrue(isExist);
 	}
 	
-	@Test
+	@Test(expected=DuplicateKeyException.class)
 	public void addNewCategoryTest(){
 		CategoryVO categoryVO = new CategoryVO();
 		categoryVO.setParentCategoryId("PAID");
