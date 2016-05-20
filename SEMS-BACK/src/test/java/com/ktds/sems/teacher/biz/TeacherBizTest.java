@@ -107,37 +107,84 @@ public class TeacherBizTest extends SemsTestCase{
 		}
 	}
 	
-
+	@Test
 	public void doDeleteTeacherTest(){
 		
-		String memberId = teacherDAO.getOneTeacherId();
-		boolean result = teacherBiz.doDeleteTeacher(memberId);
-		assertTrue(result);
+		TeacherVO teacherVO = new TeacherVO();
+		teacherVO.setMemberId("junit");
+		teacherVO.setCompanyName("junit");
+		teacherVO.setBusinessNumber("1234");
+		teacherVO.setAnnual(1);
+		int isInsert = teacherDAO.doInsertNewTeacher(teacherVO);
+
+		if (isInsert > 0) {
+			boolean result = teacherBiz.doDeleteTeacher(teacherVO.getMemberId());
+			assertTrue(result);
+		}
+			
 	}
 	
-
-	public void doDeleteProjectHistoryTest(){
-		
-		String memberId = teacherDAO.getOneTeacherId();
-		boolean result = teacherBiz.doDeleteProjectHistory(memberId);
-		assertTrue(result);
-	}
 	
-
+	@Test
 	public void doDeleteEducationHistoryTest(){
 		
-		String memberId = teacherDAO.getOneTeacherId();
-		boolean result = teacherBiz.doDeleteEducationHistory(memberId);
-		assertTrue(result);
+		EducationHistoryVO teacherEduHistoryVO = new EducationHistoryVO();
+		teacherEduHistoryVO.setId("TEH-20160519-000001");
+		teacherEduHistoryVO.setMemberId("junit");
+		teacherEduHistoryVO.setStartDate("r");
+		teacherEduHistoryVO.setEndDate("r");
+		teacherEduHistoryVO.setEducationName("r");
+		teacherEduHistoryVO.setEducationLocation("r");
+		int isInsert = teacherDAO.doInsertTeacherEduHis(teacherEduHistoryVO);
+		
+		if ( isInsert > 0){
+			boolean result = teacherBiz.doDeleteEducationHistory(teacherEduHistoryVO.getMemberId());
+			assertTrue(result);
+		}
+		
 	}
 	
-
+	
+	
+	@Test
+	public void doDeleteProjectHistoryTest(){
+		
+		ProjectHistoryVO projectHistoryVO = new ProjectHistoryVO();
+		projectHistoryVO.setId("TPH-20160519-000001");
+		projectHistoryVO.setMemberId("junit");
+		projectHistoryVO.setStartDate("d");
+		projectHistoryVO.setEndDate("d");
+		projectHistoryVO.setProjectName("d");
+		projectHistoryVO.setProjectLocation("d");
+		int isInsert = teacherDAO.doInsertTeacherProHis(projectHistoryVO);
+		
+		if ( isInsert > 0 ){
+			boolean result = teacherBiz.doDeleteProjectHistory(projectHistoryVO.getMemberId());
+			System.out.println(result);
+			assertTrue(result);
+		}
+		
+	}
+	
+	
+	
+	@Test
 	public void doDeleteTeacherBookTest(){
 		
-		String memberId = teacherDAO.getOneTeacherId();
-		boolean result = teacherBiz.doDeleteTeacherBook(memberId);
-		assertTrue(result);
+		TeacherBookVO teacherBookVO = new TeacherBookVO();
+		teacherBookVO.setId("TB-20160519-000001");
+		teacherBookVO.setMemberId("junit");
+		teacherBookVO.setBookName("d");
+		teacherBookVO.setBookCompany("d");
+		int isInsert =  teacherDAO.doInsertTeacherBookHis(teacherBookVO);
+	
+		if ( isInsert > 0){
+			boolean result = teacherBiz.doDeleteTeacherBook(teacherBookVO.getMemberId());
+			assertTrue(result);
+		}
+
 	}
+	
 	
 	
 	

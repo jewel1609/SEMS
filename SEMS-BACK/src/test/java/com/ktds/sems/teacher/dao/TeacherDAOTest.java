@@ -60,30 +60,73 @@ public class TeacherDAOTest extends SemsTestCase {
 	}
 	
 	
-
+	@Test
 	public void doDeleteTeacherTest() {
 		
-		String deleteTeacherId = teacherDAO.getOneTeacherId();
-		int result = teacherDAO.doDeleteTeacher(deleteTeacherId);
-		assertNotNull(result);
-	}
+		TeacherVO teacherVO = new TeacherVO();
+		teacherVO.setMemberId("junit");
+		teacherVO.setCompanyName("junit");
+		teacherVO.setBusinessNumber("1234");
+		teacherVO.setAnnual(1);
+		int isInsert = teacherDAO.doInsertNewTeacher(teacherVO);
+		if (isInsert > 0) {
+			int result = teacherDAO.doDeleteTeacher(teacherVO.getMemberId());
+			assertNotNull(result);
+		}
 
+	}
+	@Test
 	public void doDeleteProjectHistoryTest() {
-		String deleteTeacherId = teacherDAO.getOneTeacherId();
-		int result = teacherDAO.doDeleteProjectHistory(deleteTeacherId);
-		assertNotNull(result);
-	}
+		
+		ProjectHistoryVO projectHistoryVO = new ProjectHistoryVO();
+		projectHistoryVO.setId("TPH-20160519-000001");
+		projectHistoryVO.setMemberId("junit");
+		projectHistoryVO.setStartDate("d");
+		projectHistoryVO.setEndDate("d");
+		projectHistoryVO.setProjectName("d");
+		projectHistoryVO.setProjectLocation("d");
+		
+		int isInsert = teacherDAO.doInsertTeacherProHis(projectHistoryVO);
+		if ( isInsert > 0 ){
+			int result = teacherDAO.doDeleteProjectHistory(projectHistoryVO.getMemberId());
+			assertNotNull(result);
+		}
 
-	public void doDeleteEducationHistoryTest() {
-		String deleteTeacherId = teacherDAO.getOneTeacherId();
-		int result = teacherDAO.doDeleteEducationHistory(deleteTeacherId);
-		assertNotNull(result);
 	}
-	
+	@Test
+	public void doDeleteEducationHistoryTest() {
+		
+		EducationHistoryVO teacherEduHistoryVO = new EducationHistoryVO();
+		teacherEduHistoryVO.setId("TEH-20160519-000001");
+		teacherEduHistoryVO.setMemberId("junit");
+		teacherEduHistoryVO.setStartDate("r");
+		teacherEduHistoryVO.setEndDate("r");
+		teacherEduHistoryVO.setEducationName("r");
+		teacherEduHistoryVO.setEducationLocation("r");
+		int isInsert = teacherDAO.doInsertTeacherEduHis(teacherEduHistoryVO);
+		if ( isInsert > 0){
+			int result = teacherDAO.doDeleteEducationHistory(teacherEduHistoryVO.getMemberId());
+			assertNotNull(result);
+		}
+		
+
+	}
+	@Test
 	public void doDeleteTeacherBookTest() {
-		String deleteTeacherId = teacherDAO.getOneTeacherId();
-		int result = teacherDAO.doDeleteTeacherBook(deleteTeacherId);
-		assertNotNull(result);
+		
+		ProjectHistoryVO projectHistoryVO = new ProjectHistoryVO();
+		projectHistoryVO.setId("TPH-20160519-000001");
+		projectHistoryVO.setMemberId("junit");
+		projectHistoryVO.setStartDate("d");
+		projectHistoryVO.setEndDate("d");
+		projectHistoryVO.setProjectName("d");
+		projectHistoryVO.setProjectLocation("d");
+		int isInsert = teacherDAO.doInsertTeacherProHis(projectHistoryVO);
+		
+		if ( isInsert > 0 ){
+			int result = teacherDAO.doDeleteProjectHistory(projectHistoryVO.getMemberId());
+			assertNotNull(result);
+		}
 	}
 	
 	@Test

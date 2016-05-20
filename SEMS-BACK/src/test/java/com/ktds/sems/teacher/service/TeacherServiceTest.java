@@ -12,14 +12,20 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.SemsTestCase;
 import com.ktds.sems.teacher.dao.TeacherDAO;
+import com.ktds.sems.teacher.vo.EducationHistoryVO;
+import com.ktds.sems.teacher.vo.ProjectHistoryVO;
+import com.ktds.sems.teacher.vo.TeacherBookVO;
 import com.ktds.sems.teacher.vo.TeacherListVO;
 import com.ktds.sems.teacher.vo.TeacherSearchVO;
+import com.ktds.sems.teacher.vo.TeacherVO;
 
 @Transactional
 public class TeacherServiceTest extends SemsTestCase{
 	
 	@Autowired
 	private TeacherService teacherService;
+	@Autowired
+	private TeacherDAO teacherDAO;
 
 	@Test
 	public void viewDetailTest(){
@@ -58,15 +64,39 @@ public class TeacherServiceTest extends SemsTestCase{
 		
 	}
 	
-
-	public void doDeleteTeacher(){
-		String deleteTeacherId = "skawnsgh1234";
-		ModelAndView view = teacherService.doDeleteTeacher(deleteTeacherId);
-		assertEquals(view.getViewName(), "/teacher/detail/skawnsgh1234");
+	@Test
+	public void doDeleteTeacherTest(){
 		
+		TeacherVO teacherVO = new TeacherVO();
+		teacherVO.setMemberId("junit");
+		teacherVO.setCompanyName("junit");
+		teacherVO.setBusinessNumber("1234");
+		teacherVO.setAnnual(1);
+		EducationHistoryVO teacherEduHistoryVO = new EducationHistoryVO();
+		teacherEduHistoryVO.setId("TEH-20160519-000001");
+		teacherEduHistoryVO.setMemberId("junit");
+		teacherEduHistoryVO.setStartDate("r");
+		teacherEduHistoryVO.setEndDate("r");
+		teacherEduHistoryVO.setEducationName("r");
+		teacherEduHistoryVO.setEducationLocation("r");
+		ProjectHistoryVO projectHistoryVO = new ProjectHistoryVO();
+		projectHistoryVO.setId("TPH-20160519-000001");
+		projectHistoryVO.setMemberId("junit");
+		projectHistoryVO.setStartDate("d");
+		projectHistoryVO.setEndDate("d");
+		projectHistoryVO.setProjectName("d");
+		projectHistoryVO.setProjectLocation("d");
+		TeacherBookVO teacherBookVO = new TeacherBookVO();
+		teacherBookVO.setId("TB-20160519-000001");
+		teacherBookVO.setMemberId("junit");
+		teacherBookVO.setBookName("d");
+		teacherBookVO.setBookCompany("d");
+		
+		ModelAndView view = teacherService.doDeleteTeacher(teacherVO.getMemberId());
+		assertEquals(view.getViewName(), "teacher/teaacherList");
 	}
 	
-
+	@Test
 	public void massiveDeleteTeacherTest(){
 		
 		String[] deleteTeacherIds = {"teacher03", "teacher02"};
