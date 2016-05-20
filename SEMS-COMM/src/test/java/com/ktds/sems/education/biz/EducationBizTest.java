@@ -91,7 +91,7 @@ public class EducationBizTest extends SemsTestCase{
 	}
 
 	@Test
-	public void zdeleteEduCostTest() {
+	public void deleteEduCostTest() {
 		boolean deleteEduCost = educationBiz.deleteEduCost("TES1");
 		assertTrue(deleteEduCost == true);
 	}
@@ -103,7 +103,7 @@ public class EducationBizTest extends SemsTestCase{
 	}
 	
 	@Test
-	public void bisExistCostTestError1() {
+	public void isExistCostTestError1() {
 		CostVO cost = new CostVO();
 		cost.setCdId("TES1");
 		cost.setCdNm("TES1");
@@ -113,7 +113,7 @@ public class EducationBizTest extends SemsTestCase{
 	}
 	
 	@Test
-	public void bisExistCostTestError2() {
+	public void isExistCostTestError2() {
 		CostVO cost = new CostVO();
 		cost.setCdId("TES1");
 		cost.setCdNm("TES2");
@@ -123,7 +123,7 @@ public class EducationBizTest extends SemsTestCase{
 	}
 	
 	@Test
-	public void bisExistCostTestError3() {
+	public void isExistCostTestError3() {
 		CostVO cost = new CostVO();
 		cost.setCdId("TES2");
 		cost.setCdNm("TES1");
@@ -133,7 +133,7 @@ public class EducationBizTest extends SemsTestCase{
 	}
 	
 	@Test
-	public void bisExistCostTestError4() {
+	public void isExistCostTestError4() {
 		CostVO cost = new CostVO();
 		cost.setCdId("TES1");
 		cost.setCdNm("TES1");
@@ -143,7 +143,7 @@ public class EducationBizTest extends SemsTestCase{
 	}
 	
 	@Test
-	public void bisExistCostNmTestError1() {
+	public void isExistCostNmTestError1() {
 		CostVO cost = new CostVO();
 		cost.setCdId("TES1");
 		cost.setCdNm("TES3");
@@ -153,7 +153,7 @@ public class EducationBizTest extends SemsTestCase{
 	}
 	
 	@Test
-	public void bisExistCostNmTestError2() {
+	public void isExistCostNmTestError2() {
 		CostVO cost = new CostVO();
 		cost.setCdId("TES1");
 		cost.setCdNm("TES1");
@@ -191,13 +191,13 @@ public class EducationBizTest extends SemsTestCase{
 	}
 
 	@Test
-	public void zdeleteEduTimeTest() {
+	public void deleteEduTimeTest() {
 		boolean deleteEduTime = educationBiz.deleteEduTime("TES1");
 		assertTrue(deleteEduTime == true);
 	}
 	
 	@Test
-	public void bisExistTimeTestError1() {
+	public void isExistTimeTestError1() {
 		TimeVO time = new TimeVO();
 		time.setCdId("TES1");
 		time.setCdNm("TES1");
@@ -207,7 +207,7 @@ public class EducationBizTest extends SemsTestCase{
 	}
 	
 	@Test
-	public void bisExistTimeTestError2() {
+	public void isExistTimeTestError2() {
 		TimeVO time = new TimeVO();
 		time.setCdId("TES1");
 		time.setCdNm("TES2");
@@ -217,7 +217,7 @@ public class EducationBizTest extends SemsTestCase{
 	}
 	
 	@Test
-	public void bisExistTimeTestError3() {
+	public void isExistTimeTestError3() {
 		TimeVO time = new TimeVO();
 		time.setCdId("TES2");
 		time.setCdNm("TES1");
@@ -227,7 +227,7 @@ public class EducationBizTest extends SemsTestCase{
 	}
 	
 	@Test
-	public void bisExistTimeTestError4() {
+	public void isExistTimeTestError4() {
 		TimeVO time = new TimeVO();
 		time.setCdId("TES2");
 		time.setCdNm("TES2");
@@ -237,7 +237,7 @@ public class EducationBizTest extends SemsTestCase{
 	}
 	
 	@Test
-	public void bisExistTimeNmTestError1() {
+	public void isExistTimeNmTestError1() {
 		TimeVO time = new TimeVO();
 		time.setCdId("TES1");
 		time.setCdNm("TES3");
@@ -247,7 +247,7 @@ public class EducationBizTest extends SemsTestCase{
 	}
 	
 	@Test
-	public void bisExistTimeNmTestError2() {
+	public void isExistTimeNmTestError2() {
 		TimeVO time = new TimeVO();
 		time.setCdId("TES1");
 		time.setCdNm("TES1");
