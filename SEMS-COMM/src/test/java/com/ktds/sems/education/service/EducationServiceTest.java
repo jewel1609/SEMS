@@ -26,7 +26,6 @@ import com.ktds.sems.education.vo.JsonResponseVO;
 import com.ktds.sems.education.vo.TimeVO;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-@Transactional
 public class EducationServiceTest extends SemsTestCase {
 
 	@Autowired

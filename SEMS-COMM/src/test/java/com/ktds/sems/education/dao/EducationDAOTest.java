@@ -17,7 +17,6 @@ import com.ktds.sems.education.vo.CostVO;
 import com.ktds.sems.education.vo.TimeVO;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-@Transactional
 public class EducationDAOTest extends SemsTestCase{
 
 	@Autowired

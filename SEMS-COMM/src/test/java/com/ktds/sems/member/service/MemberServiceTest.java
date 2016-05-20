@@ -24,7 +24,6 @@ import com.ktds.sems.member.vo.MbrTpVO;
 import com.ktds.sems.member.vo.MemberVO;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-@Transactional
 public class MemberServiceTest extends SemsTestCase {
 
 	@Autowired

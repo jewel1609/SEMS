@@ -15,7 +15,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ktds.sems.SemsTestCase;
 import com.ktds.sems.menu.vo.MenuManageVO;
 
-@Transactional
 public class MenuServiceTest extends SemsTestCase{
 
 	@Autowired

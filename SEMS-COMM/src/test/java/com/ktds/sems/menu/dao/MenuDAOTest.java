@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ktds.sems.SemsTestCase;
 import com.ktds.sems.menu.vo.MenuManageVO;
 
-@Transactional
 public class MenuDAOTest extends SemsTestCase {
 
    @Autowired
