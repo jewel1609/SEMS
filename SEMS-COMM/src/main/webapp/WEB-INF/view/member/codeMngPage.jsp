@@ -21,7 +21,6 @@
 			$("#cdNm").val("");
 			$("#cdTp").val("");
 			$("#cdTp2").val("");
-			
 		});
 		
 		//수정버튼 클릭시
@@ -87,6 +86,69 @@
 			} 
 		});
 		
+		
+		$(".onlyText").keyup(function(event) {
+			var regexp = /[\+*^!@\#$%<>&\()\=\’ \\/\?,.\:\;\''\""\{\}\[\]|\\~`]/gi;
+			var engregexp = /[a-zA-Z0-9-_]/gi;
+			var noengregexp = /[^a-zA-Z0-9-_]/gi;
+
+			v = $(this).val();
+			if (regexp.test(v)) {
+				alert("특수문자를 포함할 수 없습니다.");
+				$(this).val(v.replace(regexp, ''));
+			}
+			
+			var tmpStr = $(this).val();
+			var tmpStr2 = $(this).val();
+			tmpStr = tmpStr.replace(engregexp, '');
+			tmpStr2 = tmpStr2.replace(noengregexp, '');
+			if ( (tmpStr.length * 3) + tmpStr2.length > 20 ) {
+				alert("글자 수가 너무 큽니다.");
+				while(v.length > 0){
+					v = v.substring(0, v.length - 1);
+					tmpStr = v;
+					tmpStr2 = v;
+					tmpStr = tmpStr.replace(engregexp, '');
+					tmpStr2 = tmpStr2.replace(noengregexp, '');
+					if ( (tmpStr.length * 3) + tmpStr2.length <= 20 ) {
+						break;
+					}
+				}
+				$(this).val(v);
+			} 
+		});
+		
+		$(".onlyEngText").keyup(function(event) {
+			regexp = /[\+*^!@\#$%<>&\()\=\’ \\/\?,.\:\;\''\""\{\}\[\]|\\~`]/gi;
+			engregexp = /[^a-zA-Z0-9-_]/gi;
+
+			v = $(this).val();
+			if (regexp.test(v)) {
+				alert("특수문자를 포함할 수 없습니다.");
+				$(this).val(v.replace(regexp, ''));
+			}
+			if (engregexp.test(v)) {
+				alert("숫자와 영문만 입력할 수 있습니다.");
+				$(this).val(v.replace(engregexp, ''));
+			}
+		});
+		
+		$(".insertEight").keyup(function(event){
+			v = $(this).val();
+			if ( v.length > 8 ) {
+				alert("글자수가 8을 넘을 수 없습니다.");
+				$(this).val(v.substring(0, 8));
+			}
+		});
+		$(".insertFour").keyup(function(event){
+			v = $(this).val();
+			if ( v.length > 4 ) {
+				alert("글자수가 4를 넘을 수 없습니다.");
+				$(this).val(v.substring(0, 4));
+			}
+		});
+		
+		
 		//추가버튼 클릭시
 		$("#codeMngInsertBtn").click(function (){
 			var cdId =  $("#cdId").val();
@@ -95,40 +157,23 @@
 			var cdTp2 = $("#cdTp2").val();
 			
 			if(cdId==""){
-				alert("CODE ID를 써주세요.");
+				alert("코드 아이디를 써주세요.");
 				return;
 			}
-			if(cdId.length > 8){
-				alert("CODE ID는 8글자 이하로 써주세요.");
-				return;
-			}
-			
 			if(cdNm==""){
-				alert("CODE NAME을 써주세요.");
-				return;
-			}
-			if(cdNm.length > 20){
-				alert("CODE NAME은 20글자 이하로 써주세요.");
+				alert("코드 타이틀을 써주세요.");
 				return;
 			}
 			
 			/* tp */
 			if(cdTp==""){
-				alert("CODE 카테고리를 써주세요.");
-				return;
-			}
-			if(cdTp.length > 4){
-				alert("CODE 카테고리는 4글자 이하로 써주세요.");
+				alert("코드 카테고리를 써주세요.");
 				return;
 			}
 			
 			/* tp2 */
 			if(cdTp2==""){
-				alert("CODE 세부 카테고리를 써주세요.");
-				return;
-			}
-			if(cdTp2.length > 8){
-				alert("CODE 세부 카테고리는 8글자 이하로 써주세요.");
+				alert("코드 세부 카테고리를 써주세요.");
 				return;
 			}
 			
@@ -180,16 +225,16 @@
 	
 		<tr>
 			<td>
-				<input type="text" id="cdId" name="newCdId" value=""/>
+				<input type="text" id="cdId" class="onlyEngText insertEight" name="newCdId" value=""/>
 			</td>
 			<td>
-				<input type="text" id="cdNm" name="newCdNm" value=""/>
+				<input type="text" id="cdNm" class="onlyText" name="newCdNm" value=""/>
 			</td>
 			<td>
-				<input type="text" id="cdTp" name="newCdTp" value=""/>
+				<input type="text" id="cdTp" class="onlyEngText insertFour" name="newCdTp" value=""/>
 			</td>
 			<td>
-				<input type="text" id="cdTp2" name="newCdTp2" value=""/>
+				<input type="text" id="cdTp2" class="onlyEngText insertEight" name="newCdTp2" value=""/>
 			</td>
 			<td><input type="button" id="codeMngInsertBtn" value="추가" /></td>
 			<td><input type="button" id="cancleBtn" value="취소" /></td>
