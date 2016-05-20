@@ -19,6 +19,7 @@ import com.ktds.sems.SemsTestCase;
 import com.ktds.sems.member.vo.LoginHistorySearchVO;
 import com.ktds.sems.member.vo.LoginHistoryVO;
 import com.ktds.sems.member.vo.MemberSearchVO;
+import com.ktds.sems.member.vo.MemberTypeVO;
 import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.member.vo.PersonalInfoReadVO;
 
@@ -113,7 +114,7 @@ public class MemberDAOTest extends SemsTestCase {
 	
 	@Test
 	public void getTypeListTest(){
-		List<String> typeList = memberDAO.getTypeList();
+		List<MemberTypeVO> typeList = memberDAO.getTypeList();
 		assertNotNull(typeList);
 	}
 	

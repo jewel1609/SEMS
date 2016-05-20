@@ -178,7 +178,7 @@ public class MemberServiceImpl implements MemberService{
 		List<LoginHistoryVO> loginHistory = memberBiz.getAllMemberHistory(loginHistorySearchVO);
 		loginHistoryListVO.setLoginHistoryList(loginHistory);
 		
-		List<String> typeList = memberBiz.getTypeList();
+		List<MemberTypeVO> typeList = memberBiz.getTypeList();
 		
 		ModelAndView view = new ModelAndView();
 		

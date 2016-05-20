@@ -168,12 +168,12 @@
 		 		, HIS.MBR_ID id
 		 		, HIS.CD_NM memberType
 	     FROM 	(
-	             SELECT ROWNUM AS RNUM
+	              SELECT ROWNUM AS RNUM
 	              ,LGI.*
 		          FROM   (
-		                         SELECT   LGI_HTR.*
+		                        SELECT   LGI_HTR.*
 		                        FROM   (
-		                                  SELECT  LGI_HTR.*, MBR_TP.CD_NM
+		                                  SELECT  LGI_HTR.*, MBR_TP.*
 		                                  FROM   LGI_HTR, MBR, MBR_TP
 		                                  WHERE   MBR.MBR_TP = MBR_TP.CD_ID
 		                                  AND     LGI_HTR.MBR_ID = MBR.ID
@@ -183,13 +183,13 @@
 		                                    FROM   MBR
 		                                    WHERE   MBR_TP != 'ADM'
 		                                    )
-	                            <if test="searchKeyword != null and searchKeyword != '' ">
-								AND		LGI_HTR.MBR_ID = #{searchKeyword}
+	                            <if test="search != null and search == 'id'">
+								AND		LGI_HTR.MBR_ID LIKE '%'||#{searchKeyword}||'%'
 								</if>
-								<if test="searchType != null and searchType != '' ">
-								AND		LGI_HTR.CD_NM = #{searchType}
+								<if test="search != null and search == 'type'">
+								AND		LGI_HTR.CD_ID = #{searchType}
 								</if>
-								<if test="startDate != null and startDate != '' ">
+								<if test="search != null and search == 'date'">
 								AND		LGI_DT <![CDATA[>=]]> TO_DATE(#{startDate}, 'YYYY-MM-DD')		
 								AND		LGI_DT <![CDATA[<=]]> TO_DATE(#{endDate}, 'YYYY-MM-DD')
 								</if>
@@ -203,7 +203,7 @@
 	<select id="getTotalMemberHistoryCount" parameterType="LoginHistorySearchVO" resultType="_int">
 		SELECT	COUNT(LGI_HTR_ID)
 		FROM	(
-                SELECT  LGI_HTR.*, MBR_TP.CD_NM
+                SELECT  LGI_HTR.*, MBR_TP.CD_ID
                 FROM   LGI_HTR, MBR, MBR_TP
                 WHERE   MBR.MBR_TP = MBR_TP.CD_ID
                 AND     LGI_HTR.MBR_ID = MBR.ID
@@ -213,13 +213,13 @@
 						FROM	MBR
 						WHERE	MBR_TP != 'ADM'
 						)
-		<if test="searchKeyword != null and searchKeyword != '' ">
-		AND		LGI_HTR.MBR_ID = #{searchKeyword}
+		<if test="search != null and search == 'id'">
+		AND		LGI_HTR.MBR_ID LIKE '%'||#{searchKeyword}||'%'
 		</if>
-		<if test="searchType != null and searchType != '' ">
-		AND		LGI_HTR.CD_NM = #{searchType}
+		<if test="search != null and search == 'type'">
+		AND		LGI_HTR.CD_ID = #{searchType}
 		</if>
-		<if test="startDate != null and startDate != '' ">
+		<if test="search != null and search == 'date'">
 		AND		LGI_DT <![CDATA[>=]]> TO_DATE(#{startDate}, 'YYYY-MM-DD')		
 		AND		LGI_DT <![CDATA[<=]]> TO_DATE(#{endDate}, 'YYYY-MM-DD')
 		</if>
@@ -467,8 +467,8 @@
 		WHERE	ID = #{memberId}
 	</update>
 
-	<select id="getTypeList" resultType="string">
-		SELECT	DISTINCT(CD_NM)
+	<select id="getTypeList" resultType="MemberTypeVO">
+		SELECT	DISTINCT CD_NM cdNm, CD_ID cdId
 		FROM	MBR_TP
 		WHERE	CD_ID != 'ADM'
 	</select>

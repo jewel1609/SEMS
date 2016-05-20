@@ -115,6 +115,25 @@
 				$("#endDate").show();
 			}
 		});
+			var option = $("#search option:selected").val();
+			if (option == "id") {
+				$("#searchKeyword").show();
+				$("#searchType").hide();
+				$("#startDate").hide();
+				$("#endDate").hide();
+			}
+			else if( option == "type"){
+				$("#searchType").show();
+				$("#searchKeyword").hide();
+				$("#startDate").hide();
+				$("#endDate").hide();
+			}
+			 else if( option == "date"){
+				$("#searchType").hide();
+				$("#searchKeyword").hide();
+				$("#startDate").show();
+				$("#endDate").show();
+			}
 	});
 </script>
 <style>
@@ -159,11 +178,26 @@
 					</c:if> 
 				</div>
 				<div style="text-align: right;">
-					<select id="search" name="search">
+					<select id="search" name="search" >
 						<option value="">선택</option>
-						<option id="id" value="id">회원 아이디</option>
-						<option id="type" value="type">회원 종류</option>
-						<option id="date" value="date">날짜</option>
+						<c:if test="${loginHistorySearchVO.search eq 'id' }">
+							<option id="id" value="id" selected="selected">회원 아이디</option>
+						</c:if>
+						<c:if test="${loginHistorySearchVO.search ne 'id' }">
+							<option id="id" value="id" >회원 아이디</option>
+						</c:if>
+						<c:if test="${loginHistorySearchVO.search eq 'type' }">
+							<option id="type" value="type" selected="selected">회원 종류</option>
+						</c:if>
+						<c:if test="${loginHistorySearchVO.search ne 'type' }">
+							<option id="type" value="type" >회원 종류</option>
+						</c:if>
+						<c:if test="${loginHistorySearchVO.search eq 'date' }">
+							<option id="date" value="date" selected="selected">날짜</option>
+						</c:if>
+						<c:if test="${loginHistorySearchVO.search ne 'date' }">
+							<option id="date" value="date" >날짜</option>
+						</c:if>
 					</select>
 					
 					<input type="text" id="searchKeyword" name="searchKeyword" value="${ loginHistorySearchVO.searchKeyword }"/>
@@ -171,11 +205,11 @@
 					<select id="searchType" name="searchType">
 						<option value="" selected="selected"></option>
 						<c:forEach items="${ typeList }" var="type">
-							<c:if test="${ loginHistorySearchVO.searchType eq type}">
-								<option id="memType" value="${ type }" selected="selected">${ type }</option>
+							<c:if test="${ loginHistorySearchVO.searchType eq type.cdId }">
+								<option id="memType" value="${ type.cdId }" selected="selected">${ type.cdNm }</option>
 							</c:if>
-							<c:if test="${ loginHistorySearchVO.searchType ne type}">
-								<option id="memType" value="${ type }">${ type }</option>
+							<c:if test="${ loginHistorySearchVO.searchType ne type.cdId }">
+								<option id="memType" value="${ type.cdId }">${ type.cdNm }</option>
 							</c:if>
 						</c:forEach>
 					</select>

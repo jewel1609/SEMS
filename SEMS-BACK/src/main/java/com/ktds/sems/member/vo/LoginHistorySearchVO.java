@@ -6,11 +6,21 @@ public class LoginHistorySearchVO extends LoginHistoryVO{
 	private int startIndex;
 	private int endIndex;
 	
+	private String	search;
 	private String searchKeyword;
 	private String searchType;
 	private String startDate;
 	private String endDate;
 	
+	
+	public String getSearch() {
+		return search;
+	}
+
+	public void setSearch(String search) {
+		this.search = search;
+	}
+
 	public String getSearchType() {
 		return searchType;
 	}

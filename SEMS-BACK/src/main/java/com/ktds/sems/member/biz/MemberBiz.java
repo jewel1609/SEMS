@@ -76,7 +76,7 @@ public interface MemberBiz {
 
 	public String getTargetMemberEmail(String targetMemberId);
 
-	public List<String> getTypeList();
+	public List<MemberTypeVO> getTypeList();
 	
 	public List<LoginHistoryVO> getAllAdminHistory(LoginHistorySearchVO loginHistorySearchVO);
 	

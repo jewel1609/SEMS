@@ -313,7 +313,7 @@ public class MemberBizImpl implements MemberBiz {
 	}
 
 	@Override
-	public List<String> getTypeList() {
+	public List<MemberTypeVO> getTypeList() {
 		return memberDAO.getTypeList();
 	}
 	

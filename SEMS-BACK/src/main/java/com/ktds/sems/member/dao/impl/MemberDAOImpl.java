@@ -11,7 +11,6 @@ import com.ktds.sems.member.dao.MemberDAO;
 import com.ktds.sems.member.vo.GraduationTypeVO;
 import com.ktds.sems.member.vo.HighestEducationLevelVO;
 import com.ktds.sems.member.vo.LoginHistorySearchVO;
-import com.ktds.sems.member.service.impl.MemberServiceImpl;
 import com.ktds.sems.member.vo.LoginHistoryVO;
 import com.ktds.sems.member.vo.MemberSearchVO;
 import com.ktds.sems.member.vo.MemberTypeVO;
@@ -194,7 +193,7 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 	}
 
 	@Override
-	public List<String> getTypeList() {
+	public List<MemberTypeVO> getTypeList() {
 		return getSqlSession().selectList("MemberDAO.getTypeList");
 	}
 	
