@@ -28,6 +28,15 @@
 		<typeAlias type="com.ktds.sems.member.vo.MemberTypeVO" alias="MemberTypeVO" />
 		<typeAlias type="com.ktds.sems.member.vo.GraduationTypeVO" alias="GraduationTypeVO"/>
 		<typeAlias type="com.ktds.sems.member.vo.HighestEducationLevelVO" alias="HighestEducationLevelVO"/>
+		<typeAlias type="com.ktds.sems.education.vo.EduFileListVO" alias="EduFileListVO"/>
+		<typeAlias type="com.ktds.sems.education.vo.EduFileSearchVO" alias="EduFileSearchVO"/>
+		<typeAlias type="com.ktds.sems.education.vo.EduFileVO" alias="EduFileVO"/>
+		<typeAlias type="com.ktds.sems.education.vo.EduQnaListVO" alias="EduQnaListVO"/>
+		<typeAlias type="com.ktds.sems.education.vo.EduQnaSearchVO" alias="EduQnaSearchVO"/>
+		<typeAlias type="com.ktds.sems.education.vo.EduQnaVO" alias="EduQnaVO"/>
+		<typeAlias type="com.ktds.sems.education.vo.EduReportListVO" alias="EduReportListVO"/>
+		<typeAlias type="com.ktds.sems.education.vo.EduReportSearchVO" alias="EduReportSearchVO"/>
+		<typeAlias type="com.ktds.sems.education.vo.EduReportVO" alias="EduReportVO"/>
 		
 	</typeAliases>
 
