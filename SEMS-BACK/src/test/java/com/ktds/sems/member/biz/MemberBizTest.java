@@ -202,6 +202,10 @@ public class MemberBizTest extends SemsTestCase {
 		memberDAO.deleteMemberDetailInfo(personalInfoReadVO.getMemberId());
 	}
 	
-	
+	@Test
+	public void getOneMemberTest(){
+		String memberId = "test04";
+		assertNotNull(memberBiz.getOneMember(memberId));
+	}
 
 }
