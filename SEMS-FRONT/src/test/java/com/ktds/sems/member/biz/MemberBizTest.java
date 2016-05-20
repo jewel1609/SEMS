@@ -221,7 +221,7 @@ public class MemberBizTest extends SemsTestCase {
 	}
 	@Test
 	public void isExistEmailTest(){
-		String email = "junit1@naver.com";
+		String email = "sosdig@naver.com";
 		boolean isExistEmail = memberBiz.isExistEmail(email);
 		assertTrue(isExistEmail);
 	}

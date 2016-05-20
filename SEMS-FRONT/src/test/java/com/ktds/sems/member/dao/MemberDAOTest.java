@@ -240,9 +240,9 @@ public class MemberDAOTest extends SemsTestCase {
 
 	@Test
 	public void isExistEmailTest() {
-		String isExistEmail = memberDAO.isExistEmail("Junitdd@naver.com");
+		String isExistEmail = memberDAO.isExistEmail("sosdig@naver.com");
 		assertNotNull(isExistEmail);
-		assertTrue(isExistEmail.equals("JunitId1"));
+		assertTrue(isExistEmail.equals("sosdig1"));
 
 	}
 
