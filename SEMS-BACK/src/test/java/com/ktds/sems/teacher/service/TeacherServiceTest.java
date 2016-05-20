@@ -64,7 +64,7 @@ public class TeacherServiceTest extends SemsTestCase{
 		
 	}
 	
-	@Test
+
 	public void doDeleteTeacherTest(){
 		
 		TeacherVO teacherVO = new TeacherVO();
