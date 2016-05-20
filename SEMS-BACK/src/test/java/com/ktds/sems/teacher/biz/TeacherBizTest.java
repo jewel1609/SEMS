@@ -202,6 +202,12 @@ public class TeacherBizTest extends SemsTestCase{
 		String memberId = "teacher01";
 		List<ProjectHistoryVO> projectHistoryList = teacherBiz.getOneTeacherProjectHistoryVO(memberId);
 		assertNotNull(projectHistoryList);
+		if (projectHistoryList != null){
+			assertTrue(projectHistoryList.size() >0);
+		}
+		else{
+			fail("Fail...");
+		}
 	}
 	/*
 	 * 윤후
