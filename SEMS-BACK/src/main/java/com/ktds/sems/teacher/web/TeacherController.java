@@ -64,9 +64,9 @@ public class TeacherController {
 		return teacherService.doTeacherInfoModifyAction(teacherVO, errors, session);
 	}
 	
-	@RequestMapping("/deleteTeacherBookEduProHistory/{id}/{type}")
-	public ModelAndView deleteTeacherBookEduProHistory(@PathVariable String id, @PathVariable String type, HttpSession session){
-		return teacherService.deleteTeacherBookEduProHistory(id, type, session);
+	@RequestMapping("/deleteTeacherBookEduProHistory/{id}/{type}/{memberId}")
+	public ModelAndView deleteTeacherBookEduProHistory(@PathVariable String id, @PathVariable String type, @PathVariable String memberId, HttpSession session){
+		return teacherService.deleteTeacherBookEduProHistory(id, type, memberId, session);
 	}
 	
 	@RequestMapping("/insertNewTeacher")

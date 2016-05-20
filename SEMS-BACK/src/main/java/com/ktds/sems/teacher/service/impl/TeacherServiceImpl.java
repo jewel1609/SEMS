@@ -192,13 +192,14 @@ public class TeacherServiceImpl implements TeacherService {
 	}
 
 	@Override
-	public ModelAndView deleteTeacherBookEduProHistory(String id, String type, HttpSession session) {
+	public ModelAndView deleteTeacherBookEduProHistory(String id, String type, String memberId, HttpSession session) {
 		ModelAndView view = new ModelAndView();
 
 		String memberType = (String) session.getAttribute(Session.MEMBER_TYPE);
 
 		if (memberType.equals("ADM")) {
 			boolean result = teacherBiz.deleteTeacherBookEduProHistory(id, type);
+			view.setViewName("redirect:/teacherModify/" + memberId);
 		} else {
 			throw new RuntimeException("접근 가능한 권한이 아닙니다.");
 		}

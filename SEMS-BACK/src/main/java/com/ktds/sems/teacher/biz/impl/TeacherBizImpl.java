@@ -125,28 +125,55 @@ public class TeacherBizImpl implements TeacherBiz {
 
 	@Override
 	public boolean doTeacherInfoModifyAction(TeacherVO teacherVO) {
-		List<TeacherBookVO> teacherBookList = teacherVO.getTeacherBookList();
-		List<ProjectHistoryVO> projectHistoryList = teacherVO.getProjectHistoryList();
-		List<EducationHistoryVO> educationHistoryList = teacherVO.getEducationHistoryList();
+		
 		int result = 0;
-		for (TeacherBookVO teacherBookVO : teacherBookList) {
-			result = teacherDAO.doTeacherBookModifyAction(teacherBookVO);
-			if( result < 1 ){
-				return false;
+		
+		if ( teacherVO.getTeacherBookList() != null ) {
+			List<TeacherBookVO> teacherBookList = teacherVO.getTeacherBookList();
+			for (TeacherBookVO teacherBookVO : teacherBookList) {
+				if(teacherBookVO.getId() == null ) {
+					teacherBookVO.setMemberId(teacherVO.getMemberId());
+					teacherBookVO.setId(getLpadeId(1));
+					result = teacherDAO.doInsertTeacherBookHis(teacherBookVO);
+					
+				}else{
+					result = teacherDAO.doTeacherBookModifyAction(teacherBookVO);
+				}			
+				if( result < 1 ){
+					return false;
+				}
 			}
 		}
-		for (ProjectHistoryVO projectHistoryVO : projectHistoryList) {
-			result = teacherDAO.doTeacherProjectModifyAction(projectHistoryVO);
-			if( result < 1 ){
-				return false;
+		if ( teacherVO.getProjectHistoryList() != null ) {
+			List<ProjectHistoryVO> projectHistoryList = teacherVO.getProjectHistoryList();
+			for (ProjectHistoryVO projectHistoryVO : projectHistoryList) {	
+				if(projectHistoryVO.getId() == null ) {
+					projectHistoryVO.setMemberId(teacherVO.getMemberId());
+					projectHistoryVO.setId(getLpadeId(2));
+					result = teacherDAO.doInsertTeacherProHis(projectHistoryVO);
+				}else{
+					result = teacherDAO.doTeacherProjectModifyAction(projectHistoryVO);
+				}
+				if( result < 1 ){
+					return false;
+				}
 			}
 		}
-		for (EducationHistoryVO teacherEduHistoryVO : educationHistoryList) {
-			result = teacherDAO.doTeacherEducationModifyAction(teacherEduHistoryVO);
-			if( result < 1 ){
-				return false;
+		if ( teacherVO.getEducationHistoryList() != null ) {
+			List<EducationHistoryVO> educationHistoryList = teacherVO.getEducationHistoryList();
+			for (EducationHistoryVO teacherEduHistoryVO : educationHistoryList) {
+				if(teacherEduHistoryVO.getId() == null ) {
+					teacherEduHistoryVO.setMemberId(teacherVO.getMemberId());
+					teacherEduHistoryVO.setId(getLpadeId(3));
+					result = teacherDAO.doInsertTeacherEduHis(teacherEduHistoryVO);
+				}else{
+					result = teacherDAO.doTeacherEducationModifyAction(teacherEduHistoryVO);
+				}			
+				if( result < 1 ){
+					return false;
+				}
 			}
-		}
+		}		
 		return teacherDAO.doTeacherInfoModifyAction(teacherVO) > 0;
 	}
 

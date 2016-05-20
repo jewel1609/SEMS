@@ -174,10 +174,10 @@
 		FROM	<if test="type == 'book'">
 				TCHR_BOOK
 				</if>
-				<if test="type == 'pro'">
+				<if test="type == 'edu'">
 				TCHR_EDU_HTR
 				</if>
-				<if test="type == 'edu'">
+				<if test="type == 'pro'">
 				TCHR_PROJ_HTR
 				</if>
 		WHERE	1=1

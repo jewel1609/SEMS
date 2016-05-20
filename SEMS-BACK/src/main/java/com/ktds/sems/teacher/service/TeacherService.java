@@ -24,7 +24,7 @@ public interface TeacherService {
 
 	public ModelAndView doTeacherInfoModifyAction(TeacherVO teacherVO, Errors errors, HttpSession session);
 
-	public ModelAndView deleteTeacherBookEduProHistory(String id, String type, HttpSession session);
+	public ModelAndView deleteTeacherBookEduProHistory(String id, String type, String memberId, HttpSession session);
 
 	public ModelAndView insertNewTeacher(HttpSession session);
 
