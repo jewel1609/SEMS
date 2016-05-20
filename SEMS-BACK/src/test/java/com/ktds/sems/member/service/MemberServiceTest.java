@@ -124,7 +124,6 @@ public class MemberServiceTest extends SemsTestCase {
 		}
 	}
 	
-	
 	@Test
 	public void viewMemberListPageTest(){
 		
