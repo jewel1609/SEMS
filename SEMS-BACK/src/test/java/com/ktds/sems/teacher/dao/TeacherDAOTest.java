@@ -10,6 +10,7 @@ import java.util.Map;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ktds.sems.SemsTestCase;
 import com.ktds.sems.teacher.vo.TeacherSearchVO;
@@ -19,6 +20,7 @@ import com.ktds.sems.teacher.vo.EducationHistoryVO;
 import com.ktds.sems.teacher.vo.ProjectHistoryVO;
 import com.ktds.sems.teacher.vo.TeacherBookVO;
 
+@Transactional
 public class TeacherDAOTest extends SemsTestCase {
 
 	@Autowired

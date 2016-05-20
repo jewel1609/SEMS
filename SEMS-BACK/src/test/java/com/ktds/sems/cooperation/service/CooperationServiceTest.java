@@ -6,6 +6,7 @@ import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.ModelAndView;
@@ -15,6 +16,7 @@ import com.ktds.sems.cooperation.dao.CooperationDAO;
 import com.ktds.sems.cooperation.vo.CooperationSearchVO;
 import com.ktds.sems.cooperation.vo.CooperationVO;
 
+@Transactional
 public class CooperationServiceTest extends SemsTestCase {
 
 	@Autowired

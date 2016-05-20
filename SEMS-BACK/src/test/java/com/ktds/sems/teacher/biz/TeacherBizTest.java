@@ -12,6 +12,7 @@ import java.util.Map;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ktds.sems.SemsTestCase;
 import com.ktds.sems.education.vo.EducationVO;
@@ -22,6 +23,7 @@ import com.ktds.sems.teacher.vo.TeacherBookVO;
 import com.ktds.sems.teacher.vo.TeacherSearchVO;
 import com.ktds.sems.teacher.vo.TeacherVO;
 
+@Transactional
 public class TeacherBizTest extends SemsTestCase{
 
 	@Autowired

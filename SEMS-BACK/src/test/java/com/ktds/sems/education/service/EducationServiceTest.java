@@ -17,6 +17,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.mock.web.MockMultipartHttpServletRequest;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
@@ -34,6 +35,7 @@ import com.ktds.sems.member.vo.MemberVO;
 
 import kr.co.hucloud.utilities.web.Paging;
 
+@Transactional
 public class EducationServiceTest extends SemsTestCase {
 
 	@Autowired

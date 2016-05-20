@@ -13,6 +13,7 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ktds.sems.SemsTestCase;
 import com.ktds.sems.member.vo.LoginHistorySearchVO;
@@ -22,6 +23,7 @@ import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.member.vo.PersonalInfoReadVO;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
+@Transactional
 public class MemberDAOTest extends SemsTestCase {
 
 	@Autowired

@@ -13,6 +13,7 @@ import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ktds.sems.SemsTestCase;
 import com.ktds.sems.member.dao.MemberDAO;
@@ -21,6 +22,7 @@ import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.member.vo.PersonalInfoReadVO;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
+@Transactional
 public class MemberBizTest extends SemsTestCase {
 
 	@Autowired
