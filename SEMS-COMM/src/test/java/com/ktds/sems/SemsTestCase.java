@@ -23,4 +23,7 @@ public class SemsTestCase {
 		assertTrue(1==1);
 	}
 	
+	public void testHelper(Testable testable) {
+		testable.preparedTest();
+	}
 }
