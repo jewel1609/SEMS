@@ -13,6 +13,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpSession;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.SemsTestCase;
@@ -27,6 +28,8 @@ import com.ktds.sems.education.vo.QNAVO;
 import com.ktds.sems.member.vo.MemberVO;
 
 import kr.co.hucloud.utilities.web.Paging;
+
+@Transactional
 public class EducationServiceTest extends SemsTestCase {
 
 	@Autowired
@@ -194,8 +197,7 @@ public class EducationServiceTest extends SemsTestCase {
 		//assertEquals(viewName, "redirect:/member/myPage/course");
 	}
 
-	// 교육 아이디 ED-20160513-000173에 대한 멤버 test04의 신청 내역이 있고, 교육이 시작 전이어야 제대로된 테스트 진행.
-//	@Test
+	@Test
 	public void doRequestRetractionTest(){
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		request.setParameter("educationId", "ED-20160513-000173");
