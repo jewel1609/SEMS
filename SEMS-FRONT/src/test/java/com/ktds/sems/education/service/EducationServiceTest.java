@@ -186,15 +186,43 @@ public class EducationServiceTest extends SemsTestCase {
 		memberVO.setId("test04");
 		session.setAttribute(Session.MEMBER, memberVO);
 		
-		String educationId = "ED-20160516-000185";
+		String educationId = "ED-20160513-000173";
 		
 		ModelAndView view = educationService.viewRequestRetractionPage(session, educationId);
 		assertNotNull(view);
 		String viewName = view.getViewName();
 		assertNotNull(viewName);
 		assertEquals(viewName, "education/retraction");
-		// 교육이 이미 시작되었을때
-		//assertEquals(viewName, "redirect:/member/myPage/course");
+	}
+	
+	@Test(expected=RuntimeException.class)
+	public void viewRequestRetractionPageTestWithError1(){
+		
+		MockHttpSession session = new MockHttpSession();
+		MemberVO memberVO = new MemberVO();
+		memberVO.setId("test04");
+		session.setAttribute(Session.MEMBER, memberVO);
+		
+		String educationId = "NO-EXIST-EDUCATION-ID";
+		
+		educationService.viewRequestRetractionPage(session, educationId);
+	}
+	
+	@Test
+	public void viewRequestRetractionPageTestWithError2(){
+		
+		MockHttpSession session = new MockHttpSession();
+		MemberVO memberVO = new MemberVO();
+		memberVO.setId("test04");
+		session.setAttribute(Session.MEMBER, memberVO);
+		
+		String educationId = "ED-20160513-000166";
+		
+		ModelAndView view = educationService.viewRequestRetractionPage(session, educationId);
+		assertNotNull(view);
+		String viewName = view.getViewName();
+		assertNotNull(viewName);
+		assertEquals(viewName, "redirect:/member/myPage/course");
 	}
 
 	@Test
@@ -212,8 +240,34 @@ public class EducationServiceTest extends SemsTestCase {
 
 		assertNotNull(result);
 		assertEquals(result, "redirect:/member/myPage");
-		// 교육이 이미 시작 했을때
-		//assertEquals(result, "redirect:/member/myPage/course");
+	}
+	
+	@Test(expected=RuntimeException.class)
+	public void doRequestRetractionTestWithError1(){
+		MockHttpServletRequest request = new MockHttpServletRequest();
+		request.setParameter("educationId", "NO-EXIST-EDUCATION-ID");
+		
+		MockHttpSession session = new MockHttpSession();
+		MemberVO memberVO = new MemberVO();
+		memberVO.setId("test04");
+		session.setAttribute(Session.MEMBER, memberVO);
+		
+		educationService.doRequestRetraction(request, session);
+	}
+	
+	@Test
+	public void doRequestRetractionTestWithError2(){
+		MockHttpServletRequest request = new MockHttpServletRequest();
+		request.setParameter("educationId", "ED-20160513-000166");
+		
+		MockHttpSession session = new MockHttpSession();
+		MemberVO memberVO = new MemberVO();
+		memberVO.setId("test04");
+		session.setAttribute(Session.MEMBER, memberVO);
+		
+		String result = educationService.doRequestRetraction(request, session);
+		assertNotNull(result);
+		assertEquals(result, "redirect:/member/myPage/course");
 	}
 
 	@Test

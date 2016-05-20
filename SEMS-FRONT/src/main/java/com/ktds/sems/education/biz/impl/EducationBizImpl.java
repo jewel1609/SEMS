@@ -214,10 +214,10 @@ public class EducationBizImpl implements EducationBiz {
 	@Override
 	public boolean hasApplyHistory(String memberId, String educationId) {
 		List<EducationVO> educationVO = educationDAO.getApplyHistory(memberId, educationId);
-		if (educationVO == null) {
-			return false;
-		} else {
+		if (educationVO.size() > 0) {
 			return true;
+		} else {
+			return false;
 		}
 	}
 

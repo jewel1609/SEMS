@@ -163,9 +163,9 @@ public class EducationDAOTest extends SemsTestCase{
 	@Test
 	public void getApplyHistoryTest(){
 		String memberId = "test04";
-		String educationId = "ED-20160516-000185";
+		String educationId = "ED-20160513-000173";
 		List<EducationVO> educations = educationDAO.getApplyHistory(memberId, educationId);
-		assertNotNull(educations);
+		assertTrue(educations.size() > 0);
 	}
 
 	// 교육 아이디 ED-20160513-000173에 대한 멤버 test04의 신청 내역이 있고, 교육이 시작 전이어야 제대로된 테스트 진행.
