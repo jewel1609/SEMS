@@ -10,6 +10,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockMultipartFile;
@@ -22,6 +24,7 @@ import org.springframework.validation.Validator;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.ktds.sems.SemsTestCase;
+import com.ktds.sems.education.biz.EducationBizTest.EducationValidator;
 import com.ktds.sems.education.vo.CategoryVO;
 import com.ktds.sems.education.vo.CostVO;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
@@ -132,6 +135,669 @@ public class EducationDAOTest extends SemsTestCase {
 		
 		MultipartFile file = new MockMultipartFile(name, originalFileName, contentType, content);
 		request.addFile(file);
+		
+		int result = educationDAO.modifyNewEducation(educationVO);
+		assertEquals(result, 1);
+	}
+	
+	@Test
+	public void doEducationModifyTestWithError1() {
+		EducationVO educationVO = new EducationVO();
+		
+		educationVO.setEducationId("ED-20160513-000173");
+		//educationVO.setEducationCategory("ZCS");
+		educationVO.setEducationTitle("JUNIT...");
+		educationVO.setMemberId("JUNIT...");
+		educationVO.setMaxMember(30);
+		educationVO.setEducationLocation("JUNIT...");
+		educationVO.setEducationCurriculum("JUNIT...");
+		educationVO.setEducationIntroduce("JUNIT...");
+		educationVO.setStartDate("JUNIT...");
+		educationVO.setEndDate("JUNIT...");
+		educationVO.setStartTime("01:00");
+		educationVO.setEndTime("01:00");
+		educationVO.setEducationType("TIMM");
+		educationVO.setCost("CSTC");
+		
+		BindingResult errors = new BeanPropertyBindingResult(educationVO,"modifyForm");
+		EducationValidator validator = new EducationValidator();
+		validator.validate(educationVO, errors);
+		
+		MockMultipartHttpServletRequest request = new MockMultipartHttpServletRequest();
+		
+		Path path = Paths.get("");
+		String name = "file";
+		String originalFileName = "file";
+		String contentType = "text/plain";
+		
+		byte[] content = null;
+		
+		try {
+		    content = Files.readAllBytes(path);
+		}
+		catch (final IOException e) {
+			
+		}
+		
+		MultipartFile file = new MockMultipartFile(name, originalFileName, contentType, content);
+		request.addFile(file);
+		
+		HttpSession session = null;
+		session = request.getSession();
+		
+		session.setAttribute("_MEMBER_TYPE_", "ADM");
+		
+		int result = educationDAO.modifyNewEducation(educationVO);
+		assertEquals(result, 1);
+	}
+	
+	@Test
+	public void doEducationModifyTestWithError2() {
+		EducationVO educationVO = new EducationVO();
+		
+		educationVO.setEducationId("ED-20160513-000173");
+		educationVO.setEducationCategory("ZCS");
+		//educationVO.setEducationTitle("JUNIT...");
+		educationVO.setMemberId("JUNIT...");
+		educationVO.setMaxMember(30);
+		educationVO.setEducationLocation("JUNIT...");
+		educationVO.setEducationCurriculum("JUNIT...");
+		educationVO.setEducationIntroduce("JUNIT...");
+		educationVO.setStartDate("JUNIT...");
+		educationVO.setEndDate("JUNIT...");
+		educationVO.setStartTime("01:00");
+		educationVO.setEndTime("01:00");
+		educationVO.setEducationType("TIMM");
+		educationVO.setCost("CSTC");
+		
+		BindingResult errors = new BeanPropertyBindingResult(educationVO,"modifyForm");
+		EducationValidator validator = new EducationValidator();
+		validator.validate(educationVO, errors);
+		
+		MockMultipartHttpServletRequest request = new MockMultipartHttpServletRequest();
+		
+		Path path = Paths.get("");
+		String name = "file";
+		String originalFileName = "file";
+		String contentType = "text/plain";
+		
+		byte[] content = null;
+		
+		try {
+		    content = Files.readAllBytes(path);
+		}
+		catch (final IOException e) {
+			
+		}
+		
+		MultipartFile file = new MockMultipartFile(name, originalFileName, contentType, content);
+		request.addFile(file);
+		
+		HttpSession session = null;
+		session = request.getSession();
+		
+		session.setAttribute("_MEMBER_TYPE_", "ADM");
+		
+		int result = educationDAO.modifyNewEducation(educationVO);
+		assertEquals(result, 1);
+	}
+	
+	@Test
+	public void doEducationModifyTestWithError3() {
+		EducationVO educationVO = new EducationVO();
+		
+		educationVO.setEducationId("ED-20160513-000173");
+		educationVO.setEducationCategory("ZCS");
+		educationVO.setEducationTitle("JUNIT...");
+		//educationVO.setMemberId("JUNIT...");
+		educationVO.setMaxMember(30);
+		educationVO.setEducationLocation("JUNIT...");
+		educationVO.setEducationCurriculum("JUNIT...");
+		educationVO.setEducationIntroduce("JUNIT...");
+		educationVO.setStartDate("JUNIT...");
+		educationVO.setEndDate("JUNIT...");
+		educationVO.setStartTime("01:00");
+		educationVO.setEndTime("01:00");
+		educationVO.setEducationType("TIMM");
+		educationVO.setCost("CSTC");
+		
+		BindingResult errors = new BeanPropertyBindingResult(educationVO,"modifyForm");
+		EducationValidator validator = new EducationValidator();
+		validator.validate(educationVO, errors);
+		
+		MockMultipartHttpServletRequest request = new MockMultipartHttpServletRequest();
+		
+		Path path = Paths.get("");
+		String name = "file";
+		String originalFileName = "file";
+		String contentType = "text/plain";
+		
+		byte[] content = null;
+		
+		try {
+		    content = Files.readAllBytes(path);
+		}
+		catch (final IOException e) {
+			
+		}
+		
+		MultipartFile file = new MockMultipartFile(name, originalFileName, contentType, content);
+		request.addFile(file);
+		
+		HttpSession session = null;
+		session = request.getSession();
+		
+		session.setAttribute("_MEMBER_TYPE_", "ADM");
+		
+		int result = educationDAO.modifyNewEducation(educationVO);
+		assertEquals(result, 1);
+	}
+	
+	@Test
+	public void doEducationModifyTestWithError4() {
+		EducationVO educationVO = new EducationVO();
+		
+		educationVO.setEducationId("ED-20160513-000173");
+		educationVO.setEducationCategory("ZCS");
+		educationVO.setEducationTitle("JUNIT...");
+		educationVO.setMemberId("JUNIT...");
+		//educationVO.setMaxMember(30);
+		educationVO.setEducationLocation("JUNIT...");
+		educationVO.setEducationCurriculum("JUNIT...");
+		educationVO.setEducationIntroduce("JUNIT...");
+		educationVO.setStartDate("JUNIT...");
+		educationVO.setEndDate("JUNIT...");
+		educationVO.setStartTime("01:00");
+		educationVO.setEndTime("01:00");
+		educationVO.setEducationType("TIMM");
+		educationVO.setCost("CSTC");
+		
+		BindingResult errors = new BeanPropertyBindingResult(educationVO,"modifyForm");
+		EducationValidator validator = new EducationValidator();
+		validator.validate(educationVO, errors);
+		
+		MockMultipartHttpServletRequest request = new MockMultipartHttpServletRequest();
+		
+		Path path = Paths.get("");
+		String name = "file";
+		String originalFileName = "file";
+		String contentType = "text/plain";
+		
+		byte[] content = null;
+		
+		try {
+		    content = Files.readAllBytes(path);
+		}
+		catch (final IOException e) {
+			
+		}
+		
+		MultipartFile file = new MockMultipartFile(name, originalFileName, contentType, content);
+		request.addFile(file);
+		
+		HttpSession session = null;
+		session = request.getSession();
+		
+		session.setAttribute("_MEMBER_TYPE_", "ADM");
+		
+		int result = educationDAO.modifyNewEducation(educationVO);
+		assertEquals(result, 1);
+	}
+	
+	@Test
+	public void doEducationModifyTestWithError5() {
+		EducationVO educationVO = new EducationVO();
+		
+		educationVO.setEducationId("ED-20160513-000173");
+		educationVO.setEducationCategory("ZCS");
+		educationVO.setEducationTitle("JUNIT...");
+		educationVO.setMemberId("JUNIT...");
+		educationVO.setMaxMember(30);
+		//educationVO.setEducationLocation("JUNIT...");
+		educationVO.setEducationCurriculum("JUNIT...");
+		educationVO.setEducationIntroduce("JUNIT...");
+		educationVO.setStartDate("JUNIT...");
+		educationVO.setEndDate("JUNIT...");
+		educationVO.setStartTime("01:00");
+		educationVO.setEndTime("01:00");
+		educationVO.setEducationType("TIMM");
+		educationVO.setCost("CSTC");
+		
+		BindingResult errors = new BeanPropertyBindingResult(educationVO,"modifyForm");
+		EducationValidator validator = new EducationValidator();
+		validator.validate(educationVO, errors);
+		
+		MockMultipartHttpServletRequest request = new MockMultipartHttpServletRequest();
+		
+		Path path = Paths.get("");
+		String name = "file";
+		String originalFileName = "file";
+		String contentType = "text/plain";
+		
+		byte[] content = null;
+		
+		try {
+		    content = Files.readAllBytes(path);
+		}
+		catch (final IOException e) {
+			
+		}
+		
+		MultipartFile file = new MockMultipartFile(name, originalFileName, contentType, content);
+		request.addFile(file);
+		
+		HttpSession session = null;
+		session = request.getSession();
+		
+		session.setAttribute("_MEMBER_TYPE_", "ADM");
+		
+		int result = educationDAO.modifyNewEducation(educationVO);
+		assertEquals(result, 1);
+	}
+	
+	@Test
+	public void doEducationModifyTestWithError6() {
+		EducationVO educationVO = new EducationVO();
+		
+		educationVO.setEducationId("ED-20160513-000173");
+		educationVO.setEducationCategory("ZCS");
+		educationVO.setEducationTitle("JUNIT...");
+		educationVO.setMemberId("JUNIT...");
+		educationVO.setMaxMember(30);
+		educationVO.setEducationLocation("JUNIT...");
+		//educationVO.setEducationCurriculum("JUNIT...");
+		educationVO.setEducationIntroduce("JUNIT...");
+		educationVO.setStartDate("JUNIT...");
+		educationVO.setEndDate("JUNIT...");
+		educationVO.setStartTime("01:00");
+		educationVO.setEndTime("01:00");
+		educationVO.setEducationType("TIMM");
+		educationVO.setCost("CSTC");
+		
+		BindingResult errors = new BeanPropertyBindingResult(educationVO,"modifyForm");
+		EducationValidator validator = new EducationValidator();
+		validator.validate(educationVO, errors);
+		
+		MockMultipartHttpServletRequest request = new MockMultipartHttpServletRequest();
+		
+		Path path = Paths.get("");
+		String name = "file";
+		String originalFileName = "file";
+		String contentType = "text/plain";
+		
+		byte[] content = null;
+		
+		try {
+		    content = Files.readAllBytes(path);
+		}
+		catch (final IOException e) {
+			
+		}
+		
+		MultipartFile file = new MockMultipartFile(name, originalFileName, contentType, content);
+		request.addFile(file);
+		
+		HttpSession session = null;
+		session = request.getSession();
+		
+		session.setAttribute("_MEMBER_TYPE_", "ADM");
+		
+		int result = educationDAO.modifyNewEducation(educationVO);
+		assertEquals(result, 1);
+	}
+	
+	@Test
+	public void doEducationModifyTestWithError7() {
+		EducationVO educationVO = new EducationVO();
+		
+		educationVO.setEducationId("ED-20160513-000173");
+		educationVO.setEducationCategory("ZCS");
+		educationVO.setEducationTitle("JUNIT...");
+		educationVO.setMemberId("JUNIT...");
+		educationVO.setMaxMember(30);
+		educationVO.setEducationLocation("JUNIT...");
+		educationVO.setEducationCurriculum("JUNIT...");
+		//educationVO.setEducationIntroduce("JUNIT...");
+		educationVO.setStartDate("JUNIT...");
+		educationVO.setEndDate("JUNIT...");
+		educationVO.setStartTime("01:00");
+		educationVO.setEndTime("01:00");
+		educationVO.setEducationType("TIMM");
+		educationVO.setCost("CSTC");
+		
+		BindingResult errors = new BeanPropertyBindingResult(educationVO,"modifyForm");
+		EducationValidator validator = new EducationValidator();
+		validator.validate(educationVO, errors);
+		
+		MockMultipartHttpServletRequest request = new MockMultipartHttpServletRequest();
+		
+		Path path = Paths.get("");
+		String name = "file";
+		String originalFileName = "file";
+		String contentType = "text/plain";
+		
+		byte[] content = null;
+		
+		try {
+		    content = Files.readAllBytes(path);
+		}
+		catch (final IOException e) {
+			
+		}
+		
+		MultipartFile file = new MockMultipartFile(name, originalFileName, contentType, content);
+		request.addFile(file);
+		
+		HttpSession session = null;
+		session = request.getSession();
+		
+		session.setAttribute("_MEMBER_TYPE_", "ADM");
+		
+		int result = educationDAO.modifyNewEducation(educationVO);
+		assertEquals(result, 1);
+	}
+	
+	@Test
+	public void doEducationModifyTestWithError8() {
+		EducationVO educationVO = new EducationVO();
+		
+		educationVO.setEducationId("ED-20160513-000173");
+		educationVO.setEducationCategory("ZCS");
+		educationVO.setEducationTitle("JUNIT...");
+		educationVO.setMemberId("JUNIT...");
+		educationVO.setMaxMember(30);
+		educationVO.setEducationLocation("JUNIT...");
+		educationVO.setEducationCurriculum("JUNIT...");
+		educationVO.setEducationIntroduce("JUNIT...");
+		//educationVO.setStartDate("JUNIT...");
+		educationVO.setEndDate("JUNIT...");
+		educationVO.setStartTime("01:00");
+		educationVO.setEndTime("01:00");
+		educationVO.setEducationType("TIMM");
+		educationVO.setCost("CSTC");
+		
+		BindingResult errors = new BeanPropertyBindingResult(educationVO,"modifyForm");
+		EducationValidator validator = new EducationValidator();
+		validator.validate(educationVO, errors);
+		
+		MockMultipartHttpServletRequest request = new MockMultipartHttpServletRequest();
+		
+		Path path = Paths.get("");
+		String name = "file";
+		String originalFileName = "file";
+		String contentType = "text/plain";
+		
+		byte[] content = null;
+		
+		try {
+		    content = Files.readAllBytes(path);
+		}
+		catch (final IOException e) {
+			
+		}
+		
+		MultipartFile file = new MockMultipartFile(name, originalFileName, contentType, content);
+		request.addFile(file);
+		
+		HttpSession session = null;
+		session = request.getSession();
+		
+		session.setAttribute("_MEMBER_TYPE_", "ADM");
+		
+		int result = educationDAO.modifyNewEducation(educationVO);
+		assertEquals(result, 1);
+	}
+	
+	@Test
+	public void doEducationModifyTestWithError9() {
+		EducationVO educationVO = new EducationVO();
+		
+		educationVO.setEducationId("ED-20160513-000173");
+		educationVO.setEducationCategory("ZCS");
+		educationVO.setEducationTitle("JUNIT...");
+		educationVO.setMemberId("JUNIT...");
+		educationVO.setMaxMember(30);
+		educationVO.setEducationLocation("JUNIT...");
+		educationVO.setEducationCurriculum("JUNIT...");
+		educationVO.setEducationIntroduce("JUNIT...");
+		educationVO.setStartDate("JUNIT...");
+		//educationVO.setEndDate("JUNIT...");
+		educationVO.setStartTime("01:00");
+		educationVO.setEndTime("01:00");
+		educationVO.setEducationType("TIMM");
+		educationVO.setCost("CSTC");
+		
+		BindingResult errors = new BeanPropertyBindingResult(educationVO,"modifyForm");
+		EducationValidator validator = new EducationValidator();
+		validator.validate(educationVO, errors);
+		
+		MockMultipartHttpServletRequest request = new MockMultipartHttpServletRequest();
+		
+		Path path = Paths.get("");
+		String name = "file";
+		String originalFileName = "file";
+		String contentType = "text/plain";
+		
+		byte[] content = null;
+		
+		try {
+		    content = Files.readAllBytes(path);
+		}
+		catch (final IOException e) {
+			
+		}
+		
+		MultipartFile file = new MockMultipartFile(name, originalFileName, contentType, content);
+		request.addFile(file);
+		
+		HttpSession session = null;
+		session = request.getSession();
+		
+		session.setAttribute("_MEMBER_TYPE_", "ADM");
+		
+		int result = educationDAO.modifyNewEducation(educationVO);
+		assertEquals(result, 1);
+	}
+	
+	@Test
+	public void doEducationModifyTestWithError10() {
+		EducationVO educationVO = new EducationVO();
+		
+		educationVO.setEducationId("ED-20160513-000173");
+		educationVO.setEducationCategory("ZCS");
+		educationVO.setEducationTitle("JUNIT...");
+		educationVO.setMemberId("JUNIT...");
+		educationVO.setMaxMember(30);
+		educationVO.setEducationLocation("JUNIT...");
+		educationVO.setEducationCurriculum("JUNIT...");
+		educationVO.setEducationIntroduce("JUNIT...");
+		educationVO.setStartDate("JUNIT...");
+		educationVO.setEndDate("JUNIT...");
+		//educationVO.setStartTime("01:00");
+		educationVO.setEndTime("01:00");
+		educationVO.setEducationType("TIMM");
+		educationVO.setCost("CSTC");
+		
+		BindingResult errors = new BeanPropertyBindingResult(educationVO,"modifyForm");
+		EducationValidator validator = new EducationValidator();
+		validator.validate(educationVO, errors);
+		
+		MockMultipartHttpServletRequest request = new MockMultipartHttpServletRequest();
+		
+		Path path = Paths.get("");
+		String name = "file";
+		String originalFileName = "file";
+		String contentType = "text/plain";
+		
+		byte[] content = null;
+		
+		try {
+		    content = Files.readAllBytes(path);
+		}
+		catch (final IOException e) {
+			
+		}
+		
+		MultipartFile file = new MockMultipartFile(name, originalFileName, contentType, content);
+		request.addFile(file);
+		
+		HttpSession session = null;
+		session = request.getSession();
+		
+		session.setAttribute("_MEMBER_TYPE_", "ADM");
+		
+		int result = educationDAO.modifyNewEducation(educationVO);
+		assertEquals(result, 1);
+	}
+	
+	@Test
+	public void doEducationModifyTestWithError11() {
+		EducationVO educationVO = new EducationVO();
+		
+		educationVO.setEducationId("ED-20160513-000173");
+		educationVO.setEducationCategory("ZCS");
+		educationVO.setEducationTitle("JUNIT...");
+		educationVO.setMemberId("JUNIT...");
+		educationVO.setMaxMember(30);
+		educationVO.setEducationLocation("JUNIT...");
+		educationVO.setEducationCurriculum("JUNIT...");
+		educationVO.setEducationIntroduce("JUNIT...");
+		educationVO.setStartDate("JUNIT...");
+		educationVO.setEndDate("JUNIT...");
+		educationVO.setStartTime("01:00");
+		//educationVO.setEndTime("01:00");
+		educationVO.setEducationType("TIMM");
+		educationVO.setCost("CSTC");
+		
+		BindingResult errors = new BeanPropertyBindingResult(educationVO,"modifyForm");
+		EducationValidator validator = new EducationValidator();
+		validator.validate(educationVO, errors);
+		
+		MockMultipartHttpServletRequest request = new MockMultipartHttpServletRequest();
+		
+		Path path = Paths.get("");
+		String name = "file";
+		String originalFileName = "file";
+		String contentType = "text/plain";
+		
+		byte[] content = null;
+		
+		try {
+		    content = Files.readAllBytes(path);
+		}
+		catch (final IOException e) {
+			
+		}
+		
+		MultipartFile file = new MockMultipartFile(name, originalFileName, contentType, content);
+		request.addFile(file);
+		
+		HttpSession session = null;
+		session = request.getSession();
+		
+		session.setAttribute("_MEMBER_TYPE_", "ADM");
+		
+		int result = educationDAO.modifyNewEducation(educationVO);
+		assertEquals(result, 1);
+	}
+	
+	@Test
+	public void doEducationModifyTestWithError12() {
+		EducationVO educationVO = new EducationVO();
+		
+		educationVO.setEducationId("ED-20160513-000173");
+		educationVO.setEducationCategory("ZCS");
+		educationVO.setEducationTitle("JUNIT...");
+		educationVO.setMemberId("JUNIT...");
+		educationVO.setMaxMember(30);
+		educationVO.setEducationLocation("JUNIT...");
+		educationVO.setEducationCurriculum("JUNIT...");
+		educationVO.setEducationIntroduce("JUNIT...");
+		educationVO.setStartDate("JUNIT...");
+		educationVO.setEndDate("JUNIT...");
+		educationVO.setStartTime("01:00");
+		educationVO.setEndTime("01:00");
+		//educationVO.setEducationType("TIMM");
+		educationVO.setCost("CSTC");
+		
+		BindingResult errors = new BeanPropertyBindingResult(educationVO,"modifyForm");
+		EducationValidator validator = new EducationValidator();
+		validator.validate(educationVO, errors);
+		
+		MockMultipartHttpServletRequest request = new MockMultipartHttpServletRequest();
+		
+		Path path = Paths.get("");
+		String name = "file";
+		String originalFileName = "file";
+		String contentType = "text/plain";
+		
+		byte[] content = null;
+		
+		try {
+		    content = Files.readAllBytes(path);
+		}
+		catch (final IOException e) {
+			
+		}
+		
+		MultipartFile file = new MockMultipartFile(name, originalFileName, contentType, content);
+		request.addFile(file);
+		
+		HttpSession session = null;
+		session = request.getSession();
+		
+		session.setAttribute("_MEMBER_TYPE_", "ADM");
+		
+		int result = educationDAO.modifyNewEducation(educationVO);
+		assertEquals(result, 1);
+	}
+	
+	@Test
+	public void doEducationModifyTestWithError14() {
+		EducationVO educationVO = new EducationVO();
+		
+		educationVO.setEducationId("ED-20160513-000173");
+		educationVO.setEducationCategory("ZCS");
+		educationVO.setEducationTitle("JUNIT...");
+		educationVO.setMemberId("JUNIT...");
+		educationVO.setMaxMember(30);
+		educationVO.setEducationLocation("JUNIT...");
+		educationVO.setEducationCurriculum("JUNIT...");
+		educationVO.setEducationIntroduce("JUNIT...");
+		educationVO.setStartDate("JUNIT...");
+		educationVO.setEndDate("JUNIT...");
+		educationVO.setStartTime("01:00");
+		educationVO.setEndTime("01:00");
+		educationVO.setEducationType("TIMM");
+		//educationVO.setCost("CSTC");
+		
+		BindingResult errors = new BeanPropertyBindingResult(educationVO,"modifyForm");
+		EducationValidator validator = new EducationValidator();
+		validator.validate(educationVO, errors);
+		
+		MockMultipartHttpServletRequest request = new MockMultipartHttpServletRequest();
+		
+		Path path = Paths.get("");
+		String name = "file";
+		String originalFileName = "file";
+		String contentType = "text/plain";
+		
+		byte[] content = null;
+		
+		try {
+		    content = Files.readAllBytes(path);
+		}
+		catch (final IOException e) {
+			
+		}
+		
+		MultipartFile file = new MockMultipartFile(name, originalFileName, contentType, content);
+		request.addFile(file);
+		
+		HttpSession session = null;
+		session = request.getSession();
+		
+		session.setAttribute("_MEMBER_TYPE_", "ADM");
 		
 		int result = educationDAO.modifyNewEducation(educationVO);
 		assertEquals(result, 1);
