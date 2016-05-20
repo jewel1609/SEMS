@@ -174,7 +174,7 @@
 				$("#companyMember").hide();
 				$("#generalBusinessNumber").show();
 				$("#compCheckedBox").val('0');
-				$("#companyName").val('');
+				$("#companyName").val('프리랜서');
 				$(".noPre").prop("checked", false);
 			}
 		});
