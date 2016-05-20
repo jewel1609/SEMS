@@ -355,7 +355,7 @@
 			<form:errors path="cost" />
 			<br />
 
-			<input type="submit" id="write" value="등록하기" />
+			<input type="button" id="write" value="등록하기" />
 		</form:form>
 	</div>
 </body>
