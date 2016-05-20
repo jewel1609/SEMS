@@ -21,11 +21,14 @@ import com.ktds.sems.SemsTestCase;
 import com.ktds.sems.common.Session;
 import com.ktds.sems.member.dao.MemberDAO;
 import com.ktds.sems.member.validator.PersonalInfoValidator;
+import com.ktds.sems.member.vo.GraduationTypeVO;
+import com.ktds.sems.member.vo.HighestEducationLevelVO;
 import com.ktds.sems.member.vo.LoginHistoryListVO;
 import com.ktds.sems.member.vo.LoginHistorySearchVO;
 import com.ktds.sems.member.vo.LoginHistoryVO;
 import com.ktds.sems.member.vo.MemberListVO;
 import com.ktds.sems.member.vo.MemberSearchVO;
+import com.ktds.sems.member.vo.MemberTypeVO;
 import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.member.vo.PersonalInfoReadVO;
 
@@ -568,4 +571,29 @@ public class MemberServiceTest extends SemsTestCase {
 		ModelAndView view = memberService.adminHistoryInit();
 		assertNotNull(view);
 	}
+	
+	@Test
+	public void getMemberTypesTest() {
+		List<MemberTypeVO> memberTypes = memberService.getMemberTypes();
+		
+		assertNotNull(memberTypes);
+		assertTrue(memberTypes.size() > 0);
+	}
+	
+	@Test
+	public void getHighestEducationLevelsTest() {
+		List<HighestEducationLevelVO> highestEducationLevels = memberService.getHighestEducationLevels();
+		
+		assertNotNull(highestEducationLevels);
+		assertTrue(highestEducationLevels.size() > 0);
+	}
+	
+	@Test
+	public void getGraduationTypesTest() {
+		List<GraduationTypeVO> graduationTypes = memberService.getGraduationTypes();
+		
+		assertNotNull(graduationTypes);
+		assertTrue(graduationTypes.size() > 0);
+	}
+	
 }

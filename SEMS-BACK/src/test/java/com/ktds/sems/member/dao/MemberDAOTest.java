@@ -16,6 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ktds.sems.SemsTestCase;
+import com.ktds.sems.member.vo.GraduationTypeVO;
+import com.ktds.sems.member.vo.HighestEducationLevelVO;
 import com.ktds.sems.member.vo.LoginHistorySearchVO;
 import com.ktds.sems.member.vo.LoginHistoryVO;
 import com.ktds.sems.member.vo.MemberSearchVO;
@@ -303,5 +305,29 @@ public class MemberDAOTest extends SemsTestCase {
 		String memberId = "cocomo12";
 		memberVO = memberDAO.getOneMember(memberId);
 		assertNotNull(memberVO);
+	}
+	
+	@Test
+	public void getMemberTypesTest() {
+		List<MemberTypeVO> memberTypes = memberDAO.getMemberTypes();
+		
+		assertNotNull(memberTypes);
+		assertTrue(memberTypes.size() > 0);
+	}
+	
+	@Test
+	public void getHighestEducationLevelsTest() {
+		List<HighestEducationLevelVO> highestEducationLevels = memberDAO.getHighestEducationLevels();
+		
+		assertNotNull(highestEducationLevels);
+		assertTrue(highestEducationLevels.size() > 0);
+	}
+	
+	@Test
+	public void getGraduationTypesTest() {
+		List<GraduationTypeVO> graduationTypes = memberDAO.getGraduationTypes();
+		
+		assertNotNull(graduationTypes);
+		assertTrue(graduationTypes.size() > 0);
 	}
 }

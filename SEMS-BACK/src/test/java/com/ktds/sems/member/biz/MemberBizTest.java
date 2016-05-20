@@ -17,7 +17,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ktds.sems.SemsTestCase;
 import com.ktds.sems.member.dao.MemberDAO;
+import com.ktds.sems.member.vo.GraduationTypeVO;
+import com.ktds.sems.member.vo.HighestEducationLevelVO;
 import com.ktds.sems.member.vo.MemberSearchVO;
+import com.ktds.sems.member.vo.MemberTypeVO;
 import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.member.vo.PersonalInfoReadVO;
 
@@ -200,6 +203,30 @@ public class MemberBizTest extends SemsTestCase {
 		assertTrue(doWriteMemberDetailInfo);
 		
 		memberDAO.deleteMemberDetailInfo(personalInfoReadVO.getMemberId());
+	}
+	
+	@Test
+	public void getMemberTypesTest() {
+		List<MemberTypeVO> memberTypes = memberBiz.getMemberTypes();
+		
+		assertNotNull(memberTypes);
+		assertTrue(memberTypes.size() > 0);
+	}
+	
+	@Test
+	public void getHighestEducationLevelsTest() {
+		List<HighestEducationLevelVO> highestEducationLevels = memberBiz.getHighestEducationLevels();
+		
+		assertNotNull(highestEducationLevels);
+		assertTrue(highestEducationLevels.size() > 0);
+	}
+	
+	@Test
+	public void getGraduationTypesTest() {
+		List<GraduationTypeVO> graduationTypes = memberBiz.getGraduationTypes();
+		
+		assertNotNull(graduationTypes);
+		assertTrue(graduationTypes.size() > 0);
 	}
 	
 	@Test
