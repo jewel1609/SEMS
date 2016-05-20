@@ -166,7 +166,7 @@
 			}
 		});
 		
-		<c:if test="${not empty teacherVO.companyName }">
+		<c:if test="${not empty teacherVO.companyName &&  teacherVO.companyName ne '프리랜서'}">
 		$("#generalBusinessNumber").hide();
 		$("#preCheckedBox").val('0');
 		</c:if>
@@ -176,11 +176,11 @@
 				$("#companyMember").hide();
 				$("#generalBusinessNumber").show();
 				$("#compCheckedBox").val('0');
-				$("#companyName").val('');
+				$("#companyName").val('프리랜서');
 				$(".noPre").prop("checked", false);
 			}
 		});
-		<c:if test="${not empty teacherVO.businessNumber }">
+		<c:if test="${teacherVO.companyName eq '프리랜서'}">
 		$("#companyMember").hide();
 		$("#compCheckedBox").val('0');
 		</c:if>
