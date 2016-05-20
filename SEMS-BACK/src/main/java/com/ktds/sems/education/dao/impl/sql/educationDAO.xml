@@ -155,14 +155,22 @@
 												OR     EDU_HTR.STAT = 'EDU_GU_A'
 												OR     EDU_HTR.STAT = 'EDU_JN_A'
 											)
-									<if test="searchKeyword != null">
-									<if test="searchKeyword != ''">
-									AND		EDU_HTR.EDU_ID IN 	(
-																	SELECT	EDU_ID
-																	FROM	EDU_INFO
-																	WHERE	EDU_TTL IN #{searchKeyword}
+									<if test="searchKeyword != null and searchKeyword != ''">
+											<if test ="searchType == 'educationName'">
+											AND		EDU_HTR.EDU_ID IN 	(
+																			SELECT	EDU_INFO.EDU_ID
+																			FROM	EDU_INFO
+																			WHERE	EDU_INFO.EDU_TTL IN #{searchKeyword}
 																)
+											</if>
+											<if test ="searchType == 'memberId'">
+												AND EDU_HTR.MBR_ID = #{searchKeyword}
+											</if>
 									</if>
+									<if test="searchDate != null and searchDate != ''">
+										<if test="searchType == 'date'">
+												AND	 TO_CHAR( EDU_HTR.EDU_HTR_DT , 'YYYY-MM-DD') = #{searchDate}  	
+										</if>
 									</if>
 							) EDU_HTR_KEYWORD
 					WHERE	ROWNUM <![CDATA[<=]]> #{endIndex}
@@ -179,15 +187,25 @@
 					OR     STAT = 'EDU_GU_A'
 					OR     STAT = 'EDU_JN_A'
 				)
-		<if test="searchKeyword != null">
-		<if test="searchKeyword != ''">
-		AND		EDU_HTR.EDU_ID IN 	(
-										SELECT	EDU_INFO.EDU_ID
-										FROM	EDU_INFO
-										WHERE	EDU_INFO.EDU_TTL IN #{searchKeyword}
-							)
+		<if test="searchKeyword != null and searchKeyword != ''">
+				<if test ="searchType == 'educationName'">
+				AND		EDU_HTR.EDU_ID IN 	(
+												SELECT	EDU_INFO.EDU_ID
+												FROM	EDU_INFO
+												WHERE	EDU_INFO.EDU_TTL IN #{searchKeyword}
+									)
+				</if>
+				<if test ="searchType == 'memberId'">
+					AND EDU_HTR.MBR_ID = #{searchKeyword}
+				</if>
+			
 		</if>
+		<if test="searchDate != null and searchDate != ''">
+			<if test="searchType == 'date'">
+					AND	 TO_CHAR( EDU_HTR.EDU_HTR_DT , 'YYYY-MM-DD')  =  #{searchDate}		
+			</if>
 		</if>
+		
 	</select>
 	
 	<select id="getJCEduHistoryHistory" parameterType="eduHistorySearchVO" resultType="EduHistoryVO">

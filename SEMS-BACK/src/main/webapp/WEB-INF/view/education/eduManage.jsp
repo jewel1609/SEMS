@@ -12,15 +12,40 @@
 
    $(document).ready(function() {
 	 
+	    $("#searchDate").hide();
+	   
+		$("#search").on("change", function(){
+			if( $("#search option:selected").val() == "date"){
+				$("#searchDate").show();
+				$("#searchKeyword").hide();
+		    }else{
+			    $("#searchDate").hide();
+				$("#searchKeyword").show();
+			}
+		});
+	   
 	   $("#searchInitBtn").click(function() {
-			location.href="<c:url value='/education/checkEduApplicant' />";
-		})
-		;
+			location.href="<c:url value='educationHistory' />";
+		});
 	   $("#searchBtn").click( function() {
-			
 			if( $("#search option:selected").val() == "educationName"){
+				$("#searchType").val($("#search option:selected").val());
 				if ($("#searchKeyword").val() == ""){
 					alert("검색어를 입력하세요!");
+					return;
+				}	
+			}
+			if( $("#search option:selected").val() == "memberId"){
+				$("#searchType").val($("#search option:selected").val());
+				if ($("#searchKeyword").val() == ""){
+					alert("검색어를 입력하세요!");
+					return;
+				}
+			}
+			if( $("#search option:selected").val() == "date"){
+				$("#searchType").val($("#search option:selected").val());
+				if ($("#searchDate").val() == ""){
+					alert("날짜를 입력하세요");
 					return;
 				}
 			}
@@ -72,25 +97,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-   <!-- JOIN_APLY, CNCL_APLY  GVUP_APLY  일 경우만 보여준다. -->
-   <!--
-    JOIN_APLY 일 경우 참가승인, 참가거절 버튼이있구      
-    참가 승인 시 관련 컨트롤러로 이동 
-    참가 완료(JOIN_CMPL)  상태로(update) 바꿔준다. 
-    참가 거절을 클릭시 사용자에게 메일? 을 보낸 후 리스트에서 지워준다.     
-   -->
-   <!-- 
-   CNCL_APLY 일 경우 취소 승인, 취소 거절 버튼이있구
-   취소 승인 시 관련 컨트롤러로 이동
-   취소 승인 시 취소완료(CNCL_CMPL) 상태로(update) 변경해준다.   
-   취소 거절 시 참가완료(JOIN_CMPL)로 변경해준다.
-   -->
-   <!-- 
-   GVUP_APLY 일 경우 포기 승인, 포기 거절 버튼이 있구
-   포기 승인 시 관련 컨트롤러로 이동
-   포기 승인 시 포기 완료(GVUP_CMPL) 상태로(update) 변경해준다.
-   포기 거절 시 참가완료(JOIN_CMPL)로 변경해준다.
-   -->
 
 	<table>
 		<tr>
@@ -191,9 +197,15 @@
 					<div style="text-align: right;">
 						<select id="search" name="search">
 							<option id="educationName" value="educationName">교육명</option>
+							<option id="memberId" value="memberId">멤버아이디</option>
+							<option id="date" value="date">날짜</option>
 						</select>
 						
 						<input type="text" id="searchKeyword" name="searchKeyword" value="${ eduHistorySearchVO.searchKeyword }"/>
+						<input type="date" name="searchDate" id="searchDate" value="${eduHistorySearchVO.searchDate}"/>
+						<input type="hidden" id="searchType" name="searchType" value="${ eduHistorySearchVO.searchType }"/>
+					
+						
 						<input type="button" id="searchBtn" value="검색" />
 						<input type="button" id="searchInitBtn" value="검색 초기화" />
 					</div>
@@ -240,11 +252,8 @@
 				<div class="modal-body">거절 사유와 함께 상태를 변경하겠습니다.<br/>
 				<input type="hidden" id="historyId2" name="historyId2" value="" />
 				<input type="hidden" id="memberId2" name="memberId2" value="" />
-<<<<<<< .mine
 				<textarea id="description" rows="5" cols="50"></textarea>
-=======
 				<textarea id="description" rows="7" cols="35"></textarea>
->>>>>>> .r1349
 				</div>
 				<div class="modal-footer">
 					
