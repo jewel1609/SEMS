@@ -229,7 +229,7 @@ public class TeacherBizTest extends SemsTestCase{
 		TeacherVO teacherVO = new TeacherVO();
 		
 		teacherVO.setAnnual(1);
-		teacherVO.setMemberId("teacher02");
+		teacherVO.setMemberId("teacher05");
 		teacherVO.setBusinessNumber("JUNIT");
 		teacherVO.setCompanyName("JUNIT");
 		
@@ -276,7 +276,7 @@ public class TeacherBizTest extends SemsTestCase{
 		TeacherVO teacherVO = new TeacherVO();
 		
 		teacherVO.setAnnual(1); 
-		teacherVO.setMemberId("teacher02");
+		teacherVO.setMemberId("teacher04");
 		teacherVO.setBusinessNumber("JUNIT...TT^TT");
 		teacherVO.setCompanyName("JUNIT...TT^TT");
 		teacherVO.setName("JUNIT...TT^TT");
