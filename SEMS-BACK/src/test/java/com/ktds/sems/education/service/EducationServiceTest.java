@@ -30,6 +30,16 @@ import com.ktds.sems.education.vo.EducationHistoryListVO;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationHistoryVO;
 import com.ktds.sems.education.vo.EducationVO;
+import com.ktds.sems.education.vo.EduFileListVO;
+import com.ktds.sems.education.vo.EduFileSearchVO;
+import com.ktds.sems.education.vo.EduFileVO;
+import com.ktds.sems.education.vo.EduQnaListVO;
+import com.ktds.sems.education.vo.EduQnaSearchVO;
+import com.ktds.sems.education.vo.EduQnaVO;
+import com.ktds.sems.education.vo.EduReportListVO;
+import com.ktds.sems.education.vo.EduReportSearchVO;
+import com.ktds.sems.education.vo.EduReportVO;
+
 import com.ktds.sems.file.biz.FileBiz;
 import com.ktds.sems.file.vo.FileVO;
 
@@ -1770,6 +1780,87 @@ public class EducationServiceTest extends SemsTestCase {
 		}
 		else {
 			fail("getJCEduHistoryTest Fail");
+		}
+	}
+	
+	@Test
+	public void getAllReportArticle() {
+
+		EduReportSearchVO eduReportSearchVO = new EduReportSearchVO();
+		eduReportSearchVO.setEducationId("ED-20160519-000233");
+		ModelAndView view = educationeService.getAllReportArticle(eduReportSearchVO, 0);
+		if ( view != null ) {
+			String viewName = view.getViewName();
+			assertNotNull(viewName);
+			assertEquals(viewName, "education/eduReportPage");
+		
+			EduReportListVO eduReportListVO = (EduReportListVO) view.getModel().get("eduReportListVO");
+			assertNotNull(eduReportListVO);
+			
+			Paging paging = eduReportListVO.getPaging();
+			assertNotNull(paging);
+			assertTrue(paging.getTotalArticleCount() > 0);
+			
+			List<EduReportVO> eduReport = eduReportListVO.getEduReportList();
+			assertNotNull(eduReport);
+			assertTrue(eduReport.size() > 0);
+		}
+		else {
+			fail("getAllReportArticle Fail");
+		}
+	}
+	
+	@Test
+	public void getAllQnaArticle() {
+		
+		EduQnaSearchVO eduQnaSearchVO = new EduQnaSearchVO();
+		eduQnaSearchVO.setEducationId("ED-20160519-000233");
+		ModelAndView view = educationeService.getAllQnaArticle(eduQnaSearchVO, 0);
+		if ( view != null ) {
+			String viewName = view.getViewName();
+			assertNotNull(viewName);
+			assertEquals(viewName, "education/eduQnaPage");
+			
+			EduQnaListVO eduQnaListVO = (EduQnaListVO) view.getModel().get("eduQnaListVO");
+			assertNotNull(eduQnaListVO);
+			
+			Paging paging = eduQnaListVO.getPaging();
+			assertNotNull(paging);
+			assertTrue(paging.getTotalArticleCount() > 0);
+			
+			List<EduQnaVO> eduQna = eduQnaListVO.getEduQnaList();
+			assertNotNull(eduQna);
+			assertTrue(eduQna.size() > 0);
+		}
+		else {
+			fail("getAllQnaArticle Fail");
+		}
+	}
+	
+	@Test
+	public void getAllEduFileArticle() {
+		
+		EduFileSearchVO eduFileSearchVO = new EduFileSearchVO();
+		eduFileSearchVO.setEducationId("ED-20160519-000233");
+		ModelAndView view = educationeService.getAllEduFileArticle(eduFileSearchVO, 0);
+		if ( view != null ) {
+			String viewName = view.getViewName();
+			assertNotNull(viewName);
+			assertEquals(viewName, "education/eduFilePage");
+			
+			EduFileListVO eduFileListVO = (EduFileListVO) view.getModel().get("eduFileListVO");
+			assertNotNull(eduFileListVO);
+			
+			Paging paging = eduFileListVO.getPaging();
+			assertNotNull(paging);
+			assertTrue(paging.getTotalArticleCount() > 0);
+			
+			List<EduFileVO> eduFile = eduFileListVO.getEduFileList();
+			assertNotNull(eduFile);
+			assertTrue(eduFile.size() > 0);
+		}
+		else {
+			fail("getAllFileArticle Fail");
 		}
 	}
 }

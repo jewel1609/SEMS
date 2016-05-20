@@ -27,6 +27,9 @@ import com.ktds.sems.SemsTestCase;
 import com.ktds.sems.education.biz.EducationBizTest.EducationValidator;
 import com.ktds.sems.education.vo.CategoryVO;
 import com.ktds.sems.education.vo.CostVO;
+import com.ktds.sems.education.vo.EduFileSearchVO;
+import com.ktds.sems.education.vo.EduQnaSearchVO;
+import com.ktds.sems.education.vo.EduReportSearchVO;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationHistoryVO;
 import com.ktds.sems.education.vo.EducationTypeVO;
@@ -942,6 +945,49 @@ public class EducationDAOTest extends SemsTestCase {
 		
 		int result = educationDAO.cancelJoinEducationByMemberId(educationHistoryId, changeState);
 		assertTrue(result >= 0);		
+	}
+	
+	@Test 
+	public void getTotalEduReportCount(){
+		EduReportSearchVO eduReportSearchVO = new EduReportSearchVO();
+		eduReportSearchVO.setEducationId("ED-20160519-000233");
+		
+		assertTrue(educationDAO.getTotalEduReportCount(eduReportSearchVO) >= 0);
+	}
+	
+	@Test
+	public void getTotalEduFileCount(){
+		EduFileSearchVO eduFileSearchVO = new EduFileSearchVO();
+		eduFileSearchVO.setEducationId("ED-20160519-000233");
+		assertTrue(educationDAO.getTotalEduFileCount(eduFileSearchVO) >= 0);
+	}
+	
+	@Test
+	public void getTotalEduQnaCount(){
+		EduQnaSearchVO eduQnaSearchVO = new EduQnaSearchVO();
+		eduQnaSearchVO.setEducationId("ED-20160519-000233");
+		assertTrue(educationDAO.getTotalEduQnaCount(eduQnaSearchVO) >= 0);
+	}
+
+	@Test
+	public void getAllEduFile(){
+		EduFileSearchVO eduFileSearchVO = new EduFileSearchVO();
+		eduFileSearchVO.setEducationId("ED-20160519-000233");
+		assertNotNull(educationDAO.getAllEduFile(eduFileSearchVO));
+	}
+	
+	@Test
+	public void getAllEduQna(){
+		EduQnaSearchVO eduQnaSearchVO = new EduQnaSearchVO();
+		eduQnaSearchVO.setEducationId("ED-20160519-000233");
+		assertNotNull(educationDAO.getAllEduQna(eduQnaSearchVO));
+	}
+	
+	@Test
+	public void getAllEduReport(){
+		EduReportSearchVO eduReportSearchVO = new EduReportSearchVO();
+		eduReportSearchVO.setEducationId("ED-20160519-000233");
+		assertNotNull(educationDAO.getAllEduReport(eduReportSearchVO));
 	}
 	
 }

@@ -26,6 +26,9 @@ import com.ktds.sems.common.SendMail;
 import com.ktds.sems.common.Session;
 import com.ktds.sems.common.vo.MailVO;
 import com.ktds.sems.education.service.EducationServiceTest.EducationValidator;
+import com.ktds.sems.education.vo.EduFileSearchVO;
+import com.ktds.sems.education.vo.EduQnaSearchVO;
+import com.ktds.sems.education.vo.EduReportSearchVO;
 import com.ktds.sems.education.vo.EducationVO;
 
 @Transactional
@@ -849,6 +852,48 @@ public class EducationBizTest extends SemsTestCase {
 		String educationHistoryId = "33";
 		String changeState = "EDU_JN_A";
 		assertTrue(educationBiz.cancelJoinEducationByMemberId(educationHistoryId, changeState));
+	}
+	
+	@Test
+	public void getTotalEduFileCount(){
+		EduFileSearchVO eduFileSearchVO = new EduFileSearchVO();
+		eduFileSearchVO.setEducationId("ED-20160519-000233");
+		assertNotNull(educationBiz.getTotalEduFileCount(eduFileSearchVO));
+	}
+	
+	@Test
+	public void getTotalEduQnaCount(){
+		EduQnaSearchVO eduQnaSearchVO = new EduQnaSearchVO();
+		eduQnaSearchVO.setEducationId("ED-20160519-000233");
+		assertNotNull(educationBiz.getTotalEduQnaCount(eduQnaSearchVO));
+	}
+	
+	@Test
+	public void getTotalEduReportCount(){
+		EduReportSearchVO eduReportSearchVO = new EduReportSearchVO();
+		eduReportSearchVO.setEducationId("ED-20160519-000233");
+		assertNotNull(educationBiz.getTotalEduReportCount(eduReportSearchVO));
+	}
+	
+	@Test
+	public void getAllEduFile(){
+		EduFileSearchVO eduFileSearchVO = new EduFileSearchVO();
+		eduFileSearchVO.setEducationId("ED-20160519-000233");
+		assertNotNull(educationBiz.getAllEduFile(eduFileSearchVO));
+	}
+	
+	@Test
+	public void getAllEduQna(){
+		EduQnaSearchVO eduQnaSearchVO = new EduQnaSearchVO();
+		eduQnaSearchVO.setEducationId("ED-20160519-000233");
+		assertNotNull(educationBiz.getAllEduQna(eduQnaSearchVO));
+	}
+	
+	@Test
+	public void getAllEduReport(){
+		EduReportSearchVO eduReportSearchVO = new EduReportSearchVO();
+		eduReportSearchVO.setEducationId("ED-20160519-000233");
+		assertNotNull(educationBiz.getAllEduReport(eduReportSearchVO));
 	}
 	
 }
