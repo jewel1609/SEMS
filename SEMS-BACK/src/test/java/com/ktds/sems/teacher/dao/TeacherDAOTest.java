@@ -170,6 +170,171 @@ public class TeacherDAOTest extends SemsTestCase {
 		List<EducationVO> educations = teacherDAO.getEducationHistory(memberId);
 		assertNotNull(educations);
 	}
-	
-	
+	/**
+	 * 윤후
+	 */
+	@Test
+	public void doInsertTeacherBookHisTest() {
+		TeacherBookVO teacherBooKVO = new TeacherBookVO();
+		
+		teacherBooKVO.setBookCompany("test");
+		teacherBooKVO.setBookName("test");
+		teacherBooKVO.setId("test");
+		teacherBooKVO.setMemberId("test");
+		
+		int result = teacherDAO.doInsertTeacherBookHis(teacherBooKVO);
+		
+		assertNotNull(result);
+	}
+	/**
+	 * 윤후
+	 */
+	@Test
+	public void doInsertTeacherProHisTest() {
+		ProjectHistoryVO projectHistoryVO = new ProjectHistoryVO();
+		
+		projectHistoryVO.setId("test");
+		projectHistoryVO.setMemberId("TPH-20160519-000017");
+		projectHistoryVO.setProjectName("test");
+		projectHistoryVO.setStartDate("test");
+		projectHistoryVO.setEndDate("test");
+		projectHistoryVO.setProjectLocation("test");
+		
+		int result = teacherDAO.doInsertTeacherProHis(projectHistoryVO);
+		
+		assertNotNull(result);
+	}
+	/**
+	 * 윤후
+	 */
+	@Test
+	public void doInsertTeacherEduHisTest() {
+		EducationHistoryVO teacherEduHistoryVO = new EducationHistoryVO();
+		
+		teacherEduHistoryVO.setEducationLocation("test");
+		teacherEduHistoryVO.setEducationName("test");
+		teacherEduHistoryVO.setEndDate("test");
+		teacherEduHistoryVO.setId("test");
+		teacherEduHistoryVO.setMemberId("test");
+		teacherEduHistoryVO.setStartDate("test");
+		
+		int result = teacherDAO.doInsertTeacherEduHis(teacherEduHistoryVO);
+		
+		assertNotNull(result);
+	}
+	/**
+	 * 윤후
+	 */
+	@Test
+	public void doTeacherEducationModifyActionTest() {
+		EducationHistoryVO teacherEduHistoryVO = new EducationHistoryVO();
+		
+		teacherEduHistoryVO.setEducationLocation("test");
+		teacherEduHistoryVO.setEducationName("test");
+		teacherEduHistoryVO.setEndDate("test");
+		teacherEduHistoryVO.setId("test");
+		teacherEduHistoryVO.setMemberId("teacher01");
+		teacherEduHistoryVO.setStartDate("test");
+		
+		int result = teacherDAO.doTeacherEducationModifyAction(teacherEduHistoryVO);
+		
+		assertNotNull(result);
+	}
+	/**
+	 * 윤후
+	 */
+	@Test
+	public void doTeacherProjectModifyAction() {
+		ProjectHistoryVO projectHistoryVO = new ProjectHistoryVO();
+		
+		projectHistoryVO.setEndDate("");
+		projectHistoryVO.setId("");
+		projectHistoryVO.setMemberId("");
+		projectHistoryVO.setProjectLocation("");
+		projectHistoryVO.setProjectName("");
+		projectHistoryVO.setStartDate("");
+		
+		int result = teacherDAO.doTeacherProjectModifyAction(projectHistoryVO);
+		
+		assertNotNull(result);
+	}
+	/**
+	 * 윤후
+	 */
+	@Test
+	public void doTeacherBookModifyAction() {
+		TeacherBookVO teacherBookVO = new TeacherBookVO();
+		
+		teacherBookVO.setBookCompany("test");
+		teacherBookVO.setBookName("test");
+		teacherBookVO.setId("test");
+		teacherBookVO.setMemberId("teacher01");
+		
+		int result = teacherDAO.doTeacherBookModifyAction(teacherBookVO);
+		
+		assertNotNull(result);
+	}
+	/**
+	 * 윤후
+	 */
+	@Test
+	public void getOneEducationHistoryVO() {
+		String memberId = "teacher01";
+		List<EducationHistoryVO> teacherEducations = teacherDAO.getOneEducationHistoryVO(memberId);
+		assertNotNull(teacherEducations);
+	}
+	/**
+	 * 윤후
+	 */
+	@Test
+	public void getOneTeacherProjectHistoryVO() {
+		String memberId = "teacher01";
+		List<ProjectHistoryVO> teacherProjectHistoryVO = teacherDAO.getOneTeacherProjectHistoryVO(memberId);
+		assertNotNull(teacherProjectHistoryVO);
+	}
+	/**
+	 * 윤후
+	 */
+	@Test
+	public void getOneTeacherBookInfo() {
+		String memberId = "teacher01";
+		List<TeacherBookVO> oneTeacherBookInfo = teacherDAO.getOneTeacherBookInfo(memberId);
+		assertNotNull(oneTeacherBookInfo);
+	}
+	/**
+	 * 윤후
+	 */
+	@Test
+	public void getOneTeacherInfo() {
+		String memberId = "teacher01";
+		TeacherVO teacherVO = teacherDAO.getOneTeacherInfo(memberId);
+		assertNotNull(teacherVO);
+	}
+	/**
+	 * 윤후
+	 */
+	@Test
+	public void doDeleteTeacherBook() {
+		String memberId = "teacher01";
+		int result = teacherDAO.doDeleteTeacherBook(memberId);
+		assertNotNull(result);
+	}
+	/**
+	 * 윤후
+	 */
+	@Test
+	public void doDeleteEducationHistory() {
+		String memberId = "teacher01";
+		int result = teacherDAO.doDeleteEducationHistory(memberId);
+		assertNotNull(result);
+	}
+	/**
+	 * 윤후
+	 */
+	@Test
+	public void doDeleteProjectHistory() {
+		String memberId = "teacher01";
+		int result = teacherDAO.doDeleteProjectHistory(memberId);
+		assertNotNull(result);
+	}
 }

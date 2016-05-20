@@ -4,8 +4,8 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import java.util.HashMap;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ktds.sems.SemsTestCase;
 import com.ktds.sems.education.vo.EducationVO;
+import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.teacher.dao.TeacherDAO;
 import com.ktds.sems.teacher.vo.EducationHistoryVO;
 import com.ktds.sems.teacher.vo.ProjectHistoryVO;
@@ -184,9 +185,143 @@ public class TeacherBizTest extends SemsTestCase{
 		}
 
 	}
-	
-	
-	
-	
+	/*
+	 * 윤후
+	 */
+	@Test
+	public void getOneTeacherBookInfoTest() {
+		String memberId = "teacher01";
+		List<TeacherBookVO> teacherBookList = teacherBiz.getOneTeacherBookInfo(memberId);
+		assertNotNull(teacherBookList);
+	}
+	/*
+	 * 윤후
+	 */
+	@Test
+	public void getOneTeacherProjectHistoryVOTest(){
+		String memberId = "teacher01";
+		List<ProjectHistoryVO> projectHistoryList = teacherBiz.getOneTeacherProjectHistoryVO(memberId);
+		assertNotNull(projectHistoryList);
+	}
+	/*
+	 * 윤후
+	 */
+	@Test
+	public void getgetOneEducationHistoryVOTest() {
+		String memberId = "teacher01";
+		List<EducationHistoryVO> educationHistoryList = teacherBiz.getOneEducationHistoryVO(memberId);
+		assertNotNull(educationHistoryList);
+	}
+	/*
+	 * 윤후
+	 */
+	@Test
+	public void getTeacherMemberInfo() {
+		List<MemberVO> memberList = teacherBiz.getTeacherMemberInfo();
+		assertNotNull(memberList);
+	} 
+	/*
+	 * 윤후
+	 */
+	@Test
+	public void doInsertNewTeacherTest() {
+		// 1. TeacherVO
+		TeacherVO teacherVO = new TeacherVO();
+		
+		teacherVO.setAnnual(1);
+		teacherVO.setMemberId("teacher02");
+		teacherVO.setBusinessNumber("JUNIT");
+		teacherVO.setCompanyName("JUNIT");
+		
+		List<TeacherBookVO> teacherBookList = new ArrayList<TeacherBookVO>();
+		TeacherBookVO teacherBookVO = new TeacherBookVO();
+		teacherBookVO.setId("TB-20160519-000028");
+		teacherBookVO.setMemberId("testTeacher01");
+		teacherBookVO.setBookName("test");
+		teacherBookVO.setBookCompany("test");
+		teacherBookList.add(teacherBookVO);
+		teacherVO.setTeacherBookList(teacherBookList);
+		
+		List<ProjectHistoryVO> projectHistoryList = new ArrayList<ProjectHistoryVO>();
+		ProjectHistoryVO projectHistoryVO = new ProjectHistoryVO();
+		projectHistoryVO.setId("TPH-20160519-000017");
+		projectHistoryVO.setMemberId("testTeacher01");
+		projectHistoryVO.setStartDate("today");
+		projectHistoryVO.setEndDate("today");
+		projectHistoryVO.setProjectName("test");
+		projectHistoryVO.setProjectLocation("test");
+		projectHistoryList.add(projectHistoryVO);
+		teacherVO.setProjectHistoryList(projectHistoryList);
+		
+		List<EducationHistoryVO> educationHistoryList = new ArrayList<EducationHistoryVO>();
+		EducationHistoryVO educationHistoryVO = new EducationHistoryVO();
+		educationHistoryVO.setId("TEH-20160519-000016");
+		educationHistoryVO.setMemberId("testTeacher01");
+		educationHistoryVO.setStartDate("today");
+		educationHistoryVO.setEndDate("today");
+		educationHistoryVO.setEducationName("test");
+		educationHistoryVO.setEducationLocation("test");
+		educationHistoryList.add(educationHistoryVO);
+		teacherVO.setEducationHistoryList(educationHistoryList);
+		
+		boolean result = teacherBiz.doInsertNewTeacher(teacherVO);
+		assertNotNull(result);
+		
+	}
+	/*
+	 * 윤후
+	 */
+	@Test
+	public void doTeacherInfoModifyActionTest() {
+		TeacherVO teacherVO = new TeacherVO();
+		
+		teacherVO.setAnnual(1); 
+		teacherVO.setMemberId("teacher02");
+		teacherVO.setBusinessNumber("JUNIT...TT^TT");
+		teacherVO.setCompanyName("JUNIT...TT^TT");
+		teacherVO.setName("JUNIT...TT^TT");
+		
+		List<TeacherBookVO> teacherBookList = new ArrayList<TeacherBookVO>();
+		TeacherBookVO teacherBookVO = new TeacherBookVO();
+		teacherBookVO.setId("TB-20160519-000028");
+		teacherBookVO.setMemberId("testTeacher01");
+		teacherBookVO.setBookName("test");
+		teacherBookVO.setBookCompany("test");
+		teacherBookList.add(teacherBookVO);
+		teacherVO.setTeacherBookList(teacherBookList);
+		
+		List<ProjectHistoryVO> projectHistoryList = new ArrayList<ProjectHistoryVO>();
+		ProjectHistoryVO projectHistoryVO = new ProjectHistoryVO();
+		projectHistoryVO.setId("TPH-20160519-000017");
+		projectHistoryVO.setMemberId("testTeacher01");
+		projectHistoryVO.setStartDate("today");
+		projectHistoryVO.setEndDate("today");
+		projectHistoryVO.setProjectName("test");
+		projectHistoryVO.setProjectLocation("test");
+		projectHistoryList.add(projectHistoryVO);
+		teacherVO.setProjectHistoryList(projectHistoryList);
+		
+		List<EducationHistoryVO> educationHistoryList = new ArrayList<EducationHistoryVO>();
+		EducationHistoryVO educationHistoryVO = new EducationHistoryVO();
+		educationHistoryVO.setId("TEH-20160519-000016");
+		educationHistoryVO.setMemberId("testTeacher01");
+		educationHistoryVO.setStartDate("today");
+		educationHistoryVO.setEndDate("today");
+		educationHistoryVO.setEducationName("test");
+		educationHistoryVO.setEducationLocation("test");
+		educationHistoryList.add(educationHistoryVO);
+		teacherVO.setEducationHistoryList(educationHistoryList);
+		
+		boolean result = teacherBiz.doInsertNewTeacher(teacherVO);
+		assertNotNull(result);
+	}
+	@Test
+	public void deleteTeacherBookEduProHistory	() {
+		String id = "TB-20160520-000052";
+		String type = "book";
+		
+		boolean result = teacherBiz.deleteTeacherBookEduProHistory(id, type);
+		assertNotNull(result);
+	}
 	
 }
