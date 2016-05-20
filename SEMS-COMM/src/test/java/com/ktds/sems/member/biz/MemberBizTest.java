@@ -141,6 +141,16 @@ public class MemberBizTest extends SemsTestCase {
 	}
 	
 	@Test
+	public void doGrdtInsertTest2(){
+		GrdtTpVO grdtTpVO = new GrdtTpVO();
+		grdtTpVO.setCdId("TEST2");
+		grdtTpVO.setCdNm("휴학");
+		
+		int checkGrdtInsert = memberBiz.doGrdtInsert(grdtTpVO);
+		assertFalse(checkGrdtInsert == 0);
+	}
+	
+	@Test
 	public void doGrdtModifyTest(){
 		GrdtTpVO grdtTpVO = new GrdtTpVO();
 		grdtTpVO.setCdId("TEST");
@@ -174,6 +184,15 @@ public class MemberBizTest extends SemsTestCase {
 		
 		int checkExistCdNmData = memberBiz.isExistCdNmData(grdtTpVO);
 		assertTrue(checkExistCdNmData > 0);
+	}
+	
+	@Test
+	public void isExistCdNmDataTest2(){
+		GrdtTpVO grdtTpVO = new GrdtTpVO();
+		grdtTpVO.setCdNm("실패");
+		
+		int checkExistCdNmData = memberBiz.isExistCdNmData(grdtTpVO);
+		assertFalse(checkExistCdNmData == 0);
 	}
 	
 	@Test
