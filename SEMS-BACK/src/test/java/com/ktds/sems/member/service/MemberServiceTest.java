@@ -124,45 +124,6 @@ public class MemberServiceTest extends SemsTestCase {
 		}
 	}
 	
-	@Test
-	public void getHighestEducationLevelCodeNamesTest() {
-		
-		List<String> helList = memberService.getHighestEducationLevelCodeNames();
-		
-		if ( helList != null ) {
-			assertNotNull(helList);
-		}
-		else {
-			fail("fail");
-		}
-	}
-	
-	@Test
-	public void getGraduationTypeTest() {
-		
-		List<String> graduationList = memberService.getGraduationType();
-		
-		if ( graduationList != null ) {
-			assertNotNull(graduationList);
-		}
-		else {
-			fail("fail");
-		}
-	}
-	
-	@Test
-	public void getMemberTypeCodeNameListTest() {
-		
-		List<String> memberTypeCodeNameList = memberService.getMemberTypeCodeNameList();
-		
-		if ( memberTypeCodeNameList != null ) {
-			assertNotNull(memberTypeCodeNameList);
-		}
-		else {
-			fail("fail");
-		}
-	}
-
 	
 	@Test
 	public void viewMemberListPageTest(){

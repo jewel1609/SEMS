@@ -40,21 +40,6 @@ public class MemberBizTest extends SemsTestCase {
 	}
 	
 	@Test
-	public void getMemberTypeTest () {
-		List<String> memberTypeList = memberBiz.getMemberType();
-		assertNotNull(memberTypeList);
-	}
-	
-	@Test
-	public void getMemberTypeCodeTest () {
-		String memberType = "수강생";
-		String memberTypeCode = memberBiz.getMemberTypeCode(memberType);
-		
-		assertNotNull(memberTypeCode);
-		assertEquals(memberTypeCode, "STD");
-	}
-	
-	@Test
 	public void modifyMemberTypeByIdTest () {
 		Map<String, String> modifyMemberType = new HashMap<String, String>();
 		modifyMemberType.put("memberId", "sosdig1");
@@ -141,54 +126,6 @@ public class MemberBizTest extends SemsTestCase {
 		boolean isSuccess = memberBiz.isVerifyPhoneNumber(phoneNumber);
 		
 		assertTrue(isSuccess);
-	}
-	
-	@Test
-	public void getHighestEducationLevelCodeNames() {
-		List<String> helCodeNameList = memberBiz.getHighestEducationLevelCodeNames();
-		
-		assertNotNull(helCodeNameList);
-	}
-	
-	@Test
-	public void getGraduationTypeTest() {
-		List<String> graduationTypeList = memberBiz.getGraduationType();
-		
-		assertNotNull(graduationTypeList);
-	}
-	
-	@Test
-	public void getHelCodeIdTest() {
-		String highestEducationLevel = "TEST";
-		String helCodeId = memberBiz.getHelCodeId(highestEducationLevel);
-
-		assertNotNull(helCodeId);
-		assertTrue(helCodeId.equals("TEST"));
-	}
-	
-	@Test
-	public void getGraduationTypeCodeIdTest() {
-		String graduationType = "TES";
-		String grdtCodeId = memberBiz.getGraduationTypeCodeId(graduationType);
-		
-		assertNotNull(grdtCodeId);
-		assertEquals(grdtCodeId, "TES");
-	}
-	
-	@Test
-	public void getMemberTypeCodeNameListTest() {
-		List<String> memberTypeCodeNameList = memberBiz.getMemberTypeCodeNameList();
-		
-		assertNotNull(memberTypeCodeNameList);
-	}
-	
-	@Test
-	public void getMemberTypeCodeIdTest() {
-		String memberType = "수강생";
-		String memberTypeCodeId = memberBiz.getMemberTypeCodeId(memberType);
-		
-		assertNotNull(memberTypeCodeId);
-		assertTrue(memberTypeCodeId.equals("STD"));
 	}
 	
 	@Test
