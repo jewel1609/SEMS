@@ -15,22 +15,49 @@
 			var closeTime = $("#closeTime").val();
 			var beginDate = $("#beginDate").val();
 			var closeDate = $("#closeDate").val();
-				
-			if (beginDate == "" || closeDate == "") {
-				// 검색 기간 입력 되지 않은 경우
-				if (beginDate == "") {
-					alert("검색시작일을 지정해주세요.");
-					$("#beginDate").focus();
+			
+			if( beginDate == "" && closeDate == "" && beginTime=="" && closeTime==""){
+				// 아무것도 입력 안 했을 때 
+				alert("날짜 정보를 입력해주세요.");
+				return;
+			}
+
+			if (beginDate == "" && closeDate == "") {
+					// 날짜 정보가 입력되지 않았을 때 
+					// 시간 정보만 입력받았을 시 
+				if(beginTime > closeTime){
+					alert("시간 설정이 잘못 설정되었습니다.");
 					return;
 				}
-				
-				if (closeDate == "") {
-					alert("검색 마지막일을 지정해주세요.");
-					$("#closeDate").focus();
+			}
+			
+			if( beginDate != "" ){ //시작 날짜는 있지만 종료 날짜가 없을 시 
+				if(closeDate == "" ){
+					alert("종료 날짜를 입력해주세요.")
 					return;
 				}
-			} 
-			else{
+			}else{  // 종료 날짜는 있지만 시작날짜는 없는 경우
+				if(closeDate != ""){
+					alert("시작 날짜를 입력해주세요.")
+					return;
+				}
+			}
+
+
+			if( beginTime != "" ){ //시작 시간은 있지만 종료 시간이 없을 시 
+				if(closeTime == "" ){
+					alert("종료 시간을 입력해주세요.")
+					return;
+				}
+			}else{  // 종료 시간은 있지만 시작시간은 없는 경우
+				if(closeTime != ""){
+					alert("시작 시간을 입력해주세요.")
+					return;
+				}
+			}
+
+			
+			if (beginDate != "" || closeDate != "") {
 				// 검색 기간 입력 되었지만
 				// 검색 시작일이 더 클 경우
 				if(beginDate > closeDate){
@@ -46,6 +73,7 @@
 				}
 				
 			} 
+			
 			movePage('0');
 			
 		});
@@ -64,6 +92,7 @@
 			}
 		});
 	});
+	
 </script>
 <title>로그인 히스토리 확인 페이지</title>
 </head>

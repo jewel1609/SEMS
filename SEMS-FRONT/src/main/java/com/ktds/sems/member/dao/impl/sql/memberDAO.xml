@@ -223,6 +223,7 @@
 		WHERE	ID = #{id}
 		AND		(SYSDATE - LATEST_LGI_DT) >= 30
 	</select>
+
 	<select id="getTotalLoginHistoryCount" parameterType="LoginHistorySearchVO" resultType="_int">
 		SELECT	COUNT(LGI_HTR_ID)
 		FROM	LGI_HTR
@@ -230,12 +231,17 @@
 		<if test="beginDate != null and beginDate != '' and beginDateTime == null">
 		AND		LGI_DT <![CDATA[>=]]> TO_DATE(#{beginDate}, 'YYYY-MM-DD')		
 		AND		LGI_DT <![CDATA[<=]]> TO_DATE(#{closeDate}, 'YYYY-MM-DD') + 1
+		</if>	
+		<if test="beginTime != null and beginTime != '' and beginDateTime == null">
+		AND		TO_CHAR(LGI_DT, 'HH24:MI') <![CDATA[>=]]> #{beginTime}		
+		AND		TO_CHAR(LGI_DT, 'HH24:MI') <![CDATA[<=]]> #{closeTime}
 		</if>								
 		<if test="beginDate != null and beginDate != '' and beginDateTime != null ">
 		AND		LGI_DT <![CDATA[>=]]> TO_DATE(#{beginDateTime}, 'YYYY-MM-DD HH24:MI')		
 		AND		LGI_DT <![CDATA[<=]]> (TO_DATE(#{closeDateTime}, 'YYYY-MM-DD HH24:MI'))
 		</if>	
 	</select>
+	
 	<select id="getAllLoginHistory" parameterType="LoginHistorySearchVO" resultType="LoginHistoryVO">
 		SELECT	LGI_HTR_ID lgiHtrId
 				, MBR_ID id
@@ -258,6 +264,10 @@
 								<if test="beginDate != null and beginDate != '' and beginDateTime != null ">
 								AND		LGI_DT <![CDATA[>=]]> TO_DATE(#{beginDateTime}, 'YYYY-MM-DD HH24:MI')		
 								AND		LGI_DT <![CDATA[<=]]> (TO_DATE(#{closeDateTime}, 'YYYY-MM-DD HH24:MI'))
+								</if>	
+								<if test="beginTime != null and beginTime != '' and beginDateTime == null">
+								AND		TO_CHAR(LGI_DT, 'HH24:MI') <![CDATA[>=]]> #{beginTime}		
+								AND		TO_CHAR(LGI_DT, 'HH24:MI') <![CDATA[<=]]> #{closeTime}
 								</if>								
 								ORDER BY LGI_HTR_ID DESC
 							) LOGIN_HISTORY

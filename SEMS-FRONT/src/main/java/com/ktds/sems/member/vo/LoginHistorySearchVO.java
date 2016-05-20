@@ -1,7 +1,5 @@
 package com.ktds.sems.member.vo;
 
-import org.hibernate.validator.constraints.NotEmpty;
-
 public class LoginHistorySearchVO extends LoginHistoryVO{
 	
 	private int pageNo;

@@ -466,12 +466,15 @@ public class MemberServiceImpl implements MemberService {
 
 		ModelAndView view = new ModelAndView();
 		
-		if ( loginHistorySearchVO.getBeginTime() != null ) {
-			if ( loginHistorySearchVO.getBeginTime() != "") {
+		if ( loginHistorySearchVO.getBeginTime() != null && loginHistorySearchVO.getBeginDate() != null ) {
+			if ( loginHistorySearchVO.getBeginTime() != "" && loginHistorySearchVO.getBeginDate() !="" ) {
 				loginHistorySearchVO.setBeginDateTime(loginHistorySearchVO.getBeginDate() + " " +  loginHistorySearchVO.getBeginTime());
-				loginHistorySearchVO.setCloseDateTime(loginHistorySearchVO.getCloseDate() +  " " + loginHistorySearchVO.getCloseTime());
+				loginHistorySearchVO.setCloseDateTime(loginHistorySearchVO.getCloseDate() + " " + loginHistorySearchVO.getCloseTime());
+				logger.info("??");
 			}
 		}
+		logger.info("startTime" + loginHistorySearchVO.getBeginTime());
+		logger.info("closeTime" + loginHistorySearchVO.getCloseTime());
 		
 		int totalLoginHistoryCount = 0;
 		List<LoginHistoryVO> loginHistoryList = null;
@@ -481,6 +484,7 @@ public class MemberServiceImpl implements MemberService {
 		loginHistorySearchVO.setId(memberVO.getId());
 		
 		totalLoginHistoryCount = memberBiz.getTotalLoginHistoryCount(loginHistorySearchVO);
+		logger.info("toalLoginHistoryCount" + totalLoginHistoryCount);
 		
 		Paging paging = new Paging();
 		paging.setTotalArticleCount(totalLoginHistoryCount);
