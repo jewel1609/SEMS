@@ -12,6 +12,7 @@ import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpSession;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.ModelAndView;
@@ -23,6 +24,7 @@ import com.ktds.sems.member.vo.MbrTpVO;
 import com.ktds.sems.member.vo.MemberVO;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
+@Transactional
 public class MemberServiceTest extends SemsTestCase {
 
 	@Autowired

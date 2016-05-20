@@ -9,11 +9,13 @@ import java.util.List;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.SemsTestCase;
 import com.ktds.sems.menu.vo.MenuManageVO;
 
+@Transactional
 public class MenuServiceTest extends SemsTestCase{
 
 	@Autowired

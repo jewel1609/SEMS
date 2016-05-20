@@ -12,6 +12,7 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
@@ -25,6 +26,7 @@ import com.ktds.sems.education.vo.JsonResponseVO;
 import com.ktds.sems.education.vo.TimeVO;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
+@Transactional
 public class EducationServiceTest extends SemsTestCase {
 
 	@Autowired

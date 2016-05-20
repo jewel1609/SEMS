@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpSession;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ktds.sems.SemsTestCase;
 import com.ktds.sems.member.vo.CodeMngVO;
@@ -17,6 +18,7 @@ import com.ktds.sems.member.vo.MbrTpVO;
 import com.ktds.sems.member.vo.MemberVO;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
+@Transactional
 public class MemberBizTest extends SemsTestCase {
 
 	@Autowired

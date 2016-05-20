@@ -9,6 +9,7 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ktds.sems.SemsTestCase;
 import com.ktds.sems.education.vo.CategoryVO;
@@ -16,6 +17,7 @@ import com.ktds.sems.education.vo.CostVO;
 import com.ktds.sems.education.vo.TimeVO;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
+@Transactional
 public class EducationBizTest extends SemsTestCase{
 
 	@Autowired
