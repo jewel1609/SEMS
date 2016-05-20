@@ -64,7 +64,7 @@ public class TeacherServiceTest extends SemsTestCase{
 		
 	}
 	
-
+	@Test
 	public void doDeleteTeacherTest(){
 		
 		TeacherVO teacherVO = new TeacherVO();
@@ -72,6 +72,8 @@ public class TeacherServiceTest extends SemsTestCase{
 		teacherVO.setCompanyName("junit");
 		teacherVO.setBusinessNumber("1234");
 		teacherVO.setAnnual(1);
+		 int isResult = teacherDAO.doInsertNewTeacher(teacherVO);
+		
 		EducationHistoryVO teacherEduHistoryVO = new EducationHistoryVO();
 		teacherEduHistoryVO.setId("TEH-20160519-000001");
 		teacherEduHistoryVO.setMemberId("junit");
@@ -79,6 +81,8 @@ public class TeacherServiceTest extends SemsTestCase{
 		teacherEduHistoryVO.setEndDate("r");
 		teacherEduHistoryVO.setEducationName("r");
 		teacherEduHistoryVO.setEducationLocation("r");
+		int isResult2 = teacherDAO.doInsertTeacherEduHis(teacherEduHistoryVO);
+		
 		ProjectHistoryVO projectHistoryVO = new ProjectHistoryVO();
 		projectHistoryVO.setId("TPH-20160519-000001");
 		projectHistoryVO.setMemberId("junit");
@@ -86,13 +90,17 @@ public class TeacherServiceTest extends SemsTestCase{
 		projectHistoryVO.setEndDate("d");
 		projectHistoryVO.setProjectName("d");
 		projectHistoryVO.setProjectLocation("d");
+		int isResult3 = teacherDAO.doInsertTeacherProHis(projectHistoryVO);
+		
 		TeacherBookVO teacherBookVO = new TeacherBookVO();
 		teacherBookVO.setId("TB-20160519-000001");
 		teacherBookVO.setMemberId("junit");
 		teacherBookVO.setBookName("d");
 		teacherBookVO.setBookCompany("d");
+		int isResult4 = teacherDAO.doInsertTeacherBookHis(teacherBookVO);
 		
 		ModelAndView view = teacherService.doDeleteTeacher(teacherVO.getMemberId());
+		assertNotNull(view);
 		assertEquals(view.getViewName(), "teacher/teaacherList");
 	}
 	
