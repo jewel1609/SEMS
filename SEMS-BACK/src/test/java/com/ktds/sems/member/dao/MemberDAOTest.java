@@ -53,15 +53,15 @@ public class MemberDAOTest extends SemsTestCase {
 		assertEquals(memberTypeCode, "STD");
 	}
 	
-/*	@Test
+	@Test
 	public void modifyMemberTypeByIdTest () {
 		Map<String, String> modifyMemberType = new HashMap<String, String>();
-		modifyMemberType.put("memberId", "");
-		modifyMemberType.put("memberTypeCode", "MBR");
+		modifyMemberType.put("memberId", "sosdig1");
+		modifyMemberType.put("memberTypeId", "MBR");
 		int updateCount = memberDAO.modifyMemberTypeById(modifyMemberType);
 		
 		assertTrue(updateCount > 0);
-	}*/
+	}
 	
 	@Test
 	public void getSaltByIdTest() {
