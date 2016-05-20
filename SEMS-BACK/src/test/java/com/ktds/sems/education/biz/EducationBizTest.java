@@ -846,7 +846,7 @@ public class EducationBizTest extends SemsTestCase {
 	
 	@Test
 	public void cancelJoinEducationByMemberIdTest(){
-		String educationHistoryId = "80";
+		String educationHistoryId = "33";
 		String changeState = "EDU_JN_A";
 		assertTrue(educationBiz.cancelJoinEducationByMemberId(educationHistoryId, changeState));
 	}
