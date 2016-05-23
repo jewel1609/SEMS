@@ -23,6 +23,7 @@
 		<typeAlias type="com.ktds.sems.member.vo.HighestEducationLevelVO" alias="HighestEducationLevelVO"/>
 		<typeAlias type="com.ktds.sems.member.vo.MemberTypeVO" alias="MemberTypeVO"/>
 		<typeAlias type="com.ktds.sems.education.vo.EducationQNABBSVO" alias="EducationQNABBSVO"/>
+		<typeAlias type="com.ktds.sems.education.vo.EducationQNAReplyVO" alias="EducationQNAReplyVO"/>
 		<typeAlias type="com.ktds.sems.education.vo.EducationReportVO" alias="EducationReportVO"/>
 		<typeAlias type="com.ktds.sems.pc.vo.CommonResourcesVO" alias="CommonResourcesVO"/>
 		<typeAlias type="com.ktds.sems.pc.vo.PcVO" alias="PcVO"/>
