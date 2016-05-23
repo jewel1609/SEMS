@@ -240,6 +240,7 @@
 					$('.cost').focus();
 					return false;
 				}
+				$("#educationVO").submit();
 			} else {
 				return;
 			}
