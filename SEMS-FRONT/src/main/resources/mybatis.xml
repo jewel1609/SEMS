@@ -29,6 +29,11 @@
 		<typeAlias type="com.ktds.sems.pc.vo.PcVO" alias="PcVO"/>
 		<typeAlias type="com.ktds.sems.pc.vo.ReportedPcVO" alias="ReportedPcVO"/>
 		<typeAlias type="com.ktds.sems.pc.vo.UsedPcVO" alias="UsedPcVO"/>
+		<typeAlias type="com.ktds.sems.team.vo.TeamVO" alias="TeamVO"/>
+		<typeAlias type="com.ktds.sems.team.vo.TeamSearchVO" alias="TeamSearchVO"/>
+		<typeAlias type="com.ktds.sems.team.vo.TeamListVO" alias="TeamListVO"/>
+		<typeAlias type="com.ktds.sems.team.vo.TeamBBSVO" alias="TeamBBSVO"/>
+		
 	</typeAliases>
 
 	<mappers>
