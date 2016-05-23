@@ -67,7 +67,7 @@ public class MemberServiceImpl implements MemberService {
 			setSaltAndPassword(member);
 			if (memberBiz.addNewMember(member)) {
 				memberBiz.checkRegistState(member.getId());
-				view.setViewName("redirect:/");
+				view.setViewName("redirect:/loginPage");
 			} else {
 				//TODO
 			}
