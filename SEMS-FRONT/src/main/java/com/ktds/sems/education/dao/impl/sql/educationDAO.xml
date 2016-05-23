@@ -655,6 +655,7 @@
 				, MODIFY_DATE modifyDate
 				, HITS hits
 		FROM	EDU_QA_BBS
+		ORDER 	BY atcId DESC 
 	</select>
 	
 	<insert id="addQNABBS" parameterType="EducationQNABBSVO">
