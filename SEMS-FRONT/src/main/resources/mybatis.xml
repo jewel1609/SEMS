@@ -41,6 +41,7 @@
 		<mapper resource="com/ktds/sems/education/dao/impl/sql/educationDAO.xml" />
 		<mapper resource="com/ktds/sems/file/dao/impl/sql/fileDAO.xml"/>
 		<mapper resource="com/ktds/sems/pc/dao/impl/sql/pcDAO.xml"/>
+		<mapper resource="com/ktds/sems/team/dao/impl/sql/teamDAO.xml"/>
 	</mappers>
 	
 </configuration>
