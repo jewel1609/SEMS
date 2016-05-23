@@ -59,6 +59,11 @@ public class MemberBizImpl implements MemberBiz {
 	public boolean addNewMember(MemberVO member) {
 		return memberDAO.addNewMember(member) > 0;
 	}
+	
+	@Override
+	public boolean checkRegistState(String id) {
+		return memberDAO.checkRegistState(id) > 0;
+	}
 
 	@Override
 	public boolean login(HttpSession session, MemberVO loginVO, HttpServletRequest request) {
@@ -194,7 +199,6 @@ public class MemberBizImpl implements MemberBiz {
 	@Override
 	public boolean isVerifyEmail (String email) {
 		//이메일 정규표현식 수정 by SM Team
-		//String emailPolicy = "(^[a-zA-Z\\d][\\w\\d\\_\\.-]+@[a-z\\d][\\w\\d-]+[\\.][a-z\\.]{2,8}$)";
 		String emailPolicy = "(^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$)";
 		Pattern pattern = Pattern.compile(emailPolicy);
 		Matcher matcher = pattern.matcher(email);
@@ -214,7 +218,7 @@ public class MemberBizImpl implements MemberBiz {
 	
 	@Override
 	public boolean checkValidationByUniversityName(String universityName) {
-		String universityNamePolicy = "(^[가-힣a-zA-Z0-9]*$)";
+		String universityNamePolicy = "((?=.*[a-zA-Z가-힣]))(^[가-힣a-zA-Z0-9]*$)";
 		Pattern pattern = Pattern.compile(universityNamePolicy);
 		Matcher matcher = pattern.matcher(universityName);
 		return matcher.matches();
@@ -736,6 +740,5 @@ public class MemberBizImpl implements MemberBiz {
 	public String getSelectMemberTypeCodeName(String memberType) {
 		return memberDAO.getSelectMemberTypeCodeName(memberType);
 	}
-
 
 }

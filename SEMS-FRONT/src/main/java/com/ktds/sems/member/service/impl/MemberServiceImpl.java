@@ -44,13 +44,12 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public ModelAndView addNewMember(MemberVO member, Errors errors, String repeatPassword, HttpSession session) {
+	public ModelAndView addNewMember(MemberVO member, Errors errors, String repeatPassword) {
 		ModelAndView view = new ModelAndView();
 		
-		MemberVO sessionMember = (MemberVO) session.getAttribute("_MEMBER_");
 		String memberType = member.getMemberType();
-		if (sessionMember != null || memberType == null) {
-			view.setViewName("member/registErrorPage");
+		if (memberType == null) {
+			view.setViewName("redirect:/invalidAccess");
 			return view;
 		}
 
@@ -66,8 +65,12 @@ public class MemberServiceImpl implements MemberService {
 			view.addObject("member", member);
 		} else if (isNotError) {
 			setSaltAndPassword(member);
-			memberBiz.addNewMember(member);
-			view.setViewName("redirect:/");
+			if (memberBiz.addNewMember(member)) {
+				memberBiz.checkRegistState(member.getId());
+				view.setViewName("redirect:/");
+			} else {
+				//TODO
+			}
 		} else {
 			throw new RuntimeException("잘 못 된 입력 : 회원 종류");
 		}
@@ -75,6 +78,13 @@ public class MemberServiceImpl implements MemberService {
 		return view;
 	}
 
+	/**
+	 * 준호 > 기연 SM
+	 * @param member
+	 * @param repeatPassword
+	 * @param view
+	 * @return
+	 */
 	private boolean isAllValidValue(MemberVO member, String repeatPassword, ModelAndView view) {
 
 		boolean isNotError = true;
@@ -92,6 +102,10 @@ public class MemberServiceImpl implements MemberService {
 		}
 
 		if (member.getId() != null && !memberBiz.isVerifyId(member.getId())) {
+			errorCount++;
+		}
+
+		if (member.getName() != null && !memberBiz.checkValidationByName(member.getName())) {
 			errorCount++;
 		}
 
@@ -116,13 +130,13 @@ public class MemberServiceImpl implements MemberService {
 			}
 
 			String majorName = member.getMajorName();
-			if (majorName == null || majorName.trim().equals("")) {
+			if (majorName == null || majorName.trim().equals("") || !memberBiz.checkValidationByMajorName(majorName)) {
 				view.addObject("isEmptyMajorName", "true");
 				errorCount++;
 			}
 
 			String universityName = member.getUniversityName();
-			if (universityName == null || universityName.trim().equals("")) {
+			if (universityName == null || universityName.trim().equals("") || !memberBiz.checkValidationByUniversityName(universityName)) {
 				view.addObject("isEmptyUniversityName", "true");
 				errorCount++;
 			}
@@ -576,34 +590,21 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public ModelAndView registerStudent(HttpSession session) {
+	public ModelAndView registerStudent() {
 		ModelAndView view = new ModelAndView();
-		MemberVO sessionMember = (MemberVO) session.getAttribute("_MEMBER_");
 		
-		if ( sessionMember != null ) {
-			view.setViewName("member/registErrorPage");
-		}
-		else {
-			List<HighestEducationLevelVO> highestEducationLevelList = memberBiz.getHighestEducationLevels();
-			List<GraduationTypeVO> graduationTypeList = memberBiz.getGraduationTypes();
-			view.setViewName("member/registerStudent");
-			view.addObject("graduationTypeList", graduationTypeList);
-			view.addObject("highestEducationLevelList", highestEducationLevelList);
-		}
+		List<HighestEducationLevelVO> highestEducationLevelList = memberBiz.getHighestEducationLevels();
+		List<GraduationTypeVO> graduationTypeList = memberBiz.getGraduationTypes();
+		view.setViewName("member/registerStudent");
+		view.addObject("graduationTypeList", graduationTypeList);
+		view.addObject("highestEducationLevelList", highestEducationLevelList);
 
 		return view;
 	}
 	
 	@Override
-	public String registerTeacher(HttpSession session) {
-		MemberVO sessionMember = (MemberVO) session.getAttribute("_MEMBER_");
-		
-		if ( sessionMember != null ) {
-			return "member/registErrorPage";
-		}
-		else {
-			return "member/registerTeacher";
-		}
+	public String registerTeacher() {
+		return "member/registerTeacher";
 	}
 
 	@Override
@@ -810,25 +811,6 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 
-	@Override
-	public void checkRegistState(HttpServletResponse response) {
-//		String message = "OK";
-//		
-//		boolean isVerifyId = memberBiz.checkRegistState();
-//		if (!isVerifyId) {
-//			message = "NO";
-//			AjaxUtil.sendResponse(response, message);
-//			return;
-//		}
-//
-//		boolean isExistId = memberBiz.isExistId(id);
-//		if (isExistId) {
-//			message = "EXIST";
-//		}
-//		AjaxUtil.sendResponse(response, message);
-		return;
-	}
-
 	/**
 	 * SM 기연
 	 */
@@ -929,4 +911,16 @@ public class MemberServiceImpl implements MemberService {
 
 	}
 
+	@Override
+	public void checkRegistState(String id, HttpServletResponse response) {
+		String message = "OK";
+		
+		boolean checkRegistState = memberBiz.checkRegistState(id);
+		if (!checkRegistState) {
+			message = "NO";
+		}
+		AjaxUtil.sendResponse(response, message);
+		return;
+	}
+	
 }

@@ -133,5 +133,7 @@ public interface MemberDAO {
 
 	public String getSelectMemberTypeCodeName(String memberType);
 
+	public int checkRegistState(String id);
+
 	
 }

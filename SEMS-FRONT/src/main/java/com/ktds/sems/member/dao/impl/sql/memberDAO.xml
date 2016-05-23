@@ -673,4 +673,9 @@
 		WHERE	CD_ID = #{cdId}
 	</select>
 		
+	<select id="checkRegistState" resultType="_int" parameterType="string">
+		SELECT	COUNT(ID)
+		FROM	MBR
+		WHERE	ID = #{id}
+	</select>
 </mapper>

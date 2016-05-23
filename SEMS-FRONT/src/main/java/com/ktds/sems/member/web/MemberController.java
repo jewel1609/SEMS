@@ -34,8 +34,8 @@ public class MemberController {
 	}
 
 	@RequestMapping(value = "/doRegisterMemberAction", method = RequestMethod.POST)
-	public ModelAndView doRegisterMemberAction(@Valid MemberVO member, Errors errors, @RequestParam String repeatPassword, HttpSession session) {
-		return memberService.addNewMember(member, errors, repeatPassword, session);
+	public ModelAndView doRegisterMemberAction(@Valid MemberVO member, Errors errors, @RequestParam String repeatPassword) {
+		return memberService.addNewMember(member, errors, repeatPassword);
 	}
 
 	@RequestMapping("/main")
@@ -59,13 +59,13 @@ public class MemberController {
 	}
 
 	@RequestMapping("/register/student")
-	public ModelAndView viewRegisterStudentPage(HttpSession session) {
-		return memberService.registerStudent(session);
+	public ModelAndView viewRegisterStudentPage() {
+		return memberService.registerStudent();
 	}
 
 	@RequestMapping("/register/teacher")
-	public String viewRegisterTeacherPage(HttpSession session) {
-		return memberService.registerTeacher(session);
+	public String viewRegisterTeacherPage() {
+		return memberService.registerTeacher();
 	}
 
 	@RequestMapping("/checkValidationById")
@@ -328,17 +328,18 @@ public class MemberController {
 		return memberService.eduationHistoryExportExcel(session);
 	}
 	
-	@RequestMapping("/error/invalidAccess")
+	@RequestMapping("/invalidAccess")
 	public ModelAndView invalidAccess() {
 		ModelAndView view = new ModelAndView();
-		view.setViewName("/invalidAccess");
+		view.setViewName("/error/invalidAccess");
 		return view;
 	}
 	
-/*	@RequestMapping("/checkRegistState")
-	public void checkRegistState(HttpServletResponse response) {
-		memberService.checkRegistState(response);
-	}*/
+	//TODO
+	@RequestMapping("/checkRegistState")
+	public void checkRegistState(@RequestParam String id, HttpServletResponse response) {
+		memberService.checkRegistState(id, response);
+	}
 	
 	@RequestMapping("/member/myPage/educationHistoryInit")
 	public String educationHistoryPageInit() {

@@ -13,7 +13,7 @@ import com.ktds.sems.member.vo.MemberVO;
 
 public interface MemberService {
 
-	public ModelAndView addNewMember(MemberVO member, Errors errors, String repeatPassword, HttpSession session);
+	public ModelAndView addNewMember(MemberVO member, Errors errors, String repeatPassword);
 
 	public String login(MemberVO memberVO, Errors errors, HttpSession session, HttpServletRequest request);
 
@@ -59,7 +59,7 @@ public interface MemberService {
 
 	public String doResign(MemberVO loginVO, Errors errors, String resignCode);
 
-	public ModelAndView registerStudent(HttpSession session);
+	public ModelAndView registerStudent();
 
 	public void checkValidationByPhoneNumber(String phoneNumber, HttpServletResponse response);
 
@@ -67,7 +67,7 @@ public interface MemberService {
 	
 	public ModelAndView viewMyPageMenu();
 
-	public String registerTeacher(HttpSession session);
+	public String registerTeacher();
 
 	public ModelAndView getAllEducationHistoryListByIdWithPaging(EducationHistorySearchVO educationHistorySearchVO, int pageNo, HttpSession session);
 
@@ -81,8 +81,6 @@ public interface MemberService {
 
 	public String eduationHistoryExportExcel(HttpSession session);
 
-	public void checkRegistState(HttpServletResponse response);
-
 	public void checkValidationByName(String name, HttpServletResponse response);
 
 	public void checkValidationByUniversityName(String universityName, HttpServletResponse response);
@@ -94,5 +92,7 @@ public interface MemberService {
 	public ModelAndView writeResignCourse(String educationId, HttpSession session);
 	
 	public String dropCourseApply(String educationId, HttpSession session, String courseDropReason);
+
+	public void checkRegistState(String id, HttpServletResponse response);
 
 }

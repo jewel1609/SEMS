@@ -330,4 +330,9 @@ public class MemberDAOImpl  extends SqlSessionDaoSupport implements MemberDAO {
 	public String getSelectMemberTypeCodeName(String memberType) {
 		return getSqlSession().selectOne("MemberDAO.getSelectMemberTypeCodeName", memberType);
 	}
+
+	@Override
+	public int checkRegistState(String id) {
+		return getSqlSession().selectOne("MemberDAO.checkRegistState", id);
+	}
 }

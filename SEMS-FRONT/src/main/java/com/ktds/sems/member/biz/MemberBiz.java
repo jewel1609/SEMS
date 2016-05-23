@@ -137,5 +137,7 @@ public interface MemberBiz {
 
 	public String getSelectMemberTypeCodeName(String memberType);
 
+	public boolean checkRegistState(String id);
+
 	
 }
