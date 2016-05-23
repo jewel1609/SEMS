@@ -127,7 +127,7 @@ public class MemberControllerTest extends SemsTestCase {
 		memberValidator.validate(member, errors);
 		MockHttpSession session = new MockHttpSession();
 
-		ModelAndView view = memberController.doRegisterMemberAction(member, errors, repeatPasswrod, session);
+		ModelAndView view = memberController.doRegisterMemberAction(member, errors, repeatPasswrod);
 		assertNotNull(view);
 
 		if (view != null) {
@@ -164,7 +164,7 @@ public class MemberControllerTest extends SemsTestCase {
 		memberValidator.validate(member, errors);
 		MockHttpSession session = new MockHttpSession();
 
-		ModelAndView view = memberController.doRegisterMemberAction(member, errors, repeatPasswrod, session);
+		ModelAndView view = memberController.doRegisterMemberAction(member, errors, repeatPasswrod);
 		assertNotNull(view);
 
 		if (view != null) {
@@ -204,7 +204,7 @@ public class MemberControllerTest extends SemsTestCase {
 		MemberValidator memberValidator = new MemberValidator();
 		memberValidator.validate(member, errors);
 
-		ModelAndView view = memberController.doRegisterMemberAction(member, errors, repeatPasswrod, session);
+		ModelAndView view = memberController.doRegisterMemberAction(member, errors, repeatPasswrod);
 		assertNotNull(view);
 
 		if (view != null) {
@@ -236,7 +236,7 @@ public class MemberControllerTest extends SemsTestCase {
 		MemberValidator memberValidator = new MemberValidator();
 		memberValidator.validate(member, errors);
 
-		ModelAndView view = memberController.doRegisterMemberAction(member, errors, repeatPasswrod, session);
+		ModelAndView view = memberController.doRegisterMemberAction(member, errors, repeatPasswrod);
 		assertNotNull(view);
 
 		if (view != null) {
@@ -280,7 +280,7 @@ public class MemberControllerTest extends SemsTestCase {
 		MemberValidator memberValidator = new MemberValidator();
 		memberValidator.validate(member, errors);
 
-		ModelAndView view = memberController.doRegisterMemberAction(member, errors, repeatPasswrod, session);
+		ModelAndView view = memberController.doRegisterMemberAction(member, errors, repeatPasswrod);
 		assertNotNull(view);
 
 		if (view != null) {
@@ -324,7 +324,7 @@ public class MemberControllerTest extends SemsTestCase {
 		MemberValidator memberValidator = new MemberValidator();
 		memberValidator.validate(member, errors);
 
-		ModelAndView view = memberController.doRegisterMemberAction(member, errors, repeatPasswrod, session);
+		ModelAndView view = memberController.doRegisterMemberAction(member, errors, repeatPasswrod);
 		assertNotNull(view);
 
 		if (view != null) {
@@ -368,7 +368,7 @@ public class MemberControllerTest extends SemsTestCase {
 		MemberValidator memberValidator = new MemberValidator();
 		memberValidator.validate(member, errors);
 
-		ModelAndView view = memberController.doRegisterMemberAction(member, errors, repeatPasswrod, session);
+		ModelAndView view = memberController.doRegisterMemberAction(member, errors, repeatPasswrod);
 		assertNotNull(view);
 
 		if (view != null) {
@@ -412,7 +412,7 @@ public class MemberControllerTest extends SemsTestCase {
 		MemberValidator memberValidator = new MemberValidator();
 		memberValidator.validate(member, errors);
 
-		ModelAndView view = memberController.doRegisterMemberAction(member, errors, repeatPasswrod, session);
+		ModelAndView view = memberController.doRegisterMemberAction(member, errors, repeatPasswrod);
 		assertNotNull(view);
 
 		if (view != null) {
@@ -459,7 +459,7 @@ public class MemberControllerTest extends SemsTestCase {
 		MemberValidator memberValidator = new MemberValidator();
 		memberValidator.validate(member, errors);
 
-		ModelAndView view = memberController.doRegisterMemberAction(member, errors, repeatPasswrod, session);
+		ModelAndView view = memberController.doRegisterMemberAction(member, errors, repeatPasswrod);
 		assertNotNull(view);
 
 		if (view != null) {
@@ -506,7 +506,7 @@ public class MemberControllerTest extends SemsTestCase {
 		MemberValidator memberValidator = new MemberValidator();
 		memberValidator.validate(member, errors);
 
-		ModelAndView view = memberController.doRegisterMemberAction(member, errors, repeatPasswrod, session);
+		ModelAndView view = memberController.doRegisterMemberAction(member, errors, repeatPasswrod);
 		assertNotNull(view);
 
 		if (view != null) {
@@ -553,7 +553,7 @@ public class MemberControllerTest extends SemsTestCase {
 		MemberValidator memberValidator = new MemberValidator();
 		memberValidator.validate(member, errors);
 
-		ModelAndView view = memberController.doRegisterMemberAction(member, errors, repeatPasswrod, session);
+		ModelAndView view = memberController.doRegisterMemberAction(member, errors, repeatPasswrod);
 		assertNotNull(view);
 
 		if (view != null) {
@@ -600,7 +600,7 @@ public class MemberControllerTest extends SemsTestCase {
 		MemberValidator memberValidator = new MemberValidator();
 		memberValidator.validate(member, errors);
 
-		ModelAndView view = memberController.doRegisterMemberAction(member, errors, repeatPasswrod, session);
+		ModelAndView view = memberController.doRegisterMemberAction(member, errors, repeatPasswrod);
 		assertNotNull(view);
 
 		if (view != null) {
@@ -644,7 +644,7 @@ public class MemberControllerTest extends SemsTestCase {
 		MemberValidator memberValidator = new MemberValidator();
 		memberValidator.validate(member, errors);
 
-		ModelAndView view = memberController.doRegisterMemberAction(member, errors, repeatPasswrod, session);
+		ModelAndView view = memberController.doRegisterMemberAction(member, errors, repeatPasswrod);
 		assertNotNull(view);
 
 		if (view != null) {
@@ -688,7 +688,7 @@ public class MemberControllerTest extends SemsTestCase {
 		MemberValidator memberValidator = new MemberValidator();
 		memberValidator.validate(member, errors);
 
-		ModelAndView view = memberController.doRegisterMemberAction(member, errors, repeatPasswrod, session);
+		ModelAndView view = memberController.doRegisterMemberAction(member, errors, repeatPasswrod);
 		assertNotNull(view);
 
 		if (view != null) {
@@ -723,7 +723,7 @@ public class MemberControllerTest extends SemsTestCase {
 		MemberValidator memberValidator = new MemberValidator();
 		memberValidator.validate(member, errors);
 
-		ModelAndView view = memberController.doRegisterMemberAction(member, errors, repeatPasswrod, session);
+		ModelAndView view = memberController.doRegisterMemberAction(member, errors, repeatPasswrod);
 		assertNotNull(view);
 
 		if (view != null) {
@@ -769,7 +769,7 @@ public class MemberControllerTest extends SemsTestCase {
 		MemberValidator memberValidator = new MemberValidator();
 		memberValidator.validate(member, errors);
 
-		ModelAndView view = memberController.doRegisterMemberAction(member, errors, null, session);
+		ModelAndView view = memberController.doRegisterMemberAction(member, errors, null);
 		assertNotNull(view);
 
 		if (view != null) {
@@ -831,7 +831,7 @@ public class MemberControllerTest extends SemsTestCase {
 		MockHttpSession session = new MockHttpSession();
 		MemberVO sessionMember = new MemberVO();
 
-		ModelAndView view = memberController.viewRegisterStudentPage(session);
+		ModelAndView view = memberController.viewRegisterStudentPage();
 		assertNotNull(view);
 
 		if (view != null) {
@@ -855,7 +855,7 @@ public class MemberControllerTest extends SemsTestCase {
 		MemberVO sessionMember = new MemberVO();
 		session.setAttribute("_MEMBER_", sessionMember);
 
-		ModelAndView view = memberController.viewRegisterStudentPage(session);
+		ModelAndView view = memberController.viewRegisterStudentPage();
 		assertNotNull(view);
 
 		if (view != null) {
@@ -872,7 +872,7 @@ public class MemberControllerTest extends SemsTestCase {
 		MockHttpSession session = new MockHttpSession();
 		MemberVO sessionMember = new MemberVO();
 
-		String viewName = memberController.viewRegisterTeacherPage(session);
+		String viewName = memberController.viewRegisterTeacherPage();
 		assertNotNull(viewName);
 
 		if (viewName != null) {
@@ -888,7 +888,7 @@ public class MemberControllerTest extends SemsTestCase {
 		MemberVO sessionMember = new MemberVO();
 		session.setAttribute("_MEMBER_", sessionMember);
 
-		String viewName = memberController.viewRegisterTeacherPage(session);
+		String viewName = memberController.viewRegisterTeacherPage();
 		assertNotNull(viewName);
 
 		if (viewName != null) {

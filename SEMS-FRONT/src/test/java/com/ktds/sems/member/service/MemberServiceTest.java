@@ -143,7 +143,7 @@ public class MemberServiceTest extends SemsTestCase {
 		memberValidator.validate(member, errors);
 		MockHttpSession session = new MockHttpSession();
 
-		ModelAndView view = memberService.addNewMember(member, errors, repeatPasswrod, session);
+		ModelAndView view = memberService.addNewMember(member, errors, repeatPasswrod);
 		assertNotNull(view);
 
 		if (view != null) {
@@ -180,7 +180,7 @@ public class MemberServiceTest extends SemsTestCase {
 		memberValidator.validate(member, errors);
 		MockHttpSession session = new MockHttpSession();
 
-		ModelAndView view = memberService.addNewMember(member, errors, repeatPasswrod, session);
+		ModelAndView view = memberService.addNewMember(member, errors, repeatPasswrod);
 		assertNotNull(view);
 
 		if (view != null) {
@@ -220,7 +220,7 @@ public class MemberServiceTest extends SemsTestCase {
 		MemberValidator memberValidator = new MemberValidator();
 		memberValidator.validate(member, errors);
 
-		ModelAndView view = memberService.addNewMember(member, errors, repeatPasswrod, session);
+		ModelAndView view = memberService.addNewMember(member, errors, repeatPasswrod);
 		assertNotNull(view);
 
 		if (view != null) {
@@ -252,7 +252,7 @@ public class MemberServiceTest extends SemsTestCase {
 		MemberValidator memberValidator = new MemberValidator();
 		memberValidator.validate(member, errors);
 
-		ModelAndView view = memberService.addNewMember(member, errors, repeatPasswrod, session);
+		ModelAndView view = memberService.addNewMember(member, errors, repeatPasswrod);
 		assertNotNull(view);
 
 		if (view != null) {
@@ -296,7 +296,7 @@ public class MemberServiceTest extends SemsTestCase {
 		MemberValidator memberValidator = new MemberValidator();
 		memberValidator.validate(member, errors);
 
-		ModelAndView view = memberService.addNewMember(member, errors, repeatPasswrod, session);
+		ModelAndView view = memberService.addNewMember(member, errors, repeatPasswrod);
 		assertNotNull(view);
 
 		if (view != null) {
@@ -340,7 +340,7 @@ public class MemberServiceTest extends SemsTestCase {
 		MemberValidator memberValidator = new MemberValidator();
 		memberValidator.validate(member, errors);
 
-		ModelAndView view = memberService.addNewMember(member, errors, repeatPasswrod, session);
+		ModelAndView view = memberService.addNewMember(member, errors, repeatPasswrod);
 		assertNotNull(view);
 
 		if (view != null) {
@@ -384,7 +384,7 @@ public class MemberServiceTest extends SemsTestCase {
 		MemberValidator memberValidator = new MemberValidator();
 		memberValidator.validate(member, errors);
 
-		ModelAndView view = memberService.addNewMember(member, errors, repeatPasswrod, session);
+		ModelAndView view = memberService.addNewMember(member, errors, repeatPasswrod);
 		assertNotNull(view);
 
 		if (view != null) {
@@ -428,7 +428,7 @@ public class MemberServiceTest extends SemsTestCase {
 		MemberValidator memberValidator = new MemberValidator();
 		memberValidator.validate(member, errors);
 
-		ModelAndView view = memberService.addNewMember(member, errors, repeatPasswrod, session);
+		ModelAndView view = memberService.addNewMember(member, errors, repeatPasswrod);
 		assertNotNull(view);
 
 		if (view != null) {
@@ -475,7 +475,7 @@ public class MemberServiceTest extends SemsTestCase {
 		MemberValidator memberValidator = new MemberValidator();
 		memberValidator.validate(member, errors);
 
-		ModelAndView view = memberService.addNewMember(member, errors, repeatPasswrod, session);
+		ModelAndView view = memberService.addNewMember(member, errors, repeatPasswrod);
 		assertNotNull(view);
 
 		if (view != null) {
@@ -522,7 +522,7 @@ public class MemberServiceTest extends SemsTestCase {
 		MemberValidator memberValidator = new MemberValidator();
 		memberValidator.validate(member, errors);
 
-		ModelAndView view = memberService.addNewMember(member, errors, repeatPasswrod, session);
+		ModelAndView view = memberService.addNewMember(member, errors, repeatPasswrod);
 		assertNotNull(view);
 
 		if (view != null) {
@@ -569,7 +569,7 @@ public class MemberServiceTest extends SemsTestCase {
 		MemberValidator memberValidator = new MemberValidator();
 		memberValidator.validate(member, errors);
 
-		ModelAndView view = memberService.addNewMember(member, errors, repeatPasswrod, session);
+		ModelAndView view = memberService.addNewMember(member, errors, repeatPasswrod);
 		assertNotNull(view);
 
 		if (view != null) {
@@ -616,7 +616,7 @@ public class MemberServiceTest extends SemsTestCase {
 		MemberValidator memberValidator = new MemberValidator();
 		memberValidator.validate(member, errors);
 
-		ModelAndView view = memberService.addNewMember(member, errors, repeatPasswrod, session);
+		ModelAndView view = memberService.addNewMember(member, errors, repeatPasswrod);
 		assertNotNull(view);
 
 		if (view != null) {
@@ -660,7 +660,7 @@ public class MemberServiceTest extends SemsTestCase {
 		MemberValidator memberValidator = new MemberValidator();
 		memberValidator.validate(member, errors);
 
-		ModelAndView view = memberService.addNewMember(member, errors, repeatPasswrod, session);
+		ModelAndView view = memberService.addNewMember(member, errors, repeatPasswrod);
 		assertNotNull(view);
 
 		if (view != null) {
@@ -704,7 +704,7 @@ public class MemberServiceTest extends SemsTestCase {
 		MemberValidator memberValidator = new MemberValidator();
 		memberValidator.validate(member, errors);
 
-		ModelAndView view = memberService.addNewMember(member, errors, repeatPasswrod, session);
+		ModelAndView view = memberService.addNewMember(member, errors, repeatPasswrod);
 		assertNotNull(view);
 
 		if (view != null) {
@@ -739,7 +739,7 @@ public class MemberServiceTest extends SemsTestCase {
 		MemberValidator memberValidator = new MemberValidator();
 		memberValidator.validate(member, errors);
 
-		ModelAndView view = memberService.addNewMember(member, errors, repeatPasswrod, session);
+		ModelAndView view = memberService.addNewMember(member, errors, repeatPasswrod);
 		assertNotNull(view);
 
 		if (view != null) {
@@ -785,7 +785,7 @@ public class MemberServiceTest extends SemsTestCase {
 		MemberValidator memberValidator = new MemberValidator();
 		memberValidator.validate(member, errors);
 
-		ModelAndView view = memberService.addNewMember(member, errors, null, session);
+		ModelAndView view = memberService.addNewMember(member, errors, null);
 		assertNotNull(view);
 
 		if (view != null) {
@@ -847,7 +847,7 @@ public class MemberServiceTest extends SemsTestCase {
 		MockHttpSession session = new MockHttpSession();
 		MemberVO sessionMember = new MemberVO();
 
-		ModelAndView view = memberService.registerStudent(session);
+		ModelAndView view = memberService.registerStudent();
 		assertNotNull(view);
 
 		if (view != null) {
@@ -871,7 +871,7 @@ public class MemberServiceTest extends SemsTestCase {
 		MemberVO sessionMember = new MemberVO();
 		session.setAttribute("_MEMBER_", sessionMember);
 
-		ModelAndView view = memberService.registerStudent(session);
+		ModelAndView view = memberService.registerStudent();
 		assertNotNull(view);
 
 		if (view != null) {
@@ -888,7 +888,7 @@ public class MemberServiceTest extends SemsTestCase {
 		MockHttpSession session = new MockHttpSession();
 		MemberVO sessionMember = new MemberVO();
 
-		String viewName = memberService.registerTeacher(session);
+		String viewName = memberService.registerTeacher();
 		assertNotNull(viewName);
 
 		if (viewName != null) {
@@ -904,7 +904,7 @@ public class MemberServiceTest extends SemsTestCase {
 		MemberVO sessionMember = new MemberVO();
 		session.setAttribute("_MEMBER_", sessionMember);
 
-		String viewName = memberService.registerTeacher(session);
+		String viewName = memberService.registerTeacher();
 		assertNotNull(viewName);
 
 		if (viewName != null) {
