@@ -529,7 +529,7 @@ public class MemberDAOTest extends SemsTestCase {
 	@Test
 	public void getJoinEducationList() {
 
-		String memberId = "test02";
+		String memberId = "test05";
 		List<EducationHistoryVO> educationHistoryList = memberDAO.getJoinEducationList(memberId);
 
 		if (educationHistoryList != null) {
@@ -738,5 +738,19 @@ public class MemberDAOTest extends SemsTestCase {
 		String id = "test02";
 		int check = memberDAO.checkRegistState(id);
 		assertTrue(check > 0);
+	}
+	
+	@Test
+	public void checkValidationCourseAccessTrueTest() {
+		String id = "cocomo12";
+		int check = memberDAO.checkRegistState(id);
+		assertTrue(check > 0);
+	}
+	
+	@Test
+	public void checkValidationCourseAccessFailTest() {
+		String id = "newId";
+		int check = memberDAO.checkRegistState(id);
+		assertTrue(check == 0);
 	}
 }
