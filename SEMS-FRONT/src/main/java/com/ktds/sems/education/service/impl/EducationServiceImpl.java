@@ -24,6 +24,9 @@ import com.ktds.sems.education.biz.EducationBiz;
 import com.ktds.sems.education.service.EducationService;
 import com.ktds.sems.education.util.DownloadUtil;
 import com.ktds.sems.education.vo.EduReplyListVO;
+import com.ktds.sems.education.vo.EduReportListVO;
+import com.ktds.sems.education.vo.EduReportSearchVO;
+import com.ktds.sems.education.vo.EduReportVO;
 import com.ktds.sems.education.vo.EducationListVO;
 import com.ktds.sems.education.vo.EducationQNABBSVO;
 import com.ktds.sems.education.vo.EducationQNAReplyVO;
@@ -698,6 +701,7 @@ public class EducationServiceImpl implements EducationService {
 			else {
 				//교육이 아직 시작 전이라면 취소신청
 				boolean isRetracRquestSuccess = educationBiz.doRequestRetraction(educationId, retractionMsg, memberId);
+				isRetracRquestSuccess &= educationBiz.addRequestRetractionHistory(educationId, retractionMsg, memberId, request.getRemoteHost());
 				if ( isRetracRquestSuccess ) {
 					// 취소신청이 제대로 완료 되었을때
 					// FIXME 어디로 가야하죠 아저씨 우는 손님이 처음인 가요
@@ -715,7 +719,7 @@ public class EducationServiceImpl implements EducationService {
 		}
 		
 	}
-
+	
 	@Override
 	public List<EducationQNABBSVO> getAllEducationQNAList() {
 		return educationBiz.getAllEducationQNAList();
@@ -895,6 +899,33 @@ public class EducationServiceImpl implements EducationService {
 		
 		return view;
 	}
+	
+	@Override
+	public ModelAndView getAllReportArticle(EduReportSearchVO eduReportSearchVO, int pageNo) {
+		EduReportListVO eduReportListVO = new EduReportListVO();
+		Paging paging = new Paging(20,20);
+		
+		eduReportListVO.setPaging(paging);
+		int totalReportCount = educationBiz.getTotalEduReportCount(eduReportSearchVO);
+		
+		paging.setPageNumber(pageNo + "");
+		paging.setTotalArticleCount(totalReportCount);
+		
+		eduReportSearchVO.setStartIndex(paging.getStartArticleNumber());
+		eduReportSearchVO.setEndIndex(paging.getEndArticleNumber());
 
+		List<EduReportVO> eduReport = educationBiz.getAllEduReport(eduReportSearchVO);
+		eduReportListVO.setEduReportList(eduReport);
+		
+		List<MemberVO> trainees = educationBiz.getAllMemberOfEducation(eduReportSearchVO.getEducationId());
+		
+		ModelAndView view = new ModelAndView();
+		view.setViewName("education/eduReportPage");
+		view.addObject("eduReportListVO", eduReportListVO);
+		view.addObject("eduReportSearchVO", eduReportSearchVO);
+		view.addObject("eduTrainees", trainees);
+		
+		return view;
+	}
 }
 

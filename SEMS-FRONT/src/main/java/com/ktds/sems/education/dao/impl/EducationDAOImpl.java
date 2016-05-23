@@ -13,11 +13,15 @@ import com.ktds.sems.education.vo.EducationQNABBSVO;
 import com.ktds.sems.education.vo.EducationQNAReplyVO;
 import com.ktds.sems.education.vo.EducationReportSearchVO;
 import com.ktds.sems.education.vo.EducationReportVO;
+
+import com.ktds.sems.education.vo.EduReportSearchVO;
+import com.ktds.sems.education.vo.EduReportVO;
 import com.ktds.sems.education.vo.EducationSearchVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.QNASearchVO;
 import com.ktds.sems.education.vo.QNAVO;
 import com.ktds.sems.education.vo.ReRplyEvalVO;
+import com.ktds.sems.member.vo.MemberVO;
 
 public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationDAO {
 	
@@ -327,5 +331,30 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 	@Override
 	public void addQNAReply(EducationQNAReplyVO eduBBSReplyVO) {
 		getSqlSession().insert("EducationDAO.addQNAReply", eduBBSReplyVO);
+	}
+
+	@Override
+	public int getTotalEduReportCount(EduReportSearchVO eduReportSearchVO) {
+		return getSqlSession().selectOne("EducationDAO.getTotalEduReportCount", eduReportSearchVO);
+	}
+
+	@Override
+	public List<EduReportVO> getAllEduReport(EduReportSearchVO eduReportSearchVO) {
+		return getSqlSession().selectList("EducationDAO.getAllEduReport", eduReportSearchVO);
+	}
+	
+	@Override
+	public List<MemberVO> getAllMemberOfEducation(String educationId) {
+		return getSqlSession().selectList("EducationDAO.getAllMemberOfEducation", educationId);
+	}
+
+	@Override
+	public int addRequestRetractionHistory(String educationId, String retractionMsg, String memberId, String ip) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("educationId", educationId);
+		map.put("retractionMsg", retractionMsg);
+		map.put("memberId", memberId);
+		map.put("ip", ip);
+		return getSqlSession().insert("EducationDAO.addRequestRetractionHistory", map);
 	}
 }

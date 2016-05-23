@@ -12,15 +12,19 @@ import com.ktds.sems.common.SendMail;
 import com.ktds.sems.common.vo.MailVO;
 import com.ktds.sems.education.biz.EducationBiz;
 import com.ktds.sems.education.dao.EducationDAO;
+
 import com.ktds.sems.education.vo.EducationQNABBSVO;
 import com.ktds.sems.education.vo.EducationQNAReplyVO;
 import com.ktds.sems.education.vo.EducationReportSearchVO;
 import com.ktds.sems.education.vo.EducationReportVO;
+import com.ktds.sems.education.vo.EduReportSearchVO;
+import com.ktds.sems.education.vo.EduReportVO;
 import com.ktds.sems.education.vo.EducationSearchVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.QNASearchVO;
 import com.ktds.sems.education.vo.QNAVO;
 import com.ktds.sems.education.vo.ReRplyEvalVO;
+import com.ktds.sems.member.vo.MemberVO;
 
 import kr.co.hucloud.utilities.excel.option.WriteOption;
 import kr.co.hucloud.utilities.excel.write.ExcelWrite;
@@ -387,6 +391,26 @@ public class EducationBizImpl implements EducationBiz {
 	@Override
 	public void addQNAReply(EducationQNAReplyVO eduBBSReplyVO) {
 		educationDAO.addQNAReply(eduBBSReplyVO);
+	}
+
+	@Override
+	public int getTotalEduReportCount(EduReportSearchVO eduReportSearchVO) {
+		return educationDAO.getTotalEduReportCount(eduReportSearchVO);
+	}
+
+	@Override
+	public List<EduReportVO> getAllEduReport(EduReportSearchVO eduReportSearchVO) {
+		return educationDAO.getAllEduReport(eduReportSearchVO);
+	}
+	
+	@Override
+	public List<MemberVO> getAllMemberOfEducation(String educationId) {
+		return educationDAO.getAllMemberOfEducation(educationId);
+	}
+
+	@Override
+	public boolean addRequestRetractionHistory(String educationId, String retractionMsg, String memberId, String ip) {
+		return educationDAO.addRequestRetractionHistory(educationId, retractionMsg, memberId, ip) > 0;
 	}
 }
 
