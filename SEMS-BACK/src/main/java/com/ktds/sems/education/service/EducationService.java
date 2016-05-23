@@ -9,6 +9,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ktds.sems.education.vo.EduAttendanceSearchVO;
 import com.ktds.sems.education.vo.EduFileSearchVO;
 import com.ktds.sems.education.vo.EduReportSearchVO;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
@@ -45,4 +46,6 @@ public interface EducationService {
 	public int changeEducationApplyState(String educationHistoryId);
 
 	public ModelAndView doActionDelete(String educationId, HttpSession session);
+
+	public ModelAndView viewEducationAttendancePage(EduAttendanceSearchVO eduAttendanceSearchVO, int pageNo);
 }

@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.education.service.EducationService;
+import com.ktds.sems.education.vo.EduAttendanceSearchVO;
 import com.ktds.sems.education.vo.EduFileSearchVO;
 import com.ktds.sems.education.vo.EduQnaSearchVO;
 import com.ktds.sems.education.vo.EduReportSearchVO;
@@ -103,6 +104,11 @@ public class EducationController {
 
 	public void changeEducationApplyState(String educationHistoryId) {
 		educationService.changeEducationApplyState(educationHistoryId);
+	}
+	
+	@RequestMapping("/education/attendance")
+	public ModelAndView viewEducationAttendancePage(EduAttendanceSearchVO eduAttendanceSearchVO, @RequestParam(required = false, defaultValue = "0") int pageNo){
+		return educationService.viewEducationAttendancePage(eduAttendanceSearchVO, pageNo);
 	}
 	
 	@RequestMapping("/doActionDeleteEDU/{educationId}")

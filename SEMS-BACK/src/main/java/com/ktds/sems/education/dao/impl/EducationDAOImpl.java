@@ -9,6 +9,8 @@ import org.mybatis.spring.support.SqlSessionDaoSupport;
 import com.ktds.sems.education.dao.EducationDAO;
 import com.ktds.sems.education.vo.CategoryVO;
 import com.ktds.sems.education.vo.CostVO;
+import com.ktds.sems.education.vo.EduAttendanceSearchVO;
+import com.ktds.sems.education.vo.EduAttendanceVO;
 import com.ktds.sems.education.vo.EduFileSearchVO;
 import com.ktds.sems.education.vo.EduFileVO;
 import com.ktds.sems.education.vo.EduQnaSearchVO;
@@ -19,6 +21,7 @@ import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationHistoryVO;
 import com.ktds.sems.education.vo.EducationTypeVO;
 import com.ktds.sems.education.vo.EducationVO;
+import com.ktds.sems.education.vo.TeamVO;
 import com.ktds.sems.member.vo.MemberVO;
 
 public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationDAO {
@@ -138,6 +141,31 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 	@Override
 	public List<EduFileVO> getAllEduFile(EduFileSearchVO eduFileSearchVO) {
 		return getSqlSession().selectList("EducationDAO.getAllEduFile", eduFileSearchVO);
+	}
+
+	@Override
+	public int getTotalAttendanceCount(EduAttendanceSearchVO eduAttendanceSearchVO) {
+		return getSqlSession().selectOne("EducationDAO.getTotalAttendanceCount", eduAttendanceSearchVO);
+	}
+
+	@Override
+	public List<EduAttendanceVO> getAllAttendance(EduAttendanceSearchVO eduAttendanceSearchVO) {
+		return getSqlSession().selectList("EducationDAO.getAllAttendance", eduAttendanceSearchVO);
+	}
+
+	@Override
+	public List<MemberVO> getAllMemberInEducation() {
+		return getSqlSession().selectList("EducationDAO.getAllMemberInEducation");
+	}
+
+	@Override
+	public List<TeamVO> getAllTeamInEducation() {
+		return getSqlSession().selectList("EducationDAO.getAllTeamInEducation");
+	}
+
+	@Override
+	public List<EducationVO> getAllEducation() {
+		return getSqlSession().selectList("EducationDAO.getAllEducation");
 	}
 
 	@Override

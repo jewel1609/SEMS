@@ -18,19 +18,23 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ktds.sems.common.Session;
 import com.ktds.sems.education.biz.EducationBiz;
 import com.ktds.sems.education.service.EducationService;
+import com.ktds.sems.education.vo.EduAttendanceListVO;
+import com.ktds.sems.education.vo.EduAttendanceSearchVO;
+import com.ktds.sems.education.vo.EduAttendanceVO;
 import com.ktds.sems.education.vo.EduFileListVO;
 import com.ktds.sems.education.vo.EduFileSearchVO;
 import com.ktds.sems.education.vo.EduFileVO;
 import com.ktds.sems.education.vo.EduQnaListVO;
+import com.ktds.sems.education.vo.EduQnaSearchVO;
+import com.ktds.sems.education.vo.EduQnaVO;
+import com.ktds.sems.education.vo.EduReportListVO;
 import com.ktds.sems.education.vo.EduReportSearchVO;
 import com.ktds.sems.education.vo.EduReportVO;
 import com.ktds.sems.education.vo.EducationHistoryListVO;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationHistoryVO;
 import com.ktds.sems.education.vo.EducationVO;
-import com.ktds.sems.education.vo.EduQnaSearchVO;
-import com.ktds.sems.education.vo.EduQnaVO;
-import com.ktds.sems.education.vo.EduReportListVO;
+import com.ktds.sems.education.vo.TeamVO;
 import com.ktds.sems.file.biz.FileBiz;
 import com.ktds.sems.file.vo.FileVO;
 import com.ktds.sems.member.biz.MemberBiz;
@@ -426,6 +430,36 @@ public class EducationServiceImpl implements EducationService {
 	@Override
 	public int changeEducationApplyState(String educationHistoryId) {
 		return educationBiz.changeEducationApplyState(educationHistoryId);
+	}
+
+	@Override
+	public ModelAndView viewEducationAttendancePage(EduAttendanceSearchVO eduAttendanceSearchVO, int pageNo) {
+
+		EduAttendanceListVO attendanceListVO = new EduAttendanceListVO();
+		Paging paging = new Paging(10,10);
+		attendanceListVO.setPaging(paging);
+		
+		int totalAttendanceCount = educationBiz.getTotalAttendanceCount(eduAttendanceSearchVO);
+		paging.setPageNumber(pageNo + "");
+		paging.setTotalArticleCount(totalAttendanceCount);
+		
+		eduAttendanceSearchVO.setStartIndex(paging.getStartArticleNumber());
+		eduAttendanceSearchVO.setEndIndex(paging.getEndArticleNumber());
+		
+		List<EduAttendanceVO> attendanceList = educationBiz.getAllAttendance(eduAttendanceSearchVO);
+		attendanceListVO.setAttendanceList(attendanceList);
+		
+		List<MemberVO> trainees = educationBiz.getAllMemberInEducation();
+		List<TeamVO> teams = educationBiz.getAllTeamInEducation();	
+		List<EducationVO> educations = educationBiz.getAllEducation();
+		
+		ModelAndView view = new ModelAndView();
+		view.setViewName("education/attendance");
+		view.addObject("attendanceListVO", attendanceListVO);
+		view.addObject("eduTrainees", trainees);
+		view.addObject("eduTeams", teams);
+		view.addObject("educations", educations);
+		return view;
 	}
 
 	@Override

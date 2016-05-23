@@ -8,6 +8,8 @@ import com.ktds.sems.education.biz.EducationBiz;
 import com.ktds.sems.education.dao.EducationDAO;
 import com.ktds.sems.education.vo.CategoryVO;
 import com.ktds.sems.education.vo.CostVO;
+import com.ktds.sems.education.vo.EduAttendanceSearchVO;
+import com.ktds.sems.education.vo.EduAttendanceVO;
 import com.ktds.sems.education.vo.EduFileSearchVO;
 import com.ktds.sems.education.vo.EduFileVO;
 import com.ktds.sems.education.vo.EduQnaSearchVO;
@@ -18,6 +20,7 @@ import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationHistoryVO;
 import com.ktds.sems.education.vo.EducationTypeVO;
 import com.ktds.sems.education.vo.EducationVO;
+import com.ktds.sems.education.vo.TeamVO;
 import com.ktds.sems.member.vo.MemberVO;
 
 public class EducationBizImpl implements EducationBiz {
@@ -241,6 +244,31 @@ public class EducationBizImpl implements EducationBiz {
 	@Override
 	public int changeEducationApplyState(String educationHistoryId) {
 		return educationDAO.changeEducationApplyState(educationHistoryId);
+	}
+
+	@Override
+	public int getTotalAttendanceCount(EduAttendanceSearchVO eduAttendanceSearchVO) {
+		return educationDAO.getTotalAttendanceCount(eduAttendanceSearchVO);
+	}
+
+	@Override
+	public List<EduAttendanceVO> getAllAttendance(EduAttendanceSearchVO eduAttendanceSearchVO) {
+		return educationDAO.getAllAttendance(eduAttendanceSearchVO);
+	}
+
+	@Override
+	public List<MemberVO> getAllMemberInEducation() {
+		return educationDAO.getAllMemberInEducation();
+	}
+
+	@Override
+	public List<TeamVO> getAllTeamInEducation() {
+		return educationDAO.getAllTeamInEducation();
+	}
+
+	@Override
+	public List<EducationVO> getAllEducation() {
+		return educationDAO.getAllEducation();
 	}
 
 	@Override
