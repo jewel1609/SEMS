@@ -84,4 +84,8 @@
 		<property name="memberDAO" ref="memberDAO" />
 	</bean>
 
+	<bean id="pcController" class="com.ktds.sems.pc.web.PcController">
+		<property name="pcService" ref="pcService" />
+	</bean>
+
 </beans>
