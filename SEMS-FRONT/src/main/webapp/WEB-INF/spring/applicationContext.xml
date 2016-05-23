@@ -14,6 +14,7 @@
 			<mvc:exclude-mapping path="/" />
 			<mvc:exclude-mapping path="/loginPage" />
 			<mvc:exclude-mapping path="/login" />
+			<mvc:exclude-mapping path="/checkRegistState" />
 			<mvc:exclude-mapping path="/register/policy" />
 			<mvc:exclude-mapping path="/register/teacher" />
 			<mvc:exclude-mapping path="/register/student" />
@@ -40,7 +41,7 @@
 		</mvc:interceptor>
 		<mvc:interceptor>
 			<!-- 회원 로그인 시 특정 페이지(로그인, 회원가입 페이지) 접근 불가 -->
-			<mvc:mapping path="/register/*" />
+			<mvc:mapping path="/register/**" />
 			<mvc:mapping path="/login" />
 			<mvc:mapping path="/loginPage" />
 			<mvc:mapping path="/checkValidationById" />
@@ -51,7 +52,7 @@
 			<mvc:mapping path="/checkValidationByRepeatPassword" />
 			<mvc:mapping path="/checkValidationByEmail" />
 			<mvc:mapping path="/checkValidationByPhoneNumber" />
-			<mvc:mapping path="/doRegisterAction" />
+			<mvc:mapping path="/doRegisterMemberAction" />
 			<bean id="invalidAccessInterceptor" class="com.ktds.sems.interceptor.InvalidAccessInterceptor" />
 		</mvc:interceptor>
 	</mvc:interceptors>
