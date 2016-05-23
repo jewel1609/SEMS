@@ -154,6 +154,7 @@
 					alert("인터넷 연결이 끊겼습니다.");
 				} else if (data == "OK") {
 					$("#messageByPhoneNumber").text("사용할 수 있는 전화번호 입니다.").css("color", "green");
+					isCheckedPhoneNumber = true;
 				} else if (data == "NO") {
 					$("#messageByPhoneNumber").text("정확한 전화번호를 입력하세요!").css("color", "red");
 				}
