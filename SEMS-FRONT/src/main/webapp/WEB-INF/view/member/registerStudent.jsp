@@ -31,6 +31,7 @@
 		var isCheckedName = false;
 		var isCheckedUniversityName = false;
 		var isCheckedMajorName = false;
+		var isCheckedPhoneNumber = false;
 		
 		$("#id").blur(function () {
 			if($("#id").val()=="") {
@@ -152,10 +153,13 @@
 		$("#phoneNumber").blur(function () {
 			$.post("<c:url value="/checkValidationByPhoneNumber" />", { "phoneNumber" : $("#phoneNumber").val() }, function(data) {
 				if (!data) {
+					isCheckedPhoneNumber = false;
 					alert("인터넷 연결이 끊겼습니다.");
 				} else if (data == "OK") {
+					isCheckedPhoneNumber = true;
 					$("#messageByPhoneNumber").text("사용할 수 있는 전화번호 입니다.").css("color", "green");
 				} else if (data == "NO") {
+					isCheckedPhoneNumber = false;
 					$("#messageByPhoneNumber").text("정확한 전화번호를 입력하세요!").css("color", "red");
 				}
 			});
@@ -214,8 +218,28 @@
 				return;
 			}
 			
+			if(isCheckedName == false) {
+				alert("이름을 확인해주세요.");
+				return;
+			}
+			
 			if(isCheckedEmail == false) {
 				alert("이메일을 확인해주세요.");
+				return;
+			}
+			
+			if(isCheckedPhoneNumber == false) {
+				alert("전화번호를 확인해주세요.");
+				return;
+			}
+
+			if(isCheckedUniversityName == false) {
+				alert("학교명을 확인해주세요.");
+				return;
+			}
+			
+			if(isCheckedMajorName == false) {
+				alert("학과명을 확인해주세요.");
 				return;
 			}
 			
@@ -223,7 +247,7 @@
 			form.attr("action", "<c:url value="/doRegisterMemberAction" />");
 			form.submit();
 			
-/* 			$.post("<c:url value="/checkRegistState" />", { }, function(data) {
+			$.post("<c:url value="/checkRegistState" />", { "id" : $("#id").val() }, function(data) {
 				if (!data) {
 					alert("인터넷 연결이 끊겼습니다.");
 				} else if (data == "OK") {
@@ -231,7 +255,7 @@
 				} else if (data == "NO") {
 					alert("가입에 실패하였습니다. 다시 시도해주세요.");
 				}
-			}); */
+			}); 
 			
 		});
 		
@@ -262,6 +286,35 @@
 			$("#birthDate").val(date);
 		});
 		
+		var id = $("#id").val();
+		if (id != null && id != "") {
+			$("#id").blur();
+		}
+		
+		var email = $("#email").val();
+		if (email != null && email != "") {
+			$("#email").blur();
+		}
+		
+		var name = $("#name").val();
+		if (name != null && name != "") {
+			$("#name").blur();
+		}
+		
+		var phoneNumber = $("#phoneNumber").val();
+		if (phoneNumber != null && phoneNumber != "") {
+			$("#phoneNumber").blur();
+		}
+		
+		var universityName = $("#universityName").val();
+		if (universityName != null && universityName != "") {
+			$("#universityName").blur();
+		}
+		
+		var majorName = $("#majorName").val();
+		if (majorName != null && majorName != "") {
+			$("#majorName").blur();
+		}
 	});
 </script>
 
@@ -365,7 +418,7 @@
 		</c:if>
 		<br/>
 		
-		이름 : <input type="text" id="name" name="name" value="${ member.name }" tabindex="4" maxlength="10"/>
+		이름(실명) : <input type="text" id="name" name="name" value="${ member.name }" tabindex="4" maxlength="10"/>
 		<br/><span class="deleteMessageName" id="messageByName"></span>
 		<form:errors class="deleteMessageName message" path="name"/><br/>
 		
@@ -418,10 +471,10 @@
 		
 		최종학력 : 
 		<c:forEach items="${highestEducationLevelList}" var="highestEducationLevel">
-			<c:if test="${highestEducationLevel eq member.highestEducationLevel }">
+			<c:if test="${highestEducationLevel.cdId eq member.highestEducationLevel }">
 			<input type="radio" class="highestEducationLevel" name="highestEducationLevel" value="${highestEducationLevel.cdId}" checked="checked"/>${highestEducationLevel.cdNm}
 			</c:if>
-			<c:if test="${highestEducationLevel ne member.highestEducationLevel }">
+			<c:if test="${highestEducationLevel.cdId ne member.highestEducationLevel }">
 			<input type="radio" class="highestEducationLevel" name="highestEducationLevel" value="${highestEducationLevel.cdId}"/>${highestEducationLevel.cdNm}
 			</c:if>
 		</c:forEach>

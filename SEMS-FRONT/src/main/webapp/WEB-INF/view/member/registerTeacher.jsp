@@ -28,6 +28,8 @@
 		
 		var isCheckedId = false;
 		var isCheckedEmail = false;
+		var isCheckedName = false;
+		var isCheckedPhoneNumber = false;
 		
 		$("#id").blur(function () {
 			if($("#id").val()=="") {
@@ -98,6 +100,28 @@
 			$(".deleteMessageRepeatPassword").text("");
 		});
 		
+		$("#name").blur(function () {
+			if($("#name").val()=="") {
+				$("#messageByName").text("");
+				return;
+			}
+			
+			$.post("<c:url value="/checkValidationByName" />", { "name" : $("#name").val() }, function(data) {
+				if (!data) {
+					alert("인터넷 연결이 끊겼습니다.");
+				} else if (data == "OK") {
+					isCheckedName = true;
+				} else if (data == "NO") {
+					$("#messageByName").text("이름은 한글만 입력해주세요.").css("color", "red");
+					isCheckedName = false;
+				}
+			});
+		});
+		
+		$("#name").focus(function () {
+			$(".deleteMessageName").text("");
+		});
+		
 		$("#email").blur ( function () {
 			if($("#email").val()=="") {
 				$("#messageByEmail").text("");
@@ -140,14 +164,15 @@
 			$(".deleteMessagePhoneNumber").text("");
 		});
 		
-		$("#name").focus(function () {
-			$(".deleteMessageName").text("");
-		});
-		
 		$("#registerButton").click( function () {
 			
 			if(isCheckedId == false) {
 				alert("아이디를 확인해주세요.");
+				return;
+			}
+			
+			if(isCheckedName == false) {
+				alert("이름을 확인해주세요.");
 				return;
 			}
 			
@@ -156,9 +181,25 @@
 				return;
 			}
 			
+			if(isCheckedPhoneNumber == false) {
+				alert("전화번호를 확인해주세요.");
+				return;
+			}
+			
 			var form = $("#registerForm");
 			form.attr("action", "<c:url value="/doRegisterMemberAction" />");
 			form.submit();
+			
+			$.post("<c:url value="/checkRegistState" />", { "id" : $("#id").val() }, function(data) {
+				if (!data) {
+					alert("인터넷 연결이 끊겼습니다.");
+				} else if (data == "OK") {
+					alert("가입이 완료되었습니다.");
+				} else if (data == "NO") {
+					alert("가입에 실패하였습니다. 다시 시도해주세요.");
+				}
+			}); 
+			
 		});
 		
 		$('#years, #months, #days').change(function () {
@@ -188,6 +229,26 @@
 			$("#birthDate").val(date);
 		});
 		
+		var id = $("#id").val();
+		if (id != null && id != "") {
+			$("#id").blur();
+		}
+		
+		var email = $("#email").val();
+		if (email != null && email != "") {
+			$("#email").blur();
+		}
+		
+		var name = $("#name").val();
+		if (name != null && name != "") {
+			$("#name").blur();
+		}
+		
+		var phoneNumber = $("#phoneNumber").val();
+		if (phoneNumber != null && phoneNumber != "") {
+			$("#phoneNumber").blur();
+		}
+			
 	});
 </script>
 
@@ -291,8 +352,9 @@
 		</c:if>
 		<br/>
 		
-		이름 : <input type="text" id="name" name="name" value="${ member.name }" tabindex="4" maxlength="10"/>
-		<br/><form:errors class="deleteMessageName" path="name"/><br/>
+		이름(실명) : <input type="text" id="name" name="name" value="${ member.name }" tabindex="4" maxlength="10"/>
+		<br/><span class="deleteMessageName" id="messageByName"></span>
+		<form:errors class="deleteMessageName" path="name"/><br/>
 		
 		이메일 : <input type="email" id="email" name="email" value="${ member.email }" tabindex="5" maxlength="30"/>
 		<br/><span class="deleteMessageEmail" id="messageByEmail"></span>
