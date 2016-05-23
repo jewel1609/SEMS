@@ -13,6 +13,7 @@ import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.pc.biz.PcBiz;
 import com.ktds.sems.pc.service.PcService;
+import com.ktds.sems.pc.vo.UsedPcVO;
 
 import kr.co.hucloud.utilities.web.AjaxUtil;
 
@@ -28,11 +29,12 @@ public class PcServiceImpl implements PcService{
 	public ModelAndView viewMyPcPage(HttpSession session, HttpServletRequest request) {
 		MemberVO memberVO = (MemberVO) session.getAttribute(Session.MEMBER);
 		List<EducationVO> eduListByMember = pcBiz.getEduListByMember(memberVO);
-		
+		List<UsedPcVO> usedPcList = pcBiz.getUsedPcListByMember(memberVO);
 		String myPcIp= request.getRemoteHost();
 		
 		ModelAndView view = new ModelAndView();
 		view.setViewName("myPage/pc/myPc");
+		view.addObject("usedPcList", usedPcList);
 		view.addObject("eduListByMember", eduListByMember);
 		view.addObject("myPcIp", myPcIp);
 		return view;

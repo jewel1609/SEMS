@@ -6,6 +6,7 @@ import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.pc.biz.PcBiz;
 import com.ktds.sems.pc.dao.PcDAO;
+import com.ktds.sems.pc.vo.UsedPcVO;
 
 public class PcBizImpl implements PcBiz {
 	private PcDAO pcDAO;
@@ -17,6 +18,11 @@ public class PcBizImpl implements PcBiz {
 	@Override
 	public List<EducationVO> getEduListByMember(MemberVO memberVO) {
 		return pcDAO.getEduListByMember(memberVO);
+	}
+
+	@Override
+	public List<UsedPcVO> getUsedPcListByMember(MemberVO memberVO) {
+		return pcDAO.getUsedPcListByMember(memberVO);
 	}
 
 }
