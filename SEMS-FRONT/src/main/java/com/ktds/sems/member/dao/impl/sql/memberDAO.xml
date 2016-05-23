@@ -334,12 +334,14 @@
    							, MBR_ID
    							, ATD_TM
    							, EDU_ID
+   							, LEAV_TM
    						) 
 				VALUES 	( 
 							ATD_ID_SEQ.NEXTVAL
 							, #{memberId}
 				 			, #{attendTime}
 				 			, #{educationId}
+				 			, #{attendTime}
 				  		)
 	</insert>
 	
