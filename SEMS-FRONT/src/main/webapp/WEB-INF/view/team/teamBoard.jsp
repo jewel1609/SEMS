@@ -8,7 +8,7 @@
 <script type="text/javascript">
 
 	$("#write").click(function() {
-		location.href="<c:url value='/team/writePage'/>";
+		location.href="<c:url value='/team/teamBBS/write'/>";
 	});
 
 </script>
