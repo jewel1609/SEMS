@@ -9,14 +9,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.junit.After;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.test.context.transaction.BeforeTransaction;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ktds.sems.SemsTestCase;
+import com.ktds.sems.Testable;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationHistoryVO;
 import com.ktds.sems.education.vo.EducationVO;
@@ -25,6 +28,7 @@ import com.ktds.sems.member.vo.LoginHistoryVO;
 import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.member.vo.MenuManageVO;
 
+import kr.co.hucloud.utilities.SHA256Util;
 import kr.co.hucloud.utilities.web.Paging;
 
 @Transactional
@@ -33,6 +37,82 @@ public class MemberDAOTest extends SemsTestCase {
 
 	@Autowired
 	private MemberDAO memberDAO;
+
+	/**
+	 * @author 김동규 Action - insert
+	 */
+	@BeforeTransaction
+	public void setUp() {
+		testHelper(new Testable() {
+			// stampLoginTimeTest Setting - insert loginHistoryVO
+			@Override
+			public void preparedTest() {
+				MockHttpServletRequest request = new MockHttpServletRequest();
+				LoginHistoryVO loginHistoryVO = new LoginHistoryVO();
+				int seq = memberDAO.nextLoginHistorySeq();
+				loginHistoryVO.setLgiHtrId(seq);
+				loginHistoryVO.setId("test04");
+				loginHistoryVO.setLgiIp(request.getRemoteHost());
+				memberDAO.stampLoginTime(loginHistoryVO);
+			}
+		});
+		testHelper(new Testable() {
+			// modifyMemberInfoTest Setting - update MemberVO
+			@Override
+			public void preparedTest() {
+				String salt = SHA256Util.generateSalt();
+				MemberVO memberVO = new MemberVO();
+				memberVO.setId("test04");
+				memberVO.setName("cain");
+				memberVO.setEmail("cain@naver.com");
+				memberVO.setHighestEducationLevel("UNIV");
+				memberVO.setGraduationType("GRAD");
+				memberVO.setBirthDate("1988-02-20");
+				memberVO.setPhoneNumber("010-7336-6004");
+				memberVO.setPassword("testPassWord!!");
+				String newPassword = SHA256Util.getEncrypt(memberVO.getPassword(), salt);
+				memberVO.setPassword(newPassword);
+				memberVO.setSalt(salt);
+
+				memberDAO.modifyMemberInfo(memberVO);
+			}
+		});
+		testHelper(new Testable() {
+			// stampLogoutTimeTest Setting - update loginHistoryVO
+			@Override
+			public void preparedTest() {
+				LoginHistoryVO loginHistoryVO = new LoginHistoryVO();
+				loginHistoryVO.setLgiHtrId(1048);
+				memberDAO.stampLogoutTime(loginHistoryVO);
+			}
+		});
+		testHelper(new Testable() {
+			// stampLogoutTimeByMemberIdTest Setting - update String memberId
+			@Override
+			public void preparedTest() {
+				String memberId = "test04";
+				memberDAO.stampLogoutTimeByMemberId(memberId);
+			}
+		});
+		testHelper(new Testable() {
+			// doRequestIpHistoryTest Setting - update int lgiHtrId
+			@Override
+			public void preparedTest() {
+				int lgiHtrId = 1048;
+				memberDAO.doRequestIpHistory(lgiHtrId);
+			}
+		});
+		testHelper(new Testable() {
+			// ipCheckCountUpdateTest Setting - update loginHistoryVO
+			@Override
+			public void preparedTest() {
+				LoginHistoryVO loginHistoryVO = new LoginHistoryVO();
+				loginHistoryVO.setId("test04");
+				loginHistoryVO.setLgiHtrId(1048);
+				memberDAO.ipCheckCountUpdate(loginHistoryVO);
+			}
+		});
+	}
 
 	/**
 	 * SALT 얻어오기
@@ -178,7 +258,6 @@ public class MemberDAOTest extends SemsTestCase {
 		int executeQuery = memberDAO.isModifyAccountLock(id);
 		assertTrue(executeQuery == 0);
 	}
-
 
 	// /**
 	// * 탈퇴 회원 업데이트
@@ -474,86 +553,176 @@ public class MemberDAOTest extends SemsTestCase {
 	}
 
 	@Test
-	public void stampLoginTimeTest() {
-		MockHttpServletRequest request = new MockHttpServletRequest();
-		LoginHistoryVO loginHistoryVO = new LoginHistoryVO();
-		int seq = memberDAO.nextLoginHistorySeq();
-		loginHistoryVO.setLgiHtrId(seq);
-		loginHistoryVO.setId("test04");
-		loginHistoryVO.setLgiIp(request.getRemoteHost());
+	public void getCourseList() {
+		EducationHistorySearchVO educationHistorySearchVO = new EducationHistorySearchVO();
 
+		educationHistorySearchVO.setMemberId("test02");
+		educationHistorySearchVO.setEndIndex(5);
+		educationHistorySearchVO.setStartIndex(0);
+
+		memberDAO.getCourseList(educationHistorySearchVO);
+
+		assertNotNull(educationHistorySearchVO);
+	}
+
+	@Test
+	public void getCourseCountById() {
+		String id = "test04";
+		assertTrue(memberDAO.getCourseCountById(id) > 0);
+	}
+
+	@Test
+	public void getOneEducationByIdAndEducationId() {
+		String id = "test02";
+		String eduId = "ED-20160516-000185";
+		assertNotNull(memberDAO.getOneEducationByIdAndEducationId(eduId, id));
+	}
+
+	@Test
+	public void dropCourseApply() {
+		EducationHistoryVO educationHistory = new EducationHistoryVO();
+		educationHistory.setCmnt("JUnit!!!!!!!!test!!");
+		educationHistory.setEducationId("ED-20160516-000185");
+		educationHistory.setMemberId("test02");
+
+		assertTrue(memberDAO.dropCourseApply(educationHistory) > 0);
+	}
+
+	/**
+	 * @param loginHistoryVO
+	 *            Action - insert
+	 */
+	@Test
+	public void stampLoginTimeTest() {
+		LoginHistoryVO loginHistoryVO = new LoginHistoryVO();
+		if (loginHistoryVO.getId() == null || loginHistoryVO.getLgiHtrId() <= 0 || loginHistoryVO.getLgiIp() == null ) {
+			assertNotNull(loginHistoryVO.getLgiHtrId());
+//			assertNotNull(loginHistoryVO.getId());
+//			assertNotNull(loginHistoryVO.getLgiIp());
+			MockHttpServletRequest request = new MockHttpServletRequest();
+			loginHistoryVO.setId("test04");
+			loginHistoryVO.setLgiIp(request.getRemoteHost());
+		}
+		
 		int check = memberDAO.stampLoginTime(loginHistoryVO);
 		if (check > 0) {
-			if (seq > 0) {
-				assertNotNull(loginHistoryVO.getLgiHtrId());
-			} else {
-				fail("[DAO Part] nextLoginHistorySeq Fail.");
-			}
-			assertNotNull(check);
+			assertNotNull(loginHistoryVO.getLgiHtrId());
+			assertNotNull(loginHistoryVO.getId());
+			assertNotNull(loginHistoryVO.getLgiIp());
 		} else {
 			fail("[DAO Part] stampLoginTimeTest Fail.");
 		}
 	}
 
+	/**
+	 * @param MemberVO
+	 *            Action - update
+	 */
+	@Test
+	public void modifyMemberInfoTest() {
+		MemberVO memberVO = new MemberVO();
+		
+		if (memberVO != null) {
+			assertNull(memberVO.getId());
+			assertNull(memberVO.getName());
+			assertNull(memberVO.getEmail());
+			assertNull(memberVO.getHighestEducationLevel());
+			assertNull(memberVO.getGraduationType());
+			assertNull(memberVO.getBirthDate());
+			assertNull(memberVO.getPhoneNumber());
+			assertNull(memberVO.getPassword());
+			assertNull(memberVO.getSalt());
+		} else {
+			fail("[DAO Part] modifyMemberInfoTest Fail.");
+		}
+	}
+
+	/**
+	 * @param loginHistoryVO
+	 *            Action - insert
+	 */
 	@Test
 	public void stampLogoutTimeTest() {
 		LoginHistoryVO loginHistoryVO = new LoginHistoryVO();
-		loginHistoryVO.setLgiHtrId(1048);
-
+		if (loginHistoryVO.getLgiHtrId() <= 0) {
+			loginHistoryVO.setLgiHtrId(1048);
+		}
 		int check = memberDAO.stampLogoutTime(loginHistoryVO);
 		if (check > 0) {
 			assertNotNull(loginHistoryVO.getLgiHtrId());
 			assertNotNull(check);
 		} else {
-			fail("[DAO Part] stampLoginTimeTest Fail.");
+			fail("[DAO Part] stampLogoutTimeTest Fail.");
 		}
 	}
 
+	/**
+	 * @param String
+	 *            memberId Action - update
+	 */
 	@Test
 	public void stampLogoutTimeByMemberIdTest() {
-		int check = memberDAO.stampLogoutTimeByMemberId("test04");
-		if(check > 0) {
+		LoginHistoryVO loginHistoryVO = new LoginHistoryVO();
+		if(loginHistoryVO.getId() == null) {
+			loginHistoryVO.setId("test04");			
+		}
+		int check = memberDAO.stampLogoutTimeByMemberId(loginHistoryVO.getId());
+		if (check > 0) {
+			assertNotNull(loginHistoryVO.getId());
 			assertNotNull(check);
-		}else {
+		} else {
 			fail("[DAO Part] stampLogoutTimeByMemberIdTest Fail.");
 		}
 	}
-	
-	
+
+	/**
+	 * @param int
+	 *            memberId Action - update
+	 */
 	@Test
-	public void getCourseList(){
-		EducationHistorySearchVO educationHistorySearchVO = new EducationHistorySearchVO();
-		
-		educationHistorySearchVO.setMemberId("test02");
-		educationHistorySearchVO.setEndIndex(5);
-		educationHistorySearchVO.setStartIndex(0);
-	
-		memberDAO.getCourseList(educationHistorySearchVO);
-		
-		assertNotNull(educationHistorySearchVO);
-	}
-	
-	@Test
-	public void getCourseCountById(){
-		String id = "test04";
-		assertTrue(memberDAO.getCourseCountById(id) > 0);
-	}
-	
-	@Test
-	public void getOneEducationByIdAndEducationId(){
-		String id = "test02";
-		String eduId= "ED-20160516-000185";
-		assertNotNull(memberDAO.getOneEducationByIdAndEducationId(eduId, id));
-	}
-	
-	@Test
-	public void dropCourseApply(){
-		EducationHistoryVO educationHistory = new EducationHistoryVO();
-		educationHistory.setCmnt("JUnit!!!!!!!!test!!");
-		educationHistory.setEducationId("ED-20160516-000185");
-		educationHistory.setMemberId("test02");
-		
-		assertTrue( memberDAO.dropCourseApply(educationHistory) > 0 );
+	public void doRequestIpHistoryTest() {
+		LoginHistoryVO loginHistoryVO = new LoginHistoryVO();
+		if (loginHistoryVO != null ) {
+			assertNotNull(loginHistoryVO.getLgiHtrId());
+		} else {
+			fail("[DAO Part] doRequestIpHistoryTest Fail.");
+		}
 	}
 
+	/**
+	 * @param loginHistoryVO
+	 *            memberId Action - update
+	 */
+	@Test
+	public void ipCheckCountUpdateTest() {
+		LoginHistoryVO loginHistoryVO = new LoginHistoryVO();
+		assertNotNull(loginHistoryVO.getLgiHtrId());
+		assertNull(loginHistoryVO.getId());
+	}
+
+	/**
+	 * Action - delete
+	 */
+	@After
+	public void tearDown() {
+		testHelper(new Testable() {
+			// Action Delete querys.
+			@Override
+			public void preparedTest() {
+				// stampLoginTime - insert loginHistoryVO
+				// modifyMemberInfo - update MemberVO
+				// stampLogoutTime - update loginHistoryVO
+				// stampLogoutTimeByMemberId - update String memberId
+				// doRequestIpHistory - update int lgiHtrId
+				// ipCheckCountUpdate - update loginHistoryVO
+				// memberDAO.stampLoginTime(newLoginHistoryVO);
+				// memberDAO.modifyMemberInfo(member);
+				// memberDAO.stampLogoutTime(newLoginHistoryVO);
+				// memberDAO.stampLogoutTimeByMemberId(memberId);
+				// memberDAO.doRequestIpHistory(lgiHtrId);
+				// memberDAO.ipCheckCountUpdate(loginHistoryVO);
+
+			}
+		});
+	}
 }
