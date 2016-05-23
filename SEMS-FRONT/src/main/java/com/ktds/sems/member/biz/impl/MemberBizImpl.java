@@ -746,4 +746,15 @@ public class MemberBizImpl implements MemberBiz {
 		return matcher.matches();
 	}
 
+	@Override
+	public boolean checkValidationCourseAccess(String memberId) {
+		int checkNumber = memberDAO.checkValidationCourseAccess(memberId);
+		if (checkNumber != 0) {
+			return false;
+		}
+		else {
+			return true;
+		}
+	}
+
 }

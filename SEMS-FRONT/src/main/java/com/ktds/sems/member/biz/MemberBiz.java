@@ -141,5 +141,7 @@ public interface MemberBiz {
 
 	public boolean isValidCourseDropReason(String courseDropReason);
 
+	public boolean checkValidationCourseAccess(String memberId);
+
 	
 }

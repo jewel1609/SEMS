@@ -684,6 +684,7 @@ public class MemberServiceImpl implements MemberService {
 		return "OK";
 	}
 
+	//TODO
 	@Override
 	public ModelAndView viewMyPageMenu() {
 		ModelAndView view = new ModelAndView();
@@ -895,6 +896,11 @@ public class MemberServiceImpl implements MemberService {
 		return memberBiz.isValidCourseDropReason(courseDropReason);
 	}
 	
+	
+	/**
+	 * 모든 수강신청 내역을 paging 하기 위한 total number 받아오기
+	 * 구본호 > 이기연(SM)
+	 */
 	@Override
 	public ModelAndView getCourseList(HttpSession session, int pageNo) {
 
@@ -918,9 +924,18 @@ public class MemberServiceImpl implements MemberService {
 		educationHistoryListVO.setEducationHistoryList(educationHistoryList);
 
 		ModelAndView view = new ModelAndView();
-		view.setViewName("member/resignCourseList");
-		view.addObject("educationHistoryListVO", educationHistoryListVO);
 		
+		// SM 이기연 수정 
+		if ( totalEducationHistoryCountById > 0 ) {
+			view.setViewName("member/resignCourseList");
+			view.addObject("educationHistoryListVO", educationHistoryListVO);
+		} 
+		else {
+			List<MenuManageVO> menuList = memberBiz.getMenuCategoryList();
+
+			view.setViewName("member/myPage");
+			view.addObject("menuList", menuList);
+		}
 		return view;
 
 	}
@@ -935,6 +950,20 @@ public class MemberServiceImpl implements MemberService {
 		}
 		AjaxUtil.sendResponse(response, message);
 		return;
+	}
+
+	@Override
+	public void checkValidationCourseAccess(HttpServletResponse response, HttpSession session) {
+		String message = "OK";
+
+		MemberVO memberVO = (MemberVO) session.getAttribute(Session.MEMBER);
+		String memberId = memberVO.getId();
+		
+		boolean checkValidationCourseAccess = memberBiz.checkValidationCourseAccess(memberId);
+		if (checkValidationCourseAccess) {
+			message = "NO";
+		}
+		AjaxUtil.sendResponse(response, message);
 	}
 	
 }

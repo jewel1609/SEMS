@@ -125,7 +125,7 @@ public class MemberController {
 	@RequestMapping("/logout")
 	public String logout(HttpSession session) {
 		memberService.logout(session);
-		return "redirect:/";
+		return "redirect:/loginPage";
 	}
 
 	@RequestMapping("/member/myPage")
@@ -344,5 +344,10 @@ public class MemberController {
 	@RequestMapping("/member/myPage/educationHistoryInit")
 	public String educationHistoryPageInit() {
 		return "redirect:/member/myPage/educationHistory";
+	}
+	
+	@RequestMapping("/checkValidationCourseAccess")
+	public void checkValidationCourseAccess(HttpServletResponse response, HttpSession session) {
+		memberService.checkValidationCourseAccess(response, session);
 	}
 }

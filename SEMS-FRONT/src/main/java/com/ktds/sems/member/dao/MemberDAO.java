@@ -135,5 +135,7 @@ public interface MemberDAO {
 
 	public int checkRegistState(String id);
 
+	public int checkValidationCourseAccess(String memberId);
+
 	
 }

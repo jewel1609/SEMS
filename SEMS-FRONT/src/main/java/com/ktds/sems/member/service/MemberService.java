@@ -95,4 +95,6 @@ public interface MemberService {
 
 	public void checkRegistState(String id, HttpServletResponse response);
 
+	public void checkValidationCourseAccess(HttpServletResponse response, HttpSession session);
+
 }

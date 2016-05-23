@@ -676,4 +676,11 @@
 		FROM	MBR
 		WHERE	ID = #{id}
 	</select>
+	
+	<select id="checkValidationCourseAccess" resultType="_int" parameterType="string">
+		SELECT	COUNT(EDU_HTR_ID)
+		FROM	EDU_HTR
+		WHERE	STAT = 'EDU_JN_C'
+		AND		MBR_ID = #{memberId}
+	</select>
 </mapper>
