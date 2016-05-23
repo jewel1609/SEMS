@@ -22,6 +22,7 @@ import com.ktds.sems.education.util.DownloadUtil;
 import com.ktds.sems.education.vo.EduReplyListVO;
 import com.ktds.sems.education.vo.EducationListVO;
 import com.ktds.sems.education.vo.EducationQNABBSVO;
+import com.ktds.sems.education.vo.EducationQNAReplyVO;
 import com.ktds.sems.education.vo.EducationSearchVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.QNAListVO;
@@ -756,7 +757,35 @@ public class EducationServiceImpl implements EducationService {
 
 	@Override
 	public EducationQNABBSVO getOneQNABBSByAtcId(String atcId) {
+		//조회수 증가
+		educationBiz.addHitsByAtcId(atcId);
+		
 		return educationBiz.getOneQNABBSByAtcId(atcId);
+	}
+
+	@Override
+	public ModelAndView doQNAReplyWriteAction(EducationQNAReplyVO eduBBSReplyVO, Errors errors, HttpSession session) {
+		
+		ModelAndView view = new ModelAndView();
+		MemberVO sessionMember = (MemberVO) session.getAttribute("_MEMBER_");
+		String atcId = eduBBSReplyVO.getAtcId();
+		String nowDate = educationBiz.getNowDate();
+		int nextSeq = educationBiz.getNextReplySeq();
+		String realReplyId = "RP-" + nowDate + "-" + lpad(nextSeq + "", 6, "0");
+		
+		eduBBSReplyVO.setMbrId(sessionMember.getId());
+		eduBBSReplyVO.setAtcId(atcId);
+		eduBBSReplyVO.setReplyId(realReplyId);
+		
+		if ( !errors.hasErrors() ) {
+			educationBiz.addQNAReply(eduBBSReplyVO);
+			view.setViewName("redirect:/eduBoard/QNADetail/" + atcId);
+			
+		}else {
+			throw new RuntimeException("일시적인 장애가 발생했습니다. 잠시 후 다시 시도해주세요.");
+		}
+		
+		return view;
 	}
 
 }

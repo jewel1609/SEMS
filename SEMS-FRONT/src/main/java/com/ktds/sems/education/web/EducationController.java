@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ktds.sems.common.Session;
 import com.ktds.sems.education.service.EducationService;
 import com.ktds.sems.education.vo.EducationQNABBSVO;
+import com.ktds.sems.education.vo.EducationQNAReplyVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.QNASearchVO;
 import com.ktds.sems.education.vo.QNAVO;
@@ -259,6 +260,11 @@ public class EducationController {
 		view.setViewName("myPage/eduBoardQNADetail");
 		
 		return view;
+	}
+	
+	@RequestMapping("/doWriteReply")
+	public ModelAndView doQNAReplyWriteAction(@Valid EducationQNAReplyVO eduBBSReplyVO, Errors errors, HttpSession session) {
+		return educationService.doQNAReplyWriteAction(eduBBSReplyVO, errors, session);
 	}
 	
 	

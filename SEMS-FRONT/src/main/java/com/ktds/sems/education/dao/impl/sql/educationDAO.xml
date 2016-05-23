@@ -690,4 +690,31 @@
 		FROM	EDU_QA_BBS
 		WHERE	ATC_ID = #{atcId}
 	</select>
+	
+	<update id="addHitsByAtcId" parameterType="string">
+		UPDATE	EDU_QA_BBS
+		SET		HITS = HITS+1
+		WHERE	ATC_ID = #{atcId}
+	</update>
+	
+	<insert id="addQNAReply" parameterType="EducationQNAReplyVO">
+		INSERT INTO BBS_RPL (
+								   REPLY_ID 
+								   , ATC_ID 
+								   , PARENT_REPLY_ID 
+								   , ORDER_NO 
+								   , DESCRIPTION 
+								   , MBR_ID 
+								   , CREATED_DATE
+								   ) 
+						VALUES ( 
+								 #{replyId},
+								 #{atcId},
+								 '0',
+								 '4',
+								 #{description},
+								 #{mbrId},
+								 SYSDATE
+								 )
+	</insert>
 </mapper>

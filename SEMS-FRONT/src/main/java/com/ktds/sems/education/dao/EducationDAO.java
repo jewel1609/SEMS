@@ -3,6 +3,7 @@ package com.ktds.sems.education.dao;
 import java.util.List;
 
 import com.ktds.sems.education.vo.EducationQNABBSVO;
+import com.ktds.sems.education.vo.EducationQNAReplyVO;
 import com.ktds.sems.education.vo.EducationSearchVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.QNASearchVO;
@@ -97,5 +98,9 @@ public interface EducationDAO {
 	public void addQNABBS(EducationQNABBSVO eduBBS);
 
 	public EducationQNABBSVO getOneQNABBSByAtcId(String atcId);
+
+	public void addHitsByAtcId(String atcId);
+
+	public void addQNAReply(EducationQNAReplyVO eduBBSReplyVO);
 
 }
