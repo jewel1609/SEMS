@@ -3,7 +3,6 @@ package com.ktds.sems.pc.vo;
 public class UsedPcVO extends PcVO {
 
 	private String usedPC;
-
 	private String educationId;
 	private String memberId;
 

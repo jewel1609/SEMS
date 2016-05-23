@@ -737,6 +737,11 @@ public class MemberBizImpl implements MemberBiz {
 	}
 
 	@Override
+	public List<EducationVO> getEduListByMember(MemberVO memberVO) {
+		return memberDAO.getEduListByMember(memberVO);
+	}
+
+	@Override
 	public List<LoginHistoryVO> getLoginHistoryListByMemberId(String id) {
 		return memberDAO.getLoginHistoryListByMemberId(id);
 	}
@@ -774,5 +779,4 @@ public class MemberBizImpl implements MemberBiz {
 			return true;
 		}
 	}
-
 }

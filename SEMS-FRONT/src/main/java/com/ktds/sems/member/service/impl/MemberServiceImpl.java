@@ -20,6 +20,7 @@ import com.ktds.sems.education.vo.EducationHistoryListVO;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationHistoryVO;
 import com.ktds.sems.education.vo.EducationStateVO;
+import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.QNAVO;
 import com.ktds.sems.member.biz.MemberBiz;
 import com.ktds.sems.member.service.MemberService;
@@ -949,6 +950,7 @@ public class MemberServiceImpl implements MemberService {
 		return view;
 
 	}
+
 
 	@Override
 	public void checkRegistState(String id, HttpServletResponse response) {
