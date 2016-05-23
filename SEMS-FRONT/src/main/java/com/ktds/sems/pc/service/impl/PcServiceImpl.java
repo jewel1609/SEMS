@@ -13,6 +13,7 @@ import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.pc.biz.PcBiz;
 import com.ktds.sems.pc.service.PcService;
+import com.ktds.sems.pc.vo.ReportedPcVO;
 import com.ktds.sems.pc.vo.UsedPcVO;
 
 import kr.co.hucloud.utilities.web.AjaxUtil;
@@ -52,6 +53,62 @@ public class PcServiceImpl implements PcService{
 		}
 		AjaxUtil.sendResponse(response, location);
 		return;
+	}
+
+	/**
+	 * PC를 신고할 수 있는 팝업 창 
+	 * 이기연
+	 */
+	@Override
+	public ModelAndView viewReportPcPage(String pcId, HttpSession session, HttpServletRequest request) {
+		
+		MemberVO memberVO = (MemberVO) session.getAttribute(Session.MEMBER);
+		String memberId = memberVO.getId();
+		
+		ModelAndView view = new ModelAndView();
+		view.setViewName("myPage/pc/reportPC");
+		view.addObject("pcId", pcId);
+		return view;
+	}
+
+	/**
+	 * 실제 고장난 PC를 등록하는 method
+	 * 이기연
+	 */
+	@Override
+	public String reportProblemPc(ReportedPcVO reportedPcVO, HttpSession session, HttpServletRequest request) {
+		
+		try {
+			String nowDate = pcBiz.getNowDate();
+			int nextSeq = pcBiz.getNextReportedPcIdSeq();
+			String realReplyId = "RP-" + nowDate + "-" + lpad(nextSeq + "", 6, "0");
+			
+			reportedPcVO.setReportedPcId(realReplyId);
+			
+			// PC 신고 기록 insert 성공할 경우 
+			if (pcBiz.reportProblemPc(reportedPcVO)) {
+				
+			}
+			else {
+				return "redirect:/myPc/reportPage/" + reportedPcVO.getPcId();
+			}
+			
+		} catch (Exception e) {
+			throw new RuntimeException();
+		}
+		
+		return null;
+	}
+	
+	private String lpad(String source, int length, String defValue) {
+		int sourceLength = source.length();
+		int needLength = length - sourceLength;
+		
+		for (int i = 0; i < needLength; i++) {
+			source = defValue + source;
+		}
+		return source;
+		
 	}
 	
 }

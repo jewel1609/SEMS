@@ -23,6 +23,21 @@
 		AND		E_H.MBR_ID = #{id}
 		AND     E_H.STAT = 'EDU_JN_C'
 	</select>
+	
+	<insert id="reportProblemPc" parameterType="ReportedPcVO">
+	
+	</insert>
+	
+	<select id="getNowDate" resultType="string">
+		SELECT	TO_CHAR(SYSDATE, 'YYYYMMDD')
+		FROM	DUAL
+	</select>
+	
+	<select id="getNextReportedPcIdSeq" resultType="_int">
+		SELECT 	REPLY_ID_SEQ.NEXTVAL
+		FROM	DUAL
+	</select>
+	
 	<select id="getUsedPcListByMember" parameterType="MemberVO" resultType="UsedPcVO">
 		SELECT  PC.PC_ID pcId
 		        , PC.IP ip
