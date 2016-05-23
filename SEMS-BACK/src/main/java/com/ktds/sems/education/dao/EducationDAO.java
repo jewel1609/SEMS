@@ -14,6 +14,7 @@ import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationHistoryVO;
 import com.ktds.sems.education.vo.EducationTypeVO;
 import com.ktds.sems.education.vo.EducationVO;
+import com.ktds.sems.member.vo.MemberVO;
 
 public interface EducationDAO {
 
@@ -41,5 +42,13 @@ public interface EducationDAO {
 	public List<EduQnaVO> getAllEduQna(EduQnaSearchVO eduQnaSearchVO);
 	public int getTotalEduFileCount(EduFileSearchVO eduFileSearchVO);
 	public List<EduFileVO> getAllEduFile(EduFileSearchVO eduFileSearchVO);
+	
+	public String doActionDeleteBeforeCheck(MemberVO memberVO);
+	
+	public void doActionDelete(String educationId);
+	
+	public List<MemberVO> attendedLectureUserList(String educationId);
+	
+	public MemberVO emailNoticeForUser(String id);
 
 }

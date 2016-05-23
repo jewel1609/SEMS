@@ -3,6 +3,8 @@ package com.ktds.sems.education.service;
 
 
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.validation.Errors;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
@@ -41,4 +43,6 @@ public interface EducationService {
 	public ModelAndView getAllEduFileArticle(EduFileSearchVO eduFileSearchVO, int pageNo);
 	
 	public int changeEducationApplyState(String educationHistoryId);
+
+	public ModelAndView doActionDelete(String educationId, HttpSession session);
 }

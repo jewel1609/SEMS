@@ -4,10 +4,12 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import javax.management.RuntimeErrorException;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.mock.web.MockHttpSession;
 import org.springframework.validation.Errors;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -424,5 +426,41 @@ public class EducationServiceImpl implements EducationService {
 	@Override
 	public int changeEducationApplyState(String educationHistoryId) {
 		return educationBiz.changeEducationApplyState(educationHistoryId);
+	}
+
+	@Override
+	public ModelAndView doActionDelete(String educationId, HttpSession session) {
+		ModelAndView view = new ModelAndView();
+		MockHttpSession memberSession = new MockHttpSession();
+		MemberVO memberVO = (MemberVO) memberSession.getAttribute(Session.MEMBER);
+		String memberType = (String) memberSession.getAttribute(Session.MEMBER_TYPE);
+		
+		logger.info("1" + memberVO.getId());
+		logger.info("2" +memberVO.getMemberType());
+		logger.info("4" + educationId);
+		
+		if(memberType.equals("ADM")) {
+			if(educationId != null){
+				memberVO.setId(memberVO.getId());
+				memberVO.setMemberType(memberType);
+				boolean checkPass = educationBiz.doActionDeleteBeforeCheck(memberVO);
+				logger.info("1" + memberVO.getId());
+				logger.info("2" +memberVO.getMemberType());
+				logger.info("3" + checkPass);
+				logger.info("4" + educationId);
+				if ( checkPass) {
+					educationBiz.doActionDelete(educationId);
+					educationBiz.emailNoticeForUser(educationId);
+					view.setViewName("/");
+				} else {
+					return new ModelAndView("redirect:/");
+				}
+			} else {
+				throw new RuntimeException("삭제할 교육을 선택해주세요.");
+			}
+		} else {
+			throw new RuntimeException("접근권한이 없습니다.");
+		}
+		return view;
 	}
 }

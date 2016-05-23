@@ -455,5 +455,27 @@
 				)
 		WHERE	RNUM <![CDATA[>=]]> #{startIndex}
 	</select>
+	<select id="doActionDeleteBeforeCheck" parameterType="memberVO" resultType="string">
+		SELECT	'Y'
+		FROM	MBR
+		WHERE	ID = #{id}
+		AND		MBR_TP = #{memberType}
+	</select>
+	<delete id="doActionDelete" parameterType="string">
+		DELETE
+		FROM	EDU_INFO
+		WHERE	EDU_ID = #{educationId}
+	</delete>
+	<select id="attendedLectureUserList" parameterType="string">
+		SELECT	MBR_ID
+		FROM	EDU_HTR
+		WHERE	EDU_ID = #{educationId}
+		AND		STAT = 'EDU_CL_C'
+	</select>
+	<select id="emailNoticeForUser" parameterType="string">
+		SELECT	*
+		FROM	MBR
+		WHERE	ID = #{memberId}
+	</select>
 	
 </mapper>

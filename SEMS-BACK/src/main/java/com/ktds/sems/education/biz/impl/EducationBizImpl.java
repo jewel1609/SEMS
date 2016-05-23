@@ -18,6 +18,7 @@ import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationHistoryVO;
 import com.ktds.sems.education.vo.EducationTypeVO;
 import com.ktds.sems.education.vo.EducationVO;
+import com.ktds.sems.member.vo.MemberVO;
 
 public class EducationBizImpl implements EducationBiz {
 
@@ -240,5 +241,39 @@ public class EducationBizImpl implements EducationBiz {
 	@Override
 	public int changeEducationApplyState(String educationHistoryId) {
 		return educationDAO.changeEducationApplyState(educationHistoryId);
+	}
+
+	@Override
+	public boolean doActionDeleteBeforeCheck(MemberVO memberVO) {
+		if(educationDAO.doActionDeleteBeforeCheck(memberVO).equals("Y")){
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public void doActionDelete(String educationId) {
+		educationDAO.doActionDelete(educationId);
+	}
+
+	@Override
+	public void emailNoticeForUser(String educationId) {
+		List<MemberVO> attendedLectureUserList = educationDAO.attendedLectureUserList(educationId);
+		for (MemberVO memberVO : attendedLectureUserList) {
+			memberVO.setId(memberVO.getId());
+			MemberVO getMemberInfo = educationDAO.emailNoticeForUser(memberVO.getId());
+			
+			SendMail sendMail = new SendMail();
+			MailVO mailVO = new MailVO();
+			
+			mailVO.setFromId("testForSendEmailKtds@gmail.com");
+			mailVO.setFromPassword("123qwe!@#qwe");
+			
+			mailVO.setSubject("[sems] " +"교육이 폐강되었음을 알려드립니다.");
+			mailVO.setText( "교육이 폐강이 되었기에" + "(" + getMemberInfo.getName() + ") 님에게 해당 내용을 알려드리는 바입니다.\n "
+					+ "추후 더 좋은 서비스로 찾아뵙도록 하겠습니다. 감사합니다.");
+			mailVO.setToId(getMemberInfo.getEmail());
+			sendMail.sendMailToCustomer(mailVO);
+		}
 	}
 }

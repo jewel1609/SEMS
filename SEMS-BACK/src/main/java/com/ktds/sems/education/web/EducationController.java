@@ -1,5 +1,6 @@
 package com.ktds.sems.education.web;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
@@ -12,10 +13,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.education.service.EducationService;
 import com.ktds.sems.education.vo.EduFileSearchVO;
+import com.ktds.sems.education.vo.EduQnaSearchVO;
 import com.ktds.sems.education.vo.EduReportSearchVO;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationVO;
-import com.ktds.sems.education.vo.EduQnaSearchVO;
 
 @Controller
 public class EducationController {
@@ -103,5 +104,10 @@ public class EducationController {
 	public void changeEducationApplyState(String educationHistoryId) {
 		educationService.changeEducationApplyState(educationHistoryId);
 	}
-
+	
+	@RequestMapping("/doActionDeleteEDU/{educationId}")
+	public ModelAndView doActionDelete(@PathVariable String educationId, HttpSession session) {
+		return educationService.doActionDelete(educationId, session);
+	}
+	
 }

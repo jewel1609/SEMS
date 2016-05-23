@@ -19,6 +19,7 @@ import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationHistoryVO;
 import com.ktds.sems.education.vo.EducationTypeVO;
 import com.ktds.sems.education.vo.EducationVO;
+import com.ktds.sems.member.vo.MemberVO;
 
 public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationDAO {
 
@@ -139,4 +140,23 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 		return getSqlSession().selectList("EducationDAO.getAllEduFile", eduFileSearchVO);
 	}
 
+	@Override
+	public String doActionDeleteBeforeCheck(MemberVO memberVO) {
+		return getSqlSession().selectOne("EducationDAO.doActionDeleteBeforeCheck", memberVO);
+	}
+
+	@Override
+	public void doActionDelete(String educationId) {
+		getSqlSession().delete("EducationDAO.doActionDelete", educationId);
+	}
+
+	@Override
+	public List<MemberVO> attendedLectureUserList(String educationId) {
+		return getSqlSession().selectList("EducationDAO.attendedLectureUserList", educationId);
+	}
+
+	@Override
+	public MemberVO emailNoticeForUser(String memberId) {
+		return getSqlSession().selectOne("EducationDAO.emailNoticeForUser", memberId);
+	}
 }
