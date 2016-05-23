@@ -278,7 +278,7 @@ public class MemberController {
 	}
 	
 	/**
-	 * 강의포기를 위한 강의리스트
+	 * 강의포기를 위한 강의리스트 > 구본호
 	 */
 	@RequestMapping("/member/myPage/course")
 	public ModelAndView viewResignPage (@RequestParam(required=false, defaultValue="0") int pageNo, HttpSession session) {
@@ -294,12 +294,12 @@ public class MemberController {
 	}
 	
 	/**
-	 * 강의포기 신청
+	 * 강의포기 신청 > 구본호 > 이기연 (SM)
 	 */
 	@RequestMapping(value = ("/dropCourseApply/{educationId}"), method = RequestMethod.POST)
 	public void dropCourseApply(@PathVariable String educationId, HttpSession session, String courseDropReason, @Valid HttpServletResponse response) {
-		String checkPrevPasswordStatus = memberService.dropCourseApply(educationId, session, courseDropReason);
-		AjaxUtil.sendResponse(response, checkPrevPasswordStatus);
+		String checkCourseDropReason = memberService.dropCourseApply(educationId, session, courseDropReason);
+		AjaxUtil.sendResponse(response, checkCourseDropReason);
 	}
 	
 	@RequestMapping("/member/loginHistoryInit")

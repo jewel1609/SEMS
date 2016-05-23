@@ -139,5 +139,7 @@ public interface MemberBiz {
 
 	public boolean checkRegistState(String id);
 
+	public boolean isValidCourseDropReason(String courseDropReason);
+
 	
 }

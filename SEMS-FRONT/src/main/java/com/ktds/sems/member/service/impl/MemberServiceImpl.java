@@ -865,6 +865,10 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public String dropCourseApply(String educationId, HttpSession session, String courseDropReason) {
 
+		if (!this.isValidCourseDropReason(courseDropReason)) {
+			return "NO";
+		}
+		
 		MemberVO memberVO = (MemberVO) session.getAttribute(Session.MEMBER);
 		
 		EducationHistoryVO educationHistory = new EducationHistoryVO();
@@ -879,6 +883,16 @@ public class MemberServiceImpl implements MemberService {
 		}
 		
 		return "OK";
+	}
+	
+	/**
+	 * 강의 수강 포기 사유 특수문자 체크
+	 * 이기연(SM)
+	 * @param courseDropReason
+	 * @return
+	 */
+	private boolean isValidCourseDropReason(String courseDropReason) {
+		return memberBiz.isValidCourseDropReason(courseDropReason);
 	}
 	
 	@Override
