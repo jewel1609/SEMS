@@ -40,8 +40,9 @@
 						var y = date.getFullYear();
 
 						var cId = $('#calendar'); //Change the name if you want. I'm also using thsi add button for more actions
-
+						
 						var calNotices = new Array();
+						var myEducationInfos = new Array();
 						
 						var calNotice = {};
 						calNotice.id = "${education.educationId}";
@@ -49,8 +50,14 @@
 						calNotice.start = "${education.startDate}";
 						calNotice.end = "${education.endDate}";
 						calNotices.push(calNotice);
-				
 						
+						var myEducationInfo = {};
+						myEducationInfo.id = "A";
+						myEducationInfo.title = "AA";
+						myEducationInfo.start = "2016-05-23";
+						myEducationInfo.end = "2016-05-30";
+						myEducationInfos.push(myEducationInfo);
+
 					/* 			console.log(calNotices[0].id)
 								console.log(calNotices[0].start)
 								console.log(calNotices[0].end) */
@@ -104,67 +111,103 @@
 									editable : true,
 
 									//Add Events
-									events : calNotices,
+									events : [
+									          {
+							                         title: '${education.educationTitle}',
+							                            start: '${education.startDate}',
+							                            end: '${education.endDate}',
+							                            className: 'bgm-cyan'
+									          },
+									          {
+							                         title: '${education.educationTitle}',
+							                            start: '${education.startDate}',
+							                            end: '${education.endDate}',
+							                            className: 'bgm-red'
+									          },
+									          ],
+
 									
-									//On Day Select
-									select : function(start, end, allDay) {
-										$('#addNew-event').modal('show');
-										$('#addNew-event input:text').val('');
-										$('#addContent input:text').val('');
-										$('#current input:text').val('');
-										$('#getStart').val(start);
-										$('#getEnd').val(end);
-										var moment = $('.callender_area').fullCalendar('stickySource.title');
-									},
-									eventClick : function(calEvent, jsEvent, view) {
-										// $('#modify-event').modal('show');
-										/* $('#current input:text').val(calEvent.title);
-										$('#modifyContent input:text').val(calEvent.description);
-										$('#modifyGetStart').val(calEvent.start);
-										$('#modifyGetEnd').val(calEvent.end);
-										$('#calendarId').val(calEvent.id); */
-									}
-								});
-							
-						//Hightlight Event
-						function toggleClass(id) {
-							/* Find all segments for the specific event and toggle a class */
-							var $event = $('a.fc-event[data-id="' + id
-									+ '"]');
-							$('a.my-highlight').each(function() {
-								$(this).toggleClass('my-highlight');
-							});
-							$.each($event, function() {
-								$(this).toggleClass('my-highlight');
-							});
-						}
+									          //On Day Select
+							                    select: function(start, end, allDay) {
+							                        $('#addNew-event').modal('show');   
+							                        $('#addNew-event input:text').val('');
+							                        $('#getStart').val(start);
+							                        $('#getEnd').val(end);
+							                    }
+							                });
 
-						//Event Tag Selector
-						(function() {
-							$('body').on('click', '.event-tag > span',
-									function() {
-										$('.event-tag > span').removeClass('selected');
-										$(this).addClass('selected');
-									});
-						})();
+							                //Create and ddd Action button with dropdown in Calendar header. 
+							                var actionMenu = '<ul class="actions actions-alt" id="fc-actions">' +
+							                                    '<li class="dropdown">' +
+							                                        '<a href="" data-toggle="dropdown"><i class="md md-more-vert"></i></a>' +
+							                                        '<ul class="dropdown-menu dropdown-menu-right">' +
+							                                            '<li class="active">' +
+							                                                '<a data-view="month" href="">Month View</a>' +
+							                                            '</li>' +
+							                                            '<li>' +
+							                                                '<a data-view="basicWeek" href="">Week View</a>' +
+							                                            '</li>' +
+							                                            '<li>' +
+							                                                '<a data-view="agendaWeek" href="">Agenda Week View</a>' +
+							                                            '</li>' +
+							                                            '<li>' +
+							                                                '<a data-view="basicDay" href="">Day View</a>' +
+							                                            '</li>' +
+							                                            '<li>' +
+							                                                '<a data-view="agendaDay" href="">Agenda Day View</a>' +
+							                                            '</li>' +
+							                                        '</ul>' +
+							                                    '</div>' +
+							                                '</li>';
 
-						//today click
-						$('#my-today-button').click(function() {
-							$('#calendar').fullCalendar('today');
-						});
 
-						//Calendar views
-						$('body').on('click', '#fc-actions [data-view]',
-								function(e) {
-									e.preventDefault();
-									var dataView = $(this).attr('data-view');
+							                cId.find('.fc-toolbar').append(actionMenu);
+							                
+							                //Event Tag Selector
+							                (function(){
+							                    $('body').on('click', '.event-tag > span', function(){
+							                        $('.event-tag > span').removeClass('selected');
+							                        $(this).addClass('selected');
+							                    });
+							                })();
+							            
+							                //Add new Event
+							                $('body').on('click', '#addEvent', function(){
+							                    var eventName = $('#eventName').val();
+							                    var tagColor = $('.event-tag > span.selected').attr('data-tag');
+							                        
+							                    if (eventName != '') {
+							                        //Render Event
+							                        $('#calendar').fullCalendar('renderEvent',{
+							                            title: eventName,
+							                            start: $('#getStart').val(),
+							                            end:  $('#getEnd').val(),
+							                            allDay: true,
+							                            className: tagColor
+							                            
+							                        },true ); //Stick the event
+							                        
+							                        $('#addNew-event form')[0].reset()
+							                        $('#addNew-event').modal('hide');
+							                    }
+							                    
+							                    else {
+							                        $('#eventName').closest('.form-group').addClass('has-error');
+							                    }
+							                });   
 
-									$('#fc-actions li').removeClass('active');
-									$(this).parent().addClass('active');
-									cId.fullCalendar('changeView', dataView);
-								});
-					});
-</script>
+							                //Calendar views
+							                $('body').on('click', '#fc-actions [data-view]', function(e){
+							                    e.preventDefault();
+							                    var dataView = $(this).attr('data-view');
+							                    
+							                    $('#fc-actions li').removeClass('active');
+							                    $(this).parent().addClass('active');
+							                    cId.fullCalendar('changeView', dataView);  
+							                });
+							            });                        
+							        </script>
+							  
 
 <!-- Vendor CSS -->
 <link href="<c:url value='/resources/vendors/animate-css/animate.min.css'/>" rel="stylesheet">
