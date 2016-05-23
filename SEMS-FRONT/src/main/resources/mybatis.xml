@@ -24,6 +24,10 @@
 		<typeAlias type="com.ktds.sems.member.vo.MemberTypeVO" alias="MemberTypeVO"/>
 		<typeAlias type="com.ktds.sems.education.vo.EducationQNABBSVO" alias="EducationQNABBSVO"/>
 		<typeAlias type="com.ktds.sems.education.vo.EducationReportVO" alias="EducationReportVO"/>
+		<typeAlias type="com.ktds.sems.pc.vo.CommonResourcesVO" alias="CommonResourcesVO"/>
+		<typeAlias type="com.ktds.sems.pc.vo.PcVO" alias="PcVO"/>
+		<typeAlias type="com.ktds.sems.pc.vo.ReportedPcVO" alias="ReportedPcVO"/>
+		<typeAlias type="com.ktds.sems.pc.vo.UsedPcVO" alias="UsedPcVO"/>
 	</typeAliases>
 
 	<mappers>
