@@ -114,7 +114,11 @@ public class MemberServiceTest extends SemsTestCase {
 
 	@Test
 	public void viewMyPageMenuTest() {
-		ModelAndView view = memberService.viewMyPageMenu();
+		MockHttpSession session = new MockHttpSession();
+		MemberVO member = new MemberVO();
+		member.setId("cocomo12");
+		session.setAttribute("_MEMBER_", member);
+		ModelAndView view = memberService.viewMyPageMenu(session);
 		assertNotNull(view);
 
 		if (view != null) {

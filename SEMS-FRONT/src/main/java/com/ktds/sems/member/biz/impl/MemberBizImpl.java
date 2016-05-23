@@ -27,6 +27,7 @@ import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationHistoryVO;
 import com.ktds.sems.education.vo.EducationStateVO;
 import com.ktds.sems.education.vo.EducationVO;
+import com.ktds.sems.education.vo.QNAVO;
 import com.ktds.sems.member.biz.MemberBiz;
 import com.ktds.sems.member.dao.MemberDAO;
 import com.ktds.sems.member.vo.AttendVO;
@@ -735,6 +736,21 @@ public class MemberBizImpl implements MemberBiz {
 		return memberDAO.getSelectMemberTypeCodeName(memberType);
 	}
 
+	@Override
+	public List<LoginHistoryVO> getLoginHistoryListByMemberId(String id) {
+		return memberDAO.getLoginHistoryListByMemberId(id);
+	}
+
+	@Override
+	public List<EducationHistoryVO> getEducationHistoryListByMemberId(String id) {
+		return memberDAO.getEducationHistoryListByMemberId(id);
+	}
+
+	@Override
+	public List<QNAVO> getQnaListByMemberId(String id) {
+		return memberDAO.getQnaListByMemberId(id);
+	}
+
 	/**
 	 * 수강 포기 신청 사유 text 중 특수문자가 있는 지 확인
 	 * 한글, 영어, 숫자는 OK
@@ -758,6 +774,5 @@ public class MemberBizImpl implements MemberBiz {
 			return true;
 		}
 	}
-
 
 }

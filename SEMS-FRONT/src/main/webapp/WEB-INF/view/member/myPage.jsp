@@ -27,13 +27,99 @@
 </head>
 <body>
 
-	<table border="1" style="border-collapse: collapse; text-align: center;">
+	<table border="1" style="border-collapse: collapse; text-align: center; float: left;">
 		<c:forEach items="${menuList }" var="menuList" >
 			<tr>
 				<td class="${menuList.codeName}"><a href="<c:url value='/member/${menuList.url }' />">${menuList.codeName }</a></td>
 			</tr>
 		</c:forEach>
 	</table>
+
+	<div style="width:25%; heght:100%; border:thin; border-style:double; border-radius: 5px; float:left; margin-left: 10px;">
+		<b>로그인 이력</b><div style="float: right; font-size: 12px; padding-top: 8px; padding-right: 2px;">
+							<a href="<c:url value='/member/loginHistory' />">더보기</a></div>
+		<hr>
+		<c:if test="${loginHistoryList ne null }">
+			<table style="width:100%; text-align: center;">
+				<tr>
+					<th>로그인 시간</th>
+					<th>로그아웃 시간</th>
+				</tr>
+					<c:forEach items="${loginHistoryList }" var="loginHistoryList" >
+					<tr>
+						<td>${loginHistoryList.lgiDt }</td>
+						<td>${loginHistoryList.lgoDt }</td>
+					</tr>
+					</c:forEach>
+			</table>
+		</c:if>
+		<c:if test="${loginHistoryList eq null }">
+			로그인 이력이 없습니다.
+		</c:if>
+	</div>
+	
+	<div style="width:50%; heght:100%; border:thin; border-style:double; border-radius: 5px; float:left; margin-left: 10px;">
+		<b>교육참가 이력</b><div style="float: right; font-size: 12px; padding-top: 8px; padding-right: 2px;">
+							<a href="<c:url value='/member/myPage/educationHistory' />">더보기</a></div>
+		<hr>
+		<c:if test="${educationHistoryList ne null }">
+			<table style="text-align: center;">
+				<tr>
+					<th>교육 명</th>
+					<th>비용</th>
+					<th>신청 날짜</th>
+					<th>코멘트</th>
+					<th>피드백</th>
+					<th>교육 시작일</th>
+					<th>교육 종료일</th>
+				</tr>
+				<c:forEach items="${educationHistoryList }" var="educationHistoryList">
+				<tr>
+					<td>${ educationHistoryList.educationTitle }</td>
+					<td>${ educationHistoryList.costName }</td>
+					<td>${ educationHistoryList.educationHistoryDate }</td>
+					<td>${ educationHistoryList.cmnt }</td>
+					<td>${ educationHistoryList.fdbk }</td>
+					<td>${ educationHistoryList.startDate }</td>
+					<td>${ educationHistoryList.endDate }</td>
+				</tr>
+				</c:forEach>
+			</table>
+		</c:if>
+		<c:if test="${educationHistoryList eq null }">
+			교육참가 이력이 없습니다.
+		</c:if>
+	</div>
+	
+	<div style="width:25%; heght:100%; border:thin; border-style:double; border-radius: 5px; float:left; margin-left: 6.5%; margin-top:10px; clear: both;">
+		<b>문의 이력</b><div style="float: right; font-size: 12px; padding-top: 8px; padding-right: 2px;">
+						<a href="<c:url value='/myPage/myQNAList' />">더보기</a></div>
+		<hr>
+		<c:if test="${qnaList ne null }">
+			<table style="text-align: center;">
+				<tr>
+					<th>강의 명</th>
+					<th>문의 내용</th>
+					<th>답변 여부</th>
+					<th>문의 날짜</th>
+				</tr>
+				<c:forEach items="${qnaList }" var="qnaList" >
+					<tr>
+						<td>${ qnaList.educationTitle }</td>
+						<td><a
+					href="<c:url value='/myPage/myQNADetail/${qnaList.replyId}'/>"
+					onclick="window.open(this.href, 'Place Detail','toolbar=no, location=no, status=no, menubar=no, scrollbars=no, resizeable=no, width=530, height=820');return false;"
+					target="_blank">${ qnaList.description }</a></td>
+						<td>${ qnaList.isAnswered }</td>
+						<td>${ qnaList.createdDate }</td>
+					</tr>
+				</c:forEach>
+			</table>
+		</c:if>
+		<c:if test="${qnaList eq null }">
+			문의 이력이 없습니다.
+		</c:if>
+	</div>
 
 
 </body>

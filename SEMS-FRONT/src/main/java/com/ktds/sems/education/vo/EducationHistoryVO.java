@@ -10,6 +10,7 @@ public class EducationHistoryVO extends EducationVO {
 	private String ip;
 	private String cmnt;
 	private String fdbk;
+	private int ratio;
 
 	// 상태 명
 	private String cdNm;
@@ -96,5 +97,14 @@ public class EducationHistoryVO extends EducationVO {
 	public void setFdbk(String fdbk) {
 		this.fdbk = fdbk;
 	}
+
+	public int getRatio() {
+		return ratio;
+	}
+
+	public void setRatio(int ratio) {
+		this.ratio = ratio;
+	}
+	
 
 }

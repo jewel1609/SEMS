@@ -65,7 +65,7 @@ public interface MemberService {
 
 	public String doCheckPrevPassword(String id, String prevPassword, HttpServletRequest request);
 	
-	public ModelAndView viewMyPageMenu();
+	public ModelAndView viewMyPageMenu(HttpSession session);
 
 	public String registerTeacher();
 

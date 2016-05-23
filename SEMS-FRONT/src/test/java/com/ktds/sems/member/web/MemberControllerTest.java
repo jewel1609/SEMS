@@ -8,6 +8,7 @@ import static org.junit.Assert.fail;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,8 +85,9 @@ public class MemberControllerTest extends SemsTestCase {
 
 	@Test
 	public void viewMyPageTest() {
-
-		ModelAndView view = memberController.viewMyPage();
+		
+		MockHttpSession session = new MockHttpSession();
+		ModelAndView view = memberController.viewMyPage(session);
 		assertNotNull(view);
 
 		if (view != null) {

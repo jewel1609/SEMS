@@ -672,6 +672,100 @@
 		FROM	MBR_TP
 		WHERE	CD_ID = #{cdId}
 	</select>
+	
+	<select id="getLoginHistoryListByMemberId" parameterType="string" resultType="LoginHistoryVO">
+		SELECT  LGI_HTR_ID lgiHtrId
+        		, MBR_ID id
+        		, LGI_IP lgiIp
+		        , LGI_DT lgiDt
+		        , LGO_DT lgoDt
+		        , IS_REQ isReq
+		        , CHK_CNT chkCnt
+		FROM    (
+		            SELECT *
+		            FROM LGI_HTR
+		            WHERE   MBR_ID = #{id}
+		            ORDER BY LGI_DT DESC
+		        )
+		WHERE   ROWNUM <![CDATA[<=]]> 10
+	</select>
+	
+	<select id="getEducationHistoryListByMemberId" parameterType="string" resultType="EducationHistoryVO" >
+		SELECT	EH.EDU_HTR_ID educationHistoryId
+				, EH.EDU_ID educationId
+				, EH.MBR_ID memberId
+				, EH.EDU_HTR_DT educationHistoryDate
+				, EH.STAT state
+				, EH.IP ip
+				, EH.CMNT cmnt
+				, EH.FDBK fdbk
+				, EI.SRT_DATE startDate
+				, EI.END_DATE endDate
+				, EI.EDU_TTL educationTitle
+				, EI.COST cost
+				, EC.CD_NM costName
+				, CD.CD_NM cdNm
+		FROM	EDU_INFO EI
+				, CODE_MNG CD
+				, EDU_CST EC
+				, (
+					SELECT  EDUCATION_HISTORY.*
+					FROM	(
+								SELECT	EH.EDU_HTR_ID
+										, EH.EDU_ID
+										, EH.MBR_ID
+										, EH.EDU_HTR_DT
+										, EH.STAT
+										, EH.IP
+										, EH.CMNT
+										, EH.FDBK
+										, EI.SRT_DATE
+										, EI.END_DATE
+										, EI.EDU_TTL
+										, EI.COST
+								FROM	EDU_HTR EH
+										, EDU_INFO EI
+								WHERE	EH.MBR_ID = #{id}
+								AND		EH.EDU_ID = EI.EDU_ID
+								ORDER BY EH.EDU_HTR_DT DESC
+							) EDUCATION_HISTORY
+				) EH
+		WHERE		EI.EDU_ID = EH.EDU_ID
+		AND		EH.STAT = CD.CD_ID
+		AND		EI.COST = EC.CD_ID
+        AND     ROWNUM <![CDATA[<=]]> 10
+	</select>
+	
+	<select id="getQnaListByMemberId" parameterType="string" resultType="QNAVO">
+		SELECT	Q.REPLY_ID replyId
+				, Q.EDU_ID eduId
+				, Q.PARENT_REPLY_ID parentReplyId
+				, Q.ORDER_NO orderNo
+				, Q.DESCRIPTION description
+				, Q.MBR_ID mbrId
+				, Q.LIKE_CNT likeCnt
+				, Q.DISLIKE_CNT dislikeCnt
+				, Q.CREATED_DATE createdDate
+				, NVL ( (
+						SELECT	DISTINCT 'Y'
+						FROM	QNA
+						WHERE	PARENT_REPLY_ID IN Q.REPLY_ID
+				) , 'N' ) isAnswered
+				, EDU_TTL educationTitle
+		FROM	(
+					SELECT	QNA.*
+					FROM	(
+								SELECT	*
+								FROM	QNA
+								WHERE	MBR_ID = #{id}
+								AND		PARENT_REPLY_ID = '0'
+								ORDER	BY REPLY_ID DESC
+							) QNA
+				) Q
+				, EDU_INFO
+        WHERE   Q.EDU_ID = EDU_INFO.EDU_ID
+        AND     ROWNUM <![CDATA[<=]]> 10
+	</select>
 		
 	<select id="checkRegistState" resultType="_int" parameterType="string">
 		SELECT	COUNT(ID)

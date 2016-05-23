@@ -11,6 +11,7 @@ import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationHistoryVO;
 import com.ktds.sems.education.vo.EducationStateVO;
 import com.ktds.sems.education.vo.EducationVO;
+import com.ktds.sems.education.vo.QNAVO;
 import com.ktds.sems.member.dao.MemberDAO;
 import com.ktds.sems.member.vo.AttendVO;
 import com.ktds.sems.member.vo.GraduationTypeVO;
@@ -329,6 +330,21 @@ public class MemberDAOImpl  extends SqlSessionDaoSupport implements MemberDAO {
 	@Override
 	public String getSelectMemberTypeCodeName(String memberType) {
 		return getSqlSession().selectOne("MemberDAO.getSelectMemberTypeCodeName", memberType);
+	}
+
+	@Override
+	public List<LoginHistoryVO> getLoginHistoryListByMemberId(String id) {
+		return getSqlSession().selectList("MemberDAO.getLoginHistoryListByMemberId", id);
+	}
+
+	@Override
+	public List<EducationHistoryVO> getEducationHistoryListByMemberId(String id) {
+		return getSqlSession().selectList("MemberDAO.getEducationHistoryListByMemberId", id);
+	}
+
+	@Override
+	public List<QNAVO> getQnaListByMemberId(String id) {
+		return getSqlSession().selectList("MemberDAO.getQnaListByMemberId", id);
 	}
 
 	@Override

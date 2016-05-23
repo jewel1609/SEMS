@@ -9,6 +9,7 @@ import com.ktds.sems.education.vo.EducationCostVO;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationHistoryVO;
 import com.ktds.sems.education.vo.EducationStateVO;
+import com.ktds.sems.education.vo.QNAVO;
 import com.ktds.sems.member.vo.GraduationTypeVO;
 import com.ktds.sems.member.vo.HighestEducationLevelVO;
 import com.ktds.sems.member.vo.LoginHistorySearchVO;
@@ -137,11 +138,16 @@ public interface MemberBiz {
 
 	public String getSelectMemberTypeCodeName(String memberType);
 
+	public List<LoginHistoryVO> getLoginHistoryListByMemberId(String id);
+
+	public List<EducationHistoryVO> getEducationHistoryListByMemberId(String id);
+
+	public List<QNAVO> getQnaListByMemberId(String id);
+
 	public boolean checkRegistState(String id);
 
 	public boolean isValidCourseDropReason(String courseDropReason);
 
 	public boolean checkValidationCourseAccess(String memberId);
 
-	
 }

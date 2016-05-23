@@ -8,6 +8,7 @@ import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationHistoryVO;
 import com.ktds.sems.education.vo.EducationStateVO;
 import com.ktds.sems.education.vo.EducationVO;
+import com.ktds.sems.education.vo.QNAVO;
 import com.ktds.sems.member.vo.AttendVO;
 import com.ktds.sems.member.vo.GraduationTypeVO;
 import com.ktds.sems.member.vo.HighestEducationLevelVO;
@@ -133,9 +134,14 @@ public interface MemberDAO {
 
 	public String getSelectMemberTypeCodeName(String memberType);
 
+	public List<LoginHistoryVO> getLoginHistoryListByMemberId(String id);
+
+	public List<EducationHistoryVO> getEducationHistoryListByMemberId(String id);
+
+	public List<QNAVO> getQnaListByMemberId(String id);
+
 	public int checkRegistState(String id);
 
 	public int checkValidationCourseAccess(String memberId);
 
-	
 }

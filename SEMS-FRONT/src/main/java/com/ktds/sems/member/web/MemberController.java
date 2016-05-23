@@ -129,8 +129,8 @@ public class MemberController {
 	}
 
 	@RequestMapping("/member/myPage")
-	public ModelAndView viewMyPage() {
-		return memberService.viewMyPageMenu();
+	public ModelAndView viewMyPage(HttpSession session) {
+		return memberService.viewMyPageMenu(session);
 	}
 	
 	@RequestMapping("/member/myPage/checkPassword")

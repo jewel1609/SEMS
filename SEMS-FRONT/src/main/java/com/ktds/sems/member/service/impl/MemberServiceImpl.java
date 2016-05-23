@@ -20,6 +20,7 @@ import com.ktds.sems.education.vo.EducationHistoryListVO;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationHistoryVO;
 import com.ktds.sems.education.vo.EducationStateVO;
+import com.ktds.sems.education.vo.QNAVO;
 import com.ktds.sems.member.biz.MemberBiz;
 import com.ktds.sems.member.service.MemberService;
 import com.ktds.sems.member.vo.GraduationTypeVO;
@@ -686,12 +687,21 @@ public class MemberServiceImpl implements MemberService {
 
 	//TODO
 	@Override
-	public ModelAndView viewMyPageMenu() {
+	public ModelAndView viewMyPageMenu(HttpSession session) {
+		
+		MemberVO member = (MemberVO) session.getAttribute("_MEMBER_"); 
+		
 		ModelAndView view = new ModelAndView();
 		List<MenuManageVO> menuList = memberBiz.getMenuCategoryList();
-
+		List<LoginHistoryVO> loginHistoryList = memberBiz.getLoginHistoryListByMemberId(member.getId());
+		List<EducationHistoryVO> educationHistoryList = memberBiz.getEducationHistoryListByMemberId(member.getId());
+		List<QNAVO> qnaList = memberBiz.getQnaListByMemberId(member.getId());
+		
 		view.setViewName("member/myPage");
 		view.addObject("menuList", menuList);
+		view.addObject("loginHistoryList", loginHistoryList);
+		view.addObject("educationHistoryList", educationHistoryList);
+		view.addObject("qnaList", qnaList);
 
 		return view;
 	}
