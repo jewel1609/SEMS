@@ -2,6 +2,7 @@ package com.ktds.sems.education.dao;
 
 import java.util.List;
 
+import com.ktds.sems.education.vo.EducationQNABBSVO;
 import com.ktds.sems.education.vo.EducationSearchVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.QNASearchVO;
@@ -90,5 +91,9 @@ public interface EducationDAO {
 	public int doReserveEducation(String educationId, String id);
 
 	public int updateStateToApply(String educationId);
+
+	public List<EducationQNABBSVO> getAllEducationQNAList();
+
+	public void addQNABBS(EducationQNABBSVO eduBBS);
 
 }

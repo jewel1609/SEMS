@@ -21,6 +21,7 @@ import com.ktds.sems.education.service.EducationService;
 import com.ktds.sems.education.util.DownloadUtil;
 import com.ktds.sems.education.vo.EduReplyListVO;
 import com.ktds.sems.education.vo.EducationListVO;
+import com.ktds.sems.education.vo.EducationQNABBSVO;
 import com.ktds.sems.education.vo.EducationSearchVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.QNAListVO;
@@ -704,6 +705,32 @@ public class EducationServiceImpl implements EducationService {
 			throw new RuntimeException("참가 신청을한 교육이 아닙니다.");
 		}
 		
+	}
+
+	@Override
+	public List<EducationQNABBSVO> getAllEducationQNAList() {
+		return educationBiz.getAllEducationQNAList();
+	}
+
+	@Override
+	public ModelAndView doQNAWrite(EducationQNABBSVO eduBBS, Errors errors, HttpSession session) {
+		
+		ModelAndView view = new ModelAndView();
+		MemberVO sessionMember = (MemberVO) session.getAttribute("_MEMBER_");
+		eduBBS.setMbrId(sessionMember.getId());
+		
+		//TODO 강의 아이디 받아와서 집어넣기
+		eduBBS.setEduId("ED-20160519-000233");
+		
+		if ( !errors.hasErrors() ) {
+			educationBiz.addQNABBS(eduBBS);
+			view.setViewName("redirect:/eduBoard/QNAList");
+		}else{
+			throw new RuntimeException("일시적인 장애가 발생했습니다. 잠시 후 다시 시도해주세요.");
+		}
+		
+		
+		return view;
 	}
 
 }

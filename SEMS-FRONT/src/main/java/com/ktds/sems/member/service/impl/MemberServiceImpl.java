@@ -374,7 +374,7 @@ public class MemberServiceImpl implements MemberService {
 		String inputPassword = member.getPassword();
 
 		MemberVO originMember = memberBiz.getOneMember(member.getId());
-
+		
 		if (inputPassword != "") {
 			changeCount++;
 

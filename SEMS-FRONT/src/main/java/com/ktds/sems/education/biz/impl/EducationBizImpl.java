@@ -12,6 +12,7 @@ import com.ktds.sems.common.SendMail;
 import com.ktds.sems.common.vo.MailVO;
 import com.ktds.sems.education.biz.EducationBiz;
 import com.ktds.sems.education.dao.EducationDAO;
+import com.ktds.sems.education.vo.EducationQNABBSVO;
 import com.ktds.sems.education.vo.EducationSearchVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.QNASearchVO;
@@ -338,6 +339,16 @@ public class EducationBizImpl implements EducationBiz {
 	@Override
 	public boolean updateStateToApply(String educationId) {
 		return educationDAO.updateStateToApply(educationId) > 0;
+	}
+
+	@Override
+	public List<EducationQNABBSVO> getAllEducationQNAList() {
+		return educationDAO.getAllEducationQNAList();
+	}
+
+	@Override
+	public void addQNABBS(EducationQNABBSVO eduBBS) {
+		educationDAO.addQNABBS(eduBBS);
 	}
 }
 

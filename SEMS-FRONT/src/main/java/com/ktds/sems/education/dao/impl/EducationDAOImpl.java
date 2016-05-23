@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.ktds.sems.education.dao.EducationDAO;
+import com.ktds.sems.education.vo.EducationQNABBSVO;
 import com.ktds.sems.education.vo.EducationSearchVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.QNASearchVO;
@@ -278,5 +279,15 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 	@Override
 	public int updateStateToApply(String educationId) {		
 		return getSqlSession().update("EducationDAO.updateStateToApply", educationId);
+	}
+
+	@Override
+	public List<EducationQNABBSVO> getAllEducationQNAList() {
+		return getSqlSession().selectList("EducationDAO.getAllEducationQNAList");
+	}
+
+	@Override
+	public void addQNABBS(EducationQNABBSVO eduBBS) {
+		getSqlSession().insert("EducationDAO.addQNABBS", eduBBS);
 	}
 }

@@ -1,5 +1,7 @@
 package com.ktds.sems.education.web;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -16,9 +18,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.common.Session;
 import com.ktds.sems.education.service.EducationService;
+import com.ktds.sems.education.vo.EducationQNABBSVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.QNASearchVO;
 import com.ktds.sems.education.vo.QNAVO;
+import com.ktds.sems.member.service.MemberService;
 
 import kr.co.hucloud.utilities.web.AjaxUtil;
 
@@ -214,5 +218,47 @@ public class EducationController {
 	public String doRequestRetractionAction(HttpServletRequest request, HttpSession session){
 		return educationService.doRequestRetraction(request, session);
 	}
+	
+	@RequestMapping("/eduBoard/QNAList")
+	public ModelAndView viewEduBoardQNAListPage() {
+		ModelAndView view = new ModelAndView();
+		
+		List<EducationQNABBSVO> educationQNAList = educationService.getAllEducationQNAList();
+		
+		view.addObject("educationQNAList", educationQNAList);
+		view.setViewName("myPage/eduBoardQNAList");
+		
+		return view;
+	}
+	
+	@RequestMapping("/eduBoard/QNAWrite")
+	public ModelAndView viewEduBoardQNAWritePage() {
+		ModelAndView view = new ModelAndView();
+		
+		view.setViewName("myPage/eduBoardQNAWrite");
+		
+		return view;
+	}
+	
+	@RequestMapping("/eduBoard/doQNAWrite")
+	public ModelAndView doQNAWriteAction(@Valid EducationQNABBSVO eduBBS, Errors errors, HttpSession session) {
+		return educationService.doQNAWrite(eduBBS, errors, session);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }

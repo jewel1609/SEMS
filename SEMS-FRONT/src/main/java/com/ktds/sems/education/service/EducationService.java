@@ -1,5 +1,7 @@
 package com.ktds.sems.education.service;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -7,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ktds.sems.education.vo.EducationQNABBSVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.QNASearchVO;
 import com.ktds.sems.education.vo.QNAVO;
@@ -48,6 +51,12 @@ public interface EducationService {
 	public String doRequestRetraction(HttpServletRequest request, HttpSession session);
 
 	public String doReserveEducation(String educationId, HttpSession session);
+
+	public List<EducationQNABBSVO> getAllEducationQNAList();
+
+	public ModelAndView doQNAWrite(EducationQNABBSVO eduBBS, Errors errors, HttpSession session);
+
+
 
 	
 }

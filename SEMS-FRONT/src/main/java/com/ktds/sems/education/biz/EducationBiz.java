@@ -2,6 +2,7 @@ package com.ktds.sems.education.biz;
 
 import java.util.List;
 
+import com.ktds.sems.education.vo.EducationQNABBSVO;
 import com.ktds.sems.education.vo.EducationSearchVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.QNASearchVO;
@@ -93,5 +94,9 @@ public interface EducationBiz {
 	public boolean doReserveEducation(String educationId, String id);
 
 	public boolean updateStateToApply(String educationId);
+
+	public List<EducationQNABBSVO> getAllEducationQNAList();
+
+	public void addQNABBS(EducationQNABBSVO eduBBS);
 
 }

@@ -22,6 +22,7 @@
 		<typeAlias type="com.ktds.sems.education.vo.EducationCostVO" alias="EducationCostVO"/>
 		<typeAlias type="com.ktds.sems.member.vo.HighestEducationLevelVO" alias="HighestEducationLevelVO"/>
 		<typeAlias type="com.ktds.sems.member.vo.MemberTypeVO" alias="MemberTypeVO"/>
+		<typeAlias type="com.ktds.sems.education.vo.EducationQNABBSVO" alias="EducationQNABBSVO"/>
 	</typeAliases>
 
 	<mappers>

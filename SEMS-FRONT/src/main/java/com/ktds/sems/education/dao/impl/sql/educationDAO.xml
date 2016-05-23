@@ -643,4 +643,36 @@
 								WHERE	ROWNUM = 1
 					    	)		
 	</update>
+	
+	<select id="getAllEducationQNAList" resultType="EducationQNABBSVO">
+		SELECT	ATC_ID atcId
+				, EDU_ID eduId
+				, MBR_ID mbrId
+				, IS_DELETE isDelete
+				, TITLE title
+				, CONTENTS contents
+				, CREATE_DATE createDate
+				, MODIFY_DATE modifyDate
+				, HITS hits
+		FROM	EDU_QA_BBS
+	</select>
+	
+	<insert id="addQNABBS" parameterType="EducationQNABBSVO">
+		INSERT INTO EDU_QA_BBS	(
+								   ATC_ID 
+								   , TITLE
+								   , CONTENTS
+								   , CREATE_DATE
+								   , MBR_ID
+								   , EDU_ID
+								) 
+						VALUES ( 
+								 ATC_ID_SEQ.NEXTVAL 
+								 , #{title}
+								 , #{contents}
+								 , SYSDATE
+								 , #{mbrId}
+								 , #{eduId}
+								 )		
+	</insert>
 </mapper>
