@@ -15,11 +15,25 @@
 		});
 			
 		$("#qnaWriteBtn").click(function() {
+
+			if( $("#title").val() == "") {
+				alert("제목을 입력하세요.")
+				$("#title").focus();
+				return;
+			}
+			
+			if( $("#contents").val() == "") {
+				alert("내용을 입력하세요.")
+				$("#contents").focus();
+				return;
+			}
+			
 			var form = $("#qnaWriteForm");
 			form.attr("action", "<c:url value="/eduBoard/doQNAWrite" />");
 			form.submit();
 			alert("질문이 등록되었습니다.");
 		});
+		
 		
 	});
 
