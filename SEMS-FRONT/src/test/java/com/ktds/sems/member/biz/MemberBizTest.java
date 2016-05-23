@@ -472,4 +472,15 @@ public class MemberBizTest extends SemsTestCase {
 		assertTrue(memberBiz.doResign(memberVO));
 	}
 	
+	@Test
+	public void checkRegistStateFalseTest() {
+		String id = "registerFailed";
+		assertTrue(!memberBiz.checkRegistState(id));
+	}
+	
+	@Test
+	public void checkRegistStateTrueTest() {
+		String id = "test02";
+		assertTrue(memberBiz.checkRegistState(id));
+	}
 }
