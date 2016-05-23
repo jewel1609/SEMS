@@ -307,7 +307,7 @@
 		SELECT	COUNT(ATC_ID)
 		FROM	EDU_RPT_BBS
 		<if test="searchType == 1 and searchType != null">
-		WHERE	MRB_ID = #{searchKeyword}
+		WHERE	MBR_ID = #{searchKeyword}
 		AND		EDU_ID = #{educationId}
 		</if>
 		<if test="searchType == 2 and searchType != null">
@@ -324,7 +324,7 @@
 		 SELECT ATC_ID eduReportId
 		 		, EDU_ID educationId
 		 		, IS_DELETE isDelete
-		 		, MRB_ID memberId
+		 		, MBR_ID memberId
 		 		, TITLE title
 		 		, CONTENTS contents
 		 		, CREATE_DATE createDate
@@ -337,7 +337,7 @@
 								SELECT	*
 								FROM	EDU_RPT_BBS
 								<if test="searchType == 1 and searchType != null">
-								WHERE	MRB_ID LIKE '%'||#{searchKeyword}||'%'
+								WHERE	MBR_ID LIKE '%'||#{searchKeyword}||'%'
 								AND		EDU_ID = #{educationId}
 								</if>
 								<if test="searchType == 2 and searchType != null">
@@ -358,7 +358,7 @@
 		SELECT	COUNT(ATC_ID)
 		FROM	EDU_QA_BBS
 		<if test="searchType == 1 and searchType != null">
-		WHERE	MRB_ID = #{searchKeyword}
+		WHERE	MBR_ID = #{searchKeyword}
 		AND		EDU_ID = #{educationId}
 		</if>
 		<if test="searchType == 2 and searchType != null">
@@ -375,7 +375,7 @@
 		 SELECT ATC_ID eduQnaId
 		 		, EDU_ID educationId
 		 		, IS_DELETE isDelete
-		 		, MRB_ID memberId
+		 		, MBR_ID memberId
 		 		, TITLE title
 		 		, CONTENTS contents
 		 		, CREATE_DATE createDate
@@ -388,7 +388,7 @@
 								SELECT	*
 								FROM	EDU_QA_BBS
 								<if test="searchType == 1 and searchType != null">
-								WHERE	MRB_ID LIKE '%'||#{searchKeyword}||'%'
+								WHERE	MBR_ID LIKE '%'||#{searchKeyword}||'%'
 								AND		EDU_ID = #{educationId}
 								</if>
 								<if test="searchType == 2 and searchType != null">
@@ -409,7 +409,7 @@
 		SELECT	COUNT(ATC_ID)
 		FROM	EDU_FILE_BBS
 		<if test="searchType == 1 and searchType != null">
-		WHERE	MRB_ID = #{searchKeyword}
+		WHERE	MBR_ID = #{searchKeyword}
 		AND		EDU_ID = #{educationId}
 		</if>
 		<if test="searchType == 2 and searchType != null">
@@ -426,7 +426,7 @@
 		 SELECT ATC_ID eduFileId
 		 		, EDU_ID educationId
 		 		, IS_DELETE isDelete
-		 		, MRB_ID memberId
+		 		, MBR_ID memberId
 		 		, TITLE title
 		 		, CONTENTS contents
 		 		, CREATE_DATE createDate
@@ -439,7 +439,7 @@
 								SELECT	*
 								FROM	EDU_FILE_BBS
 								<if test="searchType == 1 and searchType != null">
-								WHERE	MRB_ID LIKE '%'||#{searchKeyword}||'%'
+								WHERE	MBR_ID LIKE '%'||#{searchKeyword}||'%'
 								AND		EDU_ID = #{educationId}
 								</if>
 								<if test="searchType == 2 and searchType != null">
