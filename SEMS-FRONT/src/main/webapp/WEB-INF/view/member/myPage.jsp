@@ -30,7 +30,11 @@
 	<table border="1" style="border-collapse: collapse; text-align: center; float: left;">
 		<c:forEach items="${menuList }" var="menuList" >
 			<tr>
+
+				<td><a href="<c:url value='/member/${menuList.url}' />">${menuList.codeName }</a></td>
+
 				<td class="${menuList.codeName}"><a href="<c:url value='/member/${menuList.url }' />">${menuList.codeName }</a></td>
+
 			</tr>
 		</c:forEach>
 	</table>
