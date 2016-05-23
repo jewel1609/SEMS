@@ -399,7 +399,8 @@ public class MemberBizImpl implements MemberBiz {
 				if (calEduStartDate < calTodayTime && calTodayTime < calEduEndDate) {
 
 					// 시간 체크 StartTime-1 ~ (EndTime-StartTime)/2 맞는지 체크
-					if (calEduBeforeOneHour < calNowTime) {
+					if ((calEduBeforeOneHour < calNowTime)
+							&& (calNowTime < calEduHalfTime)) {
 
 						// 하루에 한 번만 출석 체크
 						if (!lastDate.equals(nowDate)) {
@@ -409,20 +410,13 @@ public class MemberBizImpl implements MemberBiz {
 							attendVO.setAttendTime(nowTime);
 
 							memberDAO.insertAttendByMember(attendVO);
-
 						}
-
 						break;
-
 					}
-
 				}
-
 			} catch (ParseException e) {
 			}
-
 		}
-
 	}
 
 	@Override
@@ -616,16 +610,20 @@ public class MemberBizImpl implements MemberBiz {
 		wo.setFilePath("D:\\");
 		List<String> titles = new ArrayList<String>();
 
-		// 9개
+		// 13개
+		titles.add("교육 이력 아이디");
+		titles.add("교육 아이디");
 		titles.add("교육명");
-		titles.add("신청 날짜");
-		titles.add("신청 상태");
 		titles.add("비용");
+		titles.add("수강생 아이디");
+		titles.add("신청 날짜");
+		titles.add("신청 상태 아이디");
+		titles.add("신청 IP");
 		titles.add("코멘트");
 		titles.add("피드백");
 		titles.add("교육시작일자");
 		titles.add("교육종료일자");
-		titles.add("신청 IP");
+		titles.add("신청 상태");
 		wo.setTitles(titles);
 
 		List<String[]> contents = new ArrayList<String[]>();
@@ -646,18 +644,22 @@ public class MemberBizImpl implements MemberBiz {
 				EducationHistoryVO tempEducationHistoryVO = new EducationHistoryVO();
 				tempEducationHistoryVO = tempIterator.next();
 
-				// 9개
-				String[] content = new String[9];
+				// 13개
+				String[] content = new String[13];
 
-				content[0] = tempEducationHistoryVO.getEducationTitle();
-				content[1] = tempEducationHistoryVO.getEducationHistoryDate();
-				content[2] = tempEducationHistoryVO.getCdNm();
-				content[3] = tempEducationHistoryVO.getCostName();
-				content[4] = tempEducationHistoryVO.getCmnt();
-				content[5] = tempEducationHistoryVO.getFdbk();
-				content[6] = tempEducationHistoryVO.getStartDate();
-				content[7] = tempEducationHistoryVO.getEndDate();
-				content[8] = tempEducationHistoryVO.getIp();
+				content[0] = tempEducationHistoryVO.getEducationHistoryId();
+				content[1] = tempEducationHistoryVO.getEducationId();
+				content[2] = tempEducationHistoryVO.getEducationTitle();
+				content[3] = tempEducationHistoryVO.getCost();
+				content[4] = tempEducationHistoryVO.getMemberId();
+				content[5] = tempEducationHistoryVO.getEducationHistoryDate();
+				content[6] = tempEducationHistoryVO.getState();
+				content[7] = tempEducationHistoryVO.getIp();
+				content[8] = tempEducationHistoryVO.getCmnt();
+				content[9] = tempEducationHistoryVO.getFdbk();
+				content[10] = tempEducationHistoryVO.getStartDate();
+				content[11] = tempEducationHistoryVO.getEndDate();
+				content[12] = tempEducationHistoryVO.getCdNm();
 				
 				contents.add(content);
 			}
@@ -731,30 +733,6 @@ public class MemberBizImpl implements MemberBiz {
 	@Override
 	public String getSelectMemberTypeCodeName(String memberType) {
 		return memberDAO.getSelectMemberTypeCodeName(memberType);
-	}
-
-	/**
-	 * 수강 포기 신청 사유 text 중 특수문자가 있는 지 확인
-	 * 한글, 영어, 숫자는 OK
-	 * 이기연
-	 */
-	@Override
-	public boolean isValidCourseDropReason(String courseDropReason) {
-		String courseDropReasonPolicy = "(^[가-힣a-zA-Z0-9]*$)";
-		Pattern pattern = Pattern.compile(courseDropReasonPolicy);
-		Matcher matcher = pattern.matcher(courseDropReason);
-		return matcher.matches();
-	}
-
-	@Override
-	public boolean checkValidationCourseAccess(String memberId) {
-		int checkNumber = memberDAO.checkValidationCourseAccess(memberId);
-		if (checkNumber != 0) {
-			return false;
-		}
-		else {
-			return true;
-		}
 	}
 
 }
