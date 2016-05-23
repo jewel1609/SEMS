@@ -350,6 +350,11 @@ public class EducationBizImpl implements EducationBiz {
 	public void addQNABBS(EducationQNABBSVO eduBBS) {
 		educationDAO.addQNABBS(eduBBS);
 	}
+
+	@Override
+	public EducationQNABBSVO getOneQNABBSByAtcId(String atcId) {
+		return educationDAO.getOneQNABBSByAtcId(atcId);
+	}
 }
 
 

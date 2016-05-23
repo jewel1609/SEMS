@@ -32,7 +32,11 @@
 		<c:forEach items="${educationQNAList}" var="qnaBBS">
 		<tr>
 			<td>${qnaBBS.atcId}</td>
-			<td>${qnaBBS.title}</td>
+			<td>
+				<a href="<c:url value='/eduBoard/QNADetail/${qnaBBS.atcId}'/>">
+					${qnaBBS.title}
+				</a>
+			</td>
 			<td>${qnaBBS.mbrId}</td>
 			<td>${qnaBBS.createDate}</td>
 			<td>${qnaBBS.hits}</td>

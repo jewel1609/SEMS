@@ -290,4 +290,9 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 	public void addQNABBS(EducationQNABBSVO eduBBS) {
 		getSqlSession().insert("EducationDAO.addQNABBS", eduBBS);
 	}
+
+	@Override
+	public EducationQNABBSVO getOneQNABBSByAtcId(String atcId) {
+		return getSqlSession().selectOne("EducationDAO.getOneQNABBSByAtcId", atcId);
+	}
 }

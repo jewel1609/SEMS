@@ -56,6 +56,8 @@ public interface EducationService {
 
 	public ModelAndView doQNAWrite(EducationQNABBSVO eduBBS, Errors errors, HttpSession session);
 
+	public EducationQNABBSVO getOneQNABBSByAtcId(String atcId);
+
 
 
 	

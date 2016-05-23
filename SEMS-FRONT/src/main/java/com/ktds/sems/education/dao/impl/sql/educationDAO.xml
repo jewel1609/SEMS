@@ -676,4 +676,18 @@
 								 , #{eduId}
 								 )		
 	</insert>
+	
+	<select id="getOneQNABBSByAtcId" parameterType="string" resultType="EducationQNABBSVO">
+		SELECT	ATC_ID atcId
+				, EDU_ID eduId
+				, MBR_ID mbrId
+				, IS_DELETE isDelete
+				, TITLE title
+				, CONTENTS contents
+				, CREATE_DATE createDate
+				, MODIFY_DATE modifyDate
+				, HITS hits
+		FROM	EDU_QA_BBS
+		WHERE	ATC_ID = #{atcId}
+	</select>
 </mapper>

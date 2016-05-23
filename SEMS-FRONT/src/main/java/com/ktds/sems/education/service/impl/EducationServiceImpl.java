@@ -733,5 +733,10 @@ public class EducationServiceImpl implements EducationService {
 		return view;
 	}
 
+	@Override
+	public EducationQNABBSVO getOneQNABBSByAtcId(String atcId) {
+		return educationBiz.getOneQNABBSByAtcId(atcId);
+	}
+
 }
 

@@ -245,6 +245,18 @@ public class EducationController {
 		return educationService.doQNAWrite(eduBBS, errors, session);
 	}
 	
+	@RequestMapping("/eduBoard/QNADetail/{atcId}")
+	public ModelAndView viewEduBoardQNADetailPage(@PathVariable String atcId) {
+		ModelAndView view = new ModelAndView();
+		
+		EducationQNABBSVO oneQNABBSByAtcId = educationService.getOneQNABBSByAtcId(atcId);
+		
+		view.addObject("oneQNABBSByAtcId", oneQNABBSByAtcId);
+		view.setViewName("myPage/eduBoardQNADetail");
+		
+		return view;
+	}
+	
 	
 	
 	

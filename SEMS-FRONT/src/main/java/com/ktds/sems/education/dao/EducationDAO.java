@@ -96,4 +96,6 @@ public interface EducationDAO {
 
 	public void addQNABBS(EducationQNABBSVO eduBBS);
 
+	public EducationQNABBSVO getOneQNABBSByAtcId(String atcId);
+
 }
