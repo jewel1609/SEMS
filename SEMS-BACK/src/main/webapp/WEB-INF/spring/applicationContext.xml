@@ -49,6 +49,10 @@
     <bean id="cooperationController" class="com.ktds.sems.cooperation.web.CooperationController" >
     	<property name="cooperationService" ref="cooperationService" />
     </bean>
+    
+    <bean id="pcController" class="com.ktds.sems.pc.web.PcController">
+		<property name="pcService" ref="pcService" />
+	</bean>
 	
 </beans>
 
