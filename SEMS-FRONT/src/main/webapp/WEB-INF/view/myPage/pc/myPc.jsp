@@ -37,12 +37,14 @@
 			<th>내 PC IP</th>
 			<th></th>
 		</tr>
+		<c:forEach items="${usedPcList}" var="usedPc">	
 		<tr>
-			<td></td>
-			<td></td>
-			<td></td>
+			<td>${usedPc.educationTitle}</td>
+			<td>${usedPc.educationLocation}</td>
+			<td>${usedPc.ip}</td>
 			<td><input type="button" id="reportPC" value="신고"/></td>
 		</tr>
+		</c:forEach>
 		<tr>
 			<td>
 				<select id="eduListByMember" name="eduListByMember" tabindex="1">	 
