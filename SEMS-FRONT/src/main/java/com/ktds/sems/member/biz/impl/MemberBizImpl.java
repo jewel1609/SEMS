@@ -735,4 +735,29 @@ public class MemberBizImpl implements MemberBiz {
 		return memberDAO.getSelectMemberTypeCodeName(memberType);
 	}
 
+	/**
+	 * 수강 포기 신청 사유 text 중 특수문자가 있는 지 확인
+	 * 한글, 영어, 숫자는 OK
+	 * 이기연
+	 */
+	@Override
+	public boolean isValidCourseDropReason(String courseDropReason) {
+		String courseDropReasonPolicy = "(^[가-힣a-zA-Z0-9]*$)";
+		Pattern pattern = Pattern.compile(courseDropReasonPolicy);
+		Matcher matcher = pattern.matcher(courseDropReason);
+		return matcher.matches();
+	}
+
+	@Override
+	public boolean checkValidationCourseAccess(String memberId) {
+		int checkNumber = memberDAO.checkValidationCourseAccess(memberId);
+		if (checkNumber != 0) {
+			return false;
+		}
+		else {
+			return true;
+		}
+	}
+
+
 }
