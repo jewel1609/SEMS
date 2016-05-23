@@ -14,13 +14,15 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.common.Session;
 import com.ktds.sems.education.service.EducationService;
 import com.ktds.sems.education.vo.EducationQNABBSVO;
-import com.ktds.sems.education.vo.EducationReportSearchVO;
 import com.ktds.sems.education.vo.EducationQNAReplyVO;
+import com.ktds.sems.education.vo.EducationReportSearchVO;
+import com.ktds.sems.education.vo.EducationReportVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.QNASearchVO;
 import com.ktds.sems.education.vo.QNAVO;
@@ -266,10 +268,15 @@ public class EducationController {
 		return view;
 	}
 	
+	@RequestMapping("/education/doReportWriteAction")
+	public ModelAndView doReportWriteAction(@Valid EducationReportVO educationReportVO, Errors errors, MultipartHttpServletRequest request, HttpSession session) {
+		
+		return educationService.doReportWriteAction(educationReportVO, errors, request, session);
+	}
+	
 	@RequestMapping("/doWriteReply")
 	public ModelAndView doQNAReplyWriteAction(@Valid EducationQNAReplyVO eduBBSReplyVO, Errors errors, HttpSession session) {
 		return educationService.doQNAReplyWriteAction(eduBBSReplyVO, errors, session);
 	}
-	
 	
 }

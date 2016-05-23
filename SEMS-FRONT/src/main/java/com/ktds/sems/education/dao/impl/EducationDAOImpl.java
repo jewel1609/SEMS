@@ -10,9 +10,9 @@ import org.slf4j.LoggerFactory;
 
 import com.ktds.sems.education.dao.EducationDAO;
 import com.ktds.sems.education.vo.EducationQNABBSVO;
+import com.ktds.sems.education.vo.EducationQNAReplyVO;
 import com.ktds.sems.education.vo.EducationReportSearchVO;
 import com.ktds.sems.education.vo.EducationReportVO;
-import com.ktds.sems.education.vo.EducationQNAReplyVO;
 import com.ktds.sems.education.vo.EducationSearchVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.QNASearchVO;
@@ -307,6 +307,16 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 	@Override
 	public EducationQNABBSVO getOneQNABBSByAtcId(String atcId) {
 		return getSqlSession().selectOne("EducationDAO.getOneQNABBSByAtcId", atcId);
+	}
+
+	@Override
+	public int getNextReportSeq() {
+		return getSqlSession().selectOne("EducationDAO.getNextReportSeq");
+	}
+
+	@Override
+	public void doReportWriteAction(EducationReportVO educationReportVO) {
+		getSqlSession().insert("EducationDAO.doReportWriteAction", educationReportVO);
 	}
 
 	@Override

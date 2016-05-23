@@ -753,6 +753,33 @@
 		WHERE	ATC_ID = #{atcId}
 	</select>
 	
+	<select id="getNextReportSeq" resultType="_int">
+		SELECT 	ATC_ID_SEQ.NEXTVAL
+		FROM	DUAL
+	</select>	
+	
+	<insert id="doReportWriteAction" parameterType="EducationReportVO">
+		INSERT	INTO EDU_RPT_BBS (
+									ATC_ID
+									, EDU_ID
+									, MBR_ID
+									, TITLE
+									, CONTENTS
+									, CREATE_DATE
+									, MODIFY_DATE
+								 )
+		VALUES				     (
+									#{articleId}
+									, #{educationId}
+									, #{memberId}
+									, #{title}
+									, #{contents}
+									, TO_DATE(#{startDate}, 'YYYY-MM-DD HH24:MI')
+									, TO_DATE(#{endDate}, 'YYYY-MM-DD HH24:MI')
+								 )
+		
+	</insert>
+	
 	<update id="addHitsByAtcId" parameterType="string">
 		UPDATE	EDU_QA_BBS
 		SET		HITS = HITS+1

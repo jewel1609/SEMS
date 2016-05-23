@@ -12,4 +12,15 @@ public class FileDAOImpl extends SqlSessionDaoSupport implements FileDAO {
 		return getSqlSession().selectList("FileDAO.getOneFileId",educationId);
 	}
 
+	@Override
+	public int doWriteFile(FileVO fileVO) {
+		
+		return getSqlSession().insert("FileDAO.doWriteFile", fileVO);
+	}
+
+	@Override
+	public int updateFile(FileVO fileVO) {
+		return getSqlSession().update("FileDAO.updateFile", fileVO);
+	}
+
 }

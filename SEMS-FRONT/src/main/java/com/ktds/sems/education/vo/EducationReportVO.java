@@ -1,13 +1,23 @@
 package com.ktds.sems.education.vo;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 public class EducationReportVO extends EducationVO{
 	
 	private String articleId;
 	private String memberId;
+	
+	@NotEmpty(message="제목을 입력해주세요")
 	private String title;
+	
 	private String contents;
+	
+	@NotEmpty(message="시작일을 입력해주세요")
 	private String startDate;
+	
+	@NotEmpty(message="종료일을 입력해주세요")
 	private String endDate;
+	
 	public String getArticleId() {
 		return articleId;
 	}

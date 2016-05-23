@@ -19,4 +19,14 @@ public class FileBizImpl implements FileBiz {
 		return fileDAO.getOneFileId(educationId);
 	}
 
+	@Override
+	public boolean doWriteFile(FileVO fileVO) {
+		return fileDAO.doWriteFile(fileVO) > 0  ;
+	}
+
+	@Override
+	public boolean updateFile(FileVO fileVO) {
+		return fileDAO.updateFile(fileVO) > 0;
+	}
+
 }

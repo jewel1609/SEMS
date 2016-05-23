@@ -1,5 +1,7 @@
 package com.ktds.sems.education.service.impl;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -13,6 +15,8 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.validation.Errors;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.common.Session;
@@ -22,10 +26,10 @@ import com.ktds.sems.education.util.DownloadUtil;
 import com.ktds.sems.education.vo.EduReplyListVO;
 import com.ktds.sems.education.vo.EducationListVO;
 import com.ktds.sems.education.vo.EducationQNABBSVO;
+import com.ktds.sems.education.vo.EducationQNAReplyVO;
 import com.ktds.sems.education.vo.EducationReportListVO;
 import com.ktds.sems.education.vo.EducationReportSearchVO;
 import com.ktds.sems.education.vo.EducationReportVO;
-import com.ktds.sems.education.vo.EducationQNAReplyVO;
 import com.ktds.sems.education.vo.EducationSearchVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.QNAListVO;
@@ -36,6 +40,7 @@ import com.ktds.sems.file.biz.FileBiz;
 import com.ktds.sems.file.vo.FileVO;
 import com.ktds.sems.member.vo.MemberVO;
 
+import kr.co.hucloud.utilities.SHA256Util;
 import kr.co.hucloud.utilities.web.Paging;
 
 public class EducationServiceImpl implements EducationService {
@@ -777,10 +782,13 @@ public class EducationServiceImpl implements EducationService {
 		
 		MemberVO loginMember = (MemberVO)session.getAttribute("_MEMBER_");
 		
+		EducationReportVO educationReportVO = new EducationReportVO();
+		educationReportVO.setEducationId(educationId);
+		
 		//과제 등록
 		if ( loginMember.getMemberType().equals("TR") ) {
 			view.setViewName("education/reportWrite");
-			view.addObject("educationId", educationId);
+			view.addObject("educationReportVO", educationReportVO);
 			return view;
 		}
 		else {
@@ -797,6 +805,70 @@ public class EducationServiceImpl implements EducationService {
 		educationBiz.addHitsByAtcId(atcId);
 		
 		return educationBiz.getOneQNABBSByAtcId(atcId);
+	}
+
+	@Override
+	public ModelAndView doReportWriteAction(EducationReportVO educationReportVO, Errors errors, MultipartHttpServletRequest request, HttpSession session) {
+		
+		ModelAndView view = new ModelAndView();
+		
+		MemberVO loginMember = (MemberVO)session.getAttribute("_MEMBER_");
+		educationReportVO.setMemberId(loginMember.getId());
+		
+		if( errors.hasErrors() ){ 
+			view.setViewName("education/reportWrite");
+			view.addObject("educationReportVO", educationReportVO );
+			return view;
+		}
+		else {
+			
+			educationReportVO.setStartDate(educationReportVO.getStartDate().replaceAll("T", " "));
+			educationReportVO.setEndDate(educationReportVO.getEndDate().replaceAll("T", " "));
+			
+			// ArticleID 형식 변경
+			String nowDate = educationBiz.getNowDate();
+			int nextSeq = educationBiz.getNextReportSeq();
+			
+			String realReportId = "RT-" + nowDate + "-" + lpad(nextSeq + "", 6, "0");
+			educationReportVO.setArticleId(realReportId);
+			
+			educationBiz.doReportWriteAction(educationReportVO);
+			
+			MultipartFile file = request.getFile("file");
+			
+			String fileName = file.getOriginalFilename();
+			String salt = SHA256Util.generateSalt();
+			String saltFileName = SHA256Util.getEncrypt(fileName, salt);
+			
+			String filePath = "D:\\" + saltFileName;
+			
+			if ( !file.isEmpty() ) {
+				
+				File files = new File(filePath);
+				
+				try {
+					file.transferTo(files);
+					
+					FileVO fileVO = new FileVO();
+					fileVO.setArticleId(educationReportVO.getArticleId());
+					fileVO.setFileName(fileName);
+					fileVO.setFileLocation(filePath);
+					
+					fileBiz.doWriteFile(fileVO);
+					
+				} catch (IllegalStateException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				
+			}		
+			
+			// TODO INSERT 성공 시 갈 곳 ( 강의 게시판 )
+			view.setViewName("redirect:/");
+			return view;
+		}
+		
 	}
 
 	@Override

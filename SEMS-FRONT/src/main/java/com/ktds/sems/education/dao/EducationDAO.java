@@ -3,9 +3,9 @@ package com.ktds.sems.education.dao;
 import java.util.List;
 
 import com.ktds.sems.education.vo.EducationQNABBSVO;
+import com.ktds.sems.education.vo.EducationQNAReplyVO;
 import com.ktds.sems.education.vo.EducationReportSearchVO;
 import com.ktds.sems.education.vo.EducationReportVO;
-import com.ktds.sems.education.vo.EducationQNAReplyVO;
 import com.ktds.sems.education.vo.EducationSearchVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.QNASearchVO;
@@ -104,6 +104,10 @@ public interface EducationDAO {
 	public int getTotalEducationReportCount(EducationReportSearchVO educationReportSearchVO);
 
 	public EducationQNABBSVO getOneQNABBSByAtcId(String atcId);
+
+	public int getNextReportSeq();
+
+	public void doReportWriteAction(EducationReportVO educationReportVO);
 
 	public void addHitsByAtcId(String atcId);
 
