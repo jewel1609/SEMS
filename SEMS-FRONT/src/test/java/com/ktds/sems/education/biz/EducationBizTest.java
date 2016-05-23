@@ -52,7 +52,7 @@ public class EducationBizTest extends SemsTestCase{
 	public void getNowDateTest(){
 		String checkStr = educationBiz.getNowDate();
 		assertNotNull(checkStr);
-	}
+	}	
 	
 	@Test
 	public void getNextReplySeq(){

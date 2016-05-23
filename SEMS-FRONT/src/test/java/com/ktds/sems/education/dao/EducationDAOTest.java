@@ -46,7 +46,7 @@ public class EducationDAOTest extends SemsTestCase{
 	
 	@Test
 	public void getOneEducationDetailTest(){
-		String educationId= "ED-20160519-000233";
+		String educationId= "ED-20160519-000235";
 		assertNotNull( educationDAO.getOneEducationDetail(educationId));
 	}
 	
@@ -89,9 +89,7 @@ public class EducationDAOTest extends SemsTestCase{
 	
 	// qnaVO에 set된 pk data 값은 테스트시 변경 요망.
 	/*@Test
-=======
 	//@Test
->>>>>>> .r1305
 	public void writeNewCommentTest(){
 		QNAVO qnaVO = new QNAVO();
 //		qnaVO.setReplyId("RP-20160813-000088");
