@@ -42,7 +42,11 @@
 			<td>${usedPc.educationTitle}</td>
 			<td>${usedPc.educationLocation}</td>
 			<td>${usedPc.ip}</td>
-			<td><input type="button" id="reportPC" value="신고"/></td>
+			<td>
+				<a href="<c:url value='/myPc/reportPage/${usedPc.pcId}'/>">
+					<input type="button" id="reportPC" value="신고"/>
+				</a>
+			</td>
 		</tr>
 		</c:forEach>
 		<tr>
