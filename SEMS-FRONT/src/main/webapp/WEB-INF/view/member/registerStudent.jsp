@@ -243,6 +243,32 @@
 				return;
 			}
 			
+			//isEmptyHighestEducationLevel
+			var isEmptyGraduationType = true;
+			$(".graduationType").each(function (index, data) {
+				if(data.checked){
+					isEmptyGraduationType = false;
+				}
+			});
+			
+			if ( isEmptyGraduationType ) {
+				alert("졸업구분을 확인해주세요.");
+				return;
+			}
+			
+			//isEmptyHighestEducationLevel
+			var isEmptyHighestEducationLevel = true;
+			$(".highestEducationLevel").each(function (index, data) {
+				if(data.checked){
+					isEmptyHighestEducationLevel = false;
+				}
+			});
+			
+			if ( isEmptyHighestEducationLevel ) {
+				alert("최종학력을 확인해주세요.");
+				return;
+			}
+			
 			var form = $("#registerForm");
 			form.attr("action", "<c:url value="/doRegisterMemberAction" />");
 			form.submit();
