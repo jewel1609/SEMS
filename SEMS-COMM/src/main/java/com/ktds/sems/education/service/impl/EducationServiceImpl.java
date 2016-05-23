@@ -81,7 +81,6 @@ public class EducationServiceImpl implements EducationService {
 		}
 
 		boolean isExistCost = educationBiz.isExistCost(cost);
-				
 		if (isExistCost) {
 			result = "FAIL_V";
 		}
