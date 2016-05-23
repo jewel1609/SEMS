@@ -13,6 +13,8 @@ import com.ktds.sems.common.vo.MailVO;
 import com.ktds.sems.education.biz.EducationBiz;
 import com.ktds.sems.education.dao.EducationDAO;
 import com.ktds.sems.education.vo.EducationQNABBSVO;
+import com.ktds.sems.education.vo.EducationReportSearchVO;
+import com.ktds.sems.education.vo.EducationReportVO;
 import com.ktds.sems.education.vo.EducationQNAReplyVO;
 import com.ktds.sems.education.vo.EducationSearchVO;
 import com.ktds.sems.education.vo.EducationVO;
@@ -350,6 +352,16 @@ public class EducationBizImpl implements EducationBiz {
 	@Override
 	public void addQNABBS(EducationQNABBSVO eduBBS) {
 		educationDAO.addQNABBS(eduBBS);
+	}
+
+	@Override
+	public List<EducationReportVO> getAllEducationReportList(EducationReportSearchVO educationReportSearchVO) {
+		return educationDAO.getAllEducationReportList(educationReportSearchVO);
+	}
+
+	@Override
+	public int getTotalEducationReportCount(EducationReportSearchVO educationReportSearchVO) {
+		return educationDAO.getTotalEducationReportCount(educationReportSearchVO);
 	}
 
 	@Override

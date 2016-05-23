@@ -677,6 +677,68 @@
 								 )		
 	</insert>
 	
+	<select id="getAllEducationReportList" resultType="EducationReportVO" >
+		SELECT	ATC_ID articleId
+		        , EDU_ID educationId
+		        , MBR_ID memberId
+		        , TITLE title
+		        , CONTENTS contents
+		        , CREATE_DATE startDate
+		        , MODIFY_DATE endDate
+		FROM	(
+		            SELECT	ROWNUM AS RNUM
+		                    , EDU_RPT_BBS.*
+		            FROM	(
+		                        SELECT	*
+		                        FROM	EDU_RPT_BBS
+		                        WHERE	1=1
+		                        <if test="searchKeyword != null and searchType != null">		
+									<if test="searchType == 'title'">
+									AND		TITLE LIKE '%' || #{searchKeyword} || '%'
+									</if>
+									<if test="searchType == 'contents'">
+									AND		CONTENTS LIKE '%' || #{searchKeyword} || '%'
+									</if>
+									<if test="searchType == 'registerId'">
+									AND		MBR_ID LIKE '%' || #{searchKeyword} || '%'
+									</if>
+								</if>
+								<if test="startDate != null and startDate != ''">
+								AND		CREATE_DATE >= #{startDate}
+								</if>
+								<if test="endDate != null and endDate != ''">
+								AND		MODIFY_DATE <![CDATA[<]]> TO_DATE(#{endDate}, 'YYYY-MM-DD') + 1
+								</if>
+		                        ORDER	BY ATC_ID DESC
+		                    ) EDU_RPT_BBS
+		            WHERE	ROWNUM <![CDATA[<=]]> #{endIndex}
+		        ) ERB
+		WHERE	RNUM <![CDATA[>=]]> #{startIndex}
+	</select>
+	
+	<select id="getTotalEducationReportCount" parameterType="EducationReportSearchVO" resultType="_int">
+		SELECT  COUNT(ATC_ID)
+		FROM    EDU_RPT_BBS
+		WHERE	1=1
+		<if test="searchKeyword != null and searchType != null">
+			<if test="searchType == 'title'">
+			AND		TITLE LIKE '%' || #{searchKeyword} || '%'
+			</if>
+			<if test="searchType == 'contents'">
+			AND		CONTENTS LIKE '%' || #{searchKeyword} || '%'
+			</if>
+			<if test="searchType == 'registerId'">
+			AND		MBR_ID LIKE '%' || #{searchKeyword} || '%'
+			</if>
+		</if>
+		<if test="startDate != null and startDate != ''">
+			AND		CREATE_DATE >= #{startDate}
+		</if>
+		<if test="endDate != null and endDate != ''">
+			AND		MODIFY_DATE <![CDATA[<]]> TO_DATE(#{endDate}, 'YYYY-MM-DD') + 1
+		</if>
+	</select>
+	
 	<select id="getOneQNABBSByAtcId" parameterType="string" resultType="EducationQNABBSVO">
 		SELECT	ATC_ID atcId
 				, EDU_ID eduId

@@ -19,11 +19,11 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ktds.sems.common.Session;
 import com.ktds.sems.education.service.EducationService;
 import com.ktds.sems.education.vo.EducationQNABBSVO;
+import com.ktds.sems.education.vo.EducationReportSearchVO;
 import com.ktds.sems.education.vo.EducationQNAReplyVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.QNASearchVO;
 import com.ktds.sems.education.vo.QNAVO;
-import com.ktds.sems.member.service.MemberService;
 
 import kr.co.hucloud.utilities.web.AjaxUtil;
 
@@ -246,6 +246,10 @@ public class EducationController {
 		return educationService.doQNAWrite(eduBBS, errors, session);
 	}
 	
+	@RequestMapping("/education/reportList")
+	public ModelAndView viewReportListPage(EducationReportSearchVO educationReportSearchVO){
+		return educationService.viewReportListPage(educationReportSearchVO);
+	}
 	@RequestMapping("/education/viewReportWrite/{educationId}")
 	public ModelAndView viewReportWrite(@PathVariable String educationId, HttpSession session) {
 		return educationService.viewReportWrite(educationId, session);

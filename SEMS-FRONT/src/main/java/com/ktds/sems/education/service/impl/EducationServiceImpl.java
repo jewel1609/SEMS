@@ -22,6 +22,9 @@ import com.ktds.sems.education.util.DownloadUtil;
 import com.ktds.sems.education.vo.EduReplyListVO;
 import com.ktds.sems.education.vo.EducationListVO;
 import com.ktds.sems.education.vo.EducationQNABBSVO;
+import com.ktds.sems.education.vo.EducationReportListVO;
+import com.ktds.sems.education.vo.EducationReportSearchVO;
+import com.ktds.sems.education.vo.EducationReportVO;
 import com.ktds.sems.education.vo.EducationQNAReplyVO;
 import com.ktds.sems.education.vo.EducationSearchVO;
 import com.ktds.sems.education.vo.EducationVO;
@@ -730,6 +733,39 @@ public class EducationServiceImpl implements EducationService {
 			throw new RuntimeException("일시적인 장애가 발생했습니다. 잠시 후 다시 시도해주세요.");
 		}
 		
+		
+		return view;
+	}
+
+	@Override
+	public ModelAndView viewReportListPage(EducationReportSearchVO educationReportSearchVO) {
+		
+		if( educationReportSearchVO == null ) {
+			educationReportSearchVO = new EducationReportSearchVO();
+			educationReportSearchVO.setPageNo(0);
+		}
+		
+		ModelAndView view = new ModelAndView();
+		
+		int totalEduReportCount = educationBiz.getTotalEducationReportCount(educationReportSearchVO);
+		
+		// page setting
+		Paging paging = new Paging();
+		paging.setTotalArticleCount(totalEduReportCount);
+		
+		paging.setPageNumber(educationReportSearchVO.getPageNo() + "");
+		
+		educationReportSearchVO.setStartIndex(paging.getStartArticleNumber());
+		educationReportSearchVO.setEndIndex(paging.getEndArticleNumber());
+		
+		List<EducationReportVO> educationReportList = educationBiz.getAllEducationReportList(educationReportSearchVO);
+		
+		EducationReportListVO educationReportListVO = new EducationReportListVO();
+		educationReportListVO.setEducationReportList(educationReportList);
+		educationReportListVO.setPaging(paging);
+		
+		view.setViewName("education/reportList");
+		view.addObject("educationReportListVO", educationReportListVO);
 		
 		return view;
 	}

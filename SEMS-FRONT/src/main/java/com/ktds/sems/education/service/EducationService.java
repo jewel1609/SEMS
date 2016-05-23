@@ -10,6 +10,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.education.vo.EducationQNABBSVO;
+import com.ktds.sems.education.vo.EducationReportSearchVO;
 import com.ktds.sems.education.vo.EducationQNAReplyVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.QNASearchVO;
@@ -57,13 +58,12 @@ public interface EducationService {
 
 	public ModelAndView doQNAWrite(EducationQNABBSVO eduBBS, Errors errors, HttpSession session);
 
+	public ModelAndView viewReportListPage(EducationReportSearchVO educationReportSearchVO);
+
 	public ModelAndView viewReportWrite(String educationId, HttpSession session);
 	
 	public EducationQNABBSVO getOneQNABBSByAtcId(String atcId);
 
 	public ModelAndView doQNAReplyWriteAction(EducationQNAReplyVO eduBBSReplyVO, Errors errors, HttpSession session);
 
-
-
-	
 }
