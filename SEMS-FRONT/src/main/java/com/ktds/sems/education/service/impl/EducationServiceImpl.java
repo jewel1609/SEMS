@@ -734,6 +734,27 @@ public class EducationServiceImpl implements EducationService {
 	}
 
 	@Override
+	public ModelAndView viewReportWrite(String educationId, HttpSession session) {
+
+		ModelAndView view = new ModelAndView();
+		
+		MemberVO loginMember = (MemberVO)session.getAttribute("_MEMBER_");
+		
+		//과제 등록
+		if ( loginMember.getMemberType().equals("TR") ) {
+			view.setViewName("education/reportWrite");
+			view.addObject("educationId", educationId);
+			return view;
+		}
+		else {
+			// 강사 아닐 시 
+			view.setViewName("redirect:/");
+			return view;
+		}
+		
+	}
+
+	@Override
 	public EducationQNABBSVO getOneQNABBSByAtcId(String atcId) {
 		return educationBiz.getOneQNABBSByAtcId(atcId);
 	}

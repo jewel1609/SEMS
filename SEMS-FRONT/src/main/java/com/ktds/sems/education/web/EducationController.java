@@ -245,6 +245,10 @@ public class EducationController {
 		return educationService.doQNAWrite(eduBBS, errors, session);
 	}
 	
+	@RequestMapping("/education/viewReportWrite/{educationId}")
+	public ModelAndView viewReportWrite(@PathVariable String educationId, HttpSession session) {
+		return educationService.viewReportWrite(educationId, session);
+	}
 	@RequestMapping("/eduBoard/QNADetail/{atcId}")
 	public ModelAndView viewEduBoardQNADetailPage(@PathVariable String atcId) {
 		ModelAndView view = new ModelAndView();
@@ -256,21 +260,6 @@ public class EducationController {
 		
 		return view;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 }
