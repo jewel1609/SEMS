@@ -493,25 +493,23 @@
 	</select>
 	
 	<select id="getAllEducationHistoryListById" parameterType="string" resultType="EducationHistoryVO">
-		SELECT	EH.EDU_HTR_ID educationHistoryId
-				, EH.EDU_ID educationId
-				, EH.MBR_ID memberId
-				, EH.EDU_HTR_DT educationHistoryDate
-				, EH.STAT state
-				, EH.IP ip
+		SELECT	EI.EDU_TTL educationTitle
+                , EH.EDU_HTR_DT educationHistoryDate
+				, CM.CD_NM cdNm
+				, EC.CD_NM costName
 				, EH.CMNT cmnt
 				, EH.FDBK fdbk
 				, EI.SRT_DATE startDate
 				, EI.END_DATE endDate
-				, EI.EDU_TTL educationTitle
-				, EI.COST cost
-				, CM.CD_NM cdNm
+				, EH.IP ip
 		FROM	EDU_HTR EH
 				, EDU_INFO EI
 				, CODE_MNG CM
+				, EDU_CST EC
 		WHERE	EI.EDU_ID = EH.EDU_ID
 		AND		CM.CD_ID = EH.STAT
-		AND		EH.EDU_ID = #{id}
+		AND		EI.COST = EC.CD_ID
+		AND		EH.MBR_ID = #{id}
 	</select>
 	
 	<select id="doCheckIp" parameterType="LoginHistoryVO" resultType="_int">

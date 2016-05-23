@@ -11,7 +11,19 @@ public class EducationHistoryVO extends EducationVO {
 	private String cmnt;
 	private String fdbk;
 
+	// 상태 명
 	private String cdNm;
+
+	// 비용 명
+	private String costName;
+
+	public String getCostName() {
+		return costName;
+	}
+
+	public void setCostName(String costName) {
+		this.costName = costName;
+	}
 
 	public String getCdNm() {
 		return cdNm;

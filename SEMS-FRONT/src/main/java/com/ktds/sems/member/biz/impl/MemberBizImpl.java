@@ -616,20 +616,16 @@ public class MemberBizImpl implements MemberBiz {
 		wo.setFilePath("D:\\");
 		List<String> titles = new ArrayList<String>();
 
-		// 13개
-		titles.add("교육 이력 아이디");
-		titles.add("교육 아이디");
+		// 9개
 		titles.add("교육명");
-		titles.add("비용");
-		titles.add("수강생 아이디");
 		titles.add("신청 날짜");
-		titles.add("신청 상태 아이디");
-		titles.add("신청 IP");
+		titles.add("신청 상태");
+		titles.add("비용");
 		titles.add("코멘트");
 		titles.add("피드백");
 		titles.add("교육시작일자");
 		titles.add("교육종료일자");
-		titles.add("신청 상태");
+		titles.add("신청 IP");
 		wo.setTitles(titles);
 
 		List<String[]> contents = new ArrayList<String[]>();
@@ -650,22 +646,18 @@ public class MemberBizImpl implements MemberBiz {
 				EducationHistoryVO tempEducationHistoryVO = new EducationHistoryVO();
 				tempEducationHistoryVO = tempIterator.next();
 
-				// 13개
-				String[] content = new String[13];
+				// 9개
+				String[] content = new String[9];
 
-				content[0] = tempEducationHistoryVO.getEducationHistoryId();
-				content[1] = tempEducationHistoryVO.getEducationId();
-				content[2] = tempEducationHistoryVO.getEducationTitle();
-				content[3] = tempEducationHistoryVO.getCost();
-				content[4] = tempEducationHistoryVO.getMemberId();
-				content[5] = tempEducationHistoryVO.getEducationHistoryDate();
-				content[6] = tempEducationHistoryVO.getState();
-				content[7] = tempEducationHistoryVO.getIp();
-				content[8] = tempEducationHistoryVO.getCmnt();
-				content[9] = tempEducationHistoryVO.getFdbk();
-				content[10] = tempEducationHistoryVO.getStartDate();
-				content[11] = tempEducationHistoryVO.getEndDate();
-				content[12] = tempEducationHistoryVO.getCdNm();
+				content[0] = tempEducationHistoryVO.getEducationTitle();
+				content[1] = tempEducationHistoryVO.getEducationHistoryDate();
+				content[2] = tempEducationHistoryVO.getCdNm();
+				content[3] = tempEducationHistoryVO.getCostName();
+				content[4] = tempEducationHistoryVO.getCmnt();
+				content[5] = tempEducationHistoryVO.getFdbk();
+				content[6] = tempEducationHistoryVO.getStartDate();
+				content[7] = tempEducationHistoryVO.getEndDate();
+				content[8] = tempEducationHistoryVO.getIp();
 				
 				contents.add(content);
 			}
