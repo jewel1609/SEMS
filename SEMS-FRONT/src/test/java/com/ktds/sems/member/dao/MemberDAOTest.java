@@ -725,4 +725,18 @@ public class MemberDAOTest extends SemsTestCase {
 			}
 		});
 	}
+	
+	@Test
+	public void checkRegistStateFalseTest() {
+		String id = "registerFailed";
+		int check = memberDAO.checkRegistState(id);
+		assertTrue(check < 1);
+	}
+	
+	@Test
+	public void checkRegistStateTrueTest() {
+		String id = "test02";
+		int check = memberDAO.checkRegistState(id);
+		assertTrue(check > 0);
+	}
 }
