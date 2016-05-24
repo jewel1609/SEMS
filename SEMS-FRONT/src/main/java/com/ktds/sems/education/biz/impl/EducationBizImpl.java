@@ -12,8 +12,6 @@ import com.ktds.sems.common.SendMail;
 import com.ktds.sems.common.vo.MailVO;
 import com.ktds.sems.education.biz.EducationBiz;
 import com.ktds.sems.education.dao.EducationDAO;
-import com.ktds.sems.education.vo.EduReportSearchVO;
-import com.ktds.sems.education.vo.EduReportVO;
 import com.ktds.sems.education.vo.EducationQNABBSVO;
 import com.ktds.sems.education.vo.EducationQNAReplyVO;
 import com.ktds.sems.education.vo.EducationReportSearchVO;
@@ -399,16 +397,6 @@ public class EducationBizImpl implements EducationBiz {
 		educationDAO.addQNAReply(eduBBSReplyVO);
 	}
 
-	@Override
-	public int getTotalEduReportCount(EduReportSearchVO eduReportSearchVO) {
-		return educationDAO.getTotalEduReportCount(eduReportSearchVO);
-	}
-
-	@Override
-	public List<EduReportVO> getAllEduReport(EduReportSearchVO eduReportSearchVO) {
-		return educationDAO.getAllEduReport(eduReportSearchVO);
-	}
-	
 	@Override
 	public List<MemberVO> getAllMemberOfEducation(String educationId) {
 		return educationDAO.getAllMemberOfEducation(educationId);

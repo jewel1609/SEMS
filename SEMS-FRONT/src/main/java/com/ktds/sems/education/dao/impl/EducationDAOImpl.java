@@ -9,8 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.ktds.sems.education.dao.EducationDAO;
-import com.ktds.sems.education.vo.EduReportSearchVO;
-import com.ktds.sems.education.vo.EduReportVO;
 import com.ktds.sems.education.vo.EducationQNABBSVO;
 import com.ktds.sems.education.vo.EducationQNAReplyVO;
 import com.ktds.sems.education.vo.EducationReportSearchVO;
@@ -341,16 +339,6 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 		getSqlSession().insert("EducationDAO.addQNAReply", eduBBSReplyVO);
 	}
 
-	@Override
-	public int getTotalEduReportCount(EduReportSearchVO eduReportSearchVO) {
-		return getSqlSession().selectOne("EducationDAO.getTotalEduReportCount", eduReportSearchVO);
-	}
-
-	@Override
-	public List<EduReportVO> getAllEduReport(EduReportSearchVO eduReportSearchVO) {
-		return getSqlSession().selectList("EducationDAO.getAllEduReport", eduReportSearchVO);
-	}
-	
 	@Override
 	public List<MemberVO> getAllMemberOfEducation(String educationId) {
 		return getSqlSession().selectList("EducationDAO.getAllMemberOfEducation", educationId);

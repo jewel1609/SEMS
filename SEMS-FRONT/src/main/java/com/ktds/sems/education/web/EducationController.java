@@ -19,12 +19,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.common.Session;
 import com.ktds.sems.education.service.EducationService;
-
 import com.ktds.sems.education.vo.EducationQNABBSVO;
 import com.ktds.sems.education.vo.EducationQNAReplyVO;
 import com.ktds.sems.education.vo.EducationReportSearchVO;
 import com.ktds.sems.education.vo.EducationReportVO;
-import com.ktds.sems.education.vo.EduReportSearchVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.QNASearchVO;
 import com.ktds.sems.education.vo.QNAVO;
@@ -281,12 +279,6 @@ public class EducationController {
 	@RequestMapping("/doWriteReply")
 	public ModelAndView doQNAReplyWriteAction(@Valid EducationQNAReplyVO eduBBSReplyVO, Errors errors, HttpSession session) {
 		return educationService.doQNAReplyWriteAction(eduBBSReplyVO, errors, session);
-	}
-
-	@RequestMapping("/{educationId}/eduReport")
-	public ModelAndView viewEduReportPage(EduReportSearchVO eduReportSearchVO, @PathVariable String educationId, @RequestParam(required = false, defaultValue = "0") int pageNo){
-		eduReportSearchVO.setEducationId(educationId);
-		return educationService.getAllReportArticle(eduReportSearchVO, pageNo);
 	}
 	
 	@RequestMapping("/doReportSubmit")

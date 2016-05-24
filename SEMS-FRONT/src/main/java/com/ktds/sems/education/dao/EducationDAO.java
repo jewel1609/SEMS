@@ -6,8 +6,6 @@ import com.ktds.sems.education.vo.EducationQNABBSVO;
 import com.ktds.sems.education.vo.EducationQNAReplyVO;
 import com.ktds.sems.education.vo.EducationReportSearchVO;
 import com.ktds.sems.education.vo.EducationReportVO;
-import com.ktds.sems.education.vo.EduReportSearchVO;
-import com.ktds.sems.education.vo.EduReportVO;
 import com.ktds.sems.education.vo.EducationSearchVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.QNASearchVO;
@@ -119,10 +117,6 @@ public interface EducationDAO {
 	public void addHitsByAtcId(String atcId);
 
 	public void addQNAReply(EducationQNAReplyVO eduBBSReplyVO);
-
-	public int getTotalEduReportCount(EduReportSearchVO eduReportSearchVO);
-
-	public List<EduReportVO> getAllEduReport(EduReportSearchVO eduReportSearchVO);
 
 	public List<MemberVO> getAllMemberOfEducation(String educationId);
 

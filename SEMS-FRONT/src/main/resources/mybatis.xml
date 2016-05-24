@@ -34,9 +34,6 @@
 		<typeAlias type="com.ktds.sems.team.vo.TeamSearchVO" alias="TeamSearchVO"/>
 		<typeAlias type="com.ktds.sems.team.vo.TeamListVO" alias="TeamListVO"/>
 		<typeAlias type="com.ktds.sems.team.vo.TeamBBSVO" alias="TeamBBSVO"/>
-		<typeAlias type="com.ktds.sems.education.vo.EduReportListVO" alias="EduReportListVO"/>
-		<typeAlias type="com.ktds.sems.education.vo.EduReportSearchVO" alias="EduReportSearchVO"/>
-		<typeAlias type="com.ktds.sems.education.vo.EduReportVO" alias="EduReportVO"/>
 		<typeAlias type="com.ktds.sems.education.vo.EduClassVO" alias="EduClassVO"/>
 		<typeAlias type="com.ktds.sems.education.vo.ReportReplyVO" alias="ReportReplyVO"/>
 		<typeAlias type="com.ktds.sems.education.vo.ReportReplyListVO" alias="ReportReplyListVO"/>

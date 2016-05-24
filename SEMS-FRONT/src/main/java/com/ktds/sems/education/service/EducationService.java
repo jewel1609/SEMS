@@ -14,7 +14,6 @@ import com.ktds.sems.education.vo.EducationQNABBSVO;
 import com.ktds.sems.education.vo.EducationQNAReplyVO;
 import com.ktds.sems.education.vo.EducationReportSearchVO;
 import com.ktds.sems.education.vo.EducationReportVO;
-import com.ktds.sems.education.vo.EduReportSearchVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.QNASearchVO;
 import com.ktds.sems.education.vo.QNAVO;
@@ -67,8 +66,6 @@ public interface EducationService {
 
 	public ModelAndView viewReportWrite(String educationId, HttpSession session);
 
-	public ModelAndView getAllReportArticle(EduReportSearchVO eduReportSearchVO, int pageNo);
-	
 	public EducationQNABBSVO getOneQNABBSByAtcId(String atcId);
 
 	public ModelAndView doReportWriteAction(EducationReportVO educationReportVO, Errors errors, MultipartHttpServletRequest request, HttpSession session);
