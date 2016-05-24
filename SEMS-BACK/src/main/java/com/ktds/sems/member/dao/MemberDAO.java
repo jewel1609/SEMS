@@ -98,4 +98,6 @@ public interface MemberDAO {
 
 	public void deleteMemberDetailInfo(String memberId);
 
+	public MemberVO getMemberInfo(String memberId);
+
 }
