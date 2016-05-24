@@ -1,4 +1,4 @@
-package com.ktds.sems.pc.web;
+package com.ktds.sems.pc.service;
 
 import static org.junit.Assert.*;
 
@@ -14,13 +14,13 @@ import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.pc.vo.ReportedPcSearchVO;
 
 @Transactional
-public class PcControllerTest extends SemsTestCase {
+public class PcServiceTest extends SemsTestCase {
 
 	@Autowired
-	private PcController pcController;
-	
+	private PcService pcService;
+
 	@Test
-	public void viewMyReportedPcListPageTest() {
+	public void getMyReportedPcListTest() {
 		
 		MockHttpSession session = new MockHttpSession();
 		MemberVO memberVO = new MemberVO();
@@ -32,10 +32,10 @@ public class PcControllerTest extends SemsTestCase {
 		reportedPcSearchVO.setSearchType("reportedPcId");
 		reportedPcSearchVO.setSearchKeyword("0");
 		
-		ModelAndView view = pcController.viewMyReportedPcListPage(session, reportedPcSearchVO);
+		ModelAndView view = pcService.getMyReportedPcList(session, reportedPcSearchVO);
 		
 		if(view != null) {
-			 
+			
 			String viewName = view.getViewName();
 			assertNotNull(viewName);
 			assertEquals(viewName, "/myPage/pc/myReportedPcList");
