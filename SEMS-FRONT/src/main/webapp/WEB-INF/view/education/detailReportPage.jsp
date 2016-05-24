@@ -58,8 +58,11 @@ $(document).ready(function() {
 		<c:if test="${loginMember.memberType eq 'TR' }">
 			<a href="<c:url value='/education/modifyReport/${educationReportVO.articleId }' />">수정</a> /
 			<a href="<c:url value='/education/deleteReport/${educationReportVO.articleId }' />">삭제</a> / 
+			<a href="<c:url value='/education/reportList/${educationReportVO.educationId }' />">목록</a>
 		</c:if>
-		<a href="<c:url value='/education/reportList/${educationReportVO.educationId }' />">목록</a>
+		<c:if test="${loginMember.memberType eq 'MBR' }">
+			<a href="<c:url value='/myPage/myReportList' />">목록</a>
+		</c:if>
 	</div>
 
 	
