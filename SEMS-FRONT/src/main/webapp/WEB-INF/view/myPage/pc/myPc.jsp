@@ -42,7 +42,14 @@
 			<td>${usedPc.educationTitle}</td>
 			<td>${usedPc.educationLocation}</td>
 			<td>${usedPc.ip}</td>
-			<td><input type="button" id="reportPC" value="신고"/></td>
+			<td>
+				<a 
+				href="<c:url value='/myPc/reportPage/${usedPc.pcId}'/>"
+				onclick="window.open(this.href, 'Place Detail','toolbar=no, location=no, status=no, menubar=no, scrollbars=no, resizeable=no, width=530, height=520');return false;"
+					target="_blank">
+					<input type="button" id="reportPC" value="신고"/>
+				</a>
+			</td>
 		</tr>
 		</c:forEach>
 		<tr>
