@@ -25,8 +25,11 @@
 		
 		$("#studentForm").hide();
 		
+		var isCheckedPassword = false;
 		var isCheckedId = false;
+		var isValidPassword = false;
 		var isCheckedEmail = false;
+		var isCheckedPhoneNumber = false;
 		
 		$("#id").blur(function () {
 			if($("#id").val()=="") {
@@ -64,8 +67,10 @@
 					alert("통신 실패");
 				} else if (data == "OK") {
 					$("#messageByPassword").text("안전한 비밀번호 입니다.").css("color", "green");
+					isValidPassword = true;
 				} else if (data == "NO") {
 					$("#messageByPassword").text("영문, 숫자, 특수문자 조합의 10~16 글자이어야 합니다!").css("color", "red");
+					isValidPassword = false;
 				}
 			});
 			
@@ -87,8 +92,10 @@
 					alert("통신 실패");
 				} else if (data == "OK") {
 					$("#messageByRepeatPassword").text("일치합니다.").css("color", "green");
+					isCheckedPassword = true;
 				} else if (data == "NO") {
 					$("#messageByRepeatPassword").text("비밀번호가 일치하지 않습니다.").css("color", "red");
+					isCheckedPassword = false;
 				}
 			});
 		});
@@ -129,8 +136,10 @@
 					alert("통신 실패");
 				} else if (data == "OK") {
 					$("#messageByPhoneNumber").text("사용할 수 있는 전화번호 입니다.").css("color", "green");
+					isCheckedPhoneNumber = true;
 				} else if (data == "NO") {
 					$("#messageByPhoneNumber").text("정확한 전화번호를 입력하세요!").css("color", "red");
+					isCheckedPhoneNumber = false;
 				}
 			});
 		});
@@ -185,6 +194,21 @@
 			
 			if(isCheckedEmail == false) {
 				alert("이메일을 확인해주세요.");
+				return;
+			}
+			
+			if(isValidPassword == false) {
+				alert("비밀번호를 확인해주세요.");
+				return;
+			}
+			
+			if(isCheckedPassword == false) {
+				alert("비밀번호 확인을 확인해주세요.");
+				return;
+			}
+			
+			if(isCheckedPhoneNumber == false) {
+				alert("전화번호를 확인을 확인해주세요.");
 				return;
 			}
 			
@@ -350,7 +374,7 @@
 		<input type="hidden" id="birthDate" name="birthDate" value="${ member.birthDate }" maxlength="12"/>
 		<br/><form:errors path="birthDate" /><br/>
 		
-		전화 번호 : <input type="text" id="phoneNumber" name="phoneNumber" value="${ member.phoneNumber }" tabindex="20" maxlength="13"/>
+		전화 번호 : <input type="text" id="phoneNumber" name="phoneNumber" value="${ member.phoneNumber }" placeholder="000-0000-0000형식으로 입력해주새요." tabindex="20" maxlength="13"/>
 		<br/><span id="messageByPhoneNumber"></span>
 		<form:errors path="phoneNumber" /><br/>
 		
