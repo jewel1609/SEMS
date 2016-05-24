@@ -21,6 +21,9 @@
 			});
 		});
 		
+		$("#leaveClassBtn").click( function(){
+			location.href= "<c:url value="/doLeaveClass" />";
+		});
 	});
 </script>
 <title>회원 정보</title>
@@ -125,6 +128,10 @@
 		</c:if>
 	</div>
 
+
+	<c:if test="${leaveVerified eq 'OK' }">
+		<input type="button" id="leaveClassBtn" value="현재 교육 퇴근" />
+	</c:if>
 
 </body>
 </html>
