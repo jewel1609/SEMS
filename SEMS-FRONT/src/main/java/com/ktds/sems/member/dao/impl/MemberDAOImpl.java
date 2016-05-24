@@ -12,6 +12,7 @@ import com.ktds.sems.education.vo.EducationHistoryVO;
 import com.ktds.sems.education.vo.EducationStateVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.QNAVO;
+import com.ktds.sems.education.vo.ReportReplyVO;
 import com.ktds.sems.member.dao.MemberDAO;
 import com.ktds.sems.member.vo.AttendVO;
 import com.ktds.sems.member.vo.GraduationTypeVO;
@@ -366,5 +367,10 @@ public class MemberDAOImpl  extends SqlSessionDaoSupport implements MemberDAO {
 	public int isVerifyLeave(String id) {
 		System.out.println("id: "+ id);
 		return getSqlSession().selectOne("MemberDAO.isVerifyLeave", id);
+	}
+
+	@Override
+	public List<ReportReplyVO> getReportReplyListByMemberId(String id) {
+		return getSqlSession().selectList("MemberDAO.getReportReplyListByMemberId", id);
 	}
 }

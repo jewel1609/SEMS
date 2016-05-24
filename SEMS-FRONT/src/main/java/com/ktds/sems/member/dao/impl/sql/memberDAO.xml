@@ -794,4 +794,43 @@
  		AND     TO_CHAR(SYSDATE, 'YYYY-MM-DD') = SUBSTR(ATD_TM, 1, 10)
  		AND     ATD_TM = LEAV_TM
 	</select>
+	
+	<select id="getReportReplyListByMemberId" parameterType="string" resultType="ReportReplyVO" >
+		SELECT  	EDI.ATC_ID		atcId
+		            , EDI.TITLE		title
+		            , EDI.EDU_ID	eduId
+		            , EDI.EDU_TTL	eduTtl
+		            , EDI.RPT_RPL_ID	rptRplId
+		            , EDI.CREATE_DATE	createdDate
+		 FROM    (
+		            SELECT ROWNUM AS RNUM
+		                   , EDI.*
+		                   , RPT_RPL.*
+		            FROM   (
+			                    SELECT  EDU_RPT_BBS.ATC_ID
+			                            ,EDU_RPT_BBS.TITLE
+			                            , EDI.EDU_TTL
+			                            , EDI.EDU_ID
+			                    FROM(
+				                        SELECT  ECL.EDU_ID
+				                                ,EDU_INFO.EDU_TTL
+				                        FROM(
+				                                SELECT  EDU_ID
+				                                FROM    EDU_CLASS
+				                                WHERE   MBR_ID = #{id}
+				                                AND     STAT = 'EDU_JN_C'
+				                                ) ECL
+				                                , EDU_INFO
+				                        WHERE ECL.EDU_ID = EDU_INFO.EDU_ID
+				                        ) EDI
+				                        , EDU_RPT_BBS
+			                    WHERE EDI.EDU_ID = EDU_RPT_BBS.EDU_ID
+		                    ) EDI
+		                    , RPT_RPL
+		             WHERE  EDI.ATC_ID = RPT_RPL.BBS_ID
+		             ORDER  BY  RPT_RPL.RPT_RPL_ID DESC
+		            ) EDI
+		 WHERE	ROWNUM <![CDATA[<=]]> 10
+	</select>
+	
 </mapper>

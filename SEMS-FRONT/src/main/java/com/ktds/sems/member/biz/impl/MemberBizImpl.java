@@ -29,6 +29,7 @@ import com.ktds.sems.education.vo.EducationHistoryVO;
 import com.ktds.sems.education.vo.EducationStateVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.QNAVO;
+import com.ktds.sems.education.vo.ReportReplyVO;
 import com.ktds.sems.member.biz.MemberBiz;
 import com.ktds.sems.member.dao.MemberDAO;
 import com.ktds.sems.member.vo.AttendVO;
@@ -801,6 +802,11 @@ public class MemberBizImpl implements MemberBiz {
 	@Override
 	public boolean isVerifyLeave(String id) {
 		return memberDAO.isVerifyLeave(id) > 0;
+	}
+
+	@Override
+	public List<ReportReplyVO> getReportReplyListByMemberId(String id) {
+		return memberDAO.getReportReplyListByMemberId(id);
 	}
 
 }

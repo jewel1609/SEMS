@@ -828,9 +828,7 @@
 		</if>
 		<if test="startDate != null and startDate != ''">
 			AND		CREATE_DATE >= #{startDate}
-		</if>
-		<if test="endDate != null and endDate != ''">
-			AND		MODIFY_DATE <![CDATA[<]]> TO_DATE(#{endDate}, 'YYYY-MM-DD') + 1
+			AND		CREATE_DATE <![CDATA[<]]> TO_DATE(#{endDate}, 'YYYY-MM-DD') + 1
 		</if>
 	</select>
 	

@@ -33,21 +33,18 @@
 	<table border="1" style="border-collapse: collapse; text-align: center; float: left;">
 		<c:forEach items="${menuList }" var="menuList" >
 			<tr>
-
-				<td><a href="<c:url value='/member/${menuList.url}' />">${menuList.codeName }</a></td>
-
+				<%-- <td><a href="<c:url value='/member/${menuList.url}' />">${menuList.codeName }</a></td> --%>
 				<td class="${menuList.codeName}"><a href="<c:url value='/member/${menuList.url }' />">${menuList.codeName }</a></td>
-
 			</tr>
 		</c:forEach>
 	</table>
 
-	<div style="width:25%; heght:100%; border:thin; border-style:double; border-radius: 5px; float:left; margin-left: 10px;">
+	<div style="width:35%; height:100%; border:thin; border-style:double; border-radius: 5px; float:left; margin-left: 10px;">
 		<b>로그인 이력</b><div style="float: right; font-size: 12px; padding-top: 8px; padding-right: 2px;">
 							<a href="<c:url value='/member/loginHistory' />">더보기</a></div>
 		<hr>
 		<c:if test="${loginHistoryList.size() gt 0 }">
-			<table style="width:100%; text-align: center;">
+			<table style="width:100%; text-align: center; margin: auto;">
 				<tr>
 					<th>로그인 시간</th>
 					<th>로그아웃 시간</th>
@@ -65,12 +62,12 @@
 		</c:if>
 	</div>
 	
-	<div style="width:50%; heght:100%; border:thin; border-style:double; border-radius: 5px; float:left; margin-left: 10px;">
+	<div style="width:40%; height:316px; border:thin; border-style:double; border-radius: 5px; float:left; margin-left: 10px;">
 		<b>교육참가 이력</b><div style="float: right; font-size: 12px; padding-top: 8px; padding-right: 2px;">
 							<a href="<c:url value='/member/myPage/educationHistory' />">더보기</a></div>
 		<hr>
 		<c:if test="${educationHistoryList.size() gt 0 }">
-			<table style="text-align: center;">
+			<table style="width:100%; text-align: center; margin: auto;">
 				<tr>
 					<th>교육 명</th>
 					<th>비용</th>
@@ -98,12 +95,12 @@
 		</c:if>
 	</div>
 	
-	<div style="width:25%; heght:100%; border:thin; border-style:double; border-radius: 5px; float:left; margin-left: 6.5%; margin-top:10px; clear: both;">
+	<div style="width:35%; height:316px; border:thin; border-style:double; border-radius: 5px; float:left; margin-left: 6.5%; margin-top:10px; clear: both;">
 		<b>문의 이력</b><div style="float: right; font-size: 12px; padding-top: 8px; padding-right: 2px;">
 						<a href="<c:url value='/myPage/myQNAList' />">더보기</a></div>
 		<hr>
 		<c:if test="${qnaList.size() gt 0 }">
-			<table style="text-align: center;">
+			<table style="width:100%; text-align: center; margin: auto;">
 				<tr>
 					<th>강의 명</th>
 					<th>문의 내용</th>
@@ -125,6 +122,31 @@
 		</c:if>
 		<c:if test="${qnaList.size() lt 1}">
 			문의 이력이 없습니다.
+		</c:if>
+	</div>
+	
+	<div style="width:25%; height:316px; border:thin; border-style:double; border-radius: 5px; float:left; margin-left:10px; margin-top:10px;">
+		<b>과제 이력</b><div style="float: right; font-size: 12px; padding-top: 8px; padding-right: 2px;">
+						<a href="<c:url value='/myPage/myReportList' />">더보기</a></div>
+		<hr>
+		<c:if test="${reportReplyList.size() gt 0 }">
+			<table style="width:100%; text-align: center; margin: auto;">
+				<tr>
+					<th>강의 명</th>
+					<th>과제 명</th>
+					<th>제출 일</th>
+				</tr>
+				<c:forEach items="${reportReplyList }" var="reportReplyList" >
+					<tr>
+						<td><a href="<c:url value='/eduDetail/${reportReplyList.eduId}'/>">${ reportReplyList.eduTtl }</a></td>
+						<td><a href="<c:url value='/education/detailReport/${reportReplyList.atcId}'/>">${ reportReplyList.title }</a></td>
+						<td>${ reportReplyList.createdDate }</td>
+					</tr>
+				</c:forEach>
+			</table>
+		</c:if>
+		<c:if test="${reportReplyList.size() lt 1}">
+			과제 이력이 없습니다.
 		</c:if>
 	</div>
 

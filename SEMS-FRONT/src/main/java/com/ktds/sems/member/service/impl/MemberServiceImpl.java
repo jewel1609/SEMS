@@ -24,6 +24,7 @@ import com.ktds.sems.education.vo.EducationListVO;
 import com.ktds.sems.education.vo.EducationSearchVO;
 import com.ktds.sems.education.vo.EducationStateVO;
 import com.ktds.sems.education.vo.QNAVO;
+import com.ktds.sems.education.vo.ReportReplyVO;
 import com.ktds.sems.member.biz.MemberBiz;
 import com.ktds.sems.member.service.MemberService;
 import com.ktds.sems.member.vo.AttendVO;
@@ -701,7 +702,7 @@ public class MemberServiceImpl implements MemberService {
 		List<LoginHistoryVO> loginHistoryList = memberBiz.getLoginHistoryListByMemberId(member.getId());
 		List<EducationHistoryVO> educationHistoryList = memberBiz.getEducationHistoryListByMemberId(member.getId());
 		List<QNAVO> qnaList = memberBiz.getQnaListByMemberId(member.getId());
-		
+		List<ReportReplyVO> reportReplyList = memberBiz.getReportReplyListByMemberId(member.getId());
 		
 		//퇴근 가능 여부
 		String message = "NO";
@@ -715,6 +716,7 @@ public class MemberServiceImpl implements MemberService {
 		view.addObject("loginHistoryList", loginHistoryList);
 		view.addObject("educationHistoryList", educationHistoryList);
 		view.addObject("qnaList", qnaList);
+		view.addObject("reportReplyList", reportReplyList);
 		view.addObject("leaveVerified", message);
 
 		return view;
