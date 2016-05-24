@@ -221,6 +221,8 @@ public class MemberServiceImpl implements MemberService{
 		view.setViewName("member/memberListPage");
 		view.addObject("memberListVO", memberListVO);
 		view.addObject("memberSearchVO", memberSearchVO);
+		logger.info("memberSearchVO.searchType" + memberSearchVO.getSearchType());
+		logger.info("memberSearchVO.getOptionSelected" + memberSearchVO.getOptionSelected());
 		view.addObject("memberTypeList", memberTypeList);
 		view.addObject("searchTypeList", searchTypeList);
 		return view;
@@ -295,7 +297,9 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public void checkValidationByPhoneNumber(String phoneNumber, HttpServletResponse response) {
 		String message = "NO";
+		logger.info("Test"+phoneNumber);
 		boolean isVerifyPhoneNumber = memberBiz.isVerifyPhoneNumber(phoneNumber);
+		logger.info("TestVE"+isVerifyPhoneNumber);
 		if (isVerifyPhoneNumber) {
 			message = "OK";
 		}
@@ -517,16 +521,38 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public ModelAndView requestMemberDetail(String id) {
+	public ModelAndView requestMemberDetail(String memberId) {
+		
 		ModelAndView view = new ModelAndView();
-		view.addObject("id", id);
+		
+		MemberVO member = memberBiz.requestMemberDetail(memberId);
+		logger.info("member" + member.getId());
+		logger.info("memberType" + member.getMemberType());
+		view.addObject("member", member);
 		view.setViewName("member/requestMemberDetailPage");
 		return view;
 	}
 
 	@Override
 	public ModelAndView doWriteMemberDetailInfo(PersonalInfoReadVO personalInfoReadVO, Errors errors) {
+		
 		ModelAndView view = new ModelAndView();
+		
+		// 로그인한 멤버와 보려는 개인정보가 일치 할 시 
+		if(personalInfoReadVO.getTargetMemberId().equals( personalInfoReadVO.getId() )){
+			
+		}else{//로그인한 멤버도 아니고 다른 관리자의 정보를 보려할 시 detail 페이지로 다시 이동
+			logger.info("멤버타입"+personalInfoReadVO.getMemberType());
+			if( personalInfoReadVO.getMemberType().equals("ADM") ){ // 관리자
+				String targetId = personalInfoReadVO.getTargetMemberId();
+				personalInfoReadVO.setId(targetId);
+				
+				view.addObject("member", personalInfoReadVO);
+				view.setViewName("member/requestMemberDetailPage");
+				return view;
+			}
+			
+		}
 		
 		if ( errors.hasErrors() ) {
 			view.addObject("id", personalInfoReadVO.getTargetMemberId());
