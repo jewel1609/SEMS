@@ -11,6 +11,7 @@ public class MemberSearchVO {
 	private String connLock;
 	private String isRgsn;
 	private String modLock;
+	private String optionSelected;
 	
 	public String getConnLock() {
 		return connLock;
@@ -59,6 +60,12 @@ public class MemberSearchVO {
 	}
 	public void setEndIndex(int endIndex) {
 		this.endIndex = endIndex;
+	}
+	public String getOptionSelected() {
+		return optionSelected;
+	}
+	public void setOptionSelected(String optionSelected) {
+		this.optionSelected = optionSelected;
 	}
 	
 	
