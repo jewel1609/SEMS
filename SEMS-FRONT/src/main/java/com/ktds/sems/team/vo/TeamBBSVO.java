@@ -1,18 +1,21 @@
 package com.ktds.sems.team.vo;
 
-public class TeamBBSVO {
+import com.ktds.sems.file.vo.FileVO;
+
+public class TeamBBSVO extends FileVO{
 	
 	private String teamBBSId;
 	private String teamId;
 	private String title;
 	private String descript;
 	private int hits;
-	private int likeCount;
+	private int likeCount;	
 	private int disLikeCount;
 	private String memberId;
 	private String createdDate;
 	private String modifiedDate;
-	private boolean isNotice;
+	private String isNotice;
+
 	
 	public String getTeamBBSId() {
 		return teamBBSId;
@@ -74,12 +77,14 @@ public class TeamBBSVO {
 	public void setModifiedDate(String modifiedDate) {
 		this.modifiedDate = modifiedDate;
 	}
-	public boolean isNotice() {
+	public String getIsNotice() {
 		return isNotice;
 	}
-	public void setNotice(boolean isNotice) {
+	public void setIsNotice(String isNotice) {
 		this.isNotice = isNotice;
 	}
+	
+	
 	
 	
 	
