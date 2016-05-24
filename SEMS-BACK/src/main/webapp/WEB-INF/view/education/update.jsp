@@ -284,8 +284,11 @@
 			<br />
 			<form:errors path="educationTitle" />
 			<br />
-	     강사명 :  <input type="text" class="onlyText" id="memberId"
-				name="memberId" value="${educationVO.memberId }" maxlength="20"/>
+	     강사명 :  <select id="memberId" name="memberId">
+		     		<c:forEach items="${teacherVO}" var="teacher">
+		     			<option value="${teacher.memberId}" selected="selected">${teacher.name}(${teacher.memberId})</option>
+		     		</c:forEach>	     		
+	     		</select>
 			<br />
 			<form:errors path="memberId" />
 			<br />
