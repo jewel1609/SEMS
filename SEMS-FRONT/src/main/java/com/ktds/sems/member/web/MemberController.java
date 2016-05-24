@@ -172,36 +172,25 @@ public class MemberController {
 			
 		} else {
 
-			/*
-			 * 1. MODIFY_FAIL_COUNT 를 1 증가시킨다.
-			 * 
-			 */
+			 /* 1. MODIFY_FAIL_COUNT 를 1 증가시킨다. */
 			memberService.plusModifyFailCount(sessionId);
-
 			memberService.updateModifyAccountLock(sessionId);
 
-			/*
-			 * 1. MODIFY_FAIL_COUNT 가 3 이상이라면 IS_MODIFY_ACCOUNT_LOCK 'Y'로 수정한다.
-			 */
+
+			 /* 1. MODIFY_FAIL_COUNT 가 3 이상이라면 IS_MODIFY_ACCOUNT_LOCK 'Y'로 수정한다.*/
 			memberService.updateModifyAccountLock(sessionId);
-			/*
-			 * 
-			 * 1. IS_ACCOUNT_LOCK이 'Y'라면 사용자의 이메일로 비밀번호가 3회 이상 틀려 접속이 차단되었음을
-			 * 알린다.
-			 */
+
+			 /* 1. IS_ACCOUNT_LOCK이 'Y'라면 사용자의 이메일로 비밀번호가 3회 이상 틀려 접속이 차단되었음을 알린다. */
 			isLock = memberService.isModifyAccountLock(sessionId);
 
-			/*
-			 * 2. 메일을 보낸다.
-			 */
+
+			 /* 2. 메일을 보낸다.*/
 			// FIXME 이메일 테스트 시 주석처리 삭제
 //			 if( isLock ){
 //			 memberService.sendBlockAccountEmail(sessionId);
 //			 }
 
-			/*
-			 * 3. IS_ACCOUNT_LOCK이 'Y'라면 브라우저에게 'OVER' 라고 보낸다.
-			 */
+			/* 3. IS_ACCOUNT_LOCK이 'Y'라면 브라우저에게 'OVER' 라고 보낸다. */
 			AjaxUtil.sendResponse(response, isLock ? "OVER" : "NO");
 			
 			if ( isLock ) {
@@ -347,14 +336,25 @@ public class MemberController {
 		return "redirect:/member/myPage/educationHistory";
 	}
 
-	@RequestMapping("/member/attendHistory")
+	@RequestMapping("/member/myPage/attendHistory")
 	public ModelAndView viewAttendHistoryPage(HttpSession session) {
-		return memberService.getAllAttendHistoryListById(session);
+		return memberService.getAllAttendClassListById(session);
 	}
 	
 	@RequestMapping("/checkValidationCourseAccess")
 	public void checkValidationCourseAccess(HttpServletResponse response, HttpSession session) {
 		memberService.checkValidationCourseAccess(response, session);
+	}
+	
+	@RequestMapping("/doLeaveClass")
+	public void doLeaveClassAction(HttpServletResponse response, HttpSession session){
+		//퇴근 버튼 눌렀을 시 ATD 테이블 업데이트
+		memberService.updateLeaveClass(response, session);
+	}
+	
+	@RequestMapping("/member/myPage/attendHistory/{educationId}")
+	public ModelAndView doAttendHistoryAction(@PathVariable String educationId, HttpSession session) {
+		return memberService.getAllAttendHistory(session, educationId);
 	}
 
 }
