@@ -23,7 +23,6 @@ import com.ktds.sems.education.vo.EducationHistoryVO;
 import com.ktds.sems.education.vo.EducationListVO;
 import com.ktds.sems.education.vo.EducationSearchVO;
 import com.ktds.sems.education.vo.EducationStateVO;
-import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.QNAVO;
 import com.ktds.sems.member.biz.MemberBiz;
 import com.ktds.sems.member.service.MemberService;
