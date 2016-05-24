@@ -20,10 +20,27 @@
 				return;
 			}
 			
+			var mbrId = "<c:out value="${ oneQNABBSByAtcId.mbrId }"/>";
+			var sessionId = "<c:out value="${ sessionId }"/>";
+			
+			if( mbrId == sessionId ) {
+				alert("질문자가 답변을 등록하실 수 없습니다.");
+				return;
+			}
+			
 			var form = $("#replyWriteForm");
 			form.attr("action", "<c:url value="/doWriteReply"/>");
 			form.submit();
-			alert("댓글이 등록되었습니다.");
+			alert("답변이 등록되었습니다.");
+		});
+		
+		$(".adoptReplyBtn").click(function() {
+			
+			if ( confirm("답변을 채택하시겠습니까?") == true ) {
+				alert("답변 채택 완료");
+				return;
+			}
+			
 		});
 		
 		
@@ -59,8 +76,13 @@
 			날짜 : ${qnaReplyList.createdDate}
 		</span><br/>
 		<span>
-			내용	: ${qnaReplyList.description}
+			내용	: ${qnaReplyList.description} 
+			<c:if test="${ oneQNABBSByAtcId.mbrId eq sessionId && qnaReplyList.mbrId ne sessionId }">
+			&nbsp;&nbsp;&nbsp;&nbsp; <input type="button" class="adoptReplyBtn" value="답변 채택" />
+			</c:if> 
 		</span><br/>
+		<input type="button" id="likeBtn" value="추천"/>
+		<input type="button" id="dislikeBtn" value="반대"/>
 	</div><br/>
 	</c:forEach>
 	</c:if>
