@@ -1,6 +1,7 @@
 package com.ktds.sems.pc.dao;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.util.List;
@@ -48,5 +49,19 @@ public class PcDAOTest extends SemsTestCase {
 		} else {
 			fail("fail");
 		}
+	}
+	
+	@Test
+	public void reportProblemPcTest() {
+	
+		ReportedPcVO reportedPcVO = new ReportedPcVO();
+		reportedPcVO.setReportedCategory("computer");
+		reportedPcVO.setReportedComment("JUnit test...");
+		reportedPcVO.setPcId("1");
+		reportedPcVO.setReportedPcId("JUnit test");
+		reportedPcVO.setMemberId("cocomo12");
+		
+		int check = pcDAO.reportProblemPc(reportedPcVO);
+		assertTrue(check > 0);
 	}
 }

@@ -1,6 +1,7 @@
 package com.ktds.sems.pc.biz;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.util.List;
@@ -49,4 +50,19 @@ public class PcBizTest extends SemsTestCase {
 			fail("fail");
 		}
 	}
+	
+	@Test
+	public void reportProblemPc() {
+		ReportedPcVO reportedPcVO = new ReportedPcVO();
+		reportedPcVO.setReportedCategory("computer");
+		reportedPcVO.setReportedComment("JUnit test...");
+		reportedPcVO.setPcId("1");
+		reportedPcVO.setReportedPcId("JUnit test");
+		reportedPcVO.setMemberId("cocomo12");
+		
+		boolean isSucsess = pcBiz.reportProblemPc(reportedPcVO);
+		assertTrue(isSucsess);
+		
+	}
+
 }
