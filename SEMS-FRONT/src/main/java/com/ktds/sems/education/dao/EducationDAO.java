@@ -98,6 +98,8 @@ public interface EducationDAO {
 
 	public int updateStateToApply(String educationId);
 
+	public List<EducationVO> getMyEducationList(String id);
+
 	public List<EducationQNABBSVO> getAllEducationQNAList();
 
 	public void addQNABBS(EducationQNABBSVO eduBBS);
