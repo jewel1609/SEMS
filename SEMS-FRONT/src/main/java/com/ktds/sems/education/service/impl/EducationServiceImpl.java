@@ -873,8 +873,7 @@ public class EducationServiceImpl implements EducationService {
 				
 			}		
 			
-			// TODO INSERT 성공 시 갈 곳 ( 강의 게시판 )
-			view.setViewName("redirect:/");
+			view.setViewName("redirect:/education/reportList/" + educationReportVO.getEducationId());
 			return view;
 		}
 		
@@ -931,6 +930,20 @@ public class EducationServiceImpl implements EducationService {
 		view.addObject("eduTrainees", trainees);
 		
 		return view;
+	}
+
+	@Override
+	public ModelAndView viewDetailEducationReport(EducationReportVO educationReportVO) {
+		
+		ModelAndView view = new ModelAndView();
+		
+		educationReportVO = educationBiz.getOneEducationReport(educationReportVO);
+		
+		view.setViewName("education/detailReportPage");
+		view.addObject("educationReportVO", educationReportVO);
+		
+		return view;
+		
 	}
 }
 

@@ -365,4 +365,9 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 		return getSqlSession().insert("EducationDAO.addRequestRetractionHistory", map);
 	}
 
+	@Override
+	public EducationReportVO getOneEducationReport(EducationReportVO educationReportVO) {
+		return getSqlSession().selectOne("EducationDAO.getOneEducationReport", educationReportVO);
+	}
+
 }

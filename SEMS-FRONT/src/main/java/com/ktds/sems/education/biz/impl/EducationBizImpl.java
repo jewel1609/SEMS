@@ -417,6 +417,11 @@ public class EducationBizImpl implements EducationBiz {
 	public boolean addRequestRetractionHistory(String educationId, String retractionMsg, String memberId, String ip) {
 		return educationDAO.addRequestRetractionHistory(educationId, retractionMsg, memberId, ip) > 0;
 	}
+
+	@Override
+	public EducationReportVO getOneEducationReport(EducationReportVO educationReportVO) {
+		return educationDAO.getOneEducationReport(educationReportVO);
+	}
 }
 
 

@@ -6,11 +6,19 @@ public class EducationReportSearchVO {
 	private int startIndex;
 	private int endIndex;
 	
+	private String educationId;
+	
 	private String searchType;
 	private String searchKeyword;
 	private String startDate;
 	private String endDate;
 	
+	public String getEducationId() {
+		return educationId;
+	}
+	public void setEducationId(String educationId) {
+		this.educationId = educationId;
+	}
 	public int getPageNo() {
 		return pageNo;
 	}

@@ -7,11 +7,63 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript" src="<c:url value='/resources/js/jquery.min.js"'/>"></script>
+<script type="text/javascript">
+$(document).ready( function() {
+		
+	$("#submit").click(function() {
+		
+		if ( $("#title").val() == null || $("#title").val() == "" ) {
+			alert("과제 제목을 입력하세요");
+			$("#title").focus();
+			return;
+		}
+		
+		if ( $("#contents").val() == null || $("#contents").val() == "" ) {
+			alert("과제 내용을 입력하세요");
+			$("#contents").focus();
+			return;
+		}
+		
+		var startDate = $("#startDate").val();
+		var endDate = $("#endDate").val();
+			
+		if (startDate == "" || endDate == "") {
+			// 검색 기간 입력 되지 않은 경우
+			if (startDate == "") {
+				alert("검색시작일을 지정해주세요.");
+				$("#startDate").focus();
+				return;
+			}
+			
+			if (endDate == "") {
+				alert("검색 마지막일을 지정해주세요.");
+				$("#endDate").focus();
+				return;
+			}
+		} 
+		else{
+			// 검색 기간 입력 되었지만
+			// 검색 시작일이 더 클 경우
+			if(startDate > endDate){
+				alert("검색 기간이 잘못 설정되었습니다.");
+				return;
+			}
+		}
+		
+		var form = $("#reportWriteForm").val();
+		form.attr("action","<c:url value='/education/doReportWriteAction' />");
+		form.submit();
+	});
+	
+	
+});
+</script>
 </head>
 <body>
 	
 	<form:form commandName="educationReportVO" method="post"
-			action="/education/doReportWriteAction" enctype="multipart/form-data">
+			id="reportWriteForm" enctype="multipart/form-data">
 		
 		<input type="hidden" id="educationId" name="educationId" value="${ educationReportVO.educationId }" />
 		
@@ -37,7 +89,7 @@
 		<input type="file" name="file" id="file" />
 		<br/><br/>	
 		
-		<input type="submit" id="submit" name="submit" />
+		<input type="button" id="submit" name="submit" value="과제 등록" />
 				</form:form>
 	
 	

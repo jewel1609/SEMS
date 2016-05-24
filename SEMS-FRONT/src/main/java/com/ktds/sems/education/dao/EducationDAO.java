@@ -126,4 +126,6 @@ public interface EducationDAO {
 
 	public int addRequestRetractionHistory(String educationId, String retractionMsg, String memberId, String ip);
 
+	public EducationReportVO getOneEducationReport(EducationReportVO educationReportVO);
+
 }

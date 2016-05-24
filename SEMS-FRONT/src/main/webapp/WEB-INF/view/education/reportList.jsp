@@ -97,27 +97,25 @@
 
 	<table border="1" style="text-align: center;">
 		<tr>
-			<th>ATC_ID</th>
-			<th>EDU_ID</th>
-			<th>MBR_ID</th>
-			<th>TITLE</th>
-			<th>CONTENTS</th>
-			<th>START_DATE</th>
-			<th>END_DATE</th>
+			<th>강사 명</th>
+			<th>과제 명</th>
+			<th>시작 일</th>
+			<th>종료 일</th>
 		</tr>
 		<c:forEach items="${educationReportListVO.educationReportList }" var="educationReportList" >
 			<tr>
-				<td>${educationReportList.articleId }</td>
-				<td>${educationReportList.educationId }</td>
 				<td>${educationReportList.memberId }</td>
-				<td>${educationReportList.title }</td>
-				<td>${educationReportList.contents }</td>
+				<td>
+					<a href="<c:url value='/education/detailReport/${educationReportList.articleId }' />">
+						${educationReportList.title }
+					</a>
+				</td>
 				<td>${educationReportList.startDate }</td>
 				<td>${educationReportList.endDate }</td>
 			</tr>
 		</c:forEach>
 		<tr>
-			<td colspan="7">
+			<td colspan="4">
 				<form id="pagingForm">
 					${ educationReportListVO.paging.getPagingList("pageNo", "[@]", "이전", "다음", "pagingForm") }
 					<div style="text-align: right;">

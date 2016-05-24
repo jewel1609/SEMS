@@ -250,7 +250,7 @@ public class EducationController {
 		return educationService.doQNAWrite(eduBBS, errors, session);
 	}
 	
-	@RequestMapping("/education/reportList")
+	@RequestMapping("/education/reportList/{educationId}")
 	public ModelAndView viewReportListPage(EducationReportSearchVO educationReportSearchVO){
 		return educationService.viewReportListPage(educationReportSearchVO);
 	}
@@ -285,5 +285,10 @@ public class EducationController {
 	public ModelAndView viewEduReportPage(EduReportSearchVO eduReportSearchVO, @PathVariable String educationId, @RequestParam(required = false, defaultValue = "0") int pageNo){
 		eduReportSearchVO.setEducationId(educationId);
 		return educationService.getAllReportArticle(eduReportSearchVO, pageNo);
+	}
+	
+	@RequestMapping("/education/detailReport/{articleId}")
+	public ModelAndView viewDetailEducationReport(EducationReportVO educationReportVO) {
+		return educationService.viewDetailEducationReport(educationReportVO);
 	}
 }

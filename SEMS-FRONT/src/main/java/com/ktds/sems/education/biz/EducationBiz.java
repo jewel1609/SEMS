@@ -129,4 +129,6 @@ public interface EducationBiz {
 
 	public boolean addRequestRetractionHistory(String educationId, String retractionMsg, String memberId, String ip);
 
+	public EducationReportVO getOneEducationReport(EducationReportVO educationReportVO);
+
 }
