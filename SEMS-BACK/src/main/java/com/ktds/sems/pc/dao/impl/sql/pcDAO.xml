@@ -97,17 +97,17 @@
 				<if test="searchType == 'reportedState'">
 					CM.CD_NM LIKE '%' || #{searchKeyword} || '%'
 				</if>
-				<if test="searchType == 'reportedComent'">
+				<if test="searchType == 'reportedComment'">
 					RP.RPT_CMNT LIKE '%' || #{searchKeyword} || '%'
 				</if>
 				<if test="searchType == 'memberId'">
-					RP.MBR '%' || #{searchKeyword} || '%'
+					RP.MBR LIKE '%' || #{searchKeyword} || '%'
 				</if>
 				<if test="searchType == 'educationPlaceName'">
-					EP.EDU_PLACE_NAME '%' || #{searchKeyword} || '%'
+					EP.EDU_PLACE_NAME LIKE '%' || #{searchKeyword} || '%'
 				</if>
 				<if test="searchType == 'educationLocation'">
-					EP.EDU_PLACE_LOC '%' || #{searchKeyword} || '%'
+					EP.EDU_PLACE_LOC LIKE '%' || #{searchKeyword} || '%'
 				</if>
 				)
 		</if>
@@ -155,17 +155,17 @@
 										<if test="searchType == 'reportedState'">
 											CM.CD_NM LIKE '%' || #{searchKeyword} || '%'
 										</if>
-										<if test="searchType == 'reportedComent'">
+										<if test="searchType == 'reportedComment'">
 											RP.RPT_CMNT LIKE '%' || #{searchKeyword} || '%'
 										</if>
 										<if test="searchType == 'memberId'">
-											RP.MBR '%' || #{searchKeyword} || '%'
+											RP.MBR LIKE '%' || #{searchKeyword} || '%'
 										</if>
 										<if test="searchType == 'educationPlaceName'">
-											EP.EDU_PLACE_NAME '%' || #{searchKeyword} || '%'
+											EP.EDU_PLACE_NAME LIKE '%' || #{searchKeyword} || '%'
 										</if>
 										<if test="searchType == 'educationLocation'">
-											EP.EDU_PLACE_LOC '%' || #{searchKeyword} || '%'
+											EP.EDU_PLACE_LOC LIKE '%' || #{searchKeyword} || '%'
 										</if>
 										)
 								</if>
