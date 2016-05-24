@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>    
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -47,8 +47,24 @@
 		</tr>
 	</table>
 	
-	
+	 
 	<br/><br/>
+	<c:if test="${ qnaReplyList.qnaReplyList.size() gt 0 }">
+	<c:forEach items="${qnaReplyList.qnaReplyList}" var="qnaReplyList">
+	<div>
+		<span>
+			작성자 : ${qnaReplyList.mbrId}
+		</span><br/>
+		<span> 
+			날짜 : ${qnaReplyList.createdDate}
+		</span><br/>
+		<span>
+			내용	: ${qnaReplyList.description}
+		</span><br/>
+	</div><br/>
+	</c:forEach>
+	</c:if>
+	
 	
 	<form:form id="replyWriteForm" commandName="eduBBSReplyVO" method="post">
 	<input type="hidden" name="atcId" value="${oneQNABBSByAtcId.atcId}"/>
@@ -56,7 +72,7 @@
 	<br />
 		<form:errors path="description" />
 	<br />
-	<input type="button" id="replyBtn" value="댓글 쓰기"/>
+	<input type="button" id="replyBtn" value="답변 쓰기"/>
 	</form:form>
 	<input type="button" id="listBtn" value="질문 리스트로"/>
 	
