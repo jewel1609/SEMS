@@ -16,6 +16,16 @@
 		$("#searchCost").hide();
 		$("#searchEduName").hide();
 		
+		$(".onlyText").keyup(function(event) {
+			regexp = /[@\#$%<>&\()\=_\’]/gi;
+	
+			v = $(this).val();
+			if (regexp.test(v)) {
+				alert("특수문자를 포함할 수 없습니다.");
+				$(this).val(v.replace(regexp, ''));
+			}
+		});
+		
 		$("#searchBtn").click( function() {
 			
 /* 			var startDate = $("#startDate").val();
@@ -180,16 +190,18 @@
 		<th>피드백</th>
 		<th>교육 시작일</th>
 		<th>교육 종료일</th>
+		<th>IP</th>
 	</tr>
 	<c:forEach items="${ joinEducationList }" var="joinEducationVO">
 		<tr>
-			<td>${ joinEducationVO.educationTitle }</td>
+			<td><a href="<c:url value='/eduDetail/${ joinEducationVO.educationId}' />">${ joinEducationVO.educationTitle }</a></td>
 			<td>${ joinEducationVO.cost }</td>
 			<td>${ joinEducationVO.educationHistoryDate }</td>
 			<td>${ joinEducationVO.cmnt }</td>
 			<td>${ joinEducationVO.fdbk }</td>
 			<td>${ joinEducationVO.startDate }</td>
 			<td>${ joinEducationVO.endDate }</td>
+			<td>${ joinEducationVO.ip }</td>
 		</tr>
 	</c:forEach>	
 </table>
@@ -205,6 +217,7 @@
 		<th>피드백</th>
 		<th>교육 시작일</th>
 		<th>교육 종료일</th>
+		<th>IP</th>
 	</tr>
 	<c:forEach items="${ educationHistoryListVO.educationHistoryList }" var="educationHistoryVO">
 		<tr align="center">
@@ -216,11 +229,12 @@
 			<td>${ educationHistoryVO.fdbk }</td>
 			<td>${ educationHistoryVO.startDate }</td>
 			<td>${ educationHistoryVO.endDate }</td>
+			<td>${ educationHistoryVO.ip }</td>
 		</tr>
 	</c:forEach>
 	<tr>
 		<td colspan="10">
-			<form id="pagingForm">
+			<form id="pagingForm" onsubmit="return false;">
 				${ educationHistoryListVO.paging.getPagingList("pageNo", "[@]", "이전", "다음", "pagingForm") }
 			<div style="text-align: right;">
 					<select id="searchType" name="searchType">
@@ -251,7 +265,7 @@
 						</c:if>
 					</select>
 					
-					<input type="text" id="searchEduName" name="searchEduName" value="${ educationHistorySearchVO.searchEduName }"/>
+					<input type="text" id="searchEduName" class="onlyText" name="searchEduName" value="${ educationHistorySearchVO.searchEduName }"/>
 					
 					<select id="searchCost" name="searchCost">
 						<option value="" selected="selected"></option>
@@ -287,7 +301,7 @@
 		</td>
 	</tr>
 	<tr>
-		<td>
+		<td  colspan="10">
 			<span><a href="<c:url value="/member/myPage/educationHistory/exportExcel"/>" >다운로드</a></span>
 		</td>
 	</tr>
