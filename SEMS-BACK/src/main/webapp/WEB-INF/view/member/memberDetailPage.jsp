@@ -18,6 +18,11 @@
 			
 		});
 		
+		$("#listBtn").click(function(){
+			location.href = "<c:url value="/memberManage/memberList"/>";
+		});
+		
+		
 	});
 	
 </script>
@@ -70,6 +75,6 @@
 		</table>
 
 <span id="deleteBtn">삭제</span>
-
+<span id="listBtn">리스트보기</span>
 </body>
 </html>
