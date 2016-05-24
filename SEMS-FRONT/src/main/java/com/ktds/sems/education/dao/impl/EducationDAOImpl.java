@@ -9,18 +9,19 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.ktds.sems.education.dao.EducationDAO;
+import com.ktds.sems.education.vo.EduReportSearchVO;
+import com.ktds.sems.education.vo.EduReportVO;
 import com.ktds.sems.education.vo.EducationQNABBSVO;
 import com.ktds.sems.education.vo.EducationQNAReplyVO;
 import com.ktds.sems.education.vo.EducationReportSearchVO;
 import com.ktds.sems.education.vo.EducationReportVO;
-
-import com.ktds.sems.education.vo.EduReportSearchVO;
-import com.ktds.sems.education.vo.EduReportVO;
 import com.ktds.sems.education.vo.EducationSearchVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.QNASearchVO;
 import com.ktds.sems.education.vo.QNAVO;
 import com.ktds.sems.education.vo.ReRplyEvalVO;
+import com.ktds.sems.education.vo.ReportReplySearchVO;
+import com.ktds.sems.education.vo.ReportReplyVO;
 import com.ktds.sems.member.vo.MemberVO;
 
 public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationDAO {
@@ -363,6 +364,16 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 		map.put("memberId", memberId);
 		map.put("ip", ip);
 		return getSqlSession().insert("EducationDAO.addRequestRetractionHistory", map);
+	}
+
+	@Override
+	public int getTotalReportReplyCount(ReportReplySearchVO reportReplySearchVO) {
+		return getSqlSession().selectOne("EducationDAO.getTotalReportReplyCount", reportReplySearchVO);
+	}
+
+	@Override
+	public List<ReportReplyVO> getAllReportReply(ReportReplySearchVO reportReplySearchVO) {
+		return getSqlSession().selectList("EducationDAO.getAllReportReply",reportReplySearchVO);
 	}
 
 	@Override

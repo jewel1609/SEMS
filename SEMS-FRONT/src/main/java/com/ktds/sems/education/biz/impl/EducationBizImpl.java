@@ -12,18 +12,19 @@ import com.ktds.sems.common.SendMail;
 import com.ktds.sems.common.vo.MailVO;
 import com.ktds.sems.education.biz.EducationBiz;
 import com.ktds.sems.education.dao.EducationDAO;
-
+import com.ktds.sems.education.vo.EduReportSearchVO;
+import com.ktds.sems.education.vo.EduReportVO;
 import com.ktds.sems.education.vo.EducationQNABBSVO;
 import com.ktds.sems.education.vo.EducationQNAReplyVO;
 import com.ktds.sems.education.vo.EducationReportSearchVO;
 import com.ktds.sems.education.vo.EducationReportVO;
-import com.ktds.sems.education.vo.EduReportSearchVO;
-import com.ktds.sems.education.vo.EduReportVO;
 import com.ktds.sems.education.vo.EducationSearchVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.QNASearchVO;
 import com.ktds.sems.education.vo.QNAVO;
 import com.ktds.sems.education.vo.ReRplyEvalVO;
+import com.ktds.sems.education.vo.ReportReplySearchVO;
+import com.ktds.sems.education.vo.ReportReplyVO;
 import com.ktds.sems.member.vo.MemberVO;
 
 import kr.co.hucloud.utilities.excel.option.WriteOption;
@@ -417,6 +418,17 @@ public class EducationBizImpl implements EducationBiz {
 	public boolean addRequestRetractionHistory(String educationId, String retractionMsg, String memberId, String ip) {
 		return educationDAO.addRequestRetractionHistory(educationId, retractionMsg, memberId, ip) > 0;
 	}
+
+	@Override
+	public int getTotalReportReplyCount(ReportReplySearchVO reportReplySearchVO) {
+		return educationDAO.getTotalReportReplyCount(reportReplySearchVO);
+	}
+
+	@Override
+	public List<ReportReplyVO> getAllReportReply(ReportReplySearchVO reportReplySearchVO) {
+		return educationDAO.getAllReportReply(reportReplySearchVO);
+	}
+
 
 	@Override
 	public EducationReportVO getOneEducationReport(EducationReportVO educationReportVO) {

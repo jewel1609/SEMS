@@ -40,6 +40,9 @@ import com.ktds.sems.education.vo.QNAListVO;
 import com.ktds.sems.education.vo.QNASearchVO;
 import com.ktds.sems.education.vo.QNAVO;
 import com.ktds.sems.education.vo.ReRplyEvalVO;
+import com.ktds.sems.education.vo.ReportReplyListVO;
+import com.ktds.sems.education.vo.ReportReplySearchVO;
+import com.ktds.sems.education.vo.ReportReplyVO;
 import com.ktds.sems.file.biz.FileBiz;
 import com.ktds.sems.file.vo.FileVO;
 import com.ktds.sems.member.vo.MemberVO;
@@ -932,6 +935,35 @@ public class EducationServiceImpl implements EducationService {
 		view.addObject("eduReportListVO", eduReportListVO);
 		view.addObject("eduReportSearchVO", eduReportSearchVO);
 		view.addObject("eduTrainees", trainees);
+		
+		return view;
+	}
+
+	@Override
+	public ModelAndView getAllReportReply(ReportReplySearchVO reportReplySearchVO, int pageNo, HttpSession session) {
+		MemberVO loginMember = (MemberVO)session.getAttribute("_MEMBER_");
+
+		Paging paging = new Paging();
+		ReportReplyListVO reportReplyListVO = new ReportReplyListVO();
+		reportReplyListVO.setPaging(paging);
+		
+		reportReplySearchVO.setMbrId(loginMember.getId());
+		
+		int totalReportReplyCount = educationBiz.getTotalReportReplyCount(reportReplySearchVO);
+		
+		paging.setPageNumber(pageNo + "");
+		paging.setTotalArticleCount(totalReportReplyCount);
+		
+		reportReplySearchVO.setStartIndex(paging.getStartArticleNumber());
+		reportReplySearchVO.setEndIndex(paging.getEndArticleNumber());
+		
+		List<ReportReplyVO> reportReplyVO = educationBiz.getAllReportReply(reportReplySearchVO);
+		reportReplyListVO.setReportReplyList(reportReplyVO);
+		
+		ModelAndView view = new ModelAndView();
+		view.setViewName("myPage/myReportList");
+		view.addObject("reportReplytListVO", reportReplyListVO);
+		view.addObject("reportReplySearchVO", reportReplySearchVO);
 		
 		return view;
 	}

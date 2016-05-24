@@ -911,6 +911,104 @@
 								 )
 	</insert>
 	
+	<select id="getTotalReportReplyCount" parameterType="ReportReplySearchVO" resultType="_int">
+		SELECT COUNT(*)
+		FROM   (
+			        SELECT  EDU_RPT_BBS.ATC_ID
+			                ,EDU_RPT_BBS.TITLE
+			                , EDI.EDU_TTL
+			                , EDI.EDU_ID
+			        FROM(
+				            SELECT  ECL.EDU_ID
+				                    ,EDU_INFO.EDU_TTL
+				            FROM(
+				                SELECT  EDU_ID
+				                FROM    EDU_CLASS
+				                WHERE   MBR_ID = #{mbrId}
+				                AND     STAT = 'EDU_JN_C'
+				                ) ECL
+				                , EDU_INFO
+				            WHERE ECL.EDU_ID = EDU_INFO.EDU_ID
+				            ) EDI
+				            , EDU_RPT_BBS
+			        WHERE EDI.EDU_ID = EDU_RPT_BBS.EDU_ID
+			    ) EDI
+			    , RPT_RPL
+		 WHERE  EDI.ATC_ID = RPT_RPL.BBS_ID
+		 <if test="startDate != null and startDate != ''">
+			AND		CREATE_DATE >= #{startDate}
+		</if>
+		<if test="endDate != null and endDate != ''">
+			AND		CREATE_DATE <![CDATA[<]]> TO_DATE(#{endDate}, 'YYYY-MM-DD') + 1
+		</if>
+		<if test="eduNameKeyword != null">
+			AND     EDI.EDU_TTL LIKE '%' || #{eduNameKeyword} || '%'
+		</if>
+		<if test="reportNameKeyword !=null">
+			AND		TITLE LIKE '%' || #{reportNameKeyword} || '%'
+		</if>
+		
+	</select>
+	
+	<select id="getAllReportReply" parameterType="ReportReplySearchVO" resultType="ReportReplyVO">
+		 SELECT  	EDI.ATC_ID		atcId
+		            , EDI.TITLE		title
+		            , EDI.EDU_ID	eduId
+		            , EDI.EDU_TTL	eduTtl
+		            , EDI.RPT_RPL_ID	rptRplId
+		            , EDI.CREATE_DATE	createdDate
+		 FROM    (
+		            SELECT ROWNUM AS RNUM
+		                   , EDI.*
+		                   , RPT_RPL.*
+		            FROM   (
+			                    SELECT  EDU_RPT_BBS.ATC_ID
+			                            ,EDU_RPT_BBS.TITLE
+			                            , EDI.EDU_TTL
+			                            , EDI.EDU_ID
+			                    FROM(
+				                        SELECT  ECL.EDU_ID
+				                                ,EDU_INFO.EDU_TTL
+				                        FROM(
+				                                SELECT  EDU_ID
+				                                FROM    EDU_CLASS
+				                                WHERE   MBR_ID = #{mbrId}
+				                                AND     STAT = 'EDU_JN_C'
+				                                ) ECL
+				                                , EDU_INFO
+				                        WHERE ECL.EDU_ID = EDU_INFO.EDU_ID
+				                        ) EDI
+				                        , EDU_RPT_BBS
+			                    WHERE EDI.EDU_ID = EDU_RPT_BBS.EDU_ID
+		                    ) EDI
+		                    , RPT_RPL
+		             WHERE  EDI.ATC_ID = RPT_RPL.BBS_ID
+		             <if test="eduNameKeyword != null">
+						AND		EDI.EDU_TTL LIKE '%' || #{eduNameKeyword} || '%'
+					</if>
+		             <if test="eduNameKeyword == null">
+						AND		EDI.EDU_TTL LIKE '%%'
+					</if>
+					<if test="reportNameKeyword !=null">
+						AND		TITLE LIKE '%' || #{reportNameKeyword} || '%'
+					</if>
+					<if test="reportNameKeyword !=null">
+						AND		TITLE LIKE '%%'
+					</if>
+					<if test="startDate != null and startDate != ''">
+						AND		CREATE_DATE >= #{startDate}
+					</if>
+					<if test="endDate != null and endDate != ''">
+						AND		CREATE_DATE <![CDATA[<]]> TO_DATE(#{endDate}, 'YYYY-MM-DD') + 1
+					</if>
+		             <if test="startDate == null and startDate == '' or endDate != null and endDate != ''">
+						AND		CREATE_DATE >= '1900-01-01'
+					</if>
+		            ) EDI
+		 WHERE	RNUM <![CDATA[>=]]> #{startIndex}
+	</select>
+	
+	
 	<select id="getOneEducationReport" parameterType="EducationReportVO" resultType="EducationReportVO">
 		SELECT	EDU_ID educationId
 				, ATC_ID articleId

@@ -13,6 +13,8 @@ import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.QNASearchVO;
 import com.ktds.sems.education.vo.QNAVO;
 import com.ktds.sems.education.vo.ReRplyEvalVO;
+import com.ktds.sems.education.vo.ReportReplySearchVO;
+import com.ktds.sems.education.vo.ReportReplyVO;
 import com.ktds.sems.member.vo.MemberVO;
 
 public interface EducationBiz {
@@ -128,6 +130,10 @@ public interface EducationBiz {
 	public List<MemberVO> getAllMemberOfEducation(String educationId);
 
 	public boolean addRequestRetractionHistory(String educationId, String retractionMsg, String memberId, String ip);
+
+	public int getTotalReportReplyCount(ReportReplySearchVO reportReplySearchVO);
+
+	public List<ReportReplyVO> getAllReportReply(ReportReplySearchVO reportReplySearchVO);
 
 	public EducationReportVO getOneEducationReport(EducationReportVO educationReportVO);
 
