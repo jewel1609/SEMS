@@ -9,19 +9,9 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		
-		var isCheckedEct = false;
 		var isCheckedReportedCategory = false;
 		var isCheckedReportedComment = false;
-		
-		if(isCheckedEct == false) {
-			$("#ectText").hide();
-		}
 
-		if ($("#reportedCategory").val() == "ect") {
-	 		isCheckedEct = true;
-	 		$("#ectText").show();
-		}
-		
 		$("#reportPcBtn").click(function() {
  		 	if( $("#reportedCategory").val() == null || $("#reportedCategory").val() == "default") {
 				alert("고장난 항목을 고르세요.")
@@ -35,9 +25,15 @@
 				return;
 			}
 			
-			alert("신고버튼 눌렀습니다.");
-			window.open("about:blank", "_self").close();
-			
+			$.post("<c:url value='/myPc/reportPage/report'/>", $("#reportPc").serialize(), function(data) {
+				if(data == "OK") {
+					alert("신고가 접수되었습니다.");
+					window.open("about:blank", "_self").close();
+					//location.href="<c:url value='/main'/>";
+				} else if (data == "NO") {
+					alert("신고 접수를 실패했습니다. 다시 시도해주세요.");
+				} 
+			});
 		});
 		
 	});
@@ -49,8 +45,7 @@
 
 <h1>PC ${pcId}번 고장 신고</h1>
 
-<form:form id="reportPc" commandName="reportedPcVO" method="post"
-actoin="/myPc/reportPage/report/">
+<form id="reportPc" name="reportPc">
 <table border="1">
 	<tr>
 		<th>고장난 항목</th>
@@ -59,26 +54,27 @@ actoin="/myPc/reportPage/report/">
 	
 	<tr>
 		<td>
-			<select id="reportedCategory">
+			<select name="reportedCategory" id="reportedCategory">
 				<option value="default">선택</option>
 				<option value="computer">컴퓨터</option>
 				<option value="keyboard">키보드</option>
 				<option value="mouse">마우스</option>
 				<option value="desk">책상</option>
 				<option value="ect">기타</option>
-				<input type="text" id="ectText" /> 
+			</select>
 		</td>
 		<td>
-			<textarea id="reportedComment" rows="20" cols="50"></textarea>
+			<textarea name="reportedComment" id="reportedComment" rows="20" cols="50"></textarea>
 		</td>
 	</tr>
 	
 	<tr>
 		<td colspan="2">
 			<input type="button" id="reportPcBtn" value="신고하기" /> 
+			<input type="hidden" name="pcId" id="pcId" value="${pcId}" /> 
 		</td>
 	</tr>
 </table>
-</form:form>
+</form>
 </body>
 </html>
