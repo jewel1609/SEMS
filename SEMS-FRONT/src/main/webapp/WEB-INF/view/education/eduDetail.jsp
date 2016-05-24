@@ -165,7 +165,20 @@
 				else {
 					return;
 				}
-			});			
+			});	
+			
+			//답변 내용 스크립트 작성 막기(특수문자 불가)
+			$(".reReplyContent").keyup(function(event) {
+	         regexp = /[\+*^!@\#$%<>&\()\=\’ \\/\?,.\:\;\''\""\{\}\[\]|\\~`]/gi;
+
+	         v = $(this).val();
+	         if (regexp.test(v)) {
+	            alert("특수문자를 포함할 수 없습니다.");
+	            $(this).val(v.replace(regexp, ''));
+	         }
+	         
+	      });
+			
 		});
 </script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">

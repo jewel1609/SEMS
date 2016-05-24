@@ -66,7 +66,6 @@ public class EducationServiceImpl implements EducationService {
 	public ModelAndView getOneEducationDetail(String educationId, HttpSession session, int pageNo) {
 		EduReplyListVO eduReplyListVO = new EduReplyListVO();
 		Paging paging = new Paging(10,10);
-	
 		eduReplyListVO.setPaging(paging);
 		paging.setPageNumber(pageNo + "");
 		int totalEduReplyCount = educationBiz.getEduReplyCount(educationId);
@@ -88,6 +87,7 @@ public class EducationServiceImpl implements EducationService {
 		List<QNAVO> qnas = educationBiz.getAllCommentByEducationId(educationId, searchVO);
 		
 		eduReplyListVO.setQnaList(qnas);
+		
 		
 		
 		//이미 신청된 회원인지 비교해서 boolean 값 보내기
@@ -348,6 +348,7 @@ public class EducationServiceImpl implements EducationService {
 				throw new RuntimeException("일시적인 장애가 발생했습니다. 잠시 후 다시 시도해주세요.");
 			}
 		}
+		
 		
 		return view;
 	}
