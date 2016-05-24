@@ -12,6 +12,7 @@ import com.ktds.sems.common.SendMail;
 import com.ktds.sems.common.vo.MailVO;
 import com.ktds.sems.education.biz.EducationBiz;
 import com.ktds.sems.education.dao.EducationDAO;
+import com.ktds.sems.education.vo.EducationFileBBSVO;
 import com.ktds.sems.education.vo.EducationQNABBSVO;
 import com.ktds.sems.education.vo.EducationQNAReplyVO;
 import com.ktds.sems.education.vo.EducationReportSearchVO;
@@ -345,6 +346,41 @@ public class EducationBizImpl implements EducationBiz {
 	@Override
 	public boolean updateStateToApply(String educationId) {
 		return educationDAO.updateStateToApply(educationId) > 0;
+	}
+
+	@Override
+	public List<EducationFileBBSVO> getEducationFileBBSList(String educationId) {
+		return educationDAO.getEducationFileBBSList(educationId);
+	}
+
+	@Override
+	public String generateArticleId() {
+		
+		String nowDate = educationDAO.getNowDate();
+		String articleSEQ = educationDAO.getArticleSEQ();
+		
+		return "FL-" + nowDate + "-" + lpad(articleSEQ, 6, "0") ;
+	}
+	
+	private String lpad(String source, int length, String defValue) {
+		int sourceLength = source.length();
+		int needLength = length - sourceLength;
+		
+		for (int i = 0; i < needLength; i++) {
+			source = defValue + source;
+		}
+		return source;
+		
+	}
+
+	@Override
+	public String getMemberIdByEducationId(String educationId) {
+		return educationDAO.getMemberIdByEducationId(educationId);
+	}
+
+	@Override
+	public boolean writeNewFileBBS(EducationFileBBSVO educationFileBBSVO) {
+		return educationDAO.writeNewFileBBS(educationFileBBSVO) > 0;
 	}
 
 	@Override
