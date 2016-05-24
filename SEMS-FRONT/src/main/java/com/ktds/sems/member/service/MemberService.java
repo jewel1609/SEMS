@@ -13,7 +13,7 @@ import com.ktds.sems.member.vo.MemberVO;
 
 public interface MemberService {
 
-	public ModelAndView addNewMember(MemberVO member, Errors errors, String repeatPassword);
+	public String addNewMember(MemberVO member, String repeatPassword, Errors errors, HttpSession session, HttpServletResponse response, HttpServletRequest request);
 
 	public String login(MemberVO memberVO, Errors errors, HttpSession session, HttpServletRequest request);
 
