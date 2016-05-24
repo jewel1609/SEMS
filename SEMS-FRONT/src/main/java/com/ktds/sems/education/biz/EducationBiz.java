@@ -2,6 +2,7 @@ package com.ktds.sems.education.biz;
 
 import java.util.List;
 
+import com.ktds.sems.education.vo.EducationFileBBSVO;
 import com.ktds.sems.education.vo.EducationQNABBSVO;
 import com.ktds.sems.education.vo.EducationQNAReplyVO;
 import com.ktds.sems.education.vo.EducationReportSearchVO;
@@ -101,6 +102,14 @@ public interface EducationBiz {
 
 	public boolean updateStateToApply(String educationId);
 
+	public List<EducationFileBBSVO> getEducationFileBBSList(String educationId);
+
+	public String generateArticleId();
+
+	public String getMemberIdByEducationId(String educationId);
+
+	public boolean writeNewFileBBS(EducationFileBBSVO educationFileBBSVO);
+	
 	public List<EducationVO> getMyEducationList(String id);
 
 	public List<EducationQNABBSVO> getAllEducationQNAList();
@@ -140,5 +149,4 @@ public interface EducationBiz {
 	public int getReportReplyCount(String articleId);
 
 	public String getNowDateTime();
-
 }
