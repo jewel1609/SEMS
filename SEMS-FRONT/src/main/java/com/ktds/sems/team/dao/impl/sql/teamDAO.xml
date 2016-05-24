@@ -5,27 +5,34 @@
 <mapper namespace="teamDAO">
 	
 	<insert id="addNewTeamBBS" parameterType="TeamBBSVO">
-		INSERT INTO SEMS.TEAM_BBS (
+		INSERT INTO TEAM_BBS (
 									   TEAM_BBS_ID, 
 									   TEAM_ID,
 									   TITLE, 
 									   DESCRIPT,
 									   MBR_ID, 
-									   CREATED_DATE, 
+									   CREATED_DATE,
+									   <if test="isNotice != null">
+								 	   IS_NOTICE
+									   </if>
+									
 					   			  ) 
 		VALUES 					( 
-									   {teamBBSId},
-									   {teamId},
-									 	{title},
-										{descript},
-										{memberId},
-									 	sysdate,
+									   #{teamBBSId},
+									   #{teamId},
+									 	#{title},
+										#{descript},
+										#{memberId},
+									 	SYSDATE,
+									 	<if test="isNotice != null">
+									 	#{isNotice}
+									 	</if>
 								)
 	</insert>
 	
-	<select id="getNextTeamBBSId"  resultType = "_int">
+	<select id="getNextTeamBBSSeq"  resultType = "_int">
 		SELECT	TEAM_BBS_SEQ.NEXTVAL
-		FROM	TEAM_BBS
+		FROM	DUAL
 	</select>
 	
 	<select id="getSysDate" resultType = "String">
@@ -33,4 +40,33 @@
 		FROM	DUAL
 	</select>
 	
+	<select id="getTeamBBSList" resultType="TeamBBSVO">
+		SELECT	TEAM_BBS_ID,
+	    		TEAM_ID, 
+	    		TITLE, 
+			    DESCRIPT, 
+			    HITS, 
+			    LIKE_CNT,
+			    DISLIKE_CNT, 
+			    MBR_ID, 
+			    CREATED_DATE, 
+		   		MODIFIED_DATE,
+		   		IS_NOTICE
+		FROM	(
+					SELECT	ROWNUM AS RNUM
+							, TEAM_BBS.*
+					FROM	(
+								SELECT	*
+								FROM	TEAM_BBS
+								ORDER	BY TEAM_BBS_ID DESC
+							) TEAM_BBS
+					WHERE	ROWNUM <![CDATA[<=]]> #{endIndex}
+				) TEAM_BBS
+		WHERE	RNUM >= #{startIndex}		
+	</select>
+	
+	<select  id="getSearchedBBSCount" resultType="_int">
+		SELECT	COUNT(*)
+		FROM	TEAM_BBS
+	</select>	
 </mapper>
