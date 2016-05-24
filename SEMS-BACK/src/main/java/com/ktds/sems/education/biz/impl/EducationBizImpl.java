@@ -2,10 +2,14 @@ package com.ktds.sems.education.biz.impl;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.ktds.sems.common.SendMail;
 import com.ktds.sems.common.vo.MailVO;
 import com.ktds.sems.education.biz.EducationBiz;
 import com.ktds.sems.education.dao.EducationDAO;
+import com.ktds.sems.education.service.impl.EducationServiceImpl;
 import com.ktds.sems.education.vo.CategoryVO;
 import com.ktds.sems.education.vo.CostVO;
 import com.ktds.sems.education.vo.EduAttendanceSearchVO;
@@ -26,7 +30,7 @@ import com.ktds.sems.member.vo.MemberVO;
 public class EducationBizImpl implements EducationBiz {
 
 	private EducationDAO educationDAO;
-	
+	private Logger logger = LoggerFactory.getLogger(EducationServiceImpl.class);	
 	public void setEducationDAO(EducationDAO educationDAO) {
 		this.educationDAO = educationDAO;
 	}
@@ -283,13 +287,17 @@ public class EducationBizImpl implements EducationBiz {
 	public void doActionDelete(String educationId) {
 		educationDAO.doActionDelete(educationId);
 	}
-
+	
+	// 아래서부터 검증 필요
 	@Override
 	public void emailNoticeForUser(String educationId) {
-		List<MemberVO> attendedLectureUserList = educationDAO.attendedLectureUserList(educationId);
-		for (MemberVO memberVO : attendedLectureUserList) {
-			memberVO.setId(memberVO.getId());
-			MemberVO getMemberInfo = educationDAO.emailNoticeForUser(memberVO.getId());
+		List<EducationVO> attendedLectureUserList = educationDAO.attendedLectureUserList(educationId);
+		
+		for (EducationVO educationVO : attendedLectureUserList) {
+			logger.info("memberId :" + educationVO.getMemberId());
+			MemberVO memberVO = educationDAO.emailNoticeForUser(educationVO.getMemberId());
+			logger.info("Id :" + memberVO.getId());
+			logger.info("Email :" + memberVO.getEmail());
 			
 			SendMail sendMail = new SendMail();
 			MailVO mailVO = new MailVO();
@@ -298,9 +306,9 @@ public class EducationBizImpl implements EducationBiz {
 			mailVO.setFromPassword("123qwe!@#qwe");
 			
 			mailVO.setSubject("[sems] " +"교육이 폐강되었음을 알려드립니다.");
-			mailVO.setText( "교육이 폐강이 되었기에" + "(" + getMemberInfo.getName() + ") 님에게 해당 내용을 알려드리는 바입니다.\n "
+			mailVO.setText( "교육이 폐강이 되었기에" + "(" + memberVO.getName() + ") 님에게 해당 내용을 알려드리는 바입니다.\n "
 					+ "추후 더 좋은 서비스로 찾아뵙도록 하겠습니다. 감사합니다.");
-			mailVO.setToId(getMemberInfo.getEmail());
+			mailVO.setToId(memberVO.getEmail());
 			sendMail.sendMailToCustomer(mailVO);
 		}
 	}

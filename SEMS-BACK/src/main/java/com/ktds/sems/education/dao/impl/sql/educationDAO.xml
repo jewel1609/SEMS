@@ -455,7 +455,7 @@
 				)
 		WHERE	RNUM <![CDATA[>=]]> #{startIndex}
 	</select>
-	<select id="doActionDeleteBeforeCheck" parameterType="memberVO" resultType="string">
+	<select id="doActionDeleteBeforeCheck" parameterType="MemberVO" resultType="string">
 		SELECT	'Y'
 		FROM	MBR
 		WHERE	ID = #{id}
@@ -466,14 +466,15 @@
 		FROM	EDU_INFO
 		WHERE	EDU_ID = #{educationId}
 	</delete>
-	<select id="attendedLectureUserList" parameterType="string">
-		SELECT	MBR_ID
-		FROM	EDU_HTR
+	<select id="attendedLectureUserList" parameterType="string" resultType="EducationVO">
+		SELECT	MBR_ID memberId
+		FROM	EDU_CLASS
 		WHERE	EDU_ID = #{educationId}
-		AND		STAT = 'EDU_CL_C'
+		AND		STAT = 'EDU_JN_C'
 	</select>
-	<select id="emailNoticeForUser" parameterType="string">
-		SELECT	*
+	<select id="emailNoticeForUser" parameterType="string"  resultType="MemberVO">
+		SELECT	ID id
+				, EMAIL email
 		FROM	MBR
 		WHERE	ID = #{memberId}
 	</select>

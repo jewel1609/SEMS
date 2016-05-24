@@ -179,7 +179,7 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 	}
 
 	@Override
-	public List<MemberVO> attendedLectureUserList(String educationId) {
+	public List<EducationVO> attendedLectureUserList(String educationId) {
 		return getSqlSession().selectList("EducationDAO.attendedLectureUserList", educationId);
 	}
 

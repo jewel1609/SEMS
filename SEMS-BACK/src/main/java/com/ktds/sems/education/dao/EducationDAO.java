@@ -50,12 +50,12 @@ public interface EducationDAO {
 	public List<MemberVO> getAllMemberInEducation();
 	public List<TeamVO> getAllTeamInEducation();
 	public List<EducationVO> getAllEducation();
-	public String doActionDeleteBeforeCheck(MemberVO memberVO);
+	public String doActionDeleteBeforeCheck(MemberVO memerVO);
 	
 	public void doActionDelete(String educationId);
 	
-	public List<MemberVO> attendedLectureUserList(String educationId);
+	public List<EducationVO> attendedLectureUserList(String educationId);
 	
-	public MemberVO emailNoticeForUser(String id);
+	public MemberVO emailNoticeForUser(String memberId);
 
 }
