@@ -947,6 +947,7 @@
 					<if test="endDate != null and endDate != ''">
 						AND		CREATE_DATE <![CDATA[<]]> TO_DATE(#{endDate}, 'YYYY-MM-DD') + 1
 					</if>
+					AND	ROWNUM <![CDATA[<=]]> #{endIndex}
 		            ) EDI
 		 WHERE	RNUM <![CDATA[>=]]> #{startIndex}
 	</select>
