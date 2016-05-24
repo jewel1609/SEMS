@@ -5,7 +5,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class PersonalInfoReadVO {
 	
 	private String id;
-
+	
 	@NotEmpty(message = "열람 신청 아이디는 필수값입니다.")
 	private String memberId;
 	
@@ -15,7 +15,8 @@ public class PersonalInfoReadVO {
 	
 	@NotEmpty(message = "열람 사유는 필수값입니다.")
 	private String description;
-
+	private String memberType;
+	
 	public String getDescription() {
 		return description;
 	}
@@ -46,4 +47,11 @@ public class PersonalInfoReadVO {
 	public void setReadDate(String readDate) {
 		this.readDate = readDate;
 	}
+	public String getMemberType() {
+		return memberType;
+	}
+	public void setMemberType(String memberType) {
+		this.memberType = memberType;
+	}
+	
 }
