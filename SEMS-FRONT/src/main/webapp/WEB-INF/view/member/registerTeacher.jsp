@@ -187,21 +187,14 @@
 				return;
 			}
 			
-			var form = $("#registerForm");
-			form.attr("action", "<c:url value="/doRegisterMemberAction" />");
-			form.submit();
-
-			alert("가입이 완료되었습니다.");
-			
-			/* $.post("<c:url value="/checkRegistState" />", { "id" : $("#id").val() }, function(data) {
-				if (!data) {
-					alert("인터넷 연결이 끊겼습니다.");
-				} else if (data == "OK") {
-					alert("가입이 완료되었습니다.");
+			$.post("<c:url value='/doRegisterMemberAction'/>", $("#registerForm").serialize(), function(data) {
+				if(data == "OK") {
+					alert("축하합니다^^ 회원가입 되셨습니다.");
+					location.href="<c:url value='/loginPage'/>";
 				} else if (data == "NO") {
-					alert("가입에 실패하였습니다. 다시 시도해주세요.");
-				}
-			});  */
+					alert("회원가입에 실패하셨습니다. 다시 시도해주세요.");
+				} 
+			});
 			
 		});
 		
@@ -336,7 +329,7 @@
 </head>
 <body>
 
-	<form:form id="registerForm" commandName="memberVO" method="post">
+	<form id="registerForm" name="registerForm">
 		아이디 : <input type="text" id="id" name="id" value="${ member.id }" tabindex="1" maxlength="20"/>
 		<br/><span class="deleteMessageId" id="messageById"></span>
 		<form:errors class="deleteMessageId message" path="id"/><br/>
@@ -376,7 +369,7 @@
 
 		<input type="hidden" name="memberType" value="TR" />
 		<input id="registerButton" class="inputButton" type="button" value="가입"/>
-	</form:form>
+	</form>
 
 </body>
 </html>
