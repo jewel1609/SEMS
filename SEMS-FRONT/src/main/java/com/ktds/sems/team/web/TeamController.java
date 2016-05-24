@@ -7,10 +7,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
-import com.ktds.sems.member.web.MemberController;
 import com.ktds.sems.team.service.TeamService;
 import com.ktds.sems.team.vo.TeamBBSVO;
 
@@ -24,9 +26,8 @@ public class TeamController {
 	}
 
 	@RequestMapping("/team/teamBBS/board")
-	public String viewTeamBBSPage() {
-	
-		return "team/teamBoard";
+	public ModelAndView viewTeamBBSPage(@RequestParam(required = false, defaultValue = "0") int pageNo) {
+		return teamService.viewTeamBBSPage(pageNo);
 	}
 	
 	@RequestMapping("/team/teamBBS/write")
@@ -34,11 +35,16 @@ public class TeamController {
 		return "team/writeTeamBBS";
 	}
 
-	@RequestMapping(value = "/team/teamBBS/doWrite", method = RequestMethod.POST)
-	public String doWriteTeamBBSAction(@Valid TeamBBSVO teamBBS, Errors errors,HttpSession session) {
-		logger.info("teamBBS"+teamBBS.getTitle());
-		logger.info("teamBBS"+teamBBS.getDescript());
-		logger.info("teamBBS"+teamBBS.isNotice());
-		return teamService.addNewTeamBBSArticle(teamBBS, errors,session);
+	@RequestMapping(value ="/team/teamBBS/doWrite", method = RequestMethod.POST)
+	public String doWriteTeamBBSAction(@Valid TeamBBSVO teamBBSVO, Errors errors,HttpSession session) {
+		
+		if (teamBBSVO.getIsNotice() != null){
+			if(teamBBSVO.getIsNotice().equals("on")){
+				teamBBSVO.setIsNotice("Y");	
+			}
+		}else{
+			teamBBSVO.setIsNotice("N");	
+		}
+		return teamService.addNewTeamBBSArticle(teamBBSVO, errors,session);
 	}
 }
