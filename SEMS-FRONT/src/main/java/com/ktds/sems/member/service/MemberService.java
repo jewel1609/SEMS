@@ -93,12 +93,16 @@ public interface MemberService {
 	
 	public String dropCourseApply(String educationId, HttpSession session, String courseDropReason);
 
-	public ModelAndView getAllAttendHistoryListById(HttpSession session);
+	public ModelAndView getAllAttendClassListById(HttpSession session);
 
 	public void checkRegistState(String id, HttpServletResponse response);
 
 	public void checkValidationCourseAccess(HttpServletResponse response, HttpSession session);
 
 	public ModelAndView getMyEduCourseInfo(HttpSession session);
+
+	public void updateLeaveClass(HttpServletResponse response, HttpSession session);
+
+	public ModelAndView getAllAttendHistory(HttpSession session, String educationId);
 
 }

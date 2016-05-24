@@ -23,6 +23,7 @@ import com.ktds.sems.education.vo.EducationHistoryVO;
 import com.ktds.sems.education.vo.EducationListVO;
 import com.ktds.sems.education.vo.EducationSearchVO;
 import com.ktds.sems.education.vo.EducationStateVO;
+import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.QNAVO;
 import com.ktds.sems.education.vo.ReportReplyVO;
 import com.ktds.sems.member.biz.MemberBiz;
@@ -760,14 +761,19 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
-	public ModelAndView getAllAttendHistoryListById(HttpSession session) {
+	public ModelAndView getAllAttendClassListById(HttpSession session) {
 		
 		MemberVO memberVO = (MemberVO) session.getAttribute(Session.MEMBER);
 
 		/* 회원별 강의 */
-		List<AttendVO> attendHistoryList = memberBiz.getAllAttendHistoryListById(memberVO.getId());
+		List<EducationVO> attendClassList = memberBiz.getAllAttendClassListById(memberVO);
 		
-		return null;
+		ModelAndView view = new ModelAndView();
+		
+		view.setViewName("member/attendHistory");
+		view.addObject("attendClassList", attendClassList);
+		
+		return view;
 	}
 	
 	
@@ -1011,6 +1017,38 @@ public class MemberServiceImpl implements MemberService {
 	public ModelAndView getMyEduCourseInfo(HttpSession session) {
 		ModelAndView view = new ModelAndView();
 		view.setViewName("member/myEduCourseInfo");
+		return view;
+	}
+
+	@Override
+	public void updateLeaveClass(HttpServletResponse response, HttpSession session) {
+		
+		String message = "NO";
+		
+		MemberVO memberVO = (MemberVO) session.getAttribute(Session.MEMBER);
+		String memberId = memberVO.getId();
+		
+		boolean updateLeaveClassSuccess = memberBiz.updateLeaveClass(memberId);
+		if(updateLeaveClassSuccess) { 
+			message = "OK";
+		}
+		AjaxUtil.sendResponse(response, message);
+		
+		//TODO 중복 클릭 처리
+		//TODO 출결이력 업데이트
+		
+		
+	}
+
+	@Override
+	public ModelAndView getAllAttendHistory(HttpSession session, String educationId) {
+		
+		MemberVO memberVO = (MemberVO) session.getAttribute(Session.MEMBER);
+		//memberBiz.getAllAttendClassListById(loginVO);
+		List<AttendVO> attendList = memberBiz.getAllAttendHistory(memberVO, educationId);
+		ModelAndView view = new ModelAndView();
+		
+		view.setViewName("member/attendHistoryDetail");
 		return view;
 	}
 	
