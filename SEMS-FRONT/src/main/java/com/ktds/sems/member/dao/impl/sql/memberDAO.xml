@@ -779,4 +779,19 @@
 		WHERE	STAT = 'EDU_JN_C'
 		AND		MBR_ID = #{memberId}
 	</select>
+	
+	<select id="getAllAttendHistoryListById" resultType="AttendVO" parameterType="string">
+	
+	</select>
+	
+	<select id="isVerifyLeave" resultType="_int" parameterType="string">
+		SELECT  COUNT(A.MBR_ID)
+		FROM    EDU_CLASS E 
+                , ATD A
+ 		WHERE   A.EDU_ID = E.EDU_ID
+ 		AND     STAT= 'EDU_JN_C'
+ 		AND     A.MBR_ID = #{id}
+ 		AND     TO_CHAR(SYSDATE, 'YYYY-MM-DD') = SUBSTR(ATD_TM, 1, 10)
+ 		AND     ATD_TM = LEAV_TM
+	</select>
 </mapper>

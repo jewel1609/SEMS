@@ -144,4 +144,8 @@ public interface MemberDAO {
 
 	public int checkValidationCourseAccess(String memberId);
 
+	public List<AttendVO> getAllAttendHistoryListById(String id);
+
+	public int isVerifyLeave(String id);
+
 }

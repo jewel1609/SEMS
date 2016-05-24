@@ -356,4 +356,15 @@ public class MemberDAOImpl  extends SqlSessionDaoSupport implements MemberDAO {
 	public int checkValidationCourseAccess(String memberId) {
 		return getSqlSession().selectOne("MemberDAO.checkValidationCourseAccess", memberId);
 	}
+
+	@Override
+	public List<AttendVO> getAllAttendHistoryListById(String id) {
+		return getSqlSession().selectList("MemberDAO.getAllAttendHistoryListById", id);
+	}
+
+	@Override
+	public int isVerifyLeave(String id) {
+		System.out.println("id: "+ id);
+		return getSqlSession().selectOne("MemberDAO.isVerifyLeave", id);
+	}
 }
