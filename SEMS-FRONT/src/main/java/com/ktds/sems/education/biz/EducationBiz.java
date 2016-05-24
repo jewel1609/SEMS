@@ -101,6 +101,8 @@ public interface EducationBiz {
 
 	public boolean updateStateToApply(String educationId);
 
+	public List<EducationVO> getMyEducationList(String id);
+
 	public List<EducationQNABBSVO> getAllEducationQNAList();
 
 	public void addQNABBS(EducationQNABBSVO eduBBS);

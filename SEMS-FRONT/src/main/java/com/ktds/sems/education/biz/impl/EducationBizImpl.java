@@ -349,6 +349,11 @@ public class EducationBizImpl implements EducationBiz {
 	}
 
 	@Override
+	public List<EducationVO> getMyEducationList(String id) {
+		return educationDAO.getMyEducationList(id);
+	}
+
+	@Override
 	public List<EducationQNABBSVO> getAllEducationQNAList() {
 		return educationDAO.getAllEducationQNAList();
 	}

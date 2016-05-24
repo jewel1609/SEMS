@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -105,6 +106,10 @@ public class EducationServiceImpl implements EducationService {
 		
 		String memberType = (String) session.getAttribute(Session.MEMBER_TYPE);
 		
+//		List<EducationVO> myEducation = new ArrayList<EducationVO>();
+//		myEducation = educationBiz.getMyEducationList(loginMember.getId());
+		
+//		view.addObject("myEducation", myEducation);
 		view.addObject("status", status);
 		view.addObject("eduReplyListVO", eduReplyListVO);
 		view.addObject("education", education);
