@@ -28,7 +28,6 @@
 			}, function(data) {
 				
 				if(data == 'OK') {
-					alert("수정되었습니다.");
 					location.href="<c:url value='/reportedPcList' />";
 				} else if(data == 'NO') {
 					alert("더 이상 상태변경 할 수 없습니다.");
