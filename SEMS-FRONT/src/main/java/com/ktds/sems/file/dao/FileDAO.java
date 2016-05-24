@@ -11,4 +11,6 @@ public interface FileDAO {
 
 	public int updateFile(FileVO fileVO);
 
+	public int insertFile(FileVO fileVO);
+
 }
