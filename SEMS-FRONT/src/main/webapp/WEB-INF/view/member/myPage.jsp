@@ -22,7 +22,21 @@
 		});
 		
 		$("#leaveClassBtn").click( function(){
-			location.href= "<c:url value="/doLeaveClass" />";
+			$.post("<c:url value="/doLeaveClass" />", { }, function(data){
+				if(!data) {
+					alert("인터넷 연결이 끊겼습니다.");
+				} 
+				else if ( data == "NO" ) {
+					alert("오류가 발생했습니다. 다시 시도해주십시오.");
+					document.location.href = "<c:url value="/member/myPage" />";
+					return;
+				}
+				else if ( data == "OK" ) { 
+					alert("현재 강의가 퇴근 처리되었습니다.");
+					document.location.href = "<c:url value="/member/myPage" />";
+					return;
+				}
+			});
 		});
 	});
 </script>
