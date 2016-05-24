@@ -2,17 +2,17 @@ package com.ktds.sems.pc.vo;
 
 public class UsedPcVO extends PcVO {
 
-	private String usedPC;
+	private String usedPcId;
 
 	private String educationId;
 	private String memberId;
 
-	public String getUsedPC() {
-		return usedPC;
+	public String getUsedPcId() {
+		return usedPcId;
 	}
 
-	public void setUsedPC(String usedPC) {
-		this.usedPC = usedPC;
+	public void setUsedPcId(String usedPcId) {
+		this.usedPcId = usedPcId;
 	}
 
 	public String getEducationId() {

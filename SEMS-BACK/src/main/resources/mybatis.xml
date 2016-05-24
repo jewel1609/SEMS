@@ -37,10 +37,15 @@
 		<typeAlias type="com.ktds.sems.education.vo.EduReportListVO" alias="EduReportListVO"/>
 		<typeAlias type="com.ktds.sems.education.vo.EduReportSearchVO" alias="EduReportSearchVO"/>
 		<typeAlias type="com.ktds.sems.education.vo.EduReportVO" alias="EduReportVO"/>
+		<typeAlias type="com.ktds.sems.pc.vo.PcVO" alias="PcVO"/>
+		<typeAlias type="com.ktds.sems.pc.vo.UsedPcVO" alias="UsedPcVO"/>
+		<typeAlias type="com.ktds.sems.pc.vo.ReportedPcVO" alias="ReportedPcVO"/>
+		<typeAlias type="com.ktds.sems.pc.vo.PcSearchVO" alias="PcSearchVO"/>
+		<typeAlias type="com.ktds.sems.pc.vo.UsedPcSearchVO" alias="UsedPcSearchVO"/>
+		<typeAlias type="com.ktds.sems.pc.vo.ReportedPcSearchVO" alias="ReportedPcSearchVO"/>
 		<typeAlias type="com.ktds.sems.education.vo.EduAttendanceVO" alias="EduAttendanceVO"/>
 		<typeAlias type="com.ktds.sems.education.vo.EduAttendanceSearchVO" alias="EduAttendanceSearchVO"/>
 		<typeAlias type="com.ktds.sems.education.vo.TeamVO" alias="TeamVO"/>
-		
 	</typeAliases>
 
 	<mappers>
