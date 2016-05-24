@@ -522,4 +522,13 @@
 		FROM	PRSN_INFO_RD
 		WHERE	MBR_ID = #{memberId}
 	</delete>
+	<select id="getMemberInfo" parameterType="string" resultType="MemberVO">
+		SELECT ID id, 
+			   NM name, 
+			   EMAIL email,
+			   MBR_TP memberType  
+		FROM   MBR
+		WHERE  ID = #{memberId}
+	</select>
+	
 </mapper>
