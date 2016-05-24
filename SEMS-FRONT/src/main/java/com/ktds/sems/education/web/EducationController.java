@@ -13,12 +13,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.common.Session;
 import com.ktds.sems.education.service.EducationService;
+import com.ktds.sems.education.vo.EducationFileBBSVO;
 import com.ktds.sems.education.vo.EducationQNABBSVO;
 import com.ktds.sems.education.vo.EducationQNAReplyVO;
 import com.ktds.sems.education.vo.EducationReportSearchVO;
@@ -26,8 +28,8 @@ import com.ktds.sems.education.vo.EducationReportVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.QNASearchVO;
 import com.ktds.sems.education.vo.QNAVO;
-import com.ktds.sems.education.vo.ReportReplyVO;
 import com.ktds.sems.education.vo.ReportReplySearchVO;
+import com.ktds.sems.education.vo.ReportReplyVO;
 
 import kr.co.hucloud.utilities.web.AjaxUtil;
 
@@ -234,6 +236,21 @@ public class EducationController {
 		view.setViewName("myPage/eduBoardQNAList");
 		
 		return view;
+	}
+	
+	@RequestMapping("/education/fileBBS/{educationId}")
+	public ModelAndView viewEducationFileBBSPage (@PathVariable String educationId) {
+		return educationService.showEducationFileBBSPage(educationId);
+	}
+	
+	@RequestMapping("/education/writeFileBBS")
+	public ModelAndView viewWriteFileBBSPage (@RequestParam String educationId) {
+		return educationService.showWriteFileBBSPage(educationId);
+	}
+	
+	@RequestMapping(value="/education/doWriteFileBBSAction", method=RequestMethod.POST)
+	public ModelAndView doWriteEducationFileBBSAction (EducationFileBBSVO educationFileBBSVO, MultipartHttpServletRequest request, HttpSession session) {
+		return educationService.doWriteEducationFileBBSAction(educationFileBBSVO, request, session);
 	}
 	
 	@RequestMapping("/eduBoard/QNAWrite")
