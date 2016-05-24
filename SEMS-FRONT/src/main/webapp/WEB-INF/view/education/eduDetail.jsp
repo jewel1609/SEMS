@@ -117,18 +117,18 @@
 				}
 			});
 			
-			//댓글 좋아요 버튼 클릭시
+			//댓글 추천 버튼 클릭시
 			$(".likeBtn").click(function (){
 
 				var replyId =  $(this).parent().parent().parent().children(":eq(0)").children(":eq(0)").children(":eq(2)").val();
 				
-				if ( confirm("좋아요를 누르시겠습니까? 이후, 싫어요로 바꿀수 없습니다.") == true ) {
+				if ( confirm("추천을 누르시겠습니까? 이후, 반대로 바꿀수 없습니다.") == true ) {
 					
 					$.post("<c:url value="/plusReReplyLike"/>", {
 						"replyId" : replyId
 					}, function(data) {
 						if(data == "OK") {
-							alert("좋아요를 누르셨습니다.");
+							alert("추천을 누르셨습니다.");
 							location.href="<c:url value="/eduDetail/${ education.educationId }"/>";
 						}
 						else if(data == "FAIL"){
@@ -142,18 +142,18 @@
 				}
 			});
 			
-			//댓글 싫어요 버튼 클릭시
+			//댓글 반대 버튼 클릭시
 			$(".dislikeBtn").click(function (){
 
 				var replyId =  $(this).parent().parent().parent().children(":eq(0)").children(":eq(0)").children(":eq(2)").val();
 				
-				if ( confirm("싫어요를 누르시겠습니까? 이후, 좋아요로 바꿀수 없습니다.") == true ) {
+				if ( confirm("반대를 누르시겠습니까? 이후, 추천으로 바꿀수 없습니다.") == true ) {
 					
 					$.post("<c:url value="/plusReReplyDislike"/>", {
 						"replyId" : replyId
 					}, function(data) {
 						if(data == "OK") {
-							alert("싫어요를 누르셨습니다.");
+							alert("반대를 누르셨습니다.");
 							location.href="<c:url value="/eduDetail/${ education.educationId }"/>";
 						}
 						else if(data == "FAIL"){
@@ -287,8 +287,8 @@
 							<c:if test="${ qna.depth eq 2 }">
 								<div>
 									<div>
-										<span class="likeBtn" style="cursor:pointer">좋아요 : </span>${ qna.likeCnt } &nbsp;&nbsp;
-										<span class="dislikeBtn" style="cursor:pointer">싫어요 : </span>${ qna.dislikeCnt }
+										<span class="likeBtn" style="cursor:pointer">추천 : </span>${ qna.likeCnt } &nbsp;&nbsp;
+										<span class="dislikeBtn" style="cursor:pointer">반대 : </span>${ qna.dislikeCnt }
 									</div>
 								</div>
 							</c:if>
