@@ -1,5 +1,6 @@
 package com.ktds.sems.member.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -26,6 +27,7 @@ import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.QNAVO;
 import com.ktds.sems.member.biz.MemberBiz;
 import com.ktds.sems.member.service.MemberService;
+import com.ktds.sems.member.vo.AttendVO;
 import com.ktds.sems.member.vo.GraduationTypeVO;
 import com.ktds.sems.member.vo.HighestEducationLevelVO;
 import com.ktds.sems.member.vo.LoginHistoryListVO;
@@ -700,11 +702,20 @@ public class MemberServiceImpl implements MemberService {
 		List<EducationHistoryVO> educationHistoryList = memberBiz.getEducationHistoryListByMemberId(member.getId());
 		List<QNAVO> qnaList = memberBiz.getQnaListByMemberId(member.getId());
 		
+		
+		//퇴근 가능 여부
+		String message = "NO";
+		boolean isVerifyLeave = memberBiz.isVerifyLeave(member.getId());
+		if (isVerifyLeave) {
+			message = "OK";
+		}
+		
 		view.setViewName("member/myPage");
 		view.addObject("menuList", menuList);
 		view.addObject("loginHistoryList", loginHistoryList);
 		view.addObject("educationHistoryList", educationHistoryList);
 		view.addObject("qnaList", qnaList);
+		view.addObject("leaveVerified", message);
 
 		return view;
 	}
@@ -745,6 +756,19 @@ public class MemberServiceImpl implements MemberService {
 		
 		return view;
 	}
+	
+	@Override
+	public ModelAndView getAllAttendHistoryListById(HttpSession session) {
+		
+		MemberVO memberVO = (MemberVO) session.getAttribute(Session.MEMBER);
+
+		/* 회원별 강의 */
+		List<AttendVO> attendHistoryList = memberBiz.getAllAttendHistoryListById(memberVO.getId());
+		
+		return null;
+	}
+	
+	
 
 	@Override
 	public String registerPolicy(HttpSession session) {
