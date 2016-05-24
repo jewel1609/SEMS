@@ -15,13 +15,13 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.junit.After;
+import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.mock.web.MockMultipartHttpServletRequest;
-import org.springframework.test.context.transaction.BeforeTransaction;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.BindingResult;
@@ -53,12 +53,13 @@ public class EducationDAOTest extends SemsTestCase {
 	 * @author 김동규 
 	 * Action - insert/update Setting
 	 */
-	@BeforeTransaction
+	@Before
 	public void setUp() {
 		testHelper(new Testable() {
 			
 			@Override
 			public void preparedTest() {
+				System.out.println("12321");
 				
 			}
 		});

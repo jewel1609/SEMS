@@ -25,7 +25,6 @@ public class SemsTestCase {
 		assertTrue(1==1);
 	}
 	
-	@Test
 	public void testHelper(Testable testable) {
 		testable.preparedTest();
 	}
