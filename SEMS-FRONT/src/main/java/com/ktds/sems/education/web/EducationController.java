@@ -28,6 +28,7 @@ import com.ktds.sems.education.vo.EduReportSearchVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.QNASearchVO;
 import com.ktds.sems.education.vo.QNAVO;
+import com.ktds.sems.education.vo.ReportReplySearchVO;
 
 import kr.co.hucloud.utilities.web.AjaxUtil;
 
@@ -287,8 +288,18 @@ public class EducationController {
 		return educationService.getAllReportArticle(eduReportSearchVO, pageNo);
 	}
 	
+	@RequestMapping("/myPage/myReportList")
+	public ModelAndView viewMyReportListPage(ReportReplySearchVO reportReplySearchVO, @RequestParam(required = false, defaultValue = "0") int pageNo, HttpSession session){
+		return educationService.getAllReportReply(reportReplySearchVO, pageNo, session);
+	}
+	
 	@RequestMapping("/education/detailReport/{articleId}")
 	public ModelAndView viewDetailEducationReport(EducationReportVO educationReportVO, HttpSession session) {
 		return educationService.viewDetailEducationReport(educationReportVO, session);
+	}
+	
+	@RequestMapping("/myPage/myReportListInit")
+	public String myReportListInit() {
+		return "redirect:/myPage/myReportList";
 	}
 }
