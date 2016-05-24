@@ -38,7 +38,10 @@
 		<typeAlias type="com.ktds.sems.education.vo.EduReportSearchVO" alias="EduReportSearchVO"/>
 		<typeAlias type="com.ktds.sems.education.vo.EduReportVO" alias="EduReportVO"/>
 		<typeAlias type="com.ktds.sems.education.vo.EduClassVO" alias="EduClassVO"/>
-
+		<typeAlias type="com.ktds.sems.education.vo.ReportReplyVO" alias="ReportReplyVO"/>
+		<typeAlias type="com.ktds.sems.education.vo.ReportReplyListVO" alias="ReportReplyListVO"/>
+		<typeAlias type="com.ktds.sems.education.vo.ReportReplySearchVO" alias="ReportReplySearchVO"/>
+		
 	</typeAliases>
 
 	<mappers>
