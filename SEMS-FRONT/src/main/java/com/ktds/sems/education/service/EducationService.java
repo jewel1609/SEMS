@@ -10,6 +10,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ktds.sems.education.vo.EducationFileBBSVO;
 import com.ktds.sems.education.vo.EducationQNABBSVO;
 import com.ktds.sems.education.vo.EducationQNAReplyVO;
 import com.ktds.sems.education.vo.EducationReportSearchVO;
@@ -57,6 +58,12 @@ public interface EducationService {
 	public String doRequestRetraction(HttpServletRequest request, HttpSession session);
 
 	public String doReserveEducation(String educationId, HttpSession session);
+
+	public ModelAndView showEducationFileBBSPage(String educationId);
+
+	public ModelAndView doWriteEducationFileBBSAction(EducationFileBBSVO educationFileBBSVO, MultipartHttpServletRequest request, HttpSession session);
+
+	public ModelAndView showWriteFileBBSPage(String educationId);
 
 	public List<EducationQNABBSVO> getAllEducationQNAList();
 

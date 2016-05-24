@@ -24,6 +24,7 @@ import com.ktds.sems.education.biz.EducationBiz;
 import com.ktds.sems.education.service.EducationService;
 import com.ktds.sems.education.util.DownloadUtil;
 import com.ktds.sems.education.vo.EduReplyListVO;
+import com.ktds.sems.education.vo.EducationFileBBSVO;
 import com.ktds.sems.education.vo.EducationListVO;
 import com.ktds.sems.education.vo.EducationQNABBSVO;
 import com.ktds.sems.education.vo.EducationQNAReplyVO;
@@ -907,6 +908,61 @@ public class EducationServiceImpl implements EducationService {
 		return view;
 	}
 
+	@Override
+	public ModelAndView showEducationFileBBSPage(String educationId) {
+		ModelAndView view = new ModelAndView();
+		
+		EducationVO educationVO = educationBiz.getOneEducationDetail(educationId);
+
+		if ( educationVO == null) {
+			throw new RuntimeException("해당 게시판이 존재하지 않습니다.");
+		}
+		
+		List<EducationFileBBSVO> educationFileBBSList = educationBiz.getEducationFileBBSList(educationId);
+		String teacherId = educationVO.getMemberId();
+		
+		view.addObject("educationFileBBSList", educationFileBBSList);
+		view.addObject("teacherId", teacherId);
+		view.setViewName("education/educationFileBBS");
+		
+		return view;
+	}
+
+	@Override
+	public ModelAndView doWriteEducationFileBBSAction(EducationFileBBSVO educationFileBBSVO, MultipartHttpServletRequest request, HttpSession session) {
+		ModelAndView view = new ModelAndView();
+
+		String articleId = educationBiz.generateArticleId();
+		educationFileBBSVO.setArticleId(articleId);
+		MemberVO member = (MemberVO) session.getAttribute(Session.MEMBER);
+		String memberId = member.getId();
+		String articleWriterId = educationBiz.getMemberIdByEducationId(educationFileBBSVO.getEducationId());
+
+		boolean isSuccess = false;
+		if (memberId.equals(articleWriterId)) {
+			educationFileBBSVO.setMemberId(member.getId());
+			isSuccess = educationBiz.writeNewFileBBS(educationFileBBSVO);
+		}
+
+		// 파일 등록
+		if (isSuccess) {
+			fileBiz.doUploadAndWriteFiles(request, articleId);
+		}
+		else {
+			throw new RuntimeException("글쓰기 오류");
+		}
+		
+		return view;
+	}
+
+	@Override
+	public ModelAndView showWriteFileBBSPage(String educationId) {
+		ModelAndView view = new ModelAndView();
+		view.addObject("educationId", educationId);
+		view.setViewName("education/writeEducationFileBBS");
+		return view;
+	}
+	
 /*	@Override
 	public ModelAndView viewDetailEducationReport(EducationReportVO educationReportVO, HttpSession session, int pageNo) {
 		//
