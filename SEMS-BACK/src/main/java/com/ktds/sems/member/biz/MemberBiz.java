@@ -90,4 +90,6 @@ public interface MemberBiz {
 
 	public List<GraduationTypeVO> getGraduationTypes();
 
+	public MemberVO requestMemberDetail(String memberId);
+
 }
