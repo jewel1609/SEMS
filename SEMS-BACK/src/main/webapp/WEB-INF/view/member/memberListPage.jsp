@@ -20,14 +20,37 @@
 <script type="text/javascript" src="<c:url value='/resources/js/jquery.min.js'/>"></script>
 <script type="text/javascript">
 	$(document).ready(function () {
-		
+
 		$("#showMemberTypeDiv").hide();
-		
 		$("#searchType").hide();
 		$("#searchKeyword").hide();
 		$("#isRgsn").hide();
 		$("#connLock").hide();
 		$("#modLock").hide();
+		
+		var option = $("#optionSelected").val();
+		$("#search option:selected").val(option);
+		if (option == "id") {
+			$("#search option:selected").text("아이디");
+			$("#searchKeyword").show();
+		}
+		else if( option == "type"){
+			$("#search option:selected").text("회원타입");
+			$("#searchType").show();
+		}
+		else if( option == "connLockT"){
+			$("#search option:selected").text("접속잠김여부");
+			$("#connLock").show();
+		}
+		else if( option == "isRgsnT"){
+			$("#search option:selected").text("탈퇴여부");
+			$("#isRgsn").show();
+		}
+		else if( option == "modLockT"){
+			$("#search option:selected").text("수정잠김여부");
+			$("#modLock").show();
+		}
+		
 		
 		$("#massiveSelectCheckBox").click(function () {
 			var isChecked = $(this).prop("checked");
@@ -166,6 +189,7 @@
 		$("#search").change(function() {
 			var option = $("#search option:selected").val();
 			if (option == "id") {
+				$("#optionSelected").val(option);
 				$("#searchKeyword").show();
 				$("#searchType").hide();
 				$("#modLock").hide();
@@ -173,6 +197,7 @@
 				$("#connLock").hide();
 			}
 			else if( option == "type"){
+				$("#optionSelected").val(option);
 				$("#searchType").show();
 				$("#searchKeyword").hide();
 				$("#modLock").hide();
@@ -180,6 +205,7 @@
 				$("#connLock").hide();
 			}
 			else if( option == "connLockT"){
+				$("#optionSelected").val(option);
 				$("#connLock").show();
 				$("#searchType").hide();
 				$("#searchKeyword").hide();
@@ -187,6 +213,7 @@
 				$("#isRgsn").hide();
 			}
 			else if( option == "isRgsnT"){
+				$("#optionSelected").val(option);
 				$("#isRgsn").show();
 				$("#searchType").hide();
 				$("#searchKeyword").hide();
@@ -194,6 +221,7 @@
 				$("#modLock").hide();
 			}
 			else if( option == "modLockT"){
+				$("#optionSelected").val(option);
 				$("#modLock").show();
 				$("#searchType").hide();
 				$("#searchKeyword").hide();
@@ -258,7 +286,7 @@
 							<input type="text" id="searchKeyword" name="searchKeyword" value="${ memberSearchVO.searchKeyword }"/>
 							
 							<select id="searchType" name="searchType">
-								<option value="" selected="selected"></option>
+						   <option value="" selected="selected"></option>
 								<c:forEach items="${ memberTypeList }" var="type">
 									<c:if test="${ memberSearchVO.searchType eq type.cdId}">
 										<option id="memType" value="${type.cdId}" selected="selected">${ type.cdNm }</option>
@@ -304,14 +332,14 @@
 									</c:if>
 								</c:forEach>
 							</select>
-							
+							<input id="optionSelected" name ="optionSelected" type="hidden" value="${memberSearchVO.optionSelected}"/>
 							<input type="button" id="searchBtn" value="검색" />
 							<input type="button" id="searchInitBtn" value="검색 초기화" />
 						</div>
 
 				</td>
 			</tr>
-
+	
 		</table>
 	
 	<div>
