@@ -460,6 +460,11 @@ public class EducationBizImpl implements EducationBiz {
 	}
 
 	@Override
+	public List<EducationQNAReplyVO> getAllQNAReplyListByAtcId(String atcId) {
+		return educationDAO.getAllQNAReplyListByAtcId(atcId);
+	}
+
+	@Override
 	public void doReportSubmit(ReportReplyVO reportReplyVO) {
 		educationDAO.doReportSubmit(reportReplyVO);
 	}

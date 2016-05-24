@@ -140,6 +140,8 @@ public interface EducationBiz {
 
 	public EducationReportVO getOneEducationReport(EducationReportVO educationReportVO);
 
+	public List<EducationQNAReplyVO> getAllQNAReplyListByAtcId(String atcId);
+
 	public void doReportSubmit(ReportReplyVO reportReplyVO);
 
 	public int getNextReportReplySeq();
