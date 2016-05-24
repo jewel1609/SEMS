@@ -12,6 +12,21 @@
 		WHERE ATC_ID = #{educationId}
 	</select>
 
+	<insert id="insertFile" parameterType="FileVO">
+		INSERT	INTO FILES	(
+								FILE_ID
+								, FILE_NM
+								, FILE_LOC
+								, ATC_ID
+							)
+		VALUES				(
+								FILE_ID_SEQ.NEXTVAL
+								, #{fileName}
+								, #{fileLocation}
+								, #{articleId}
+							)
+	</insert>
+	
 	<insert id="doWriteFile" parameterType="fileVO">
 		INSERT INTO SEMS.FILES (
 		FILE_ID
@@ -38,6 +53,4 @@
 		WHERE ATC_ID = #{articleId}
 
 	</update>
-
-
 </mapper>
