@@ -795,6 +795,9 @@ public class EducationServiceImpl implements EducationService {
 		EducationReportVO educationReportVO = new EducationReportVO();
 		educationReportVO.setEducationId(educationId);
 		
+		String nowDate = educationBiz.getNowDateTime();
+		educationReportVO.setStartDate(nowDate);
+		
 		//과제 등록
 		if ( loginMember.getMemberType().equals("TR") ) {
 			view.setViewName("education/reportWrite");
@@ -934,14 +937,19 @@ public class EducationServiceImpl implements EducationService {
 	}
 
 	@Override
-	public ModelAndView viewDetailEducationReport(EducationReportVO educationReportVO) {
+	public ModelAndView viewDetailEducationReport(EducationReportVO educationReportVO, HttpSession session) {
 		
 		ModelAndView view = new ModelAndView();
 		
+		MemberVO loginMember = (MemberVO) session.getAttribute("_MEMBER_");
+		
 		educationReportVO = educationBiz.getOneEducationReport(educationReportVO);
+		List<FileVO> reportFile = fileBiz.getOneFileId(educationReportVO.getArticleId()); 
 		
 		view.setViewName("education/detailReportPage");
 		view.addObject("educationReportVO", educationReportVO);
+		view.addObject("loginMember", loginMember);
+		view.addObject("reportFile", reportFile);
 		
 		return view;
 		

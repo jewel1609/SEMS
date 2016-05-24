@@ -422,6 +422,11 @@ public class EducationBizImpl implements EducationBiz {
 	public EducationReportVO getOneEducationReport(EducationReportVO educationReportVO) {
 		return educationDAO.getOneEducationReport(educationReportVO);
 	}
+
+	@Override
+	public String getNowDateTime() {
+		return educationDAO.getNowDateTime();
+	}
 }
 
 

@@ -73,6 +73,6 @@ public interface EducationService {
 	
 	public ModelAndView doQNAReplyWriteAction(EducationQNAReplyVO eduBBSReplyVO, Errors errors, HttpSession session);
 
-	public ModelAndView viewDetailEducationReport(EducationReportVO educationReportVO);
+	public ModelAndView viewDetailEducationReport(EducationReportVO educationReportVO, HttpSession session);
 
 }

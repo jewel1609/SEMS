@@ -128,4 +128,6 @@ public interface EducationDAO {
 
 	public EducationReportVO getOneEducationReport(EducationReportVO educationReportVO);
 
+	public String getNowDateTime();
+
 }

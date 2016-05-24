@@ -131,4 +131,6 @@ public interface EducationBiz {
 
 	public EducationReportVO getOneEducationReport(EducationReportVO educationReportVO);
 
+	public String getNowDateTime();
+
 }

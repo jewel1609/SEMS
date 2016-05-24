@@ -288,7 +288,7 @@ public class EducationController {
 	}
 	
 	@RequestMapping("/education/detailReport/{articleId}")
-	public ModelAndView viewDetailEducationReport(EducationReportVO educationReportVO) {
-		return educationService.viewDetailEducationReport(educationReportVO);
+	public ModelAndView viewDetailEducationReport(EducationReportVO educationReportVO, HttpSession session) {
+		return educationService.viewDetailEducationReport(educationReportVO, session);
 	}
 }

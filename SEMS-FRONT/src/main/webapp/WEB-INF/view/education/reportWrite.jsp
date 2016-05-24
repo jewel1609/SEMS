@@ -11,7 +11,7 @@
 <script type="text/javascript">
 $(document).ready( function() {
 		
-	$("#submit").click(function() {
+	$("#submitBtn").click(function() {
 		
 		if ( $("#title").val() == null || $("#title").val() == "" ) {
 			alert("과제 제목을 입력하세요");
@@ -51,8 +51,8 @@ $(document).ready( function() {
 			}
 		}
 		
-		var form = $("#reportWriteForm").val();
-		form.attr("action","<c:url value='/education/doReportWriteAction' />");
+		var form = $("#reportWriteForm");
+		form.attr("action", "<c:url value="/education/doReportWriteAction" />");
 		form.submit();
 	});
 	
@@ -75,7 +75,7 @@ $(document).ready( function() {
 		과제 내용 : <textarea id="contents" name="contents" >${educationReportVO.contents}</textarea>
 		<br/><br/>		
 		
-		시작 일 : <input type="datetime-local" id="startDate" name="startDate" value="${educationReportVO.startDate}" />
+		시작 일 : <input type="date" id="startDate" name="startDate" value="${educationReportVO.startDate}" />
 		<br/>
 		<form:errors path="startDate" style="color:red;" />
 		<br/>
@@ -89,10 +89,8 @@ $(document).ready( function() {
 		<input type="file" name="file" id="file" />
 		<br/><br/>	
 		
-		<input type="button" id="submit" name="submit" value="과제 등록" />
+		<input type="button" id="submitBtn" name="submitBtn" value="과제 등록" />
 				</form:form>
-	
-	
 	
 </body>
 </html>

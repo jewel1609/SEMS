@@ -869,8 +869,8 @@
 									, MBR_ID
 									, TITLE
 									, CONTENTS
-									, CREATE_DATE
-									, MODIFY_DATE
+									, START_DATE
+									, END_DATE
 								 )
 		VALUES				     (
 									#{articleId}
@@ -913,6 +913,7 @@
 	
 	<select id="getOneEducationReport" parameterType="EducationReportVO" resultType="EducationReportVO">
 		SELECT	EDU_ID educationId
+				, ATC_ID articleId
 				, MBR_ID memberId
 				, TITLE title
 				, CONTENTS contents
@@ -920,5 +921,10 @@
 				, END_DATE endDate
 		FROM	EDU_RPT_BBS
 		WHERE	ATC_ID = #{articleId}
+	</select>
+	
+	<select id="getNowDateTime" resultType="string">
+		SELECT	TO_CHAR(SYSDATE, 'YYYY-MM-DD')
+		FROM	DUAL
 	</select>
 </mapper>

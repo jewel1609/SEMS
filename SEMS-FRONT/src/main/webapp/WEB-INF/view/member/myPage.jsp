@@ -46,7 +46,7 @@
 		<b>로그인 이력</b><div style="float: right; font-size: 12px; padding-top: 8px; padding-right: 2px;">
 							<a href="<c:url value='/member/loginHistory' />">더보기</a></div>
 		<hr>
-		<c:if test="${loginHistoryList ne null }">
+		<c:if test="${loginHistoryList.size() gt 0 }">
 			<table style="width:100%; text-align: center;">
 				<tr>
 					<th>로그인 시간</th>
@@ -60,7 +60,7 @@
 					</c:forEach>
 			</table>
 		</c:if>
-		<c:if test="${loginHistoryList eq null }">
+		<c:if test="${loginHistoryList.size() lt 1 }">
 			로그인 이력이 없습니다.
 		</c:if>
 	</div>
@@ -69,7 +69,7 @@
 		<b>교육참가 이력</b><div style="float: right; font-size: 12px; padding-top: 8px; padding-right: 2px;">
 							<a href="<c:url value='/member/myPage/educationHistory' />">더보기</a></div>
 		<hr>
-		<c:if test="${educationHistoryList ne null }">
+		<c:if test="${educationHistoryList.size() gt 0 }">
 			<table style="text-align: center;">
 				<tr>
 					<th>교육 명</th>
@@ -93,7 +93,7 @@
 				</c:forEach>
 			</table>
 		</c:if>
-		<c:if test="${educationHistoryList eq null }">
+		<c:if test="${educationHistoryList.size() lt 1 }">
 			교육참가 이력이 없습니다.
 		</c:if>
 	</div>
@@ -102,7 +102,7 @@
 		<b>문의 이력</b><div style="float: right; font-size: 12px; padding-top: 8px; padding-right: 2px;">
 						<a href="<c:url value='/myPage/myQNAList' />">더보기</a></div>
 		<hr>
-		<c:if test="${qnaList ne null }">
+		<c:if test="${qnaList.size() gt 0 }">
 			<table style="text-align: center;">
 				<tr>
 					<th>강의 명</th>
@@ -123,7 +123,7 @@
 				</c:forEach>
 			</table>
 		</c:if>
-		<c:if test="${qnaList eq null }">
+		<c:if test="${qnaList.size() lt 1}">
 			문의 이력이 없습니다.
 		</c:if>
 	</div>
