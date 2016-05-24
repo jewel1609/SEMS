@@ -288,6 +288,13 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 		return getSqlSession().update("EducationDAO.updateStateToApply", educationId);
 	}
 
+
+	@Override
+	public List<EducationVO> getMyEducationList(String id) {
+		return getSqlSession().selectList("EducationDAO.getMyEducationList", id);
+	}
+
+
 	@Override
 	public List<EducationQNABBSVO> getAllEducationQNAList() {
 		return getSqlSession().selectList("EducationDAO.getAllEducationQNAList");
@@ -357,4 +364,5 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 		map.put("ip", ip);
 		return getSqlSession().insert("EducationDAO.addRequestRetractionHistory", map);
 	}
+
 }
