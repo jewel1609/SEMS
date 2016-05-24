@@ -141,7 +141,7 @@ public interface MemberBiz {
 
 	public String getSelectMemberTypeCodeName(String memberType);
 
-	public List<AttendVO> getAllAttendHistoryListById(String id);
+	public List<EducationVO> getAllAttendClassListById(MemberVO loginVO);
 
 	public List<EducationVO> getEduListByMember(MemberVO memberVO);
 
@@ -158,6 +158,10 @@ public interface MemberBiz {
 	public boolean checkValidationCourseAccess(String memberId);
 
 	public boolean isVerifyLeave(String id);
+
+	public boolean updateLeaveClass(String memberId);
+
+	public List<AttendVO> getAllAttendHistory(MemberVO memberVO, String educationId);
 
 	public List<ReportReplyVO> getReportReplyListByMemberId(String id);
 

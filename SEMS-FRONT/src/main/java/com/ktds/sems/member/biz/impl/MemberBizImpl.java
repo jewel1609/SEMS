@@ -7,10 +7,12 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -740,21 +742,161 @@ public class MemberBizImpl implements MemberBiz {
 	public String getSelectMemberTypeCodeName(String memberType) {
 		return memberDAO.getSelectMemberTypeCodeName(memberType);
 	}
-
+	
+	
+	
+	/* 출결이력 : 1. 강의 리스트 불러오기 */
 	@Override
-	public List<AttendVO> getAllAttendHistoryListById(String id) {	
+	public List<EducationVO> getAllAttendClassListById(MemberVO loginVO) {	
 		
-		//교육 내용 가져오는거
 		/* 회원별 강의 */
 		List<EducationVO> eduListByMember = new ArrayList<EducationVO>();
-		//eduListByMember = memberDAO.getEduListByMember(loginVO);
+		eduListByMember = memberDAO.getEduListByMember(loginVO);
 		
-		//출석내용 가져오는거
-		return memberDAO.getAllAttendHistoryListById(id);
+		return eduListByMember;
 	}
 
 	@Override
+	public List<AttendVO> getAllAttendHistory(MemberVO memberVO, String educationId) {
+		
+		Map<String, String> eduIdAndMemberId = new HashMap<String, String>();
 
+		eduIdAndMemberId.put("educationId", educationId);
+		eduIdAndMemberId.put("memberId", memberVO.getId());
+		EducationVO educationVO = memberDAO.getOneEducationInfo(eduIdAndMemberId);
+		List<AttendVO> attendList = memberDAO.getAllAttendHistoryListById(eduIdAndMemberId);
+		Map<String, String> attendHistoryList= getStateByEachClass(educationVO, attendList);
+			
+		return null;
+	}
+	
+	
+	private Map<String, String> getStateByEachClass(EducationVO educationVO, List<AttendVO> attendList) {
+		
+		/* 강의 날짜 구간 */
+		String classStartDate = educationVO.getStartDate();
+		String classEndDate = educationVO.getEndDate();
+		
+		int sYear = Integer.parseInt(classStartDate.substring(0, 4));
+		int sMonth = Integer.parseInt(classStartDate.substring(5, 7));
+		int sDate = Integer.parseInt(classStartDate.substring(8, 10));
+		
+		int eYear =  Integer.parseInt(classEndDate.substring(0, 4));
+		int eMonth = Integer.parseInt(classEndDate.substring(5, 7));
+		int eDate = Integer.parseInt(classEndDate.substring(8, 10));
+		
+		Date startDate = new Date(sYear, sMonth-1, sDate);
+		Date endDate = new Date(eYear, eMonth-1, eDate);
+		
+		// 날짜들이 들어있는 List
+		List<Date> dates = getDaysBetweenDates(startDate, endDate);
+		// 출석 정보를 담는 Map <날짜, 출석결과>
+		Map<String, String> attendHistoryMap = new HashMap<String, String> ();
+		
+		// 하루 하루
+		String eachDate = null;
+		// 출석결과
+		// 회원이 출석한 날짜
+		String memberAttendDate = null;
+		String memberLeaveDate = null;
+		// 수업의 시작, 끝 시간
+		SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+
+		try {
+			String classStartTime = educationVO.getStartTime();
+			Calendar classStartCal = Calendar.getInstance();
+			Date classStartDateFormat = timeFormat.parse(classStartTime);
+			classStartCal.setTime(classStartDateFormat);
+			long calEduStartSecond = classStartCal.getTimeInMillis();
+			
+			String classEndTime = educationVO.getEndTime();
+			Calendar classEndCal = Calendar.getInstance();
+			Date classEndDateFormat = timeFormat.parse(classEndTime);
+			classEndCal.setTime(classEndDateFormat);
+			long calEduEndSecond = classEndCal.getTimeInMillis();
+			
+			Calendar attendCal = Calendar.getInstance();
+			Calendar leaveCal = Calendar.getInstance();
+			for (Date date : dates) {
+				for (int i = 0; i < attendList.size(); i++) {
+					eachDate = date.getYear() + "-"+ lpad((date.getMonth()+1) +"", 2, "0") + "-" + lpad(date.getDate()+"", 2, "0");
+					
+					memberAttendDate = attendList.get(i).getAttendTime();
+					String memberDate = memberAttendDate.substring(0, 10);
+					memberAttendDate = memberAttendDate.substring(11, memberAttendDate.length()); 
+					Date memberAttendDateFormat = timeFormat.parse(memberAttendDate);
+					attendCal.setTime(memberAttendDateFormat);
+					long calMemberAttendSecond = attendCal.getTimeInMillis();
+					
+					memberLeaveDate = attendList.get(i).getLeaveTime();
+					memberLeaveDate = memberLeaveDate.substring(11, memberLeaveDate.length()); 
+					Date memberLeaveDateFormat = timeFormat.parse(memberLeaveDate);
+					leaveCal.setTime(memberLeaveDateFormat);
+					long calMemberLeaveSecond = leaveCal.getTimeInMillis();
+					System.out.println("원본 : " + memberDate + "비교 : " + eachDate + "결과 : " + memberDate.equals(eachDate));
+					if(memberDate.equals(eachDate)) {
+						// 결석
+						if ( ((calEduEndSecond - calEduStartSecond)/2 - (calMemberLeaveSecond - calMemberAttendSecond)) > 0 ) {
+							attendHistoryMap.put(eachDate, "결석");
+						}
+						// 출석
+						else if ( (calEduStartSecond - calMemberAttendSecond) >= 0 && (calMemberLeaveSecond - calEduEndSecond) >= 0 ) {
+							attendHistoryMap.put(eachDate, "출석");
+						}
+						// 지각
+						else if ( (calEduStartSecond - calMemberAttendSecond) < 0 && (calMemberLeaveSecond - calEduEndSecond) >= 0 ) {
+							attendHistoryMap.put(eachDate, "지각");
+						}
+						// 조퇴
+						else if ( (calMemberLeaveSecond - calEduEndSecond) <= 0 ) {
+							attendHistoryMap.put(eachDate, "조퇴");
+						}
+					}
+				}
+			}
+		} catch (ParseException e) {
+			System.out.println("형식 변환 오류");
+		}
+
+		Set<String> keySet = attendHistoryMap.keySet();
+		Iterator<String> keyIterator = keySet.iterator();
+		String key = null;
+		while(keyIterator.hasNext()){
+			key = keyIterator.next();
+			System.out.println("날짜 : " + key + " 값 : "+ attendHistoryMap.get(key));
+		}
+		
+		return attendHistoryMap;
+		
+	}
+	
+	private String lpad(String source, int length, String defValue) {
+		int sourceLength = source.length();
+		int needLength = length - sourceLength;
+		
+		for (int i = 0; i < needLength; i++) {
+			source = defValue + source;
+		}
+		return source;
+		
+	}
+	
+	private List<Date> getDaysBetweenDates(Date startdate, Date enddate)
+	{
+	    List<Date> dates = new ArrayList<Date>();
+	    Calendar calendar = new GregorianCalendar();
+	    calendar.setTime(startdate);
+
+	    while (calendar.getTime().before(enddate))
+	    {
+	        Date result = calendar.getTime();
+	        dates.add(result);
+	        calendar.add(Calendar.DATE, 1);
+	    }
+	    return dates;
+	}
+	
+	@Override
 	public List<EducationVO> getEduListByMember(MemberVO memberVO) {
 		return memberDAO.getEduListByMember(memberVO);
 	}
@@ -802,6 +944,14 @@ public class MemberBizImpl implements MemberBiz {
 	@Override
 	public boolean isVerifyLeave(String id) {
 		return memberDAO.isVerifyLeave(id) > 0;
+	}
+
+
+	@Override
+	public boolean updateLeaveClass(String memberId) {
+		
+		AttendVO attendVO = memberDAO.getNowClassInfoById(memberId);
+		return memberDAO.updateLeaveClass(attendVO) > 0;
 	}
 
 	@Override
