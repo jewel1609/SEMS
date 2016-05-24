@@ -74,6 +74,10 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 
 	@Override
 	public int isExistHighestEduData(HighestEduTpVO highestEduTpVO) {
+		
+		System.out.println(highestEduTpVO.getCdId());
+		System.out.println(highestEduTpVO.getCdNm());
+		
 		return getSqlSession().selectOne("MemberDAO.isExistHighestEduData", highestEduTpVO);
 	}
 

@@ -7,6 +7,8 @@ import static org.junit.Assert.fail;
 
 import java.util.List;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
@@ -16,9 +18,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ktds.sems.SemsTestCase;
 import com.ktds.sems.member.vo.CodeMngVO;
 import com.ktds.sems.member.vo.GrdtTpVO;
+import com.ktds.sems.member.vo.HighestEduTpVO;
 import com.ktds.sems.member.vo.MbrTpVO;
 import com.ktds.sems.member.vo.MemberVO;
 
+@Transactional
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MemberDAOTest extends SemsTestCase {
 
@@ -143,11 +147,11 @@ public class MemberDAOTest extends SemsTestCase {
 	@Test
 	public void doGrdtInsertTest(){
 		GrdtTpVO grdtTpVO = new GrdtTpVO();
-		grdtTpVO.setCdId("TEST");
-		grdtTpVO.setCdNm("JUNITTEST");
+		grdtTpVO.setCdId("T2T2");
+		grdtTpVO.setCdNm("JUNT");
 		
 		int checkGrdtInsert = memberDAO.doGrdtInsert(grdtTpVO);
-		assertTrue(checkGrdtInsert >= 1);
+		assertTrue(checkGrdtInsert > 0);
 	}
 	
 	@Test
@@ -248,11 +252,11 @@ public class MemberDAOTest extends SemsTestCase {
 		}
 	}
 
-	@Test
-	public void doCodeMng_A_InsertTest() {
+	@Before
+	public void doCodeMng_InsertTest() {
 
 		CodeMngVO codeMngVO = new CodeMngVO();
-		codeMngVO.setCdId("TEST4");
+		codeMngVO.setCdId("TEST");
 		codeMngVO.setCdNm("테스트");
 		codeMngVO.setCdTp("TE");
 		codeMngVO.setCdTp2("ST4");
@@ -262,10 +266,10 @@ public class MemberDAOTest extends SemsTestCase {
 	}
 	
 	@Test
-	public void doCodeMng_B_ModifyTest() {
+	public void doCodeMng_ModifyTest() {
 
 		CodeMngVO codeMngVO = new CodeMngVO();
-		codeMngVO.setCdId("TEST4");
+		codeMngVO.setCdId("TEST");
 		codeMngVO.setCdNm("테스트");
 		codeMngVO.setCdTp("TE");
 		codeMngVO.setCdTp2("ST4");
@@ -274,11 +278,72 @@ public class MemberDAOTest extends SemsTestCase {
 		assertTrue(testInt > 0);
 	}
 	
-	@Test
-	public void doCodeMng_C_DeleteTest() {
-		String cdId = "TEST4";
+	@After
+	public void doCodeMng_DeleteTest() {
+		String cdId = "TEST";
 		
 		int testInt = memberDAO.doCodeMngDelete(cdId);
 		assertTrue(testInt > 0);
+	}
+	
+	@Test
+	public void getAllHighestEduListTest() {
+		List<HighestEduTpVO> testList = memberDAO.getAllHighestEduList();
+		if(testList != null) {
+			for (HighestEduTpVO highestEduTpVO : testList) {
+				assertNotNull(highestEduTpVO.getCdId());
+				assertNotNull(highestEduTpVO.getCdNm());
+			}
+		} else {
+			fail("fail");
+		}
+	}
+
+	@Test
+	public void doHighestEduDeleteTest() {
+		String cdId = "TEST";
+		int executeQuery = memberDAO.doHighestEduDelete(cdId);
+		assertTrue(executeQuery > 0);
+	}
+
+	@Test
+	public void doHighestEduModifyTest() {
+		HighestEduTpVO highestEduTpVO = new HighestEduTpVO();
+		highestEduTpVO.setCdId("TEST");
+		highestEduTpVO.setCdNm("TEST2");
+		
+		int executeQuery = memberDAO.doHighestEduModify(highestEduTpVO);
+		assertTrue(executeQuery > 0);
+	}
+
+	@Test
+	public void isExistHighestEduDataTest() {
+		HighestEduTpVO highestEduTpVO = new HighestEduTpVO();
+		highestEduTpVO.setCdId("TBWX");
+		highestEduTpVO.setCdNm("TYXE");
+		
+		int executeQuery = memberDAO.isExistHighestEduData(highestEduTpVO);
+		assertTrue(executeQuery < 1);
+	}
+	
+	@Test
+	public void isExistHighestEduDataErrorTest() {
+		HighestEduTpVO highestEduTpVO = new HighestEduTpVO();
+		highestEduTpVO.setCdId("TEST");
+		highestEduTpVO.setCdNm("TEST");
+		
+		int executeQuery = memberDAO.isExistHighestEduData(highestEduTpVO);
+		assertTrue(executeQuery > 0);
+	}
+
+	@Test
+	public void doHighestEduInsertTest() {
+		
+		HighestEduTpVO highestEduTpVO = new HighestEduTpVO();
+		highestEduTpVO.setCdId("X2X2");
+		highestEduTpVO.setCdNm("X3X3");
+		
+		int executeQuery = memberDAO.doHighestEduInsert(highestEduTpVO);
+		assertTrue(executeQuery > 0);
 	}
 }

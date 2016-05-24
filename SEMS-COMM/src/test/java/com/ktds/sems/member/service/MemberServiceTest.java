@@ -1,8 +1,6 @@
 package com.ktds.sems.member.service;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.util.List;
 
@@ -267,5 +265,49 @@ public class MemberServiceTest extends SemsTestCase {
 
 		assertNotNull(testStr);
 		assertEquals(testStr, "redirect:/codeMngPage");
+	}
+
+	@Test
+	public void viewHighestEduPageTest() {
+
+		ModelAndView view = memberService.viewHighestEduPage();
+		if (view != null) {
+			String viewName = view.getViewName();
+			assertNotNull(viewName);
+			assertEquals(viewName, "member/highestEduLv");
+		} else {
+			fail("fail");
+		}
+	}
+
+	@Test
+	public void doHighestEduDeleteTest() {
+		
+		String cdId = "TEST";
+		String data = memberService.doHighestEduDelete(cdId);
+		assertNotNull(data);
+		assertEquals(data, "redirect:/highestEduPage");
+	}
+
+	@Test
+	public void doHighestEduInsertTest() {
+		
+		String cdId = "TE";
+		String cdNm = "TE";
+
+		String data = memberService.doHighestEduInsert(cdId, cdNm);
+		assertNotNull(data);
+		assertEquals(data, "OK");
+	}
+	
+	@Test
+	public void doHighestEduInsertErrorTest() {
+		
+		String cdId = "TEST";
+		String cdNm = "TEST";
+
+		String data = memberService.doHighestEduInsert(cdId, cdNm);
+		assertNotNull(data);
+		assertEquals(data, "FAIL");
 	}
 }

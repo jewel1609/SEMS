@@ -18,7 +18,7 @@
 		OR		CD_NM = #{cdNm}
 	</select>
 	
-	<select id="isExistHighestEduData" resultType="_int">
+	<select id="isExistHighestEduData" parameterType="HighestEduTpVO" resultType="_int">
 		SELECT	COUNT(CD_ID)
 		FROM	HIGHEST_EDU_LV
 		WHERE	CD_ID = #{cdId}
@@ -119,14 +119,14 @@
 	</update>
 	
 	<insert id="doHighestEduInsert" parameterType="HighestEduTpVO">
-		INSERT INTO HIGHEST_EDU_LV (
-				 			  CD_ID
-				 			  , CD_NM
-				 			  ) 
-		VALUES 				(
-								#{cdId}
-								, #{cdNm}
-							 )
+		INSERT INTO HIGHEST_EDU_LV	(
+							 			  CD_ID
+							 			  , CD_NM
+						 			) 
+		VALUES 						(
+										#{cdId}
+										, #{cdNm}
+									 )
 	</insert>
 
 	<!-- 로그인 -->

@@ -124,6 +124,7 @@ public class MemberServiceImpl implements MemberService {
 		highestEduTpVO.setCdNm(cdNm);
 
 		if (memberBiz.isExistHighestEduData(highestEduTpVO) > 0) {
+			System.out.println("1");
 			return "FAIL";
 		}
 
@@ -131,8 +132,10 @@ public class MemberServiceImpl implements MemberService {
 			boolean data = memberBiz.doHighestEduInsert(highestEduTpVO) > 0;
 
 			if (!data) {
+				System.out.println("2");
 				return "FAIL";
 			}
+			System.out.println("3");
 			return "OK";
 		}
 	}
