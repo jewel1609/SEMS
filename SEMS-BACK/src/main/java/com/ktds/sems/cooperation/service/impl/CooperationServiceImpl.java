@@ -42,6 +42,8 @@ public class CooperationServiceImpl implements CooperationService {
 
 		if (errors.hasErrors()) {
 			view.setViewName("cooperation/registerCoo");
+			List<CooperationTypeVO> cooTypeList = cooperationBiz.getCooTypeList();
+			view.addObject("cooTypeList", cooTypeList);
 			view.addObject("cooperation", cooperation);
 			return view;
 		} 

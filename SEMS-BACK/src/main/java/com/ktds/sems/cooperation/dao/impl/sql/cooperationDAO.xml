@@ -52,7 +52,7 @@
 				, CODE_MNG CM
 		WHERE	CI.COO_TP = CM.CD_ID
 		<if test="searchType == 1 and searchType != null">
-			AND	COO_TTL LIKE '%'||#{searchKeyword}||'%'
+			AND	UPPER(COO_TTL) LIKE UPPER('%'||#{searchKeyword}||'%')
 		</if>
 		<if test="searchType == 2 and searchType != null">
 			AND	COO_TP LIKE '%'||#{searchTypeName}||'%'
@@ -78,10 +78,10 @@
                                         , CODE_MNG CM
                                 WHERE   CI.COO_TP = CM.CD_ID  
                                 <if test="searchType == 1 and searchType != null">
-								AND   COO_TTL LIKE '%'||#{searchKeyword}||'%'
+								AND   UPPER(COO_TTL) LIKE UPPER('%'||#{searchKeyword}||'%')
 								</if>
 								<if test="searchType == 2 and searchType != null">
-								AND   COO_TP LIKE '%'||#{searchKeyword}||'%'
+								AND   COO_TP LIKE '%'||#{searchTypeName}||'%'
 								</if>                          
 								ORDER	BY COO_ID DESC
 							) COO_INFO

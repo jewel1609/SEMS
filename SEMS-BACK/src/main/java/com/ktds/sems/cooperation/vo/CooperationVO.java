@@ -1,5 +1,7 @@
 package com.ktds.sems.cooperation.vo;
 
+import javax.validation.constraints.Pattern;
+
 import org.hibernate.validator.constraints.NotEmpty;
 
 public class CooperationVO {
@@ -19,12 +21,15 @@ public class CooperationVO {
 	private String representativeName;
 	
 	@NotEmpty(message = "필수 정보입니다.")
+	@Pattern(regexp="\\d{3}-\\d{4}-\\d{4}", message="전화번호 형식으로 작성해주세요.")
 	private String managerPhoneNumber;
 	
 	@NotEmpty(message = "필수 정보입니다.")
+	@Pattern(regexp="\\d{3}-\\d{4}-\\d{4}", message="전화번호 형식으로 작성해주세요.")
 	private String cooperationPhoneNumber;
 	
 	@NotEmpty(message = "필수 정보입니다.")
+	@Pattern(regexp="^[\\w!#$%&’*+/=?`{|}~^-]+(?:\\.[\\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$", message="이메일 형식으로 작성해주세요.")
 	private String managerEmail;
 
 	private String cooperationType;

@@ -25,9 +25,21 @@
 			
 		});
 		
+		$("#initSearchBtn").click(function(){
+			location.href = '<c:url value="/initCooSearch"/>';
+		});
+		
 		$("#cooRegisterBtn").click(function(){
 			location.href ="<c:url value='/registerCoo' />";
 		});
+		
+		$("#searchKeyword").keydown(function(event){
+			if(event.keyCode == 13) {
+				event.preventDefault();
+				return false;
+			}
+		});
+		
 		$("#searchType").click(function(){
 			if ( $("#searchType option:selected").val() == '1' ) {
 				$("#searchKeyword").show();
@@ -72,14 +84,14 @@
 			<c:forEach items="${cooperationListVO.cooperationList }" var="cooperation">
 			<tr>
 				<td>${cooperation.cooperationId }</td>
-				<td><a href="<c:url value='/cooDetail/${cooperation.cooperationId }' />">${cooperation.cooperationTitle }</a></td>
-				<td>${cooperation.cooperationLocation }</td>
-				<td>${cooperation.cooperationNumber }</td>
-				<td>${cooperation.representativeName }</td>
-				<td>${cooperation.managerPhoneNumber }</td>
-				<td>${cooperation.cooperationPhoneNumber }</td>
-				<td>${cooperation.managerEmail }</td>
-				<td>${cooperation.cooperationType }</td>
+				<td><a href="<c:url value='/cooDetail/${cooperation.cooperationId }' />"><c:out value="${cooperation.cooperationTitle }"/></a></td>
+				<td><c:out value="${cooperation.cooperationLocation }"/></td>
+				<td><c:out value="${cooperation.cooperationNumber }"/></td>
+				<td><c:out value="${cooperation.representativeName }"/></td>
+				<td><c:out value="${cooperation.managerPhoneNumber }"/></td>
+				<td><c:out value="${cooperation.cooperationPhoneNumber }"/></td>
+				<td><c:out value="${cooperation.managerEmail }"/></td>
+				<td><c:out value="${cooperation.cooperationType }"/></td>
 			</tr>
 			</c:forEach>
 			<tr>
@@ -115,6 +127,7 @@
 								</c:forEach>
 							</select>
 							<input type="button" id="searchBtn" value="검색" />
+							<input type="button" id="initSearchBtn" value="검색초기화" />
 							<input type="button" id="cooRegisterBtn" value="등록하기" />
 						</div>
 					</form>

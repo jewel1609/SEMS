@@ -1,8 +1,7 @@
 package com.ktds.sems.cooperation.web;
 
-import javax.servlet.http.HttpServletRequest;
-
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
@@ -65,6 +64,12 @@ public class CooperationController {
 	@RequestMapping("/cooDelete/{cooperationId}")
 	public String doDeleteCooperation(@PathVariable String cooperationId){
 		return cooperationService.doDeleteCooperation(cooperationId);
+	}
+	
+	@RequestMapping("/initCooSearch")
+	public String doInitCooSearch(HttpSession session){
+		session.setAttribute("_SEARCH_", null);
+		return "redirect:/cooList";
 	}
 	
 }
