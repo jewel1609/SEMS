@@ -18,6 +18,7 @@ import com.ktds.sems.education.vo.EduReportSearchVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.QNASearchVO;
 import com.ktds.sems.education.vo.QNAVO;
+import com.ktds.sems.education.vo.ReportReplyVO;
 import com.ktds.sems.education.vo.ReportReplySearchVO;
 
 public interface EducationService {
@@ -74,8 +75,10 @@ public interface EducationService {
 	
 	public ModelAndView doQNAReplyWriteAction(EducationQNAReplyVO eduBBSReplyVO, Errors errors, HttpSession session);
 
-	public ModelAndView getAllReportReply(ReportReplySearchVO reportReplySearchVO, int pageNo, HttpSession session);
+	public ModelAndView doReportSubmit(ReportReplyVO reportReplyVO, MultipartHttpServletRequest request, HttpSession session);
 
-	public ModelAndView viewDetailEducationReport(EducationReportVO educationReportVO, HttpSession session);
+	public ModelAndView viewDetailEducationReport(EducationReportVO educationReportVO, HttpSession session, int pageNo);
+	
+	public ModelAndView getAllReportReply(ReportReplySearchVO reportReplySearchVO, int pageNo, HttpSession session);
 
 }

@@ -137,6 +137,14 @@ public interface EducationBiz {
 
 	public EducationReportVO getOneEducationReport(EducationReportVO educationReportVO);
 
+	public void doReportSubmit(ReportReplyVO reportReplyVO);
+
+	public int getNextReportReplySeq();
+
+	public List<ReportReplyVO> getAllReportByArticleId(String articleId, ReportReplySearchVO searchVO);
+
+	public int getReportReplyCount(String articleId);
+
 	public String getNowDateTime();
 
 }

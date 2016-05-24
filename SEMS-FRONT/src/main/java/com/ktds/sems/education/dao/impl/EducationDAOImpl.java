@@ -382,6 +382,31 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 	}
 
 	@Override
+	public int getNextReportReplySeq() {
+		// TODO Auto-generated method stub
+		return getSqlSession().selectOne("EducationDAO.getNextReportReplySeq");
+	}
+
+	@Override
+	public void doReportSubmit(ReportReplyVO reportReplyVO) {
+		getSqlSession().insert("EducationDAO.doReportSubmit", reportReplyVO);
+	}
+
+	@Override
+	public int getReportReplyCount(String articleId) {
+		return getSqlSession().selectOne("EducationDAO.getReportReplyCount", articleId);
+	}
+
+	@Override
+	public List<ReportReplyVO> getAllReportByArticleId(String articleId, ReportReplySearchVO searchVO) {
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("articleId", articleId);
+		paramMap.put("startIndex", searchVO.getStartIndex()+"");
+		paramMap.put("endIndex", searchVO.getEndIndex()+"");
+		return getSqlSession().selectList("EducationDAO.getAllReportByArticleId", paramMap);
+	}
+
+	@Override
 	public String getNowDateTime() {
 		return getSqlSession().selectOne("EducationDAO.getNowDateTime");
 	}

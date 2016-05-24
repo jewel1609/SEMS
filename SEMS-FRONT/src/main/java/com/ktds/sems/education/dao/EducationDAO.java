@@ -134,6 +134,14 @@ public interface EducationDAO {
 
 	public EducationReportVO getOneEducationReport(EducationReportVO educationReportVO);
 
+	public int getNextReportReplySeq();
+
+	public void doReportSubmit(ReportReplyVO reportReplyVO);
+
+	public int getReportReplyCount(String articleId);
+
+	public List<ReportReplyVO> getAllReportByArticleId(String articleId, ReportReplySearchVO searchVO);
+
 	public String getNowDateTime();
 
 }

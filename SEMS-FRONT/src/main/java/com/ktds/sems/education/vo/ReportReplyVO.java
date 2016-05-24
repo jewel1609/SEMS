@@ -1,6 +1,8 @@
 package com.ktds.sems.education.vo;
 
-public class ReportReplyVO {
+import com.ktds.sems.file.vo.FileVO;
+
+public class ReportReplyVO extends FileVO {
 
 	private String rptRplId;
 	private String mbrId;

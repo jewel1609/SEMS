@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -939,7 +938,26 @@ public class EducationServiceImpl implements EducationService {
 		return view;
 	}
 
-	@Override
+/*	@Override
+	public ModelAndView viewDetailEducationReport(EducationReportVO educationReportVO, HttpSession session, int pageNo) {
+		//
+		ReportReplyListVO reportReplsyListVO = new ReportReplyListVO();
+		Paging paging = new Paging(10,10);
+		
+		reportReplsyListVO.setPaging(paging);
+		paging.setPageNumber(pageNo + "");
+		int totalReportReplyCount = educationBiz.getReportReplyCount(educationReportVO.getArticleId());
+		
+		if( totalReportReplyCount == 0 ){
+			totalReportReplyCount++;
+		}
+		logger.info("totalReportReplyCount - " + totalReportReplyCount);
+		paging.setTotalArticleCount(totalReportReplyCount);
+		
+		ReportReplySearchVO searchVO = new ReportReplySearchVO();
+	}*/
+	
+	@Override	
 	public ModelAndView getAllReportReply(ReportReplySearchVO reportReplySearchVO, int pageNo, HttpSession session) {
 		MemberVO loginMember = (MemberVO)session.getAttribute("_MEMBER_");
 
@@ -969,8 +987,25 @@ public class EducationServiceImpl implements EducationService {
 	}
 
 	@Override
-	public ModelAndView viewDetailEducationReport(EducationReportVO educationReportVO, HttpSession session) {
+	public ModelAndView viewDetailEducationReport(EducationReportVO educationReportVO, HttpSession session, int pageNo) {
+		ReportReplyListVO reportReplsyListVO = new ReportReplyListVO();
+		Paging paging = new Paging(10,10);
 		
+		reportReplsyListVO.setPaging(paging);
+		paging.setPageNumber(pageNo + "");
+		int totalReportReplyCount = educationBiz.getReportReplyCount(educationReportVO.getArticleId());
+		
+		if( totalReportReplyCount == 0 ){
+			totalReportReplyCount++;
+		}
+		logger.info("totalReportReplyCount - " + totalReportReplyCount);
+		paging.setTotalArticleCount(totalReportReplyCount);
+		
+		ReportReplySearchVO searchVO = new ReportReplySearchVO();
+		
+		searchVO.setStartIndex(paging.getStartArticleNumber());
+		searchVO.setEndIndex(paging.getEndArticleNumber());
+		//
 		ModelAndView view = new ModelAndView();
 		
 		MemberVO loginMember = (MemberVO) session.getAttribute("_MEMBER_");
@@ -978,13 +1013,67 @@ public class EducationServiceImpl implements EducationService {
 		educationReportVO = educationBiz.getOneEducationReport(educationReportVO);
 		List<FileVO> reportFile = fileBiz.getOneFileId(educationReportVO.getArticleId()); 
 		
+		List<ReportReplyVO> reportReplyList = educationBiz.getAllReportByArticleId(educationReportVO.getArticleId(), searchVO);
+		reportReplsyListVO.setReportReplyList(reportReplyList);
+		
 		view.setViewName("education/detailReportPage");
 		view.addObject("educationReportVO", educationReportVO);
+		view.addObject("reportReplsyListVO", reportReplsyListVO);
 		view.addObject("loginMember", loginMember);
 		view.addObject("reportFile", reportFile);
 		
 		return view;
 		
+	}
+
+	@Override
+	public ModelAndView doReportSubmit(ReportReplyVO reportReplyVO, MultipartHttpServletRequest request, HttpSession session) {
+		ModelAndView view = new ModelAndView();
+		
+
+		MemberVO loginMember = (MemberVO)session.getAttribute("_MEMBER_");
+		reportReplyVO.setMbrId(loginMember.getId());
+		// ArticleID 형식 변경
+		String nowDate = educationBiz.getNowDate();
+		int nextSeq = educationBiz.getNextReportReplySeq();
+			
+		String rptRplId = "RPTL-" + nowDate + "-" + lpad(nextSeq + "", 6, "0");
+		reportReplyVO.setRptRplId(rptRplId);
+			
+		educationBiz.doReportSubmit(reportReplyVO);
+			
+		MultipartFile file = request.getFile("file");
+			
+		String fileName = file.getOriginalFilename();
+		String salt = SHA256Util.generateSalt();
+		String saltFileName = SHA256Util.getEncrypt(fileName, salt);
+		
+		String filePath = "D:\\" + saltFileName;
+		
+		if ( !file.isEmpty() ) {
+			
+			File files = new File(filePath);
+			
+			try {
+				file.transferTo(files);
+				
+				FileVO fileVO = new FileVO();
+				fileVO.setArticleId(reportReplyVO.getRptRplId());
+				fileVO.setFileName(fileName);
+				fileVO.setFileLocation(filePath);
+				
+				fileBiz.doWriteFile(fileVO);
+				
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+		}		
+		
+		view.setViewName("redirect:/education/detailReport/" + reportReplyVO.getBbsId());
+		return view;
 	}
 }
 

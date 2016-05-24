@@ -436,6 +436,26 @@ public class EducationBizImpl implements EducationBiz {
 	}
 
 	@Override
+	public void doReportSubmit(ReportReplyVO reportReplyVO) {
+		educationDAO.doReportSubmit(reportReplyVO);
+	}
+
+	@Override
+	public int getNextReportReplySeq() {
+		return educationDAO.getNextReportReplySeq();
+	}
+
+	@Override
+	public List<ReportReplyVO> getAllReportByArticleId(String articleId, ReportReplySearchVO searchVO) {
+		return educationDAO.getAllReportByArticleId(articleId, searchVO);
+	}
+
+	@Override
+	public int getReportReplyCount(String articleId) {
+		return educationDAO.getReportReplyCount(articleId);
+	}
+
+	@Override
 	public String getNowDateTime() {
 		return educationDAO.getNowDateTime();
 	}

@@ -1010,7 +1010,8 @@
 	
 	
 	<select id="getOneEducationReport" parameterType="EducationReportVO" resultType="EducationReportVO">
-		SELECT	EDU_ID educationId
+		SELECT	ATC_ID articleId
+				,EDU_ID educationId
 				, ATC_ID articleId
 				, MBR_ID memberId
 				, TITLE title
@@ -1021,8 +1022,61 @@
 		WHERE	ATC_ID = #{articleId}
 	</select>
 	
+	<select id="getNextReportReplySeq" resultType="_int">
+		SELECT 	RPT_RPL_ID_SEQ.NEXTVAL
+		FROM	DUAL
+	</select>	
+	
+	<insert id="doReportSubmit" parameterType="ReportReplyVO">
+		INSERT INTO SEMS.RPT_RPL (
+								   BBS_ID
+								   , CREATE_DATE
+								   , MBR_ID
+								   , RPT_RPL_ID
+								) 
+								VALUES ( 
+									#{bbsId}
+									, SYSDATE
+									, #{mbrId}
+									, #{rptRplId} 
+									)
+	</insert>
+	
+	 <select id="getReportReplyCount" parameterType = "string" resultType="_int">
+   		SELECT 	COUNT(*)	
+		FROM	RPT_RPL
+		WHERE 	BBS_ID = #{articleId}
+    </select>
+    
+    <select id="getAllReportByArticleId" parameterType="map" resultType="ReportReplyVO">
+    	SELECT	RPT_RPL_ID rptRplId
+    			, MBR_ID mbrId
+    			, BBS_ID bbsId
+    			, CREATE_DATE createdDate
+    			, FILE_NM fileName
+    	FROM    (
+		    	SELECT  ROWNUM AS RNUM
+		    			, RPT_RPL.*
+		    			FROM(
+					    	SELECT	RPT_RPL_ID
+					    			, MBR_ID
+					    			, BBS_ID
+					    			, CREATE_DATE
+					    			, FILE_NM
+					    	FROM	RPT_RPL
+					    			, FILES
+					    	WHERE	BBS_ID = #{articleId}
+					    	AND		RPT_RPL.RPT_RPL_ID = FILES.ATC_ID
+					    	ORDER   BY MBR_ID ASC
+					    	)RPT_RPL
+				    	WHERE	ROWNUM <![CDATA[<=]]> #{endIndex}
+	    		)RPT_RPL
+    	WHERE	RNUM >= #{startIndex}
+    </select>
+	
 	<select id="getNowDateTime" resultType="string">
 		SELECT	TO_CHAR(SYSDATE, 'YYYY-MM-DD')
 		FROM	DUAL
 	</select>
+	
 </mapper>
