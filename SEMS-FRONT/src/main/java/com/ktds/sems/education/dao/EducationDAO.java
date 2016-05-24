@@ -137,6 +137,8 @@ public interface EducationDAO {
 
 	public EducationReportVO getOneEducationReport(EducationReportVO educationReportVO);
 
+	public List<EducationQNAReplyVO> getAllQNAReplyListByAtcId(String atcId);
+
 	public int getNextReportReplySeq();
 
 	public void doReportSubmit(ReportReplyVO reportReplyVO);

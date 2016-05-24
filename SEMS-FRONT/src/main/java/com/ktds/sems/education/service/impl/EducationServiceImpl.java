@@ -738,6 +738,14 @@ public class EducationServiceImpl implements EducationService {
 		MemberVO sessionMember = (MemberVO) session.getAttribute("_MEMBER_");
 		eduBBS.setMbrId(sessionMember.getId());
 		
+		//ATC_ID 형식 변경
+		String nowDate = educationBiz.getNowDate();
+		int nextSeq = educationBiz.getNextReportSeq();
+		
+		String realAtcId = "AT-" + nowDate + "-" + lpad(nextSeq + "", 6, "0");
+		eduBBS.setAtcId(realAtcId);
+		
+		
 		//TODO 강의 아이디 받아와서 집어넣기
 		eduBBS.setEduId("ED-20160519-000233");
 		
@@ -1049,6 +1057,11 @@ public class EducationServiceImpl implements EducationService {
 		
 		return view;
 		
+	}
+
+	@Override
+	public List<EducationQNAReplyVO> getAllQNAReplyListByAtcId(String atcId) {
+		return educationBiz.getAllQNAReplyListByAtcId(atcId);
 	}
 
 	@Override

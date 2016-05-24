@@ -390,6 +390,11 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 	}
 
 	@Override
+	public List<EducationQNAReplyVO> getAllQNAReplyListByAtcId(String atcId) {
+		return getSqlSession().selectList("EducationDAO.getAllQNAReplyListByAtcId", atcId);
+	}
+
+	@Override
 	public int getNextReportReplySeq() {
 		// TODO Auto-generated method stub
 		return getSqlSession().selectOne("EducationDAO.getNextReportReplySeq");

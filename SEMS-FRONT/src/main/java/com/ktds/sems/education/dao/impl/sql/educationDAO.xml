@@ -749,7 +749,8 @@
 				, MODIFY_DATE modifyDate
 				, HITS hits
 		FROM	EDU_QA_BBS
-		ORDER 	BY atcId DESC 
+		WHERE	ATC_ID LIKE 'AT%'
+		ORDER 	BY CREATE_DATE DESC 
 	</select>
 	
 	<insert id="addQNABBS" parameterType="EducationQNABBSVO">
@@ -762,7 +763,7 @@
 								   , EDU_ID
 								) 
 						VALUES ( 
-								 ATC_ID_SEQ.NEXTVAL 
+								 #{atcId} 
 								 , #{title}
 								 , #{contents}
 								 , SYSDATE
@@ -1008,6 +1009,21 @@
 				, END_DATE endDate
 		FROM	EDU_RPT_BBS
 		WHERE	ATC_ID = #{articleId}
+	</select>
+	
+	<select id="getAllQNAReplyListByAtcId" parameterType="string" resultType="EducationQNAReplyVO">
+		SELECT	REPLY_ID replyId
+				, ATC_ID atcId
+				, PARENT_REPLY_ID parentReplyId
+				, ORDER_NO orderNo
+				, DESCRIPTION description
+				, MBR_ID mbrId
+				, LIKE_CNT likeCnt
+				, DISLIKE_CNT dislikeCnt
+				, TO_CHAR(CREATED_DATE, 'YYYY-MM-DD HH24:MI') createdDate
+		FROM	BBS_RPL
+		WHERE	ATC_ID = #{atcId}	
+		ORDER	BY	REPLY_ID DESC
 	</select>
 	
 	<select id="getNextReportReplySeq" resultType="_int">

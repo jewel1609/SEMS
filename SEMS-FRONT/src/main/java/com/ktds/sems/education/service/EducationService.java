@@ -85,4 +85,6 @@ public interface EducationService {
 	
 	public ModelAndView getAllReportReply(ReportReplySearchVO reportReplySearchVO, int pageNo, HttpSession session);
 
+	public List<EducationQNAReplyVO> getAllQNAReplyListByAtcId(String atcId);
+
 }
