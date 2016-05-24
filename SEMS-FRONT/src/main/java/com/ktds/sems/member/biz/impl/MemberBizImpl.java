@@ -3,6 +3,7 @@ package com.ktds.sems.member.biz.impl;
 import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -342,6 +343,7 @@ public class MemberBizImpl implements MemberBiz {
 		/* 회원별 강의 */
 		List<EducationVO> eduListByMember = new ArrayList<EducationVO>();
 		eduListByMember = memberDAO.getEduListByMember(loginVO);
+		
 		Calendar cal = Calendar.getInstance();
 		Calendar cal2 = Calendar.getInstance();
 		
@@ -367,7 +369,7 @@ public class MemberBizImpl implements MemberBiz {
 
 			String lastDate = memberDAO.getLastDate(eduIdAndMemberId);
 			String nowDate = onlyDateFormat.format(date);
-
+			
 			try {
 				Date eduStartDate = dateFormat.parse(startDate);
 				Date eduEndDate = dateFormat.parse(endDate);
@@ -395,7 +397,7 @@ public class MemberBizImpl implements MemberBiz {
 				Date todayTime = timeFormat.parse(timeFormat.format(date));
 				cal3.setTime(todayTime);
 				long calNowTime = cal3.getTimeInMillis();
-
+				
 				// 현재 날짜와 강의 기간 날짜 체크
 				if (calEduStartDate < calTodayTime && calTodayTime < calEduEndDate) {
 
@@ -415,7 +417,9 @@ public class MemberBizImpl implements MemberBiz {
 						break;
 					}
 				}
+
 			} catch (ParseException e) {
+
 			}
 		}
 	}
@@ -737,11 +741,25 @@ public class MemberBizImpl implements MemberBiz {
 	}
 
 	@Override
+	public List<AttendVO> getAllAttendHistoryListById(String id) {	
+		
+		//교육 내용 가져오는거
+		/* 회원별 강의 */
+		List<EducationVO> eduListByMember = new ArrayList<EducationVO>();
+		//eduListByMember = memberDAO.getEduListByMember(loginVO);
+		
+		//출석내용 가져오는거
+		return memberDAO.getAllAttendHistoryListById(id);
+	}
+
+	@Override
+
 	public List<EducationVO> getEduListByMember(MemberVO memberVO) {
 		return memberDAO.getEduListByMember(memberVO);
 	}
 
 	@Override
+
 	public List<LoginHistoryVO> getLoginHistoryListByMemberId(String id) {
 		return memberDAO.getLoginHistoryListByMemberId(id);
 	}
@@ -755,6 +773,7 @@ public class MemberBizImpl implements MemberBiz {
 	public List<QNAVO> getQnaListByMemberId(String id) {
 		return memberDAO.getQnaListByMemberId(id);
 	}
+
 
 	/**
 	 * 수강 포기 신청 사유 text 중 특수문자가 있는 지 확인
@@ -779,4 +798,9 @@ public class MemberBizImpl implements MemberBiz {
 			return true;
 		}
 	}
+	@Override
+	public boolean isVerifyLeave(String id) {
+		return memberDAO.isVerifyLeave(id) > 0;
+	}
+
 }
