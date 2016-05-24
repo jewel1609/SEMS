@@ -75,12 +75,12 @@
 				<div style="text-align: right;">
 					<select id="searchType" name="searchType">
 						<option value="pcName" ${ selectedSearchType eq 'pcName' ? 'selected' : '' }>PC 명</option>
-						<option value="educationPlaceName" ${ selectedSearchType eq 'educationPlaceName' ? 'selected' : '' }>강의장</option>
-						<option value="educationLocation" ${ selectedSearchType eq 'educationLocation' ? 'selected' : '' }>강의장 위치</option>
-						<option value="reportedCategory" ${ selectedSearchType eq 'reportedCategory' ? 'selected' : '' }>신고 카테고리</option>
-						<option value="reportedState" ${ selectedSearchType eq 'reportedState' ? 'selected' : '' }>신고 상태</option>
-						<option value=reportedComent ${ selectedSearchType eq 'reportedComent' ? 'selected' : '' }>신고 내용</option>
-						<option value="memberId" ${ selectedSearchType eq 'memberId' ? 'selected' : '' }>신고자</option>
+						<option value="educationPlaceName" ${ reportedPcSearchVO.searchType eq 'educationPlaceName' ? 'selected' : '' }>강의장</option>
+						<option value="educationLocation" ${ reportedPcSearchVO.searchType eq 'educationLocation' ? 'selected' : '' }>강의장 위치</option>
+						<option value="reportedCategory" ${ reportedPcSearchVO.searchType eq 'reportedCategory' ? 'selected' : '' }>신고 카테고리</option>
+						<option value="reportedState" ${ reportedPcSearchVO.searchType eq 'reportedState' ? 'selected' : '' }>신고 상태</option>
+						<option value=reportedComment ${ reportedPcSearchVO.searchType eq 'reportedComment' ? 'selected' : '' }>신고 내용</option>
+						<option value="memberId" ${ reportedPcSearchVO.searchType eq 'memberId' ? 'selected' : '' }>신고자</option>
 					</select>
 					
 					<input type="text" id="searchKeyword" name="searchKeyword" value="${ reportedPcSearchVO.searchKeyword }" />
