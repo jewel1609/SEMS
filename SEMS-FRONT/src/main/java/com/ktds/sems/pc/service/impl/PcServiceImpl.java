@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.common.Session;
@@ -66,7 +67,7 @@ public class PcServiceImpl implements PcService{
 		String memberId = memberVO.getId();
 		
 		ModelAndView view = new ModelAndView();
-		view.setViewName("myPage/pc/reportPC");
+		view.setViewName("myPage/pc/reportMyPc");
 		view.addObject("pcId", pcId);
 		return view;
 	}
@@ -76,28 +77,30 @@ public class PcServiceImpl implements PcService{
 	 * 이기연
 	 */
 	@Override
-	public String reportProblemPc(ReportedPcVO reportedPcVO, HttpSession session, HttpServletRequest request) {
-		
+	public String reportProblemPc(ReportedPcVO reportedPcVO, Errors errors, HttpSession session, HttpServletRequest request) {
+
 		try {
+			MemberVO memberVO = (MemberVO) session.getAttribute(Session.MEMBER);
+			String memberId = memberVO.getId();
+			
 			String nowDate = pcBiz.getNowDate();
 			int nextSeq = pcBiz.getNextReportedPcIdSeq();
-			String realReplyId = "RP-" + nowDate + "-" + lpad(nextSeq + "", 6, "0");
+			String reportedPcId = "RP-" + nowDate + "-" + lpad(nextSeq + "", 6, "0");
 			
-			reportedPcVO.setReportedPcId(realReplyId);
+			reportedPcVO.setReportedPcId(reportedPcId);
+			reportedPcVO.setMemberId(memberId);
 			
 			// PC 신고 기록 insert 성공할 경우 
 			if (pcBiz.reportProblemPc(reportedPcVO)) {
-				
+				return "OK";
 			}
 			else {
-				return "redirect:/myPc/reportPage/" + reportedPcVO.getPcId();
+				return "NO";
 			}
 			
 		} catch (Exception e) {
 			throw new RuntimeException();
 		}
-		
-		return null;
 	}
 	
 	private String lpad(String source, int length, String defValue) {

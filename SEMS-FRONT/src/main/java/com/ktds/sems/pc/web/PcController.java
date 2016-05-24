@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -16,6 +17,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.pc.service.PcService;
 import com.ktds.sems.pc.vo.ReportedPcVO;
+
+import kr.co.hucloud.utilities.web.AjaxUtil;
 
 @Controller
 public class PcController {
@@ -44,9 +47,11 @@ public class PcController {
 		return pcService.viewReportPcPage(pcId, session, request);
 	}
 	
-	@RequestMapping("/myPc/reportPage/report")
-	public String reportProblemPc(@Valid ReportedPcVO reportedPcVO, HttpSession session, HttpServletRequest request) {
-		return pcService.reportProblemPc(reportedPcVO, session, request);
+	
+	@RequestMapping(value = ("/myPc/reportPage/report"), method = RequestMethod.POST)
+	public void reportProblemPc(@Valid ReportedPcVO reportedPcVO, Errors errors, HttpSession session, HttpServletResponse response, HttpServletRequest request) {
+		String reportStatus = pcService.reportProblemPc(reportedPcVO, errors, session, request);
+		AjaxUtil.sendResponse(response, reportStatus);
 	}
 	
 }

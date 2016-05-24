@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.pc.vo.ReportedPcVO;
@@ -16,6 +17,6 @@ public interface PcService {
 
 	public ModelAndView viewReportPcPage(String educationId, HttpSession session, HttpServletRequest request);
 
-	public String reportProblemPc(ReportedPcVO reportedPcVO, HttpSession session, HttpServletRequest request);
+	public String reportProblemPc(ReportedPcVO reportedPcVO, Errors errors, HttpSession session, HttpServletRequest request);
 
 }

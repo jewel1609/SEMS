@@ -25,7 +25,22 @@
 	</select>
 	
 	<insert id="reportProblemPc" parameterType="ReportedPcVO">
-	
+	INSERT INTO RPT_PC (
+							RPT_PC_ID
+							, PC_ID
+							, RPT_CTGR
+							, RPT_STAT
+							, RPT_CMNT
+							, MBR_ID
+						) 
+	VALUES				( 
+							#{reportedPcId}
+							, #{pcId}
+							, #{reportedCategory}
+							, 'PC_WT_ING'
+							, #{reportedComment}
+							, #{memberId}
+						)	
 	</insert>
 	
 	<select id="getNowDate" resultType="string">
@@ -34,7 +49,7 @@
 	</select>
 	
 	<select id="getNextReportedPcIdSeq" resultType="_int">
-		SELECT 	REPLY_ID_SEQ.NEXTVAL
+		SELECT 	RPT_PC_ID_SEQ.NEXTVAL
 		FROM	DUAL
 	</select>
 	

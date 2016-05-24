@@ -22,7 +22,7 @@ public class PcDAOImpl extends SqlSessionDaoSupport implements PcDAO {
 	 * 이기연
 	 */
 	public int reportProblemPc(ReportedPcVO reportedPcVO) {
-		return getSqlSession().selectOne("PcDAO.reportProblemPc", reportedPcVO);
+		return getSqlSession().insert("PcDAO.reportProblemPc", reportedPcVO);
 	}
 	
 	@Override
