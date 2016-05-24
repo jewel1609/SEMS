@@ -9,6 +9,7 @@
 	
 	<bean id="teamBiz" class="com.ktds.sems.team.biz.impl.TeamBizImpl">
 		<property name="teamDAO" ref="teamDAO" />
+		<property name="fileDAO" ref="fileDAO" />
 	</bean>
 	
 	<bean id="teamService" class="com.ktds.sems.team.service.impl.TeamServiceImpl">
