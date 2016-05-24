@@ -345,10 +345,15 @@ public class MemberController {
 	public String educationHistoryPageInit() {
 		return "redirect:/member/myPage/educationHistory";
 	}
+
+	@RequestMapping("/member/attendHistory")
+	public ModelAndView viewAttendHistoryPage(HttpSession session) {
+		return memberService.getAllAttendHistoryListById(session);
+	}
 	
 	@RequestMapping("/checkValidationCourseAccess")
 	public void checkValidationCourseAccess(HttpServletResponse response, HttpSession session) {
 		memberService.checkValidationCourseAccess(response, session);
 	}
-	
+
 }
