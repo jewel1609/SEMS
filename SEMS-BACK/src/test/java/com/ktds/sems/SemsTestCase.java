@@ -16,6 +16,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 		, "file:src/main/webapp/WEB-INF/spring/fileContext.xml"
 		, "file:src/main/webapp/WEB-INF/spring/memberContext.xml"
 		, "file:src/main/webapp/WEB-INF/spring/teacherContext.xml"
+		, "file:src/main/webapp/WEB-INF/spring/pcContext.xml"
 		, "/rootContext.xml"})
 @PropertySource("file:src/main/webapp/WEB-INF/spring/db.properties")
 public class SemsTestCase {
