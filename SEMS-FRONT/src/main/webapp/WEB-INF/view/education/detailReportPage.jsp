@@ -67,9 +67,9 @@ $(document).ready(function() {
 
 	
 	
-	<c:if test="${ reportReplsyListVO.reportReplyList.size() gt 0 }">
+	<c:if test="${ reportReplyListVO.reportReplyList.size() gt 0 }">
 				<div id="tableTwo">
-					<c:forEach items="${reportReplsyListVO.reportReplyList}" var="rprp">
+					<c:forEach items="${reportReplyListVO.reportReplyList}" var="rprp">
 							<div>
 								<span>작성자 : </span>
 								<span>${ rprp.mbrId }</span>
@@ -91,8 +91,8 @@ $(document).ready(function() {
 						<tr>
 							<td colspan="6" style="text-align:center">
 								<form id="pagingForm">
-									<c:if test="${ reportReplsyListVO ne null }">
-										${reportReplsyListVO.paging.getPagingList("pageNo", "[@]", "이전", "다음", "pagingForm")}
+									<c:if test="${ reportReplyListVO ne null }">
+										${reportReplyListVO.paging.getPagingList("pageNo", "[@]", "이전", "다음", "pagingForm")}
 									</c:if>
 								</form>
 							</td>

@@ -957,10 +957,10 @@ public class EducationServiceImpl implements EducationService {
 
 	@Override
 	public ModelAndView viewDetailEducationReport(EducationReportVO educationReportVO, HttpSession session, int pageNo) {
-		ReportReplyListVO reportReplsyListVO = new ReportReplyListVO();
+		ReportReplyListVO reportReplyListVO = new ReportReplyListVO();
 		Paging paging = new Paging(10,10);
 		
-		reportReplsyListVO.setPaging(paging);
+		reportReplyListVO.setPaging(paging);
 		paging.setPageNumber(pageNo + "");
 		int totalReportReplyCount = educationBiz.getReportReplyCount(educationReportVO.getArticleId());
 		
@@ -974,7 +974,7 @@ public class EducationServiceImpl implements EducationService {
 		
 		searchVO.setStartIndex(paging.getStartArticleNumber());
 		searchVO.setEndIndex(paging.getEndArticleNumber());
-		//
+		
 		ModelAndView view = new ModelAndView();
 		
 		MemberVO loginMember = (MemberVO) session.getAttribute("_MEMBER_");
@@ -983,11 +983,11 @@ public class EducationServiceImpl implements EducationService {
 		List<FileVO> reportFile = fileBiz.getOneFileId(educationReportVO.getArticleId()); 
 		
 		List<ReportReplyVO> reportReplyList = educationBiz.getAllReportByArticleId(educationReportVO.getArticleId(), searchVO);
-		reportReplsyListVO.setReportReplyList(reportReplyList);
+		reportReplyListVO.setReportReplyList(reportReplyList);
 		
 		view.setViewName("education/detailReportPage");
 		view.addObject("educationReportVO", educationReportVO);
-		view.addObject("reportReplsyListVO", reportReplsyListVO);
+		view.addObject("reportReplyListVO", reportReplyListVO);
 		view.addObject("loginMember", loginMember);
 		view.addObject("reportFile", reportFile);
 		
