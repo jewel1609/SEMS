@@ -359,18 +359,34 @@ public class MemberDAOImpl  extends SqlSessionDaoSupport implements MemberDAO {
 	}
 
 	@Override
-	public List<AttendVO> getAllAttendHistoryListById(String id) {
-		return getSqlSession().selectList("MemberDAO.getAllAttendHistoryListById", id);
+	public List<AttendVO> getAllAttendHistoryListById(Map<String,String> eduIdAndMemberId) {
+		return getSqlSession().selectList("MemberDAO.getAllAttendHistoryListById", eduIdAndMemberId);
 	}
 
 	@Override
 	public int isVerifyLeave(String id) {
-		System.out.println("id: "+ id);
 		return getSqlSession().selectOne("MemberDAO.isVerifyLeave", id);
 	}
+
+	@Override
+	public int updateLeaveClass(AttendVO attendVO) {
+		return getSqlSession().update("MemberDAO.updateLeaveClass", attendVO);
+	}
+
+	@Override
+	public AttendVO getNowClassInfoById(String memberId) {
+		return getSqlSession().selectOne("MemberDAO.getNowClassInfoById", memberId);
+	}
+
+	@Override
+	public EducationVO getOneEducationInfo(Map<String, String> eduIdAndMemberId) {
+		return getSqlSession().selectOne("MemberDAO.getOneEducationInfo", eduIdAndMemberId);
+	}
+
 
 	@Override
 	public List<ReportReplyVO> getReportReplyListByMemberId(String id) {
 		return getSqlSession().selectList("MemberDAO.getReportReplyListByMemberId", id);
 	}
+
 }

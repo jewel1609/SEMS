@@ -145,9 +145,15 @@ public interface MemberDAO {
 
 	public int checkValidationCourseAccess(String memberId);
 
-	public List<AttendVO> getAllAttendHistoryListById(String id);
+	public List<AttendVO> getAllAttendHistoryListById(Map<String, String> eduIdAndMemberId);
 
 	public int isVerifyLeave(String id);
+
+	public int updateLeaveClass(AttendVO attendVO);
+
+	public AttendVO getNowClassInfoById(String memberId);
+
+	public EducationVO getOneEducationInfo(Map<String, String> eduIdAndMemberId);
 
 	public List<ReportReplyVO> getReportReplyListByMemberId(String id);
 

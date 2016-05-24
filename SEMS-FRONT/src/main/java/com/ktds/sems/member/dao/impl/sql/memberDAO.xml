@@ -322,10 +322,10 @@
 				, END_TM endTime
 				, EDU_TP educationType
 				, COST cost
-		FROM	EDU_INFO E_I, EDU_HTR E_H
-		WHERE   E_I.EDU_ID = E_H.EDU_ID
-		AND		E_H.MBR_ID = #{id}
-		AND     E_H.STAT = 'EDU_JN_C'
+		FROM	EDU_INFO E_I, EDU_CLASS E_C
+		WHERE   E_I.EDU_ID = E_C.EDU_ID
+		AND		E_C.MBR_ID = #{id}
+		AND     E_C.STAT = 'EDU_JN_C'
 	</select>
 	
 	<insert id="insertAttendByMember" parameterType="AttendVO">
@@ -780,19 +780,70 @@
 		AND		MBR_ID = #{memberId}
 	</select>
 	
-	<select id="getAllAttendHistoryListById" resultType="AttendVO" parameterType="string">
-	
+	<select id="getAllAttendHistoryListById" resultType="AttendVO" parameterType="map">
+		SELECT  MBR_ID memberId
+				, ATD_TM attendTime
+				, EDU_ID educationId
+				, LEAV_TM leaveTime
+		FROM    ATD
+		WHERE   EDU_ID = #{educationId}
+		AND     MBR_ID = #{memberId}
 	</select>
 	
 	<select id="isVerifyLeave" resultType="_int" parameterType="string">
 		SELECT  COUNT(A.MBR_ID)
-		FROM    EDU_CLASS E 
+		FROM    EDU_CLASS EC 
                 , ATD A
- 		WHERE   A.EDU_ID = E.EDU_ID
+                , EDU_INFO EI
+ 		WHERE   A.EDU_ID = EC.EDU_ID
+ 		AND     EC.EDU_ID = EI.EDU_ID
  		AND     STAT= 'EDU_JN_C'
- 		AND     A.MBR_ID = #{id}
+ 		AND     A.MBR_ID = 'test02'		
  		AND     TO_CHAR(SYSDATE, 'YYYY-MM-DD') = SUBSTR(ATD_TM, 1, 10)
- 		AND     ATD_TM = LEAV_TM
+ 		AND     EI.END_TM >= TO_CHAR(SYSDATE, 'HH24:MI')
+	</select>
+	
+	<update id="updateLeaveClass" parameterType="AttendVO">
+		UPDATE ATD
+		SET    LEAV_TM = TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI')
+		WHERE  MBR_ID  = #{memberId}
+		AND    TO_CHAR(SYSDATE, 'YYYY-MM-DD') = SUBSTR(ATD_TM, 1, 10)
+		AND    TO_CHAR(SYSDATE, 'HH24:MI') <![CDATA[<=]]> (
+					                                        SELECT END_TM
+					                                        FROM   EDU_INFO
+					                                        WHERE  EDU_ID = #{educationId}
+					                                   	  )   
+	</update>
+	
+	<select id="getNowClassInfoById" resultType="AttendVO" parameterType="string">
+		SELECT	A.* 
+		FROM    ATD A, EDU_INFO E
+		WHERE   A.EDU_ID = E.EDU_ID
+		AND     A.MBR_ID = #{memberId}
+		AND		TO_CHAR(SYSDATE, 'YYYY-MM-DD') = SUBSTR(ATD_TM, 1, 10)
+		AND		TO_CHAR(SYSDATE, 'HH:MM') <![CDATA[<=]]> E.END_TM
+	</select>
+	
+	<select id="getOneEducationInfo" resultType="EducationVO" parameterType="map">
+		SELECT	E_I.EDU_ID educationId
+				, EDU_CTGR educationCategory
+				, EDU_TTL educationTitle
+				, E_I.MBR_ID memberId 
+				, MAX_MBR maxMember
+				, EDU_LOC educationLocation
+				, EDU_CLCM educationCurriculum
+				, EDU_INTR educationIntroduce
+				, SRT_DATE startDate
+				, END_DATE endDate
+				, START_TM startTime
+				, END_TM endTime
+				, EDU_TP educationType
+				, COST cost
+		FROM	EDU_INFO E_I, EDU_CLASS E_C
+		WHERE   E_I.EDU_ID = E_C.EDU_ID
+		AND		E_C.MBR_ID = #{memberId}
+		AND     E_C.STAT = 'EDU_JN_C'
+		AND     E_C.EDU_ID = #{educationId}
 	</select>
 	
 	<select id="getReportReplyListByMemberId" parameterType="string" resultType="ReportReplyVO" >
