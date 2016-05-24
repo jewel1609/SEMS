@@ -2,7 +2,9 @@ package com.ktds.sems.education.dao;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -12,10 +14,14 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.junit.After;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.mock.web.MockMultipartHttpServletRequest;
+import org.springframework.test.context.transaction.BeforeTransaction;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.BindingResult;
@@ -24,7 +30,7 @@ import org.springframework.validation.Validator;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.ktds.sems.SemsTestCase;
-import com.ktds.sems.education.biz.EducationBizTest.EducationValidator;
+import com.ktds.sems.Testable;
 import com.ktds.sems.education.vo.CategoryVO;
 import com.ktds.sems.education.vo.CostVO;
 import com.ktds.sems.education.vo.EduFileSearchVO;
@@ -34,12 +40,45 @@ import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationHistoryVO;
 import com.ktds.sems.education.vo.EducationTypeVO;
 import com.ktds.sems.education.vo.EducationVO;
+import com.ktds.sems.member.vo.MemberVO;
 
 @Transactional
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class EducationDAOTest extends SemsTestCase {
 
 	@Autowired
 	private EducationDAO educationDAO;
+	
+	/**
+	 * @author 김동규 
+	 * Action - insert/update Setting
+	 */
+	@BeforeTransaction
+	public void setUp() {
+		testHelper(new Testable() {
+			
+			@Override
+			public void preparedTest() {
+				
+			}
+		});
+		
+	}
+	
+	/**
+	 * @author 김동규 
+	 * Action - Delete
+	 */
+	@After
+	public void tearDown() {
+		testHelper(new Testable() {
+			
+			@Override
+			public void preparedTest() {
+				educationDAO.doActionDelete("ED-20160519-000241");
+			}
+		});
+	}
 	
 	/* ED-20160512-000139 이미 등록돼 있음
 	 * 
@@ -990,4 +1029,43 @@ public class EducationDAOTest extends SemsTestCase {
 		assertNotNull(educationDAO.getAllEduReport(eduReportSearchVO));
 	}
 	
+	@Test
+	public void doActionDeleteBeforeCheckTest() {
+		MemberVO memberVO = new MemberVO();
+		memberVO.setId("cocomo12");
+		memberVO.setMemberType("ADM");
+		String check = educationDAO.doActionDeleteBeforeCheck(memberVO);
+		if(check != null) {
+			assertTrue(check.equals("Y"));
+		}
+		else {
+			fail("[DAO Part] doActionDeleteBeforeCheckTest Fail.");
+		}
+	}
+	
+	@Test
+	public void attendedLectureUserListTest() {
+		String educationId = "ED-20160519-000241";
+		List<EducationVO> educationList = educationDAO.attendedLectureUserList(educationId);
+		
+		for (EducationVO educationVO : educationList) {
+			if ( educationVO != null) {
+				assertNotNull(educationVO.getMemberId());
+			}else {
+				fail("[DAO Part] attendedLectureUserListTest Fail.");
+			}
+		}
+	}
+	
+	@Test
+	public void emailNoticeForUserTest() {
+		String memberId = "test04";
+		MemberVO memberVO = educationDAO.emailNoticeForUser(memberId);
+		if (memberVO != null) {
+			assertSame(memberId, memberVO.getId());
+			assertNotNull(memberVO.getEmail());
+		}else {
+			fail("[DAO Part] emailNoticeForUserTest Fail.");
+		}
+	}
 }
