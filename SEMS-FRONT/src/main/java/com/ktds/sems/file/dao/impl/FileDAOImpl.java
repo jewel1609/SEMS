@@ -13,6 +13,11 @@ public class FileDAOImpl extends SqlSessionDaoSupport implements FileDAO {
 	}
 
 	@Override
+	public int insertFile(FileVO fileVO) {
+		return getSqlSession().insert("FileDAO.insertFile", fileVO);
+	}
+
+	@Override
 	public int doWriteFile(FileVO fileVO) {
 		
 		return getSqlSession().insert("FileDAO.doWriteFile", fileVO);
