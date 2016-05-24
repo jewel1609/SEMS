@@ -947,9 +947,6 @@
 					<if test="endDate != null and endDate != ''">
 						AND		CREATE_DATE <![CDATA[<]]> TO_DATE(#{endDate}, 'YYYY-MM-DD') + 1
 					</if>
-		             <if test="startDate == null and startDate == '' or endDate != null and endDate != ''">
-						AND		CREATE_DATE >= '1900-01-01'
-					</if>
 		            ) EDI
 		 WHERE	RNUM <![CDATA[>=]]> #{startIndex}
 	</select>
