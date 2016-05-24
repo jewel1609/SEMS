@@ -286,7 +286,12 @@
 			<br />
 	     강사명 :  <select id="memberId" name="memberId">
 		     		<c:forEach items="${teacherVO}" var="teacher">
-		     			<option value="${teacher.memberId}" selected="selected">${teacher.name}(${teacher.memberId})</option>
+		     			<c:if test="${teacher.memberId eq educationVO.memberId }">
+		     				<option value="${teacher.memberId}" selected="selected">${teacher.name}(${teacher.memberId})</option>
+		     			</c:if>
+		     			<c:if test="${teacher.memberId ne educationVO.memberId }">
+		     				<option value="${teacher.memberId}">${teacher.name}(${teacher.memberId})</option>
+		     			</c:if>
 		     		</c:forEach>	     		
 	     		</select>
 			<br />
