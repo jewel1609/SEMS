@@ -35,7 +35,7 @@
 			</tr>
 			<c:forEach items="${ TeamBBSListVO.teamBBSList }" var="teamBBSVO">
 				<tr>
-					<td>${teamBBSVO.title}</td>
+					<td><a href="<c:url value='/team/teamBBS/detail/${teamBBSVO.teamBBSId}'/>">${ teamBBSVO.title }</a></td>
 					<td>${teamBBSVO.memberId}</td>
 					<td>${teamBBSVO.createdDate}</td>
 					<td>${teamBBSVO.modifiedDate}</td>

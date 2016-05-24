@@ -11,7 +11,7 @@
 </head>
 <body>
 	
-	<form:form commandName="teamBBSVO" method="POST" action="/team/teamBBS/doWrite" >
+	<form:form commandName="teamBBSVO" method="POST" action="/team/teamBBS/doWrite" enctype="multipart/form-data">
 		<table>
 			<tr>
 				<td>	
