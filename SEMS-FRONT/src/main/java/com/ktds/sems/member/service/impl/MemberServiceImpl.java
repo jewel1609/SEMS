@@ -50,38 +50,39 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public ModelAndView addNewMember(MemberVO member, Errors errors, String repeatPassword) {
+	public String addNewMember(MemberVO member, String repeatPassword, Errors errors, HttpSession session, HttpServletResponse response, HttpServletRequest request) {
 		ModelAndView view = new ModelAndView();
 		
 		String memberType = member.getMemberType();
 		if (memberType == null) {
-			view.setViewName("redirect:/invalidAccess");
-			return view;
+//			view.setViewName("redirect:/invalidAccess");
+			return "NO";
 		}
+		
+		List<HighestEducationLevelVO> highestEducationLevelList = new ArrayList<HighestEducationLevelVO>(); 
+		List<GraduationTypeVO> graduationTypeList = new ArrayList<GraduationTypeVO>();
 
 		boolean isNotError = true;
 		isNotError = isAllValidValue(member, repeatPassword, view);
 		if (errors.hasErrors() || !isNotError) {
-			List<HighestEducationLevelVO> highestEducationLevelList = memberBiz.getHighestEducationLevels();
-			List<GraduationTypeVO> graduationTypeList = memberBiz.getGraduationTypes();
+			highestEducationLevelList = memberBiz.getHighestEducationLevels();
+			graduationTypeList = memberBiz.getGraduationTypes();
 
-			view.addObject("graduationTypeList", graduationTypeList);
-			view.addObject("highestEducationLevelList", highestEducationLevelList);
-
-			view.addObject("member", member);
+//			view.addObject("graduationTypeList", graduationTypeList);
+//			view.addObject("highestEducationLevelList", highestEducationLevelList);
+//
+//			view.addObject("member", member);
+			return "NO";
 		} else if (isNotError) {
 			setSaltAndPassword(member);
 			if (memberBiz.addNewMember(member)) {
-				memberBiz.checkRegistState(member.getId());
-				view.setViewName("redirect:/loginPage");
+				return "OK";
 			} else {
-				//TODO
+				return "NO";
 			}
 		} else {
 			throw new RuntimeException("잘 못 된 입력 : 회원 종류");
 		}
-
-		return view;
 	}
 
 	/**
