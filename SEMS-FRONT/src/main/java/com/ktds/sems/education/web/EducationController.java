@@ -22,6 +22,7 @@ import com.ktds.sems.common.Session;
 import com.ktds.sems.education.service.EducationService;
 import com.ktds.sems.education.vo.EducationFileBBSVO;
 import com.ktds.sems.education.vo.EducationQNABBSVO;
+import com.ktds.sems.education.vo.EducationQNAReplyListVO;
 import com.ktds.sems.education.vo.EducationQNAReplyVO;
 import com.ktds.sems.education.vo.EducationReportSearchVO;
 import com.ktds.sems.education.vo.EducationReportVO;
@@ -280,7 +281,14 @@ public class EducationController {
 		ModelAndView view = new ModelAndView();
 		
 		EducationQNABBSVO oneQNABBSByAtcId = educationService.getOneQNABBSByAtcId(atcId);
+		EducationQNAReplyListVO qnaReplyList = new EducationQNAReplyListVO();
 		
+		List<EducationQNAReplyVO> qnaReplyListByAtcId = educationService.getAllQNAReplyListByAtcId(atcId);
+		
+		qnaReplyList.setQnaReplyList(qnaReplyListByAtcId);
+		
+		
+		view.addObject("qnaReplyList", qnaReplyList);
 		view.addObject("oneQNABBSByAtcId", oneQNABBSByAtcId);
 		view.setViewName("myPage/eduBoardQNADetail");
 		
