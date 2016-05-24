@@ -19,6 +19,8 @@ import com.ktds.sems.education.vo.EducationCostVO;
 import com.ktds.sems.education.vo.EducationHistoryListVO;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationHistoryVO;
+import com.ktds.sems.education.vo.EducationListVO;
+import com.ktds.sems.education.vo.EducationSearchVO;
 import com.ktds.sems.education.vo.EducationStateVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.QNAVO;
@@ -869,7 +871,7 @@ public class MemberServiceImpl implements MemberService {
 		
 		EducationHistoryVO educationHistory = memberBiz.getOneEducationByIdAndEducationId(educationId, memberVO.getId());
 		view.addObject("educationHistory", educationHistory);
-		view.setViewName("member/resignCourseWrite");
+		view.setViewName("myPage/resignCourseWrite");
 		
 		return view;
 	}
@@ -915,38 +917,39 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public ModelAndView getCourseList(HttpSession session, int pageNo) {
 
-		EducationHistoryListVO educationHistoryListVO = new EducationHistoryListVO();
+		EducationListVO educationListVO = new EducationListVO();
 		Paging paging = new Paging();
-		educationHistoryListVO.setPaging(paging);
+		educationListVO.setPaging(paging);
 
 		paging.setPageNumber(pageNo + "");
 		
 		MemberVO memberVO = (MemberVO) session.getAttribute(Session.MEMBER);
-		int totalEducationHistoryCountById = memberBiz.getCourseCountById(memberVO.getId());
-		paging.setTotalArticleCount(totalEducationHistoryCountById);
+		int getCourseCountById = memberBiz.getCourseCountById(memberVO.getId());
+		paging.setTotalArticleCount(getCourseCountById);
 
-		EducationHistorySearchVO educationHistorySearchVO = new EducationHistorySearchVO();
-		educationHistorySearchVO.setPageNo(pageNo);
-		educationHistorySearchVO.setStartIndex(paging.getStartArticleNumber());
-		educationHistorySearchVO.setEndIndex(paging.getEndArticleNumber());
-		educationHistorySearchVO.setMemberId(memberVO.getId());
+		EducationSearchVO educationSearchVO = new EducationSearchVO();
+		educationSearchVO.setPageNo(pageNo);
+		educationSearchVO.setStartIndex(paging.getStartArticleNumber());
+		educationSearchVO.setEndIndex(paging.getEndArticleNumber());
+		educationSearchVO.setMemberId(memberVO.getId());
 		
-		List<EducationHistoryVO> educationHistoryList = memberBiz.getCourseList(educationHistorySearchVO);
-		educationHistoryListVO.setEducationHistoryList(educationHistoryList);
-
+//		List<EduClassVO> myEducationList = memberBiz.getCourseList(educationSearchVO);
+//		educationHistoryListVO.setEducationHistoryList(educationHistoryList);
+//
 		ModelAndView view = new ModelAndView();
-		
-		// SM 이기연 수정 
-		if ( totalEducationHistoryCountById > 0 ) {
-			view.setViewName("member/resignCourseList");
-			view.addObject("educationHistoryListVO", educationHistoryListVO);
-		} 
-		else {
-			List<MenuManageVO> menuList = memberBiz.getMenuCategoryList();
-
-			view.setViewName("member/myPage");
-			view.addObject("menuList", menuList);
-		}
+		// TODO PEACE
+//		
+//		// SM 이기연 수정 
+//		if ( totalEducationHistoryCountById > 0 ) {
+//			view.setViewName("myPage/myEduCourseInfo");
+//			view.addObject("educationHistoryListVO", educationHistoryListVO);
+//		} 
+//		else {
+//			List<MenuManageVO> menuList = memberBiz.getMenuCategoryList();
+//
+//			view.setViewName("member/myPage");
+//			view.addObject("menuList", menuList);
+//		}
 		return view;
 
 	}
@@ -976,6 +979,13 @@ public class MemberServiceImpl implements MemberService {
 			message = "NO";
 		}
 		AjaxUtil.sendResponse(response, message);
+	}
+
+	@Override
+	public ModelAndView getMyEduCourseInfo(HttpSession session) {
+		ModelAndView view = new ModelAndView();
+		view.setViewName("member/myEduCourseInfo");
+		return view;
 	}
 	
 }

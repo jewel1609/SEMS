@@ -97,4 +97,6 @@ public interface MemberService {
 
 	public void checkValidationCourseAccess(HttpServletResponse response, HttpSession session);
 
+	public ModelAndView getMyEduCourseInfo(HttpSession session);
+
 }

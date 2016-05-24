@@ -350,4 +350,5 @@ public class MemberController {
 	public void checkValidationCourseAccess(HttpServletResponse response, HttpSession session) {
 		memberService.checkValidationCourseAccess(response, session);
 	}
+	
 }

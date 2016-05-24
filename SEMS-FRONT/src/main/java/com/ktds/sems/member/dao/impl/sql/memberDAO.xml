@@ -583,8 +583,8 @@
 	</select>
 
 	<select id="getCourseCountById" parameterType="string" resultType="_int">
-		SELECT	COUNT(EDU_HTR_ID)
-		FROM	EDU_HTR
+		SELECT	COUNT(EDU_CLASS)
+		FROM	EDU_CLASS
 		WHERE	STAT = 'EDU_JN_C'
 		AND		MBR_ID = #{id}
 	</select>
