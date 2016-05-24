@@ -215,7 +215,7 @@ public class MemberBizImpl implements MemberBiz {
 
 	@Override
 	public boolean isVerifyPhoneNumber(String phoneNumber) {
-		String phoneNumberPolicy = "(^?0([0-9]){1,2}-?([0-9]{3,4})-?([0-9]{4})$)";
+		String phoneNumberPolicy = "^\\d{2,3}-\\d{3,4}-\\d{4}$";		
 		Pattern pattern = Pattern.compile(phoneNumberPolicy);
 		Matcher matcher = pattern.matcher(phoneNumber);
 		return matcher.matches();
@@ -335,5 +335,10 @@ public class MemberBizImpl implements MemberBiz {
 	@Override
 	public List<GraduationTypeVO> getGraduationTypes() {
 		return memberDAO.getGraduationTypes();
+	}
+
+	@Override
+	public MemberVO requestMemberDetail(String memberId) {
+		return memberDAO.getMemberInfo(memberId);
 	}
 }
