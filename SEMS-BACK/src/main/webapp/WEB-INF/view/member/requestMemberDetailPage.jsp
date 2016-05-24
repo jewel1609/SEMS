@@ -34,17 +34,18 @@
 	<form:form id="requestMemberDetailInfoForm" commandName="personalInfoReadVO" method="post">
 		<span>개인 정보 열람 사유서 작성</span>
 		<input type="hidden" id="memberId" name="memberId" value="${sessionId}" />
-		<input type="hidden" id="targetMemberId" name="targetMemberId" value="${id}" />
+		<input type="hidden" id="memberType" name="memberType" value="${member.memberType}" />
+		<input type="hidden" id="targetMemberId" name="targetMemberId" value="${member.id}" />
 		<div><span>열람 신청자 : ${sessionId}</span></div>
 		<form:errors path="memberId" /><br/>
-		<div><span>열람 대상 : ${id}</span></div>
+		<div><span>열람 대상 : ${member.id}</span></div>
 		<form:errors path="targetMemberId" /><br/>
 		<div><span>열람 사유 : </span>
 				<textarea id="description" name="description" placeholder="열람 사유를 작성하세요."></textarea>
 				<form:errors path="description" /><br/>
 		</div>
-		<span id="writeRequestMemberDetailBtn">작성</span>
-		<span id="cancelBtn">취소</span>
+		<input type="button" id="writeRequestMemberDetailBtn" value="작성"/>
+		<input type="button" id="cancelBtn" value="취소"/>
 	</form:form>
 
 </body>
