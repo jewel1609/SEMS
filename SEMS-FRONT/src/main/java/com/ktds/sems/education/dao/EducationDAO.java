@@ -2,6 +2,7 @@ package com.ktds.sems.education.dao;
 
 import java.util.List;
 
+import com.ktds.sems.education.vo.EducationFileBBSVO;
 import com.ktds.sems.education.vo.EducationQNABBSVO;
 import com.ktds.sems.education.vo.EducationQNAReplyVO;
 import com.ktds.sems.education.vo.EducationReportSearchVO;
@@ -97,6 +98,14 @@ public interface EducationDAO {
 	public int doReserveEducation(String educationId, String id);
 
 	public int updateStateToApply(String educationId);
+
+	public List<EducationFileBBSVO> getEducationFileBBSList(String educationId);
+
+	public String getArticleSEQ();
+
+	public String getMemberIdByEducationId(String educationId);
+
+	public int writeNewFileBBS(EducationFileBBSVO educationFileBBSVO);
 
 	public List<EducationVO> getMyEducationList(String id);
 

@@ -660,6 +660,50 @@
 								WHERE	ROWNUM = 1
 					    	)		
 	</update>
+	
+	<select id="getEducationFileBBSList" parameterType="string" resultType="EducationFileBBSVO">
+		SELECT	ATC_ID articleId
+				, EDU_ID educationId
+				, MBR_ID memberId
+				, IS_DELETE isDelete
+				, TITLE title
+				, CONTENTS contents
+				, TO_CHAR(CREATE_DATE, 'YYYY-MM-DD') createDate
+				, MODIFY_DATE modifyDate
+				, HITS hits
+		FROM	EDU_FILE_BBS
+		WHERE	EDU_ID = #{educationId}
+	</select>
+	
+	<select id="getArticleSEQ" resultType="string">
+		SELECT	ATC_ID_SEQ.NEXTVAL
+		FROM	DUAL
+	</select>
+	
+	<select id="getMemberIdByEducationId" resultType="string" parameterType="string">
+		SELECT	MBR_ID
+		FROM	EDU_INFO
+		WHERE	EDU_ID = #{educationId}
+	</select>
+	
+	<insert id="writeNewFileBBS" parameterType="EducationFileBBSVO">
+		INSERT	INTO SEMS.EDU_FILE_BBS (
+											ATC_ID
+											, EDU_ID
+											, MBR_ID
+											, TITLE
+											, CONTENTS
+											, CREATE_DATE
+										) 
+				VALUES 					(
+											#{articleId}
+											, #{educationId}
+											, #{memberId}
+											, #{title}
+											, #{contents}
+											, TO_CHAR(SYSDATE,'YYYY-MM-DD')
+										)
+	</insert>
 
 	<!-- 평화
 	<select id="getMyEducationList" parameterType="string" resultType="EducationVO">

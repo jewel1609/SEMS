@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.ktds.sems.education.dao.EducationDAO;
+import com.ktds.sems.education.vo.EducationFileBBSVO;
 import com.ktds.sems.education.vo.EducationQNABBSVO;
 import com.ktds.sems.education.vo.EducationQNAReplyVO;
 import com.ktds.sems.education.vo.EducationReportSearchVO;
@@ -287,6 +288,25 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 		return getSqlSession().update("EducationDAO.updateStateToApply", educationId);
 	}
 
+	@Override
+	public List<EducationFileBBSVO> getEducationFileBBSList(String educationId) {
+		return getSqlSession().selectList("EducationDAO.getEducationFileBBSList", educationId);
+	}
+
+	@Override
+	public String getArticleSEQ() {
+		return getSqlSession().selectOne("EducationDAO.getArticleSEQ");
+	}
+
+	@Override
+	public String getMemberIdByEducationId(String educationId) {
+		return getSqlSession().selectOne("EducationDAO.getMemberIdByEducationId", educationId);
+	}
+
+	@Override
+	public int writeNewFileBBS(EducationFileBBSVO educationFileBBSVO) {
+		return getSqlSession().insert("EducationDAO.writeNewFileBBS", educationFileBBSVO);
+	}
 
 	@Override
 	public List<EducationVO> getMyEducationList(String id) {
