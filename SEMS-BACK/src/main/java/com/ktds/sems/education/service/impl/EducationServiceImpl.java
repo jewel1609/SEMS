@@ -141,6 +141,7 @@ public class EducationServiceImpl implements EducationService {
 		
 		view.setViewName("education/update");
 		view.addObject("educationVO", educationVO);
+		view.addObject("teacherVO", educationBiz.teacherVOList());
 		view.addObject("costList", educationBiz.costCodeList());
 		view.addObject("typeList", educationBiz.typeCodeList());
 		view.addObject("categoryList", educationBiz.categoryCodeList());
@@ -218,6 +219,7 @@ public class EducationServiceImpl implements EducationService {
 	@Override
 	public ModelAndView getAllEduCode() {
 		ModelAndView view = new ModelAndView();
+		view.addObject("teacherVO", educationBiz.teacherVOList());
 		view.addObject("costList", educationBiz.costCodeList());
 		view.addObject("typeList", educationBiz.typeCodeList());
 		view.addObject("categoryList", educationBiz.categoryCodeList());

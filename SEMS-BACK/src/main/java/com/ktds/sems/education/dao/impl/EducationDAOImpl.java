@@ -23,6 +23,7 @@ import com.ktds.sems.education.vo.EducationTypeVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.TeamVO;
 import com.ktds.sems.member.vo.MemberVO;
+import com.ktds.sems.teacher.vo.TeacherVO;
 
 public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationDAO {
 
@@ -186,5 +187,10 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 	@Override
 	public MemberVO emailNoticeForUser(String memberId) {
 		return getSqlSession().selectOne("EducationDAO.emailNoticeForUser", memberId);
+	}
+
+	@Override
+	public List<TeacherVO> teacherVOList() {
+		return getSqlSession().selectList("EducationDAO.teacherVOList");
 	}
 }

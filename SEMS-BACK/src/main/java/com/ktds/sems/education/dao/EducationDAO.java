@@ -18,6 +18,7 @@ import com.ktds.sems.education.vo.EducationTypeVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.TeamVO;
 import com.ktds.sems.member.vo.MemberVO;
+import com.ktds.sems.teacher.vo.TeacherVO;
 
 public interface EducationDAO {
 
@@ -57,5 +58,6 @@ public interface EducationDAO {
 	public List<EducationVO> attendedLectureUserList(String educationId);
 	
 	public MemberVO emailNoticeForUser(String memberId);
+	public List<TeacherVO> teacherVOList();
 
 }

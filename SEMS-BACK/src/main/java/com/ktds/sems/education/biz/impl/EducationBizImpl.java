@@ -26,6 +26,7 @@ import com.ktds.sems.education.vo.EducationTypeVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.TeamVO;
 import com.ktds.sems.member.vo.MemberVO;
+import com.ktds.sems.teacher.vo.TeacherVO;
 
 public class EducationBizImpl implements EducationBiz {
 
@@ -311,5 +312,10 @@ public class EducationBizImpl implements EducationBiz {
 			mailVO.setToId(memberVO.getEmail());
 			sendMail.sendMailToCustomer(mailVO);
 		}
+	}
+
+	@Override
+	public List<TeacherVO> teacherVOList() {
+		return educationDAO.teacherVOList();
 	}
 }

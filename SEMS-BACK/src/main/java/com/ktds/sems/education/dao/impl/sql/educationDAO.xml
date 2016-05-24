@@ -548,4 +548,12 @@
 		FROM	EDU_INFO
 	</select>
 	
+	<select id="teacherVOList" resultType="TeacherVO">
+		SELECT	M.NM name
+				, T.MBR_ID memberId
+		FROM	MBR M
+				, TCHR_INFO T
+		WHERE	M.ID = T.MBR_ID
+	</select>
+	
 </mapper>
