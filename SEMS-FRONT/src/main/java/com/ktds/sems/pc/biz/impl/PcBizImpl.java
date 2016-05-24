@@ -6,6 +6,7 @@ import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.pc.biz.PcBiz;
 import com.ktds.sems.pc.dao.PcDAO;
+import com.ktds.sems.pc.vo.ReportedPcSearchVO;
 import com.ktds.sems.pc.vo.ReportedPcVO;
 import com.ktds.sems.pc.vo.UsedPcVO;
 
@@ -43,6 +44,16 @@ public class PcBizImpl implements PcBiz {
 	@Override
 	public List<UsedPcVO> getUsedPcListByMember(MemberVO memberVO) {
 		return pcDAO.getUsedPcListByMember(memberVO);
+	}
+
+	@Override
+	public int getTotalMyReportedPcCount(ReportedPcSearchVO reportedPcSearchVO) {
+		return pcDAO.getTotalMyReportedPcCount(reportedPcSearchVO);
+	}
+
+	@Override
+	public List<ReportedPcVO> getMyReportedPcList(ReportedPcSearchVO reportedPcSearchVO) {
+		return pcDAO.getMyReportedPcList(reportedPcSearchVO);
 	}
 
 }

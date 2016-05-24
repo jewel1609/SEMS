@@ -9,13 +9,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.pc.service.PcService;
+import com.ktds.sems.pc.vo.ReportedPcSearchVO;
 import com.ktds.sems.pc.vo.ReportedPcVO;
 
 import kr.co.hucloud.utilities.web.AjaxUtil;
@@ -53,5 +52,9 @@ public class PcController {
 		String reportStatus = pcService.reportProblemPc(reportedPcVO, errors, session, request);
 		AjaxUtil.sendResponse(response, reportStatus);
 	}
-	
+
+	@RequestMapping("/myPage/pc/myReportedPcList")
+	public ModelAndView viewMyReportedPcListPage(HttpSession session, ReportedPcSearchVO reportedPcSearchVO) {
+		return pcService.getMyReportedPcList(session, reportedPcSearchVO);
+	}
 }

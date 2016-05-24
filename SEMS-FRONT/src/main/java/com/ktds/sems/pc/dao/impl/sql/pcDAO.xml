@@ -66,4 +66,95 @@
 		AND     UP.PC_ID = PC.PC_ID
 		AND     UP.MBR_ID=#{id}
 	</select>
+	<select id="getTotalMyReportedPcCount" parameterType="ReportedPcSearchVO" resultType="_int">
+		SELECT	COUNT(RPT_PC_ID)
+		FROM	RPT_PC RP
+				, PC P
+				, EDU_PLACE EP
+				, CODE_MNG CM
+		WHERE	RP.PC_ID = P.PC_ID
+		AND		P.EDU_PLACE_ID = EP.EDU_PLACE_ID
+		AND		RP.RPT_STAT = CM.CD_ID
+		<if test="searchKeyword != null and searchKeyword != ''">
+		AND		(
+					<if test="searchType == 'reportedPcId'">
+					RP.RPT_PC_ID LIKE '%' || #{searchKeyword} || '%'
+					</if>
+					<if test="searchType == 'educationLocation'">
+					EP.EDU_PLACE_LOC LIKE '%' || #{searchKeyword} || '%'
+					</if>
+					<if test="searchType == 'pcName'">
+					P.PC_NAME LIKE '%' || #{searchKeyword} || '%'
+					</if>
+					<if test="searchType == 'reportedCategory'">
+					RP.RPT_CTGR LIKE '%' || #{searchKeyword} || '%'
+					</if>
+					<if test="searchType == 'cdNm'">
+					CM.CD_NM LIKE '%' || #{searchKeyword} || '%'
+					</if>
+					<if test="searchType == 'reportedComment'">
+					RP.RPT_CMNT LIKE '%' || #{searchKeyword} || '%'
+					</if>
+				)
+		</if>
+		AND		RP.MBR_ID = #{memberId}
+	</select>
+	
+	<select id="getMyReportedPcList" parameterType="ReportedPcSearchVO" resultType="ReportedPcVO">
+		SELECT	RP3.RPT_PC_ID reportedPcId
+				, RP3.EDU_PLACE_LOC educationLocation
+				, RP3.PC_NAME pcName
+				, RP3.RPT_CTGR reportedCategory
+				, RP3.RPT_STAT reportedState
+				, RP3.CD_NM cdNm
+				, RP3.RPT_CMNT reportedComment
+		FROM	(
+					SELECT	ROWNUM AS RNUM
+							, RPT2.*
+					FROM	(
+								SELECT	RP.RPT_PC_ID
+										, EP.EDU_PLACE_LOC
+										, P.PC_NAME
+										, RP.RPT_CTGR
+										, RP.RPT_STAT
+										, CM.CD_NM
+										, RP.RPT_CMNT
+								FROM	RPT_PC RP
+										, PC P
+										, EDU_PLACE EP
+										, CODE_MNG CM
+								WHERE	RP.PC_ID = P.PC_ID
+								AND		P.EDU_PLACE_ID = EP.EDU_PLACE_ID
+								AND		RP.RPT_STAT = CM.CD_ID
+										<if test="searchKeyword != null and searchKeyword != ''">
+								AND		(
+											<if test="searchType == 'reportedPcId'">
+											RP.RPT_PC_ID LIKE '%' || #{searchKeyword} || '%'
+											</if>
+											<if test="searchType == 'educationLocation'">
+											EP.EDU_PLACE_LOC LIKE '%' || #{searchKeyword} || '%'
+											</if>
+											<if test="searchType == 'pcName'">
+											P.PC_NAME LIKE '%' || #{searchKeyword} || '%'
+											</if>
+											<if test="searchType == 'reportedCategory'">
+											RP.RPT_CTGR LIKE '%' || #{searchKeyword} || '%'
+											</if>
+											<if test="searchType == 'cdNm'">
+											CM.CD_NM LIKE '%' || #{searchKeyword} || '%'
+											</if>
+											<if test="searchType == 'reportedComment'">
+											RP.RPT_CMNT LIKE '%' || #{searchKeyword} || '%'
+											</if>
+										)
+								</if>
+								AND		RP.MBR_ID = #{memberId}
+								ORDER	BY RP.RPT_PC_ID DESC
+							) RPT2
+					WHERE	ROWNUM <![CDATA[<=]]> #{endIndex}
+				) RP3
+		WHERE	RNUM <![CDATA[>=]]> #{startIndex}
+
+	</select>
+	
 </mapper>

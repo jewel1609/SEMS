@@ -7,6 +7,7 @@ import org.mybatis.spring.support.SqlSessionDaoSupport;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.pc.dao.PcDAO;
+import com.ktds.sems.pc.vo.ReportedPcSearchVO;
 import com.ktds.sems.pc.vo.ReportedPcVO;
 import com.ktds.sems.pc.vo.UsedPcVO;
 
@@ -38,6 +39,16 @@ public class PcDAOImpl extends SqlSessionDaoSupport implements PcDAO {
 	@Override
 	public List<UsedPcVO> getUsedPcListByMember(MemberVO memberVO) {
 		return getSqlSession().selectList("PcDAO.getUsedPcListByMember", memberVO);
+	}
+
+	@Override
+	public int getTotalMyReportedPcCount(ReportedPcSearchVO reportedPcSearchVO) {
+		return getSqlSession().selectOne("PcDAO.getTotalMyReportedPcCount", reportedPcSearchVO);
+	}
+
+	@Override
+	public List<ReportedPcVO> getMyReportedPcList(ReportedPcSearchVO reportedPcSearchVO) {
+		return getSqlSession().selectList("PcDAO.getMyReportedPcList", reportedPcSearchVO);
 	}
 
 }

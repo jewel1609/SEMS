@@ -8,6 +8,7 @@ public class ReportedPcVO extends PcVO {
 	private String reportedComment;
 
 	private String memberId;
+	private String cdNm;
 
 	public String getReportedPcId() {
 		return reportedPcId;
@@ -47,6 +48,14 @@ public class ReportedPcVO extends PcVO {
 
 	public void setMemberId(String memberId) {
 		this.memberId = memberId;
+	}
+
+	public String getCdNm() {
+		return cdNm;
+	}
+
+	public void setCdNm(String cdNm) {
+		this.cdNm = cdNm;
 	}
 
 }

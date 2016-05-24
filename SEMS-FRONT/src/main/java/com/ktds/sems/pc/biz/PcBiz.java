@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.member.vo.MemberVO;
+import com.ktds.sems.pc.vo.ReportedPcSearchVO;
 import com.ktds.sems.pc.vo.ReportedPcVO;
 import com.ktds.sems.pc.vo.UsedPcVO;
 
@@ -18,5 +19,9 @@ public interface PcBiz {
 	public int getNextReportedPcIdSeq();
 
 	public List<UsedPcVO> getUsedPcListByMember(MemberVO memberVO);
+
+	public int getTotalMyReportedPcCount(ReportedPcSearchVO reportedPcSearchVO);
+
+	public List<ReportedPcVO> getMyReportedPcList(ReportedPcSearchVO reportedPcSearchVO);
 
 }

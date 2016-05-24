@@ -14,10 +14,13 @@ import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.pc.biz.PcBiz;
 import com.ktds.sems.pc.service.PcService;
+import com.ktds.sems.pc.vo.ReportedPcListVO;
+import com.ktds.sems.pc.vo.ReportedPcSearchVO;
 import com.ktds.sems.pc.vo.ReportedPcVO;
 import com.ktds.sems.pc.vo.UsedPcVO;
 
 import kr.co.hucloud.utilities.web.AjaxUtil;
+import kr.co.hucloud.utilities.web.Paging;
 
 public class PcServiceImpl implements PcService{
 
@@ -112,6 +115,39 @@ public class PcServiceImpl implements PcService{
 		}
 		return source;
 		
+	}
+
+	@Override
+	public ModelAndView getMyReportedPcList(HttpSession session, ReportedPcSearchVO reportedPcSearchVO) {
+		
+		ReportedPcListVO reportedPcListVO = new ReportedPcListVO();
+		Paging paging = new Paging();
+		reportedPcListVO.setPaging(paging);
+		
+		if(reportedPcSearchVO == null) {
+			reportedPcSearchVO = new ReportedPcSearchVO();
+			reportedPcSearchVO.setPageNo(0);
+		}
+		
+		MemberVO memberVO = (MemberVO) session.getAttribute(Session.MEMBER);
+		reportedPcSearchVO.setMemberId(memberVO.getId());
+		
+		paging.setPageNumber(reportedPcSearchVO.getPageNo() + "");
+		int totalCount = pcBiz.getTotalMyReportedPcCount(reportedPcSearchVO);
+		paging.setTotalArticleCount(totalCount);
+		
+		reportedPcSearchVO.setStartIndex(paging.getStartArticleNumber());
+		reportedPcSearchVO.setEndIndex(paging.getEndArticleNumber());
+
+		List<ReportedPcVO> reportedPcList = pcBiz.getMyReportedPcList(reportedPcSearchVO);
+		reportedPcListVO.setReportedPcList(reportedPcList);
+		
+		ModelAndView view = new ModelAndView();
+		view.setViewName("/myPage/pc/myReportedPcList");
+		view.addObject("reportedPcListVO", reportedPcListVO);
+		view.addObject("reportedPcSearchVO", reportedPcSearchVO);
+		
+		return view;
 	}
 	
 }
