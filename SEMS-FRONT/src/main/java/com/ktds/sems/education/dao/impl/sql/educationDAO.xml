@@ -661,6 +661,13 @@
 					    	)		
 	</update>
 
+	<!-- 평화
+	<select id="getMyEducationList" parameterType="string" resultType="EducationVO">
+		
+	</select>
+	  -->
+
+
 	<select id="getTotalEduReportCount" parameterType="EduReportSearchVO" resultType="_int" >
 		SELECT	COUNT(ATC_ID)
 		FROM	EDU_RPT_BBS
