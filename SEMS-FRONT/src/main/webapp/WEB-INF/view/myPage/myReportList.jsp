@@ -58,7 +58,7 @@
 		</tr>
 		<c:forEach items="${reportReplytListVO.reportReplyList}" var="reportReplyVO">
 			<tr>
-				<td><a href="<c:url value='/myPage/myEdudetail/${reportReplyVO.eduId}'/>"> ${reportReplyVO.eduTtl}</a></td>
+				<td><a href="<c:url value='/eduDetail/${reportReplyVO.eduId}'/>"> ${reportReplyVO.eduTtl}</a></td>
 				<td><a href="<c:url value='/education/detailReport/${reportReplyVO.atcId}'/>"> ${reportReplyVO.title}</a></td>
 				<td>${reportReplyVO.createdDate}</td>
 			</tr>
