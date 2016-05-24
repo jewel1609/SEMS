@@ -31,6 +31,7 @@ import com.ktds.sems.education.vo.QNASearchVO;
 import com.ktds.sems.education.vo.QNAVO;
 import com.ktds.sems.education.vo.ReportReplySearchVO;
 import com.ktds.sems.education.vo.ReportReplyVO;
+import com.ktds.sems.member.vo.MemberVO;
 
 import kr.co.hucloud.utilities.web.AjaxUtil;
 
@@ -277,19 +278,22 @@ public class EducationController {
 		return educationService.viewReportWrite(educationId, session);
 	}
 	@RequestMapping("/eduBoard/QNADetail/{atcId}")
-	public ModelAndView viewEduBoardQNADetailPage(@PathVariable String atcId) {
+	public ModelAndView viewEduBoardQNADetailPage(@PathVariable String atcId, HttpSession session) {
 		ModelAndView view = new ModelAndView();
+		MemberVO sessionMember = (MemberVO) session.getAttribute("_MEMBER_");
+		String sessionId = sessionMember.getId();
 		
 		EducationQNABBSVO oneQNABBSByAtcId = educationService.getOneQNABBSByAtcId(atcId);
+
 		EducationQNAReplyListVO qnaReplyList = new EducationQNAReplyListVO();
-		
 		List<EducationQNAReplyVO> qnaReplyListByAtcId = educationService.getAllQNAReplyListByAtcId(atcId);
 		
 		qnaReplyList.setQnaReplyList(qnaReplyListByAtcId);
 		
-		
+		view.addObject("sessionId", sessionId);
 		view.addObject("qnaReplyList", qnaReplyList);
 		view.addObject("oneQNABBSByAtcId", oneQNABBSByAtcId);
+		
 		view.setViewName("myPage/eduBoardQNADetail");
 		
 		return view;

@@ -71,18 +71,22 @@
 	<div>
 		<span>
 			작성자 : ${qnaReplyList.mbrId}
+			
 		</span><br/>
 		<span> 
 			날짜 : ${qnaReplyList.createdDate}
-		</span><br/>
-		<span>
-			내용	: ${qnaReplyList.description} 
 			<c:if test="${ oneQNABBSByAtcId.mbrId eq sessionId && qnaReplyList.mbrId ne sessionId }">
 			&nbsp;&nbsp;&nbsp;&nbsp; <input type="button" class="adoptReplyBtn" value="답변 채택" />
 			</c:if> 
 		</span><br/>
-		<input type="button" id="likeBtn" value="추천"/>
-		<input type="button" id="dislikeBtn" value="반대"/>
+		<span>
+			내용	: ${qnaReplyList.description} 
+			
+		</span><br/>
+		<input type="button" id="likeBtn" value="추천"/> ${qnaReplyList.likeCnt}
+		<input type="button" id="dislikeBtn" value="반대"/> ${qnaReplyList.dislikeCnt}
+		
+		점수 : ${qnaReplyList.qnaReplyPoint}
 	</div><br/>
 	</c:forEach>
 	</c:if>

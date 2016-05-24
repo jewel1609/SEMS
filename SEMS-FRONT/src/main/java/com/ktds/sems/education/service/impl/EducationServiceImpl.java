@@ -1113,5 +1113,6 @@ public class EducationServiceImpl implements EducationService {
 		view.setViewName("redirect:/education/detailReport/" + reportReplyVO.getBbsId());
 		return view;
 	}
+
 }
 

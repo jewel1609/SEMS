@@ -1019,6 +1019,7 @@
 				, LIKE_CNT likeCnt
 				, DISLIKE_CNT dislikeCnt
 				, TO_CHAR(CREATED_DATE, 'YYYY-MM-DD HH24:MI') createdDate
+				, (1.5*LIKE_CNT)-(DISLIKE_CNT) AS qnaReplyPoint
 		FROM	BBS_RPL
 		WHERE	ATC_ID = #{atcId}	
 		ORDER	BY	REPLY_ID DESC

@@ -151,4 +151,5 @@ public interface EducationBiz {
 	public int getReportReplyCount(String articleId);
 
 	public String getNowDateTime();
+
 }

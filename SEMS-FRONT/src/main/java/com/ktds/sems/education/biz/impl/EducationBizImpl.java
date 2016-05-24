@@ -488,6 +488,7 @@ public class EducationBizImpl implements EducationBiz {
 	public String getNowDateTime() {
 		return educationDAO.getNowDateTime();
 	}
+
 }
 
 

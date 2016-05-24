@@ -424,4 +424,5 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 		return getSqlSession().selectOne("EducationDAO.getNowDateTime");
 	}
 
+
 }

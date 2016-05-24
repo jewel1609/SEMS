@@ -15,6 +15,7 @@ public class EducationQNAReplyVO {
 	private int likeCnt;
 	private int dislikeCnt;
 	private String createdDate;
+	private String qnaReplyPoint;
 	
 	public String getReplyId() {
 		return replyId;
@@ -69,6 +70,12 @@ public class EducationQNAReplyVO {
 	}
 	public void setCreatedDate(String createdDate) {
 		this.createdDate = createdDate;
+	}
+	public String getQnaReplyPoint() {
+		return qnaReplyPoint;
+	}
+	public void setQnaReplyPoint(String qnaReplyPoint) {
+		this.qnaReplyPoint = qnaReplyPoint;
 	}
 	
 	

@@ -87,4 +87,5 @@ public interface EducationService {
 
 	public List<EducationQNAReplyVO> getAllQNAReplyListByAtcId(String atcId);
 
+
 }

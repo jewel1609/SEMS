@@ -13,6 +13,10 @@ public class EducationQNAReplyListVO {
 	public void setQnaReplyList(List<EducationQNAReplyVO> qnaReplyList) {
 		this.qnaReplyList = qnaReplyList;
 	}
+
+
+	
+	
 	
 	
 	
