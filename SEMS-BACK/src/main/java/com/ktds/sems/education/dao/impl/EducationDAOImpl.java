@@ -24,6 +24,7 @@ import com.ktds.sems.education.vo.EducationHistoryVO;
 import com.ktds.sems.education.vo.EducationTypeVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.TeamVO;
+import com.ktds.sems.member.vo.AttendVO;
 import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.teacher.vo.TeacherVO;
 
@@ -245,5 +246,30 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 	@Override
 	public List<EduReportVO> getAllEduReportHistory(EduReportSearchVO reportSearchVO) {
 		return getSqlSession().selectList("EducationDAO.getAllEduReportHistory", reportSearchVO);
+	}
+
+	@Override
+	public List<MemberVO> getAllMemberList() {
+		return getSqlSession().selectList("EducationDAO.getAllMemberList");
+	}
+
+	@Override
+	public List<EducationVO> getJoinEducation(String memberId) {
+		return getSqlSession().selectList("EducationDAO.getJoinEducation", memberId);
+	}
+
+	@Override
+	public List<AttendVO> getOneMemberAttendance(String memberId) {
+		return getSqlSession().selectList("EducationDAO.getOneMemberAttendance", memberId);
+	}
+
+	@Override
+	public List<EducationVO> getAllStartedEducationList() {
+		return getSqlSession().selectList("EducationDAO.getAllStartedEducationList");
+	}
+
+	@Override
+	public List<MemberVO> getAllMemberListByEduId(String educationId) {
+		return getSqlSession().selectList("EducationDAO.getAllMemberListByEduId", educationId);
 	}
 }

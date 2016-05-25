@@ -171,4 +171,30 @@ public class EducationController {
 		return educationService.doEduFileNoticeModify(educationId, eduNoticeId, eduNoticeVO, errors, session );
 	}
 	
+	@RequestMapping("/attendanceHistory")
+	public ModelAndView viewAttendanceHistory() {
+		ModelAndView view = new ModelAndView();
+		view.setViewName("education/attendanceHistory");
+		return view;
+	}
+	
+	@RequestMapping("/attendanceHistory/memberList")
+	public ModelAndView viewAttendanceHistoryMember() {
+		return educationService.getAllMemberList();
+	}
+	
+	@RequestMapping("/attendanceHistory/memberDetail/{memberId}")
+	public ModelAndView viewAttendanceHistoryOneMember(@PathVariable String memberId) {
+		return educationService.getOneMemberAttendance(memberId);
+	}
+	
+	@RequestMapping("/attendanceHistory/educationList")
+	public ModelAndView viewAttendanceHistoryEducation() {
+		return educationService.getAllStartedEducationList();
+	}
+	
+	@RequestMapping("/attendanceHistory/educationDetail/{educationId}")
+	public ModelAndView viewAttendanceHistoryOneEducation(@PathVariable String educationId) {
+		return educationService.getOneEducationAttendance(educationId);
+	}
 }

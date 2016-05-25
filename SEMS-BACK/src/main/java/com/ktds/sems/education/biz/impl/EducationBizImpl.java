@@ -29,6 +29,7 @@ import com.ktds.sems.education.vo.EducationHistoryVO;
 import com.ktds.sems.education.vo.EducationTypeVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.TeamVO;
+import com.ktds.sems.member.vo.AttendVO;
 import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.teacher.vo.TeacherVO;
 
@@ -399,5 +400,30 @@ public class EducationBizImpl implements EducationBiz {
 	@Override
 	public List<EduReportVO> getAllEduReportHistory(EduReportSearchVO reportSearchVO) {
 		return educationDAO.getAllEduReportHistory(reportSearchVO);
+	}
+
+	@Override
+	public List<MemberVO> getAllMemberList() {
+		return educationDAO.getAllMemberList();
+	}
+
+	@Override
+	public List<EducationVO> getJoinEducation(String memberId) {
+		return educationDAO.getJoinEducation(memberId);
+	}
+
+	@Override
+	public List<AttendVO> getOneMemberAttendance(String memberId) {
+		return educationDAO.getOneMemberAttendance(memberId);
+	}
+
+	@Override
+	public List<EducationVO> getAllStartedEducationList() {
+		return educationDAO.getAllStartedEducationList();
+	}
+
+	@Override
+	public List<MemberVO> getAllMemberListByEduId(String educationId) {
+		return educationDAO.getAllMemberListByEduId(educationId);
 	}
 }

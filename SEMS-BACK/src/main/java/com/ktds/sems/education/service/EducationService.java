@@ -67,7 +67,11 @@ public interface EducationService {
 	public ModelAndView doEduFileNoticeModify(String educationId, String eduNoticeId, EduNoticeVO eduNoticeVO,
 			Errors errors, HttpSession session);
 
+	public ModelAndView getAllMemberList();
 
+	public ModelAndView getOneMemberAttendance(String memberId);
 
+	public ModelAndView getAllStartedEducationList();
 
+	public ModelAndView getOneEducationAttendance(String educationId);
 }

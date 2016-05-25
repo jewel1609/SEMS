@@ -19,6 +19,7 @@ import com.ktds.sems.education.vo.EducationHistoryVO;
 import com.ktds.sems.education.vo.EducationTypeVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.TeamVO;
+import com.ktds.sems.member.vo.AttendVO;
 import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.teacher.vo.TeacherVO;
 
@@ -89,7 +90,7 @@ public interface EducationBiz {
 	public int getTotalEduReportHisotryCount(EduReportSearchVO reportSearchVO);
 
 	public List<EduReportVO> getAllEduReportHistory(EduReportSearchVO reportSearchVO);
-
+	
 	public int getTotalEduFileNoticeCount( EduNoticeSearchVO eduNoticeSearchVO);
 
 	public List<EduNoticeVO> getAllEduFileNotice( EduNoticeSearchVO eduNoticeSearchVO);
@@ -101,7 +102,14 @@ public interface EducationBiz {
 	public boolean doDeleteEduNotice(String eduNoticeId);
 
 	public boolean doEduFileNoticeModify(EduNoticeVO eduNoticeVO);
+	
+	public List<MemberVO> getAllMemberList();
 
+	public List<EducationVO> getJoinEducation(String memberId);
 
+	public List<AttendVO> getOneMemberAttendance(String memberId);
 
+	public List<EducationVO> getAllStartedEducationList();
+
+	public List<MemberVO> getAllMemberListByEduId(String educationId);
 }

@@ -724,4 +724,80 @@
 		AND     RNUM <![CDATA[<=]]> #{endIndex}
 	</select>
 	
+	<select id="getAllMemberList" resultType="MemberVO">
+		SELECT	DISTINCT MBR.ID id
+				, MBR.NM name
+				, MBR.MBR_TP memberType
+		FROM	MBR
+				, EDU_CLASS CL
+				, EDU_INFO INFO
+		WHERE	MBR.ID = CL.MBR_ID
+		AND     CL.EDU_ID = INFO.EDU_ID
+		AND		CL.STAT = 'EDU_JN_C'
+		AND		MBR.MBR_TP = 'MBR'
+		AND     INFO.SRT_DATE <![CDATA[<]]> SYSDATE
+	</select>
+	
+	<select id="getOneMemberAttendance" parameterType="string" resultType="AttendVO">
+		SELECT	ATD.ID id
+				, MBR.ID memberId
+				, ATD.ATD_TM attendTime
+				, INFO.EDU_ID educationId
+				, ATD.LEAV_TM leaveTime
+				, INFO.EDU_TTL educationTitle
+				, MBR.NM memberName
+		FROM	ATD
+				, EDU_INFO INFO
+				, MBR
+		WHERE   INFO.EDU_ID = ATD.EDU_ID
+		AND		MBR.ID = ATD.MBR_ID
+		AND		ATD.MBR_ID = #{memberId}
+	</select>
+	
+	<select id="getJoinEducation" parameterType="string" resultType="EducationVO">
+		SELECT	INFO.EDU_ID educationId
+				, INFO.EDU_TTL educationTitle
+				, INFO.SRT_DATE startDate
+				, INFO.END_DATE endDate
+				, INFO.START_TM startTime
+				, INFO.END_TM endTime
+		FROM	EDU_INFO INFO
+				, EDU_CLASS CL
+		WHERE	INFO.EDU_ID = CL.EDU_ID
+		AND		CL.MBR_ID = #{memberId}
+		AND		CL.STAT = 'EDU_JN_C'
+		AND     INFO.SRT_DATE <![CDATA[<]]> SYSDATE
+	</select>
+	
+	<select id="getAllStartedEducationList" resultType="EducationVO">
+		SELECT	DISTINCT INFO.EDU_ID educationId
+				, INFO.EDU_TTL educationTitle
+				, INFO.SRT_DATE startDate
+				, INFO.END_DATE endDate
+				, INFO.START_TM startTime
+				, INFO.END_TM endTime
+		FROM	EDU_INFO INFO
+				, EDU_CLASS CL
+				, MBR
+		WHERE	INFO.EDU_ID = CL.EDU_ID
+		AND     MBR.ID = CL.MBR_ID
+		AND		CL.STAT = 'EDU_JN_C'
+		AND		MBR.MBR_TP = 'MBR'
+		AND     INFO.SRT_DATE <![CDATA[<]]> SYSDATE
+	</select>
+	
+	<select id="getAllMemberListByEduId" parameterType="string" resultType="MemberVO">
+		SELECT	DISTINCT MBR.ID id
+				, MBR.NM name
+				, MBR.MBR_TP memberType
+		FROM	MBR
+				, EDU_CLASS CL
+				, EDU_INFO INFO
+		WHERE	MBR.ID = CL.MBR_ID
+		AND     CL.EDU_ID = INFO.EDU_ID
+		AND		INFO.EDU_ID = #{educationId}
+		AND		CL.STAT = 'EDU_JN_C'
+		AND		MBR.MBR_TP = 'MBR'
+		AND     INFO.SRT_DATE <![CDATA[<]]> SYSDATE
+	</select>
 </mapper>
