@@ -391,4 +391,14 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 		return getSqlSession().selectList("MemberDAO.getReportReplyListByMemberId", id);
 	}
 
+	@Override
+	public void deleteJunitTestStampLoginTime(int lgiHtrId) {
+		getSqlSession().delete("MemberDAO.deleteJunitTestStampLoginTime", lgiHtrId);
+	}
+
+	@Override
+	public int currentLoginHistorySeq() {
+		return getSqlSession().selectOne("MemberDAO.currentLoginHistorySeq");
+	}
+
 }

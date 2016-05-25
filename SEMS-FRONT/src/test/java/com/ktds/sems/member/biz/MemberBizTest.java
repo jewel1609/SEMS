@@ -6,6 +6,8 @@ import static org.junit.Assert.fail;
 
 import java.util.List;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
@@ -15,6 +17,7 @@ import org.springframework.mock.web.MockHttpSession;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ktds.sems.SemsTestCase;
+import com.ktds.sems.Testable;
 import com.ktds.sems.common.Session;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationHistoryVO;
@@ -33,6 +36,35 @@ public class MemberBizTest extends SemsTestCase {
 	@Autowired
 	private MemberBiz memberBiz;
 
+	/**
+	 * @author 김동규 
+	 * Action - insert
+	 */
+	@Before
+	public void setUp() {
+		testHelper(new Testable() {
+			// stampLoginTimeTest Setting - insert loginHistoryVO
+			@Override
+			public void preparedTest() {
+
+			}
+		});
+	}
+	
+	/**
+	 * @author 김동규 
+	 * Action - delete
+	 */
+	@After
+	public void tearDown() {
+		testHelper(new Testable() {
+			@Override
+			public void preparedTest() {
+
+			}
+		});
+	}
+	
 	/**
 	 * 계정 잠겨있는지 확인
 	 * 
@@ -388,21 +420,32 @@ public class MemberBizTest extends SemsTestCase {
 	
 	@Test
 	public void stampLoginTimeTest() {
+		LoginHistoryVO loginHistoryVO = new LoginHistoryVO();
 		MockHttpSession session = new MockHttpSession();
 		MockHttpServletRequest request = new MockHttpServletRequest();
-		LoginHistoryVO loginHistoryVO = new LoginHistoryVO();
-		loginHistoryVO.setLgiHtrId(1048);
-		loginHistoryVO.setId("test04");
-		loginHistoryVO.setLgiIp(request.getRemoteHost());
-		
-		session.setAttribute(Session.LOGIN_HISTORY, loginHistoryVO);
-		
-		boolean check = memberBiz.stampLoginTime(session, request, loginHistoryVO);
-		assertTrue(check);
-		if( check ) {
-			assertNotNull(check);
+		if (loginHistoryVO.getId() == null || loginHistoryVO.getLgiHtrId() <= 0 || loginHistoryVO.getLgiIp() == null ) {
+			loginHistoryVO.setLgiHtrId(1048);
+			loginHistoryVO.setId("test04");
+			loginHistoryVO.setLgiIp(request.getRemoteHost());
+			session.setAttribute(Session.LOGIN_HISTORY, loginHistoryVO);
+			
+			boolean check = memberBiz.stampLoginTime(session, request, loginHistoryVO);
+			assertTrue(check);
+			if( check ) {
+				assertNotNull(check);
+				
+			} else {
+				fail("[Biz Part] stampLoginTimeTest Fail.");
+			}
 		} else {
-			fail("[Biz Part] stampLoginTimeTest Fail.");
+			boolean check = memberBiz.stampLoginTime(session, request, loginHistoryVO);
+			assertTrue(check);
+			if( check ) {
+				assertNotNull(check);
+				
+			} else {
+				fail("[Biz Part] stampLoginTimeTest Fail.");
+			}
 		}
 	}
 	

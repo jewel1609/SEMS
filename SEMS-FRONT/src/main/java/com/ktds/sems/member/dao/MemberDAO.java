@@ -158,5 +158,9 @@ public interface MemberDAO {
 	public EducationVO getOneEducationInfo(Map<String, String> eduIdAndMemberId);
 
 	public List<ReportReplyVO> getReportReplyListByMemberId(String id);
+	
+	public void deleteJunitTestStampLoginTime(int lgiHtrId);
+	
+	public int currentLoginHistorySeq();
 
 }

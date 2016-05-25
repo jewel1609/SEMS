@@ -10,12 +10,12 @@ import java.util.List;
 import java.util.Map;
 
 import org.junit.After;
+import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletRequest;
-import org.springframework.test.context.transaction.BeforeTransaction;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ktds.sems.SemsTestCase;
@@ -39,9 +39,10 @@ public class MemberDAOTest extends SemsTestCase {
 	private MemberDAO memberDAO;
 
 	/**
-	 * @author 김동규 Action - insert
+	 * @author 김동규 
+	 * Action - insert
 	 */
-	@BeforeTransaction
+	@Before
 	public void setUp() {
 		testHelper(new Testable() {
 			// stampLoginTimeTest Setting - insert loginHistoryVO
@@ -56,60 +57,19 @@ public class MemberDAOTest extends SemsTestCase {
 				memberDAO.stampLoginTime(loginHistoryVO);
 			}
 		});
+	}
+	
+	/**
+	 * @author 김동규 
+	 * Action - delete
+	 */
+	@After
+	public void tearDown() {
 		testHelper(new Testable() {
-			// modifyMemberInfoTest Setting - update MemberVO
 			@Override
 			public void preparedTest() {
-				String salt = SHA256Util.generateSalt();
-				MemberVO memberVO = new MemberVO();
-				memberVO.setId("test04");
-				memberVO.setName("cain");
-				memberVO.setEmail("cain@naver.com");
-				memberVO.setHighestEducationLevel("UNIV");
-				memberVO.setGraduationType("GRAD");
-				memberVO.setBirthDate("1988-02-20");
-				memberVO.setPhoneNumber("010-7336-6004");
-				memberVO.setPassword("testPassWord!!");
-				String newPassword = SHA256Util.getEncrypt(memberVO.getPassword(), salt);
-				memberVO.setPassword(newPassword);
-				memberVO.setSalt(salt);
-
-				memberDAO.modifyMemberInfo(memberVO);
-			}
-		});
-		testHelper(new Testable() {
-			// stampLogoutTimeTest Setting - update loginHistoryVO
-			@Override
-			public void preparedTest() {
-				LoginHistoryVO loginHistoryVO = new LoginHistoryVO();
-				loginHistoryVO.setLgiHtrId(1048);
-				memberDAO.stampLogoutTime(loginHistoryVO);
-			}
-		});
-		testHelper(new Testable() {
-			// stampLogoutTimeByMemberIdTest Setting - update String memberId
-			@Override
-			public void preparedTest() {
-				String memberId = "test04";
-				memberDAO.stampLogoutTimeByMemberId(memberId);
-			}
-		});
-		testHelper(new Testable() {
-			// doRequestIpHistoryTest Setting - update int lgiHtrId
-			@Override
-			public void preparedTest() {
-				int lgiHtrId = 1048;
-				memberDAO.doRequestIpHistory(lgiHtrId);
-			}
-		});
-		testHelper(new Testable() {
-			// ipCheckCountUpdateTest Setting - update loginHistoryVO
-			@Override
-			public void preparedTest() {
-				LoginHistoryVO loginHistoryVO = new LoginHistoryVO();
-				loginHistoryVO.setId("test04");
-				loginHistoryVO.setLgiHtrId(1048);
-				memberDAO.ipCheckCountUpdate(loginHistoryVO);
+				int seq = memberDAO.currentLoginHistorySeq();
+				memberDAO.deleteJunitTestStampLoginTime(seq);
 			}
 		});
 	}
@@ -476,14 +436,15 @@ public class MemberDAOTest extends SemsTestCase {
 	@Test
 	public void checkIpInfoTest() {
 		LoginHistoryVO loginHistoryVO = new LoginHistoryVO();
+		MockHttpServletRequest request = new MockHttpServletRequest();
 		loginHistoryVO.setLgiHtrId(1048);
 		loginHistoryVO.setId("test04");
+		loginHistoryVO.setLgiIp(request.getRemoteHost());
 		LoginHistoryVO test = memberDAO.checkIpInfo(loginHistoryVO);
 		if (test != null) {
 			assertNotNull(loginHistoryVO.getLgiHtrId());
 			assertNotNull(loginHistoryVO.getId());
-			// assertNotNull(loginHistoryVO.getLgiIp()); <==데이터 존재하지만 null
-			// error발생
+			assertNotNull(loginHistoryVO.getLgiIp());
 			assertNotNull(loginHistoryVO.getChkCnt());
 			// assertNotNull(loginHistoryVO.getLgiDt()); <==데이터 존재하지만 null
 			// error발생
@@ -596,14 +557,10 @@ public class MemberDAOTest extends SemsTestCase {
 	public void stampLoginTimeTest() {
 		LoginHistoryVO loginHistoryVO = new LoginHistoryVO();
 		if (loginHistoryVO.getId() == null || loginHistoryVO.getLgiHtrId() <= 0 || loginHistoryVO.getLgiIp() == null ) {
-			assertNotNull(loginHistoryVO.getLgiHtrId());
-//			assertNotNull(loginHistoryVO.getId());
-//			assertNotNull(loginHistoryVO.getLgiIp());
 			MockHttpServletRequest request = new MockHttpServletRequest();
 			loginHistoryVO.setId("test04");
 			loginHistoryVO.setLgiIp(request.getRemoteHost());
 		}
-		
 		int check = memberDAO.stampLoginTime(loginHistoryVO);
 		if (check > 0) {
 			assertNotNull(loginHistoryVO.getLgiHtrId());
@@ -611,29 +568,6 @@ public class MemberDAOTest extends SemsTestCase {
 			assertNotNull(loginHistoryVO.getLgiIp());
 		} else {
 			fail("[DAO Part] stampLoginTimeTest Fail.");
-		}
-	}
-
-	/**
-	 * @param MemberVO
-	 *            Action - update
-	 */
-	@Test
-	public void modifyMemberInfoTest() {
-		MemberVO memberVO = new MemberVO();
-		
-		if (memberVO != null) {
-			assertNull(memberVO.getId());
-			assertNull(memberVO.getName());
-			assertNull(memberVO.getEmail());
-			assertNull(memberVO.getHighestEducationLevel());
-			assertNull(memberVO.getGraduationType());
-			assertNull(memberVO.getBirthDate());
-			assertNull(memberVO.getPhoneNumber());
-			assertNull(memberVO.getPassword());
-			assertNull(memberVO.getSalt());
-		} else {
-			fail("[DAO Part] modifyMemberInfoTest Fail.");
 		}
 	}
 
@@ -675,57 +609,6 @@ public class MemberDAOTest extends SemsTestCase {
 		}
 	}
 
-	/**
-	 * @param int
-	 *            memberId Action - update
-	 */
-	@Test
-	public void doRequestIpHistoryTest() {
-		LoginHistoryVO loginHistoryVO = new LoginHistoryVO();
-		if (loginHistoryVO != null ) {
-			assertNotNull(loginHistoryVO.getLgiHtrId());
-		} else {
-			fail("[DAO Part] doRequestIpHistoryTest Fail.");
-		}
-	}
-
-	/**
-	 * @param loginHistoryVO
-	 *            memberId Action - update
-	 */
-	@Test
-	public void ipCheckCountUpdateTest() {
-		LoginHistoryVO loginHistoryVO = new LoginHistoryVO();
-		assertNotNull(loginHistoryVO.getLgiHtrId());
-		assertNull(loginHistoryVO.getId());
-	}
-
-	/**
-	 * Action - delete
-	 */
-	@After
-	public void tearDown() {
-		testHelper(new Testable() {
-			// Action Delete querys.
-			@Override
-			public void preparedTest() {
-				// stampLoginTime - insert loginHistoryVO
-				// modifyMemberInfo - update MemberVO
-				// stampLogoutTime - update loginHistoryVO
-				// stampLogoutTimeByMemberId - update String memberId
-				// doRequestIpHistory - update int lgiHtrId
-				// ipCheckCountUpdate - update loginHistoryVO
-				// memberDAO.stampLoginTime(newLoginHistoryVO);
-				// memberDAO.modifyMemberInfo(member);
-				// memberDAO.stampLogoutTime(newLoginHistoryVO);
-				// memberDAO.stampLogoutTimeByMemberId(memberId);
-				// memberDAO.doRequestIpHistory(lgiHtrId);
-				// memberDAO.ipCheckCountUpdate(loginHistoryVO);
-
-			}
-		});
-	}
-	
 	@Test
 	public void checkRegistStateFalseTest() {
 		String id = "registerFailed";

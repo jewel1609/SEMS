@@ -880,5 +880,13 @@
 		            ) EDI
 		 WHERE	ROWNUM <![CDATA[<=]]> 10
 	</select>
-	
+	<delete id="deleteJunitTestStampLoginTime">
+		DELETE
+		FROM	LGI_HTR
+		WHERE	LGI_HTR_ID = #{lgiHtrId}
+	</delete>
+	<select id="currentLoginHistorySeq" resultType="_int">
+		SELECT  LGI_HTR_ID_SEQ.CURRVAL
+		FROM    DUAL
+	</select>
 </mapper>

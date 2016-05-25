@@ -8,10 +8,8 @@ import static org.junit.Assert.fail;
 import java.util.List;
 import java.util.UUID;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletRequest;
@@ -24,13 +22,13 @@ import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.SemsTestCase;
+import com.ktds.sems.Testable;
 import com.ktds.sems.common.Session;
 import com.ktds.sems.education.vo.EducationCostVO;
 import com.ktds.sems.education.vo.EducationHistoryListVO;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationHistoryVO;
 import com.ktds.sems.education.vo.EducationStateVO;
-import com.ktds.sems.member.dao.MemberDAO;
 import com.ktds.sems.member.vo.GraduationTypeVO;
 import com.ktds.sems.member.vo.HighestEducationLevelVO;
 import com.ktds.sems.member.vo.LoginHistoryListVO;
@@ -40,6 +38,7 @@ import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.member.vo.MenuManageVO;
 import com.ktds.sems.validator.member.MemberValidator;
 
+import kr.co.hucloud.utilities.SHA256Util;
 import kr.co.hucloud.utilities.web.Paging;
 
 @Transactional
@@ -47,9 +46,36 @@ public class MemberServiceTest extends SemsTestCase {
 
 	@Autowired
 	private MemberService memberService;
-	@Autowired
-	private MemberDAO memberDAO;
 
+	/**
+	 * @author 김동규
+	 * Action - Insert
+	 */
+	@Before
+	public void setUp() {
+		testHelper(new Testable() {
+			@Override
+			public void preparedTest() {
+
+			}
+		});
+	}
+	
+	/**
+	 * @author 김동규
+	 * Action - Delete
+	 */
+	@After
+	public void tearDown() {
+		testHelper(new Testable() {
+			
+			@Override
+			public void preparedTest() {
+				
+			}
+		});
+	}
+	
 	/**
 	 * 로그인
 	 */
@@ -1093,18 +1119,28 @@ public class MemberServiceTest extends SemsTestCase {
 	@Test
 	public void doRequestIpHistoryTest() {
 		LoginHistoryVO loginHistoryVO = new LoginHistoryVO();
-		loginHistoryVO.setId("test04");
-		loginHistoryVO.setLgiHtrId(1048);
 		MockHttpSession session = new MockHttpSession();
-		session.setAttribute(Session.MEMBER, loginHistoryVO);
-
-		ModelAndView view = memberService.doRequestIpHistory(loginHistoryVO.getLgiHtrId(), session);
-		if (view != null) {
-			String viewName = view.getViewName();
-			assertNotNull(viewName);
-			assertEquals(viewName, "redirect:/member/loginHistory");
-		} else {
-			fail("[Service Part]doRequestIpHistoryTest Fail.");
+		if( loginHistoryVO.getId() == null || loginHistoryVO.getLgiHtrId() <= 0 ) {
+			loginHistoryVO.setId("test04");
+			loginHistoryVO.setLgiHtrId(1048);
+			session.setAttribute(Session.MEMBER, loginHistoryVO);
+			ModelAndView view = memberService.doRequestIpHistory(loginHistoryVO.getLgiHtrId(), session);
+			if (view != null) {
+				String viewName = view.getViewName();
+				assertNotNull(viewName);
+				assertEquals(viewName, "redirect:/member/loginHistory");
+			} else {
+				fail("[Service Part]doRequestIpHistoryTest Fail.");
+			}
+		}else {
+			ModelAndView view = memberService.doRequestIpHistory(loginHistoryVO.getLgiHtrId(), session);
+			if (view != null) {
+				String viewName = view.getViewName();
+				assertNotNull(viewName);
+				assertEquals(viewName, "redirect:/member/loginHistory");
+			} else {
+				fail("[Service Part]doRequestIpHistoryTest Fail.");
+			}
 		}
 	}
 
@@ -1209,5 +1245,45 @@ public class MemberServiceTest extends SemsTestCase {
 
 		String returnString = memberService.eduationHistoryExportExcel(mockSession);
 		assertNotNull(returnString);
+	}
+	@Test
+	public void modifyMemberInfoTest() {
+		MemberVO memberVO = new MemberVO();
+		Errors errors = null;
+		String graduationType = "";
+		String helCodeName = "";
+
+		if (memberVO.getId() == null) {
+			String salt = SHA256Util.generateSalt();
+			memberVO.setId("test04");
+			memberVO.setName("cain");
+			memberVO.setEmail("cain@naver.com");
+			memberVO.setHighestEducationLevel("UNIV");
+			memberVO.setGraduationType("GRAD");
+			memberVO.setBirthDate("1988-02-20");
+			memberVO.setPhoneNumber("010-7336-6004");
+			memberVO.setPassword("123qwe!@#qwe");
+			String newPassword = SHA256Util.getEncrypt(memberVO.getPassword(), salt);
+			memberVO.setPassword(newPassword);
+			memberVO.setSalt(salt);
+			
+			ModelAndView view = memberService.modifyMemberInfo(memberVO, errors, graduationType, helCodeName);
+			if( view != null) {
+				String viewName = view.getViewName();
+				assertNotNull(viewName);
+				assertEquals(viewName, "redirect:/member/myPage");
+			} else {
+				fail("[Service Part]modifyMemberInfoTest Fail.");
+			}
+		} else {
+			ModelAndView view = memberService.modifyMemberInfo(memberVO, errors, graduationType, helCodeName);
+			if( view != null) {
+				String viewName = view.getViewName();
+				assertNotNull(viewName);
+				assertEquals(viewName, "redirect:/member/myPage");
+			} else {
+				fail("[Service Part]modifyMemberInfoTest Fail.");
+			}
+		}
 	}
 }
