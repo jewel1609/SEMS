@@ -136,9 +136,9 @@ public class PcServiceTest extends SemsTestCase {
 	@Test
 	public void reportProblemPcTest() {
 		ReportedPcVO reportedPcVO = new ReportedPcVO();
-		reportedPcVO.setReportedCategory("computer");
+		reportedPcVO.setReportedCategory("JUnit");
 		reportedPcVO.setReportedComment("JUnit test...");
-		reportedPcVO.setPcId("1");
+		reportedPcVO.setPcId("testPcNumber");
 		
 		MockHttpServletRequest request = new MockHttpServletRequest();
 
