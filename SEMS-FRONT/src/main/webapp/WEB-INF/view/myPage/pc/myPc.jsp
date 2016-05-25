@@ -103,8 +103,7 @@
 		<tr>
 			<td>
 				<select id="educationTitle" name="educationTitle" tabindex="1">	 
-					<c:set var="eduList" value="${eduListByMember}"/>
-					<c:if test="${eduList.isEmpty()}">
+					<c:if test="${eduListByMember.isEmpty()}">
 					  <option value="empty">강의없음</option>
 					</c:if>
 					<c:forEach items="${eduListByMember}" var="eduList">	
@@ -119,7 +118,9 @@
 				<input type="text" id="usedPcIp" value="${myPcIp}"/>
 			</td>
 			<td colspan="2">
+			<c:if test="${!eduListByMember.isEmpty()}">
 				<input type="button" id="registerMyPcBtn" value="등록"/>
+			</c:if>
 			</td>
 		</tr>
 	</table>
