@@ -424,5 +424,10 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 		return getSqlSession().selectOne("EducationDAO.getNowDateTime");
 	}
 
+	@Override
+	public String checkEndDate(String articleId) {
+		return getSqlSession().selectOne("EducationDAO.checkEndDate", articleId);
+	}
+
 
 }

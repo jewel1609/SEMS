@@ -149,5 +149,6 @@ public interface EducationDAO {
 
 	public String getNowDateTime();
 
+	public String checkEndDate(String articleId);
 
 }

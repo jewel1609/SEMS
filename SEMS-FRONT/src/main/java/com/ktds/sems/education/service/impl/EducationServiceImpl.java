@@ -45,6 +45,7 @@ import com.ktds.sems.file.vo.FileVO;
 import com.ktds.sems.member.vo.MemberVO;
 
 import kr.co.hucloud.utilities.SHA256Util;
+import kr.co.hucloud.utilities.web.AjaxUtil;
 import kr.co.hucloud.utilities.web.Paging;
 
 public class EducationServiceImpl implements EducationService {
@@ -1049,6 +1050,11 @@ public class EducationServiceImpl implements EducationService {
 		List<ReportReplyVO> reportReplyList = educationBiz.getAllReportByArticleId(educationReportVO.getArticleId(), searchVO);
 		reportReplyListVO.setReportReplyList(reportReplyList);
 		
+		// 날짜 지났는지 비교
+		educationBiz.getNowDateTime();
+		int result;
+		
+		
 		view.setViewName("education/detailReportPage");
 		view.addObject("educationReportVO", educationReportVO);
 		view.addObject("reportReplyListVO", reportReplyListVO);
@@ -1112,6 +1118,22 @@ public class EducationServiceImpl implements EducationService {
 		
 		view.setViewName("redirect:/education/detailReport/" + reportReplyVO.getBbsId());
 		return view;
+	}
+
+	@Override
+	public void checkEndDate(String articleId, HttpServletResponse response) {
+		String message="";
+		logger.info("check: " + educationBiz.checkEndDate(articleId));
+		if ( educationBiz.checkEndDate(articleId) == null || educationBiz.checkEndDate(articleId).equals("")) {
+			message = "NO";
+			AjaxUtil.sendResponse(response, message);
+			return;
+		}
+		else {
+			message = "OK";
+			AjaxUtil.sendResponse(response, message);
+			return;
+		}
 	}
 
 }

@@ -85,6 +85,8 @@ public interface EducationService {
 	
 	public ModelAndView getAllReportReply(ReportReplySearchVO reportReplySearchVO, int pageNo, HttpSession session);
 
+	public void checkEndDate(String articleId, HttpServletResponse response);
+
 	public List<EducationQNAReplyVO> getAllQNAReplyListByAtcId(String atcId);
 
 

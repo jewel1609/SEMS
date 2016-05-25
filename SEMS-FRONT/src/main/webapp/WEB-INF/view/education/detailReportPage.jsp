@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.sql.Date" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
@@ -10,30 +12,57 @@
 <script type="text/javascript" src="<c:url value="/resources/js/jquery.min.js"/>"></script>
 <script type="text/javascript">
 $(document).ready(function() {
-	$("#write").click(function() {
-		alert($("#bbsId").val());
+	
+/* 	$("#write").click(function() {
 		if (confirm("정말 등록하시겠습니까?") == true) {
 			if ($.trim($('#file').val()) == '') {
 				alert("파일을 선택하시오.");
 				$('#file').focus();
 				return false;
 			}
-/*  			if ($('#file').val().indexOf('.docx') == -1 && $('#file').val().indexOf('.pptx') == -1 && $('#file').val().indexOf('.hwp') == -1 && $('#file').val().indexOf('.pdf') == -1) {
+  			if ($('#file').val().indexOf('.docx') == -1 && $('#file').val().indexOf('.pptx') == -1 && $('#file').val().indexOf('.hwp') == -1 && $('#file').val().indexOf('.pdf') == -1) {
 				alert("docx, pptx, hwp, pdf 파일만 등록할 수 있습니다.");
 				$('#file').focus();
 				return false;
-			}  */
+			} 
 			$("#ReportReplyVO").submit();
 		} else {
 			return;
 		}
+	}); */
+	
+	$("#write").click(function(){
+		$.post("<c:url value="/checkEndDate" />"
+				, { "articleId" : $("#articleId").val() }
+				, function(data) {
+					if(!data) {
+						alert("통신 실패");
+					}
+					else if( data == "NO" ){
+						alert("마감일이 지났습니다.");
+						location.href="<c:url value="/myPage/myReportList" />";
+						return;
+					}
+					else if( data == "OK" ){
+						if (confirm("정말 등록하시겠습니까?") == true) {
+							if ($.trim($('#file').val()) == '') {
+								alert("파일을 선택하시오.");
+								$('#file').focus();
+								return;
+							}
+							$("#ReportReplyVO").submit();
+						} else {
+							return;
+						}
+					}
+				});
 	});
 });
 
 </script>
 </head>
 <body>
-
+	<input type="hidden" id="articleId" name="articleId"  value="${ educationReportVO.articleId }"/>
 	<div style="width: 50%; heght: 100%; border: thin; border-style: double; border-radius: 5px;">
 		${ educationReportVO.title } <br />
 		<hr>
@@ -101,15 +130,15 @@ $(document).ready(function() {
 				</div>
 
 			</c:if>
-	
-	
+
+
+
 <form:form commandName="ReportReplyVO" method="post" action="/doReportSubmit" enctype="multipart/form-data">
 	<input type="hidden" id="bbsId" name="bbsId" value="${ educationReportVO.articleId }">
 	<input type="file" name="file" id="file" tabindex="2" style="height: 45px">
 	<br />
 	<br />
-	<input type="submit" id="write" value="과제등록" />
+	<input type="button" id="write" value="과제등록" />
 </form:form>
-	
 </body>
 </html>

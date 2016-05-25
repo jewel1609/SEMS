@@ -489,6 +489,10 @@ public class EducationBizImpl implements EducationBiz {
 		return educationDAO.getNowDateTime();
 	}
 
+	@Override
+	public String checkEndDate(String articleId) {
+		return educationDAO.checkEndDate(articleId);
+	}
 }
 
 

@@ -901,40 +901,38 @@
 	</insert>
 	
 	<select id="getTotalReportReplyCount" parameterType="ReportReplySearchVO" resultType="_int">
-		SELECT COUNT(*)
-		FROM   (
-			        SELECT  EDU_RPT_BBS.ATC_ID
-			                ,EDU_RPT_BBS.TITLE
-			                , EDI.EDU_TTL
-			                , EDI.EDU_ID
-			        FROM(
-				            SELECT  ECL.EDU_ID
-				                    ,EDU_INFO.EDU_TTL
-				            FROM(
-				                SELECT  EDU_ID
-				                FROM    EDU_CLASS
-				                WHERE   MBR_ID = #{mbrId}
-				                AND     STAT = 'EDU_JN_C'
-				                ) ECL
-				                , EDU_INFO
-				            WHERE ECL.EDU_ID = EDU_INFO.EDU_ID
-				            ) EDI
-				            , EDU_RPT_BBS
-			        WHERE EDI.EDU_ID = EDU_RPT_BBS.EDU_ID
-			    ) EDI
-			    , RPT_RPL
-		 WHERE  EDI.ATC_ID = RPT_RPL.BBS_ID
-		 <if test="startDate != null and startDate != ''">
+		 SELECT COUNT(*)
+		 FROM  RPT_RPL 
+               ,(
+                SELECT  EDU_RPT_BBS.*
+                        ,EDU_INFO.EDU_TTL   
+                FROM    EDU_RPT_BBS
+                   	    ,EDU_INFO
+                WHERE   EDU_RPT_BBS.EDU_ID IN 
+                		(SELECT EDU_ID
+		                FROM    EDU_CLASS
+		                WHERE   MBR_ID = #{mbrId}
+		                AND     STAT = 'EDU_JN_C')
+		                AND     EDU_RPT_BBS.EDU_ID = EDU_INFO.EDU_ID
+                )EDU_RPT_BBS
+         WHERE   EDU_RPT_BBS.ATC_ID = RPT_RPL.BBS_ID (+)
+		 <if test="eduNameKeyword != null">
+			AND		EDU_RPT_BBS.EDU_TTL LIKE '%' || #{eduNameKeyword} || '%'
+		</if>
+        <if test="eduNameKeyword == null">
+			AND		EDU_RPT_BBS.EDU_TTL LIKE '%%'
+		</if>
+		<if test="reportNameKeyword !=null">
+			AND		TITLE LIKE '%' || #{reportNameKeyword} || '%'
+		</if>
+		<if test="reportNameKeyword !=null">
+			AND		TITLE LIKE '%%'
+		</if>
+		<if test="startDate != null and startDate != ''">
 			AND		CREATE_DATE >= #{startDate}
 		</if>
 		<if test="endDate != null and endDate != ''">
 			AND		CREATE_DATE <![CDATA[<]]> TO_DATE(#{endDate}, 'YYYY-MM-DD') + 1
-		</if>
-		<if test="eduNameKeyword != null">
-			AND     EDI.EDU_TTL LIKE '%' || #{eduNameKeyword} || '%'
-		</if>
-		<if test="reportNameKeyword !=null">
-			AND		TITLE LIKE '%' || #{reportNameKeyword} || '%'
 		</if>
 		
 	</select>
@@ -948,49 +946,50 @@
 		            , EDI.CREATE_DATE	createdDate
 		 FROM    (
 		            SELECT ROWNUM AS RNUM
-		                   , EDI.*
-		                   , RPT_RPL.*
+		                   , EDI_T.*
 		            FROM   (
-			                    SELECT  EDU_RPT_BBS.ATC_ID
-			                            ,EDU_RPT_BBS.TITLE
-			                            , EDI.EDU_TTL
-			                            , EDI.EDU_ID
-			                    FROM(
-				                        SELECT  ECL.EDU_ID
-				                                ,EDU_INFO.EDU_TTL
-				                        FROM(
-				                                SELECT  EDU_ID
-				                                FROM    EDU_CLASS
-				                                WHERE   MBR_ID = #{mbrId}
-				                                AND     STAT = 'EDU_JN_C'
-				                                ) ECL
-				                                , EDU_INFO
-				                        WHERE ECL.EDU_ID = EDU_INFO.EDU_ID
-				                        ) EDI
-				                        , EDU_RPT_BBS
-			                    WHERE EDI.EDU_ID = EDU_RPT_BBS.EDU_ID
-		                    ) EDI
-		                    , RPT_RPL
-		             WHERE  EDI.ATC_ID = RPT_RPL.BBS_ID
-		             <if test="eduNameKeyword != null">
-						AND		EDI.EDU_TTL LIKE '%' || #{eduNameKeyword} || '%'
-					</if>
-		             <if test="eduNameKeyword == null">
-						AND		EDI.EDU_TTL LIKE '%%'
-					</if>
-					<if test="reportNameKeyword !=null">
-						AND		TITLE LIKE '%' || #{reportNameKeyword} || '%'
-					</if>
-					<if test="reportNameKeyword !=null">
-						AND		TITLE LIKE '%%'
-					</if>
-					<if test="startDate != null and startDate != ''">
-						AND		CREATE_DATE >= #{startDate}
-					</if>
-					<if test="endDate != null and endDate != ''">
-						AND		CREATE_DATE <![CDATA[<]]> TO_DATE(#{endDate}, 'YYYY-MM-DD') + 1
-					</if>
-					AND	ROWNUM <![CDATA[<=]]> #{endIndex}
+                   		             SELECT EDU_RPT_BBS.ATC_ID
+                   		             		, EDU_RPT_BBS.EDU_TTL
+                   		             		, EDU_RPT_BBS.TITLE
+                   		             		, EDU_RPT_BBS.EDU_ID
+                   		             		, RPT_RPL.CREATE_DATE
+                   		             		, RPT_RPL.RPT_RPL_ID
+						             FROM   RPT_RPL 
+				                            ,(
+					                             SELECT EDU_RPT_BBS.*
+					                                    , EDU_INFO.EDU_TTL   
+					                             FROM 	EDU_RPT_BBS
+					                                	, EDU_INFO
+					                             WHERE  EDU_RPT_BBS.EDU_ID IN 
+							                             (
+							                             SELECT EDU_ID
+							                             FROM    EDU_CLASS
+							                             WHERE  MBR_ID = #{mbrId}
+							                             AND    STAT = 'EDU_JN_C'
+							                             )
+				                            	 AND    EDU_RPT_BBS.EDU_ID = EDU_INFO.EDU_ID
+				                             ) EDU_RPT_BBS
+				                     WHERE   EDU_RPT_BBS.ATC_ID = RPT_RPL.BBS_ID (+)
+									<if test="eduNameKeyword != null">
+										AND		EDU_RPT_BBS.EDU_TTL LIKE '%' || #{eduNameKeyword} || '%'
+									</if>
+						             <if test="eduNameKeyword == null">
+										AND		EDU_RPT_BBS.EDU_TTL LIKE '%%'
+									</if>
+									<if test="reportNameKeyword !=null">
+										AND		TITLE LIKE '%' || #{reportNameKeyword} || '%'
+									</if>
+									<if test="reportNameKeyword !=null">
+										AND		TITLE LIKE '%%'
+									</if>
+									<if test="startDate != null and startDate != ''">
+										AND		CREATE_DATE >= #{startDate}
+									</if>
+									<if test="endDate != null and endDate != ''">
+										AND		CREATE_DATE <![CDATA[<]]> TO_DATE(#{endDate}, 'YYYY-MM-DD') + 1
+									</if>
+	                     ) EDI_T
+                    WHERE	ROWNUM <![CDATA[<=]]> #{endIndex}
 		            ) EDI
 		 WHERE	RNUM <![CDATA[>=]]> #{startIndex}
 	</select>
@@ -1082,4 +1081,10 @@
 		FROM	DUAL
 	</select>
 	
+	<select id="checkEndDate" parameterType="string" resultType="string">
+		SELECT  *
+		FROM    EDU_RPT_BBS
+		WHERE   ATC_ID = #{articleId}
+		AND     END_DATE <![CDATA[>]]> SYSDATE
+	</select>
 </mapper>

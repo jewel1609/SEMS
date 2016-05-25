@@ -152,4 +152,6 @@ public interface EducationBiz {
 
 	public String getNowDateTime();
 
+	public String checkEndDate(String articleId);
+
 }

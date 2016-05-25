@@ -329,4 +329,9 @@ public class EducationController {
 	public String myReportListInit() {
 		return "redirect:/myPage/myReportList";
 	}
+	
+	@RequestMapping("/checkEndDate")
+	public void checkEndDate(@RequestParam String articleId, HttpServletResponse response) {
+		educationService.checkEndDate(articleId, response);
+	}
 }
