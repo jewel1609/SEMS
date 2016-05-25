@@ -29,7 +29,7 @@
 			<td>작성 시간</td>
 			<td>조회수</td>
 		</tr>
-		<c:forEach items="${educationQNAList}" var="qnaBBS">
+		<c:forEach items="${educationQNABBSListVO.educationQnaBbsList}" var="qnaBBS">
 		<tr>
 			<td>${qnaBBS.atcId}</td>
 			<td>
@@ -42,6 +42,11 @@
 			<td>${qnaBBS.hits}</td>
 		</tr>
 		</c:forEach>
+		<td colspan="6" align="center">
+		<form id="pagingForm">
+			${educationQNABBSListVO.paging.getPagingList("pageNo", "[@]", "이전", "다음", "pagingForm") }
+		</form>
+		</td>
 	</table>
 	
 	<input type="button" id="questionBtn" value="질문하기"/>
