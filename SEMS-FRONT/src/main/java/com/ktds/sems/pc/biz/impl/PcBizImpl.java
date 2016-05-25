@@ -52,11 +52,6 @@ public class PcBizImpl implements PcBiz {
 	}
 
 	@Override
-	public String getEducationIdByTitle(String educationTitle) {
-		return pcDAO.getEducationIdByTitle(educationTitle);
-	}
-
-	@Override
 	public int doRegisterMyPc(UsedPcVO usedPcVO) {
 		return pcDAO.doRegisterMyPc(usedPcVO);
 	}

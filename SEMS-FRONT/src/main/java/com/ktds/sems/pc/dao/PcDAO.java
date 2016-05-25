@@ -18,8 +18,6 @@ public interface PcDAO {
 
 	public String getPcIdByIp(String pcIp);
 
-	public String getEducationIdByTitle(String educationTitle);
-
 	public int doRegisterMyPc(UsedPcVO usedPcVO);
 
 	public void doDeleteMyPc(String pcId);

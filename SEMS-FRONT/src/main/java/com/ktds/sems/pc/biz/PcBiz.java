@@ -18,8 +18,6 @@ public interface PcBiz {
 
 	public String getPcIdByIp(String usedPcIp);
 
-	public String getEducationIdByTitle(String educationTitle);
-
 	public int doRegisterMyPc(UsedPcVO usedPcVO);
 
 	public void doDeleteMyPc(String pcId);

@@ -19,7 +19,6 @@ import com.ktds.sems.pc.vo.ReportedPcVO;
 
 import kr.co.hucloud.utilities.web.AjaxUtil;
 
-import kr.co.hucloud.utilities.web.AjaxUtil;
 
 @Controller
 public class PcController {

@@ -49,11 +49,6 @@ public class PcDAOImpl extends SqlSessionDaoSupport implements PcDAO {
 	}
 
 	@Override
-	public String getEducationIdByTitle(String educationTitle) {
-		return getSqlSession().selectOne("PcDAO.getEducationIdByTitle", educationTitle);
-	}
-
-	@Override
 	public int doRegisterMyPc(UsedPcVO usedPcVO) {
 		return getSqlSession().insert("PcDAO.doRegisterMyPc", usedPcVO);
 	}
