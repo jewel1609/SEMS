@@ -73,4 +73,14 @@ public class FileBizImpl implements FileBiz {
 		return fileDAO.updateFile(fileVO) > 0;
 	}
 
+	@Override
+	public List<FileVO> getAllFilesByArticleId(String articleId) {
+		return fileDAO.getAllFilesByArticleId(articleId);
+	}
+
+	@Override
+	public FileVO getOneFileByFileId(String fileId) {
+		return fileDAO.getOneFileByFileId(fileId);
+	}
+
 }

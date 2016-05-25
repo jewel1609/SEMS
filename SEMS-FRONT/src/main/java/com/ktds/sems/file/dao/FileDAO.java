@@ -7,10 +7,14 @@ import com.ktds.sems.file.vo.FileVO;
 public interface FileDAO {
 
 	public List<FileVO> getOneFileId(String educationId);
+	
 	public int doWriteFile(FileVO fileVO);
 
 	public int updateFile(FileVO fileVO);
 
 	public int insertFile(FileVO fileVO);
+	
+	public List<FileVO> getAllFilesByArticleId(String articleId);
 
+	public FileVO getOneFileByFileId(String fileId);
 }

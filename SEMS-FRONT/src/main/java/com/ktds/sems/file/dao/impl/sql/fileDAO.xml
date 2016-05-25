@@ -51,6 +51,23 @@
 			, FILE_LOC = #{fileLocation}
 		</if>
 		WHERE ATC_ID = #{articleId}
-
 	</update>
+	
+	<select id="getAllFilesByArticleId" resultType="FileVO" parameterType="string">
+		SELECT	FILE_ID fileId
+				, FILE_NM fileName
+				, FILE_LOC fileLocation
+				, ATC_ID articleId
+		FROM	FILES
+		WHERE	ATC_ID = #{articleId}
+	</select>
+	
+	<select id="getOneFileByFileId" resultType="FileVO" parameterType="string">
+		SELECT	FILE_ID fileId
+				, FILE_NM fileName
+				, FILE_LOC fileLocation
+				, ATC_ID articleId
+		FROM	FILES
+		WHERE	FILE_ID = #{fileId}
+	</select>
 </mapper>

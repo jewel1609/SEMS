@@ -29,4 +29,14 @@ public class FileDAOImpl extends SqlSessionDaoSupport implements FileDAO {
 		return getSqlSession().update("FileDAO.updateFile", fileVO);
 	}
 
+	@Override
+	public List<FileVO> getAllFilesByArticleId(String articleId) {
+		return getSqlSession().selectList("FileDAO.getAllFilesByArticleId", articleId);
+	}
+
+	@Override
+	public FileVO getOneFileByFileId(String fileId) {
+		return getSqlSession().selectOne("FileDAO.getOneFileByFileId", fileId);
+	}
+
 }
