@@ -42,7 +42,7 @@
 			<td>${qnaBBS.hits}</td>
 		</tr>
 		</c:forEach>
-		<td colspan="6" align="center">
+		<td colspan="5" align="center">
 		<form id="pagingForm">
 			${educationQNABBSListVO.paging.getPagingList("pageNo", "[@]", "이전", "다음", "pagingForm") }
 		</form>

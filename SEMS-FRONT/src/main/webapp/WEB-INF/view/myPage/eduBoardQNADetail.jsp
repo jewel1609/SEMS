@@ -66,8 +66,8 @@
 	
 	 
 	<br/><br/>
-	<c:if test="${ qnaReplyList.qnaReplyList.size() gt 0 }">
-	<c:forEach items="${qnaReplyList.qnaReplyList}" var="qnaReplyList">
+	<c:if test="${ qnaReplyListVO.qnaReplyList.size() gt 0 }">
+	<c:forEach items="${qnaReplyListVO.qnaReplyList}" var="qnaReplyList">
 	<div>
 		<span>
 			작성자 : ${qnaReplyList.mbrId}
@@ -89,6 +89,10 @@
 		점수 : ${qnaReplyList.qnaReplyPoint}
 	</div><br/>
 	</c:forEach>
+	<form id="pagingForm">
+	${qnaReplyListVO.paging.getPagingList("pageNo", "[@]", "이전", "다음", "pagingForm") }
+	</form>
+	
 	</c:if>
 	
 	
