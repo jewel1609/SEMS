@@ -23,6 +23,8 @@ import com.ktds.sems.Testable;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationHistoryVO;
 import com.ktds.sems.education.vo.EducationVO;
+import com.ktds.sems.education.vo.QNAVO;
+import com.ktds.sems.education.vo.ReportReplyVO;
 import com.ktds.sems.member.vo.LoginHistorySearchVO;
 import com.ktds.sems.member.vo.LoginHistoryVO;
 import com.ktds.sems.member.vo.MemberVO;
@@ -234,6 +236,46 @@ public class MemberDAOTest extends SemsTestCase {
 		List<MenuManageVO> menu = memberDAO.getMenuCategoryList();
 		assertNotNull(menu);
 		assertTrue(menu.size() > 0);
+	}
+	
+	@Test
+	public void getLoginHistoryListByMemberIdTest() {
+		MemberVO member = new MemberVO();
+		member.setId("test02");
+		
+		List<LoginHistoryVO> loginHistoryList = memberDAO.getLoginHistoryListByMemberId(member.getId());
+		assertNotNull(loginHistoryList);
+	    assertTrue(loginHistoryList.size() > 0);
+	}
+	
+	@Test
+	public void getEducationHistoryListByMemberIdTest() {
+		MemberVO member = new MemberVO();
+		member.setId("test02");
+		
+		List<EducationHistoryVO> educationHistoryList = memberDAO.getEducationHistoryListByMemberId(member.getId());
+		assertNotNull(educationHistoryList);
+		assertTrue(educationHistoryList.size() > 0);
+	}
+	
+	@Test
+	public void getQnaListByMemberIdTest() {
+		MemberVO member = new MemberVO();
+		member.setId("test02");
+		
+		List<QNAVO> qnaList = memberDAO.getQnaListByMemberId(member.getId());
+		assertNotNull(qnaList);
+		assertTrue(qnaList.size() > 0);
+	}
+
+	@Test
+	public void getReportReplyListByMemberIdTest() {
+		MemberVO member = new MemberVO();
+		member.setId("test02");
+		
+		List<ReportReplyVO> reportReplyList = memberDAO.getReportReplyListByMemberId(member.getId());
+		assertNotNull(reportReplyList);
+		assertTrue(reportReplyList.size() > 0);
 	}
 
 	@Test

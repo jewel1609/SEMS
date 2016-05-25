@@ -29,6 +29,9 @@ import com.ktds.sems.education.vo.EducationHistoryListVO;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationHistoryVO;
 import com.ktds.sems.education.vo.EducationStateVO;
+import com.ktds.sems.education.vo.QNAVO;
+import com.ktds.sems.education.vo.ReportReplyVO;
+import com.ktds.sems.member.dao.MemberDAO;
 import com.ktds.sems.member.vo.GraduationTypeVO;
 import com.ktds.sems.member.vo.HighestEducationLevelVO;
 import com.ktds.sems.member.vo.LoginHistoryListVO;
@@ -148,15 +151,35 @@ public class MemberServiceTest extends SemsTestCase {
 	public void viewMyPageMenuTest() {
 		MockHttpSession session = new MockHttpSession();
 		MemberVO member = new MemberVO();
-		member.setId("cocomo12");
+		member.setId("test02");
 		session.setAttribute("_MEMBER_", member);
 		ModelAndView view = memberService.viewMyPageMenu(session);
-		assertNotNull(view);
 
 		if (view != null) {
+			
+			String viewName = view.getViewName();
+			assertNotNull(viewName);
+			assertEquals(viewName, "member/myPage");
+			
 			List<MenuManageVO> menuList = (List<MenuManageVO>) view.getModelMap().get("menuList");
 			assertNotNull(menuList);
 			assertTrue(menuList.size() > 0);
+			
+			List<LoginHistoryVO> loginHistoryList = (List<LoginHistoryVO>) view.getModelMap().get("loginHistoryList");
+			assertNotNull(loginHistoryList);
+			assertTrue(loginHistoryList.size() > 0);
+			
+			List<EducationHistoryVO> educationHistoryList = (List<EducationHistoryVO>) view.getModelMap().get("educationHistoryList");
+			assertNotNull(educationHistoryList);
+			assertTrue(educationHistoryList.size() > 0);
+			
+			List<QNAVO> qnaList = (List<QNAVO>) view.getModelMap().get("qnaList");
+			assertNotNull(qnaList);
+			assertTrue(qnaList.size() > 0);
+			
+			List<ReportReplyVO> reportReplyList = (List<ReportReplyVO>) view.getModelMap().get("reportReplyList");
+			assertNotNull(reportReplyList);
+			assertTrue(reportReplyList.size() > 0);
 		} else {
 			fail("list is null");
 		}
