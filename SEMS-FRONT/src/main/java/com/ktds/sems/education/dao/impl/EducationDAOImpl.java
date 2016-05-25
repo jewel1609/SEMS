@@ -20,6 +20,7 @@ import com.ktds.sems.education.vo.EducationReportSearchVO;
 import com.ktds.sems.education.vo.EducationReportVO;
 import com.ktds.sems.education.vo.EducationSearchVO;
 import com.ktds.sems.education.vo.EducationVO;
+import com.ktds.sems.education.vo.FileBBSSearchVO;
 import com.ktds.sems.education.vo.QNASearchVO;
 import com.ktds.sems.education.vo.QNAVO;
 import com.ktds.sems.education.vo.ReRplyEvalVO;
@@ -293,8 +294,8 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 	}
 
 	@Override
-	public List<EducationFileBBSVO> getEducationFileBBSList(String educationId) {
-		return getSqlSession().selectList("EducationDAO.getEducationFileBBSList", educationId);
+	public List<EducationFileBBSVO> getEducationFileBBSList(FileBBSSearchVO searchVO) {
+		return getSqlSession().selectList("EducationDAO.getEducationFileBBSList", searchVO);
 	}
 
 	@Override
@@ -434,6 +435,21 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 	@Override
 	public String getNowDateTime() {
 		return getSqlSession().selectOne("EducationDAO.getNowDateTime");
+	}
+
+	@Override
+	public int getEducationFileBBSCount(String educationId) {
+		return getSqlSession().selectOne("EducationDAO.getEducationFileBBSCount", educationId);
+	}
+
+	@Override
+	public EducationFileBBSVO getOneEducationFileBBS(String articleId) {
+		return getSqlSession().selectOne("EducationDAO.getOneEducationFileBBS", articleId);
+	}
+
+	@Override
+	public boolean isExistedHitMemberIdByArtileId(String articleId) {
+		return getSqlSession().selectOne("EducationDAO.isExistedHitMemberIdByArtileId", articleId) != null;
 	}
 
 	@Override

@@ -235,8 +235,8 @@ public class EducationController {
 	}
 	
 	@RequestMapping("/education/fileBBS/{educationId}")
-	public ModelAndView viewEducationFileBBSPage (@PathVariable String educationId) {
-		return educationService.showEducationFileBBSPage(educationId);
+	public ModelAndView viewEducationFileBBSPage (@PathVariable String educationId, @RequestParam(required = false, defaultValue = "0") int pageNo) {
+		return educationService.showEducationFileBBSPage(educationId, pageNo);
 	}
 	
 	@RequestMapping("/education/writeFileBBS")
@@ -305,6 +305,11 @@ public class EducationController {
 	@RequestMapping("/myPage/myReportListInit")
 	public String myReportListInit() {
 		return "redirect:/myPage/myReportList";
+	}
+	
+	@RequestMapping("/education/fileBBS/detail/{articleId}")
+	public ModelAndView viewDetailEducationFileBBSPage (@PathVariable String articleId) {
+		return educationService.showDetailEducationFileBBS(articleId);
 	}
 	
 	@RequestMapping("/checkEduApplicant")

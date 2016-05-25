@@ -23,6 +23,7 @@ import com.ktds.sems.education.vo.EducationReportSearchVO;
 import com.ktds.sems.education.vo.EducationReportVO;
 import com.ktds.sems.education.vo.EducationSearchVO;
 import com.ktds.sems.education.vo.EducationVO;
+import com.ktds.sems.education.vo.FileBBSSearchVO;
 import com.ktds.sems.education.vo.QNASearchVO;
 import com.ktds.sems.education.vo.QNAVO;
 import com.ktds.sems.education.vo.ReRplyEvalVO;
@@ -353,13 +354,12 @@ public class EducationBizImpl implements EducationBiz {
 	}
 
 	@Override
-	public List<EducationFileBBSVO> getEducationFileBBSList(String educationId) {
-		return educationDAO.getEducationFileBBSList(educationId);
+	public List<EducationFileBBSVO> getEducationFileBBSList(FileBBSSearchVO searchVO) {
+		return educationDAO.getEducationFileBBSList(searchVO);
 	}
 
 	@Override
 	public String generateArticleId() {
-		
 		String nowDate = educationDAO.getNowDate();
 		String articleSEQ = educationDAO.getArticleSEQ();
 		
@@ -374,7 +374,6 @@ public class EducationBizImpl implements EducationBiz {
 			source = defValue + source;
 		}
 		return source;
-		
 	}
 
 	@Override
@@ -494,6 +493,25 @@ public class EducationBizImpl implements EducationBiz {
 	}
 
 	@Override
+	public int getEducationFileBBSCount(String educationId) {
+		return educationDAO.getEducationFileBBSCount(educationId);
+	}
+
+	@Override
+	public EducationFileBBSVO getOneEducationFileBBS(String articleId) {
+		return educationDAO.getOneEducationFileBBS(articleId);
+	}
+
+	@Override
+	public void addHitsEducationFileBBSByAtcId(String articleId) {
+		boolean isExistHit = educationDAO.isExistedHitMemberIdByArtileId(articleId);
+		if ( !isExistHit ) {
+			String nowDate = getNowDateTime();
+			String bbsHistoryId = "BHTR-" + nowDate;
+		}
+	}
+	
+	@Override
 	public int getTotalEducationQNACount() {
 		return educationDAO.getTotalEducationQNACount();
 	}
@@ -555,7 +573,6 @@ public class EducationBizImpl implements EducationBiz {
 	public int getTotalQNAReplyCountByAtcId(String atcId) {
 		return educationDAO.getTotalQNAReplyCountByAtcId(atcId);
 	}
-
 }
 
 

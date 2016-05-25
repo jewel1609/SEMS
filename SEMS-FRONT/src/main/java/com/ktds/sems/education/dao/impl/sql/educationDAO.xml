@@ -661,18 +661,35 @@
 					    	)		
 	</update>
 	
-	<select id="getEducationFileBBSList" parameterType="string" resultType="EducationFileBBSVO">
-		SELECT	ATC_ID articleId
-				, EDU_ID educationId
-				, MBR_ID memberId
-				, IS_DELETE isDelete
-				, TITLE title
-				, CONTENTS contents
-				, TO_CHAR(CREATE_DATE, 'YYYY-MM-DD') createDate
-				, MODIFY_DATE modifyDate
-				, HITS hits
-		FROM	EDU_FILE_BBS
-		WHERE	EDU_ID = #{educationId}
+	<select id="getEducationFileBBSList" parameterType="FileBBSSearchVO" resultType="EducationFileBBSVO">
+		SELECT	B.ATC_ID articleId
+				, B.EDU_ID educationId
+				, B.MBR_ID memberId
+				, B.IS_DELETE isDelete
+				, B.TITLE title
+				, B.CONTENTS contents
+				, TO_CHAR(B.CREATE_DATE, 'YYYY-MM-DD') createDate
+				, B.MODIFY_DATE modifyDate
+				, B.HITS hits
+		FROM	(
+					SELECT	ROWNUM AS RNUM
+							, BBS.*
+					FROM	(
+								SELECT	*
+								FROM	EDU_FILE_BBS
+								WHERE	EDU_ID = #{educationId}
+								<if test="searchKeyword != null and searchType != null">
+								AND		(
+											<if test="searchType == 'memberId'">
+												MBR_ID LIKE '%' || #{searchKeyword} || '%'
+											</if>
+										)
+								</if>
+								ORDER	BY CREATE_DATE DESC
+							) BBS
+					WHERE	ROWNUM <![CDATA[<=]]> #{endIndex}
+				) B
+		WHERE	RNUM <![CDATA[>=]]> #{startIndex}
 	</select>
 	
 	<select id="getArticleSEQ" resultType="string">
@@ -1192,6 +1209,32 @@
 	<select id="getNowDateTime" resultType="string">
 		SELECT	TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI')
 		FROM	DUAL
+	</select>
+	
+	<select id="getEducationFileBBSCount" parameterType="string" resultType="_int">
+		SELECT	COUNT(ATC_ID)
+		FROM	EDU_FILE_BBS
+		WHERE	EDU_ID = #{educationId}
+	</select>
+	
+	<select id="getOneEducationFileBBS" resultType="EducationFileBBSVO" parameterType="string">
+		SELECT	ATC_ID articleId
+				, EDU_ID educationId
+				, MBR_ID memberId
+				, IS_DELETE isDelete
+				, TITLE title
+				, CONTENTS contents
+				, CREATE_DATE createDate
+				, MODIFY_DATE modifyDate
+				, HITS hits
+		FROM	EDU_FILE_BBS
+		WHERE	ATC_ID = #{articleId}
+	</select>
+	
+	<select id="isExistedHitMemberIdByArtileId" resultType="string" parameterType="string">
+		SELECT	MBR_ID memberId
+		FROM	BBS_HTR
+		WHERE	BBS_ID = #{articleId}
 	</select>
 	
 	<select id="getTotalEducationQNACount" resultType="_int">

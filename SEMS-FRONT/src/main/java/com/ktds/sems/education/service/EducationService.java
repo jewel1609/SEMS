@@ -60,7 +60,7 @@ public interface EducationService {
 
 	public String doReserveEducation(String educationId, HttpSession session);
 
-	public ModelAndView showEducationFileBBSPage(String educationId);
+	public ModelAndView showEducationFileBBSPage(String educationId, int pageNo);
 
 	public ModelAndView doWriteEducationFileBBSAction(EducationFileBBSVO educationFileBBSVO, MultipartHttpServletRequest request, HttpSession session);
 
@@ -85,6 +85,8 @@ public interface EducationService {
 	public ModelAndView getAllReportReply(ReportReplySearchVO reportReplySearchVO, int pageNo, HttpSession session);
 
 	public ModelAndView modifyReport(EducationReportVO educationReportVO, HttpSession session);
+
+	public ModelAndView showDetailEducationFileBBS(String articleId);
 
 	public ModelAndView doModifyReport(EducationReportVO educationReportVO, HttpSession session, MultipartHttpServletRequest request);
 

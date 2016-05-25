@@ -13,6 +13,7 @@ import com.ktds.sems.education.vo.EducationReportSearchVO;
 import com.ktds.sems.education.vo.EducationReportVO;
 import com.ktds.sems.education.vo.EducationSearchVO;
 import com.ktds.sems.education.vo.EducationVO;
+import com.ktds.sems.education.vo.FileBBSSearchVO;
 import com.ktds.sems.education.vo.QNASearchVO;
 import com.ktds.sems.education.vo.QNAVO;
 import com.ktds.sems.education.vo.ReRplyEvalVO;
@@ -103,7 +104,7 @@ public interface EducationDAO {
 
 	public int updateStateToApply(String educationId);
 
-	public List<EducationFileBBSVO> getEducationFileBBSList(String educationId);
+	public List<EducationFileBBSVO> getEducationFileBBSList(FileBBSSearchVO searchVO);
 
 	public String getArticleSEQ();
 
@@ -155,6 +156,8 @@ public interface EducationDAO {
 
 	public String getNowDateTime();
 
+	public int getEducationFileBBSCount(String educationId);
+	
 	public int getTotalEducationQNACount();
 
 	public int getJCEduHistoryCount(EducationHistorySearchVO eduHistorySearchVO);
@@ -169,4 +172,7 @@ public interface EducationDAO {
 
 	public int getTotalQNAReplyCountByAtcId(String atcId);
 
+	public EducationFileBBSVO getOneEducationFileBBS(String articleId);
+
+	public boolean isExistedHitMemberIdByArtileId(String articleId);
 }

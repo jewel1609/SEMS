@@ -26,6 +26,7 @@ import com.ktds.sems.education.service.EducationService;
 import com.ktds.sems.education.util.DateFormatter;
 import com.ktds.sems.education.util.DownloadUtil;
 import com.ktds.sems.education.vo.EduReplyListVO;
+import com.ktds.sems.education.vo.EducationFileBBSListVO;
 import com.ktds.sems.education.vo.EducationFileBBSVO;
 import com.ktds.sems.education.vo.EducationHistoryListVO;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
@@ -42,6 +43,7 @@ import com.ktds.sems.education.vo.EducationReportSearchVO;
 import com.ktds.sems.education.vo.EducationReportVO;
 import com.ktds.sems.education.vo.EducationSearchVO;
 import com.ktds.sems.education.vo.EducationVO;
+import com.ktds.sems.education.vo.FileBBSSearchVO;
 import com.ktds.sems.education.vo.QNAListVO;
 import com.ktds.sems.education.vo.QNASearchVO;
 import com.ktds.sems.education.vo.QNAVO;
@@ -958,8 +960,24 @@ public class EducationServiceImpl implements EducationService {
 	}
 
 	@Override
-	public ModelAndView showEducationFileBBSPage(String educationId) {
+	public ModelAndView showEducationFileBBSPage(String educationId, int pageNo) {
 		ModelAndView view = new ModelAndView();
+		
+		// paging + search
+		FileBBSSearchVO searchVO = new FileBBSSearchVO();
+		searchVO.setPageNo(pageNo);
+		searchVO.setEducationId(educationId);
+
+		int totalBBSCount = educationBiz.getEducationFileBBSCount(educationId);
+		Paging paging = new Paging();
+		paging.setTotalArticleCount(totalBBSCount);
+		paging.setPageNumber(pageNo + "");
+		
+		searchVO.setStartIndex(paging.getStartArticleNumber());
+		searchVO.setEndIndex(paging.getEndArticleNumber());
+		
+		
+		EducationFileBBSListVO educationFileBBSList = new EducationFileBBSListVO();
 		
 		EducationVO educationVO = educationBiz.getOneEducationDetail(educationId);
 
@@ -967,7 +985,11 @@ public class EducationServiceImpl implements EducationService {
 			throw new RuntimeException("해당 게시판이 존재하지 않습니다.");
 		}
 		
-		List<EducationFileBBSVO> educationFileBBSList = educationBiz.getEducationFileBBSList(educationId);
+		List<EducationFileBBSVO> educationFileBBSVOs = educationBiz.getEducationFileBBSList(searchVO);
+		
+		educationFileBBSList.setEducationFileBBSVOs(educationFileBBSVOs);
+		educationFileBBSList.setPaging(paging);
+		
 		String teacherId = educationVO.getMemberId();
 		
 		view.addObject("educationFileBBSList", educationFileBBSList);
@@ -993,9 +1015,9 @@ public class EducationServiceImpl implements EducationService {
 			isSuccess = educationBiz.writeNewFileBBS(educationFileBBSVO);
 		}
 
-		// 파일 등록
 		if (isSuccess) {
 			fileBiz.doUploadAndWriteFiles(request, articleId);
+			view.setViewName("redirect:/education/fileBBS/" + educationFileBBSVO.getEducationId());
 		}
 		else {
 			throw new RuntimeException("글쓰기 오류");
@@ -1149,9 +1171,22 @@ public class EducationServiceImpl implements EducationService {
 				e.printStackTrace();
 			}
 			
-		}		
+		}
 		
 		view.setViewName("redirect:/education/detailReport/" + reportReplyVO.getBbsId());
+		return view;
+	}
+
+	@Override
+	public ModelAndView showDetailEducationFileBBS(String articleId) {
+		ModelAndView view = new ModelAndView();
+		
+		educationBiz.addHitsEducationFileBBSByAtcId(articleId);
+		
+		
+		EducationFileBBSVO educationFileBBSVO = educationBiz.getOneEducationFileBBS(articleId);
+		
+		view.setViewName("education/detailEducationFileBBS");
 		return view;
 	}
 
@@ -1322,6 +1357,5 @@ public class EducationServiceImpl implements EducationService {
 		
 		return view;
 	}
-
 }
 
