@@ -17,6 +17,8 @@ public class EducationQNAReplyVO {
 	private String createdDate;
 	private String qnaReplyPoint;
 	
+	private String adtRpl;
+	
 	public String getReplyId() {
 		return replyId;
 	}
@@ -77,6 +79,14 @@ public class EducationQNAReplyVO {
 	public void setQnaReplyPoint(String qnaReplyPoint) {
 		this.qnaReplyPoint = qnaReplyPoint;
 	}
+	public String getAdtRpl() {
+		return adtRpl;
+	}
+	public void setAdtRpl(String adtRpl) {
+		this.adtRpl = adtRpl;
+	}
+	
+	
 	
 	
 }

@@ -1370,6 +1370,98 @@ public class EducationServiceImpl implements EducationService {
 		
 		return view;
 	}
+
+	@Override
+	public String plusRecommendReply(String replyId, HttpSession session) {
+		MemberVO memberVO = (MemberVO) session.getAttribute(Session.MEMBER);
+		
+		ReRplyEvalVO reRplyEvalVO = new ReRplyEvalVO();
+		
+		String nowDate = educationBiz.getNowDate();
+		int nextSeq = educationBiz.getNextReReplyEval();
+		String replyEvalId = "RE-" + nowDate + "-" + lpad(nextSeq + "", 6, "0");
+		
+		//댓글ID
+		reRplyEvalVO.setReplyId(replyId);
+		
+		// 추천 누른 아이디
+		reRplyEvalVO.setMbrId(memberVO.getId());
+		
+		// REPLY_EVAL_ID (pk)
+		reRplyEvalVO.setReplyEvalId(replyEvalId);
+		
+		if (!educationBiz.checkReReplyEval(reRplyEvalVO)){
+			boolean result = educationBiz.insertReReplyEval(reRplyEvalVO);
+			
+			if(!result){
+				return "FAIL";
+			}
+			else{
+				if(educationBiz.plusRecommendReply(replyId)){
+					return "OK";
+				}
+				else {
+					return "FAIL";
+				}
+			} 
+		}
+		else {
+			return "FAIL";
+		}
+	}
+	
+	@Override
+	public String plusOpposeReply(String replyId, HttpSession session) {
+		MemberVO memberVO = (MemberVO) session.getAttribute(Session.MEMBER);
+		
+		ReRplyEvalVO reRplyEvalVO = new ReRplyEvalVO();
+		
+		String nowDate = educationBiz.getNowDate();
+		int nextSeq = educationBiz.getNextReReplyEval();
+		String replyEvalId = "RE-" + nowDate + "-" + lpad(nextSeq + "", 6, "0");
+		
+		//댓글ID
+		reRplyEvalVO.setReplyId(replyId);
+		
+		// 싫어요 누른 아이디
+		reRplyEvalVO.setMbrId(memberVO.getId());
+		
+		// REPLY_EVAL_ID (pk)
+		reRplyEvalVO.setReplyEvalId(replyEvalId);
+		
+		if (!educationBiz.checkReReplyEval(reRplyEvalVO)){
+			boolean result = educationBiz.insertReReplyEvalByDislike(reRplyEvalVO);
+			
+			if(!result){
+				return "FAIL";
+			}
+			else{
+				if(educationBiz.plusOpposeReply(replyId)){
+					return "OK";
+				}
+				else {
+					return "FAIL";
+				}
+			} 
+		}
+		else {
+			return "FAIL";
+		}
+	}
+
+	@Override
+	public String doAdoptReply(String replyId) {
+		
+		educationBiz.updateAdoptReply(replyId);
+		boolean result = educationBiz.checkAdoptReply(replyId);
+		
+		if(result) {
+			return "OK";
+		}
+		else {
+			return "FAIL";
+		}
+	}
 	
 	@Override
 	public void downloadEducationFile(String fileId, HttpServletRequest request, HttpServletResponse response) {

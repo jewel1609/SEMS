@@ -208,4 +208,12 @@ public interface EducationBiz {
 
 	public int getTotalQnaEduReplyCount(String eduQnaId);
 
+	public boolean plusRecommendReply(String replyId);
+
+	public boolean plusOpposeReply(String replyId);
+
+	public boolean updateAdoptReply(String replyId);
+
+	public boolean checkAdoptReply(String replyId);
+
 }

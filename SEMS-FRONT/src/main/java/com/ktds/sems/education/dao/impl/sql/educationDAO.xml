@@ -897,6 +897,7 @@
 				, HITS hits
 		FROM	EDU_QA_BBS
 		WHERE	ATC_ID = #{atcId}
+		AND		ATC_ID LIKE 'AT%'
 	</select>
 	
 	<select id="getNextReportSeq" resultType="_int">
@@ -1085,6 +1086,7 @@
 				, DISLIKE_CNT dislikeCnt
 				, TO_CHAR(CREATED_DATE, 'YYYY-MM-DD HH24:MI') createdDate
 				, (1.5*LIKE_CNT)-(DISLIKE_CNT) AS qnaReplyPoint
+				, ADT_RPL adtRpl
 		FROM	(
 					SELECT	ROWNUM AS RNUM
 							, RPL.*
@@ -1291,6 +1293,31 @@
 		WHERE	ATC_ID = #{atcId}
 		AND		REPLY_ID LIKE 'ER%'
 		AND		ATC_ID LIKE 'AT%'
+	</select>
+	
+	<update id="plusRecommendReply" parameterType="string">
+		UPDATE	BBS_RPL
+		SET		LIKE_CNT = LIKE_CNT+1
+		WHERE	REPLY_ID = #{replyId}
+	</update>
+
+	<update id="plusOpposeReply" parameterType="string">
+		UPDATE	BBS_RPL
+		SET		DISLIKE_CNT = DISLIKE_CNT+1
+		WHERE	REPLY_ID = #{replyId}
+	</update>
+	
+	<update id="updateAdoptReply" parameterType="string">
+		UPDATE	BBS_RPL
+		SET		ADT_RPL = 'Y'
+		WHERE	REPLY_ID = #{replyId}
+	</update>
+	
+	<select id="checkAdoptReply" parameterType="string" resultType="_int">
+		SELECT	COUNT(ADT_RPL) 
+		FROM	BBS_RPL
+		WHERE	REPLY_ID = #{replyId} 
+		AND		ADT_RPL = 'Y'
 	</select>
 	
 	<select id="getBBSHistorySeq" resultType="_int">

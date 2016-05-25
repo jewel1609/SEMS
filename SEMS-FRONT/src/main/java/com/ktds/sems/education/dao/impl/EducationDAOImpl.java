@@ -492,6 +492,26 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 	}
 
 	@Override
+	public int plusRecommendReply(String replyId) {
+		return getSqlSession().update("EducationDAO.plusRecommendReply", replyId);
+	}
+
+	@Override
+	public int plusOpposeReply(String replyId) {
+		return getSqlSession().update("EducationDAO.plusOpposeReply", replyId);
+	}
+
+	@Override
+	public int updateAdoptReply(String replyId) {
+		return getSqlSession().update("EducationDAO.updateAdoptReply", replyId);
+	}
+
+	@Override
+	public int checkAdoptReply(String replyId) {
+		return getSqlSession().selectOne("EducationDAO.checkAdoptReply" ,replyId);
+	}
+
+	@Override
 	public int getBBSHistorySeq() {
 		return getSqlSession().selectOne("EducationDAO.getBBSHistorySeq");
 	}

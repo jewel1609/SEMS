@@ -179,6 +179,14 @@ public interface EducationDAO {
 
 	public boolean isExistedHitMemberIdByArtileId(String articleId);
 
+	public int plusRecommendReply(String replyId);
+
+	public int plusOpposeReply(String replyId);
+
+	public int updateAdoptReply(String replyId);
+
+	public int checkAdoptReply(String replyId);
+
 	public int getBBSHistorySeq();
 
 	public int addHitsEducationFileBBSByArticleId(String articleId);

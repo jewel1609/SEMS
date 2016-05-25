@@ -100,6 +100,12 @@ public interface EducationService {
 
 	public ModelAndView viewEduBoardQNADetailPage(String atcId, int pageNo, HttpSession session);
 
+	public String plusRecommendReply(String replyId, HttpSession session);
+
+	public String plusOpposeReply(String replyId, HttpSession session);
+
+	public String doAdoptReply(String replyId);
+
 	public void downloadEducationFile(String fileId, HttpServletRequest request, HttpServletResponse response);
 	
 	public ModelAndView viewWriteEduQna(String educationId, HttpSession session);

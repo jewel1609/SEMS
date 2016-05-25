@@ -582,6 +582,26 @@ public class EducationBizImpl implements EducationBiz {
 	public int getTotalQNAReplyCountByAtcId(String atcId) {
 		return educationDAO.getTotalQNAReplyCountByAtcId(atcId);
 	}
+
+	@Override
+	public boolean plusRecommendReply(String replyId) {
+		return educationDAO.plusRecommendReply(replyId) > 0;
+	}
+
+	@Override
+	public boolean plusOpposeReply(String replyId) {
+		return educationDAO.plusOpposeReply(replyId) > 0;
+	}
+
+	@Override
+	public boolean updateAdoptReply(String replyId) {
+		return educationDAO.updateAdoptReply(replyId) > 0;
+	}
+
+	@Override
+	public boolean checkAdoptReply(String replyId) {
+		return educationDAO.checkAdoptReply(replyId) > 0;
+	}
 	
 	@Override
 	public boolean isEducationClassMember(String id) {

@@ -340,6 +340,36 @@ public class EducationController {
 		educationService.checkEndDate(articleId, response);
 	}
 	
+	@RequestMapping("/plusRecommendReply")
+	public void plusRecommendReply(HttpServletRequest request, HttpServletResponse response, HttpSession session){
+		String replyId = request.getParameter("replyId");
+		
+		String status = educationService.plusRecommendReply(replyId, session);
+		AjaxUtil.sendResponse(response, status);
+	}
+	
+	@RequestMapping("/plusOpposeReply")
+	public void plusOpposeReply(HttpServletRequest request, HttpServletResponse response, HttpSession session){
+		String replyId = request.getParameter("replyId");
+		
+		String status = educationService.plusOpposeReply(replyId, session);
+		AjaxUtil.sendResponse(response, status);
+	}
+
+	@RequestMapping("/doAdoptReply")
+	public void doAdoptReply(HttpServletRequest request, HttpServletResponse response){
+		String replyId = request.getParameter("replyId");
+		
+		String status = educationService.doAdoptReply(replyId);
+		AjaxUtil.sendResponse(response, status);
+	}
+	
+	
+	
+	
+	
+	
+	
 	@RequestMapping("/downloadEducationFile/{fileId}")
 	public void doDownloadEducationFile(@PathVariable String fileId, HttpServletRequest request, HttpServletResponse response){
 		educationService.downloadEducationFile(fileId, request, response);
