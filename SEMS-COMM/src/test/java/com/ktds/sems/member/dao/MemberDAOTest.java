@@ -32,7 +32,7 @@ public class MemberDAOTest extends SemsTestCase {
 
 	@Before
 	public void setUp() {
-
+		
 		testHelper(new Testable() {
 
 			@Override
@@ -65,6 +65,9 @@ public class MemberDAOTest extends SemsTestCase {
 	 */
 	@Test
 	public void getSaltByIdTest() {
+		
+		
+		
 		String id = "cocomo12";
 		String salt = memberDAO.getSaltById(id);
 		assertNotNull(salt);
@@ -369,7 +372,7 @@ public class MemberDAOTest extends SemsTestCase {
 
 	@Test
 	public void doHighestEduInsertTest() {
-
+		
 		HighestEduTpVO highestEduTpVO = new HighestEduTpVO();
 		highestEduTpVO.setCdId("X2X2");
 		highestEduTpVO.setCdNm("X3X3");
