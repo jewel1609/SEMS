@@ -17,4 +17,21 @@ public interface TeamDAO {
 
 	public int getSearchedBBSCount();
 
+	public TeamBBSVO getTeamBBS(String teamBBSId);
+
+	public int addHitsRecord(TeamBBSVO bbs);
+
+	public int isAlreadyCheckBBS(TeamBBSVO bbs);
+
+	public int getNextBBSHistorySeq();
+
+	public int checkDislikeByTeamBBSVO(TeamBBSVO bbs);
+
+	public int addLikeRecord(TeamBBSVO bbs);
+
+	public int checkLikeByTeamBBSVO(TeamBBSVO bbs);
+
+	public int addDislikeRecord(TeamBBSVO bbs);
+
+
 }
