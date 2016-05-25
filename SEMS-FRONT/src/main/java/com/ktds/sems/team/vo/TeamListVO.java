@@ -16,7 +16,7 @@ public class TeamListVO {
 		return teams;
 	}
 	
-	public void setTeamList(List<TeamVO> teamList) { 		//educationList?
+	public void setTeamList(List<TeamVO> teamList) {
 		List<TeamVO> teams = new ArrayList<TeamVO>();
 		teams.addAll(teamList);
 		

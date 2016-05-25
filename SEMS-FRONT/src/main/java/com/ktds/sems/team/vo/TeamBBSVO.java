@@ -1,8 +1,6 @@
 package com.ktds.sems.team.vo;
 
-import com.ktds.sems.file.vo.FileVO;
-
-public class TeamBBSVO extends FileVO{
+public class TeamBBSVO {
 	
 	private String teamBBSId;
 	private String teamId;
@@ -16,6 +14,7 @@ public class TeamBBSVO extends FileVO{
 	private String modifiedDate;
 	private String isNotice;
 
+	private String bbsHistoryId;
 	
 	public String getTeamBBSId() {
 		return teamBBSId;
@@ -83,6 +82,13 @@ public class TeamBBSVO extends FileVO{
 	public void setIsNotice(String isNotice) {
 		this.isNotice = isNotice;
 	}
+	public String getBbsHistoryId() {
+		return bbsHistoryId;
+	}
+	public void setBbsHistoryId(String bbsHistoryId) {
+		this.bbsHistoryId = bbsHistoryId;
+	}
+	
 	
 	
 	
