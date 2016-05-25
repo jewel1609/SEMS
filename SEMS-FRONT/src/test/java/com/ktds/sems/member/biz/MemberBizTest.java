@@ -503,7 +503,7 @@ public class MemberBizTest extends SemsTestCase {
 		educationHistorySearchVO.setEndIndex(5);
 		educationHistorySearchVO.setStartIndex(0);
 		
-		assertNotNull(memberBiz.getCourseList(educationHistorySearchVO));
+//		assertNotNull(memberBiz.getCourseList(educationHistorySearchVO));
 	}
 	*/
 	@Test
