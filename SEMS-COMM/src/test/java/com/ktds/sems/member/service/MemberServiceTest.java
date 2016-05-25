@@ -18,6 +18,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.SemsTestCase;
+import com.ktds.sems.Testable;
 import com.ktds.sems.member.vo.CodeMngVO;
 import com.ktds.sems.member.vo.GrdtTpVO;
 import com.ktds.sems.member.vo.MbrTpVO;
@@ -30,6 +31,24 @@ public class MemberServiceTest extends SemsTestCase {
 	@Autowired
 	private MemberService memberService;
 
+	@Before
+	public void setUp() {
+		testHelper(new Testable() {
+			
+			@Override
+			public void preparedTest() {
+				
+				CodeMngVO codeMngVO = new CodeMngVO();
+				codeMngVO.setCdId("TEST_CM");
+				codeMngVO.setCdNm("테스트");
+				codeMngVO.setCdTp("TEST");
+				codeMngVO.setCdTp2("TEST");
+
+				memberService.doCodeMngInsert(codeMngVO);
+			}
+		});
+	}
+	
 	/**
 	 * 일반회원 로그인
 	 */
@@ -227,10 +246,10 @@ public class MemberServiceTest extends SemsTestCase {
 	/**
 	 * doCodeMngInsert
 	 */
-	@Before
-	public void doCodeMng_A_Insert() {
+	@Test
+	public void doCodeMngInsert() {
 		CodeMngVO codeMngVO = new CodeMngVO();
-		codeMngVO.setCdId("TEST2");
+		codeMngVO.setCdId("TEST_CM2");
 		codeMngVO.setCdNm("테스트2");
 		codeMngVO.setCdTp("TE2");
 		codeMngVO.setCdTp2("ST2");
@@ -246,7 +265,7 @@ public class MemberServiceTest extends SemsTestCase {
 	@Test
 	public void doCodeMng_B_Modify() {
 		CodeMngVO codeMngVO = new CodeMngVO();
-		codeMngVO.setCdId("TEST2");
+		codeMngVO.setCdId("TEST_CM");
 		codeMngVO.setCdNm("테스트2");
 		codeMngVO.setCdTp2("ST2");
 
@@ -258,9 +277,9 @@ public class MemberServiceTest extends SemsTestCase {
 	/**
 	 * doCodeMngDelete
 	 */
-	@After
-	public void doCodeMng_C_Delete() {
-		String cdId = "TEST2";
+	@Test
+	public void doCodeMngDelete() {
+		String cdId = "TEST_CM";
 		String testStr = memberService.doCodeMngDelete(cdId);
 
 		assertNotNull(testStr);
