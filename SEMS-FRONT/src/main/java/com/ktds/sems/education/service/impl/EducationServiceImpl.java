@@ -790,6 +790,7 @@ public class EducationServiceImpl implements EducationService {
 		
 		view.setViewName("education/reportList");
 		view.addObject("educationReportListVO", educationReportListVO);
+		view.addObject("educationId", educationReportSearchVO.getEducationId());
 		
 		return view;
 	}
@@ -805,6 +806,7 @@ public class EducationServiceImpl implements EducationService {
 		educationReportVO.setEducationId(educationId);
 		
 		String nowDate = educationBiz.getNowDateTime();
+		nowDate = nowDate.replaceAll(" ", "T");
 		educationReportVO.setStartDate(nowDate);
 		
 		//과제 등록
@@ -1118,6 +1120,90 @@ public class EducationServiceImpl implements EducationService {
 		
 		view.setViewName("redirect:/education/detailReport/" + reportReplyVO.getBbsId());
 		return view;
+	}
+
+	@Override
+	public ModelAndView modifyReport(EducationReportVO educationReportVO, HttpSession session) {
+		ModelAndView view = new ModelAndView();
+		
+		MemberVO loginMember = (MemberVO) session.getAttribute("_MEMBER_");
+		
+		educationReportVO = educationBiz.getOneEducationReport(educationReportVO);
+		educationReportVO.setStartDate(educationReportVO.getStartDate().replaceAll(" ", "T"));
+		educationReportVO.setEndDate(educationReportVO.getEndDate().replaceAll(" ", "T"));
+		
+		// 과제를 등록한 강사와 수정 요청한 로그인 세션 계정이 같은지
+		if ( educationReportVO.getMemberId().equals(loginMember.getId()) ) {
+			
+			view.setViewName("education/reportWrite");
+			view.addObject("educationReportVO", educationReportVO);
+			
+			return view;
+		}
+		else {
+			view.setViewName("redirect:/education/detailReport/" + educationReportVO.getArticleId());
+			return view;
+		}
+	}
+
+	@Override
+	public ModelAndView doModifyReport(EducationReportVO educationReportVO, HttpSession session, MultipartHttpServletRequest request) {
+		ModelAndView view = new ModelAndView();
+		
+		// 수정
+		educationBiz.modifyReport(educationReportVO);
+		
+		MultipartFile file = request.getFile("file");
+		
+		String fileName = file.getOriginalFilename();
+		String salt = SHA256Util.generateSalt();
+		String saltFileName = SHA256Util.getEncrypt(fileName, salt);
+		
+		String filePath = "D:\\" + saltFileName;
+		
+		if ( !file.isEmpty() ) {
+			
+			File files = new File(filePath);
+			
+			try {
+				file.transferTo(files);
+				
+				FileVO fileVO = new FileVO();
+				fileVO.setArticleId(educationReportVO.getArticleId());
+				fileVO.setFileName(fileName);
+				fileVO.setFileLocation(filePath);
+				
+				fileBiz.updateFile(fileVO);
+				
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+		}
+		
+		
+		view.setViewName("redirect:/education/detailReport/" + educationReportVO.getArticleId());
+		
+		return view;
+	}
+
+	@Override
+	public String deleteReport(EducationReportVO educationReportVO, HttpSession session) {
+		
+		educationReportVO = educationBiz.getOneEducationReport(educationReportVO);
+		
+		MemberVO member = (MemberVO) session.getAttribute("_MEMBER_");
+		
+		// 삭제
+		if ( educationReportVO.getMemberId().equals(member.getId()) ) {
+			educationBiz.deleteReport(educationReportVO);
+			return "redirect:/education/reportList/" + educationReportVO.getArticleId();
+		}
+		
+		return "redirect:/education/detailReport/" + educationReportVO.getArticleId();
+		
 	}
 
 	@Override

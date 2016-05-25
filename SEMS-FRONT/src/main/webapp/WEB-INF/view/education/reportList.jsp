@@ -15,15 +15,46 @@
 		$("#endDate").hide();
 		$("#searchKeyword").hide();
 		
+		$("#writeBtn").click(function() {
+			location.href="<c:url value='/education/viewReportWrite/${educationId}' />";
+		});
+		
 		$("#searchBtn").click( function() {
 			
-			if( $("#searchType option:selected").val() == "title" || $("#searchType option:selected").val() == "contents" || $("#searchType option:selected").val() == "registerId"){
+			if( $("#searchType option:selected").val() == "title"){
 				if ($("#searchEduName").val() == ""){
 					alert("검색어를 입력하세요!");
 					return;
 				}
 			}
-			else if( $("#searchType option:selected").val() == "eduDate"){
+			else if( $("#searchType option:selected").val() == "startDate"){
+				var startDate = $("#startDate").val();
+				var endDate = $("#endDate").val();
+					
+				if (startDate == "" || endDate == "") {
+					// 검색 기간 입력 되지 않은 경우
+					if (startDate == "") {
+						alert("검색시작일을 지정해주세요.");
+						$("#startDate").focus();
+						return;
+					}
+					
+					if (endDate == "") {
+						alert("검색 마지막일을 지정해주세요.");
+						$("#endDate").focus();
+						return;
+					}
+				} 
+				else{
+					// 검색 기간 입력 되었지만
+					// 검색 시작일이 더 클 경우
+					if(startDate > endDate){
+						alert("검색 기간이 잘못 설정되었습니다.");
+						return;
+					}
+				}
+			}
+			else if( $("#searchType option:selected").val() == "endDate"){
 				var startDate = $("#startDate").val();
 				var endDate = $("#endDate").val();
 					
@@ -66,12 +97,12 @@
 		
 		$("#searchType").change(function() {
 			var option = $("#searchType option:selected").val();
-			if (option == "title" || option == "contents" || option == "registerId") {
+			if (option == "title") {
 				$("#searchKeyword").show();
 				$("#startDate").hide();
 				$("#endDate").hide();
 			}
-			else if( option == "eduDate"){
+			else if( option == "startDate" || option == "endDate"){
 				$("#searchKeyword").hide();
 				$("#startDate").show();
 				$("#endDate").show();
@@ -79,12 +110,12 @@
 		});
 		
 		var option = $("#searchType option:selected").val();
-		if (option == "title" || option == "contents" || option == "registerId") {
+		if (option == "title") {
 			$("#searchKeyword").show();
 			$("#startDate").hide();
 			$("#endDate").hide();
 		}
-		else if( option == "eduDate"){
+		else if( option == "startDate" || option == "endDate"){
 			$("#searchKeyword").hide();
 			$("#startDate").show();
 			$("#endDate").show();
@@ -100,7 +131,7 @@
 			<th>강사 명</th>
 			<th>과제 명</th>
 			<th>시작 일</th>
-			<th>종료 일</th>
+			<th>마감 일</th>
 		</tr>
 		<c:forEach items="${educationReportListVO.educationReportList }" var="educationReportList" >
 			<tr>
@@ -127,23 +158,17 @@
 							<c:if test="${educationReportSearchVO.searchType ne 'title' }">
 								<option id="title" value="title" >제목</option>
 							</c:if>
-							<c:if test="${educationReportSearchVO.searchType eq 'contents' }">
-								<option id="contents" value="contents" selected="selected">내용</option>
+							<c:if test="${educationReportSearchVO.searchType eq 'startDate' }">
+								<option id="eduStartDate" value="startDate" selected="selected">과제 시작일</option>
 							</c:if>
-							<c:if test="${educationReportSearchVO.searchType ne 'contents' }">
-								<option id="contents" value="contents" >내용</option>
+							<c:if test="${educationReportSearchVO.searchType ne 'startDate' }">
+								<option id="eduStartDate" value="startDate" >과제 시작일</option>
 							</c:if>
-							<c:if test="${educationReportSearchVO.searchType eq 'registerId' }">
-								<option id="registerId" value="registerId" selected="selected">등록자</option>
+							<c:if test="${educationReportSearchVO.searchType eq 'endDate' }">
+								<option id="eduEndDate" value="endDate" selected="selected">과제 마감일</option>
 							</c:if>
-							<c:if test="${educationReportSearchVO.searchType ne 'registerId' }">
-								<option id="registerId" value="registerId" >등록자</option>
-							</c:if>
-							<c:if test="${educationReportSearchVO.searchType eq 'eduDate' }">
-								<option id="eduDate" value="eduDate" selected="selected">교육 시작일</option>
-							</c:if>
-							<c:if test="${educationReportSearchVO.searchType ne 'eduDate' }">
-								<option id="eduDate" value="eduDate" >교육 시작일</option>
+							<c:if test="${educationReportSearchVO.searchType ne 'endDate' }">
+								<option id="eduEndDate" value="endDate" >과제 마감일</option>
 							</c:if>
 						</select>
 					
@@ -153,6 +178,7 @@
 						<input type="date" name="endDate" id="endDate" value="${educationReportSearchVO.endDate}" /> 
 						
 						<input type="button" id="searchBtn" value="검색" />
+						<input type="button" id="writeBtn" value="과제 등록" />
 					</div>
 				</form>
 			</td>

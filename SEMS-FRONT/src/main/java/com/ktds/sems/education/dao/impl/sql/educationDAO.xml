@@ -791,18 +791,22 @@
 									<if test="searchType == 'title'">
 									AND		TITLE LIKE '%' || #{searchKeyword} || '%'
 									</if>
-									<if test="searchType == 'contents'">
-									AND		CONTENTS LIKE '%' || #{searchKeyword} || '%'
+								</if>
+								<if test="searchType == 'startDate'">
+									<if test="startDate != null and startDate != ''">
+									AND		START_DATE >= #{startDate}
 									</if>
-									<if test="searchType == 'registerId'">
-									AND		MBR_ID LIKE '%' || #{searchKeyword} || '%'
+									<if test="endDate != null and endDate != ''">
+									AND		START_DATE <![CDATA[<]]> TO_DATE(#{endDate}, 'YYYY-MM-DD') + 1
 									</if>
 								</if>
-								<if test="startDate != null and startDate != ''">
-								AND		START_DATE >= #{startDate}
-								</if>
-								<if test="endDate != null and endDate != ''">
-								AND		END_DATE <![CDATA[<]]> TO_DATE(#{endDate}, 'YYYY-MM-DD') + 1
+								<if test="searchType == 'endDate'">
+									<if test="startDate != null and startDate != ''">
+									AND		END_DATE >= #{startDate}
+									</if>
+									<if test="endDate != null and endDate != ''">
+									AND		END_DATE <![CDATA[<]]> TO_DATE(#{endDate}, 'YYYY-MM-DD') + 1
+									</if>
 								</if>
 		                        ORDER	BY ATC_ID DESC
 		                    ) EDU_RPT_BBS
@@ -815,19 +819,26 @@
 		SELECT  COUNT(ATC_ID)
 		FROM    EDU_RPT_BBS
 		WHERE	1=1
-		<if test="searchKeyword != null and searchType != null">
+        <if test="searchKeyword != null and searchType != null">		
 			<if test="searchType == 'title'">
 			AND		TITLE LIKE '%' || #{searchKeyword} || '%'
 			</if>
-			<if test="searchType == 'contents'">
-			AND		CONTENTS LIKE '%' || #{searchKeyword} || '%'
+		</if>
+		<if test="searchType == 'startDate'">
+			<if test="startDate != null and startDate != ''">
+			AND		START_DATE >= #{startDate}
 			</if>
-			<if test="searchType == 'registerId'">
-			AND		MBR_ID LIKE '%' || #{searchKeyword} || '%'
+			<if test="endDate != null and endDate != ''">
+			AND		START_DATE <![CDATA[<]]> TO_DATE(#{endDate}, 'YYYY-MM-DD') + 1
 			</if>
 		</if>
-		<if test="startDate != null and startDate != ''">
-			AND		CREATE_DATE >= #{startDate}
+		<if test="searchType == 'endDate'">
+			<if test="startDate != null and startDate != ''">
+			AND		END_DATE >= #{startDate}
+			</if>
+			<if test="endDate != null and endDate != ''">
+			AND		END_DATE <![CDATA[<]]> TO_DATE(#{endDate}, 'YYYY-MM-DD') + 1
+			</if>
 			AND		CREATE_DATE <![CDATA[<]]> TO_DATE(#{endDate}, 'YYYY-MM-DD') + 1
 		</if>
 	</select>
@@ -870,7 +881,6 @@
 									, TO_DATE(#{startDate}, 'YYYY-MM-DD HH24:MI')
 									, TO_DATE(#{endDate}, 'YYYY-MM-DD HH24:MI')
 								 )
-		
 	</insert>
 	
 	<update id="addHitsByAtcId" parameterType="string">
@@ -1002,8 +1012,8 @@
 				, MBR_ID memberId
 				, TITLE title
 				, CONTENTS contents
-				, START_DATE startDate
-				, END_DATE endDate
+				, TO_CHAR(START_DATE, 'YYYY-MM-DD HH24:MI') startDate
+				, TO_CHAR(END_DATE, 'YYYY-MM-DD HH24:MI') endDate
 		FROM	EDU_RPT_BBS
 		WHERE	ATC_ID = #{articleId}
 	</select>
@@ -1077,9 +1087,33 @@
     </select>
 	
 	<select id="getNowDateTime" resultType="string">
-		SELECT	TO_CHAR(SYSDATE, 'YYYY-MM-DD')
+		SELECT	TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI')
 		FROM	DUAL
 	</select>
+	
+	<update id="modifyReport" parameterType="EducationReportVO">
+		UPDATE	EDU_RPT_BBS
+		SET		ATC_ID	= #{articleId}
+		<if test="title != null and title != ''">
+				, TITLE = #{title}
+		</if>
+		<if test="contents != null and contents != ''">
+				, CONTENTS = #{contents}
+		</if>
+		<if test="startDate != null and startDate != ''">
+				, START_DATE = TO_DATE(#{startDate}, 'YYYY-MM-DD HH24:MI')
+		</if>
+		<if test="endDate != null and endDate != ''">
+				, END_DATE = TO_DATE(#{endDate}, 'YYYY-MM-DD HH24:MI')
+		</if>
+		WHERE	ATC_ID = #{articleId}
+	</update>
+	
+	<delete id="deleteReport" parameterType="EducationReportVO">
+		DELETE
+		FROM	EDU_RPT_BBS
+		WHERE	ATC_ID	= #{articleId}
+	</delete>
 	
 	<select id="checkEndDate" parameterType="string" resultType="string">
 		SELECT  *

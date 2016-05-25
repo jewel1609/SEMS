@@ -490,6 +490,37 @@ public class EducationBizImpl implements EducationBiz {
 	}
 
 	@Override
+	public void modifyReport(EducationReportVO educationReportVO) {
+		
+		EducationReportVO prevReportVO = educationDAO.getOneEducationReport(educationReportVO);
+		EducationReportVO changedReportVO = new EducationReportVO();
+		changedReportVO.setArticleId(educationReportVO.getArticleId());
+		
+		prevReportVO.setStartDate(prevReportVO.getStartDate().replaceAll(" ", "T"));
+		prevReportVO.setEndDate(prevReportVO.getEndDate().replaceAll(" ", "T"));
+		
+		if ( !prevReportVO.getTitle().equals(educationReportVO.getTitle()) ) {
+			changedReportVO.setTitle(educationReportVO.getTitle());
+		}
+		if ( !prevReportVO.getContents().equals(educationReportVO.getContents()) ) {
+			changedReportVO.setContents(educationReportVO.getContents());
+		}
+		if ( !prevReportVO.getStartDate().equals(educationReportVO.getStartDate()) ) {
+			changedReportVO.setStartDate(educationReportVO.getStartDate().replaceAll("T", " "));
+		}
+		if ( !prevReportVO.getEndDate().equals(educationReportVO.getEndDate()) ) {
+			changedReportVO.setEndDate(educationReportVO.getEndDate().replaceAll("T", " "));
+		}
+		
+		educationDAO.modifyReport(changedReportVO);
+	}
+
+	@Override
+	public void deleteReport(EducationReportVO educationReportVO) {
+		educationDAO.deleteReport(educationReportVO);
+	}
+
+	@Override
 	public String checkEndDate(String articleId) {
 		return educationDAO.checkEndDate(articleId);
 	}

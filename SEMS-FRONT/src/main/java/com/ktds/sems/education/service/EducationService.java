@@ -85,9 +85,14 @@ public interface EducationService {
 	
 	public ModelAndView getAllReportReply(ReportReplySearchVO reportReplySearchVO, int pageNo, HttpSession session);
 
+	public ModelAndView modifyReport(EducationReportVO educationReportVO, HttpSession session);
+
+	public ModelAndView doModifyReport(EducationReportVO educationReportVO, HttpSession session, MultipartHttpServletRequest request);
+
 	public void checkEndDate(String articleId, HttpServletResponse response);
 
 	public List<EducationQNAReplyVO> getAllQNAReplyListByAtcId(String atcId);
 
+	public String deleteReport(EducationReportVO educationReportVO, HttpSession session);
 
 }

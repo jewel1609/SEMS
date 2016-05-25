@@ -151,6 +151,10 @@ public interface EducationBiz {
 	public int getReportReplyCount(String articleId);
 
 	public String getNowDateTime();
+	
+	public void modifyReport(EducationReportVO educationReportVO);
+
+	public void deleteReport(EducationReportVO educationReportVO);
 
 	public String checkEndDate(String articleId);
 

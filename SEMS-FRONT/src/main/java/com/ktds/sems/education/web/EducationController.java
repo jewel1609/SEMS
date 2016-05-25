@@ -330,6 +330,20 @@ public class EducationController {
 		return "redirect:/myPage/myReportList";
 	}
 	
+	@RequestMapping("/education/modifyReport/{articleId}")
+	public ModelAndView modifyReport(EducationReportVO educationReportVO, HttpSession session) {
+		return educationService.modifyReport(educationReportVO, session);
+	}
+	@RequestMapping("/education/deleteReport/{articleId}")
+	public String deleteReport(EducationReportVO educationReportVO, HttpSession session) {
+		return	educationService.deleteReport(educationReportVO, session);
+	}
+	
+	@RequestMapping("/education/doModifyReportAction")
+	public ModelAndView doModifyReportAction(EducationReportVO educationReportVO, HttpSession session, MultipartHttpServletRequest request) {
+		return educationService.doModifyReport(educationReportVO, session, request);
+	}
+	
 	@RequestMapping("/checkEndDate")
 	public void checkEndDate(@RequestParam String articleId, HttpServletResponse response) {
 		educationService.checkEndDate(articleId, response);

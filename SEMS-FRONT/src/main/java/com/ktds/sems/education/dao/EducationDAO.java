@@ -149,6 +149,10 @@ public interface EducationDAO {
 
 	public String getNowDateTime();
 
+	public void modifyReport(EducationReportVO educationReportVO);
+
+	public void deleteReport(EducationReportVO educationReportVO);
+
 	public String checkEndDate(String articleId);
 
 }

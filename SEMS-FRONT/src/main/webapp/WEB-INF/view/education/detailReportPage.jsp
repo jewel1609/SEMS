@@ -71,7 +71,7 @@ $(document).ready(function() {
 		${ educationReportVO.contents } <br />
 		<hr>
 		시작 일 : ${ educationReportVO.startDate } <br /> 
-		종료 일 : ${ educationReportVO.endDate } <br />
+		마감 일 : ${ educationReportVO.endDate } <br />
 		<hr>
 		
 		<c:if test="${reportFile.size() gt 0 }"> 
@@ -84,13 +84,13 @@ $(document).ready(function() {
 			<hr>
 		</c:if>
 		
-		<c:if test="${loginMember.memberType eq 'TR' }">
+		<c:if test="${loginMember.memberType eq 'TR' && loginMember.id eq educationReportVO.memberId }">
 			<a href="<c:url value='/education/modifyReport/${educationReportVO.articleId }' />">수정</a> /
 			<a href="<c:url value='/education/deleteReport/${educationReportVO.articleId }' />">삭제</a> / 
-			<a href="<c:url value='/education/reportList/${educationReportVO.educationId }' />">목록</a>
 		</c:if>
+			<a href="<c:url value='/education/reportList/${educationReportVO.educationId }' />">목록</a>
 		<c:if test="${loginMember.memberType eq 'MBR' }">
-			<a href="<c:url value='/myPage/myReportList' />">목록</a>
+			<a href="<c:url value='/myPage/myReportList' />">내 과제 이력</a>
 		</c:if>
 	</div>
 
