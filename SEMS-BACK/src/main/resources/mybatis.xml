@@ -51,6 +51,7 @@
 		<typeAlias type="com.ktds.sems.team.vo.TeamSearchListVO" alias="TeamSearchListVO"/>
 		<typeAlias type="com.ktds.sems.team.vo.TeamSearchVO" alias="TeamSearchVO"/>
 		<typeAlias type="com.ktds.sems.team.vo.TeamBBSRplVO" alias="TeamBBSRplVO"/>
+		<typeAlias type="com.ktds.sems.member.vo.AttendVO" alias="AttendVO"/>
 	</typeAliases>
 
 	<mappers>
