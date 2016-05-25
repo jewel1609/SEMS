@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ktds.sems.SemsTestCase;
+import com.ktds.sems.Testable;
 import com.ktds.sems.member.vo.CodeMngVO;
 import com.ktds.sems.member.vo.GrdtTpVO;
 import com.ktds.sems.member.vo.HighestEduTpVO;
@@ -28,6 +29,36 @@ public class MemberDAOTest extends SemsTestCase {
 
 	@Autowired
 	private MemberDAO memberDAO;
+
+	@Before
+	public void setUp() {
+
+		testHelper(new Testable() {
+
+			@Override
+			public void preparedTest() {
+				CodeMngVO codeMngVO = new CodeMngVO();
+				codeMngVO.setCdId("TEST_CM2");
+				codeMngVO.setCdNm("테스트");
+				codeMngVO.setCdTp("TE");
+				codeMngVO.setCdTp2("ST");
+				memberDAO.doCodeMngInsert(codeMngVO);
+			}
+		});
+	}
+
+	@After
+	public void tearDown() {
+		testHelper(new Testable() {
+
+			@Override
+			public void preparedTest() {
+
+				String cdId = "TEST_CM2";
+				memberDAO.doCodeMngDelete(cdId);
+			}
+		});
+	}
 
 	/**
 	 * SALT 얻어오기
@@ -47,9 +78,9 @@ public class MemberDAOTest extends SemsTestCase {
 		MemberVO loginVO = new MemberVO();
 		loginVO.setId("cocomo12");
 		loginVO.setPassword("cbf430bc6a30cc454e07fe1243eed8f7cb712395dfefbe38ff0c1c030b8e136c");
-		
+
 		MemberVO memberVO = memberDAO.login(loginVO);
-		if(memberVO != null) {
+		if (memberVO != null) {
 			assertNotNull(memberVO.getId());
 			assertNotNull(memberVO.getPassword());
 			assertNotNull(memberVO.getName());
@@ -136,107 +167,107 @@ public class MemberDAOTest extends SemsTestCase {
 		String checkStr = memberDAO.isResign(id);
 		assertNull(checkStr);
 	}
-	
+
 	@Test
-	public void getAllGrdtListTest(){
+	public void getAllGrdtListTest() {
 		List<GrdtTpVO> grdtTpList = memberDAO.getAllGrtdList();
 		assertNotNull(grdtTpList);
 		assertTrue(grdtTpList.size() >= 0);
 	}
-	
+
 	@Test
-	public void doGrdtInsertTest(){
+	public void doGrdtInsertTest() {
 		GrdtTpVO grdtTpVO = new GrdtTpVO();
 		grdtTpVO.setCdId("T2T2");
 		grdtTpVO.setCdNm("JUNT");
-		
+
 		int checkGrdtInsert = memberDAO.doGrdtInsert(grdtTpVO);
 		assertTrue(checkGrdtInsert > 0);
 	}
-	
+
 	@Test
-	public void doGrdtModifyTest(){
+	public void doGrdtModifyTest() {
 		GrdtTpVO grdtTpVO = new GrdtTpVO();
 		grdtTpVO.setCdId("TEST");
 		grdtTpVO.setCdNm("JUNITTEST");
-		
+
 		int checkGrdtModify = memberDAO.doGrdtModify(grdtTpVO);
 		assertTrue(checkGrdtModify >= 1);
 	}
-	
+
 	@Test
-	public void doGrdtDeleteTest(){
+	public void doGrdtDeleteTest() {
 		String cdId = "TEST";
 		int checGrdtkDelete = memberDAO.doGrdtDelete(cdId);
 		assertTrue(checGrdtkDelete >= 1);
 	}
-	
+
 	@Test
-	public void isExistDataTest(){
+	public void isExistDataTest() {
 		GrdtTpVO grdtTpVO = new GrdtTpVO();
 		grdtTpVO.setCdId("ABST");
 		grdtTpVO.setCdNm("휴학");
-		
+
 		int checkExistData = memberDAO.isExistData(grdtTpVO);
 		assertTrue(checkExistData >= 1);
 	}
-	
+
 	@Test
-	public void isExistCdNmDataTest(){
+	public void isExistCdNmDataTest() {
 		GrdtTpVO grdtTpVO = new GrdtTpVO();
 		grdtTpVO.setCdNm("휴학");
-		
+
 		int checkExistCdNmData = memberDAO.isExistCdNmData(grdtTpVO);
 		assertTrue(checkExistCdNmData >= 1);
 	}
-	
+
 	@Test
-	public void getAllMbrTpListTest(){
+	public void getAllMbrTpListTest() {
 		List<MbrTpVO> mbrTpList = memberDAO.getAllMbrTpList();
 		assertNotNull(mbrTpList);
 		assertTrue(mbrTpList.size() >= 0);
 	}
-	
+
 	@Test
-	public void doInsertMbrTpTest(){
+	public void doInsertMbrTpTest() {
 		MbrTpVO mbrTpVO = new MbrTpVO();
 		mbrTpVO.setCdId("TEST");
 		mbrTpVO.setCdNm("JUNITTEST");
-		
+
 		int checkMbrTpInsert = memberDAO.doInsertMbrTp(mbrTpVO);
 		assertTrue(checkMbrTpInsert >= 1);
 	}
-	
+
 	@Test
-	public void doMbrTpModifyTest(){
+	public void doMbrTpModifyTest() {
 		MbrTpVO mbrTpVO = new MbrTpVO();
 		mbrTpVO.setCdId("MBR");
 		mbrTpVO.setCdNm("일반회");
-		
+
 		int checkMbrTpModify = memberDAO.doMbrTpModify(mbrTpVO);
 		assertTrue(checkMbrTpModify >= 1);
 		mbrTpVO.setCdId("MBR");
 		mbrTpVO.setCdNm("일반회원");
 		memberDAO.doMbrTpModify(mbrTpVO);
 	}
-	
+
 	@Test
-	public void doMbrTpDeleteTest(){
+	public void doMbrTpDeleteTest() {
 		String cdId = "TEST";
 		int checkMbrTpDelete = memberDAO.doMbrTpDelete(cdId);
-		assertTrue(checkMbrTpDelete >= 1);
+		assertTrue(checkMbrTpDelete > 0);
 	}
-	
+
 	@Test
-	public void isExistMbrTpDataTest(){
+	public void isExistMbrTpDataTest() {
 		MbrTpVO mbrTpVO = new MbrTpVO();
 		mbrTpVO.setCdId("STD");
 		mbrTpVO.setCdNm("수강생");
-		
+
 		int checkExistMbrTpData = memberDAO.isExistMbrTpData(mbrTpVO);
 		assertTrue(checkExistMbrTpData >= 1);
 	}
-	
+
 	@Test
 	public void getAllCodeMngListTest() {
 		List<CodeMngVO> codeMngList = memberDAO.getAllCodeMngList();
@@ -252,44 +283,44 @@ public class MemberDAOTest extends SemsTestCase {
 		}
 	}
 
-	@Before
+	@Test
 	public void doCodeMng_InsertTest() {
 
 		CodeMngVO codeMngVO = new CodeMngVO();
-		codeMngVO.setCdId("TEST");
+		codeMngVO.setCdId("TEST_CM3");
 		codeMngVO.setCdNm("테스트");
 		codeMngVO.setCdTp("TE");
 		codeMngVO.setCdTp2("ST4");
-		
+
 		int testInt = memberDAO.doCodeMngInsert(codeMngVO);
 		assertTrue(testInt > 0);
 	}
-	
+
 	@Test
 	public void doCodeMng_ModifyTest() {
 
 		CodeMngVO codeMngVO = new CodeMngVO();
-		codeMngVO.setCdId("TEST");
+		codeMngVO.setCdId("TEST_CM2");
 		codeMngVO.setCdNm("테스트");
 		codeMngVO.setCdTp("TE");
 		codeMngVO.setCdTp2("ST4");
-		
+
 		int testInt = memberDAO.doCodeMngModify(codeMngVO);
 		assertTrue(testInt > 0);
 	}
-	
-	@After
+
+	@Test
 	public void doCodeMng_DeleteTest() {
-		String cdId = "TEST";
-		
+		String cdId = "TEST_CM2";
+
 		int testInt = memberDAO.doCodeMngDelete(cdId);
 		assertTrue(testInt > 0);
 	}
-	
+
 	@Test
 	public void getAllHighestEduListTest() {
 		List<HighestEduTpVO> testList = memberDAO.getAllHighestEduList();
-		if(testList != null) {
+		if (testList != null) {
 			for (HighestEduTpVO highestEduTpVO : testList) {
 				assertNotNull(highestEduTpVO.getCdId());
 				assertNotNull(highestEduTpVO.getCdNm());
@@ -311,7 +342,7 @@ public class MemberDAOTest extends SemsTestCase {
 		HighestEduTpVO highestEduTpVO = new HighestEduTpVO();
 		highestEduTpVO.setCdId("TEST");
 		highestEduTpVO.setCdNm("TEST2");
-		
+
 		int executeQuery = memberDAO.doHighestEduModify(highestEduTpVO);
 		assertTrue(executeQuery > 0);
 	}
@@ -321,28 +352,28 @@ public class MemberDAOTest extends SemsTestCase {
 		HighestEduTpVO highestEduTpVO = new HighestEduTpVO();
 		highestEduTpVO.setCdId("TBWX");
 		highestEduTpVO.setCdNm("TYXE");
-		
+
 		int executeQuery = memberDAO.isExistHighestEduData(highestEduTpVO);
 		assertTrue(executeQuery < 1);
 	}
-	
+
 	@Test
 	public void isExistHighestEduDataErrorTest() {
 		HighestEduTpVO highestEduTpVO = new HighestEduTpVO();
 		highestEduTpVO.setCdId("TEST");
 		highestEduTpVO.setCdNm("TEST");
-		
+
 		int executeQuery = memberDAO.isExistHighestEduData(highestEduTpVO);
 		assertTrue(executeQuery > 0);
 	}
 
 	@Test
 	public void doHighestEduInsertTest() {
-		
+
 		HighestEduTpVO highestEduTpVO = new HighestEduTpVO();
 		highestEduTpVO.setCdId("X2X2");
 		highestEduTpVO.setCdNm("X3X3");
-		
+
 		int executeQuery = memberDAO.doHighestEduInsert(highestEduTpVO);
 		assertTrue(executeQuery > 0);
 	}
