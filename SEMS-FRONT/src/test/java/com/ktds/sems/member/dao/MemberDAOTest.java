@@ -521,7 +521,7 @@ public class MemberDAOTest extends SemsTestCase {
 		educationHistorySearchVO.setEndIndex(5);
 		educationHistorySearchVO.setStartIndex(0);
 
-		memberDAO.getCourseList(educationHistorySearchVO);
+//		memberDAO.getCourseList(educationHistorySearchVO);
 
 		assertNotNull(educationHistorySearchVO);
 	}*/
