@@ -49,6 +49,9 @@
 		<typeAlias type="com.ktds.sems.education.vo.EduQnaListVO" alias="EduQnaListVO"/>
 		<typeAlias type="com.ktds.sems.education.vo.EduQnaSearchVO" alias="EduQnaSearchVO"/>
 		<typeAlias type="com.ktds.sems.education.vo.EduQnaVO" alias="EduQnaVO"/>
+		<typeAlias type="com.ktds.sems.team.vo.MinutesVO" alias="MinutesVO"/>
+		<typeAlias type="com.ktds.sems.team.vo.MinutesListVO" alias="MinutesListVO"/>
+		<typeAlias type="com.ktds.sems.team.vo.MinutesSearchVO" alias="MinutesSearchVO"/>
 	</typeAliases>
 
 	<mappers>
