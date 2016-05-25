@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+   pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%--<c:set var="root" value="${pageContext.request.contextPath}" /> --%>
 <!DOCTYPE html>
@@ -29,185 +29,145 @@
 <script type="text/javascript" src="<c:url value='/resources/vendors/sweet-alert/sweet-alert.min.js' />"></script>
 <script type="text/javascript" src="<c:url value='/resources/vendors/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js' />"></script>
 <script type="text/javascript">
-	$(document).ready(
-					function() {
-						var today = new Date();
-						var date = new Date();
-						var start = new Date();
-						var end = new Date();
-						var d = date.getDate();
-						var m = date.getMonth();
-						var y = date.getFullYear();
+   $(document).ready(
+               function() {
+                  var today = new Date();
+                  var date = new Date();
+                  var start = new Date();
+                  var end = new Date();
+                  var d = date.getDate();
+                  var m = date.getMonth();
+                  var y = date.getFullYear();
 
-						var cId = $('#calendar'); //Change the name if you want. I'm also using thsi add button for more actions
-						
-						var calNotices = new Array();
-						var myEducationInfos = new Array();
-						
-						var calNotice = {};
-						calNotice.id = "${education.educationId}";
-						calNotice.title = "${education.educationTitle}";
-						calNotice.start = "${education.startDate}";
-						calNotice.end = "${education.endDate}";
-						calNotices.push(calNotice);
-						
-						var myEducationInfo = {};
-						myEducationInfo.id = "A";
-						myEducationInfo.title = "AA";
-						myEducationInfo.start = "2016-05-23";
-						myEducationInfo.end = "2016-05-30";
-						myEducationInfos.push(myEducationInfo);
+                  var cId = $('#calendar'); //Change the name if you want. I'm also using thsi add button for more actions
+                  
+                  var calNotices = new Array();
+                  
+                  var calNotice = {};
+                  calNotice.title = "${education.educationTitle}";
+                  calNotice.start = "${education.startDate}";
+                  calNotice.end = "${education.endDate}";
+                  calNotice.className = "${bgm-red}";
+                  calNotices.push(calNotice);
 
-					/* 			console.log(calNotices[0].id)
-								console.log(calNotices[0].start)
-								console.log(calNotices[0].end) */
-						 
-						//Generate the Calendar
-						cId.fullCalendar({
-									header : {
-										right : '',
-										center : 'prev, title, next',
-										left : ''
-									},
-									defaultView : 'month',
-									dayRender : function(date, cell) {
+                  // 내가 현재 수강하고 있는 과목에 대한 정보
+                  <c:forEach items="${myEducations}" var="myEducation">
+                  		alert("${myEducation.educationId}");
+                  			var myEducationInfo = {};
+                  			var myEdu = '*현재 수강 강의';
+                    	 myEducationInfo.title = myEdu+"${myEducation.educationTitle}";
+                    	 myEducationInfo.start = "${myEducation.startDate}";
+                    	 myEducationInfo.end = "${myEducation.endDate}";
+                    	 myEducationInfo.className = "${bgm-red}";
+                    	 calNotices.push(myEducationInfo);
+					</c:forEach>
+                   
+                  //Generate the Calendar
+                  cId.fullCalendar({
+                           header : {
+                              right : '',
+                              center : 'prev, title, next',
+                              left : ''
+                           },
+                           defaultView : 'month',
+                           dayRender : function(date, cell) {
+                              
+                              end.setDate(today.getDate() + 7);
+                              var cellDate = $(cell).data('date');
+                              var todayDate;
+
+                              if (m + 1 < 10) {
+                                 if (d < 10) {
+                                    todayDate = y + '-' + '0' + (m + 1) + '-' + '0' + d;
+                                 } 
+                                 else {
+                                    todayDate = y + '-' + '0' + (m + 1) + '-' + d;
+                                 }
+                              } 
+                              else {
+                                 if (d < 10) {
+                                    todayDate = y + '-' + (m + 1) + '-' + '0' + d;
+                                 } 
+                                 else {
+                                    todayDate = y + '-' + (m + 1) + '-' + d;
+                                 }
+                              }
+                              //console.log("cellDate" + cellDate);
+                              //console.log("todayDate" + todayDate);
+
+                              if (cellDate == todayDate) {
+                                 
+                                 cell.css("background-color", "#a5cefc");
+                              }
+                           },
+
+                           fixedWeekCount : false,
+                           contentHeight : 370,
+                           eventLimit : true,
+                           theme : true, //Do not remove this as it ruin the design
+                           selectable : true,
+                           selectHelper : true,
+                           select : true,
+                           editable : true,
+
+                           //Add Events
+                           events :
+										calNotices,
 										
-										end.setDate(today.getDate() + 7);
-										var cellDate = $(cell).data('date');
-										var todayDate;
+                           //On Day Select
+                               select: function(start, end, allDay) {
+                                   $('#addNew-event').modal('show');   
+                                   $('#addNew-event input:text').val('');
+                                   $('#getStart').val(start);
+                                   $('#getEnd').val(end);
+                               }
+                           });
+                                    
+                                     //Event Tag Selector
+                                     (function(){
+                                         $('body').on('click', '.event-tag > span', function(){
+                                             $('.event-tag > span').removeClass('selected');
+                                             $(this).addClass('selected');
+                                         });
+                                     })();
+                                 
+                                     //Add new Event
+                                     $('body').on('click', '#addEvent', function(){
+                                         var eventName = $('#eventName').val();
+                                         var tagColor = $('.event-tag > span.selected').attr('data-tag');
+                                             
+                                         if (eventName != '') {
+                                             //Render Event
+                                             $('#calendar').fullCalendar('renderEvent',{
+                                                 title: eventName,
+                                                 start: $('#getStart').val(),
+                                                 end:  $('#getEnd').val(),
+                                                 allDay: true,
+                                                 className: tagColor
+                                                 
+                                             },true ); //Stick the event
+                                             
+                                             $('#addNew-event form')[0].reset()
+                                             $('#addNew-event').modal('hide');
+                                         }
+                                         
+                                         else {
+                                             $('#eventName').closest('.form-group').addClass('has-error');
+                                         }
+                                     });   
 
-										if (m + 1 < 10) {
-											if (d < 10) {
-												todayDate = y + '-' + '0' + (m + 1) + '-' + '0' + d;
-											} 
-											else {
-												todayDate = y + '-' + '0' + (m + 1) + '-' + d;
-											}
-										} 
-										else {
-											if (d < 10) {
-												todayDate = y + '-' + (m + 1) + '-' + '0' + d;
-											} 
-											else {
-												todayDate = y + '-' + (m + 1) + '-' + d;
-											}
-										}
-										//console.log("cellDate" + cellDate);
-										//console.log("todayDate" + todayDate);
-
-										if (cellDate == todayDate) {
-											
-											cell.css("background-color", "#a5cefc");
-										}
-									},
-
-									fixedWeekCount : false,
-									contentHeight : 370,
-									eventLimit : true,
-									theme : true, //Do not remove this as it ruin the design
-									selectable : true,
-									selectHelper : true,
-									select : true,
-									editable : true,
-
-									//Add Events
-									events : [
-									          {
-							                         title: '${education.educationTitle}',
-							                            start: '${education.startDate}',
-							                            end: '${education.endDate}',
-							                            className: 'bgm-cyan'
-									          },
-									          {
-							                         title: '${education.educationTitle}',
-							                            start: '${education.startDate}',
-							                            end: '${education.endDate}',
-							                            className: 'bgm-red'
-									          },
-									          ],
-
-									
-									          //On Day Select
-							                    select: function(start, end, allDay) {
-							                        $('#addNew-event').modal('show');   
-							                        $('#addNew-event input:text').val('');
-							                        $('#getStart').val(start);
-							                        $('#getEnd').val(end);
-							                    }
-							                });
-
-							                //Create and ddd Action button with dropdown in Calendar header. 
-							                var actionMenu = '<ul class="actions actions-alt" id="fc-actions">' +
-							                                    '<li class="dropdown">' +
-							                                        '<a href="" data-toggle="dropdown"><i class="md md-more-vert"></i></a>' +
-							                                        '<ul class="dropdown-menu dropdown-menu-right">' +
-							                                            '<li class="active">' +
-							                                                '<a data-view="month" href="">Month View</a>' +
-							                                            '</li>' +
-							                                            '<li>' +
-							                                                '<a data-view="basicWeek" href="">Week View</a>' +
-							                                            '</li>' +
-							                                            '<li>' +
-							                                                '<a data-view="agendaWeek" href="">Agenda Week View</a>' +
-							                                            '</li>' +
-							                                            '<li>' +
-							                                                '<a data-view="basicDay" href="">Day View</a>' +
-							                                            '</li>' +
-							                                            '<li>' +
-							                                                '<a data-view="agendaDay" href="">Agenda Day View</a>' +
-							                                            '</li>' +
-							                                        '</ul>' +
-							                                    '</div>' +
-							                                '</li>';
-
-
-							                cId.find('.fc-toolbar').append(actionMenu);
-							                
-							                //Event Tag Selector
-							                (function(){
-							                    $('body').on('click', '.event-tag > span', function(){
-							                        $('.event-tag > span').removeClass('selected');
-							                        $(this).addClass('selected');
-							                    });
-							                })();
-							            
-							                //Add new Event
-							                $('body').on('click', '#addEvent', function(){
-							                    var eventName = $('#eventName').val();
-							                    var tagColor = $('.event-tag > span.selected').attr('data-tag');
-							                        
-							                    if (eventName != '') {
-							                        //Render Event
-							                        $('#calendar').fullCalendar('renderEvent',{
-							                            title: eventName,
-							                            start: $('#getStart').val(),
-							                            end:  $('#getEnd').val(),
-							                            allDay: true,
-							                            className: tagColor
-							                            
-							                        },true ); //Stick the event
-							                        
-							                        $('#addNew-event form')[0].reset()
-							                        $('#addNew-event').modal('hide');
-							                    }
-							                    
-							                    else {
-							                        $('#eventName').closest('.form-group').addClass('has-error');
-							                    }
-							                });   
-
-							                //Calendar views
-							                $('body').on('click', '#fc-actions [data-view]', function(e){
-							                    e.preventDefault();
-							                    var dataView = $(this).attr('data-view');
-							                    
-							                    $('#fc-actions li').removeClass('active');
-							                    $(this).parent().addClass('active');
-							                    cId.fullCalendar('changeView', dataView);  
-							                });
-							            });                        
-							        </script>
-							  
+                                     //Calendar views
+                                     $('body').on('click', '#fc-actions [data-view]', function(e){
+                                         e.preventDefault();
+                                         var dataView = $(this).attr('data-view');
+                                         
+                                         $('#fc-actions li').removeClass('active');
+                                         $(this).parent().addClass('active');
+                                         cId.fullCalendar('changeView', dataView);  
+                                     });
+                                 });                        
+                             </script>
+                       
 
 <!-- Vendor CSS -->
 <link href="<c:url value='/resources/vendors/animate-css/animate.min.css'/>" rel="stylesheet">
