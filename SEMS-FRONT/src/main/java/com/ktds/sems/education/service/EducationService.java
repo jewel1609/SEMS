@@ -68,9 +68,9 @@ public interface EducationService {
 
 	public ModelAndView showWriteFileBBSPage(String educationId);
 
-	public ModelAndView getAllEducationQNAList(int PageNo);
+	public ModelAndView getAllEducationQNAList(int PageNo, String educationId);
 
-	public ModelAndView doQNAWrite(EducationQNABBSVO eduBBS, Errors errors, HttpSession session);
+	public ModelAndView doQNAWrite(EducationQNABBSVO eduBBS, Errors errors, HttpSession session, String educationId);
 
 	public ModelAndView viewReportListPage(EducationReportSearchVO educationReportSearchVO);
 
@@ -99,6 +99,8 @@ public interface EducationService {
 	public String deleteReport(EducationReportVO educationReportVO, HttpSession session);
 
 	public ModelAndView viewEduBoardQNADetailPage(String atcId, int pageNo, HttpSession session);
+
+	public ModelAndView getEduBoardByEducationId(String educationId);
 
 	public String plusRecommendReply(String replyId, HttpSession session);
 
