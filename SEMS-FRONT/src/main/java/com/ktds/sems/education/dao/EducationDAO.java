@@ -3,6 +3,7 @@ package com.ktds.sems.education.dao;
 import java.util.List;
 
 import com.ktds.sems.education.vo.EducationFileBBSVO;
+import com.ktds.sems.education.vo.EducationQNABBSSearchVO;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationHistoryVO;
 import com.ktds.sems.education.vo.EducationQNABBSVO;
@@ -111,7 +112,7 @@ public interface EducationDAO {
 
 	public List<EducationVO> getMyEducationList(String id);
 
-	public List<EducationQNABBSVO> getAllEducationQNAList();
+	public List<EducationQNABBSVO> getAllEducationQNAList(EducationQNABBSSearchVO searchVO);
 
 	public void addQNABBS(EducationQNABBSVO eduBBS);
 
@@ -150,6 +151,8 @@ public interface EducationDAO {
 	public List<ReportReplyVO> getAllReportByArticleId(String articleId, ReportReplySearchVO searchVO);
 
 	public String getNowDateTime();
+
+	public int getTotalEducationQNACount();
 
 	public int getJCEduHistoryCount(EducationHistorySearchVO eduHistorySearchVO);
 

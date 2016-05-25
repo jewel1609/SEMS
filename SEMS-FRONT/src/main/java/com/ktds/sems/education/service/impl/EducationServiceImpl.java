@@ -29,6 +29,8 @@ import com.ktds.sems.education.vo.EducationHistoryListVO;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationHistoryVO;
 import com.ktds.sems.education.vo.EducationListVO;
+import com.ktds.sems.education.vo.EducationQNABBSListVO;
+import com.ktds.sems.education.vo.EducationQNABBSSearchVO;
 import com.ktds.sems.education.vo.EducationQNABBSVO;
 import com.ktds.sems.education.vo.EducationQNAReplyVO;
 import com.ktds.sems.education.vo.EducationReportListVO;
@@ -731,8 +733,30 @@ public class EducationServiceImpl implements EducationService {
 	}
 	
 	@Override
-	public List<EducationQNABBSVO> getAllEducationQNAList() {
-		return educationBiz.getAllEducationQNAList();
+	public ModelAndView getAllEducationQNAList(int pageNo) {
+		
+		ModelAndView view = new ModelAndView();
+		EducationQNABBSListVO educationQNABBSListVO = new EducationQNABBSListVO();
+		Paging paging = new Paging();
+		educationQNABBSListVO.setPaging(paging);
+		
+		paging.setPageNumber(pageNo + "");
+		
+		int totalEducationQNACount = educationBiz.getTotalEducationQNACount();
+		paging.setTotalArticleCount(totalEducationQNACount);
+		
+		EducationQNABBSSearchVO searchVO = new EducationQNABBSSearchVO();
+		searchVO.setStartIndex(paging.getStartArticleNumber());
+		searchVO.setEndIndex(paging.getEndArticleNumber());
+		
+		List<EducationQNABBSVO> educationQNAList = educationBiz.getAllEducationQNAList(searchVO);
+		educationQNABBSListVO.setEducationQnaBbsList(educationQNAList);
+		
+		view.addObject("educationQNABBSListVO", educationQNABBSListVO);
+		view.setViewName("myPage/eduBoardQNAList");
+		
+		
+		return view;
 	}
 
 	@Override
@@ -905,7 +929,7 @@ public class EducationServiceImpl implements EducationService {
 		String atcId = eduBBSReplyVO.getAtcId();
 		String nowDate = educationBiz.getNowDate();
 		int nextSeq = educationBiz.getNextReplySeq();
-		String realReplyId = "RP-" + nowDate + "-" + lpad(nextSeq + "", 6, "0");
+		String realReplyId = "ER-" + nowDate + "-" + lpad(nextSeq + "", 6, "0");
 		
 		eduBBSReplyVO.setMbrId(sessionMember.getId());
 		eduBBSReplyVO.setAtcId(atcId);

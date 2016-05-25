@@ -3,6 +3,7 @@ package com.ktds.sems.education.biz;
 import java.util.List;
 
 import com.ktds.sems.education.vo.EducationFileBBSVO;
+import com.ktds.sems.education.vo.EducationQNABBSSearchVO;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationHistoryVO;
 import com.ktds.sems.education.vo.EducationQNABBSVO;
@@ -114,7 +115,7 @@ public interface EducationBiz {
 	
 	public List<EducationVO> getMyEducationList(String id);
 
-	public List<EducationQNABBSVO> getAllEducationQNAList();
+	public List<EducationQNABBSVO> getAllEducationQNAList(EducationQNABBSSearchVO searchVO);
 
 	public void addQNABBS(EducationQNABBSVO eduBBS);
 
@@ -163,5 +164,7 @@ public interface EducationBiz {
 	public int getJCEduHistoryCount(EducationHistorySearchVO eduHistorySearchVO);
 
 	public List<EducationHistoryVO> getJCEducationHistory(EducationHistorySearchVO eduHistorySearchVO);
+
+	public int getTotalEducationQNACount();
 
 }

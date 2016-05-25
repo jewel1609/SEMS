@@ -738,7 +738,7 @@
 		AND		EH.EDU_ID = #{ educationId }
 	</select>
 	
-	<select id="getAllEducationQNAList" resultType="EducationQNABBSVO">
+	<select id="getAllEducationQNAList" parameterType="EducationQNABBSSearchVO" resultType="EducationQNABBSVO">
 		SELECT	ATC_ID atcId
 				, EDU_ID eduId
 				, MBR_ID mbrId
@@ -748,9 +748,18 @@
 				, CREATE_DATE createDate
 				, MODIFY_DATE modifyDate
 				, HITS hits
-		FROM	EDU_QA_BBS
-		WHERE	ATC_ID LIKE 'AT%'
-		ORDER 	BY CREATE_DATE DESC 
+		FROM	(
+					SELECT	ROWNUM AS RNUM
+							, BBS.*
+					FROM	(
+								SELECT	*
+								FROM	EDU_QA_BBS
+								WHERE	ATC_ID LIKE 'AT%'
+								ORDER	BY ATC_ID DESC
+							) BBS
+					WHERE	ROWNUM <![CDATA[<=]]> #{endIndex}
+				)
+		WHERE	RNUM >= #{startIndex}
 	</select>
 	
 	<insert id="addQNABBS" parameterType="EducationQNABBSVO">
@@ -1089,6 +1098,12 @@
 	<select id="getNowDateTime" resultType="string">
 		SELECT	TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI')
 		FROM	DUAL
+	</select>
+	
+	<select id="getTotalEducationQNACount" resultType="_int">
+		SELECT	COUNT(ATC_ID)
+		FROM	EDU_QA_BBS
+		WHERE	ATC_ID LIKE 'AT%'
 	</select>
 	
 	<select id="getJCEduHistoryCount" parameterType="EducationHistorySearchVO" resultType="_int">

@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import com.ktds.sems.education.dao.EducationDAO;
 import com.ktds.sems.education.vo.EducationFileBBSVO;
+import com.ktds.sems.education.vo.EducationQNABBSSearchVO;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationHistoryVO;
 import com.ktds.sems.education.vo.EducationQNABBSVO;
@@ -317,8 +318,8 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 
 
 	@Override
-	public List<EducationQNABBSVO> getAllEducationQNAList() {
-		return getSqlSession().selectList("EducationDAO.getAllEducationQNAList");
+	public List<EducationQNABBSVO> getAllEducationQNAList(EducationQNABBSSearchVO searchVO) {
+		return getSqlSession().selectList("EducationDAO.getAllEducationQNAList", searchVO);
 	}
 
 	@Override
@@ -424,6 +425,11 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 	@Override
 	public String getNowDateTime() {
 		return getSqlSession().selectOne("EducationDAO.getNowDateTime");
+	}
+
+	@Override
+	public int getTotalEducationQNACount() {
+		return getSqlSession().selectOne("EducationDAO.getTotalEducationQNACount");
 	}
 
 	@Override

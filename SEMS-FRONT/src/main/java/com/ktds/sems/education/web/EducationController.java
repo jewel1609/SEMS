@@ -230,15 +230,8 @@ public class EducationController {
 	}
 
 	@RequestMapping("/eduBoard/QNAList")
-	public ModelAndView viewEduBoardQNAListPage() {
-		ModelAndView view = new ModelAndView();
-		
-		List<EducationQNABBSVO> educationQNAList = educationService.getAllEducationQNAList();
-		
-		view.addObject("educationQNAList", educationQNAList);
-		view.setViewName("myPage/eduBoardQNAList");
-		
-		return view;
+	public ModelAndView viewEduBoardQNAListPage(@RequestParam(required=false, defaultValue="0") int pageNo) {
+		return educationService.getAllEducationQNAList(pageNo);
 	}
 	
 	@RequestMapping("/education/fileBBS/{educationId}")

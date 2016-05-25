@@ -13,6 +13,7 @@ import com.ktds.sems.common.vo.MailVO;
 import com.ktds.sems.education.biz.EducationBiz;
 import com.ktds.sems.education.dao.EducationDAO;
 import com.ktds.sems.education.vo.EducationFileBBSVO;
+import com.ktds.sems.education.vo.EducationQNABBSSearchVO;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationHistoryVO;
 import com.ktds.sems.education.vo.EducationQNABBSVO;
@@ -391,8 +392,8 @@ public class EducationBizImpl implements EducationBiz {
 	}
 
 	@Override
-	public List<EducationQNABBSVO> getAllEducationQNAList() {
-		return educationDAO.getAllEducationQNAList();
+	public List<EducationQNABBSVO> getAllEducationQNAList(EducationQNABBSSearchVO searchVO) {
+		return educationDAO.getAllEducationQNAList(searchVO);
 	}
 
 	@Override
@@ -489,6 +490,11 @@ public class EducationBizImpl implements EducationBiz {
 	@Override
 	public String getNowDateTime() {
 		return educationDAO.getNowDateTime();
+	}
+
+	@Override
+	public int getTotalEducationQNACount() {
+		return educationDAO.getTotalEducationQNACount();
 	}
 
 	@Override
