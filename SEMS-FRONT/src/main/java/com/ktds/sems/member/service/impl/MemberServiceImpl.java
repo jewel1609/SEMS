@@ -971,7 +971,7 @@ public class MemberServiceImpl implements MemberService {
 		ModelAndView view = new ModelAndView();
 		
 		// SM 이기연 수정 
-		if ( myEducationList.size() > 0 ) {
+		if ( myEducationList.size() >= 0 ) {
 			view.setViewName("myPage/myEduCourseInfo");
 			view.addObject("educationListVO", educationListVO);
 		} 
