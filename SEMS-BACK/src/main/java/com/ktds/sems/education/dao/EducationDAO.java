@@ -78,4 +78,6 @@ public interface EducationDAO {
 	public void addhits(String eduNoticeId);
 	public int doDeleteEduNotice(String eduNoticeId);
 	public int doEduFileNoticeModify(EduNoticeVO changeEduNoticeVO);
+	public List<TeamVO> getAllTeamList();
+	public List<MemberVO> getAllMemberListByTeamId(String teamId);
 }

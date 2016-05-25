@@ -74,4 +74,8 @@ public interface EducationService {
 	public ModelAndView getAllStartedEducationList();
 
 	public ModelAndView getOneEducationAttendance(String educationId);
+
+	public ModelAndView getAllTeamList();
+
+	public ModelAndView getOneTeamAttendance(String educationId, String teamId);
 }

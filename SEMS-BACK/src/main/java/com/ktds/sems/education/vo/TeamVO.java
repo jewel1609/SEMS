@@ -7,6 +7,14 @@ public class TeamVO {
 	private String teamDate;
 	private String educationId;
 	
+	private String educationTitle;
+	
+	public String getEducationTitle() {
+		return educationTitle;
+	}
+	public void setEducationTitle(String educationTitle) {
+		this.educationTitle = educationTitle;
+	}
 	public String getTeamId() {
 		return teamId;
 	}

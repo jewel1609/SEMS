@@ -800,4 +800,32 @@
 		AND		MBR.MBR_TP = 'MBR'
 		AND     INFO.SRT_DATE <![CDATA[<]]> SYSDATE
 	</select>
+	
+	<select id="getAllTeamList" resultType="TeamVO">
+		SELECT	TEAM_ID teamId
+				, TEAM_NM teamName
+				, TEAM_DT teamDate
+				, INFO.EDU_ID educationId
+				, INFO.EDU_TTL educationTitle
+		FROM	TEAM
+				, EDU_INFO INFO
+		WHERE	INFO.EDU_ID = TEAM.EDU_ID
+	</select>
+	
+	<select id="getAllMemberListByTeamId" parameterType="string" resultType="MemberVO">
+		SELECT	DISTINCT MBR.ID id
+				, MBR.NM name
+				, MBR.MBR_TP memberType
+		FROM	MBR
+				, EDU_CLASS CL
+				, TEAM_LIST TL
+				, EDU_INFO INFO
+		WHERE	MBR.ID = CL.MBR_ID
+        AND     MBR.ID = TL.MBR_ID
+        AND     CL.EDU_ID = INFO.EDU_ID
+        AND     TL.TEAM_ID = #{teamId}
+		AND		CL.STAT = 'EDU_JN_C'
+		AND		MBR.MBR_TP = 'MBR'
+		AND     INFO.SRT_DATE <![CDATA[<]]> SYSDATE
+	</select>
 </mapper>

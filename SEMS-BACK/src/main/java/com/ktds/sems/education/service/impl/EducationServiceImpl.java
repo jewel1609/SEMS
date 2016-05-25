@@ -9,7 +9,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -21,8 +20,6 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.common.Session;
-import com.ktds.sems.cooperation.vo.CooperationTypeVO;
-import com.ktds.sems.cooperation.vo.CooperationVO;
 import com.ktds.sems.education.biz.EducationBiz;
 import com.ktds.sems.education.service.EducationService;
 import com.ktds.sems.education.vo.EduAttendanceListVO;
@@ -50,7 +47,6 @@ import com.ktds.sems.file.vo.FileVO;
 import com.ktds.sems.member.biz.MemberBiz;
 import com.ktds.sems.member.vo.AttendVO;
 import com.ktds.sems.member.vo.MemberVO;
-import com.ktds.sems.teacher.vo.TeacherVO;
 
 import kr.co.hucloud.utilities.SHA256Util;
 import kr.co.hucloud.utilities.web.Paging;
@@ -895,5 +891,51 @@ public class EducationServiceImpl implements EducationService {
 			}
 		}
 		return allAttendanceList;
+	}
+
+	@Override
+	public ModelAndView getAllTeamList() {
+		List<TeamVO> teamList = educationBiz.getAllTeamList();
+		ModelAndView view = new ModelAndView();
+		view.setViewName("education/attendanceAllTeamList");
+		view.addObject("teamList", teamList);
+		return view;
+	}
+
+	@Override
+	public ModelAndView getOneTeamAttendance(String educationId, String teamId) {
+		List<MemberVO> allMemberList = new ArrayList<MemberVO>();
+		List<AttendVO> attendanceList = new ArrayList<AttendVO>();
+		List<EducationVO> educationInfoList = new ArrayList<EducationVO>();
+		
+		List<AttendVO> oneMemberAllAttendanceList = new ArrayList<AttendVO>();
+		List<List<AttendVO>> AllMemberAllAttendanceList = new ArrayList<List<AttendVO>>();
+		
+		// 그 팀에 속한 학생들
+		allMemberList = educationBiz.getAllMemberListByTeamId(teamId);
+		
+		for (MemberVO member : allMemberList) {
+			educationInfoList = new ArrayList<EducationVO>();
+			
+			// 멤버가 수강 중인교육 정보
+			educationInfoList = educationBiz.getJoinEducation(member.getId());
+			
+			// 멤버마다의 출석 이력
+			attendanceList = educationBiz.getOneMemberAttendance(member.getId());
+						
+			// 출결 상태 구하기
+			oneMemberAllAttendanceList = this.getState(educationInfoList, attendanceList, member.getId());
+			AllMemberAllAttendanceList.add(oneMemberAllAttendanceList);
+		}
+		
+		ModelAndView view = new ModelAndView();
+		
+		if (educationInfoList.size() == 0) {
+			view.setViewName("redirect:/attendanceHistory/teamList");
+		} else {
+			view.setViewName("education/attendanceOneTeamList");
+			view.addObject("AllMemberAllAttendanceList", AllMemberAllAttendanceList);
+		}
+		return view;
 	}
 }

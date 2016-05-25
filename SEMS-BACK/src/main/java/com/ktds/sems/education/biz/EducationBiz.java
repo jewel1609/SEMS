@@ -112,4 +112,8 @@ public interface EducationBiz {
 	public List<EducationVO> getAllStartedEducationList();
 
 	public List<MemberVO> getAllMemberListByEduId(String educationId);
+
+	public List<TeamVO> getAllTeamList();
+
+	public List<MemberVO> getAllMemberListByTeamId(String teamId);
 }

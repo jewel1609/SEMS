@@ -197,4 +197,14 @@ public class EducationController {
 	public ModelAndView viewAttendanceHistoryOneEducation(@PathVariable String educationId) {
 		return educationService.getOneEducationAttendance(educationId);
 	}
+	
+	@RequestMapping("/attendanceHistory/teamList")
+	public ModelAndView viewAttendanceTeamMember() {
+		return educationService.getAllTeamList();
+	}
+	
+	@RequestMapping("/attendanceHistory/teamDetail/{educationId}/{teamId}")
+	public ModelAndView viewAttendanceHistoryOneTeam(@PathVariable String educationId, @PathVariable String teamId){
+		return educationService.getOneTeamAttendance(educationId, teamId);
+	}
 }

@@ -426,4 +426,14 @@ public class EducationBizImpl implements EducationBiz {
 	public List<MemberVO> getAllMemberListByEduId(String educationId) {
 		return educationDAO.getAllMemberListByEduId(educationId);
 	}
+
+	@Override
+	public List<TeamVO> getAllTeamList() {
+		return educationDAO.getAllTeamList();
+	}
+
+	@Override
+	public List<MemberVO> getAllMemberListByTeamId(String teamId) {
+		return educationDAO.getAllMemberListByTeamId(teamId);
+	}
 }
