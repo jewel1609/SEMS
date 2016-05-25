@@ -98,4 +98,6 @@ public interface EducationService {
 
 	public ModelAndView viewEduBoardQNADetailPage(String atcId, int pageNo, HttpSession session);
 
+	public void downloadEducationFile(String fileId, HttpServletRequest request, HttpServletResponse response);
+
 }

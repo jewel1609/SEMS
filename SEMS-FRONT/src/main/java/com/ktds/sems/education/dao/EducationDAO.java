@@ -182,4 +182,8 @@ public interface EducationDAO {
 	public int addHitsEducationFileBBSByArticleId(String articleId);
 
 	public int addBBSHistoryHitByArticleId(BBSHistoryVO bbsHistoryVO);
+
+	public String getEducationClassMember(String id);
+
+	public String getEducationClassTeacherByArticleId(String articleId);
 }

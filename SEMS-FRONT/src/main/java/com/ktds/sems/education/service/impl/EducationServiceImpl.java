@@ -1182,17 +1182,20 @@ public class EducationServiceImpl implements EducationService {
 	public ModelAndView showDetailEducationFileBBS(String articleId, HttpSession session) {
 		ModelAndView view = new ModelAndView();
 		
-		MemberVO member = (MemberVO) session.getAttribute(Session.MEMBER);
-		
 		BBSHistoryVO bbsHistoryVO = new BBSHistoryVO();
-		bbsHistoryVO.setBbsId(articleId);
+		MemberVO member = (MemberVO) session.getAttribute(Session.MEMBER);
 		bbsHistoryVO.setMemberId(member.getId());
+		bbsHistoryVO.setBbsId(articleId);
 		
 		educationBiz.addHitsEducationFileBBSByArticleId(bbsHistoryVO);
 		
-		EducationFileBBSVO educationFileBBSVO = educationBiz.getOneEducationFileBBS(articleId);
+		EducationFileBBSVO educationFileBBS = educationBiz.getOneEducationFileBBS(articleId);
+		List<FileVO> fileList = fileBiz.getAllFilesByArticleId(articleId);
 		
+		view.addObject("fileList", fileList);
+		view.addObject("educationFileBBS", educationFileBBS);
 		view.setViewName("education/detailEducationFileBBS");
+		
 		return view;
 	}
 
@@ -1362,6 +1365,30 @@ public class EducationServiceImpl implements EducationService {
 		view.setViewName("myPage/eduBoardQNADetail");
 		
 		return view;
+	}
+
+	@Override
+	public void downloadEducationFile(String fileId, HttpServletRequest request, HttpServletResponse response) {
+		FileVO file = fileBiz.getOneFileByFileId(fileId);
+		MemberVO member = (MemberVO) request.getSession().getAttribute(Session.MEMBER);
+		boolean isEducationClassMember = educationBiz.isEducationClassMember(member.getId());
+		boolean isEducationClassTeacher = educationBiz.isEducationClassTeacherByArticleId(file.getArticleId());
+		
+		if ( isEducationClassTeacher || isEducationClassMember ) {
+			DownloadUtil downloadUtil = DownloadUtil.getInstance("D:\\");
+			String userFileName = file.getFileName();
+			String displayFileName = (file.getFileLocation()).substring(3);
+			try {
+				downloadUtil.download(request, response, displayFileName, userFileName);
+			} catch (UnsupportedEncodingException e) {}
+		}
+		else {
+			AjaxUtil.sendResponse(response, "<script type='text/javascript'>"
+											+ "window.onload = function() {"
+											+ "alert('현재 수강중이 아닙니다.');"
+											+ "}; </script>");
+		}
+	
 	}
 }
 

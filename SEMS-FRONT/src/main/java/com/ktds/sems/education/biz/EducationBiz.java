@@ -180,4 +180,8 @@ public interface EducationBiz {
 
 	public void addHitsEducationFileBBSByArticleId(BBSHistoryVO bbsHistoryVO);
 
+	public boolean isEducationClassMember(String id);
+
+	public boolean isEducationClassTeacherByArticleId(String articleId);
+
 }

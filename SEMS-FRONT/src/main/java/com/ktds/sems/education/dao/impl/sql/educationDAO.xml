@@ -1316,4 +1316,16 @@
 									, #{bbsId}
 								)
 	</insert>
+	
+	<select id="getEducationClassMember" resultType="string" parameterType="string">
+		SELECT	MBR_ID
+		FROM	EDU_CLASS
+		WHERE	MBR_ID = #{id}
+	</select>
+	
+	<select id="getEducationClassTeacherByArticleId" resultType="string" parameterType="string">
+		SELECT	MBR_ID
+		FROM	EDU_FILE_BBS
+		WHERE	ATC_ID = #{articleId}
+	</select>
 </mapper>

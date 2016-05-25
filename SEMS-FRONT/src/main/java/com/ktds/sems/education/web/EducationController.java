@@ -337,4 +337,9 @@ public class EducationController {
 	public void checkEndDate(@RequestParam String articleId, HttpServletResponse response) {
 		educationService.checkEndDate(articleId, response);
 	}
+	
+	@RequestMapping("/downloadEducationFile/{fileId}")
+	public void doDownloadEducationFile(@PathVariable String fileId, HttpServletRequest request, HttpServletResponse response){
+		educationService.downloadEducationFile(fileId, request, response);
+	}
 }

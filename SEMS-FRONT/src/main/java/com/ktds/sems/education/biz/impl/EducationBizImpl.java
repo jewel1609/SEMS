@@ -508,7 +508,7 @@ public class EducationBizImpl implements EducationBiz {
 		String articleId = bbsHistoryVO.getBbsId();
 		boolean isExistHit = educationDAO.isExistedHitMemberIdByArtileId(articleId);
 		if ( !isExistHit ) {
-			String nowDate = getNowDateTime();
+			String nowDate = getNowDate();
 			int bbsHistorySeq = educationDAO.getBBSHistorySeq();
 			String bbsHistoryId = "BHTR-" + nowDate + "-" + lpad(bbsHistorySeq+"", 6, "0");
 			bbsHistoryVO.setBbsHistoryId(bbsHistoryId);
@@ -579,6 +579,16 @@ public class EducationBizImpl implements EducationBiz {
 	@Override
 	public int getTotalQNAReplyCountByAtcId(String atcId) {
 		return educationDAO.getTotalQNAReplyCountByAtcId(atcId);
+	}
+
+	@Override
+	public boolean isEducationClassMember(String id) {
+		return educationDAO.getEducationClassMember(id) != null;
+	}
+
+	@Override
+	public boolean isEducationClassTeacherByArticleId(String articleId) {
+		return educationDAO.getEducationClassTeacherByArticleId(articleId) != null;
 	}
 }
 

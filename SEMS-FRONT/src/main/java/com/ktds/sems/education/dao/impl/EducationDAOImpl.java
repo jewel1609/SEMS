@@ -504,4 +504,14 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 		return getSqlSession().insert("EducationDAO.addBBSHistoryHitByArticleId", bbsHistoryVO);
 	}
 
+	@Override
+	public String getEducationClassMember(String id) {
+		return getSqlSession().selectOne("EducationDAO.getEducationClassMember", id);
+	}
+
+	@Override
+	public String getEducationClassTeacherByArticleId(String articleId) {
+		return getSqlSession().selectOne("EducationDAO.getEducationClassTeacherByArticleId", articleId);
+	}
+
 }
