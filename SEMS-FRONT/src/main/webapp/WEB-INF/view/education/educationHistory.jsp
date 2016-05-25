@@ -175,6 +175,12 @@
 			$("#endDate").hide();
 		}
 		
+		$("#qnaButton").click(function() {
+			var educationId = $(this).parent().children().eq(0).val();
+			location.href="<c:url value='/"+educationId+"/eduQna' />";
+			
+		});
+		
 	});
 </script>
 </head>
@@ -191,6 +197,7 @@
 		<th>교육 시작일</th>
 		<th>교육 종료일</th>
 		<th>IP</th>
+		<th>QnA</th>
 	</tr>
 	<c:forEach items="${ joinEducationList }" var="joinEducationVO">
 		<tr>
@@ -202,6 +209,10 @@
 			<td>${ joinEducationVO.startDate }</td>
 			<td>${ joinEducationVO.endDate }</td>
 			<td>${ joinEducationVO.ip }</td>
+			<td>
+				<input type="hidden" value="${ joinEducationVO.educationId }">
+				<input type="button" id="qnaButton" value="QnA">
+			</td>
 		</tr>
 	</c:forEach>	
 </table>
