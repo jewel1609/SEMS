@@ -2,6 +2,7 @@ package com.ktds.sems.education.dao;
 
 import java.util.List;
 
+import com.ktds.sems.education.vo.BBSHistoryVO;
 import com.ktds.sems.education.vo.EducationFileBBSVO;
 import com.ktds.sems.education.vo.EducationQNABBSSearchVO;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
@@ -175,4 +176,10 @@ public interface EducationDAO {
 	public EducationFileBBSVO getOneEducationFileBBS(String articleId);
 
 	public boolean isExistedHitMemberIdByArtileId(String articleId);
+
+	public int getBBSHistorySeq();
+
+	public int addHitsEducationFileBBSByArticleId(String articleId);
+
+	public int addBBSHistoryHitByArticleId(BBSHistoryVO bbsHistoryVO);
 }

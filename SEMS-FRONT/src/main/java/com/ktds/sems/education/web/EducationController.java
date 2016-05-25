@@ -308,8 +308,8 @@ public class EducationController {
 	}
 	
 	@RequestMapping("/education/fileBBS/detail/{articleId}")
-	public ModelAndView viewDetailEducationFileBBSPage (@PathVariable String articleId) {
-		return educationService.showDetailEducationFileBBS(articleId);
+	public ModelAndView viewDetailEducationFileBBSPage (@PathVariable String articleId, HttpSession session) {
+		return educationService.showDetailEducationFileBBS(articleId, session);
 	}
 	
 	@RequestMapping("/checkEduApplicant")

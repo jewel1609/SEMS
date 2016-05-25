@@ -1293,4 +1293,27 @@
 		AND		ATC_ID LIKE 'AT%'
 	</select>
 	
+	<select id="getBBSHistorySeq" resultType="_int">
+		SELECT	BBS_HTR_ID_SEQ.NEXTVAL
+		FROM	DUAL
+	</select>
+	
+	<update id="addHitsEducationFileBBSByArticleId" parameterType="string">
+		UPDATE	EDU_FILE_BBS
+		SET		HITS = HITS + 1
+		WHERE  ATC_ID = #{articleId}
+	</update>
+	
+	<insert id="addBBSHistoryHitByArticleId" parameterType="BBSHistoryVO">
+		INSERT	INTO BBS_HTR	(
+									BBS_HTR_ID
+									, MBR_ID
+									, BBS_ID
+								)
+		VALUES					(
+									#{bbsHistoryId}
+									, #{memberId}
+									, #{bbsId}
+								)
+	</insert>
 </mapper>

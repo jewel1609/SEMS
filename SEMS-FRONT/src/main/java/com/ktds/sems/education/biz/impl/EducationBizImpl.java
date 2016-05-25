@@ -12,6 +12,7 @@ import com.ktds.sems.common.SendMail;
 import com.ktds.sems.common.vo.MailVO;
 import com.ktds.sems.education.biz.EducationBiz;
 import com.ktds.sems.education.dao.EducationDAO;
+import com.ktds.sems.education.vo.BBSHistoryVO;
 import com.ktds.sems.education.vo.EducationFileBBSVO;
 import com.ktds.sems.education.vo.EducationQNABBSSearchVO;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
@@ -503,11 +504,17 @@ public class EducationBizImpl implements EducationBiz {
 	}
 
 	@Override
-	public void addHitsEducationFileBBSByAtcId(String articleId) {
+	public void addHitsEducationFileBBSByArticleId(BBSHistoryVO bbsHistoryVO) {
+		String articleId = bbsHistoryVO.getBbsId();
 		boolean isExistHit = educationDAO.isExistedHitMemberIdByArtileId(articleId);
 		if ( !isExistHit ) {
 			String nowDate = getNowDateTime();
-			String bbsHistoryId = "BHTR-" + nowDate;
+			int bbsHistorySeq = educationDAO.getBBSHistorySeq();
+			String bbsHistoryId = "BHTR-" + nowDate + "-" + lpad(bbsHistorySeq+"", 6, "0");
+			bbsHistoryVO.setBbsHistoryId(bbsHistoryId);
+			
+			educationDAO.addHitsEducationFileBBSByArticleId(articleId);
+			educationDAO.addBBSHistoryHitByArticleId(bbsHistoryVO);
 		}
 	}
 	

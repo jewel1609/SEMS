@@ -2,6 +2,7 @@ package com.ktds.sems.education.biz;
 
 import java.util.List;
 
+import com.ktds.sems.education.vo.BBSHistoryVO;
 import com.ktds.sems.education.vo.EducationFileBBSVO;
 import com.ktds.sems.education.vo.EducationQNABBSSearchVO;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
@@ -177,6 +178,6 @@ public interface EducationBiz {
 
 	public EducationFileBBSVO getOneEducationFileBBS(String articleId);
 
-	public void addHitsEducationFileBBSByAtcId(String articleId);
+	public void addHitsEducationFileBBSByArticleId(BBSHistoryVO bbsHistoryVO);
 
 }

@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.ktds.sems.education.dao.EducationDAO;
+import com.ktds.sems.education.vo.BBSHistoryVO;
 import com.ktds.sems.education.vo.EducationFileBBSVO;
 import com.ktds.sems.education.vo.EducationQNABBSSearchVO;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
@@ -486,6 +487,21 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 	@Override
 	public int getTotalQNAReplyCountByAtcId(String atcId) {
 		return getSqlSession().selectOne("EducationDAO.getTotalQNAReplyCountByAtcId", atcId);
+	}
+
+	@Override
+	public int getBBSHistorySeq() {
+		return getSqlSession().selectOne("EducationDAO.getBBSHistorySeq");
+	}
+
+	@Override
+	public int addHitsEducationFileBBSByArticleId(String articleId) {
+		return getSqlSession().update("EducationDAO.addHitsEducationFileBBSByArticleId", articleId);
+	}
+
+	@Override
+	public int addBBSHistoryHitByArticleId(BBSHistoryVO bbsHistoryVO) {
+		return getSqlSession().insert("EducationDAO.addBBSHistoryHitByArticleId", bbsHistoryVO);
 	}
 
 }

@@ -45,6 +45,7 @@
 		<typeAlias type="com.ktds.sems.education.vo.ReportReplyListVO" alias="ReportReplyListVO"/>
 		<typeAlias type="com.ktds.sems.education.vo.ReportReplySearchVO" alias="ReportReplySearchVO"/>
 		<typeAlias type="com.ktds.sems.education.vo.FileBBSSearchVO" alias="FileBBSSearchVO"/>
+		<typeAlias type="com.ktds.sems.education.vo.BBSHistoryVO" alias="BBSHistoryVO"/>
 	</typeAliases>
 
 	<mappers>

@@ -86,7 +86,7 @@ public interface EducationService {
 
 	public ModelAndView modifyReport(EducationReportVO educationReportVO, HttpSession session);
 
-	public ModelAndView showDetailEducationFileBBS(String articleId);
+	public ModelAndView showDetailEducationFileBBS(String articleId, HttpSession session);
 
 	public ModelAndView doModifyReport(EducationReportVO educationReportVO, HttpSession session, MultipartHttpServletRequest request);
 

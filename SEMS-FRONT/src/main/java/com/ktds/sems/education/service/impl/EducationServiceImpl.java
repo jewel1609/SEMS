@@ -25,6 +25,7 @@ import com.ktds.sems.education.biz.EducationBiz;
 import com.ktds.sems.education.service.EducationService;
 import com.ktds.sems.education.util.DateFormatter;
 import com.ktds.sems.education.util.DownloadUtil;
+import com.ktds.sems.education.vo.BBSHistoryVO;
 import com.ktds.sems.education.vo.EduReplyListVO;
 import com.ktds.sems.education.vo.EducationFileBBSListVO;
 import com.ktds.sems.education.vo.EducationFileBBSVO;
@@ -1178,11 +1179,16 @@ public class EducationServiceImpl implements EducationService {
 	}
 
 	@Override
-	public ModelAndView showDetailEducationFileBBS(String articleId) {
+	public ModelAndView showDetailEducationFileBBS(String articleId, HttpSession session) {
 		ModelAndView view = new ModelAndView();
 		
-		educationBiz.addHitsEducationFileBBSByAtcId(articleId);
+		MemberVO member = (MemberVO) session.getAttribute(Session.MEMBER);
 		
+		BBSHistoryVO bbsHistoryVO = new BBSHistoryVO();
+		bbsHistoryVO.setBbsId(articleId);
+		bbsHistoryVO.setMemberId(member.getId());
+		
+		educationBiz.addHitsEducationFileBBSByArticleId(bbsHistoryVO);
 		
 		EducationFileBBSVO educationFileBBSVO = educationBiz.getOneEducationFileBBS(articleId);
 		
