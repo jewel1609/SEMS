@@ -7,23 +7,24 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import com.ktds.sems.common.SendMail;
 import com.ktds.sems.common.vo.MailVO;
 import com.ktds.sems.education.biz.EducationBiz;
 import com.ktds.sems.education.dao.EducationDAO;
 import com.ktds.sems.education.vo.BBSHistoryVO;
+import com.ktds.sems.education.vo.EduQnaSearchVO;
+import com.ktds.sems.education.vo.EduQnaVO;
 import com.ktds.sems.education.vo.EducationFileBBSVO;
-import com.ktds.sems.education.vo.EducationQNABBSSearchVO;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationHistoryVO;
+import com.ktds.sems.education.vo.EducationQNABBSSearchVO;
 import com.ktds.sems.education.vo.EducationQNABBSVO;
 import com.ktds.sems.education.vo.EducationQNAReplySearchVO;
 import com.ktds.sems.education.vo.EducationQNAReplyVO;
 import com.ktds.sems.education.vo.EducationReportSearchVO;
 import com.ktds.sems.education.vo.EducationReportVO;
-import com.ktds.sems.education.vo.EduQnaSearchVO;
-import com.ktds.sems.education.vo.EduQnaVO;
 import com.ktds.sems.education.vo.EducationSearchVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.FileBBSSearchVO;
@@ -584,6 +585,11 @@ public class EducationBizImpl implements EducationBiz {
 	}
 
 	@Override
+	public boolean isEducationClassMember(Map<String, String> map) {
+		return educationDAO.getEducationClassMember(map) != null;
+	}
+	
+	@Override
 	public boolean plusRecommendReply(String replyId) {
 		return educationDAO.plusRecommendReply(replyId) > 0;
 	}
@@ -604,13 +610,13 @@ public class EducationBizImpl implements EducationBiz {
 	}
 	
 	@Override
-	public boolean isEducationClassMember(String id) {
-		return educationDAO.getEducationClassMember(id) != null;
+	public boolean isEducationClassTeacher(Map<String, String> map) {
+		return educationDAO.getEducationClassTeacher(map) != null;
 	}
 
 	@Override
-	public boolean isEducationClassTeacherByArticleId(String articleId) {
-		return educationDAO.getEducationClassTeacherByArticleId(articleId) != null;
+	public String getEducationIdByFileBBSArticleId(String articleId) {
+		return educationDAO.getEducationIdByFileBBSArticleId(articleId);
 	}
 
 	@Override

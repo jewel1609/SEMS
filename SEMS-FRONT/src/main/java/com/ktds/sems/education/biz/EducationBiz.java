@@ -1,6 +1,7 @@
 package com.ktds.sems.education.biz;
 
 import java.util.List;
+import java.util.Map;
 
 import com.ktds.sems.education.vo.EduQnaSearchVO;
 import com.ktds.sems.education.vo.EduQnaVO;
@@ -182,9 +183,9 @@ public interface EducationBiz {
 
 	public void addHitsEducationFileBBSByArticleId(BBSHistoryVO bbsHistoryVO);
 
-	public boolean isEducationClassMember(String id);
+	public boolean isEducationClassMember(Map<String, String> map);
 
-	public boolean isEducationClassTeacherByArticleId(String articleId);
+	public boolean isEducationClassTeacher(Map<String, String> map);
 	
 	public int getTotalEduQnaCount(EduQnaSearchVO eduQnaSearchVO);
 
@@ -216,4 +217,5 @@ public interface EducationBiz {
 
 	public boolean checkAdoptReply(String replyId);
 
+	public String getEducationIdByFileBBSArticleId(String articleId);
 }

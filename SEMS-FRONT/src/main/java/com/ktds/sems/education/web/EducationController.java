@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.common.Session;
 import com.ktds.sems.education.service.EducationService;
+import com.ktds.sems.education.vo.BBSReplyVO;
 import com.ktds.sems.education.vo.EduQnaSearchVO;
 import com.ktds.sems.education.vo.EduQnaVO;
 import com.ktds.sems.education.vo.EducationFileBBSVO;
@@ -369,6 +370,16 @@ public class EducationController {
 	@RequestMapping("/downloadEducationFile/{fileId}")
 	public void doDownloadEducationFile(@PathVariable String fileId, HttpServletRequest request, HttpServletResponse response){
 		educationService.downloadEducationFile(fileId, request, response);
+	}
+	
+	@RequestMapping("/checkClassAttend/{fileId}")
+	public void doCheckClassAttend(@PathVariable String fileId, HttpServletRequest request, HttpServletResponse response){
+		educationService.checkClassAttend(fileId, request, response);
+	}
+	
+	@RequestMapping("/education/fileBBS/doWriteReply")
+	public ModelAndView doFileBBSWriteReplyAction(BBSReplyVO bbsReplyVO){
+		return educationService.writeReplyFileBBS(bbsReplyVO);
 	}
 	
 	@RequestMapping("/{educationId}/eduQna")

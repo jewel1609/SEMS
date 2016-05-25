@@ -7,7 +7,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -1484,25 +1486,47 @@ public class EducationServiceImpl implements EducationService {
 	@Override
 	public void downloadEducationFile(String fileId, HttpServletRequest request, HttpServletResponse response) {
 		FileVO file = fileBiz.getOneFileByFileId(fileId);
-		MemberVO member = (MemberVO) request.getSession().getAttribute(Session.MEMBER);
-		boolean isEducationClassMember = educationBiz.isEducationClassMember(member.getId());
-		boolean isEducationClassTeacher = educationBiz.isEducationClassTeacherByArticleId(file.getArticleId());
+		DownloadUtil downloadUtil = DownloadUtil.getInstance("D:\\");
+		String userFileName = file.getFileName();
+		String displayFileName = (file.getFileLocation()).substring(3);
 		
-		if ( isEducationClassTeacher || isEducationClassMember ) {
-			DownloadUtil downloadUtil = DownloadUtil.getInstance("D:\\");
-			String userFileName = file.getFileName();
-			String displayFileName = (file.getFileLocation()).substring(3);
-			try {
-				downloadUtil.download(request, response, displayFileName, userFileName);
-			} catch (UnsupportedEncodingException e) {}
+		try {
+			downloadUtil.download(request, response, displayFileName, userFileName);
+		} catch (UnsupportedEncodingException e) {}
+
+	}
+
+	@Override
+	public void checkClassAttend(String fileId, HttpServletRequest request, HttpServletResponse response) {
+		FileVO file = fileBiz.getOneFileByFileId(fileId);
+		MemberVO member = (MemberVO) request.getSession().getAttribute(Session.MEMBER);
+		
+		Map<String, String> map = new HashMap<String, String>();
+		String articleId = file.getArticleId();
+		String educationId = educationBiz.getEducationIdByFileBBSArticleId(articleId);
+		map.put("memberId", member.getId());
+		map.put("articleId", articleId);
+		map.put("educationId", educationId);
+		
+		boolean isEducationClassMember = educationBiz.isEducationClassMember(map);
+		boolean isEducationClassTeacher = educationBiz.isEducationClassTeacher(map);
+		
+		String message = "OK";
+		if ( !isEducationClassTeacher && !isEducationClassMember ) {
+			message = "NO";
+			AjaxUtil.sendResponse(response, message);
+			return;
 		}
 		else {
-			AjaxUtil.sendResponse(response, "<script type='text/javascript'>"
-											+ "window.onload = function() {"
-											+ "alert('현재 수강중이 아닙니다.');"
-											+ "}; </script>");
+			AjaxUtil.sendResponse(response, message);
+			return;
 		}
-	
+	}
+
+	@Override
+	public ModelAndView writeReplyFileBBS(BBSReplyVO bbsReplyVO) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override

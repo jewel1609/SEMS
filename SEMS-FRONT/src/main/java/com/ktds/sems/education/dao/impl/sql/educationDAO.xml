@@ -1345,14 +1345,22 @@
 								)
 	</insert>
 	
-	<select id="getEducationClassMember" resultType="string" parameterType="string">
-		SELECT	MBR_ID
+	<select id="getEducationClassMember" resultType="string" parameterType="map">
+		SELECT	DISTINCT(MBR_ID)
 		FROM	EDU_CLASS
-		WHERE	MBR_ID = #{id}
+		WHERE	MBR_ID = #{memberId}
+		AND		EDU_ID = #{educationId}
 	</select>
 	
 	<select id="getEducationClassTeacherByArticleId" resultType="string" parameterType="string">
 		SELECT	MBR_ID
+		FROM	EDU_FILE_BBS
+		WHERE	ATC_ID = #{articleId}
+		AND		MBR_ID = #{memberId}
+	</select>
+	
+	<select id="getEducationIdByFileBBSArticleId" resultType="string" parameterType="string">
+		SELECT	EDU_ID
 		FROM	EDU_FILE_BBS
 		WHERE	ATC_ID = #{articleId}
 	</select>

@@ -1,7 +1,5 @@
 package com.ktds.sems.education.service;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -10,6 +8,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ktds.sems.education.vo.BBSReplyVO;
 import com.ktds.sems.education.vo.EduQnaSearchVO;
 import com.ktds.sems.education.vo.EduQnaVO;
 import com.ktds.sems.education.vo.EducationFileBBSVO;
@@ -21,8 +20,8 @@ import com.ktds.sems.education.vo.EducationReportVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.QNASearchVO;
 import com.ktds.sems.education.vo.QNAVO;
-import com.ktds.sems.education.vo.ReportReplyVO;
 import com.ktds.sems.education.vo.ReportReplySearchVO;
+import com.ktds.sems.education.vo.ReportReplyVO;
 
 public interface EducationService {
 
@@ -124,5 +123,8 @@ public interface EducationService {
 	
 	public ModelAndView getAllQnaArticle(EduQnaSearchVO qnaArticleSearchVO, int pageNo);
 
-	
+	public void checkClassAttend(String fileId, HttpServletRequest request, HttpServletResponse response);
+
+	public ModelAndView writeReplyFileBBS(BBSReplyVO bbsReplyVO);
+
 }

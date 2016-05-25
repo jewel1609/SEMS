@@ -527,13 +527,18 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 	}
 	
 	@Override
-	public String getEducationClassMember(String id) {
-		return getSqlSession().selectOne("EducationDAO.getEducationClassMember", id);
+	public String getEducationClassMember(Map<String, String> map) {
+		return getSqlSession().selectOne("EducationDAO.getEducationClassMember", map);
 	}
 
 	@Override
-	public String getEducationClassTeacherByArticleId(String articleId) {
-		return getSqlSession().selectOne("EducationDAO.getEducationClassTeacherByArticleId", articleId);
+	public String getEducationClassTeacher(Map<String, String> map) {
+		return getSqlSession().selectOne("EducationDAO.getEducationClassTeacherByArticleId", map);
+	}
+
+	@Override
+	public String getEducationIdByFileBBSArticleId(String articleId) {
+		return getSqlSession().selectOne("EducationDAO.getEducationIdByFileBBSArticleId", articleId);
 	}
 
 	@Override

@@ -1,6 +1,7 @@
 package com.ktds.sems.education.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.ktds.sems.education.vo.EduQnaSearchVO;
 import com.ktds.sems.education.vo.EduQnaVO;
@@ -193,9 +194,11 @@ public interface EducationDAO {
 
 	public int addBBSHistoryHitByArticleId(BBSHistoryVO bbsHistoryVO);
 	
-	public String getEducationClassMember(String id);
+	public String getEducationClassMember(Map<String, String> map);
 
-	public String getEducationClassTeacherByArticleId(String articleId);
+	public String getEducationClassTeacher(Map<String, String> map);
+
+	public String getEducationIdByFileBBSArticleId(String articleId);
 
 	public int getTotalEduQnaCount(EduQnaSearchVO eduQnaSearchVO);
 
