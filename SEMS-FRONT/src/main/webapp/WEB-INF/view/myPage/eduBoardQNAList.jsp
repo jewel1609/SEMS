@@ -10,8 +10,9 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#questionBtn").click(function() {
+			var eduId = $("#eduId").val();
 			
-			location.href = "<c:url value='/eduBoard/QNAWrite' />";
+			location.href = "<c:url value='/eduBoard/QNAWrite/' />"+eduId;
 		});
 			
 	});
@@ -20,6 +21,9 @@
 <title>강의게시판 - 마이게시판 - 질문/답변 게시판</title>
 </head>
 <body>
+
+	<input type="hidden" id="eduId" value="${eduId}">
+
 	
 	<table border="1">
 		<tr>
