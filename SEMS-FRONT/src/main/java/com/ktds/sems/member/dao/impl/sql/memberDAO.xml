@@ -610,9 +610,8 @@
 		WHERE	RNUM <![CDATA[>=]]> #{startIndex}
 		AND     RNUM <![CDATA[<=]]> #{endIndex}
 		AND		EI.EDU_ID = EH.EDU_ID
-		AND		EI.END_DATE <![CDATA[>=]]> SYSDATE
+		AND		EI.END_DATE <![CDATA[>=]]> TO_CHAR(SYSDATE, 'YYYY-MM-DD')
 		ORDER BY EI.EDU_ID DESC
-		
 	</select>
 
 	<select id="getOneEducationByIdAndEducationId" parameterType="map" resultType="EducationHistoryVO">
