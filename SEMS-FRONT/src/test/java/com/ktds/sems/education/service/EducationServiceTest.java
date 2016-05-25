@@ -21,6 +21,9 @@ import com.ktds.sems.common.Session;
 import com.ktds.sems.education.biz.EducationBiz;
 import com.ktds.sems.education.vo.EduReplyListVO;
 import com.ktds.sems.education.vo.EducationListVO;
+import com.ktds.sems.education.vo.EducationReportListVO;
+import com.ktds.sems.education.vo.EducationReportSearchVO;
+import com.ktds.sems.education.vo.EducationReportVO;
 import com.ktds.sems.education.vo.EducationSearchVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.QNASearchVO;
@@ -349,5 +352,75 @@ public class EducationServiceTest extends SemsTestCase {
 			fail("fail");
 		}
 	}
+	
+	@Test
+	public void viewReportListPageTest() {
+		
+		Paging paging = new Paging();
+		EducationReportSearchVO educationReportSearchVO = new EducationReportSearchVO();
+		educationReportSearchVO.setPageNo(0);
+		educationReportSearchVO.setEducationId("ED-20160519-000233");
+		educationReportSearchVO.setSearchType("searchTypeTest");
+		educationReportSearchVO.setSearchKeyword("Test");
+		educationReportSearchVO.setStartDate("2222-02-22");
+		educationReportSearchVO.setEndDate("2222-02-22");
+		
+		int totalEduReportCount = educationBiz.getTotalEducationReportCount(educationReportSearchVO);
+		assertTrue( totalEduReportCount > 0);
+		paging.setTotalArticleCount(totalEduReportCount);
+		
+		paging.setPageNumber("0");
+		educationReportSearchVO.setStartIndex(paging.getStartArticleNumber());
+		educationReportSearchVO.setEndIndex(paging.getEndArticleNumber());
+		
+		List<EducationReportVO> educationReportList = educationBiz.getAllEducationReportList(educationReportSearchVO);
+		assertNotNull(educationReportList);
+		assertTrue(educationReportList.size()>0);
+		
+		EducationReportListVO educationReportListVO = new EducationReportListVO();
+		educationReportListVO.setEducationReportList(educationReportList);
+		educationReportListVO.setPaging(paging);
+		
+		ModelAndView view = educationService.viewReportListPage(educationReportSearchVO);
+		
+		if ( view != null ) {
+			String viewName = view.getViewName();
+			assertNotNull(viewName);
+			assertEquals(viewName, "education/reportList");
+		}
+		 else {
+				fail("fail");
+		}
+	}
+	
+	@Test
+	public void viewReportWriteTest() {
+		
+		MockHttpSession session = new MockHttpSession();
+		
+		MemberVO loginMember = new MemberVO();
+		loginMember.setId("gangsa3");
+		loginMember.setMemberType("TR");
+		session.setAttribute(Session.MEMBER, loginMember);
+		
+		String educationId = "ED-20160519-000233";
+		
+		EducationReportVO educationReportVO = new EducationReportVO();
+		educationReportVO.setEducationId(educationId);
+		educationReportVO.setStartDate("2016-05-25");
+		
+		ModelAndView view = educationService.viewReportWrite(educationId, session);
+		
+		if ( view != null ) {
+			String viewName = view.getViewName();
+			assertNotNull(viewName);
+			assertEquals(viewName, "education/reportWrite");
+		}
+		else {
+			fail("fail");
+		}
+		
+	}
+	
 	
 }
