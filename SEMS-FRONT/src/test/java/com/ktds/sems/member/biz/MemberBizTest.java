@@ -451,7 +451,7 @@ public class MemberBizTest extends SemsTestCase {
 		
 		assertTrue(result > 0);
 	}
-	
+	/*
 	@Test
 	public void getCourseList() {
 		EducationHistorySearchVO educationHistorySearchVO = new EducationHistorySearchVO();
@@ -462,7 +462,7 @@ public class MemberBizTest extends SemsTestCase {
 		
 		assertNotNull(memberBiz.getCourseList(educationHistorySearchVO));
 	}
-	
+	*/
 	@Test
 	public void doResign(){
 		MemberVO memberVO = new MemberVO();

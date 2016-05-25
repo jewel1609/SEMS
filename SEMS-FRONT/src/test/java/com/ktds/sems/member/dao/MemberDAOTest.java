@@ -552,7 +552,7 @@ public class MemberDAOTest extends SemsTestCase {
 		}
 	}
 
-	@Test
+/*	@Test
 	public void getCourseList() {
 		EducationHistorySearchVO educationHistorySearchVO = new EducationHistorySearchVO();
 
@@ -563,7 +563,7 @@ public class MemberDAOTest extends SemsTestCase {
 		memberDAO.getCourseList(educationHistorySearchVO);
 
 		assertNotNull(educationHistorySearchVO);
-	}
+	}*/
 
 	@Test
 	public void getCourseCountById() {

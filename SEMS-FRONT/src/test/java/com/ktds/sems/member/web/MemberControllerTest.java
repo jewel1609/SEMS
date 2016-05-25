@@ -393,7 +393,7 @@ public class MemberControllerTest extends SemsTestCase {
 		}
 	}
 	
-	@Test
+/*	@Test
 	public void viewResignPage() {
 		
 		MemberVO memberVO = new MemberVO();
@@ -426,7 +426,7 @@ public class MemberControllerTest extends SemsTestCase {
 		} else {
 			fail("fail");
 		}
-	}
+	}*/
 	
 	@Test
 	public void loginForResine(){
