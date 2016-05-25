@@ -947,7 +947,7 @@ public class MemberServiceImpl implements MemberService {
 	 * 구본호 > 이기연(SM)
 	 */
 	@Override
-	public ModelAndView getCourseList(HttpSession session, int pageNo, String myEduCourse) {
+	public ModelAndView getCourseList(HttpSession session, int pageNo) {
 
 		EducationListVO educationListVO = new EducationListVO();
 		Paging paging = new Paging();

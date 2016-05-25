@@ -87,7 +87,7 @@ public interface MemberService {
 
 	public void checkValidationByMajorName(String majorName, HttpServletResponse response);
 
-	public ModelAndView getCourseList(HttpSession session, int pageNo, String myEduCourse);
+	public ModelAndView getCourseList(HttpSession session, int pageNo);
 
 	public ModelAndView writeResignCourse(String educationId, HttpSession session);
 	
