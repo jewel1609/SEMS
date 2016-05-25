@@ -133,7 +133,7 @@
 		FROM	SML_CTGR
 	</select>
 		
-	<select id="getAllEducationHistory" parameterType="eduHistorySearchVO" resultType="EduHistoryVO">
+	<select id="getAllEducationHistory" parameterType="EduHistorySearchVO" resultType="EduHistoryVO">
 				SELECT	JCE_HTR.EDU_HTR_ID educationHistoryId
 				, JCE_HTR.EDU_TTL educationTitle
 				, 	JCE_HTR.MBR_ID memberId
@@ -178,7 +178,7 @@
 		WHERE	RNUM <![CDATA[>=]]> #{startIndex}
 	</select>
 	
-	<select id="getAllEduHistoryCount" parameterType="eduHistorySearchVO" resultType="_int">
+	<select id="getAllEduHistoryCount" parameterType="EduHistorySearchVO" resultType="_int">
 		SELECT	COUNT(*)
 		FROM	EDU_HTR
 		WHERE	1 = 1
@@ -192,11 +192,11 @@
 				AND		EDU_HTR.EDU_ID IN 	(
 												SELECT	EDU_INFO.EDU_ID
 												FROM	EDU_INFO
-												WHERE	EDU_INFO.EDU_TTL IN #{searchKeyword}
+												WHERE	EDU_INFO.EDU_TTL LIKE '%'||#{searchKeyword}||'%'
 									)
 				</if>
 				<if test ="searchType == 'memberId'">
-					AND EDU_HTR.MBR_ID = #{searchKeyword}
+					AND EDU_HTR.MBR_ID LIKE '%'||#{searchKeyword}||'%'
 				</if>
 			
 		</if>
