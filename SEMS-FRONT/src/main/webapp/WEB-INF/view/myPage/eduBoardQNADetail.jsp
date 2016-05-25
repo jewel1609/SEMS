@@ -11,7 +11,7 @@
 	$(document).ready(function() {
 		$("#listBtn").click(function() {
 			var educationId = $("#educationId").val();
-			location.href="<c:url value='/eduBoard/QNAList'/>"+educationId;
+			location.href="<c:url value='/eduBoard/QNAList/'/>"+educationId;
 		});
 		
 		$("#replyBtn").click(function() {
