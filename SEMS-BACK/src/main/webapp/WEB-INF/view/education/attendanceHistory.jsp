@@ -12,7 +12,7 @@
 
 <a href="<c:url value='/attendanceHistory/memberList'/>">수강생별 출결 조회</a>
 <a href="<c:url value='/attendanceHistory/educationList'/>">교육별 출결 조회</a>
-<a href="<c:url value='/attendanceHistory/memberList'/>">팀별 출결 조회</a>
+<a href="<c:url value='/attendanceHistory/teamList'/>">팀별 출결 조회</a>
 
 
 </body>
