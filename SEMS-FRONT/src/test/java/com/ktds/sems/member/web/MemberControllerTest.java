@@ -393,41 +393,41 @@ public class MemberControllerTest extends SemsTestCase {
 		}
 	}
 	
-/*	@Test
-	public void viewResignPage() {
-		
-		MemberVO memberVO = new MemberVO();
-		memberVO.setId("test02");
+//	@Test
+//	public void viewResignPage() {
+//		
+//		MemberVO memberVO = new MemberVO();
+//		memberVO.setId("test02");
+//
+//		int pageNo = 0;
+//		MockHttpSession session = new MockHttpSession();
+//		session.setAttribute(Session.MEMBER, memberVO);
+//
+//		ModelAndView view = memberController.viewResignPage(pageNo, session);
+//
+//		if (view != null) {
+//
+//			String viewName = view.getViewName();
+//			assertNotNull(viewName);
+//			assertEquals(viewName, "member/resignCourseList");
+//
+//			EducationHistoryListVO educationHistoryListVO = (EducationHistoryListVO) view.getModelMap()
+//					.get("educationHistoryListVO");
+//			assertNotNull(educationHistoryListVO);
+//
+//			List<EducationHistoryVO> educationHistoryList = educationHistoryListVO.getEducationHistoryList();
+//			assertNotNull(educationHistoryList);
+//			assertTrue(educationHistoryList.size() > 0);
+//
+//			Paging paging = educationHistoryListVO.getPaging();
+//			assertNotNull(paging);
+//			assertTrue(paging.getTotalArticleCount() > 0);
+//
+//		} else {
+//			fail("fail");
+//		}
+//	}
 
-		int pageNo = 0;
-		MockHttpSession session = new MockHttpSession();
-		session.setAttribute(Session.MEMBER, memberVO);
-
-		ModelAndView view = memberController.viewResignPage(pageNo, session);
-
-		if (view != null) {
-
-			String viewName = view.getViewName();
-			assertNotNull(viewName);
-			assertEquals(viewName, "member/resignCourseList");
-
-			EducationHistoryListVO educationHistoryListVO = (EducationHistoryListVO) view.getModelMap()
-					.get("educationHistoryListVO");
-			assertNotNull(educationHistoryListVO);
-
-			List<EducationHistoryVO> educationHistoryList = educationHistoryListVO.getEducationHistoryList();
-			assertNotNull(educationHistoryList);
-			assertTrue(educationHistoryList.size() > 0);
-
-			Paging paging = educationHistoryListVO.getPaging();
-			assertNotNull(paging);
-			assertTrue(paging.getTotalArticleCount() > 0);
-
-		} else {
-			fail("fail");
-		}
-	}*/
-	
 	@Test
 	public void loginForResine(){
 		
