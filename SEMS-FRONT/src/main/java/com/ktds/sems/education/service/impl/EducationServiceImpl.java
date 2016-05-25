@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -22,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ktds.sems.common.Session;
 import com.ktds.sems.education.biz.EducationBiz;
 import com.ktds.sems.education.service.EducationService;
+import com.ktds.sems.education.util.DateFormatter;
 import com.ktds.sems.education.util.DownloadUtil;
 import com.ktds.sems.education.vo.EduReplyListVO;
 import com.ktds.sems.education.vo.EducationFileBBSVO;
@@ -87,37 +89,40 @@ public class EducationServiceImpl implements EducationService {
 		searchVO.setStartIndex(paging.getStartArticleNumber());
 		searchVO.setEndIndex(paging.getEndArticleNumber());
 
-		ModelAndView view = new ModelAndView();
-		EducationVO education = educationBiz.getOneEducationDetail(educationId);
-		
-		List<FileVO> fileList = fileBiz.getOneFileId(educationId);
-		
-		List<QNAVO> qnas = educationBiz.getAllCommentByEducationId(educationId, searchVO);
-		
-		eduReplyListVO.setQnaList(qnas);
-		
-		
-		
 		//이미 신청된 회원인지 비교해서 boolean 값 보내기
 		MemberVO loginMember = (MemberVO)session.getAttribute("_MEMBER_");
 		
+		ModelAndView view = new ModelAndView();
+		EducationVO education = educationBiz.getOneEducationDetail(educationId);
+		List<FileVO> fileList = fileBiz.getOneFileId(educationId);
+		
+		List<QNAVO> qnas = educationBiz.getAllCommentByEducationId(educationId, searchVO);
+		eduReplyListVO.setQnaList(qnas);
+		
+		
+		//이미 신청된 회원인지 비교해서 boolean 값 보내기
 		String status = "";
 		status = educationBiz.isApplyMemberByEducationId(educationId, loginMember.getId());
 		
+		boolean checkEndDate = educationBiz.checkEndDate(educationId, loginMember.getId());
 		if (status == null || status.equals("")) {
 			status = "";
 		} else if (status.equals("EDU_RE_A")) {
 			status = "예약신청";
 		} else if (status.equals("EDU_JN_A")) {
 			status = "참가신청";
+		} else if (status.equals("EDU_JN_A") && checkEndDate ) {
+			status = "예약신청거부";
 		}
 		
 		String memberType = (String) session.getAttribute(Session.MEMBER_TYPE);
 		
-//		List<EducationVO> myEducation = new ArrayList<EducationVO>();
-//		myEducation = educationBiz.getMyEducationList(loginMember.getId());
+		List<EducationVO> myEducations = new ArrayList<EducationVO>();
+		myEducations = educationBiz.getMyEducationList(loginMember.getId());
+		education.setEndDate(getEndDate(education.getEndDate()));
 		
-//		view.addObject("myEducation", myEducation);
+		view.addObject("myEducations", myEducations);
+		view.addObject("myEducationsSize", myEducations.size());
 		view.addObject("status", status);
 		view.addObject("eduReplyListVO", eduReplyListVO);
 		view.addObject("education", education);
@@ -125,6 +130,18 @@ public class EducationServiceImpl implements EducationService {
 		view.addObject("memberType", memberType);
 		view.setViewName("education/eduDetail");
 		return view;
+	}
+	
+	private String getEndDate(String endDate) {
+		String endDateResult = "";
+		
+		try {
+			endDateResult = DateFormatter.strToCalDateTime(endDate);
+		} catch (ParseException e) {
+			throw new RuntimeException(e.getMessage(), e);
+		}
+		
+		return endDateResult;
 	}
 
 	@Override

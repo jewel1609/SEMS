@@ -1,6 +1,6 @@
 package com.ktds.sems.education.vo;
 
-public class EducationVO {
+public class EducationVO extends EduClassVO {
 	
 	private String educationId;
 	private String educationCategory;

@@ -8,7 +8,7 @@ import kr.co.hucloud.utilities.web.Paging;
 public class EducationListVO {
 	
 	private List<EducationVO> educationList;
-//	private List<EduClassVO> eduClassVOList;
+	private List<EduClassVO> eduClassVOList;
 	private Paging paging;
 	
 	public List<EducationVO> getEducationList() {
@@ -31,11 +31,11 @@ public class EducationListVO {
 		this.paging = paging;
 	}
 
-//	public List<EduClassVO> getEduClassVOList() {
-//		return eduClassVOList;
-//	}
-//
-//	public void setEduClassVOList(List<EduClassVO> eduClassVOList) {
-//		this.eduClassVOList = eduClassVOList;
-//	}
+	public List<EduClassVO> getEduClassVOList() {
+		return eduClassVOList;
+	}
+
+	public void setEduClassVOList(List<EduClassVO> eduClassVOList) {
+		this.eduClassVOList = eduClassVOList;
+	}
 }
