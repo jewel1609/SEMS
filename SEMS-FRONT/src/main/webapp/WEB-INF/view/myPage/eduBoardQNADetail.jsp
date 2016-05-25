@@ -10,12 +10,13 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#listBtn").click(function() {
-			location.href="<c:url value='/eduBoard/QNAList'/>";
+			var educationId = $("#educationId").val();
+			location.href="<c:url value='/eduBoard/QNAList'/>"+educationId;
 		});
 		
 		$("#replyBtn").click(function() {
 			
-			if( $("#description").val() == "" ) {
+			if( $("#description").val() == "" ) { 
 				alert("내용을 작성하세요.");
 				return;
 			}
@@ -168,6 +169,7 @@
 	
 	
 	<form:form id="replyWriteForm" commandName="eduBBSReplyVO" method="post">
+	<input type="hidden" id="educationId" value="${oneQNABBSByAtcId.eduId}" />
 	<input type="hidden" name="atcId" value="${oneQNABBSByAtcId.atcId}"/>
 	<textarea id="description" name="description" cols="40" rows="3" placeholder="내용을 입력하세요." >${eduBBSreplyVO.description}</textarea> 
 	<br />
