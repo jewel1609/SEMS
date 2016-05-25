@@ -590,7 +590,7 @@
 	</update>
 	
 	<update id="doRequestRetraction" parameterType="map">
-		UPDATE	EDU_STAT
+		UPDATE	EDU_CLASS
 		SET		STAT = 'EDU_CL_A'
 		WHERE	EDU_ID = #{ educationId }
 		AND		MBR_ID = #{ memberId }
@@ -1062,6 +1062,77 @@
 		 WHERE	RNUM <![CDATA[>=]]> #{startIndex}
 	</select>
 	
+	<select id="getTotalReportReplyCountOfTeacher" parameterType="ReportReplySearchVO" resultType="_int">
+		SELECT  COUNT(*)
+		FROM    EDU_RPT_BBS ERB
+		        , RPT_RPL RR
+		        , EDU_INFO EI
+		        , MBR M
+		WHERE   ERB.ATC_ID = RR.BBS_ID
+		AND     ERB.EDU_ID = EI.EDU_ID
+		AND     RR.MBR_ID = M.ID
+		AND     ERB.MBR_ID = #{ mbrId }
+		<if test="memberNameKeyword != null">
+		AND     M.NM LIKE '%' || #{ memberNameKeyword } || '%'
+		</if>
+		<if test="eduNameKeyword != null">
+		AND     EI.EDU_TTL LIKE '%' || #{ eduNameKeyword } || '%' 
+		</if>
+		<if test="teamNameKeyword != null">
+		AND     EI.EDU_ID IN (
+		                        SELECT  EDU_ID
+		                        FROM    TEAM
+		                        WHERE   TEAM.TEAM_NM LIKE '%' || #{ teamNameKeyword } || '%'
+		                     )
+		</if>
+	</select>
+	
+	<select id="getAllReportReplyOfTeacher" parameterType="ReportReplySearchVO" resultType="ReportReplyVO">
+		SELECT  MBR_ID mbrId
+		        , MBR_NM memberName
+		        , EDU_ID eduId
+		        , EDU_TTL eduTtl
+		        , RPT_ID atcId
+		        , RPT_NM title
+		        , CREATE_DATE createdDate
+		FROM    (
+		            SELECT  ROWNUM RNUM
+		                    , TRRPT.*
+		            FROM    (
+		                        SELECT  M.ID MBR_ID
+		                                , M.NM MBR_NM
+		                                , EI.EDU_ID EDU_ID
+		                                , EI.EDU_TTL EDU_TTL
+		                                , ERB.ATC_ID RPT_ID
+		                                , ERB.TITLE RPT_NM
+		                                , RR.CREATE_DATE CREATE_DATE
+		                        FROM    EDU_RPT_BBS ERB
+		                                , RPT_RPL RR
+		                                , EDU_INFO EI
+		                                , MBR M
+		                        WHERE   ERB.ATC_ID = RR.BBS_ID
+		                        AND     ERB.EDU_ID = EI.EDU_ID
+		                        AND     RR.MBR_ID = M.ID
+		                        AND     ERB.MBR_ID = #{ mbrId }
+		                        <if test="memberNameKeyword != null">
+		                        AND     M.NM LIKE '%' || #{ memberNameKeyword } || '%'
+		                        </if>
+		                        <if test="eduNameKeyword != null">
+		                        AND     EI.EDU_TTL LIKE '%' || #{ eduNameKeyword } || '%' 
+		                        </if>
+		                        <if test="teamNameKeyword != null">
+		                        AND     EI.EDU_ID IN (
+		                                                SELECT  EDU_ID
+		                                                FROM    TEAM
+		                                                WHERE   TEAM.TEAM_NM LIKE '%' || #{ teamNameKeyword } || '%'
+		                                             )
+		                        </if>
+		                        ORDER   BY RR.CREATE_DATE DESC
+		                    ) TRRPT
+		        )
+		WHERE   RNUM <![CDATA[<=]]> #{ endIndex }
+		AND     RNUM <![CDATA[>=]]> #{ startIndex }
+	</select>
 	
 	<select id="getOneEducationReport" parameterType="EducationReportVO" resultType="EducationReportVO">
 		SELECT	ATC_ID articleId

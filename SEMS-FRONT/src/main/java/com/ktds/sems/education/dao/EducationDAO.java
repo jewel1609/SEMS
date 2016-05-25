@@ -145,6 +145,10 @@ public interface EducationDAO {
 	public int getTotalReportReplyCount(ReportReplySearchVO reportReplySearchVO);
 
 	public List<ReportReplyVO> getAllReportReply(ReportReplySearchVO reportReplySearchVO);
+	
+	public int getTotalReportReplyCountOfTeacher(ReportReplySearchVO reportReplySearchVO);
+	
+	public List<ReportReplyVO> getAllReportReplyOfTeacher(ReportReplySearchVO reportReplySearchVO);
 
 	public EducationReportVO getOneEducationReport(EducationReportVO educationReportVO);
 

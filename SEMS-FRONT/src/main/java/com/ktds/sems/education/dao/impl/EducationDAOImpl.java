@@ -399,6 +399,16 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 	public List<ReportReplyVO> getAllReportReply(ReportReplySearchVO reportReplySearchVO) {
 		return getSqlSession().selectList("EducationDAO.getAllReportReply",reportReplySearchVO);
 	}
+	
+	@Override
+	public int getTotalReportReplyCountOfTeacher(ReportReplySearchVO reportReplySearchVO) {
+		return getSqlSession().selectOne("EducationDAO.getTotalReportReplyCountOfTeacher", reportReplySearchVO);
+	}
+	
+	@Override
+	public List<ReportReplyVO> getAllReportReplyOfTeacher(ReportReplySearchVO reportReplySearchVO) {
+		return getSqlSession().selectList("EducationDAO.getAllReportReplyOfTeacher",reportReplySearchVO);
+	}
 
 	@Override
 	public EducationReportVO getOneEducationReport(EducationReportVO educationReportVO) {

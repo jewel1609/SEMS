@@ -28,6 +28,7 @@ import com.ktds.sems.education.vo.EducationSearchVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.QNASearchVO;
 import com.ktds.sems.education.vo.QNAVO;
+import com.ktds.sems.education.vo.ReportReplySearchVO;
 import com.ktds.sems.member.vo.MemberVO;
 
 import kr.co.hucloud.utilities.web.Paging;
@@ -186,10 +187,10 @@ public class EducationServiceTest extends SemsTestCase {
 		
 		MockHttpSession session = new MockHttpSession();
 		MemberVO memberVO = new MemberVO();
-		memberVO.setId("test04");
+		memberVO.setId("test02");
 		session.setAttribute(Session.MEMBER, memberVO);
 		
-		String educationId = "ED-20160513-000173";
+		String educationId = "ED-20160513-000166";
 		
 		ModelAndView view = educationService.viewRequestRetractionPage(session, educationId);
 		assertNotNull(view);
@@ -219,7 +220,7 @@ public class EducationServiceTest extends SemsTestCase {
 		memberVO.setId("test04");
 		session.setAttribute(Session.MEMBER, memberVO);
 		
-		String educationId = "ED-20160513-000166";
+		String educationId = "ED-20160516-000181";
 		
 		ModelAndView view = educationService.viewRequestRetractionPage(session, educationId);
 		assertNotNull(view);
@@ -231,12 +232,12 @@ public class EducationServiceTest extends SemsTestCase {
 	@Test
 	public void doRequestRetractionTest(){
 		MockHttpServletRequest request = new MockHttpServletRequest();
-		request.setParameter("educationId", "ED-20160513-000173");
+		request.setParameter("educationId", "ED-20160513-000166");
 		request.setParameter("retractionMessage", "하기싫어요");
 		
 		MockHttpSession session = new MockHttpSession();
 		MemberVO memberVO = new MemberVO();
-		memberVO.setId("test04");
+		memberVO.setId("test02");
 		session.setAttribute(Session.MEMBER, memberVO);
 		
 		String result = educationService.doRequestRetraction(request, session);
@@ -261,11 +262,12 @@ public class EducationServiceTest extends SemsTestCase {
 	@Test
 	public void doRequestRetractionTestWithError2(){
 		MockHttpServletRequest request = new MockHttpServletRequest();
-		request.setParameter("educationId", "ED-20160513-000166");
+		request.setParameter("educationId", "ED-20160516-000181");
+		request.setParameter("retractionMessage", "하기싫어요");
 		
 		MockHttpSession session = new MockHttpSession();
 		MemberVO memberVO = new MemberVO();
-		memberVO.setId("test04");
+		memberVO.setId("test02");
 		session.setAttribute(Session.MEMBER, memberVO);
 		
 		String result = educationService.doRequestRetraction(request, session);
@@ -422,5 +424,29 @@ public class EducationServiceTest extends SemsTestCase {
 		
 	}
 	
+	@Test
+	public void getAllReportReplyTest(){
+		ReportReplySearchVO reportReplySearchVO = new ReportReplySearchVO();
+		int pageNo = 0;
+		MockHttpSession session = new MockHttpSession();
+		MemberVO memberVO = new MemberVO();
+		memberVO.setId("test02");
+		session.setAttribute(Session.MEMBER_TYPE, "MBR");
+		session.setAttribute("_MEMBER_", memberVO);
+		ModelAndView view = educationService.getAllReportReply(reportReplySearchVO, pageNo, session);
+		assertNotNull(view);
+		String viewName = view.getViewName();
+		assertNotNull(viewName);
+		assertEquals(viewName, "myPage/myReportList");
+		
+		memberVO.setId("gangsa3");
+		session.setAttribute(Session.MEMBER_TYPE, "TR");
+		session.setAttribute("_MEMBER_", memberVO);
+		view = educationService.getAllReportReply(reportReplySearchVO, pageNo, session);
+		assertNotNull(view);
+		viewName = view.getViewName();
+		assertNotNull(viewName);
+		assertEquals(viewName, "myPage/teacherReportList");
+	}
 	
 }

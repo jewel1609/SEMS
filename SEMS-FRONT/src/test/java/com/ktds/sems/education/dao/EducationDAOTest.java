@@ -18,6 +18,8 @@ import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.QNASearchVO;
 import com.ktds.sems.education.vo.QNAVO;
 import com.ktds.sems.education.vo.ReRplyEvalVO;
+import com.ktds.sems.education.vo.ReportReplySearchVO;
+import com.ktds.sems.education.vo.ReportReplyVO;
 
 import kr.co.hucloud.utilities.web.Paging;
 
@@ -161,22 +163,20 @@ public class EducationDAOTest extends SemsTestCase{
 	@Test
 	public void getApplyHistoryTest(){
 		String memberId = "test04";
-		String educationId = "ED-20160513-000173";
+		String educationId = "ED-20160516-000181";
 		List<EducationVO> educations = educationDAO.getApplyHistory(memberId, educationId);
 		assertTrue(educations.size() > 0);
 	}
 
-	// 교육 아이디 ED-20160513-000173에 대한 멤버 test04의 신청 내역이 있고, 교육이 시작 전이어야 제대로된 테스트 진행.
 	@Test
 	public void doRequestRetractionTest(){
-		String educationId = "ED-20160513-000173";
+		String educationId = "ED-20160516-000181";
 		String retractionMsg = "듣기 싫어요";
 		String memberId = "test04";
 		int result = educationDAO.doRequestRetraction(educationId, retractionMsg, memberId);
 		assertNotNull(result);
 		assertTrue(result == 1);
 	}
-	
 	
 	//@Test
 	public void doReReplyInsertTest(){
@@ -369,6 +369,47 @@ public class EducationDAOTest extends SemsTestCase{
 			fail("fail");
 		}
 	}
+	
+	@Test
+	public void getTotalReportReplyCountTest(){
+		ReportReplySearchVO reportReplySearchVO = new ReportReplySearchVO();
+		reportReplySearchVO.setMbrId("test02");
+		int count = educationDAO.getTotalReportReplyCount(reportReplySearchVO);
+		assertNotNull(count);
+		assertTrue(count > 0);
+	}
+	
+	@Test
+	public void getTotalReportReplyCountOfTeacherTest(){
+		ReportReplySearchVO reportReplySearchVO = new ReportReplySearchVO();
+		reportReplySearchVO.setMbrId("gangsa3");
+		int count = educationDAO.getTotalReportReplyCountOfTeacher(reportReplySearchVO);
+		assertNotNull(count);
+		assertTrue(count > 0);
+	}
+	
+	@Test
+	public void getAllReportReplyTest(){
+		ReportReplySearchVO reportReplySearchVO = new ReportReplySearchVO();
+		reportReplySearchVO.setMbrId("test02");
+		reportReplySearchVO.setStartIndex(1);
+		reportReplySearchVO.setEndIndex(10);
+		List<ReportReplyVO> reports = educationDAO.getAllReportReply(reportReplySearchVO);
+		assertNotNull(reports);
+		assertTrue(reports.size() > 0);
+	}
+	
+	@Test
+	public void getAllReportReplyOfTeacherTest(){
+		ReportReplySearchVO reportReplySearchVO = new ReportReplySearchVO();
+		reportReplySearchVO.setMbrId("gangsa3");
+		reportReplySearchVO.setStartIndex(1);
+		reportReplySearchVO.setEndIndex(10);
+		List<ReportReplyVO> reports = educationDAO.getAllReportReplyOfTeacher(reportReplySearchVO);
+		assertNotNull(reports);
+		assertTrue(reports.size() > 0);
+	}
+	
 }
 
 

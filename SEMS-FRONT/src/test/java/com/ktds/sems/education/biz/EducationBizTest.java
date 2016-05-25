@@ -12,6 +12,8 @@ import com.ktds.sems.SemsTestCase;
 import com.ktds.sems.education.vo.QNASearchVO;
 import com.ktds.sems.education.vo.QNAVO;
 import com.ktds.sems.education.vo.ReRplyEvalVO;
+import com.ktds.sems.education.vo.ReportReplySearchVO;
+import com.ktds.sems.education.vo.ReportReplyVO;
 
 import kr.co.hucloud.utilities.web.Paging;
 
@@ -24,7 +26,7 @@ public class EducationBizTest extends SemsTestCase{
 	@Test
 	public void hasApplyHistoryTest(){
 		String memberId = "test04";
-		String educationId = "ED-20160513-000173";
+		String educationId = "ED-20160516-000181";
 		boolean hasApplyHistory = educationBiz.hasApplyHistory(memberId, educationId);
 		assertNotNull(hasApplyHistory);
 		assertTrue(hasApplyHistory);
@@ -32,15 +34,15 @@ public class EducationBizTest extends SemsTestCase{
 	
 	@Test
 	public void isEducationStartedTest(){
-		String educationId = "ED-20160516-000185";
+		String educationId = "ED-20160516-000181";
 		boolean isEducationStarted = educationBiz.isEducationStarted(educationId);
 		assertNotNull(isEducationStarted);
-		assertTrue(!isEducationStarted);
+		assertTrue(isEducationStarted);
 	}
 
 	@Test
 	public void doRequestRetractionTest(){
-		String educationId = "ED-20160513-000173";
+		String educationId = "ED-20160516-000181";
 		String retractionMsg = "듣기 싫어요";
 		String memberId = "test04";
 		boolean result = educationBiz.doRequestRetraction(educationId, retractionMsg, memberId);
@@ -249,4 +251,45 @@ public class EducationBizTest extends SemsTestCase{
 		boolean test = educationBiz.exportQNAListAsExcel(memberId);
 		assertTrue(test);
 	}
+	
+	@Test
+	public void getTotalReportReplyCountTest(){
+		ReportReplySearchVO reportReplySearchVO = new ReportReplySearchVO();
+		reportReplySearchVO.setMbrId("test02");
+		int count = educationBiz.getTotalReportReplyCount(reportReplySearchVO);
+		assertNotNull(count);
+		assertTrue(count > 0);
+	}
+	
+	@Test
+	public void getTotalReportReplyCountOfTeacherTest(){
+		ReportReplySearchVO reportReplySearchVO = new ReportReplySearchVO();
+		reportReplySearchVO.setMbrId("gangsa3");
+		int count = educationBiz.getTotalReportReplyCountOfTeacher(reportReplySearchVO);
+		assertNotNull(count);
+		assertTrue(count > 0);
+	}
+	
+	@Test
+	public void getAllReportReplyTest(){
+		ReportReplySearchVO reportReplySearchVO = new ReportReplySearchVO();
+		reportReplySearchVO.setMbrId("test02");
+		reportReplySearchVO.setStartIndex(1);
+		reportReplySearchVO.setEndIndex(10);
+		List<ReportReplyVO> reports = educationBiz.getAllReportReply(reportReplySearchVO);
+		assertNotNull(reports);
+		assertTrue(reports.size() > 0);
+	}
+	
+	@Test
+	public void getAllReportReplyOfTeacher(){
+		ReportReplySearchVO reportReplySearchVO = new ReportReplySearchVO();
+		reportReplySearchVO.setMbrId("gangsa3");
+		reportReplySearchVO.setStartIndex(1);
+		reportReplySearchVO.setEndIndex(10);
+		List<ReportReplyVO> reports = educationBiz.getAllReportReplyOfTeacher(reportReplySearchVO);
+		assertNotNull(reports);
+		assertTrue(reports.size() > 0);
+	}
+	
 }

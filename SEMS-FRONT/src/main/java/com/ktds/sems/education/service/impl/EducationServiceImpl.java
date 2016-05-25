@@ -1064,6 +1064,7 @@ public class EducationServiceImpl implements EducationService {
 	
 	@Override	
 	public ModelAndView getAllReportReply(ReportReplySearchVO reportReplySearchVO, int pageNo, HttpSession session) {
+		String memberType = session.getAttribute(Session.MEMBER_TYPE).toString();
 		MemberVO loginMember = (MemberVO)session.getAttribute("_MEMBER_");
 
 		Paging paging = new Paging();
@@ -1072,7 +1073,13 @@ public class EducationServiceImpl implements EducationService {
 		
 		reportReplySearchVO.setMbrId(loginMember.getId());
 		
-		int totalReportReplyCount = educationBiz.getTotalReportReplyCount(reportReplySearchVO);
+		int totalReportReplyCount = 0;
+		if ( memberType.equals("MBR") ) {
+			totalReportReplyCount= educationBiz.getTotalReportReplyCount(reportReplySearchVO);
+		}
+		else if ( memberType.equals("TR") ) {
+			totalReportReplyCount= educationBiz.getTotalReportReplyCountOfTeacher(reportReplySearchVO);
+		}
 		
 		paging.setPageNumber(pageNo + "");
 		paging.setTotalArticleCount(totalReportReplyCount);
@@ -1080,11 +1087,22 @@ public class EducationServiceImpl implements EducationService {
 		reportReplySearchVO.setStartIndex(paging.getStartArticleNumber());
 		reportReplySearchVO.setEndIndex(paging.getEndArticleNumber());
 		
-		List<ReportReplyVO> reportReplyVO = educationBiz.getAllReportReply(reportReplySearchVO);
+		List<ReportReplyVO> reportReplyVO = null;
+		if ( memberType.equals("MBR") ) {
+			reportReplyVO = educationBiz.getAllReportReply(reportReplySearchVO);
+		}
+		else if ( memberType.equals("TR") ) {
+			reportReplyVO = educationBiz.getAllReportReplyOfTeacher(reportReplySearchVO);
+		}
 		reportReplyListVO.setReportReplyList(reportReplyVO);
 		
 		ModelAndView view = new ModelAndView();
-		view.setViewName("myPage/myReportList");
+		if ( memberType.equals("MBR") ) {
+			view.setViewName("myPage/myReportList");
+		}
+		else if ( memberType.equals("TR") ) {
+			view.setViewName("myPage/teacherReportList");
+		}
 		view.addObject("reportReplytListVO", reportReplyListVO);
 		view.addObject("reportReplySearchVO", reportReplySearchVO);
 		

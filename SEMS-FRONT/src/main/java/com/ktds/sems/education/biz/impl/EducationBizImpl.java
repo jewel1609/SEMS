@@ -241,16 +241,13 @@ public class EducationBizImpl implements EducationBiz {
 	@Override
 	public boolean isEducationStarted(String educationId) {
 		Date educationStartDate;
-		Date currentDate;
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
+		Date currentDate = new Date();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		EducationVO educationVO = educationDAO.getOneEducationDetail(educationId);
 		String startDate = educationVO.getStartDate();
 
-		long time = System.currentTimeMillis();
-
 		try {
 			educationStartDate = dateFormat.parse(startDate);
-			currentDate = dateFormat.parse(dateFormat.format(new Date(time)));
 			int compare = currentDate.compareTo(educationStartDate);
 			if ( compare < 0 ) {
 				return false;
@@ -459,7 +456,16 @@ public class EducationBizImpl implements EducationBiz {
 	public List<ReportReplyVO> getAllReportReply(ReportReplySearchVO reportReplySearchVO) {
 		return educationDAO.getAllReportReply(reportReplySearchVO);
 	}
-
+	
+	@Override
+	public int getTotalReportReplyCountOfTeacher(ReportReplySearchVO reportReplySearchVO) {
+		return educationDAO.getTotalReportReplyCountOfTeacher(reportReplySearchVO);
+	}
+	
+	@Override
+	public List<ReportReplyVO> getAllReportReplyOfTeacher(ReportReplySearchVO reportReplySearchVO) {
+		return educationDAO.getAllReportReplyOfTeacher(reportReplySearchVO);
+	}
 
 	@Override
 	public EducationReportVO getOneEducationReport(EducationReportVO educationReportVO) {
@@ -687,7 +693,7 @@ public class EducationBizImpl implements EducationBiz {
 	public int getTotalQnaEduReplyCount(String eduQnaId) {
 		return educationDAO.getTotalQnaEduReplyCount(eduQnaId);
 	}
-
+	
 }
 
 

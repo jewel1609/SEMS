@@ -10,6 +10,22 @@ public class ReportReplySearchVO extends ReportReplyVO {
 	private String reportNameKeyword;
 	private String startDate;
 	private String endDate;
+	
+	private String memberNameKeyword;
+	private String teamNameKeyword;
+	
+	public String getMemberNameKeyword() {
+		return memberNameKeyword;
+	}
+	public void setMemberNameKeyword(String memberNameKeyword) {
+		this.memberNameKeyword = memberNameKeyword;
+	}
+	public String getTeamNameKeyword() {
+		return teamNameKeyword;
+	}
+	public void setTeamNameKeyword(String teamNameKeyword) {
+		this.teamNameKeyword = teamNameKeyword;
+	}
 	public int getPageNo() {
 		return pageNo;
 	}
