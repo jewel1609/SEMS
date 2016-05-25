@@ -7,6 +7,7 @@ import com.ktds.sems.education.vo.EducationQNABBSSearchVO;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationHistoryVO;
 import com.ktds.sems.education.vo.EducationQNABBSVO;
+import com.ktds.sems.education.vo.EducationQNAReplySearchVO;
 import com.ktds.sems.education.vo.EducationQNAReplyVO;
 import com.ktds.sems.education.vo.EducationReportSearchVO;
 import com.ktds.sems.education.vo.EducationReportVO;
@@ -143,7 +144,7 @@ public interface EducationBiz {
 
 	public EducationReportVO getOneEducationReport(EducationReportVO educationReportVO);
 
-	public List<EducationQNAReplyVO> getAllQNAReplyListByAtcId(String atcId);
+	public List<EducationQNAReplyVO> getAllQNAReplyListByAtcId(EducationQNAReplySearchVO searchVO);
 
 	public void doReportSubmit(ReportReplyVO reportReplyVO);
 
@@ -166,5 +167,7 @@ public interface EducationBiz {
 	public List<EducationHistoryVO> getJCEducationHistory(EducationHistorySearchVO eduHistorySearchVO);
 
 	public int getTotalEducationQNACount();
+
+	public int getTotalQNAReplyCountByAtcId(String atcId);
 
 }

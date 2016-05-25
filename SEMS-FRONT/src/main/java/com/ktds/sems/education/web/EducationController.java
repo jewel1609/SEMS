@@ -272,25 +272,8 @@ public class EducationController {
 		return educationService.viewReportWrite(educationId, session);
 	}
 	@RequestMapping("/eduBoard/QNADetail/{atcId}")
-	public ModelAndView viewEduBoardQNADetailPage(@PathVariable String atcId, HttpSession session) {
-		ModelAndView view = new ModelAndView();
-		MemberVO sessionMember = (MemberVO) session.getAttribute("_MEMBER_");
-		String sessionId = sessionMember.getId();
-		
-		EducationQNABBSVO oneQNABBSByAtcId = educationService.getOneQNABBSByAtcId(atcId);
-
-		EducationQNAReplyListVO qnaReplyList = new EducationQNAReplyListVO();
-		List<EducationQNAReplyVO> qnaReplyListByAtcId = educationService.getAllQNAReplyListByAtcId(atcId);
-		
-		qnaReplyList.setQnaReplyList(qnaReplyListByAtcId);
-		
-		view.addObject("sessionId", sessionId);
-		view.addObject("qnaReplyList", qnaReplyList);
-		view.addObject("oneQNABBSByAtcId", oneQNABBSByAtcId);
-		
-		view.setViewName("myPage/eduBoardQNADetail");
-		
-		return view;
+	public ModelAndView viewEduBoardQNADetailPage(@PathVariable String atcId, @RequestParam(required=false, defaultValue="0") int pageNo, HttpSession session) {
+		return educationService.viewEduBoardQNADetailPage(atcId, pageNo, session);
 	}
 	
 	@RequestMapping("/education/doReportWriteAction")

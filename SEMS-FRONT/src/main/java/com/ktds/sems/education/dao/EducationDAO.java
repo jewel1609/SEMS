@@ -7,6 +7,7 @@ import com.ktds.sems.education.vo.EducationQNABBSSearchVO;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationHistoryVO;
 import com.ktds.sems.education.vo.EducationQNABBSVO;
+import com.ktds.sems.education.vo.EducationQNAReplySearchVO;
 import com.ktds.sems.education.vo.EducationQNAReplyVO;
 import com.ktds.sems.education.vo.EducationReportSearchVO;
 import com.ktds.sems.education.vo.EducationReportVO;
@@ -140,7 +141,7 @@ public interface EducationDAO {
 
 	public EducationReportVO getOneEducationReport(EducationReportVO educationReportVO);
 
-	public List<EducationQNAReplyVO> getAllQNAReplyListByAtcId(String atcId);
+	public List<EducationQNAReplyVO> getAllQNAReplyListByAtcId(EducationQNAReplySearchVO searchVO);
 
 	public int getNextReportReplySeq();
 
@@ -163,5 +164,7 @@ public interface EducationDAO {
 	public void deleteReport(EducationReportVO educationReportVO);
 
 	public String checkEndDate(String articleId);
+
+	public int getTotalQNAReplyCountByAtcId(String atcId);
 
 }

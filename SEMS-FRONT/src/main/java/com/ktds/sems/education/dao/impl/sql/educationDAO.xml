@@ -1027,7 +1027,7 @@
 		WHERE	ATC_ID = #{articleId}
 	</select>
 	
-	<select id="getAllQNAReplyListByAtcId" parameterType="string" resultType="EducationQNAReplyVO">
+	<select id="getAllQNAReplyListByAtcId" parameterType="EducationQNAReplySearchVO" resultType="EducationQNAReplyVO">
 		SELECT	REPLY_ID replyId
 				, ATC_ID atcId
 				, PARENT_REPLY_ID parentReplyId
@@ -1038,9 +1038,20 @@
 				, DISLIKE_CNT dislikeCnt
 				, TO_CHAR(CREATED_DATE, 'YYYY-MM-DD HH24:MI') createdDate
 				, (1.5*LIKE_CNT)-(DISLIKE_CNT) AS qnaReplyPoint
-		FROM	BBS_RPL
-		WHERE	ATC_ID = #{atcId}	
-		ORDER	BY	REPLY_ID DESC
+		FROM	(
+					SELECT	ROWNUM AS RNUM
+							, RPL.*
+					FROM 	(
+								SELECT	*
+								FROM	BBS_RPL
+								WHERE	ATC_ID = #{atcId}
+								AND		REPLY_ID LIKE 'ER%'
+								ORDER	BY	REPLY_ID DESC	
+							) RPL
+					WHERE	ROWNUM <![CDATA[<=]]> #{endIndex}		
+		
+				)
+		WHERE	RNUM >= #{startIndex}
 	</select>
 	
 	<select id="getNextReportReplySeq" resultType="_int">
@@ -1200,4 +1211,13 @@
 		WHERE   ATC_ID = #{articleId}
 		AND     END_DATE <![CDATA[>]]> SYSDATE
 	</select>
+	
+	<select id="getTotalQNAReplyCountByAtcId" parameterType="string" resultType="_int">
+		SELECT	COUNT(REPLY_ID)
+		FROM	BBS_RPL
+		WHERE	ATC_ID = #{atcId}
+		AND		REPLY_ID LIKE 'ER%'
+		AND		ATC_ID LIKE 'AT%'
+	</select>
+	
 </mapper>

@@ -14,6 +14,7 @@ import com.ktds.sems.education.vo.EducationQNABBSSearchVO;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationHistoryVO;
 import com.ktds.sems.education.vo.EducationQNABBSVO;
+import com.ktds.sems.education.vo.EducationQNAReplySearchVO;
 import com.ktds.sems.education.vo.EducationQNAReplyVO;
 import com.ktds.sems.education.vo.EducationReportSearchVO;
 import com.ktds.sems.education.vo.EducationReportVO;
@@ -393,8 +394,8 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 	}
 
 	@Override
-	public List<EducationQNAReplyVO> getAllQNAReplyListByAtcId(String atcId) {
-		return getSqlSession().selectList("EducationDAO.getAllQNAReplyListByAtcId", atcId);
+	public List<EducationQNAReplyVO> getAllQNAReplyListByAtcId(EducationQNAReplySearchVO searchVO) {
+		return getSqlSession().selectList("EducationDAO.getAllQNAReplyListByAtcId", searchVO);
 	}
 
 	@Override
@@ -456,6 +457,11 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 	@Override
 	public String checkEndDate(String articleId) {
 		return getSqlSession().selectOne("EducationDAO.checkEndDate", articleId);
+	}
+
+	@Override
+	public int getTotalQNAReplyCountByAtcId(String atcId) {
+		return getSqlSession().selectOne("EducationDAO.getTotalQNAReplyCountByAtcId", atcId);
 	}
 
 }

@@ -74,8 +74,6 @@ public interface EducationService {
 
 	public ModelAndView viewReportWrite(String educationId, HttpSession session);
 
-	public EducationQNABBSVO getOneQNABBSByAtcId(String atcId);
-
 	public ModelAndView doReportWriteAction(EducationReportVO educationReportVO, Errors errors, MultipartHttpServletRequest request, HttpSession session);
 	
 	public ModelAndView doQNAReplyWriteAction(EducationQNAReplyVO eduBBSReplyVO, Errors errors, HttpSession session);
@@ -92,10 +90,10 @@ public interface EducationService {
 
 	public void checkEndDate(String articleId, HttpServletResponse response);
 
-	public List<EducationQNAReplyVO> getAllQNAReplyListByAtcId(String atcId);
-
 	public ModelAndView getJCEduHistory(EducationHistorySearchVO eduHistorySearchVO, int pageNo);
 
 	public String deleteReport(EducationReportVO educationReportVO, HttpSession session);
+
+	public ModelAndView viewEduBoardQNADetailPage(String atcId, int pageNo, HttpSession session);
 
 }

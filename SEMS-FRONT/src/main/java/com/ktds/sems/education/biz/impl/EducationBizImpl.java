@@ -17,6 +17,7 @@ import com.ktds.sems.education.vo.EducationQNABBSSearchVO;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationHistoryVO;
 import com.ktds.sems.education.vo.EducationQNABBSVO;
+import com.ktds.sems.education.vo.EducationQNAReplySearchVO;
 import com.ktds.sems.education.vo.EducationQNAReplyVO;
 import com.ktds.sems.education.vo.EducationReportSearchVO;
 import com.ktds.sems.education.vo.EducationReportVO;
@@ -463,8 +464,8 @@ public class EducationBizImpl implements EducationBiz {
 	}
 
 	@Override
-	public List<EducationQNAReplyVO> getAllQNAReplyListByAtcId(String atcId) {
-		return educationDAO.getAllQNAReplyListByAtcId(atcId);
+	public List<EducationQNAReplyVO> getAllQNAReplyListByAtcId(EducationQNAReplySearchVO searchVO) {
+		return educationDAO.getAllQNAReplyListByAtcId(searchVO);
 	}
 
 	@Override
@@ -542,6 +543,12 @@ public class EducationBizImpl implements EducationBiz {
 	public String checkEndDate(String articleId) {
 		return educationDAO.checkEndDate(articleId);
 	}
+
+	@Override
+	public int getTotalQNAReplyCountByAtcId(String atcId) {
+		return educationDAO.getTotalQNAReplyCountByAtcId(atcId);
+	}
+
 }
 
 

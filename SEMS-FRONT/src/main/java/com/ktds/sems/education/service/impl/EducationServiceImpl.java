@@ -32,6 +32,8 @@ import com.ktds.sems.education.vo.EducationListVO;
 import com.ktds.sems.education.vo.EducationQNABBSListVO;
 import com.ktds.sems.education.vo.EducationQNABBSSearchVO;
 import com.ktds.sems.education.vo.EducationQNABBSVO;
+import com.ktds.sems.education.vo.EducationQNAReplyListVO;
+import com.ktds.sems.education.vo.EducationQNAReplySearchVO;
 import com.ktds.sems.education.vo.EducationQNAReplyVO;
 import com.ktds.sems.education.vo.EducationReportListVO;
 import com.ktds.sems.education.vo.EducationReportSearchVO;
@@ -851,14 +853,6 @@ public class EducationServiceImpl implements EducationService {
 	}
 
 	@Override
-	public EducationQNABBSVO getOneQNABBSByAtcId(String atcId) {
-		//조회수 증가
-		educationBiz.addHitsByAtcId(atcId);
-		
-		return educationBiz.getOneQNABBSByAtcId(atcId);
-	}
-
-	@Override
 	public ModelAndView doReportWriteAction(EducationReportVO educationReportVO, Errors errors, MultipartHttpServletRequest request, HttpSession session) {
 		
 		ModelAndView view = new ModelAndView();
@@ -1095,11 +1089,6 @@ public class EducationServiceImpl implements EducationService {
 	}
 
 	@Override
-	public List<EducationQNAReplyVO> getAllQNAReplyListByAtcId(String atcId) {
-		return educationBiz.getAllQNAReplyListByAtcId(atcId);
-	}
-
-	@Override
 	public ModelAndView doReportSubmit(ReportReplyVO reportReplyVO, MultipartHttpServletRequest request, HttpSession session) {
 		ModelAndView view = new ModelAndView();
 		
@@ -1277,6 +1266,44 @@ public class EducationServiceImpl implements EducationService {
 			AjaxUtil.sendResponse(response, message);
 			return;
 		}
+	}
+
+	@Override
+	public ModelAndView viewEduBoardQNADetailPage(String atcId, int pageNo, HttpSession session) {
+		
+		ModelAndView view = new ModelAndView();
+		EducationQNAReplyListVO qnaReplyListVO = new EducationQNAReplyListVO();
+		Paging paging = new Paging(5,10);
+		qnaReplyListVO.setPaging(paging);
+		
+		paging.setPageNumber(pageNo + "");
+		
+		int totalQNAReplyCount = educationBiz.getTotalQNAReplyCountByAtcId(atcId);
+		paging.setTotalArticleCount(totalQNAReplyCount);
+		
+		EducationQNAReplySearchVO searchVO = new EducationQNAReplySearchVO();
+		searchVO.setStartIndex(paging.getStartArticleNumber());
+		searchVO.setEndIndex(paging.getEndArticleNumber());
+		searchVO.setAtcId(atcId);
+		
+		MemberVO sessionMember = (MemberVO) session.getAttribute("_MEMBER_");
+		String sessionId = sessionMember.getId();
+		
+		EducationQNABBSVO oneQNABBSByAtcId = educationBiz.getOneQNABBSByAtcId(atcId);
+		
+		//조회수 증가
+		educationBiz.addHitsByAtcId(atcId);
+
+		List<EducationQNAReplyVO> qnaReplyListByAtcId = educationBiz.getAllQNAReplyListByAtcId(searchVO);
+		qnaReplyListVO.setQnaReplyList(qnaReplyListByAtcId);
+		
+		view.addObject("sessionId", sessionId);
+		view.addObject("qnaReplyListVO", qnaReplyListVO);
+		view.addObject("oneQNABBSByAtcId", oneQNABBSByAtcId);
+		
+		view.setViewName("myPage/eduBoardQNADetail");
+		
+		return view;
 	}
 
 }
