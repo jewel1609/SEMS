@@ -1,30 +1,13 @@
 package com.ktds.sems.pc.web;
 
-import static org.junit.Assert.*;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
-
-import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mock.web.MockHttpServletRequest;
-import org.springframework.mock.web.MockHttpSession;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.SemsTestCase;
-import com.ktds.sems.common.Session;
-import com.ktds.sems.member.vo.MemberVO;
-import com.ktds.sems.pc.vo.ReportedPcSearchVO;
-import com.ktds.sems.pc.vo.ReportedPcVO;
 
 @Transactional
 public class PcControllerTest extends SemsTestCase {
 
+	/*
 	@Autowired
 	private PcController pcController;
 	
@@ -75,5 +58,6 @@ public class PcControllerTest extends SemsTestCase {
 		}
 		
 	}
+	*/
 	
 }
