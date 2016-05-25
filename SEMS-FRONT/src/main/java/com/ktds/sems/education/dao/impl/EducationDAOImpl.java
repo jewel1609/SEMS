@@ -379,6 +379,14 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 	}
 
 	@Override
+	public int checkEndDate(String educationId, String id) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("educationId", educationId);
+		map.put("memberId", id);
+		return getSqlSession().selectOne("EducationDAO.checkEndDate", map);
+	}
+
+	@Override
 	public int getTotalReportReplyCount(ReportReplySearchVO reportReplySearchVO) {
 		return getSqlSession().selectOne("EducationDAO.getTotalReportReplyCount", reportReplySearchVO);
 	}

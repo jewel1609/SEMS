@@ -135,6 +135,8 @@ public interface EducationDAO {
 
 	public int addRequestRetractionHistory(String educationId, String retractionMsg, String memberId, String ip);
 
+	public int checkEndDate(String educationId, String id);
+
 	public int getTotalReportReplyCount(ReportReplySearchVO reportReplySearchVO);
 
 	public List<ReportReplyVO> getAllReportReply(ReportReplySearchVO reportReplySearchVO);
