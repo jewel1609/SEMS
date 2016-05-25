@@ -62,8 +62,6 @@ public class EducationDAOTest extends SemsTestCase {
 			
 			@Override
 			public void preparedTest() {
-				System.out.println("12321");
-				
 			}
 		});
 		
@@ -1032,7 +1030,9 @@ public class EducationDAOTest extends SemsTestCase {
 		eduReportSearchVO.setEducationId("ED-20160519-000233");
 		assertNotNull(educationDAO.getAllEduReport(eduReportSearchVO));
 	}
-	
+	/**
+	 * @author 김동규
+	 */
 	@Test
 	public void doActionDeleteBeforeCheckTest() {
 		MemberVO memberVO = new MemberVO();
@@ -1046,7 +1046,9 @@ public class EducationDAOTest extends SemsTestCase {
 			fail("[DAO Part] doActionDeleteBeforeCheckTest Fail.");
 		}
 	}
-	
+	/**
+	 * @author 김동규
+	 */	
 	@Test
 	public void attendedLectureUserListTest() {
 		String educationId = "ED-20160519-000241";
@@ -1060,13 +1062,15 @@ public class EducationDAOTest extends SemsTestCase {
 			}
 		}
 	}
-	
+	/**
+	 * @author 김동규
+	 */
 	@Test
 	public void emailNoticeForUserTest() {
 		String memberId = "test04";
 		MemberVO memberVO = educationDAO.emailNoticeForUser(memberId);
 		if (memberVO != null) {
-			assertSame(memberId, memberVO.getId());
+			assertNotNull(memberId, memberVO.getId());
 			assertNotNull(memberVO.getEmail());
 		}else {
 			fail("[DAO Part] emailNoticeForUserTest Fail.");

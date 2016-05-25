@@ -1,6 +1,7 @@
 package com.ktds.sems.pc.web;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,5 +37,12 @@ public class PcController {
 	public void changeReportedState(HttpServletResponse response, ReportedPcVO reportedPcVO) {
 		String data = pcService.changeReportedState(reportedPcVO);
 		AjaxUtil.sendResponse(response, data);
+	}
+	
+	@RequestMapping("/eduPlaceSet")
+	public ModelAndView educationPlaceSetting(HttpSession session){
+		ModelAndView view = new ModelAndView();
+		view.setViewName("pc/eduPlaceSet");
+		return view;
 	}
 }
