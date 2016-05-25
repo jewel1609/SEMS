@@ -8,6 +8,8 @@ import com.ktds.sems.education.vo.EduAttendanceSearchVO;
 import com.ktds.sems.education.vo.EduAttendanceVO;
 import com.ktds.sems.education.vo.EduFileSearchVO;
 import com.ktds.sems.education.vo.EduFileVO;
+import com.ktds.sems.education.vo.EduNoticeSearchVO;
+import com.ktds.sems.education.vo.EduNoticeVO;
 import com.ktds.sems.education.vo.EduQnaSearchVO;
 import com.ktds.sems.education.vo.EduQnaVO;
 import com.ktds.sems.education.vo.EduReportSearchVO;
@@ -64,6 +66,8 @@ public interface EducationBiz {
 
 	public List<EduFileVO> getAllEduFile(EduFileSearchVO eduFileSearchVO);
 
+	public boolean writeEduFileNoticeAction(EduNoticeVO eduNoticeVO);
+
 	public int getTotalAttendanceCount(EduAttendanceSearchVO eduAttendanceSearchVO);
 
 	public List<EduAttendanceVO> getAllAttendance(EduAttendanceSearchVO eduAttendanceSearchVO);
@@ -85,5 +89,19 @@ public interface EducationBiz {
 	public int getTotalEduReportHisotryCount(EduReportSearchVO reportSearchVO);
 
 	public List<EduReportVO> getAllEduReportHistory(EduReportSearchVO reportSearchVO);
+
+	public int getTotalEduFileNoticeCount( EduNoticeSearchVO eduNoticeSearchVO);
+
+	public List<EduNoticeVO> getAllEduFileNotice( EduNoticeSearchVO eduNoticeSearchVO);
+
+	public EduNoticeVO getOneNotice(String eduNoticeId);
+
+	public void addhits(String eduNoticeId);
+
+	public boolean doDeleteEduNotice(String eduNoticeId);
+
+	public boolean doEduFileNoticeModify(EduNoticeVO eduNoticeVO);
+
+
 
 }

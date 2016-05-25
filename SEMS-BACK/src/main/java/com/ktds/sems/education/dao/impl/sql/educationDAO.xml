@@ -440,7 +440,7 @@
 								FROM	EDU_FILE_BBS
 								<if test="searchType == 1 and searchType != null">
 								WHERE	MBR_ID LIKE '%'||#{searchKeyword}||'%'
-								AND		EDU_ID = #{educationId}
+								 AND		EDU_ID = #{educationId} 
 								</if>
 								<if test="searchType == 2 and searchType != null">
 								WHERE	TITLE LIKE '%'||#{searchKeyword}||'%'
@@ -548,6 +548,99 @@
 		FROM	EDU_INFO
 	</select>
 	
+	<select id="nextEduNoticeSeq" resultType="_int">
+		SELECT	IMP_ATC_ID_SEQ.NEXTVAL
+		FROM	DUAL
+	</select>
+
+	
+	<insert id="insertNewEduFileNotice" parameterType="eduNoticeVO">
+	INSERT INTO SEMS.IMP_ATC (
+							 	IMP_ATC_ID
+							 	, EDU_ID
+							 	, MBR_ID 
+							 	, TITLE 
+							 	, CONTENTS
+							 	, CREATE_DATE
+							 	, IMP_TP
+							 ) 
+	VALUES					 ( 
+								#{eduNoticeId}
+								, #{educationId}
+								, #{memberId}
+								, #{title}
+								, #{contents}
+								, SYSDATE
+								, #{noticeType}
+							)
+	
+	</insert>
+	
+	<select id="getTotalEduFileNoticeCount" resultType="_int">
+		SELECT	COUNT(IMP_ATC_ID)
+		FROM	IMP_ATC
+	</select>
+	
+	<select id="getAllEduFileNotice" parameterType="EduNoticeSearchVO" resultType="EduNoticeVO">
+		SELECT	IMP_ATC_ID eduNoticeId
+				, EDU_ID educationId
+				, MBR_ID memberId
+				, IS_DELETE isDelete
+				, TITLE title
+				, CONTENTS contents
+				, CREATE_DATE createDate
+				, MODIFY_DATE modifyDate
+				, HITS hits
+		FROM	IMP_ATC
+		WHERE	EDU_ID =  #{educationId} 
+		AND		IS_DELETE = 'N'
+		OR		IMP_TP ='important'
+		ORDER	BY IMP_ATC_ID
+	</select>
+	
+	<select id="getOneNotice" parameterType="String" resultType="EduNoticeVO" >
+		SELECT	IMP_ATC_ID eduNoticeId
+		        , EDU_ID educationId
+		        , MBR_ID memberId
+		        , IS_DELETE isDelete
+		        , TITLE title
+		        , CONTENTS contents
+		        , CREATE_DATE createDate
+		        , MODIFY_DATE modifyDate
+		        , HITS hits
+		        , IMP_TP noticeType
+		FROM	IMP_ATC
+		WHERE	IMP_ATC_ID =  #{eduNoticeId} 
+		
+	</select>
+	
+	<update id="addhits" parameterType="String">
+		UPDATE	IMP_ATC
+		SET		HITS = HITS +1
+		WHERE	IMP_ATC_ID = #{eduNoticeId} 
+	</update>
+	
+	<update id="doDeleteEduNotice" parameterType="String">
+		UPDATE	IMP_ATC
+		SET		IS_DELETE = 'Y'
+		WHERE	IMP_ATC_ID = #{eduNoticeId} 
+	</update>
+	
+	<update id="doEduFileNoticeModify" parameterType="EduNoticeVO">
+		UPDATE	IMP_ATC
+		SET		IMP_ATC_ID = #{eduNoticeId} 
+		<if test="title!= null">
+	 			, TITLE = #{title}
+	 	</if>
+		<if test="contents!= null">
+	 			, CONTENTS = #{contents}
+	 	</if>
+	 	<if test="noticeType != null">
+				, IMP_TP = #{noticeType}
+	 	</if>
+				, MODIFY_DATE =SYSDATE
+	 	WHERE	IMP_ATC_ID = #{eduNoticeId} 
+	</update>
 	<select id="teacherVOList" resultType="TeacherVO">
 		SELECT	M.NM name
 				, T.MBR_ID memberId

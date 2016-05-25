@@ -2,6 +2,8 @@ package com.ktds.sems.education.biz.impl;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,6 +18,8 @@ import com.ktds.sems.education.vo.EduAttendanceSearchVO;
 import com.ktds.sems.education.vo.EduAttendanceVO;
 import com.ktds.sems.education.vo.EduFileSearchVO;
 import com.ktds.sems.education.vo.EduFileVO;
+import com.ktds.sems.education.vo.EduNoticeSearchVO;
+import com.ktds.sems.education.vo.EduNoticeVO;
 import com.ktds.sems.education.vo.EduQnaSearchVO;
 import com.ktds.sems.education.vo.EduQnaVO;
 import com.ktds.sems.education.vo.EduReportSearchVO;
@@ -312,6 +316,74 @@ public class EducationBizImpl implements EducationBiz {
 			mailVO.setToId(memberVO.getEmail());
 			sendMail.sendMailToCustomer(mailVO);
 		}
+	}
+
+	@Override
+	public boolean writeEduFileNoticeAction(EduNoticeVO eduNoticeVO) {
+		
+		int nexteduNoticeId = educationDAO.nextEduNoticeSeq();
+		String nowDate = educationDAO.nowDate();
+		
+		/*
+		 * IMP-20160421-000001
+		 */
+		
+		String eduNoiceId = "IMP-" + nowDate + "-" + lpad(nexteduNoticeId + "", 6, "0");
+		
+		eduNoticeVO.setEduNoticeId(eduNoiceId);
+		eduNoticeVO.setContents(eduNoticeVO.getContents().replaceAll("\n", "<br/>"));
+		return educationDAO.insertNewEduFileNotice(eduNoticeVO) > 0;
+		
+	}
+
+	@Override
+	public int getTotalEduFileNoticeCount( EduNoticeSearchVO eduNoticeSearchVO) {
+		return educationDAO.getTotalEduFileNoticeCount(eduNoticeSearchVO);
+	}
+
+	@Override
+	public List<EduNoticeVO> getAllEduFileNotice( EduNoticeSearchVO eduNoticeSearchVO) {
+		return educationDAO.getAllEduFileNotice(eduNoticeSearchVO);
+	}
+
+	@Override
+	public EduNoticeVO getOneNotice(String eduNoticeId) {
+		return educationDAO.getOneNotice(eduNoticeId);
+	}
+
+	@Override
+	public void addhits(String eduNoticeId) {
+		educationDAO.addhits(eduNoticeId);
+	}
+
+	@Override
+	public boolean doDeleteEduNotice(String eduNoticeId) {
+		return educationDAO.doDeleteEduNotice(eduNoticeId) >0 ;
+	}
+
+	@Override
+	public boolean doEduFileNoticeModify(EduNoticeVO eduNoticeVO) {
+		EduNoticeVO newEduNoticeVO = educationDAO.getOneNotice(eduNoticeVO.getEduNoticeId());
+		EduNoticeVO changeEduNoticeVO = new EduNoticeVO();
+		changeEduNoticeVO.setEduNoticeId(newEduNoticeVO.getEduNoticeId());
+		
+		boolean isTitle = !newEduNoticeVO.getTitle().equals(eduNoticeVO.getTitle());
+		boolean isContents = !newEduNoticeVO.getContents().equals(eduNoticeVO.getContents());
+		boolean isNoticeType = !newEduNoticeVO.getNoticeType().contentEquals(eduNoticeVO.getNoticeType());
+		
+		if ( !isTitle && !isContents && !isNoticeType){
+			return true;
+		}
+		if (isTitle){
+			changeEduNoticeVO.setTitle(eduNoticeVO.getTitle());
+		}
+		if (isContents){
+			changeEduNoticeVO.setContents(eduNoticeVO.getContents());
+		}
+		if (isNoticeType){
+			changeEduNoticeVO.setNoticeType(eduNoticeVO.getNoticeType());
+		}
+		return educationDAO.doEduFileNoticeModify(changeEduNoticeVO) >0;
 	}
 
 	@Override

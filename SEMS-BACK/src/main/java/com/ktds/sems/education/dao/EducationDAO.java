@@ -8,6 +8,8 @@ import com.ktds.sems.education.vo.EduAttendanceSearchVO;
 import com.ktds.sems.education.vo.EduAttendanceVO;
 import com.ktds.sems.education.vo.EduFileSearchVO;
 import com.ktds.sems.education.vo.EduFileVO;
+import com.ktds.sems.education.vo.EduNoticeSearchVO;
+import com.ktds.sems.education.vo.EduNoticeVO;
 import com.ktds.sems.education.vo.EduQnaSearchVO;
 import com.ktds.sems.education.vo.EduQnaVO;
 import com.ktds.sems.education.vo.EduReportSearchVO;
@@ -46,6 +48,9 @@ public interface EducationDAO {
 	public List<EduQnaVO> getAllEduQna(EduQnaSearchVO eduQnaSearchVO);
 	public int getTotalEduFileCount(EduFileSearchVO eduFileSearchVO);
 	public List<EduFileVO> getAllEduFile(EduFileSearchVO eduFileSearchVO);
+	
+	public int nextEduNoticeSeq();
+	public int insertNewEduFileNotice(EduNoticeVO eduNoticeVO);
 	public int getTotalAttendanceCount(EduAttendanceSearchVO eduAttendanceSearchVO);
 	public List<EduAttendanceVO> getAllAttendance(EduAttendanceSearchVO eduAttendanceSearchVO);
 	public List<MemberVO> getAllMemberInEducation();
@@ -61,5 +66,11 @@ public interface EducationDAO {
 	public List<TeacherVO> teacherVOList();
 	public int getTotalEduReportHisotryCount(EduReportSearchVO reportSearchVO);
 	public List<EduReportVO> getAllEduReportHistory(EduReportSearchVO reportSearchVO);
+	public int getTotalEduFileNoticeCount(EduNoticeSearchVO eduNoticeSearchVO);
+	public List<EduNoticeVO> getAllEduFileNotice(EduNoticeSearchVO eduNoticeSearchVO);
+	public EduNoticeVO getOneNotice(String eduNoticeId);
+	public void addhits(String eduNoticeId);
+	public int doDeleteEduNotice(String eduNoticeId);
+	public int doEduFileNoticeModify(EduNoticeVO changeEduNoticeVO);
 
 }

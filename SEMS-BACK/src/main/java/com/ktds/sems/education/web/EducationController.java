@@ -1,8 +1,10 @@
 package com.ktds.sems.education.web;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,13 +13,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ktds.sems.common.Session;
 import com.ktds.sems.education.service.EducationService;
 import com.ktds.sems.education.vo.EduAttendanceSearchVO;
 import com.ktds.sems.education.vo.EduFileSearchVO;
+import com.ktds.sems.education.vo.EduNoticeSearchVO;
+import com.ktds.sems.education.vo.EduNoticeVO;
 import com.ktds.sems.education.vo.EduQnaSearchVO;
 import com.ktds.sems.education.vo.EduReportSearchVO;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationVO;
+import com.ktds.sems.member.vo.MemberVO;
 
 @Controller
 public class EducationController {
@@ -97,9 +103,9 @@ public class EducationController {
 	}
 
 	@RequestMapping("/{educationId}/eduFile")
-	public ModelAndView viewEduFilePage(@PathVariable String educationId, EduFileSearchVO eduFileSearchVO, @RequestParam(required = false, defaultValue = "0") int pageNo){
+	public ModelAndView viewEduFilePage(@PathVariable String educationId,  EduNoticeSearchVO eduNoticeSearchVO, EduFileSearchVO eduFileSearchVO, @RequestParam(required = false, defaultValue = "0") int pageNo){
 		eduFileSearchVO.setEducationId(educationId);
-		return educationService.getAllEduFileArticle(eduFileSearchVO, pageNo);
+		return educationService.getAllEduFileArticle(eduFileSearchVO, pageNo, eduNoticeSearchVO);
 	}
 
 	public void changeEducationApplyState(String educationHistoryId) {
@@ -119,6 +125,50 @@ public class EducationController {
 	@RequestMapping("/education/reportHistory")
 	public ModelAndView viewReportHistoryPage(EduReportSearchVO reportSearchVO, @RequestParam(required = false, defaultValue = "0") int pageNo){
 		return educationService.viewReportHistoryPage(reportSearchVO, pageNo);
+	}
+	
+	@RequestMapping("/{educationId}/EduFileNoticeWrtie")
+	public ModelAndView viewWriteEduFileNoticeWritePage(@PathVariable String educationId, EduNoticeVO eduNoticeVO) { 
+		ModelAndView view = new ModelAndView();
+		eduNoticeVO.setEducationId(educationId);
+		view.setViewName("education/EduFileNoticeWrtie");
+		return view;
+	}
+	
+	@RequestMapping("/{educationId}/doEdufileNoticeWriteAction")
+	public ModelAndView doWriteEduFileNoticeAction(@PathVariable String educationId, @Valid EduNoticeVO eduNoticeVO, 
+			Errors errors, HttpSession session) {
+		eduNoticeVO.setEducationId(educationId);
+		MemberVO memberVO = (MemberVO)session.getAttribute(Session.MEMBER);
+		eduNoticeVO.setMemberId(memberVO.getId());
+		return educationService.writeEduFileNoticeAction(eduNoticeVO , errors, session);
+	}
+	
+	@RequestMapping("/{educationId}/eduFileNotice/detail/{eduNoticeId}")
+	public ModelAndView viewDetailPage(@PathVariable String educationId, @PathVariable String eduNoticeId){
+		return educationService.viewDetail(educationId , eduNoticeId );
+	}
+	
+	@RequestMapping("/{educationId}/eduFileNotice/delete/{eduNoticeId}")
+	public String doDeleteEduNotice(@PathVariable String educationId, @PathVariable String eduNoticeId){
+		return educationService.doDeleteEduNotice(educationId, eduNoticeId);
+	}
+	
+	@RequestMapping("/{educationId}/massiveDeleteNotice")
+	public String massiveDeleteNoice(@PathVariable String educationId, HttpServletRequest request){
+		String[] deleteNoiceIds = request.getParameterValues("deleteNoticeId");
+		return educationService.massiveDeleteNoice(educationId, deleteNoiceIds);
+	}
+	
+	@RequestMapping("/{educationId}/modify/{eduNoticeId}")
+	public ModelAndView viewModifyEduFileNoticePage(@PathVariable String educationId, @PathVariable String eduNoticeId) {
+		return educationService.viewModifyNoticePage(eduNoticeId);
+	}
+	
+	@RequestMapping("/{educationId}/doEduFileNoticeModify/{eduNoticeId}")
+	public ModelAndView doEduFileNoticeModifyAction(@PathVariable String educationId, @PathVariable String eduNoticeId,
+			@Valid EduNoticeVO eduNoticeVO, Errors errors, HttpSession session) {
+		return educationService.doEduFileNoticeModify(educationId, eduNoticeId, eduNoticeVO, errors, session );
 	}
 	
 }

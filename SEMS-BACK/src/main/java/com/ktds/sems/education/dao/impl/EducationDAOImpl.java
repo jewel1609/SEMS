@@ -13,6 +13,8 @@ import com.ktds.sems.education.vo.EduAttendanceSearchVO;
 import com.ktds.sems.education.vo.EduAttendanceVO;
 import com.ktds.sems.education.vo.EduFileSearchVO;
 import com.ktds.sems.education.vo.EduFileVO;
+import com.ktds.sems.education.vo.EduNoticeSearchVO;
+import com.ktds.sems.education.vo.EduNoticeVO;
 import com.ktds.sems.education.vo.EduQnaSearchVO;
 import com.ktds.sems.education.vo.EduQnaVO;
 import com.ktds.sems.education.vo.EduReportSearchVO;
@@ -187,6 +189,47 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 	@Override
 	public MemberVO emailNoticeForUser(String memberId) {
 		return getSqlSession().selectOne("EducationDAO.emailNoticeForUser", memberId);
+	}
+
+	@Override
+	public int nextEduNoticeSeq() {
+		return getSqlSession().selectOne("EducationDAO.nextEduNoticeSeq");
+	}
+
+	@Override
+	public int insertNewEduFileNotice(EduNoticeVO eduNoticeVO) {
+		return getSqlSession().insert("EducationDAO.insertNewEduFileNotice", eduNoticeVO);
+	}
+
+	@Override
+	public int getTotalEduFileNoticeCount(EduNoticeSearchVO eduNoticeSearchVO) {
+		return getSqlSession().selectOne("EducationDAO.getTotalEduFileNoticeCount");
+	}
+
+	@Override
+	public List<EduNoticeVO> getAllEduFileNotice(EduNoticeSearchVO eduNoticeSearchVO) {
+		List<EduNoticeVO> eduNoticeVOs = getSqlSession().selectList("EducationDAO.getAllEduFileNotice", eduNoticeSearchVO);
+		return eduNoticeVOs;
+	}
+
+	@Override
+	public EduNoticeVO getOneNotice(String eduNoticeId) {
+		return getSqlSession().selectOne("EducationDAO.getOneNotice", eduNoticeId);
+	}
+
+	@Override
+	public void addhits(String eduNoticeId) {
+		getSqlSession().update("EducationDAO.addhits", eduNoticeId);
+	}
+
+	@Override
+	public int doDeleteEduNotice(String eduNoticeId) {
+		return getSqlSession().delete("EducationDAO.doDeleteEduNotice", eduNoticeId);
+	}
+
+	@Override
+	public int doEduFileNoticeModify(EduNoticeVO changeEduNoticeVO) {
+		return getSqlSession().update("EducationDAO.doEduFileNoticeModify", changeEduNoticeVO);
 	}
 
 	@Override
