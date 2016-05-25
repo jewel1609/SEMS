@@ -6,7 +6,6 @@ import java.util.Map;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 
-import com.ktds.sems.education.vo.EduClassVO;
 import com.ktds.sems.education.vo.EducationCostVO;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationHistoryVO;
@@ -385,21 +384,18 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 		return getSqlSession().selectOne("MemberDAO.getOneEducationInfo", eduIdAndMemberId);
 	}
 
-
 	@Override
 	public List<ReportReplyVO> getReportReplyListByMemberId(String id) {
 		return getSqlSession().selectList("MemberDAO.getReportReplyListByMemberId", id);
 	}
 
-	@Override
-	public void deleteJunitTestStampLoginTime(int lgiHtrId) {
-		getSqlSession().delete("MemberDAO.deleteJunitTestStampLoginTime", lgiHtrId);
-	}
+   @Override
+   public void deleteJunitTestStampLoginTime(int lgiHtrId) {
+      getSqlSession().delete("MemberDAO.deleteJunitTestStampLoginTime", lgiHtrId);
+   }
 
-	@Override
-	public int currentLoginHistorySeq() {
-		return getSqlSession().selectOne("MemberDAO.currentLoginHistorySeq");
-	}
-
-	
+   @Override
+   public int currentLoginHistorySeq() {
+      return getSqlSession().selectOne("MemberDAO.currentLoginHistorySeq");
+   }
 }
