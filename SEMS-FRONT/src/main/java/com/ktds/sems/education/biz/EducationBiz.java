@@ -138,6 +138,8 @@ public interface EducationBiz {
 
 	public boolean addRequestRetractionHistory(String educationId, String retractionMsg, String memberId, String ip);
 
+	public boolean checkEndDate(String educationId, String id);
+
 	public int getTotalReportReplyCount(ReportReplySearchVO reportReplySearchVO);
 
 	public List<ReportReplyVO> getAllReportReply(ReportReplySearchVO reportReplySearchVO);

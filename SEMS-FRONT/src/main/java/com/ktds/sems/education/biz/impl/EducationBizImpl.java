@@ -544,6 +544,13 @@ public class EducationBizImpl implements EducationBiz {
 		return educationDAO.checkEndDate(articleId);
 	}
 
+
+	@Override
+	public boolean checkEndDate(String educationId, String id) {
+		return educationDAO.checkEndDate(educationId, id) > 0;
+	}
+
+
 	@Override
 	public int getTotalQNAReplyCountByAtcId(String atcId) {
 		return educationDAO.getTotalQNAReplyCountByAtcId(atcId);
