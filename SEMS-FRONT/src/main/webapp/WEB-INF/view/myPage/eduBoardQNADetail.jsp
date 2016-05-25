@@ -36,12 +36,83 @@
 		
 		$(".adoptReplyBtn").click(function() {
 			
-			if ( confirm("답변을 채택하시겠습니까?") == true ) {
-				alert("답변 채택 완료");
+			var replyId = $(this).parent().parent().children(":eq(0)").children(":eq(0)").val();
+			
+			if ( confirm("답변을 채택하시겠습니까?") ) {
+				
+				$.post("<c:url value="/doAdoptReply"/>", 
+						{
+								"replyId" : replyId
+								
+						}, 
+						function(data){
+							if(data=="OK") {
+								alert("답변 채택 완료");
+								location.reload(true);
+							}
+							else if(data=="FAIL") {
+								alert("통신 실패");
+							}
+					});
+			}
+			else {
 				return;
 			}
 			
 		});
+		
+		$(".likeBtn").click(function() {
+			
+			var replyId = $(this).parent().children(":eq(0)").children(":eq(0)").val();
+			
+			
+			if ( confirm("추천하시겠습니까? 한 번 추천하면 취소할 수 없습니다.")) {
+				
+				$.post("<c:url value="/plusRecommendReply"/>", 
+					{ "replyId" : replyId }
+						, function(data) {
+					if(data == "OK") {
+						alert("추천을 누르셨습니다.");
+						location.reload(true);
+					}
+					else if(data == "FAIL"){
+						alert("이미 한번이상 누르셨습니다.");
+						location.reload(true);
+					}
+				});
+			}
+			else {
+				return;
+			}
+			
+		});
+		
+		$(".dislikeBtn").click(function() {
+			
+			var replyId = $(this).parent().children(":eq(0)").children(":eq(0)").val();
+			
+			
+			if ( confirm("반대하시겠습니까? 한 번 반대하면 취소할 수 없습니다.")) {
+				
+				$.post("<c:url value="/plusOpposeReply"/>", 
+					{ "replyId" : replyId }
+						, function(data) {
+					if(data == "OK") {
+						alert("반대를 누르셨습니다.");
+						location.reload(true);
+					}
+					else if(data == "FAIL"){
+						alert("이미 한번이상 누르셨습니다.");
+						location.reload(true);
+					}
+				});
+			}
+			else {
+				return;
+			}
+			
+		});
+		
 		
 		
 	});
@@ -71,11 +142,11 @@
 	<div>
 		<span>
 			작성자 : ${qnaReplyList.mbrId}
-			
+			<input type="hidden" class="replyId" name="replyId" value="${qnaReplyList.replyId}" />
 		</span><br/>
 		<span> 
 			날짜 : ${qnaReplyList.createdDate}
-			<c:if test="${ oneQNABBSByAtcId.mbrId eq sessionId && qnaReplyList.mbrId ne sessionId }">
+			<c:if test="${ oneQNABBSByAtcId.mbrId eq sessionId && qnaReplyList.mbrId ne sessionId && qnaReplyList.adtRpl eq 'N'}">
 			&nbsp;&nbsp;&nbsp;&nbsp; <input type="button" class="adoptReplyBtn" value="답변 채택" />
 			</c:if> 
 		</span><br/>
@@ -83,8 +154,8 @@
 			내용	: ${qnaReplyList.description} 
 			
 		</span><br/>
-		<input type="button" id="likeBtn" value="추천"/> ${qnaReplyList.likeCnt}
-		<input type="button" id="dislikeBtn" value="반대"/> ${qnaReplyList.dislikeCnt}
+		<input type="button" class="likeBtn" value="추천"/> ${qnaReplyList.likeCnt}
+		<input type="button" class="dislikeBtn" value="반대"/> ${qnaReplyList.dislikeCnt}
 		
 		점수 : ${qnaReplyList.qnaReplyPoint}
 	</div><br/>
