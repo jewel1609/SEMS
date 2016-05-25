@@ -274,7 +274,7 @@ public class MemberController {
 	 */
 	@RequestMapping("/member/myPage/course")
 	public ModelAndView viewMyEduCoursePage (@RequestParam(required=false, defaultValue="0") int pageNo, HttpSession session) {
-		return memberService.getCourseList(session, pageNo, MemberConstant.MY_NOW_EDU_COURSE);
+		return memberService.getCourseList(session, pageNo);
 	}
 	
 	/**
@@ -282,7 +282,7 @@ public class MemberController {
 	 */
 	@RequestMapping("/member/myPage/preCourse")
 	public ModelAndView viewMyPreEduCoursePage (@RequestParam(required=false, defaultValue="0") int pageNo, HttpSession session) {
-		return memberService.getCourseList(session, pageNo, MemberConstant.MY_PRE_EDU_COURSE);
+		return memberService.getCourseList(session, pageNo);
 	}
 	
 	/**
