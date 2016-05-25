@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.mock.web.MockMultipartHttpServletRequest;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,6 +34,7 @@ import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.EduFileListVO;
 import com.ktds.sems.education.vo.EduFileSearchVO;
 import com.ktds.sems.education.vo.EduFileVO;
+import com.ktds.sems.education.vo.EduNoticeSearchVO;
 import com.ktds.sems.education.vo.EduQnaListVO;
 import com.ktds.sems.education.vo.EduQnaSearchVO;
 import com.ktds.sems.education.vo.EduQnaVO;
@@ -1841,8 +1843,9 @@ public class EducationServiceTest extends SemsTestCase {
 	public void getAllEduFileArticle() {
 		
 		EduFileSearchVO eduFileSearchVO = new EduFileSearchVO();
+		EduNoticeSearchVO eduNoticeSearchVO = new EduNoticeSearchVO();
 		eduFileSearchVO.setEducationId("ED-20160519-000233");
-		ModelAndView view = educationService.getAllEduFileArticle(eduFileSearchVO, 0);
+		ModelAndView view = educationService.getAllEduFileArticle(eduFileSearchVO, 0, eduNoticeSearchVO);
 		if ( view != null ) {
 			String viewName = view.getViewName();
 			assertNotNull(viewName);
