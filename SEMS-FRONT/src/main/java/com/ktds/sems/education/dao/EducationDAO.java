@@ -2,6 +2,8 @@ package com.ktds.sems.education.dao;
 
 import java.util.List;
 
+import com.ktds.sems.education.vo.EduQnaSearchVO;
+import com.ktds.sems.education.vo.EduQnaVO;
 import com.ktds.sems.education.vo.BBSHistoryVO;
 import com.ktds.sems.education.vo.EducationFileBBSVO;
 import com.ktds.sems.education.vo.EducationQNABBSSearchVO;
@@ -104,7 +106,7 @@ public interface EducationDAO {
 	public int doReserveEducation(String educationId, String id);
 
 	public int updateStateToApply(String educationId);
-
+	
 	public List<EducationFileBBSVO> getEducationFileBBSList(FileBBSSearchVO searchVO);
 
 	public String getArticleSEQ();
@@ -132,7 +134,7 @@ public interface EducationDAO {
 	public void addHitsByAtcId(String atcId);
 
 	public void addQNAReply(EducationQNAReplyVO eduBBSReplyVO);
-
+	
 	public List<MemberVO> getAllMemberOfEducation(String educationId);
 
 	public int addRequestRetractionHistory(String educationId, String retractionMsg, String memberId, String ip);
@@ -156,7 +158,7 @@ public interface EducationDAO {
 	public List<ReportReplyVO> getAllReportByArticleId(String articleId, ReportReplySearchVO searchVO);
 
 	public String getNowDateTime();
-
+	
 	public int getEducationFileBBSCount(String educationId);
 	
 	public int getTotalEducationQNACount();
@@ -182,8 +184,29 @@ public interface EducationDAO {
 	public int addHitsEducationFileBBSByArticleId(String articleId);
 
 	public int addBBSHistoryHitByArticleId(BBSHistoryVO bbsHistoryVO);
-
+	
 	public String getEducationClassMember(String id);
 
 	public String getEducationClassTeacherByArticleId(String articleId);
+
+	public int getTotalEduQnaCount(EduQnaSearchVO eduQnaSearchVO);
+
+	public List<EduQnaVO> getAllEduQna(EduQnaSearchVO eduQnaSearchVO);
+
+	public int confirmMemberOfEdu(String educationId, String memberId);
+
+	public int insertEduQna(EduQnaVO eduQnaVO);
+
+	public int getNextEqbSeq();
+
+	public EduQnaVO detailOfEduQna(String eduQnaId);
+
+	public int addHitsToEduQna(String eduQnaId);
+	
+	public int addQnaEduReplyLike(String replyId);
+	
+	public int addQnaEduReplyDisLike(String replyId);
+
+	public int getTotalQnaEduReplyCount(String eduQnaId);
+
 }

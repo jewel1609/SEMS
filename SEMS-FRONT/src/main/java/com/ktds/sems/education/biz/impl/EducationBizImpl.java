@@ -22,6 +22,8 @@ import com.ktds.sems.education.vo.EducationQNAReplySearchVO;
 import com.ktds.sems.education.vo.EducationQNAReplyVO;
 import com.ktds.sems.education.vo.EducationReportSearchVO;
 import com.ktds.sems.education.vo.EducationReportVO;
+import com.ktds.sems.education.vo.EduQnaSearchVO;
+import com.ktds.sems.education.vo.EduQnaVO;
 import com.ktds.sems.education.vo.EducationSearchVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.FileBBSSearchVO;
@@ -353,7 +355,7 @@ public class EducationBizImpl implements EducationBiz {
 	public boolean updateStateToApply(String educationId) {
 		return educationDAO.updateStateToApply(educationId) > 0;
 	}
-
+	
 	@Override
 	public List<EducationFileBBSVO> getEducationFileBBSList(FileBBSSearchVO searchVO) {
 		return educationDAO.getEducationFileBBSList(searchVO);
@@ -436,7 +438,7 @@ public class EducationBizImpl implements EducationBiz {
 	public void addQNAReply(EducationQNAReplyVO eduBBSReplyVO) {
 		educationDAO.addQNAReply(eduBBSReplyVO);
 	}
-
+	
 	@Override
 	public List<MemberVO> getAllMemberOfEducation(String educationId) {
 		return educationDAO.getAllMemberOfEducation(educationId);
@@ -492,7 +494,7 @@ public class EducationBizImpl implements EducationBiz {
 	public String getNowDateTime() {
 		return educationDAO.getNowDateTime();
 	}
-
+	
 	@Override
 	public int getEducationFileBBSCount(String educationId) {
 		return educationDAO.getEducationFileBBSCount(educationId);
@@ -580,7 +582,7 @@ public class EducationBizImpl implements EducationBiz {
 	public int getTotalQNAReplyCountByAtcId(String atcId) {
 		return educationDAO.getTotalQNAReplyCountByAtcId(atcId);
 	}
-
+	
 	@Override
 	public boolean isEducationClassMember(String id) {
 		return educationDAO.getEducationClassMember(id) != null;
@@ -590,6 +592,76 @@ public class EducationBizImpl implements EducationBiz {
 	public boolean isEducationClassTeacherByArticleId(String articleId) {
 		return educationDAO.getEducationClassTeacherByArticleId(articleId) != null;
 	}
+
+	@Override
+	public int getTotalEduQnaCount(EduQnaSearchVO eduQnaSearchVO) {
+		return educationDAO.getTotalEduQnaCount(eduQnaSearchVO);
+	}
+
+	@Override
+	public List<EduQnaVO> getAllEduQna(EduQnaSearchVO eduQnaSearchVO) {
+		return educationDAO.getAllEduQna(eduQnaSearchVO);
+	}
+
+	@Override
+	public boolean confirmMemberOfEdu(String educationId, String memberId) {
+		return educationDAO.confirmMemberOfEdu(educationId, memberId) > 0;
+	}
+
+	@Override
+	public boolean insertEduQna(EduQnaVO eduQnaVO) {
+		return educationDAO.insertEduQna(eduQnaVO) > 0;
+	}
+
+	@Override
+	public int getNextEqbSeq() {
+		return educationDAO.getNextEqbSeq();
+	}
+
+	@Override
+	public EduQnaVO detailOfEduQna(String eduQnaId) {
+		return educationDAO.detailOfEduQna(eduQnaId);
+	}
+
+	@Override
+	public boolean addHitsToEduQna(String eduQnaId) {
+		return educationDAO.addHitsToEduQna(eduQnaId) > 0;
+	}
+
+	@Override
+	public boolean addQnaEduReplyLike(String replyId) {
+		return educationDAO.addQnaEduReplyLike(replyId) > 0;
+	}
+
+	@Override
+	public boolean addQnaEduReplyDisLike(String replyId) {
+		return educationDAO.addQnaEduReplyDisLike(replyId) > 0;
+	}
+
+	@Override
+	public void sendEmailInEduQna(String toEmail, String fromEmail, EduQnaVO eduQnaVO , EducationQNAReplyVO eduBBSReplyVO) {
+		SendMail sendMail = new SendMail();
+		MailVO mailVO = new MailVO();
+
+		mailVO.setFromId(fromEmail);
+		mailVO.setFromPassword("123qwe!@#qwe");
+		mailVO.setSubject("문의하신 질문에 대한 답변입니다.");
+		mailVO.setText("<html><body>문의하신분 : " + eduQnaVO.getMemberId() + "<br/> 작성 시간 : " + eduQnaVO.getCreateDate()
+				+ "<br/> 문의 내용 : " + eduQnaVO.getContents() + "<br/><br/><br/><br/>" + " 답변 작성자: "
+				+ eduBBSReplyVO.getMbrId()  + "<br/> 답변 내용 : "
+				+ eduBBSReplyVO.getDescription() + "<br/><br/> 문의해 주셔서 감사합니다." + "</body></html>");
+
+		mailVO.setToId(toEmail);
+		
+		sendMail.sendMailToCustomer(mailVO);
+		
+	}
+
+	@Override
+	public int getTotalQnaEduReplyCount(String eduQnaId) {
+		return educationDAO.getTotalQnaEduReplyCount(eduQnaId);
+	}
+
 }
 
 

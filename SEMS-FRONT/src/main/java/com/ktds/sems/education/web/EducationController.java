@@ -20,6 +20,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.common.Session;
 import com.ktds.sems.education.service.EducationService;
+import com.ktds.sems.education.vo.EduQnaSearchVO;
+import com.ktds.sems.education.vo.EduQnaVO;
 import com.ktds.sems.education.vo.EducationFileBBSVO;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationQNABBSVO;
@@ -342,4 +344,48 @@ public class EducationController {
 	public void doDownloadEducationFile(@PathVariable String fileId, HttpServletRequest request, HttpServletResponse response){
 		educationService.downloadEducationFile(fileId, request, response);
 	}
+	
+	@RequestMapping("/{educationId}/eduQna")
+	public ModelAndView viewQnAPage(EduQnaSearchVO eduQnaSearchVO, @PathVariable String educationId, @RequestParam(required = false, defaultValue = "0") int pageNo){
+		eduQnaSearchVO.setEducationId(educationId);
+		return educationService.getAllQnaArticle(eduQnaSearchVO, pageNo);
+	}
+	
+	@RequestMapping("/writeEduQna/{educationId}")
+	public ModelAndView viewWriteEduQna(@PathVariable String educationId, HttpSession session){
+		return educationService.viewWriteEduQna(educationId, session);
+	}
+	
+	@RequestMapping("/doWriteEduQnaAction")
+	public ModelAndView doWriteEduQnaAction(EduQnaVO eduQnaVO,  HttpSession session){
+		return educationService.doWriteEduQnaAction(eduQnaVO, session);
+	}
+	
+	@RequestMapping("/detailOfEduQna/{eduQnaId}/{educationId}")
+	public ModelAndView detailOfEduQna(@PathVariable String eduQnaId, @PathVariable String educationId
+			, HttpSession session, @RequestParam(required=false, defaultValue="0") int pageNo){
+		return educationService.detailOfEduQna(eduQnaId, educationId, session, pageNo);
+	}
+	
+	@RequestMapping("/eduQnaReply/{educationId}")
+	public ModelAndView doEduQnaReplyAction(@Valid EducationQNAReplyVO eduBBSReplyVO, @PathVariable String educationId, Errors errors, HttpSession session) {
+		return educationService.doEduQnaReplyAction(eduBBSReplyVO, errors, session, educationId);
+	}
+	
+	@RequestMapping("/addQnaEduReplyLike")
+	public void addQnaEduReplyLike(HttpServletRequest request, HttpServletResponse response, HttpSession session){
+		String replyId = request.getParameter("replyId");
+		
+		String status = educationService.addQnaEduReplyLike(replyId, session);
+		AjaxUtil.sendResponse(response, status);
+	}
+	
+	@RequestMapping("/addQnaEduReplyDisLike")
+	public void addQnaEduReplyDisLike(HttpServletRequest request, HttpServletResponse response, HttpSession session){
+		String replyId = request.getParameter("replyId");
+		
+		String status = educationService.addQnaEduReplyDisLike(replyId, session);
+		AjaxUtil.sendResponse(response, status);
+	}
+	
 }

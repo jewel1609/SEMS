@@ -10,6 +10,8 @@ import org.springframework.validation.Errors;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ktds.sems.education.vo.EduQnaSearchVO;
+import com.ktds.sems.education.vo.EduQnaVO;
 import com.ktds.sems.education.vo.EducationFileBBSVO;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationQNABBSVO;
@@ -59,7 +61,7 @@ public interface EducationService {
 	public String doRequestRetraction(HttpServletRequest request, HttpSession session);
 
 	public String doReserveEducation(String educationId, HttpSession session);
-
+	
 	public ModelAndView showEducationFileBBSPage(String educationId, int pageNo);
 
 	public ModelAndView doWriteEducationFileBBSAction(EducationFileBBSVO educationFileBBSVO, MultipartHttpServletRequest request, HttpSession session);
@@ -77,7 +79,7 @@ public interface EducationService {
 	public ModelAndView doReportWriteAction(EducationReportVO educationReportVO, Errors errors, MultipartHttpServletRequest request, HttpSession session);
 	
 	public ModelAndView doQNAReplyWriteAction(EducationQNAReplyVO eduBBSReplyVO, Errors errors, HttpSession session);
-
+	
 	public ModelAndView doReportSubmit(ReportReplyVO reportReplyVO, MultipartHttpServletRequest request, HttpSession session);
 
 	public ModelAndView viewDetailEducationReport(EducationReportVO educationReportVO, HttpSession session, int pageNo);
@@ -99,5 +101,20 @@ public interface EducationService {
 	public ModelAndView viewEduBoardQNADetailPage(String atcId, int pageNo, HttpSession session);
 
 	public void downloadEducationFile(String fileId, HttpServletRequest request, HttpServletResponse response);
+	
+	public ModelAndView viewWriteEduQna(String educationId, HttpSession session);
 
+	public ModelAndView doWriteEduQnaAction(EduQnaVO eduQnaVO, HttpSession session);
+
+	public ModelAndView detailOfEduQna(String eduQnaId, String educationId, HttpSession session, int pageNo);
+
+	public ModelAndView doEduQnaReplyAction(EducationQNAReplyVO eduBBSReplyVO, Errors errors, HttpSession session, String educationId);
+
+	public String addQnaEduReplyLike(String replyId, HttpSession session);
+
+	public String addQnaEduReplyDisLike(String replyId, HttpSession session);
+	
+	public ModelAndView getAllQnaArticle(EduQnaSearchVO qnaArticleSearchVO, int pageNo);
+
+	
 }

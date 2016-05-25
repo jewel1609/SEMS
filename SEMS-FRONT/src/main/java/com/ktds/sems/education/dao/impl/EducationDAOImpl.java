@@ -9,6 +9,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.ktds.sems.education.dao.EducationDAO;
+import com.ktds.sems.education.vo.EduQnaSearchVO;
+import com.ktds.sems.education.vo.EduQnaVO;
 import com.ktds.sems.education.vo.BBSHistoryVO;
 import com.ktds.sems.education.vo.EducationFileBBSVO;
 import com.ktds.sems.education.vo.EducationQNABBSSearchVO;
@@ -293,7 +295,7 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 	public int updateStateToApply(String educationId) {		
 		return getSqlSession().update("EducationDAO.updateStateToApply", educationId);
 	}
-
+	
 	@Override
 	public List<EducationFileBBSVO> getEducationFileBBSList(FileBBSSearchVO searchVO) {
 		return getSqlSession().selectList("EducationDAO.getEducationFileBBSList", searchVO);
@@ -364,7 +366,7 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 	public void addQNAReply(EducationQNAReplyVO eduBBSReplyVO) {
 		getSqlSession().insert("EducationDAO.addQNAReply", eduBBSReplyVO);
 	}
-
+	
 	@Override
 	public List<MemberVO> getAllMemberOfEducation(String educationId) {
 		return getSqlSession().selectList("EducationDAO.getAllMemberOfEducation", educationId);
@@ -437,7 +439,7 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 	public String getNowDateTime() {
 		return getSqlSession().selectOne("EducationDAO.getNowDateTime");
 	}
-
+	
 	@Override
 	public int getEducationFileBBSCount(String educationId) {
 		return getSqlSession().selectOne("EducationDAO.getEducationFileBBSCount", educationId);
@@ -503,7 +505,7 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 	public int addBBSHistoryHitByArticleId(BBSHistoryVO bbsHistoryVO) {
 		return getSqlSession().insert("EducationDAO.addBBSHistoryHitByArticleId", bbsHistoryVO);
 	}
-
+	
 	@Override
 	public String getEducationClassMember(String id) {
 		return getSqlSession().selectOne("EducationDAO.getEducationClassMember", id);
@@ -512,6 +514,59 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 	@Override
 	public String getEducationClassTeacherByArticleId(String articleId) {
 		return getSqlSession().selectOne("EducationDAO.getEducationClassTeacherByArticleId", articleId);
+	}
+
+	@Override
+	public int getTotalEduQnaCount(EduQnaSearchVO eduQnaSearchVO) {
+		return getSqlSession().selectOne("EducationDAO.getTotalEduQnaCount", eduQnaSearchVO);
+	}
+
+	@Override
+	public List<EduQnaVO> getAllEduQna(EduQnaSearchVO eduQnaSearchVO) {
+		return getSqlSession().selectList("EducationDAO.getAllEduQna", eduQnaSearchVO);
+	}
+
+	@Override
+	public int confirmMemberOfEdu(String educationId, String memberId) {
+		Map<String, String> hashMap = new HashMap<String, String>();
+		hashMap.put("educationId", educationId);
+		hashMap.put("memberId", memberId);
+		return getSqlSession().selectOne("EducationDAO.confirmMemberOfEdu",hashMap);
+	}
+
+	@Override
+	public int insertEduQna(EduQnaVO eduQnaVO) {
+		return getSqlSession().insert("EducationDAO.insertEduQna", eduQnaVO);
+	}
+
+	@Override
+	public int getNextEqbSeq() {
+		return getSqlSession().selectOne("EducationDAO.nextEqbSeq");
+	}
+
+	@Override
+	public EduQnaVO detailOfEduQna(String eduQnaId) {
+		return getSqlSession().selectOne("EducationDAO.detailOfEduQna", eduQnaId);
+	}
+
+	@Override
+	public int addHitsToEduQna(String eduQnaId) {
+		return getSqlSession().update("EducationDAO.addHitsToEduQna", eduQnaId);
+	}
+
+	@Override
+	public int addQnaEduReplyLike(String replyId) {
+		return getSqlSession().update("EducationDAO.addQnaEduReplyLike", replyId);
+	}
+
+	@Override
+	public int addQnaEduReplyDisLike(String replyId) {
+		return getSqlSession().update("EducationDAO.addQnaEduReplyDisLike", replyId);
+	}
+
+	@Override
+	public int getTotalQnaEduReplyCount(String eduQnaId) {
+		return getSqlSession().selectOne("EducationDAO.getTotalQnaEduReplyCount", eduQnaId);
 	}
 
 }

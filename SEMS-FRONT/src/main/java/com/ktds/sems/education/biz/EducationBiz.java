@@ -2,6 +2,8 @@ package com.ktds.sems.education.biz;
 
 import java.util.List;
 
+import com.ktds.sems.education.vo.EduQnaSearchVO;
+import com.ktds.sems.education.vo.EduQnaVO;
 import com.ktds.sems.education.vo.BBSHistoryVO;
 import com.ktds.sems.education.vo.EducationFileBBSVO;
 import com.ktds.sems.education.vo.EducationQNABBSSearchVO;
@@ -107,7 +109,7 @@ public interface EducationBiz {
 	public boolean doReserveEducation(String educationId, String id);
 
 	public boolean updateStateToApply(String educationId);
-
+	
 	public List<EducationFileBBSVO> getEducationFileBBSList(FileBBSSearchVO searchVO);
 
 	public String generateArticleId();
@@ -135,7 +137,7 @@ public interface EducationBiz {
 	public void addHitsByAtcId(String atcId);
 
 	public void addQNAReply(EducationQNAReplyVO eduBBSReplyVO);
-
+	
 	public List<MemberVO> getAllMemberOfEducation(String educationId);
 
 	public boolean addRequestRetractionHistory(String educationId, String retractionMsg, String memberId, String ip);
@@ -183,5 +185,27 @@ public interface EducationBiz {
 	public boolean isEducationClassMember(String id);
 
 	public boolean isEducationClassTeacherByArticleId(String articleId);
+	
+	public int getTotalEduQnaCount(EduQnaSearchVO eduQnaSearchVO);
+
+	public List<EduQnaVO> getAllEduQna(EduQnaSearchVO eduQnaSearchVO);
+
+	public boolean confirmMemberOfEdu(String educationId, String memberId);
+
+	public boolean insertEduQna(EduQnaVO eduQnaVO);
+
+	public int getNextEqbSeq();
+
+	public EduQnaVO detailOfEduQna(String eduQnaId);
+	
+	public boolean addHitsToEduQna(String eduQnaId);
+
+	public boolean addQnaEduReplyLike(String replyId);
+
+	public boolean addQnaEduReplyDisLike(String replyId);
+
+	public void sendEmailInEduQna(String toEmail, String fromEmail, EduQnaVO eduQnaVO, EducationQNAReplyVO eduBBSReplyVO);
+
+	public int getTotalQnaEduReplyCount(String eduQnaId);
 
 }
