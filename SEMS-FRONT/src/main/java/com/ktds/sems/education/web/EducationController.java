@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ktds.sems.common.Session;
 import com.ktds.sems.education.service.EducationService;
 import com.ktds.sems.education.vo.EducationFileBBSVO;
+import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationQNABBSVO;
 import com.ktds.sems.education.vo.EducationQNAReplyListVO;
 import com.ktds.sems.education.vo.EducationQNAReplyVO;
@@ -328,6 +329,13 @@ public class EducationController {
 	@RequestMapping("/myPage/myReportListInit")
 	public String myReportListInit() {
 		return "redirect:/myPage/myReportList";
+	}
+	
+	@RequestMapping("/checkEduApplicant")
+	public ModelAndView viewCheckApplicantPage(EducationHistorySearchVO eduHistorySearchVO, @RequestParam(required = false, defaultValue = "0") int pageNo) {
+		// JC (JOIN_CMPL)
+		ModelAndView view = educationService.getJCEduHistory(eduHistorySearchVO, pageNo);
+		return view;
 	}
 	
 	@RequestMapping("/education/modifyReport/{articleId}")

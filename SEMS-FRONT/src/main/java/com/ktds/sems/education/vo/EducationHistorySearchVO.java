@@ -13,8 +13,25 @@ public class EducationHistorySearchVO {
 	private String searchApplyState;
 	private String startDate;
 	private String endDate;
+	private String searchKeyword;
+	private String searchDate;
 	
-	
+
+	public String getSearchKeyword() {
+		return searchKeyword;
+	}
+
+	public void setSearchKeyword(String searchKeyword) {
+		this.searchKeyword = searchKeyword;
+	}
+
+	public String getSearchDate() {
+		return searchDate;
+	}
+
+	public void setSearchDate(String searchDate) {
+		this.searchDate = searchDate;
+	}
 
 	public String getSearchType() {
 		return searchType;

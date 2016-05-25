@@ -10,6 +10,8 @@ import org.slf4j.LoggerFactory;
 
 import com.ktds.sems.education.dao.EducationDAO;
 import com.ktds.sems.education.vo.EducationFileBBSVO;
+import com.ktds.sems.education.vo.EducationHistorySearchVO;
+import com.ktds.sems.education.vo.EducationHistoryVO;
 import com.ktds.sems.education.vo.EducationQNABBSVO;
 import com.ktds.sems.education.vo.EducationQNAReplyVO;
 import com.ktds.sems.education.vo.EducationReportSearchVO;
@@ -422,6 +424,17 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 	@Override
 	public String getNowDateTime() {
 		return getSqlSession().selectOne("EducationDAO.getNowDateTime");
+	}
+
+	@Override
+	public int getJCEduHistoryCount(EducationHistorySearchVO eduHistorySearchVO) {
+		logger.info(eduHistorySearchVO.getSearchKeyword());
+		return getSqlSession().selectOne("EducationDAO.getJCEduHistoryCount", eduHistorySearchVO);
+	}
+
+	@Override
+	public List<EducationHistoryVO> getJCEduHistoryHistory(EducationHistorySearchVO eduHistorySearchVO) {
+		return getSqlSession().selectList("EducationDAO.getJCEduHistoryHistory", eduHistorySearchVO);
 	}
 
 	@Override

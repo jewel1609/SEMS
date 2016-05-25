@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.education.vo.EducationFileBBSVO;
+import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationQNABBSVO;
 import com.ktds.sems.education.vo.EducationQNAReplyVO;
 import com.ktds.sems.education.vo.EducationReportSearchVO;
@@ -92,6 +93,8 @@ public interface EducationService {
 	public void checkEndDate(String articleId, HttpServletResponse response);
 
 	public List<EducationQNAReplyVO> getAllQNAReplyListByAtcId(String atcId);
+
+	public ModelAndView getJCEduHistory(EducationHistorySearchVO eduHistorySearchVO, int pageNo);
 
 	public String deleteReport(EducationReportVO educationReportVO, HttpSession session);
 

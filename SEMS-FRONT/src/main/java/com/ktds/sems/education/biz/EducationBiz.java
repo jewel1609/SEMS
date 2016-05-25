@@ -3,6 +3,8 @@ package com.ktds.sems.education.biz;
 import java.util.List;
 
 import com.ktds.sems.education.vo.EducationFileBBSVO;
+import com.ktds.sems.education.vo.EducationHistorySearchVO;
+import com.ktds.sems.education.vo.EducationHistoryVO;
 import com.ktds.sems.education.vo.EducationQNABBSVO;
 import com.ktds.sems.education.vo.EducationQNAReplyVO;
 import com.ktds.sems.education.vo.EducationReportSearchVO;
@@ -157,5 +159,9 @@ public interface EducationBiz {
 	public void deleteReport(EducationReportVO educationReportVO);
 
 	public String checkEndDate(String articleId);
+
+	public int getJCEduHistoryCount(EducationHistorySearchVO eduHistorySearchVO);
+
+	public List<EducationHistoryVO> getJCEducationHistory(EducationHistorySearchVO eduHistorySearchVO);
 
 }

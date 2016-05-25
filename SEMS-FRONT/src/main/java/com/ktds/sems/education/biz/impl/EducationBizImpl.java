@@ -13,6 +13,8 @@ import com.ktds.sems.common.vo.MailVO;
 import com.ktds.sems.education.biz.EducationBiz;
 import com.ktds.sems.education.dao.EducationDAO;
 import com.ktds.sems.education.vo.EducationFileBBSVO;
+import com.ktds.sems.education.vo.EducationHistorySearchVO;
+import com.ktds.sems.education.vo.EducationHistoryVO;
 import com.ktds.sems.education.vo.EducationQNABBSVO;
 import com.ktds.sems.education.vo.EducationQNAReplyVO;
 import com.ktds.sems.education.vo.EducationReportSearchVO;
@@ -487,6 +489,16 @@ public class EducationBizImpl implements EducationBiz {
 	@Override
 	public String getNowDateTime() {
 		return educationDAO.getNowDateTime();
+	}
+
+	@Override
+	public int getJCEduHistoryCount(EducationHistorySearchVO eduHistorySearchVO) {
+		return educationDAO.getJCEduHistoryCount(eduHistorySearchVO);
+	}
+
+	@Override
+	public List<EducationHistoryVO> getJCEducationHistory(EducationHistorySearchVO eduHistorySearchVO) {
+		return educationDAO.getJCEduHistoryHistory(eduHistorySearchVO);
 	}
 
 	@Override

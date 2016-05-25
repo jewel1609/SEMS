@@ -1091,6 +1091,70 @@
 		FROM	DUAL
 	</select>
 	
+	<select id="getJCEduHistoryCount" parameterType="EducationHistorySearchVO" resultType="_int">
+		SELECT	COUNT(*)
+		FROM	EDU_HTR
+		WHERE	EDU_HTR.STAT = 'EDU_JN_C'
+		<if test="searchKeyword != null and searchKeyword != ''">
+			<if test ="searchType == 'educationName'">
+			AND		EDU_HTR.EDU_ID IN 	(
+											SELECT	EDU_INFO.EDU_ID
+											FROM	EDU_INFO
+											WHERE	EDU_INFO.EDU_TTL LIKE '%'||#{searchKeyword}||'%'
+								)
+			</if>
+			<if test ="searchType == 'memberId'">
+				AND EDU_HTR.MBR_ID LIKE '%'||#{searchKeyword}||'%'
+			</if>
+		</if>
+		<if test="searchDate != null and searchDate != ''">
+			<if test="searchType == 'date'">
+					AND	 TO_CHAR( EDU_HTR.EDU_HTR_DT , 'YYYY-MM-DD')  =  #{searchDate}		
+			</if>
+		</if>
+ 	</select>
+	
+	<select id="getJCEduHistoryHistory" parameterType="EducationHistorySearchVO" resultType="EducationHistoryVO">
+ 		SELECT	JCE_HTR.EDU_HTR_ID educationHistoryId
+				, JCE_HTR.EDU_TTL educationTitle
+				, 	JCE_HTR.MBR_ID memberId
+				, 	JCE_HTR.EDU_HTR_DT educationHistoryDate
+				, 	JCE_HTR.STAT state
+				, 	JCE_HTR.IP ip
+				, 	JCE_HTR.CMNT cmnt
+				, 	JCE_HTR.FDBK fdbk
+		FROM	(
+					SELECT	ROWNUM AS RNUM
+							, EDU_HTR_KEYWORD.*
+					FROM	(
+									SELECT	EDU_HTR.*, EDU_INFO.EDU_TTL
+									FROM	EDU_HTR
+											, EDU_INFO
+									WHERE	EDU_HTR.EDU_ID = EDU_INFO.EDU_ID
+									AND		STAT = 'EDU_JN_C'
+									<if test="searchKeyword != null and searchKeyword != ''">
+										<if test ="searchType == 'educationName'">
+										AND		EDU_HTR.EDU_ID IN 	(
+																		SELECT	EDU_INFO.EDU_ID
+																		FROM	EDU_INFO
+																		WHERE	EDU_INFO.EDU_TTL LIKE '%'||#{searchKeyword}||'%'
+															)
+										</if>
+										<if test ="searchType == 'memberId'">
+											AND EDU_HTR.MBR_ID LIKE '%'||#{searchKeyword}||'%'
+										</if>
+									</if>
+									<if test="searchDate != null and searchDate != ''">
+										<if test="searchType == 'date'">
+												AND	 TO_CHAR( EDU_HTR.EDU_HTR_DT , 'YYYY-MM-DD')  =  #{searchDate}		
+										</if>
+									</if>
+							) EDU_HTR_KEYWORD
+					WHERE	ROWNUM <![CDATA[<=]]> #{endIndex}
+				) JCE_HTR
+		WHERE	RNUM <![CDATA[>=]]> #{startIndex}
+	</select>
+	
 	<update id="modifyReport" parameterType="EducationReportVO">
 		UPDATE	EDU_RPT_BBS
 		SET		ATC_ID	= #{articleId}
