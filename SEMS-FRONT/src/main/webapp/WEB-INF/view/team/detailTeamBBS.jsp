@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
+<script type="text/javascript" src="<c:url value='/resources/js/jquery.min.js"'/>"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>팀별 게시판 상세 페이지</title>
 </head>
@@ -29,7 +30,10 @@
 			<td>${teamBBS.modifiedDate }</td>
 			<td>${teamBBS.isNotice}</td>
 		</tr>	
-	
+		<tr>
+		<td><a href="<c:url value='/team/teamBBS/like/${teamBBSVO.teamBBSId}'/>">좋아요</a></td>
+		<td><a href="<c:url value='/team/teamBBS/dislike/${teamBBSVO.teamBBSId}'/>">싫어요</a></td>
+		</tr>
 	</table>
 
 
