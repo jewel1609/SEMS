@@ -6,9 +6,11 @@ import java.util.Map;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 
+import com.ktds.sems.education.vo.EduClassVO;
 import com.ktds.sems.education.vo.EducationCostVO;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationHistoryVO;
+import com.ktds.sems.education.vo.EducationSearchVO;
 import com.ktds.sems.education.vo.EducationStateVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.QNAVO;
@@ -23,7 +25,7 @@ import com.ktds.sems.member.vo.MemberTypeVO;
 import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.member.vo.MenuManageVO;
 
-public class MemberDAOImpl  extends SqlSessionDaoSupport implements MemberDAO {
+public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 
 	// 준호
 	@Override
@@ -289,11 +291,6 @@ public class MemberDAOImpl  extends SqlSessionDaoSupport implements MemberDAO {
 	}
 
 	@Override
-	public List<EducationHistoryVO> getCourseList(EducationHistorySearchVO educationHistorySearchVO) {
-		return getSqlSession().selectList("MemberDAO.getCourseList", educationHistorySearchVO);
-	}
-	
-	@Override
 	public EducationHistoryVO getOneEducationByIdAndEducationId(String educationId, String id) {
 		
 		Map<String, String> paramMap = new HashMap<String, String>();
@@ -356,6 +353,11 @@ public class MemberDAOImpl  extends SqlSessionDaoSupport implements MemberDAO {
 	@Override
 	public int checkValidationCourseAccess(String memberId) {
 		return getSqlSession().selectOne("MemberDAO.checkValidationCourseAccess", memberId);
+	}
+
+	@Override
+	public List<EducationVO> getCourseList(EducationSearchVO myEducationList) {
+		return getSqlSession().selectList("MemberDAO.getCourseList", myEducationList);
 	}
 
 	@Override

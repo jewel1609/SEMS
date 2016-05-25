@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
+import com.ktds.sems.member.MemberConstant;
 import com.ktds.sems.member.service.MemberService;
 import com.ktds.sems.member.vo.LoginHistorySearchVO;
 import com.ktds.sems.member.vo.MemberVO;
@@ -269,10 +270,19 @@ public class MemberController {
 	
 	/**
 	 * 강의포기를 위한 강의리스트 > 구본호
+	 * 강의 게시판 > 오평화
 	 */
 	@RequestMapping("/member/myPage/course")
-	public ModelAndView viewResignPage (@RequestParam(required=false, defaultValue="0") int pageNo, HttpSession session) {
-		return memberService.getCourseList(session, pageNo);
+	public ModelAndView viewMyEduCoursePage (@RequestParam(required=false, defaultValue="0") int pageNo, HttpSession session) {
+		return memberService.getCourseList(session, pageNo, MemberConstant.MY_NOW_EDU_COURSE);
+	}
+	
+	/**
+	 * 강의 게시판 > 오평화
+	 */
+	@RequestMapping("/member/myPage/preCourse")
+	public ModelAndView viewMyPreEduCoursePage (@RequestParam(required=false, defaultValue="0") int pageNo, HttpSession session) {
+		return memberService.getCourseList(session, pageNo, MemberConstant.MY_PRE_EDU_COURSE);
 	}
 	
 	/**

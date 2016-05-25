@@ -583,39 +583,36 @@
 	</select>
 
 	<select id="getCourseCountById" parameterType="string" resultType="_int">
-		SELECT	COUNT(EDU_CLASS)
+		SELECT	COUNT(EDU_CLASS_ID)
 		FROM	EDU_CLASS
 		WHERE	STAT = 'EDU_JN_C'
 		AND		MBR_ID = #{id}
 	</select>
 	
-	<select id="getCourseList" parameterType="EducationHistorySearchVO" resultType="EducationHistoryVO">
-		SELECT	EH.EDU_HTR_ID educationHistoryId
-				, EH.EDU_ID educationId
+	<select id="getCourseList" parameterType="EducationSearchVO" resultType="EducationVO">
+		SELECT	EI.EDU_ID educationId
+				, EI.EDU_TTL educationTitle
 				, EH.MBR_ID memberId
-				, EH.EDU_HTR_DT educationHistoryDate
-				, EH.STAT state
-				, EH.IP ip
-				, EH.CMNT cmnt
-				, EH.FDBK fdbk
+				, EH.STAT status
 				, EI.SRT_DATE startDate
 				, EI.END_DATE endDate
 		FROM	EDU_INFO EI
 				, (
 					SELECT	ROWNUM AS RNUM
-							, EDUCATION_HISTORY.*
+							, EDU_CLASS_M.*
 					FROM	(
 								SELECT	*
-								FROM	EDU_HTR
+								FROM	EDU_CLASS
 								WHERE	MBR_ID = #{memberId}
 								AND		STAT = 'EDU_JN_C'
-								ORDER BY EDU_HTR_ID DESC
-							) EDUCATION_HISTORY
-					WHERE	ROWNUM <![CDATA[<=]]> #{endIndex}
+							) EDU_CLASS_M
 				) EH
 		WHERE	RNUM <![CDATA[>=]]> #{startIndex}
+		AND     RNUM <![CDATA[<=]]> #{endIndex}
 		AND		EI.EDU_ID = EH.EDU_ID
 		AND		EI.END_DATE <![CDATA[>=]]> SYSDATE
+		ORDER BY EI.EDU_ID DESC
+		
 	</select>
 
 	<select id="getOneEducationByIdAndEducationId" parameterType="map" resultType="EducationHistoryVO">

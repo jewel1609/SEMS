@@ -5,9 +5,11 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.ktds.sems.education.vo.EduClassVO;
 import com.ktds.sems.education.vo.EducationCostVO;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationHistoryVO;
+import com.ktds.sems.education.vo.EducationSearchVO;
 import com.ktds.sems.education.vo.EducationStateVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.QNAVO;
@@ -129,7 +131,7 @@ public interface MemberBiz {
 
 	public boolean dropCourseApply(EducationHistoryVO educationHistory);
 	
-	public List<EducationHistoryVO> getCourseList(EducationHistorySearchVO educationHistorySearchVO);
+	public List<EducationVO> getCourseList(EducationSearchVO educationSearchVO);
 
 	public int getCourseCountById(String id);
 	

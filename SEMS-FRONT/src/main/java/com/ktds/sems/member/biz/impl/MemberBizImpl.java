@@ -25,9 +25,11 @@ import com.ktds.sems.common.LoginStore;
 import com.ktds.sems.common.SendMail;
 import com.ktds.sems.common.Session;
 import com.ktds.sems.common.vo.MailVO;
+import com.ktds.sems.education.vo.EduClassVO;
 import com.ktds.sems.education.vo.EducationCostVO;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationHistoryVO;
+import com.ktds.sems.education.vo.EducationSearchVO;
 import com.ktds.sems.education.vo.EducationStateVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.QNAVO;
@@ -714,11 +716,6 @@ public class MemberBizImpl implements MemberBiz {
 	}
 
 	@Override
-	public List<EducationHistoryVO> getCourseList(EducationHistorySearchVO educationHistorySearchVO) {
-		return memberDAO.getCourseList(educationHistorySearchVO);
-	}
-
-	@Override
 	public int getCourseCountById(String id) {
 		return memberDAO.getCourseCountById(id);
 	}
@@ -941,6 +938,12 @@ public class MemberBizImpl implements MemberBiz {
 			return true;
 		}
 	}
+
+	@Override
+	public List<EducationVO> getCourseList(EducationSearchVO myEducationList) {
+		return memberDAO.getCourseList(myEducationList);
+	}
+	
 	@Override
 	public boolean isVerifyLeave(String id) {
 		return memberDAO.isVerifyLeave(id) > 0;

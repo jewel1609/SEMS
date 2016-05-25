@@ -3,9 +3,11 @@ package com.ktds.sems.member.dao;
 import java.util.List;
 import java.util.Map;
 
+import com.ktds.sems.education.vo.EduClassVO;
 import com.ktds.sems.education.vo.EducationCostVO;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationHistoryVO;
+import com.ktds.sems.education.vo.EducationSearchVO;
 import com.ktds.sems.education.vo.EducationStateVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.QNAVO;
@@ -119,7 +121,7 @@ public interface MemberDAO {
 
 	public List<EducationCostVO> getCostList();
 
-	public List<EducationHistoryVO> getCourseList(EducationHistorySearchVO educationHistorySearchVO);
+	public List<EducationVO> getCourseList(EducationSearchVO myEducationList);
 
 	public EducationHistoryVO getOneEducationByIdAndEducationId(String educationId, String id);
 

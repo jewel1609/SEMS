@@ -947,7 +947,7 @@ public class MemberServiceImpl implements MemberService {
 	 * 구본호 > 이기연(SM)
 	 */
 	@Override
-	public ModelAndView getCourseList(HttpSession session, int pageNo) {
+	public ModelAndView getCourseList(HttpSession session, int pageNo, String myEduCourse) {
 
 		EducationListVO educationListVO = new EducationListVO();
 		Paging paging = new Paging();
@@ -965,27 +965,24 @@ public class MemberServiceImpl implements MemberService {
 		educationSearchVO.setEndIndex(paging.getEndArticleNumber());
 		educationSearchVO.setMemberId(memberVO.getId());
 		
-//		List<EduClassVO> myEducationList = memberBiz.getCourseList(educationSearchVO);
-//		educationHistoryListVO.setEducationHistoryList(educationHistoryList);
-//
+		List<EducationVO> myEducationList = memberBiz.getCourseList(educationSearchVO);
+		educationListVO.setEducationList(myEducationList);
+
 		ModelAndView view = new ModelAndView();
-		// TODO PEACE
-//		
-//		// SM 이기연 수정 
-//		if ( totalEducationHistoryCountById > 0 ) {
-//			view.setViewName("myPage/myEduCourseInfo");
-//			view.addObject("educationHistoryListVO", educationHistoryListVO);
-//		} 
-//		else {
-//			List<MenuManageVO> menuList = memberBiz.getMenuCategoryList();
-//
-//			view.setViewName("member/myPage");
-//			view.addObject("menuList", menuList);
-//		}
+		
+		// SM 이기연 수정 
+		if ( myEducationList.size() > 0 ) {
+			view.setViewName("myPage/myEduCourseInfo");
+			view.addObject("educationListVO", educationListVO);
+		} 
+		else {
+			List<MenuManageVO> menuList = memberBiz.getMenuCategoryList();
+
+			view.setViewName("member/myPage");
+			view.addObject("menuList", menuList);
+		}
 		return view;
-
 	}
-
 
 	@Override
 	public void checkRegistState(String id, HttpServletResponse response) {
