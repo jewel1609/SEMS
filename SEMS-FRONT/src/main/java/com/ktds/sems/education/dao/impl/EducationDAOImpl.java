@@ -480,7 +480,7 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 
 	@Override
 	public String checkEndDate(String articleId) {
-		return getSqlSession().selectOne("EducationDAO.checkEndDate", articleId);
+		return getSqlSession().selectOne("EducationDAO.reportCheckEndDate", articleId);
 	}
 
 	@Override

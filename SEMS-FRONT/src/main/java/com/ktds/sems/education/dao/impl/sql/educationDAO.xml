@@ -1278,7 +1278,7 @@
 		WHERE	ATC_ID	= #{articleId}
 	</delete>
 	
-	<select id="checkEndDate" parameterType="string" resultType="string">
+	<select id="reportCheckEndDate" parameterType="string" resultType="string">
 		SELECT  *
 		FROM    EDU_RPT_BBS
 		WHERE   ATC_ID = #{articleId}
