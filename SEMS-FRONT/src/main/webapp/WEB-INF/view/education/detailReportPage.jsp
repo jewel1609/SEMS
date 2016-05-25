@@ -40,7 +40,7 @@ $(document).ready(function() {
 					}
 					else if( data == "NO" ){
 						alert("마감일이 지났습니다.");
-						location.href="<c:url value="/myPage/myReportList" />";
+						/* location.href="<c:url value="/myPage/myReportList" />"; */
 						return;
 					}
 					else if( data == "OK" ){
