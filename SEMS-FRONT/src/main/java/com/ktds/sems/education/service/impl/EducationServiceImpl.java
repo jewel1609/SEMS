@@ -759,7 +759,7 @@ public class EducationServiceImpl implements EducationService {
 	}
 	
 	@Override
-	public ModelAndView getAllEducationQNAList(int pageNo) {
+	public ModelAndView getAllEducationQNAList(int pageNo, String educationId) {
 		
 		ModelAndView view = new ModelAndView();
 		EducationQNABBSListVO educationQNABBSListVO = new EducationQNABBSListVO();
@@ -774,11 +774,13 @@ public class EducationServiceImpl implements EducationService {
 		EducationQNABBSSearchVO searchVO = new EducationQNABBSSearchVO();
 		searchVO.setStartIndex(paging.getStartArticleNumber());
 		searchVO.setEndIndex(paging.getEndArticleNumber());
+		searchVO.setEducationId(educationId);
 		
 		List<EducationQNABBSVO> educationQNAList = educationBiz.getAllEducationQNAList(searchVO);
 		educationQNABBSListVO.setEducationQnaBbsList(educationQNAList);
 		
 		view.addObject("educationQNABBSListVO", educationQNABBSListVO);
+		view.addObject("eduId", educationId);
 		view.setViewName("myPage/eduBoardQNAList");
 		
 		
@@ -786,7 +788,7 @@ public class EducationServiceImpl implements EducationService {
 	}
 
 	@Override
-	public ModelAndView doQNAWrite(EducationQNABBSVO eduBBS, Errors errors, HttpSession session) {
+	public ModelAndView doQNAWrite(EducationQNABBSVO eduBBS, Errors errors, HttpSession session, String educationId) {
 		
 		ModelAndView view = new ModelAndView();
 		MemberVO sessionMember = (MemberVO) session.getAttribute("_MEMBER_");
@@ -801,7 +803,7 @@ public class EducationServiceImpl implements EducationService {
 		
 		
 		//TODO 강의 아이디 받아와서 집어넣기
-		eduBBS.setEduId("ED-20160519-000233");
+		eduBBS.setEduId(educationId);
 		
 		if ( !errors.hasErrors() ) {
 			educationBiz.addQNABBS(eduBBS);
@@ -1368,6 +1370,22 @@ public class EducationServiceImpl implements EducationService {
 		
 		view.setViewName("myPage/eduBoardQNADetail");
 		
+		return view;
+	}
+
+	@Override
+	public ModelAndView getEduBoardByEducationId(String educationId) {
+		ModelAndView view = new ModelAndView();
+		
+		FileBBSSearchVO searchVO = new FileBBSSearchVO();
+		searchVO.setEndIndex(10);
+		searchVO.setStartIndex(1);
+		searchVO.setEducationId(educationId);
+		List<EducationFileBBSVO> educationItems = educationBiz.getEducationFileBBSList(searchVO);
+		
+		view.addObject("educationId", educationId);
+		view.addObject("educationItems", educationItems);
+		view.setViewName("myPage/educationBBS");
 		return view;
 	}
 
