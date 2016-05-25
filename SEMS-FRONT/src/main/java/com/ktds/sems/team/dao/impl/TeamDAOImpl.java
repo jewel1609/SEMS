@@ -35,4 +35,45 @@ public class TeamDAOImpl  extends SqlSessionDaoSupport implements TeamDAO{
 		return getSqlSession().selectOne("teamDAO.getSearchedBBSCount");
 	}
 
+	@Override
+	public TeamBBSVO getTeamBBS(String teamBBSId) {
+		return getSqlSession().selectOne("teamDAO.getTeamBBS", teamBBSId);
+	}
+
+	@Override
+	public int addHitsRecord(TeamBBSVO TeamBBSVO) {
+		return getSqlSession().insert("teamDAO.addHitsRecord", TeamBBSVO);
+	}
+
+	@Override
+	public int isAlreadyCheckBBS(TeamBBSVO TeamBBSVO) {
+		return getSqlSession().selectOne("teamDAO.isAlreadyCheckBBS",TeamBBSVO);
+	}
+
+	@Override
+	public int getNextBBSHistorySeq() {
+		return getSqlSession().selectOne("teamDAO.getNextBBSHistorySeq");
+	}
+
+	@Override
+	public int checkDislikeByTeamBBSVO(TeamBBSVO TeamBBSVO) {
+		return getSqlSession().selectOne("teamDAO.checkDislikeByTeamBBSVO", TeamBBSVO);
+	}
+
+	@Override
+	public int addLikeRecord(TeamBBSVO TeamBBSVO) {
+		return getSqlSession().update("teamDAO.addLikeRecord", TeamBBSVO);
+	}
+
+	@Override
+	public int checkLikeByTeamBBSVO(TeamBBSVO TeamBBSVO) {
+		return getSqlSession().selectOne("teamDAO.checkLikeByTeamBBSVO", TeamBBSVO);
+	}
+
+	@Override
+	public int addDislikeRecord(TeamBBSVO TeamBBSVO) {
+		return getSqlSession().update("teamDAO.addDislikeRecord", TeamBBSVO);
+	}
+
+
 }
