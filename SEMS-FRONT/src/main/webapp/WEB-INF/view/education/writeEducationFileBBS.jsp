@@ -41,11 +41,17 @@
 	<form:form id="writeForm" commandName="educationFileBBSVO" method="POST" enctype="multipart/form-data">
 		<input type="hidden" name="educationId" value="${educationId}"/>
 		<input name="title" type="text" placeholder="제목을 입력하세요."/>
-		<input name="contents" type="text" placeholder="내용을 입력하세요."/>
+		<br/>
+		<br/>
+		<textarea name="contents" placeholder="내용을 입력하세요."></textarea>
+		<br/>
+		<br/>
 		<input id="file" type="file" name="file" multiple="multiple"/>
+		<br/>
+		<br/>
 		<span id="fileName"></span>
 	</form:form>
-	
+	<br/><br/>
 	<input id="writeButton" class="inputButton" type="button" value="등록"/>
 </body>
 </html>
