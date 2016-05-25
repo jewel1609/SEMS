@@ -4,37 +4,91 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.SemsTestCase;
+import com.ktds.sems.Testable;
 import com.ktds.sems.common.Session;
+import com.ktds.sems.member.service.MemberService;
 import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.pc.vo.ReportedPcSearchVO;
 import com.ktds.sems.pc.vo.ReportedPcVO;
+import com.ktds.sems.validator.member.MemberValidator;
 
 @Transactional
 public class PcServiceTest extends SemsTestCase {
 
 	@Autowired
 	private PcService pcService;
+	
+	@Autowired
+	private MemberService memberService;
 
+	@Before
+	public void setUp() {
+
+		// 테스트 멤버 생성
+		testHelper(new Testable() {
+			@Override
+			public void preparedTest() {
+				MemberVO member = new MemberVO();
+				member.setId("testMember01");
+				member.setPassword("123qwe!@#qwe");
+				member.setName("name");
+				member.setEmail("test01@naver.com");
+				member.setBirthDate("2016-01-01");
+				member.setPhoneNumber("010-6291-1316");
+				member.setMemberType("ADM");
+				
+				String repeatPassword = "123qwe!@#qwe";
+				
+				BindingResult errors = new BeanPropertyBindingResult(member, "registerForm");
+				MemberValidator memberValidator = new MemberValidator();
+				memberValidator.validate(member, errors);
+				
+				MockHttpSession session = new MockHttpSession();
+				MockHttpServletResponse response = new MockHttpServletResponse();
+				MockHttpServletRequest request= new MockHttpServletRequest();
+				
+				memberService.addNewMember(member, repeatPassword, errors, session, response, request);
+			}
+		});
+		
+		testHelper(new Testable() {
+			@Override
+			public void preparedTest() {
+				
+			}
+		});
+	}
+	
+	@After
+	public void tearDown() {
+		
+		testHelper(new Testable() {
+			@Override
+			public void preparedTest() {
+				
+			}
+		});
+	}
+	
 	@Test
 	public void getMyReportedPcListTest() {
 		
 		MockHttpSession session = new MockHttpSession();
 		MemberVO memberVO = new MemberVO();
-		memberVO.setId("cocomo12");
+		memberVO.setId("testMember01");
 		session.setAttribute(Session.MEMBER, memberVO);
 		
 		ReportedPcSearchVO reportedPcSearchVO = new ReportedPcSearchVO();
@@ -57,11 +111,12 @@ public class PcServiceTest extends SemsTestCase {
 	
 	@Test
 	public void viewReportPcPageTest() {
-		String pcId = "1";
+		
+		String pcId = "testPcNumber";
 		
 		MockHttpSession session = new MockHttpSession();
 		MemberVO memberVO = new MemberVO();
-		memberVO.setId("cocomo12");
+		memberVO.setId("testMember01");
 		session.setAttribute(Session.MEMBER, memberVO);
 		
 		MockHttpServletRequest request = new MockHttpServletRequest();
@@ -89,7 +144,7 @@ public class PcServiceTest extends SemsTestCase {
 
 		MockHttpSession session = new MockHttpSession();
 		MemberVO memberVO = new MemberVO();
-		memberVO.setId("cocomo12");
+		memberVO.setId("testMember01");
 		session.setAttribute(Session.MEMBER, memberVO);
 		
 		BindingResult errors = new BeanPropertyBindingResult(memberVO, "reportPc");
