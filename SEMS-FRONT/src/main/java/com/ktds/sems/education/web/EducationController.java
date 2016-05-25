@@ -25,7 +25,6 @@ import com.ktds.sems.education.vo.EduQnaVO;
 import com.ktds.sems.education.vo.EducationFileBBSVO;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationQNABBSVO;
-import com.ktds.sems.education.vo.EducationQNAReplyListVO;
 import com.ktds.sems.education.vo.EducationQNAReplyVO;
 import com.ktds.sems.education.vo.EducationReportSearchVO;
 import com.ktds.sems.education.vo.EducationReportVO;
@@ -34,7 +33,6 @@ import com.ktds.sems.education.vo.QNASearchVO;
 import com.ktds.sems.education.vo.QNAVO;
 import com.ktds.sems.education.vo.ReportReplySearchVO;
 import com.ktds.sems.education.vo.ReportReplyVO;
-import com.ktds.sems.member.vo.MemberVO;
 
 import kr.co.hucloud.utilities.web.AjaxUtil;
 
@@ -231,9 +229,9 @@ public class EducationController {
 		return educationService.doRequestRetraction(request, session);
 	}
 
-	@RequestMapping("/eduBoard/QNAList")
-	public ModelAndView viewEduBoardQNAListPage(@RequestParam(required=false, defaultValue="0") int pageNo) {
-		return educationService.getAllEducationQNAList(pageNo);
+	@RequestMapping("/eduBoard/QNAList/{educationId}")
+	public ModelAndView viewEduBoardQNAListPage(@RequestParam(required=false, defaultValue="0") int pageNo, @PathVariable String educationId) {
+		return educationService.getAllEducationQNAList(pageNo, educationId);
 	}
 	
 	@RequestMapping("/education/fileBBS/{educationId}")
@@ -251,18 +249,17 @@ public class EducationController {
 		return educationService.doWriteEducationFileBBSAction(educationFileBBSVO, request, session);
 	}
 	
-	@RequestMapping("/eduBoard/QNAWrite")
-	public ModelAndView viewEduBoardQNAWritePage() {
+	@RequestMapping("/eduBoard/QNAWrite/{educationId}")
+	public ModelAndView viewEduBoardQNAWritePage(@PathVariable String educationId) {
 		ModelAndView view = new ModelAndView();
-		
+		view.addObject("educationId", educationId);
 		view.setViewName("myPage/eduBoardQNAWrite");
-		
 		return view;
 	}
 	
-	@RequestMapping("/eduBoard/doQNAWrite")
-	public ModelAndView doQNAWriteAction(@Valid EducationQNABBSVO eduBBS, Errors errors, HttpSession session) {
-		return educationService.doQNAWrite(eduBBS, errors, session);
+	@RequestMapping("/eduBoard/doQNAWrite/{educationId}")
+	public ModelAndView doQNAWriteAction(@Valid EducationQNABBSVO eduBBS, Errors errors, HttpSession session, @PathVariable String educationId) {
+		return educationService.doQNAWrite(eduBBS, errors, session, educationId);
 	}
 	
 	@RequestMapping("/education/reportList/{educationId}")
@@ -339,6 +336,11 @@ public class EducationController {
 	public void checkEndDate(@RequestParam String articleId, HttpServletResponse response) {
 		educationService.checkEndDate(articleId, response);
 	}
+
+	@RequestMapping("/eduBoard/{educationId}")
+	public ModelAndView viewEduBoardPage(@PathVariable String educationId) {
+		return educationService.getEduBoardByEducationId(educationId);
+	}
 	
 	@RequestMapping("/plusRecommendReply")
 	public void plusRecommendReply(HttpServletRequest request, HttpServletResponse response, HttpSession session){
@@ -363,12 +365,6 @@ public class EducationController {
 		String status = educationService.doAdoptReply(replyId);
 		AjaxUtil.sendResponse(response, status);
 	}
-	
-	
-	
-	
-	
-	
 	
 	@RequestMapping("/downloadEducationFile/{fileId}")
 	public void doDownloadEducationFile(@PathVariable String fileId, HttpServletRequest request, HttpServletResponse response){
@@ -417,5 +413,5 @@ public class EducationController {
 		String status = educationService.addQnaEduReplyDisLike(replyId, session);
 		AjaxUtil.sendResponse(response, status);
 	}
-	
+
 }
