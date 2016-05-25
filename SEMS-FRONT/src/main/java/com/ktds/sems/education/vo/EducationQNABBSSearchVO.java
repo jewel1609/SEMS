@@ -5,6 +5,7 @@ public class EducationQNABBSSearchVO {
 	private int pageNo;
 	private int startIndex;
 	private int endIndex;
+	private String educationId;
 	
 	public int getPageNo() {
 		return pageNo;
@@ -24,9 +25,11 @@ public class EducationQNABBSSearchVO {
 	public void setEndIndex(int endIndex) {
 		this.endIndex = endIndex;
 	}
-	
-	
-	
-	
+	public String getEducationId() {
+		return educationId;
+	}
+	public void setEducationId(String educationId) {
+		this.educationId = educationId;
+	}
 	
 }
