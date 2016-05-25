@@ -13,7 +13,7 @@
 	$(document).ready(function() {
 		
 		$("#mainBtn").click(function(){
-			location.href="<c:url value="/"/>";
+			location.href="<c:url value="/main"/>";
 		});
 		
 		$("#cancleBtn").click(function (){
@@ -36,7 +36,21 @@
 				return;
 			}
 			
-			if(cdNm.val().length > 20){
+			var newRegExp = /[^가-힣ㄱ-ㅎㅏ-ㅣa-zA-Z0-9-_]/gi;
+			var engregexp = /[a-zA-Z0-9-_]/gi;
+			var noengregexp = /[^a-zA-Z0-9-_]/gi;
+
+			var v = cdNm.val();
+			if (newRegExp.test(v)) {
+				alert("코드 타이틀에 특수문자를 포함할 수 없습니다.");
+				return;
+			}
+			
+			var tmpStr = cdNm.val();
+			var tmpStr2 = cdNm.val();
+			tmpStr = tmpStr.replace(engregexp, '');
+			tmpStr2 = tmpStr2.replace(noengregexp, '');
+			if ( (tmpStr.length * 3) + tmpStr2.length > 20 ) {
 				alert("CODE NAME은 20글자 이하로 써주세요.");
 				return;
 			}
@@ -47,8 +61,8 @@
 				return;
 			}
 			
-			if(cdTp2.val().length > 8){
-				alert("CODE 세부 카테고리는 8글자 이하로 써주세요.");
+			if (newRegExp.test(cdTp2.val())) {
+				alert("코드 세부 카테고리에 특수문자를 포함할 수 없습니다.");
 				return;
 			}
 			
@@ -89,11 +103,12 @@
 		
 		$(".onlyText").keyup(function(event) {
 			var regexp = /[\+*^!@\#$%<>&\()\=\’ \\/\?,.\:\;\''\""\{\}\[\]|\\~`]/gi;
+			var newRegExp = /[^가-힣ㄱ-ㅎㅏ-ㅣa-zA-Z0-9-_]/gi;
 			var engregexp = /[a-zA-Z0-9-_]/gi;
 			var noengregexp = /[^a-zA-Z0-9-_]/gi;
 
 			v = $(this).val();
-			if (regexp.test(v)) {
+			if (newRegExp.test(v)) {
 				alert("특수문자를 포함할 수 없습니다.");
 				$(this).val(v.replace(regexp, ''));
 			}
