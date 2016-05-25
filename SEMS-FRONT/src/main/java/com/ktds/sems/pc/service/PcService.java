@@ -14,7 +14,11 @@ public interface PcService {
 
 	public ModelAndView viewMyPcPage(HttpSession session, HttpServletRequest request);
 
-	public void getEduLocationByTitle(String title, HttpServletResponse response, HttpSession session);
+	public void getEduLocationById(String educationId, HttpServletResponse response, HttpSession session);
+
+	public String doRegisterMyPc(String educationId, String eduLocation, String usedPcIp, HttpSession session);
+
+	public String doDeleteMyPc(String pcId);
 
 	public ModelAndView viewReportPcPage(String educationId, HttpSession session, HttpServletRequest request);
 

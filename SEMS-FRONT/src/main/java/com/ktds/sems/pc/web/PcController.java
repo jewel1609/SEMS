@@ -6,8 +6,8 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,6 +16,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ktds.sems.pc.service.PcService;
 import com.ktds.sems.pc.vo.ReportedPcSearchVO;
 import com.ktds.sems.pc.vo.ReportedPcVO;
+
+import kr.co.hucloud.utilities.web.AjaxUtil;
 
 import kr.co.hucloud.utilities.web.AjaxUtil;
 
@@ -32,11 +34,26 @@ public class PcController {
 	public ModelAndView viewMyPcPage(HttpSession session, HttpServletRequest request) {
 		return pcService.viewMyPcPage(session, request);
 	}
-	@RequestMapping(value=("/getEduLocationByTitle"), method = RequestMethod.POST)
-	public void getEduLocationByTitle(@RequestParam String title, HttpServletResponse response, HttpSession session) {
-		pcService.getEduLocationByTitle(title, response, session);
+	
+	@RequestMapping(value=("/getEduLocationById"), method = RequestMethod.POST)
+	public void getEduLocationById(@RequestParam String educationId, HttpServletResponse response, HttpSession session) {
+		pcService.getEduLocationById(educationId, response, session);
 	}
 	
+	@RequestMapping(value=("/doRegisterMyPc"), method = RequestMethod.POST)
+	public void doRegisterMyPc(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		String educationId = request.getParameter("educationId");
+		String eduLocation = request.getParameter("eduLocation");
+		String usedPcIp = request.getParameter("usedPcIp");
+		
+		String status = pcService.doRegisterMyPc(educationId, eduLocation, usedPcIp, session);
+		AjaxUtil.sendResponse(response, status);
+	}
+	
+	@RequestMapping("/doDeleteMyPc/{pcId}")
+	public String doDeleteMyPc(@PathVariable String pcId) {
+		return pcService.doDeleteMyPc(pcId);
+	}
 	/**
 	 * PC를 신고할 수 있는 팝업 창 
 	 * 이기연

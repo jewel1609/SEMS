@@ -12,13 +12,23 @@ public interface PcDAO {
 
 	public List<EducationVO> getEduListByMember(MemberVO memberVO);
 
+	public List<UsedPcVO> getUsedPcListByMember(MemberVO memberVO);
+
 	public int reportProblemPc(ReportedPcVO reportedPcVO);
 
+	public String getPcIdByIp(String pcIp);
+
+	public String getEducationIdByTitle(String educationTitle);
+
+	public int doRegisterMyPc(UsedPcVO usedPcVO);
+
+	public void doDeleteMyPc(String pcId);
+
+	public List<EducationVO> getEduListExceptUsed(MemberVO memberVO);
+	
 	public int getNextReportedPcIdSeq();
 
 	public String getNowDate();
-
-	public List<UsedPcVO> getUsedPcListByMember(MemberVO memberVO);
 
 	public int getTotalMyReportedPcCount(ReportedPcSearchVO reportedPcSearchVO);
 

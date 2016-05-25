@@ -1,6 +1,8 @@
 package com.ktds.sems.pc.dao.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 
@@ -39,6 +41,31 @@ public class PcDAOImpl extends SqlSessionDaoSupport implements PcDAO {
 	@Override
 	public List<UsedPcVO> getUsedPcListByMember(MemberVO memberVO) {
 		return getSqlSession().selectList("PcDAO.getUsedPcListByMember", memberVO);
+	}
+
+	@Override
+	public String getPcIdByIp(String pcIp) {
+		return getSqlSession().selectOne("PcDAO.getPcIdByIp", pcIp);
+	}
+
+	@Override
+	public String getEducationIdByTitle(String educationTitle) {
+		return getSqlSession().selectOne("PcDAO.getEducationIdByTitle", educationTitle);
+	}
+
+	@Override
+	public int doRegisterMyPc(UsedPcVO usedPcVO) {
+		return getSqlSession().insert("PcDAO.doRegisterMyPc", usedPcVO);
+	}
+
+	@Override
+	public void doDeleteMyPc(String pcId) {
+		getSqlSession().delete("PcDAO.doDeleteMyPc", pcId);
+	}
+
+	@Override
+	public List<EducationVO> getEduListExceptUsed(MemberVO memberVO) {
+		return getSqlSession().selectList("PcDAO.getEduListExceptUsed", memberVO);
 	}
 
 	@Override

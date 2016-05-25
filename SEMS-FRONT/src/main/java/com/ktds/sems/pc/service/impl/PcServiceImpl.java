@@ -1,5 +1,6 @@
 package com.ktds.sems.pc.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -33,30 +34,65 @@ public class PcServiceImpl implements PcService{
 	@Override
 	public ModelAndView viewMyPcPage(HttpSession session, HttpServletRequest request) {
 		MemberVO memberVO = (MemberVO) session.getAttribute(Session.MEMBER);
-		List<EducationVO> eduListByMember = pcBiz.getEduListByMember(memberVO);
 		List<UsedPcVO> usedPcList = pcBiz.getUsedPcListByMember(memberVO);
+		List<EducationVO> eduListExceptUsed = pcBiz.getEduListExceptUsed(memberVO);
 		String myPcIp= request.getRemoteHost();
 		
 		ModelAndView view = new ModelAndView();
 		view.setViewName("myPage/pc/myPc");
 		view.addObject("usedPcList", usedPcList);
-		view.addObject("eduListByMember", eduListByMember);
+		view.addObject("eduListByMember", eduListExceptUsed);
 		view.addObject("myPcIp", myPcIp);
 		return view;
 	}
 
 	@Override
-	public void getEduLocationByTitle(String title, HttpServletResponse response, HttpSession session) {
+	public void getEduLocationById(String educationId, HttpServletResponse response, HttpSession session) {
 		String location = "";
 		MemberVO memberVO = (MemberVO) session.getAttribute(Session.MEMBER);
 		List<EducationVO> eduListByMember = pcBiz.getEduListByMember(memberVO);
 		for (EducationVO educationVO : eduListByMember) {
-			if(educationVO.getEducationTitle().equals(title)){
+			if(educationVO.getEducationId().equals(educationId)){
 				location = educationVO.getEducationLocation();
 			}
 		}
 		AjaxUtil.sendResponse(response, location);
 		return;
+	}
+
+	@Override
+	public String doRegisterMyPc(String educationId, String eduLocation, String usedPcIp, HttpSession session) {
+		MemberVO memberVO = (MemberVO) session.getAttribute(Session.MEMBER);
+		
+		String pcId = pcBiz.getPcIdByIp(usedPcIp);
+		if ( pcId == null ){
+			
+			return "FAIL";
+		}
+		
+		else {
+			String memberId = memberVO.getId();
+			
+			UsedPcVO usedPcVO = new UsedPcVO();
+			usedPcVO.setPcId(pcId);
+			usedPcVO.setEducationId(educationId);
+			usedPcVO.setMemberId(memberId);
+			
+			boolean data = pcBiz.doRegisterMyPc(usedPcVO) > 0;
+
+			System.out.println("biz로감");
+			
+			if (!data) {
+				return "FAIL";
+			}
+			return "OK";
+		}
+	}
+
+	@Override
+	public String doDeleteMyPc(String pcId) {
+		pcBiz.doDeleteMyPc(pcId);
+		return "redirect:/member/myPc";
 	}
 
 	/**

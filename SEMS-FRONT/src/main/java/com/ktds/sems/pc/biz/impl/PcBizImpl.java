@@ -47,6 +47,31 @@ public class PcBizImpl implements PcBiz {
 	}
 
 	@Override
+	public String getPcIdByIp(String pcIp) {
+		return pcDAO.getPcIdByIp(pcIp);
+	}
+
+	@Override
+	public String getEducationIdByTitle(String educationTitle) {
+		return pcDAO.getEducationIdByTitle(educationTitle);
+	}
+
+	@Override
+	public int doRegisterMyPc(UsedPcVO usedPcVO) {
+		return pcDAO.doRegisterMyPc(usedPcVO);
+	}
+
+	@Override
+	public void doDeleteMyPc(String pcId) {
+		 pcDAO.doDeleteMyPc(pcId);		
+	}
+
+	@Override
+	public List<EducationVO> getEduListExceptUsed(MemberVO memberVO) {
+		return pcDAO.getEduListExceptUsed(memberVO);
+	}
+
+	@Override
 	public int getTotalMyReportedPcCount(ReportedPcSearchVO reportedPcSearchVO) {
 		return pcDAO.getTotalMyReportedPcCount(reportedPcSearchVO);
 	}

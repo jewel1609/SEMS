@@ -18,10 +18,37 @@
 				, END_TM endTime
 				, EDU_TP educationType
 				, COST cost
-		FROM	EDU_INFO E_I, EDU_HTR E_H
-		WHERE   E_I.EDU_ID = E_H.EDU_ID
-		AND		E_H.MBR_ID = #{id}
-		AND     E_H.STAT = 'EDU_JN_C'
+		FROM	EDU_INFO E_I, EDU_CLASS E_C
+		WHERE   E_I.EDU_ID = E_C.EDU_ID
+		AND		E_C.MBR_ID = #{id}
+	</select>
+	<select id="getEduListExceptUsed" parameterType="MemberVO" resultType="EducationVO">
+		SELECT	E_I.EDU_ID educationId
+		        , EDU_CTGR educationCategory
+		        , EDU_TTL educationTitle
+		        , E_I.MBR_ID memberId 
+		        , MAX_MBR maxMember
+		        , EDU_LOC educationLocation
+		        , EDU_CLCM educationCurriculum
+		        , EDU_INTR educationIntroduce
+		        , SRT_DATE startDate
+		        , END_DATE endDate
+		        , START_TM startTime
+		        , END_TM endTime
+		        , EDU_TP educationType
+		        , COST cost
+		FROM	EDU_INFO E_I, EDU_CLASS E_C
+		WHERE   E_I.EDU_ID = E_C.EDU_ID
+		AND		E_C.MBR_ID = #{id}
+		AND     E_I.EDU_ID NOT IN (
+		                            SELECT  EI.EDU_ID educationId
+		                            FROM    USED_PC UP
+		                                    , EDU_INFO EI
+		                                    , PC
+		                            WHERE   UP.EDU_ID = EI.EDU_ID
+		                            AND     UP.PC_ID = PC.PC_ID
+		                            AND     UP.MBR_ID= #{id}
+		                            )
 	</select>
 	
 	<insert id="reportProblemPc" parameterType="ReportedPcVO">
@@ -59,6 +86,7 @@
 		        , EI.EDU_ID educationId
 		        , EI.EDU_TTL educationTitle
 		        , EI.EDU_LOC educationLocation
+		        , UP.USED_PC_ID usedPc
 		FROM    USED_PC UP
 		        , EDU_INFO EI
 		        , PC
@@ -66,6 +94,35 @@
 		AND     UP.PC_ID = PC.PC_ID
 		AND     UP.MBR_ID=#{id}
 	</select>
+
+	<select id="getPcIdByIp" parameterType="string" resultType="string">
+		SELECT  PC_ID
+		FROM    PC
+		WHERE   IP = #{pcIp}	
+	</select>
+	<select id="getEducationIdByTitle" parameterType="string" resultType="string">
+		SELECT  EDU_ID
+		FROM    EDU_INFO
+		WHERE   EDU_TTL = #{educationTitle}
+	</select>
+	<insert id="doRegisterMyPc" parameterType="UsedPcVO">
+		INSERT INTO USED_PC (
+		                       USED_PC_ID
+		                       , PC_ID
+		                       , EDU_ID
+		                       , MBR_ID) 
+		VALUES              ( 
+		                        USED_PC_ID_SEQ.NEXTVAL
+		                        , #{pcId}
+		                        , #{educationId}
+		                        , #{memberId}
+		                    )
+	</insert>
+	<delete id="doDeleteMyPc" parameterType="string">
+		DELETE	
+		FROM	USED_PC
+		WHERE	USED_PC_ID = #{pcId}
+	</delete>
 	<select id="getTotalMyReportedPcCount" parameterType="ReportedPcSearchVO" resultType="_int">
 		SELECT	COUNT(RPT_PC_ID)
 		FROM	RPT_PC RP

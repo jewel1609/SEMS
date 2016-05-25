@@ -9,22 +9,65 @@
 <title>Register My Computer</title>
 <script type="text/javascript" src="<c:url value="/resources/js/jquery.min.js" />"></script>
 <script type="text/javascript">
-
 	$(document).ready(function() {		
 		
-		$("#eduListByMember").click(function(event) {
-			var educationTitle = $("#eduListByMember").val();
-			$.post("<c:url value="/getEduLocationByTitle"/>", { 
-					"title" : educationTitle
-					}, function(data) {
-						if (!data) {
-							alert("인터넷 연결이 끊겼습니다.");
-						} 
-						else {
-							$("#eduLocation").val(data);
-							}
-					});
-		});		
+		$("#educationTitle").click(function(event) {
+			var educationId = $("#educationTitle").val();
+			if( educationId!="empty" ){
+				
+				$.post("<c:url value="/getEduLocationById"/>", { 
+						"educationId" : educationId
+						}, function(data) {
+							if (!data) {
+								alert("인터넷 연결이 끊겼습니다.");
+							} 
+							else {
+								$("#eduLocation").val(data);
+								}
+						});
+			}
+			
+		});	
+		
+		$("#registerMyPcBtn").click(function() {
+			
+			var educationId =  $("#educationTitle").val();
+			var educationTitle = $("#educationTitle").text();
+			var eduLocation = $("#eduLocation").val();
+			var usedPcIp = $("#usedPcIp").val();
+			
+			if ( confirm(educationTitle+" PC를 등록하시겠습니까?") == true ) {				
+				$.post("<c:url value="/doRegisterMyPc"/>", {
+					"educationId" : educationId,
+					"eduLocation" : eduLocation,
+					"usedPcIp" : usedPcIp
+				}, function(data) {
+					if(data == "OK") {
+						alert("등록되었습니다.");
+						location.href="<c:url value="/member/myPc"/>";
+					}
+					else if(data == "FAIL"){
+						alert("등록되지 않은 IP입니다.");
+						location.href="<c:url value="/member/myPc"/>";
+					}
+				});
+			}
+			else {
+				return;
+			}
+			
+		});
+		$(".deleteMyPcBtn").click(function(){
+			var myPcId = $(this).parent().children(":eq(0)");	
+	
+			if (confirm("삭제하시겠습니까?") == true) {
+				location.href = "<c:url value="/doDeleteMyPc/"/>" + myPcId.val();
+			} else {
+				return;
+			}
+		});
+		
+		
 	});
 </script>
 
@@ -35,6 +78,7 @@
 			<th>수강 중인 강의</th>
 			<th>강의실</th>
 			<th>내 PC IP</th>
+			<th></th>
 			<th></th>
 		</tr>
 		<c:forEach items="${usedPcList}" var="usedPc">	
@@ -50,13 +94,21 @@
 					<input type="button" id="reportPC" value="신고"/>
 				</a>
 			</td>
+			<td>
+				<input type="hidden" class="myPcId" value="${usedPc.usedPc}">
+				<input type="button" class="deleteMyPcBtn" value="삭제"/>
+			</td>
 		</tr>
 		</c:forEach>
 		<tr>
 			<td>
-				<select id="eduListByMember" name="eduListByMember" tabindex="1">	 
+				<select id="educationTitle" name="educationTitle" tabindex="1">	 
+					<c:set var="eduList" value="${eduListByMember}"/>
+					<c:if test="${eduList.isEmpty()}">
+					  <option value="empty">강의없음</option>
+					</c:if>
 					<c:forEach items="${eduListByMember}" var="eduList">	
-					  <option value="${eduList.educationTitle}" id="educationTitle">${eduList.educationTitle}</option>
+					  <option value="${eduList.educationId}">${eduList.educationTitle}</option>
 					</c:forEach>				  
 				</select>	
 			</td>
@@ -64,10 +116,10 @@
 				<input type="text" id="eduLocation" name="eduLocation" value=""/>
 			</td>
 			<td>
-				<input type="text" value="${myPcIp}"/>
+				<input type="text" id="usedPcIp" value="${myPcIp}"/>
 			</td>
-			<td>
-				<input type="button" id="doRegisterMyPC" value="등록"/>
+			<td colspan="2">
+				<input type="button" id="registerMyPcBtn" value="등록"/>
 			</td>
 		</tr>
 	</table>
