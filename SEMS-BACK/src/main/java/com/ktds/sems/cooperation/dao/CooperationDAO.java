@@ -1,7 +1,6 @@
 package com.ktds.sems.cooperation.dao;
 
 import java.util.List;
-import java.util.Map;
 
 import com.ktds.sems.cooperation.vo.CooperationSearchVO;
 import com.ktds.sems.cooperation.vo.CooperationTypeVO;

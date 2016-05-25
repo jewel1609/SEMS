@@ -46,9 +46,15 @@
 		<typeAlias type="com.ktds.sems.education.vo.EduAttendanceVO" alias="EduAttendanceVO"/>
 		<typeAlias type="com.ktds.sems.education.vo.EduAttendanceSearchVO" alias="EduAttendanceSearchVO"/>
 		<typeAlias type="com.ktds.sems.education.vo.TeamVO" alias="TeamVO"/>
+		<typeAlias type="com.ktds.sems.team.vo.TeamBBSVO" alias="TeamBBSVO"/>
+		<typeAlias type="com.ktds.sems.team.vo.TeamListVO" alias="TeamListVO"/>
+		<typeAlias type="com.ktds.sems.team.vo.TeamSearchListVO" alias="TeamSearchListVO"/>
+		<typeAlias type="com.ktds.sems.team.vo.TeamSearchVO" alias="TeamSearchVO"/>
+		<typeAlias type="com.ktds.sems.team.vo.TeamBBSRplVO" alias="TeamBBSRplVO"/>
 	</typeAliases>
 
 	<mappers>
+		<mapper resource="com/ktds/sems/team/dao/impl/sql/teamDAO.xml" />
 		<mapper resource="com/ktds/sems/education/dao/impl/sql/educationDAO.xml" />
 		<mapper resource="com/ktds/sems/file/dao/impl/sql/fileDAO.xml"/>
 		<mapper resource="com/ktds/sems/member/dao/impl/sql/memberDAO.xml"/>

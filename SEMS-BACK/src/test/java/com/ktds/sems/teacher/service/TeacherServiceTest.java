@@ -7,15 +7,13 @@ import static org.junit.Assert.fail;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpSession;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.BindingResult;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.SemsTestCase;
@@ -24,14 +22,10 @@ import com.ktds.sems.teacher.dao.TeacherDAO;
 import com.ktds.sems.teacher.vo.EducationHistoryVO;
 import com.ktds.sems.teacher.vo.ProjectHistoryVO;
 import com.ktds.sems.teacher.vo.TeacherBookVO;
-import com.ktds.sems.teacher.vo.EducationHistoryVO;
-import com.ktds.sems.teacher.vo.ProjectHistoryVO;
-import com.ktds.sems.teacher.vo.TeacherBookVO;
 import com.ktds.sems.teacher.vo.TeacherListVO;
 import com.ktds.sems.teacher.vo.TeacherSearchVO;
 import com.ktds.sems.teacher.vo.TeacherVO;
 import com.ktds.sems.validator.teacher.TeacherVOValidator;
-import com.ktds.sems.teacher.vo.TeacherVO;
 
 @Transactional
 public class TeacherServiceTest extends SemsTestCase{

@@ -54,5 +54,8 @@
 		<property name="pcService" ref="pcService" />
 	</bean>
 	
+	<bean id="teamController" class="com.ktds.sems.team.web.TeamController">
+		<property name="teamService" ref="teamService" />
+	</bean>
 </beans>
 

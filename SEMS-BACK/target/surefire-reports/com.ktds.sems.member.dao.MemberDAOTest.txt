@@ -1,8 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: com.ktds.sems.member.dao.MemberDAOTest
 -------------------------------------------------------------------------------
-Tests run: 27, Failures: 0, Errors: 27, Skipped: 0, Time elapsed: 0.958 sec <<< FAILURE!
-changePasswordTest(com.ktds.sems.member.dao.MemberDAOTest)  Time elapsed: 0.001 sec  <<< ERROR!
+Tests run: 27, Failures: 0, Errors: 27, Skipped: 0, Time elapsed: 1.226 sec <<< FAILURE!
+changePasswordTest(com.ktds.sems.member.dao.MemberDAOTest)  Time elapsed: 0 sec  <<< ERROR!
 java.lang.IllegalStateException: Failed to load ApplicationContext
 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:124)
 	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:83)
@@ -185,7 +185,7 @@ Caused by: java.lang.IllegalArgumentException: Could not resolve placeholder 'db
 	at org.springframework.beans.factory.config.BeanDefinitionVisitor.visitBeanDefinition(BeanDefinitionVisitor.java:82)
 	at org.springframework.beans.factory.config.PlaceholderConfigurerSupport.doProcessProperties(PlaceholderConfigurerSupport.java:208)
 	... 43 more
-getAllMemberHistoryTest(com.ktds.sems.member.dao.MemberDAOTest)  Time elapsed: 0.001 sec  <<< ERROR!
+getAllMemberHistoryTest(com.ktds.sems.member.dao.MemberDAOTest)  Time elapsed: 0 sec  <<< ERROR!
 java.lang.IllegalStateException: Failed to load ApplicationContext
 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:124)
 	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:83)
@@ -246,7 +246,7 @@ Caused by: java.lang.IllegalArgumentException: Could not resolve placeholder 'db
 	at org.springframework.beans.factory.config.BeanDefinitionVisitor.visitBeanDefinition(BeanDefinitionVisitor.java:82)
 	at org.springframework.beans.factory.config.PlaceholderConfigurerSupport.doProcessProperties(PlaceholderConfigurerSupport.java:208)
 	... 43 more
-getAllMemberListTest(com.ktds.sems.member.dao.MemberDAOTest)  Time elapsed: 0.001 sec  <<< ERROR!
+getAllMemberListTest(com.ktds.sems.member.dao.MemberDAOTest)  Time elapsed: 0 sec  <<< ERROR!
 java.lang.IllegalStateException: Failed to load ApplicationContext
 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:124)
 	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:83)
@@ -368,7 +368,7 @@ Caused by: java.lang.IllegalArgumentException: Could not resolve placeholder 'db
 	at org.springframework.beans.factory.config.BeanDefinitionVisitor.visitBeanDefinition(BeanDefinitionVisitor.java:82)
 	at org.springframework.beans.factory.config.PlaceholderConfigurerSupport.doProcessProperties(PlaceholderConfigurerSupport.java:208)
 	... 43 more
-getGraduationTypesTest(com.ktds.sems.member.dao.MemberDAOTest)  Time elapsed: 0.001 sec  <<< ERROR!
+getGraduationTypesTest(com.ktds.sems.member.dao.MemberDAOTest)  Time elapsed: 0 sec  <<< ERROR!
 java.lang.IllegalStateException: Failed to load ApplicationContext
 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:124)
 	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:83)
@@ -429,7 +429,7 @@ Caused by: java.lang.IllegalArgumentException: Could not resolve placeholder 'db
 	at org.springframework.beans.factory.config.BeanDefinitionVisitor.visitBeanDefinition(BeanDefinitionVisitor.java:82)
 	at org.springframework.beans.factory.config.PlaceholderConfigurerSupport.doProcessProperties(PlaceholderConfigurerSupport.java:208)
 	... 43 more
-getHelCodeIdTest(com.ktds.sems.member.dao.MemberDAOTest)  Time elapsed: 0 sec  <<< ERROR!
+getHelCodeIdTest(com.ktds.sems.member.dao.MemberDAOTest)  Time elapsed: 0.001 sec  <<< ERROR!
 java.lang.IllegalStateException: Failed to load ApplicationContext
 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:124)
 	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:83)
@@ -490,7 +490,7 @@ Caused by: java.lang.IllegalArgumentException: Could not resolve placeholder 'db
 	at org.springframework.beans.factory.config.BeanDefinitionVisitor.visitBeanDefinition(BeanDefinitionVisitor.java:82)
 	at org.springframework.beans.factory.config.PlaceholderConfigurerSupport.doProcessProperties(PlaceholderConfigurerSupport.java:208)
 	... 43 more
-getHighestEducationLevelCodeNamesTest(com.ktds.sems.member.dao.MemberDAOTest)  Time elapsed: 0.001 sec  <<< ERROR!
+getHighestEducationLevelCodeNamesTest(com.ktds.sems.member.dao.MemberDAOTest)  Time elapsed: 0 sec  <<< ERROR!
 java.lang.IllegalStateException: Failed to load ApplicationContext
 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:124)
 	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:83)
@@ -551,7 +551,7 @@ Caused by: java.lang.IllegalArgumentException: Could not resolve placeholder 'db
 	at org.springframework.beans.factory.config.BeanDefinitionVisitor.visitBeanDefinition(BeanDefinitionVisitor.java:82)
 	at org.springframework.beans.factory.config.PlaceholderConfigurerSupport.doProcessProperties(PlaceholderConfigurerSupport.java:208)
 	... 43 more
-getHighestEducationLevelsTest(com.ktds.sems.member.dao.MemberDAOTest)  Time elapsed: 0.001 sec  <<< ERROR!
+getHighestEducationLevelsTest(com.ktds.sems.member.dao.MemberDAOTest)  Time elapsed: 0 sec  <<< ERROR!
 java.lang.IllegalStateException: Failed to load ApplicationContext
 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:124)
 	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:83)
@@ -612,7 +612,7 @@ Caused by: java.lang.IllegalArgumentException: Could not resolve placeholder 'db
 	at org.springframework.beans.factory.config.BeanDefinitionVisitor.visitBeanDefinition(BeanDefinitionVisitor.java:82)
 	at org.springframework.beans.factory.config.PlaceholderConfigurerSupport.doProcessProperties(PlaceholderConfigurerSupport.java:208)
 	... 43 more
-getMemberTypeCodeIdTest(com.ktds.sems.member.dao.MemberDAOTest)  Time elapsed: 0 sec  <<< ERROR!
+getMemberTypeCodeIdTest(com.ktds.sems.member.dao.MemberDAOTest)  Time elapsed: 0.001 sec  <<< ERROR!
 java.lang.IllegalStateException: Failed to load ApplicationContext
 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:124)
 	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:83)
@@ -734,7 +734,7 @@ Caused by: java.lang.IllegalArgumentException: Could not resolve placeholder 'db
 	at org.springframework.beans.factory.config.BeanDefinitionVisitor.visitBeanDefinition(BeanDefinitionVisitor.java:82)
 	at org.springframework.beans.factory.config.PlaceholderConfigurerSupport.doProcessProperties(PlaceholderConfigurerSupport.java:208)
 	... 43 more
-getMemberTypeCodeTest(com.ktds.sems.member.dao.MemberDAOTest)  Time elapsed: 0.001 sec  <<< ERROR!
+getMemberTypeCodeTest(com.ktds.sems.member.dao.MemberDAOTest)  Time elapsed: 0 sec  <<< ERROR!
 java.lang.IllegalStateException: Failed to load ApplicationContext
 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:124)
 	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:83)
@@ -917,7 +917,7 @@ Caused by: java.lang.IllegalArgumentException: Could not resolve placeholder 'db
 	at org.springframework.beans.factory.config.BeanDefinitionVisitor.visitBeanDefinition(BeanDefinitionVisitor.java:82)
 	at org.springframework.beans.factory.config.PlaceholderConfigurerSupport.doProcessProperties(PlaceholderConfigurerSupport.java:208)
 	... 43 more
-getOneMemberTest(com.ktds.sems.member.dao.MemberDAOTest)  Time elapsed: 0 sec  <<< ERROR!
+getOneMemberTest(com.ktds.sems.member.dao.MemberDAOTest)  Time elapsed: 0.001 sec  <<< ERROR!
 java.lang.IllegalStateException: Failed to load ApplicationContext
 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:124)
 	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:83)
@@ -1100,7 +1100,7 @@ Caused by: java.lang.IllegalArgumentException: Could not resolve placeholder 'db
 	at org.springframework.beans.factory.config.BeanDefinitionVisitor.visitBeanDefinition(BeanDefinitionVisitor.java:82)
 	at org.springframework.beans.factory.config.PlaceholderConfigurerSupport.doProcessProperties(PlaceholderConfigurerSupport.java:208)
 	... 43 more
-getSysdateTest(com.ktds.sems.member.dao.MemberDAOTest)  Time elapsed: 0 sec  <<< ERROR!
+getSysdateTest(com.ktds.sems.member.dao.MemberDAOTest)  Time elapsed: 0.001 sec  <<< ERROR!
 java.lang.IllegalStateException: Failed to load ApplicationContext
 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:124)
 	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:83)
@@ -1344,7 +1344,7 @@ Caused by: java.lang.IllegalArgumentException: Could not resolve placeholder 'db
 	at org.springframework.beans.factory.config.BeanDefinitionVisitor.visitBeanDefinition(BeanDefinitionVisitor.java:82)
 	at org.springframework.beans.factory.config.PlaceholderConfigurerSupport.doProcessProperties(PlaceholderConfigurerSupport.java:208)
 	... 43 more
-getTotalMemberHistoryCountTest(com.ktds.sems.member.dao.MemberDAOTest)  Time elapsed: 0.001 sec  <<< ERROR!
+getTotalMemberHistoryCountTest(com.ktds.sems.member.dao.MemberDAOTest)  Time elapsed: 0 sec  <<< ERROR!
 java.lang.IllegalStateException: Failed to load ApplicationContext
 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:124)
 	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:83)
@@ -1405,7 +1405,7 @@ Caused by: java.lang.IllegalArgumentException: Could not resolve placeholder 'db
 	at org.springframework.beans.factory.config.BeanDefinitionVisitor.visitBeanDefinition(BeanDefinitionVisitor.java:82)
 	at org.springframework.beans.factory.config.PlaceholderConfigurerSupport.doProcessProperties(PlaceholderConfigurerSupport.java:208)
 	... 43 more
-getTypeListTest(com.ktds.sems.member.dao.MemberDAOTest)  Time elapsed: 0 sec  <<< ERROR!
+getTypeListTest(com.ktds.sems.member.dao.MemberDAOTest)  Time elapsed: 0.001 sec  <<< ERROR!
 java.lang.IllegalStateException: Failed to load ApplicationContext
 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:124)
 	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:83)
@@ -1466,7 +1466,7 @@ Caused by: java.lang.IllegalArgumentException: Could not resolve placeholder 'db
 	at org.springframework.beans.factory.config.BeanDefinitionVisitor.visitBeanDefinition(BeanDefinitionVisitor.java:82)
 	at org.springframework.beans.factory.config.PlaceholderConfigurerSupport.doProcessProperties(PlaceholderConfigurerSupport.java:208)
 	... 43 more
-massiveDeleteMemberTest(com.ktds.sems.member.dao.MemberDAOTest)  Time elapsed: 0 sec  <<< ERROR!
+massiveDeleteMemberTest(com.ktds.sems.member.dao.MemberDAOTest)  Time elapsed: 0.001 sec  <<< ERROR!
 java.lang.IllegalStateException: Failed to load ApplicationContext
 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:124)
 	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:83)
@@ -1527,7 +1527,7 @@ Caused by: java.lang.IllegalArgumentException: Could not resolve placeholder 'db
 	at org.springframework.beans.factory.config.BeanDefinitionVisitor.visitBeanDefinition(BeanDefinitionVisitor.java:82)
 	at org.springframework.beans.factory.config.PlaceholderConfigurerSupport.doProcessProperties(PlaceholderConfigurerSupport.java:208)
 	... 43 more
-modifyMemberTypeByIdTest(com.ktds.sems.member.dao.MemberDAOTest)  Time elapsed: 0.001 sec  <<< ERROR!
+modifyMemberTypeByIdTest(com.ktds.sems.member.dao.MemberDAOTest)  Time elapsed: 0 sec  <<< ERROR!
 java.lang.IllegalStateException: Failed to load ApplicationContext
 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:124)
 	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:83)
@@ -1588,7 +1588,7 @@ Caused by: java.lang.IllegalArgumentException: Could not resolve placeholder 'db
 	at org.springframework.beans.factory.config.BeanDefinitionVisitor.visitBeanDefinition(BeanDefinitionVisitor.java:82)
 	at org.springframework.beans.factory.config.PlaceholderConfigurerSupport.doProcessProperties(PlaceholderConfigurerSupport.java:208)
 	... 43 more
-semsTestCaseTest(com.ktds.sems.member.dao.MemberDAOTest)  Time elapsed: 0 sec  <<< ERROR!
+semsTestCaseTest(com.ktds.sems.member.dao.MemberDAOTest)  Time elapsed: 0.001 sec  <<< ERROR!
 java.lang.IllegalStateException: Failed to load ApplicationContext
 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:124)
 	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:83)

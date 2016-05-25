@@ -1,12 +1,10 @@
 package com.ktds.sems.cooperation.dao.impl;
 
 import java.util.List;
-import java.util.Map;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 
 import com.ktds.sems.cooperation.dao.CooperationDAO;
-import com.ktds.sems.cooperation.vo.CooperationVO;
 import com.ktds.sems.cooperation.vo.CooperationSearchVO;
 import com.ktds.sems.cooperation.vo.CooperationTypeVO;
 import com.ktds.sems.cooperation.vo.CooperationVO;

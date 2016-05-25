@@ -1,7 +1,7 @@
 -------------------------------------------------------------------------------
 Test set: com.ktds.sems.cooperation.biz.CooperationBizTest
 -------------------------------------------------------------------------------
-Tests run: 8, Failures: 0, Errors: 8, Skipped: 0, Time elapsed: 1.473 sec <<< FAILURE!
+Tests run: 8, Failures: 0, Errors: 8, Skipped: 0, Time elapsed: 1.51 sec <<< FAILURE!
 getAllCooperationTest(com.ktds.sems.cooperation.biz.CooperationBizTest)  Time elapsed: 0.006 sec  <<< ERROR!
 java.lang.IllegalStateException: Failed to load ApplicationContext
 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:124)

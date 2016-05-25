@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="1" failures="0" name="com.ktds.sems.SemsTestCase" time="0.033" errors="1" skipped="0">
+<testsuite tests="1" failures="0" name="com.ktds.sems.SemsTestCase" time="0.041" errors="1" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.8.0_65\jre\bin"/>
@@ -28,18 +28,16 @@
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="user.variant" value=""/>
     <property name="os.name" value="Windows 7"/>
-    <property name="classworlds.conf" value="C:\workspace-sts-3.7.2.RELEASE\.metadata\.plugins\org.eclipse.m2e.launching\launches\m2conf2046394382840845100.tmp"/>
+    <property name="classworlds.conf" value="C:\workspace-sts-3.7.2.RELEASE\.metadata\.plugins\org.eclipse.m2e.launching\launches\m2conf2622998584318472805.tmp"/>
     <property name="sun.jnu.encoding" value="MS949"/>
     <property name="java.library.path" value="C:\Program Files\Java\jdk1.8.0_65\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:/Program Files/Java/jre1.8.0_77/bin/server;C:/Program Files/Java/jre1.8.0_77/bin;C:/Program Files/Java/jre1.8.0_77/lib/amd64;C:\oraclexe\app\oracle\product\11.2.0\server\bin;;C:\ProgramData\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\Java\jdk1.8.0_65\bin;C:\Program Files\jEdit;C:\Program Files\Bandizip\7z;C:\Users\206-001\Downloads\spring-tool-suite-3.7.2.RELEASE-e4.5.1-win32-x86_64\sts-bundle\sts-3.7.2.RELEASE;;."/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.class.version" value="52.0"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
-    <property name="skipTests" value="false"/>
     <property name="os.version" value="6.1"/>
     <property name="user.home" value="C:\Users\206-001"/>
     <property name="user.timezone" value="Asia/Seoul"/>
     <property name="java.awt.printerjob" value="sun.awt.windows.WPrinterJob"/>
-    <property name="coberturaskip" value="false"/>
     <property name="java.specification.version" value="1.8"/>
     <property name="file.encoding" value="UTF-8"/>
     <property name="user.name" value="206-004"/>
@@ -47,7 +45,7 @@
     <property name="java.vm.specification.version" value="1.8"/>
     <property name="sun.arch.data.model" value="64"/>
     <property name="java.home" value="C:\Program Files\Java\jdk1.8.0_65\jre"/>
-    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher -B clean test cobertura:cobertura -DskipTests=false -Dcoberturaskip=false install"/>
+    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher -B clean install"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
     <property name="user.language" value="ko"/>
     <property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
@@ -126,20 +124,20 @@ Caused by: java.lang.IllegalArgumentException: Could not resolve placeholder &ap
 	at org.springframework.beans.factory.config.PlaceholderConfigurerSupport.doProcessProperties(PlaceholderConfigurerSupport.java:208)
 	... 43 more
 </error>
-    <system-out>��INFO  13:48:56.747 [main] org.springframework.test.context.support.DefaultTestContextBootstrapper[getDefaultTestExecutionListenerClassNames:259] - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
-��INFO  13:48:56.747 [main] org.springframework.test.context.support.DefaultTestContextBootstrapper[getTestExecutionListeners:185] - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@3b839f68, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@e5c52fa, org.springframework.test.context.support.DependencyInjectionTestExecutionListener@614361fa, org.springframework.test.context.support.DirtiesContextTestExecutionListener@538a90a5, org.springframework.test.context.transaction.TransactionalTestExecutionListener@74d53d63, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@18f27a81]
-��INFO  13:48:56.748 [main] org.springframework.beans.factory.xml.XmlBeanDefinitionReader[loadBeanDefinitions:317] - Loading XML bean definitions from URL [file:src/main/webapp/WEB-INF/spring/applicationContext.xml]
-��INFO  13:48:56.754 [main] org.springframework.beans.factory.xml.XmlBeanDefinitionReader[loadBeanDefinitions:317] - Loading XML bean definitions from URL [file:src/main/webapp/WEB-INF/spring/cooperationContext.xml]
-��INFO  13:48:56.756 [main] org.springframework.beans.factory.xml.XmlBeanDefinitionReader[loadBeanDefinitions:317] - Loading XML bean definitions from URL [file:src/main/webapp/WEB-INF/spring/educationContext.xml]
-��INFO  13:48:56.758 [main] org.springframework.beans.factory.xml.XmlBeanDefinitionReader[loadBeanDefinitions:317] - Loading XML bean definitions from URL [file:src/main/webapp/WEB-INF/spring/fileContext.xml]
-��INFO  13:48:56.760 [main] org.springframework.beans.factory.xml.XmlBeanDefinitionReader[loadBeanDefinitions:317] - Loading XML bean definitions from URL [file:src/main/webapp/WEB-INF/spring/memberContext.xml]
-��INFO  13:48:56.762 [main] org.springframework.beans.factory.xml.XmlBeanDefinitionReader[loadBeanDefinitions:317] - Loading XML bean definitions from URL [file:src/main/webapp/WEB-INF/spring/teacherContext.xml]
-��INFO  13:48:56.765 [main] org.springframework.beans.factory.xml.XmlBeanDefinitionReader[loadBeanDefinitions:317] - Loading XML bean definitions from class path resource [rootContext.xml]
-��INFO  13:48:56.770 [main] org.springframework.context.support.GenericApplicationContext[prepareRefresh:578] - Refreshing org.springframework.context.support.GenericApplicationContext@624494d4: startup date [Fri May 20 13:48:56 KST 2016]; root of context hierarchy
-��INFO  13:48:56.781 [main] org.springframework.context.support.PropertySourcesPlaceholderConfigurer[loadProperties:172] - Loading properties file from class path resource [db${env}.properties]
-��WARN  13:48:56.781 [main] org.springframework.context.support.PropertySourcesPlaceholderConfigurer[loadProperties:181] - Could not load properties from class path resource [db${env}.properties]: class path resource [db${env}.properties] cannot be opened because it does not exist
-��WARN  13:48:56.782 [main] org.springframework.context.support.GenericApplicationContext[refresh:546] - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanDefinitionStoreException: Invalid bean definition with name &apos;dataSource&apos; defined in class path resource [rootContext.xml]: Could not resolve placeholder &apos;db.url&apos; in string value &quot;jdbc:oracle:thin:@${db.url}:1521:XE&quot;; nested exception is java.lang.IllegalArgumentException: Could not resolve placeholder &apos;db.url&apos; in string value &quot;jdbc:oracle:thin:@${db.url}:1521:XE&quot;
-��ERROR 13:48:56.782 [main] org.springframework.test.context.TestContextManager[prepareTestInstance:231] - Caught exception while allowing TestExecutionListener [org.springframework.test.context.support.DependencyInjectionTestExecutionListener@614361fa] to prepare test instance [com.ktds.sems.SemsTestCase@5810772a]
+    <system-out>��INFO  15:57:18.124 [main] org.springframework.test.context.support.DefaultTestContextBootstrapper[getDefaultTestExecutionListenerClassNames:259] - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
+��INFO  15:57:18.125 [main] org.springframework.test.context.support.DefaultTestContextBootstrapper[getTestExecutionListeners:185] - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@d67f6f, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@4fc28b23, org.springframework.test.context.support.DependencyInjectionTestExecutionListener@1b58788a, org.springframework.test.context.support.DirtiesContextTestExecutionListener@31881213, org.springframework.test.context.transaction.TransactionalTestExecutionListener@2162e4a, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@595626b8]
+��INFO  15:57:18.125 [main] org.springframework.beans.factory.xml.XmlBeanDefinitionReader[loadBeanDefinitions:317] - Loading XML bean definitions from URL [file:src/main/webapp/WEB-INF/spring/applicationContext.xml]
+��INFO  15:57:18.133 [main] org.springframework.beans.factory.xml.XmlBeanDefinitionReader[loadBeanDefinitions:317] - Loading XML bean definitions from URL [file:src/main/webapp/WEB-INF/spring/cooperationContext.xml]
+��INFO  15:57:18.135 [main] org.springframework.beans.factory.xml.XmlBeanDefinitionReader[loadBeanDefinitions:317] - Loading XML bean definitions from URL [file:src/main/webapp/WEB-INF/spring/educationContext.xml]
+��INFO  15:57:18.138 [main] org.springframework.beans.factory.xml.XmlBeanDefinitionReader[loadBeanDefinitions:317] - Loading XML bean definitions from URL [file:src/main/webapp/WEB-INF/spring/fileContext.xml]
+��INFO  15:57:18.140 [main] org.springframework.beans.factory.xml.XmlBeanDefinitionReader[loadBeanDefinitions:317] - Loading XML bean definitions from URL [file:src/main/webapp/WEB-INF/spring/memberContext.xml]
+��INFO  15:57:18.142 [main] org.springframework.beans.factory.xml.XmlBeanDefinitionReader[loadBeanDefinitions:317] - Loading XML bean definitions from URL [file:src/main/webapp/WEB-INF/spring/teacherContext.xml]
+��INFO  15:57:18.144 [main] org.springframework.beans.factory.xml.XmlBeanDefinitionReader[loadBeanDefinitions:317] - Loading XML bean definitions from class path resource [rootContext.xml]
+��INFO  15:57:18.149 [main] org.springframework.context.support.GenericApplicationContext[prepareRefresh:578] - Refreshing org.springframework.context.support.GenericApplicationContext@1928930: startup date [Tue May 24 15:57:18 KST 2016]; root of context hierarchy
+��INFO  15:57:18.165 [main] org.springframework.context.support.PropertySourcesPlaceholderConfigurer[loadProperties:172] - Loading properties file from class path resource [db${env}.properties]
+��WARN  15:57:18.166 [main] org.springframework.context.support.PropertySourcesPlaceholderConfigurer[loadProperties:181] - Could not load properties from class path resource [db${env}.properties]: class path resource [db${env}.properties] cannot be opened because it does not exist
+��WARN  15:57:18.166 [main] org.springframework.context.support.GenericApplicationContext[refresh:546] - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanDefinitionStoreException: Invalid bean definition with name &apos;dataSource&apos; defined in class path resource [rootContext.xml]: Could not resolve placeholder &apos;db.url&apos; in string value &quot;jdbc:oracle:thin:@${db.url}:1521:XE&quot;; nested exception is java.lang.IllegalArgumentException: Could not resolve placeholder &apos;db.url&apos; in string value &quot;jdbc:oracle:thin:@${db.url}:1521:XE&quot;
+��ERROR 15:57:18.167 [main] org.springframework.test.context.TestContextManager[prepareTestInstance:231] - Caught exception while allowing TestExecutionListener [org.springframework.test.context.support.DependencyInjectionTestExecutionListener@1b58788a] to prepare test instance [com.ktds.sems.SemsTestCase@2f43c73a]
 java.lang.IllegalStateException: Failed to load ApplicationContext
 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:124)
 	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:83)

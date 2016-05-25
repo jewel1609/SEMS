@@ -1,8 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: com.ktds.sems.cooperation.service.CooperationServiceTest
 -------------------------------------------------------------------------------
-Tests run: 8, Failures: 0, Errors: 8, Skipped: 0, Time elapsed: 0.477 sec <<< FAILURE!
-viewRegistCooPageTest(com.ktds.sems.cooperation.service.CooperationServiceTest)  Time elapsed: 0 sec  <<< ERROR!
+Tests run: 8, Failures: 0, Errors: 8, Skipped: 0, Time elapsed: 0.491 sec <<< FAILURE!
+viewRegistCooPageTest(com.ktds.sems.cooperation.service.CooperationServiceTest)  Time elapsed: 0.001 sec  <<< ERROR!
 java.lang.IllegalStateException: Failed to load ApplicationContext
 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:124)
 	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:83)
@@ -185,7 +185,7 @@ Caused by: java.lang.IllegalArgumentException: Could not resolve placeholder 'db
 	at org.springframework.beans.factory.config.BeanDefinitionVisitor.visitBeanDefinition(BeanDefinitionVisitor.java:82)
 	at org.springframework.beans.factory.config.PlaceholderConfigurerSupport.doProcessProperties(PlaceholderConfigurerSupport.java:208)
 	... 43 more
-doModifyCooTest(com.ktds.sems.cooperation.service.CooperationServiceTest)  Time elapsed: 0.001 sec  <<< ERROR!
+doModifyCooTest(com.ktds.sems.cooperation.service.CooperationServiceTest)  Time elapsed: 0 sec  <<< ERROR!
 java.lang.IllegalStateException: Failed to load ApplicationContext
 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:124)
 	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:83)
@@ -368,7 +368,7 @@ Caused by: java.lang.IllegalArgumentException: Could not resolve placeholder 'db
 	at org.springframework.beans.factory.config.BeanDefinitionVisitor.visitBeanDefinition(BeanDefinitionVisitor.java:82)
 	at org.springframework.beans.factory.config.PlaceholderConfigurerSupport.doProcessProperties(PlaceholderConfigurerSupport.java:208)
 	... 43 more
-getOneCooperationTest(com.ktds.sems.cooperation.service.CooperationServiceTest)  Time elapsed: 0 sec  <<< ERROR!
+getOneCooperationTest(com.ktds.sems.cooperation.service.CooperationServiceTest)  Time elapsed: 0.001 sec  <<< ERROR!
 java.lang.IllegalStateException: Failed to load ApplicationContext
 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:124)
 	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:83)
