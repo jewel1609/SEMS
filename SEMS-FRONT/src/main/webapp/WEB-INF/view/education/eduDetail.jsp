@@ -269,7 +269,7 @@
 								<div>
 									<span>내용 : </span>${ qna.description }
 									
-									<c:if test="${ qna.depth eq 1 and memberType eq 'ADM'}">
+									<c:if test="${ qna.depth eq 1 and memberType eq 'ADM'|| 'TR'}">
 										<div style="text-align:right; cursor:pointer" class="reReplyBtn">&nbsp; + </div>
 									</c:if>
 								</div>
