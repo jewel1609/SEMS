@@ -26,6 +26,7 @@
 		<typeAlias type="com.ktds.sems.education.vo.BBSReplyVO" alias="BBSReplyVO" />
 		<typeAlias type="com.ktds.sems.education.vo.EducationQNABBSVO" alias="EducationQNABBSVO"/>
 		<typeAlias type="com.ktds.sems.education.vo.EducationQNAReplyVO" alias="EducationQNAReplyVO"/>
+		<typeAlias type="com.ktds.sems.education.vo.EducationQNAReplySearchVO" alias="EducationQNAReplySearchVO"/>
 		<typeAlias type="com.ktds.sems.education.vo.EducationQNAReplyListVO" alias="EducationQNAReplyListVO"/>
 		<typeAlias type="com.ktds.sems.education.vo.EducationQNABBSSearchVO" alias="EducationQNABBSSearchVO"/>
 		<typeAlias type="com.ktds.sems.education.vo.EducationReportVO" alias="EducationReportVO"/>
