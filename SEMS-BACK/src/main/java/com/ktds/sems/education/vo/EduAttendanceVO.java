@@ -1,51 +1,38 @@
 package com.ktds.sems.education.vo;
 
-public class EduAttendanceVO {
+public class EduAttendanceVO extends EducationVO{
 	
-	private String memberId;
+	private String attendanceDate;
 	private String memberName;
-	private String educationId;
-	private String educationTitle;
-	private String educationStartTime;
-	private String educationEndTime;
+	private String teamId;
+	private String teamName;
 	private String attendanceTime;
 	private String offTime;
+	private String attendanceState;
 	
-	public String getMemberId() {
-		return memberId;
+	public String getTeamId() {
+		return teamId;
 	}
-	public void setMemberId(String memberId) {
-		this.memberId = memberId;
+	public void setTeamId(String teamId) {
+		this.teamId = teamId;
+	}
+	public String getTeamName() {
+		return teamName;
+	}
+	public void setTeamName(String teamName) {
+		this.teamName = teamName;
+	}
+	public String getAttendanceDate() {
+		return attendanceDate;
+	}
+	public void setAttendanceDate(String attendanceDate) {
+		this.attendanceDate = attendanceDate;
 	}
 	public String getMemberName() {
 		return memberName;
 	}
 	public void setMemberName(String memberName) {
 		this.memberName = memberName;
-	}
-	public String getEducationId() {
-		return educationId;
-	}
-	public void setEducationId(String educationId) {
-		this.educationId = educationId;
-	}
-	public String getEducationTitle() {
-		return educationTitle;
-	}
-	public void setEducationTitle(String educationTitle) {
-		this.educationTitle = educationTitle;
-	}
-	public String getEducationStartTime() {
-		return educationStartTime;
-	}
-	public void setEducationStartTime(String educationStartTime) {
-		this.educationStartTime = educationStartTime;
-	}
-	public String getEducationEndTime() {
-		return educationEndTime;
-	}
-	public void setEducationEndTime(String educationEndTime) {
-		this.educationEndTime = educationEndTime;
 	}
 	public String getAttendanceTime() {
 		return attendanceTime;
@@ -58,6 +45,12 @@ public class EduAttendanceVO {
 	}
 	public void setOffTime(String offTime) {
 		this.offTime = offTime;
+	}
+	public String getAttendanceState() {
+		return attendanceState;
+	}
+	public void setAttendanceState(String attendanceState) {
+		this.attendanceState = attendanceState;
 	}
 
 }

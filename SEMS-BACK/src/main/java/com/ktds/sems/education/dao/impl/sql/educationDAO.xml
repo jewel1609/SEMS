@@ -494,8 +494,8 @@
 		SELECT	MBR.ID memberId
 				, MBR.NM memberName
 				, EI.EDU_ID educationId
-				, EI.START_TM educationStartTime
-				, EI.END_TM educationEndTime
+				, EI.START_TM startTime
+				, EI.END_TM endTime
 				, ATD_TM attendanceTime
 				<!-- , offTime -->
 		FROM	ATD
@@ -554,6 +554,81 @@
 		FROM	MBR M
 				, TCHR_INFO T
 		WHERE	M.ID = T.MBR_ID
+	</select>
+	
+	<select id="getTotalEduReportHisotryCount" parameterType="EduReportSearchVO" resultType="_int">
+		SELECT	COUNT(RPT_RPL_ID)
+		FROM	RPT_RPL
+		<if test="searchType == 1 and searchType != null">
+		WHERE	MBR_ID LIKE '%'||#{searchKeyword}||'%'
+		</if>
+		<if test="searchType == 2 and searchType != null">
+		WHERE	BBS_ID IN (
+		                    SELECT  ATC_ID
+		                    FROM    EDU_RPT_BBS
+		                    WHERE   EDU_ID LIKE '%'||#{searchKeyword}||'%'
+		                  )
+		</if>
+		<if test="searchType == 3 and searchType != null">
+		WHERE	MBR_ID IN (
+		                    SELECT  TEAM_LIST.MBR_ID
+		                    FROM    TEAM
+		                            , TEAM_LIST
+		                    WHERE   TEAM.TEAM_ID = TEAM_LIST.TEAM_ID
+		                    AND     TEAM.TEAM_ID LIKE '%'||#{searchKeyword}||'%'
+		                  )
+		</if>
+	</select>
+	
+	<select id="getAllEduReportHistory" parameterType="EduReportSearchVO" resultType="EduReportVO">
+		SELECT	MBR_ID memberId
+		        , NM fileName
+		        , EDU_ID educationId
+		        , EDU_TTL educationTitle
+		        , ATC_ID eduReportId
+		        , TITLE title
+		        , CREATE_DATE createDate
+		FROM	(
+		            SELECT  ROWNUM AS RNUM
+		                    , MER.*
+		            FROM    (
+		                        SELECT	ERB.ATC_ID
+		                                , ERB.TITLE
+		                                , RR.*
+		                                , M.NM
+		                                , EI.EDU_ID
+		                                , EI.EDU_TTL
+		                        FROM	RPT_RPL RR
+		                                , EDU_RPT_BBS ERB 
+		                                , MBR M
+		                                , EDU_INFO EI
+		                        WHERE   RR.BBS_ID = ERB.ATC_ID
+		                        AND     RR.MBR_ID = M.ID
+		                        AND     ERB.EDU_ID = EI.EDU_ID
+		                        <if test="searchType == 1 and searchType != null">
+		                        AND     M.ID LIKE '%'||#{searchKeyword}||'%'
+		                        </if>
+		                        <if test="searchType == 2 and searchType != null">
+								AND		RR.BBS_ID IN (
+									                    SELECT  ATC_ID
+									                    FROM    EDU_RPT_BBS
+									                    WHERE   EDU_ID LIKE '%'||#{searchKeyword}||'%'
+								                  	 )
+								</if>
+								<if test="searchType == 3 and searchType != null">
+								AND		M.ID IN (
+								                    SELECT  TEAM_LIST.MBR_ID
+								                    FROM    TEAM
+								                            , TEAM_LIST
+								                    WHERE   TEAM.TEAM_ID = TEAM_LIST.TEAM_ID
+								                    AND     TEAM.TEAM_ID LIKE '%'||#{searchKeyword}||'%'
+								                )
+								</if>
+		                        ORDER   BY CREATE_DATE DESC
+		                    )MER
+		        )
+		WHERE	RNUM >= #{startIndex}
+		AND     RNUM <![CDATA[<=]]> #{endIndex}
 	</select>
 	
 </mapper>

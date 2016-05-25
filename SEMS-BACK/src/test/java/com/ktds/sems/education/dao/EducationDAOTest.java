@@ -36,11 +36,14 @@ import com.ktds.sems.education.vo.CostVO;
 import com.ktds.sems.education.vo.EduFileSearchVO;
 import com.ktds.sems.education.vo.EduQnaSearchVO;
 import com.ktds.sems.education.vo.EduReportSearchVO;
+import com.ktds.sems.education.vo.EduReportVO;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationHistoryVO;
 import com.ktds.sems.education.vo.EducationTypeVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.member.vo.MemberVO;
+
+import kr.co.hucloud.utilities.web.Paging;
 
 @Transactional
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -1069,4 +1072,28 @@ public class EducationDAOTest extends SemsTestCase {
 			fail("[DAO Part] emailNoticeForUserTest Fail.");
 		}
 	}
+	
+	@Test
+	public void getTotalEduReportHisotryCountTest(){
+		EduReportSearchVO reportSearchVO = new EduReportSearchVO();
+		int reportHistoryCount = educationDAO.getTotalEduReportHisotryCount(reportSearchVO);
+		assertNotNull(reportHistoryCount);
+		assertTrue(reportHistoryCount > 0);
+	}
+	
+	@Test
+	public void getAllEduReportHistoryTest(){
+		EduReportSearchVO reportSearchVO = new EduReportSearchVO();
+		Paging paging = new Paging(10,10);
+		int totalReportCount = educationDAO.getTotalEduReportHisotryCount(reportSearchVO);
+		paging.setPageNumber(0 + "");
+		paging.setTotalArticleCount(totalReportCount);
+		
+		reportSearchVO.setStartIndex(paging.getStartArticleNumber());
+		reportSearchVO.setEndIndex(paging.getEndArticleNumber());
+		List<EduReportVO> reports = educationDAO.getAllEduReportHistory(reportSearchVO);
+		assertNotNull(reports);
+		assertTrue(reports.size() > 0);
+	}
+	
 }

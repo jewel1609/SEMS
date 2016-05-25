@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -29,7 +30,10 @@ import com.ktds.sems.education.service.EducationServiceTest.EducationValidator;
 import com.ktds.sems.education.vo.EduFileSearchVO;
 import com.ktds.sems.education.vo.EduQnaSearchVO;
 import com.ktds.sems.education.vo.EduReportSearchVO;
+import com.ktds.sems.education.vo.EduReportVO;
 import com.ktds.sems.education.vo.EducationVO;
+
+import kr.co.hucloud.utilities.web.Paging;
 
 @Transactional
 public class EducationBizTest extends SemsTestCase {
@@ -894,6 +898,29 @@ public class EducationBizTest extends SemsTestCase {
 		EduReportSearchVO eduReportSearchVO = new EduReportSearchVO();
 		eduReportSearchVO.setEducationId("ED-20160519-000233");
 		assertNotNull(educationBiz.getAllEduReport(eduReportSearchVO));
+	}
+	
+	@Test
+	public void getTotalEduReportHisotryCountTest(){
+		EduReportSearchVO reportSearchVO = new EduReportSearchVO();
+		int reportHistoryCount = educationBiz.getTotalEduReportHisotryCount(reportSearchVO);
+		assertNotNull(reportHistoryCount);
+		assertTrue(reportHistoryCount > 0);
+	}
+	
+	@Test
+	public void getAllEduReportHistoryTest(){
+		EduReportSearchVO reportSearchVO = new EduReportSearchVO();
+		Paging paging = new Paging(10,10);
+		int totalReportCount = educationBiz.getTotalEduReportHisotryCount(reportSearchVO);
+		paging.setPageNumber(0 + "");
+		paging.setTotalArticleCount(totalReportCount);
+		
+		reportSearchVO.setStartIndex(paging.getStartArticleNumber());
+		reportSearchVO.setEndIndex(paging.getEndArticleNumber());
+		List<EduReportVO> reports = educationBiz.getAllEduReportHistory(reportSearchVO);
+		assertNotNull(reports);
+		assertTrue(reports.size() > 0);
 	}
 	
 }

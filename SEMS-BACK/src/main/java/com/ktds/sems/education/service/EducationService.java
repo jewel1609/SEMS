@@ -48,4 +48,6 @@ public interface EducationService {
 	public ModelAndView doActionDelete(String educationId, HttpSession session);
 
 	public ModelAndView viewEducationAttendancePage(EduAttendanceSearchVO eduAttendanceSearchVO, int pageNo);
+
+	public ModelAndView viewReportHistoryPage(EduReportSearchVO reportSearchVO, int pageNo);
 }

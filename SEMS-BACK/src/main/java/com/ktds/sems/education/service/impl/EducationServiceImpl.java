@@ -488,4 +488,27 @@ public class EducationServiceImpl implements EducationService {
 		}
 		return view;
 	}
+
+	@Override
+	public ModelAndView viewReportHistoryPage(EduReportSearchVO reportSearchVO, int pageNo) {
+		
+		EduReportListVO reportListVO = new EduReportListVO();
+		Paging paging = new Paging(10,10);
+		reportListVO.setPaging(paging);
+		
+		int totalReportCount = educationBiz.getTotalEduReportHisotryCount(reportSearchVO);
+		paging.setPageNumber(pageNo + "");
+		paging.setTotalArticleCount(totalReportCount);
+		
+		reportSearchVO.setStartIndex(paging.getStartArticleNumber());
+		reportSearchVO.setEndIndex(paging.getEndArticleNumber());
+		
+		List<EduReportVO> reportList = educationBiz.getAllEduReportHistory(reportSearchVO);
+		reportListVO.setEduReportList(reportList);
+		
+		ModelAndView view = new ModelAndView();
+		view.setViewName("education/eduReportHistory");
+		view.addObject("reportListVO", reportListVO);
+		return view;
+	}
 }

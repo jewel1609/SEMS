@@ -59,5 +59,7 @@ public interface EducationDAO {
 	
 	public MemberVO emailNoticeForUser(String memberId);
 	public List<TeacherVO> teacherVOList();
+	public int getTotalEduReportHisotryCount(EduReportSearchVO reportSearchVO);
+	public List<EduReportVO> getAllEduReportHistory(EduReportSearchVO reportSearchVO);
 
 }

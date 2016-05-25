@@ -318,4 +318,14 @@ public class EducationBizImpl implements EducationBiz {
 	public List<TeacherVO> teacherVOList() {
 		return educationDAO.teacherVOList();
 	}
+
+	@Override
+	public int getTotalEduReportHisotryCount(EduReportSearchVO reportSearchVO) {
+		return educationDAO.getTotalEduReportHisotryCount(reportSearchVO);
+	}
+
+	@Override
+	public List<EduReportVO> getAllEduReportHistory(EduReportSearchVO reportSearchVO) {
+		return educationDAO.getAllEduReportHistory(reportSearchVO);
+	}
 }

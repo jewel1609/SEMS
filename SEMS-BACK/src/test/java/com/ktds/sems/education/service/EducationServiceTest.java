@@ -49,7 +49,7 @@ import kr.co.hucloud.utilities.web.Paging;
 public class EducationServiceTest extends SemsTestCase {
 
 	@Autowired
-	private EducationService educationeService;
+	private EducationService educationService;
 	
 	@Autowired
 	private FileBiz fileBiz;
@@ -57,7 +57,7 @@ public class EducationServiceTest extends SemsTestCase {
 	@Test
 	public void getOneEducationForUpdateTest(){
 		String educationId = "ED-20160513-000173";
-		ModelAndView view = educationeService.getOneEducationForUpdate(educationId);
+		ModelAndView view = educationService.getOneEducationForUpdate(educationId);
 		String viewName = view.getViewName();
 		assertNotNull(view);
 		assertTrue(viewName == "education/update");
@@ -110,7 +110,7 @@ public class EducationServiceTest extends SemsTestCase {
 		
 		session.setAttribute("_MEMBER_TYPE_", "ADM");
 		
-		ModelAndView view = educationeService.modifyNewEducation(educationVO, errors, request);
+		ModelAndView view = educationService.modifyNewEducation(educationVO, errors, request);
 		assertNotNull(view);
 		
 		if (view != null) {
@@ -169,7 +169,7 @@ public class EducationServiceTest extends SemsTestCase {
 		
 		session.setAttribute("_MEMBER_TYPE_", "ADM");
 		
-		ModelAndView view = educationeService.modifyNewEducation(educationVO, errors, request);
+		ModelAndView view = educationService.modifyNewEducation(educationVO, errors, request);
 		
 		if (view != null) {
 			String viewName = view.getViewName();
@@ -227,7 +227,7 @@ public class EducationServiceTest extends SemsTestCase {
 		
 		session.setAttribute("_MEMBER_TYPE_", "ADM");
 		
-		ModelAndView view = educationeService.modifyNewEducation(educationVO, errors, request);
+		ModelAndView view = educationService.modifyNewEducation(educationVO, errors, request);
 		
 		if (view != null) {
 			String viewName = view.getViewName();
@@ -285,7 +285,7 @@ public class EducationServiceTest extends SemsTestCase {
 		
 		session.setAttribute("_MEMBER_TYPE_", "ADM");
 		
-		ModelAndView view = educationeService.modifyNewEducation(educationVO, errors, request);
+		ModelAndView view = educationService.modifyNewEducation(educationVO, errors, request);
 		
 		if (view != null) {
 			String viewName = view.getViewName();
@@ -343,7 +343,7 @@ public class EducationServiceTest extends SemsTestCase {
 		
 		session.setAttribute("_MEMBER_TYPE_", "ADM");
 		
-		ModelAndView view = educationeService.modifyNewEducation(educationVO, errors, request);
+		ModelAndView view = educationService.modifyNewEducation(educationVO, errors, request);
 		
 		if (view != null) {
 			String viewName = view.getViewName();
@@ -401,7 +401,7 @@ public class EducationServiceTest extends SemsTestCase {
 		
 		session.setAttribute("_MEMBER_TYPE_", "ADM");
 		
-		ModelAndView view = educationeService.modifyNewEducation(educationVO, errors, request);
+		ModelAndView view = educationService.modifyNewEducation(educationVO, errors, request);
 		
 		if (view != null) {
 			String viewName = view.getViewName();
@@ -459,7 +459,7 @@ public class EducationServiceTest extends SemsTestCase {
 		
 		session.setAttribute("_MEMBER_TYPE_", "ADM");
 		
-		ModelAndView view = educationeService.modifyNewEducation(educationVO, errors, request);
+		ModelAndView view = educationService.modifyNewEducation(educationVO, errors, request);
 		
 		if (view != null) {
 			String viewName = view.getViewName();
@@ -517,7 +517,7 @@ public class EducationServiceTest extends SemsTestCase {
 		
 		session.setAttribute("_MEMBER_TYPE_", "ADM");
 		
-		ModelAndView view = educationeService.modifyNewEducation(educationVO, errors, request);
+		ModelAndView view = educationService.modifyNewEducation(educationVO, errors, request);
 		
 		if (view != null) {
 			String viewName = view.getViewName();
@@ -575,7 +575,7 @@ public class EducationServiceTest extends SemsTestCase {
 		
 		session.setAttribute("_MEMBER_TYPE_", "ADM");
 		
-		ModelAndView view = educationeService.modifyNewEducation(educationVO, errors, request);
+		ModelAndView view = educationService.modifyNewEducation(educationVO, errors, request);
 		
 		if (view != null) {
 			String viewName = view.getViewName();
@@ -633,7 +633,7 @@ public class EducationServiceTest extends SemsTestCase {
 		
 		session.setAttribute("_MEMBER_TYPE_", "ADM");
 		
-		ModelAndView view = educationeService.modifyNewEducation(educationVO, errors, request);
+		ModelAndView view = educationService.modifyNewEducation(educationVO, errors, request);
 		
 		if (view != null) {
 			String viewName = view.getViewName();
@@ -691,7 +691,7 @@ public class EducationServiceTest extends SemsTestCase {
 		
 		session.setAttribute("_MEMBER_TYPE_", "ADM");
 		
-		ModelAndView view = educationeService.modifyNewEducation(educationVO, errors, request);
+		ModelAndView view = educationService.modifyNewEducation(educationVO, errors, request);
 		
 		if (view != null) {
 			String viewName = view.getViewName();
@@ -749,7 +749,7 @@ public class EducationServiceTest extends SemsTestCase {
 		
 		session.setAttribute("_MEMBER_TYPE_", "ADM");
 		
-		ModelAndView view = educationeService.modifyNewEducation(educationVO, errors, request);
+		ModelAndView view = educationService.modifyNewEducation(educationVO, errors, request);
 		
 		if (view != null) {
 			String viewName = view.getViewName();
@@ -807,7 +807,7 @@ public class EducationServiceTest extends SemsTestCase {
 		
 		session.setAttribute("_MEMBER_TYPE_", "ADM");
 		
-		ModelAndView view = educationeService.modifyNewEducation(educationVO, errors, request);
+		ModelAndView view = educationService.modifyNewEducation(educationVO, errors, request);
 		
 		if (view != null) {
 			String viewName = view.getViewName();
@@ -865,7 +865,7 @@ public class EducationServiceTest extends SemsTestCase {
 		
 		session.setAttribute("_MEMBER_TYPE_", "ADM");
 		
-		ModelAndView view = educationeService.modifyNewEducation(educationVO, errors, request);
+		ModelAndView view = educationService.modifyNewEducation(educationVO, errors, request);
 		
 		if (view != null) {
 			String viewName = view.getViewName();
@@ -926,7 +926,7 @@ public class EducationServiceTest extends SemsTestCase {
 		session.setAttribute("_MEMBER_TYPE_", "ADM");
 		
 
-		ModelAndView view = educationeService.writeNewEducation(educationVO, errors, request);
+		ModelAndView view = educationService.writeNewEducation(educationVO, errors, request);
 		assertNotNull(view);
 
 		if (view != null) {
@@ -984,7 +984,7 @@ public class EducationServiceTest extends SemsTestCase {
 
 		session.setAttribute("_MEMBER_TYPE_", "ADM");
 		
-		ModelAndView view = educationeService.writeNewEducation(educationVO, errors, request);
+		ModelAndView view = educationService.writeNewEducation(educationVO, errors, request);
 		assertNotNull(view);
 
 		if (view != null) {
@@ -1043,7 +1043,7 @@ public class EducationServiceTest extends SemsTestCase {
 		
 		session.setAttribute("_MEMBER_TYPE_", "ADM");
 		
-		ModelAndView view = educationeService.writeNewEducation(educationVO, errors, request);
+		ModelAndView view = educationService.writeNewEducation(educationVO, errors, request);
 		assertNotNull(view);
 		
 		
@@ -1104,7 +1104,7 @@ public class EducationServiceTest extends SemsTestCase {
 
 		session.setAttribute("_MEMBER_TYPE_", "ADM");
 		
-		ModelAndView view = educationeService.writeNewEducation(educationVO, errors, request);
+		ModelAndView view = educationService.writeNewEducation(educationVO, errors, request);
 		assertNotNull(view);
 
 		if (view != null) {
@@ -1164,7 +1164,7 @@ public class EducationServiceTest extends SemsTestCase {
 
 		session.setAttribute("_MEMBER_TYPE_", "ADM");
 		
-		ModelAndView view = educationeService.writeNewEducation(educationVO, errors, request);
+		ModelAndView view = educationService.writeNewEducation(educationVO, errors, request);
 		assertNotNull(view);
 
 		if (view != null) {
@@ -1223,7 +1223,7 @@ public class EducationServiceTest extends SemsTestCase {
 
 		session.setAttribute("_MEMBER_TYPE_", "ADM");
 		
-		ModelAndView view = educationeService.writeNewEducation(educationVO, errors, request);
+		ModelAndView view = educationService.writeNewEducation(educationVO, errors, request);
 		assertNotNull(view);
 
 		if (view != null) {
@@ -1282,7 +1282,7 @@ public class EducationServiceTest extends SemsTestCase {
 
 		session.setAttribute("_MEMBER_TYPE_", "ADM");
 		
-		ModelAndView view = educationeService.writeNewEducation(educationVO, errors, request);
+		ModelAndView view = educationService.writeNewEducation(educationVO, errors, request);
 		assertNotNull(view);
 
 		if (view != null) {
@@ -1341,7 +1341,7 @@ public class EducationServiceTest extends SemsTestCase {
 
 		session.setAttribute("_MEMBER_TYPE_", "ADM");
 		
-		ModelAndView view = educationeService.writeNewEducation(educationVO, errors, request);
+		ModelAndView view = educationService.writeNewEducation(educationVO, errors, request);
 		assertNotNull(view);
 
 		if (view != null) {
@@ -1400,7 +1400,7 @@ public class EducationServiceTest extends SemsTestCase {
 
 		session.setAttribute("_MEMBER_TYPE_", "ADM");
 		
-		ModelAndView view = educationeService.writeNewEducation(educationVO, errors, request);
+		ModelAndView view = educationService.writeNewEducation(educationVO, errors, request);
 		assertNotNull(view);
 
 		if (view != null) {
@@ -1459,7 +1459,7 @@ public class EducationServiceTest extends SemsTestCase {
 
 		session.setAttribute("_MEMBER_TYPE_", "ADM");
 		
-		ModelAndView view = educationeService.writeNewEducation(educationVO, errors, request);
+		ModelAndView view = educationService.writeNewEducation(educationVO, errors, request);
 		assertNotNull(view);
 
 		if (view != null) {
@@ -1518,7 +1518,7 @@ public class EducationServiceTest extends SemsTestCase {
 
 		session.setAttribute("_MEMBER_TYPE_", "ADM");
 		
-		ModelAndView view = educationeService.writeNewEducation(educationVO, errors, request);
+		ModelAndView view = educationService.writeNewEducation(educationVO, errors, request);
 		assertNotNull(view);
 
 		if (view != null) {
@@ -1577,7 +1577,7 @@ public class EducationServiceTest extends SemsTestCase {
 		
 		session.setAttribute("_MEMBER_TYPE_", "ADM");
 		
-		ModelAndView view = educationeService.writeNewEducation(educationVO, errors, request);
+		ModelAndView view = educationService.writeNewEducation(educationVO, errors, request);
 		assertNotNull(view);
 
 		if (view != null) {
@@ -1636,7 +1636,7 @@ public class EducationServiceTest extends SemsTestCase {
 		
 		session.setAttribute("_MEMBER_TYPE_", "ADM");
 		
-		ModelAndView view = educationeService.writeNewEducation(educationVO, errors, request);
+		ModelAndView view = educationService.writeNewEducation(educationVO, errors, request);
 		assertNotNull(view);
 
 		if (view != null) {
@@ -1731,7 +1731,7 @@ public class EducationServiceTest extends SemsTestCase {
 		EducationHistorySearchVO educationHistorySearchVO = new EducationHistorySearchVO();
 		educationHistorySearchVO.setMemberId("양지한");
 		
-		ModelAndView view = educationeService.getAllEducationHistory(educationHistorySearchVO, 0);
+		ModelAndView view = educationService.getAllEducationHistory(educationHistorySearchVO, 0);
 		
 		if ( view != null ) {
 			String viewName = view.getViewName();
@@ -1760,7 +1760,7 @@ public class EducationServiceTest extends SemsTestCase {
 		EducationHistorySearchVO educationHistorySearchVO = new EducationHistorySearchVO();
 		educationHistorySearchVO.setMemberId("test04");
 		
-		ModelAndView view = educationeService.getJCEduHistory(educationHistorySearchVO, 0);
+		ModelAndView view = educationService.getJCEduHistory(educationHistorySearchVO, 0);
 		
 		if ( view != null ) {
 			String viewName = view.getViewName();
@@ -1788,7 +1788,7 @@ public class EducationServiceTest extends SemsTestCase {
 
 		EduReportSearchVO eduReportSearchVO = new EduReportSearchVO();
 		eduReportSearchVO.setEducationId("ED-20160519-000233");
-		ModelAndView view = educationeService.getAllReportArticle(eduReportSearchVO, 0);
+		ModelAndView view = educationService.getAllReportArticle(eduReportSearchVO, 0);
 		if ( view != null ) {
 			String viewName = view.getViewName();
 			assertNotNull(viewName);
@@ -1815,7 +1815,7 @@ public class EducationServiceTest extends SemsTestCase {
 		
 		EduQnaSearchVO eduQnaSearchVO = new EduQnaSearchVO();
 		eduQnaSearchVO.setEducationId("ED-20160519-000233");
-		ModelAndView view = educationeService.getAllQnaArticle(eduQnaSearchVO, 0);
+		ModelAndView view = educationService.getAllQnaArticle(eduQnaSearchVO, 0);
 		if ( view != null ) {
 			String viewName = view.getViewName();
 			assertNotNull(viewName);
@@ -1842,7 +1842,7 @@ public class EducationServiceTest extends SemsTestCase {
 		
 		EduFileSearchVO eduFileSearchVO = new EduFileSearchVO();
 		eduFileSearchVO.setEducationId("ED-20160519-000233");
-		ModelAndView view = educationeService.getAllEduFileArticle(eduFileSearchVO, 0);
+		ModelAndView view = educationService.getAllEduFileArticle(eduFileSearchVO, 0);
 		if ( view != null ) {
 			String viewName = view.getViewName();
 			assertNotNull(viewName);
@@ -1862,5 +1862,20 @@ public class EducationServiceTest extends SemsTestCase {
 		else {
 			fail("getAllFileArticle Fail");
 		}
+	}
+	
+	@Test
+	public void viewReportHistoryPageTest(){
+		EduReportSearchVO reportSearchVO = new EduReportSearchVO();
+		int pageNo = 0;
+		
+		ModelAndView view = educationService.viewReportHistoryPage(reportSearchVO, pageNo);
+		assertNotNull(view);
+		String viewName = view.getViewName();
+		assertNotNull(viewName);
+		assertEquals(viewName, "education/eduReportHistory");
+		EduReportListVO reportListVO = (EduReportListVO)view.getModel().get("reportListVO");
+		assertNotNull(reportListVO);
+		assertTrue(reportListVO.getEduReportList().size() > 0);
 	}
 }

@@ -82,4 +82,8 @@ public interface EducationBiz {
 	
 	public List<TeacherVO> teacherVOList();
 
+	public int getTotalEduReportHisotryCount(EduReportSearchVO reportSearchVO);
+
+	public List<EduReportVO> getAllEduReportHistory(EduReportSearchVO reportSearchVO);
+
 }

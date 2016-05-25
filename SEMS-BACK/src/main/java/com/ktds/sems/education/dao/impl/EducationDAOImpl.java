@@ -193,4 +193,14 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 	public List<TeacherVO> teacherVOList() {
 		return getSqlSession().selectList("EducationDAO.teacherVOList");
 	}
+
+	@Override
+	public int getTotalEduReportHisotryCount(EduReportSearchVO reportSearchVO) {
+		return getSqlSession().selectOne("EducationDAO.getTotalEduReportHisotryCount", reportSearchVO);
+	}
+
+	@Override
+	public List<EduReportVO> getAllEduReportHistory(EduReportSearchVO reportSearchVO) {
+		return getSqlSession().selectList("EducationDAO.getAllEduReportHistory", reportSearchVO);
+	}
 }

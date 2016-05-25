@@ -116,4 +116,9 @@ public class EducationController {
 		return educationService.doActionDelete(educationId, session);
 	}
 	
+	@RequestMapping("/education/reportHistory")
+	public ModelAndView viewReportHistoryPage(EduReportSearchVO reportSearchVO, @RequestParam(required = false, defaultValue = "0") int pageNo){
+		return educationService.viewReportHistoryPage(reportSearchVO, pageNo);
+	}
+	
 }
