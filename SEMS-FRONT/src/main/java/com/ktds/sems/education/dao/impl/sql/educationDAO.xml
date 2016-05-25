@@ -685,7 +685,7 @@
 											</if>
 										)
 								</if>
-								ORDER	BY CREATE_DATE DESC
+								ORDER	BY ATC_ID DESC
 							) BBS
 					WHERE	ROWNUM <![CDATA[<=]]> #{endIndex}
 				) B
@@ -788,6 +788,7 @@
 								SELECT	*
 								FROM	EDU_QA_BBS
 								WHERE	ATC_ID LIKE 'AT%'
+								AND		EDU_ID = #{educationId}
 								ORDER	BY ATC_ID DESC
 							) BBS
 					WHERE	ROWNUM <![CDATA[<=]]> #{endIndex}
