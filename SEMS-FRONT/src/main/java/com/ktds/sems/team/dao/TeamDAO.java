@@ -5,6 +5,8 @@ import java.util.List;
 import com.ktds.sems.team.vo.TeamSearchVO;
 import com.ktds.sems.team.vo.TeamVO;
 import com.ktds.sems.team.vo.TeamsListVO;
+import com.ktds.sems.team.vo.MinutesSearchVO;
+import com.ktds.sems.team.vo.MinutesVO;
 import com.ktds.sems.team.vo.TeamBBSVO;
 
 public interface TeamDAO {
@@ -40,6 +42,14 @@ public interface TeamDAO {
 	public int checkLikeByTeamBBSVO(TeamBBSVO bbs);
 
 	public int addDislikeRecord(TeamBBSVO bbs);
+	
+	public int insertNewMinutes(MinutesVO minutesVO);
+
+	public List<MinutesVO> getAllMinutesList(MinutesSearchVO minutesSearchVO);
+
+	public int getTotalMinutesCount(MinutesSearchVO minutesSearchVO);
+
+	public int nextMinutesSeq();
 
 
 }

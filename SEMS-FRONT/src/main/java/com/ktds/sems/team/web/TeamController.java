@@ -14,6 +14,8 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.bind.annotation.RequestMethod;
 import com.ktds.sems.team.service.TeamService;
+import com.ktds.sems.team.vo.MinutesSearchVO;
+import com.ktds.sems.team.vo.MinutesVO;
 import com.ktds.sems.team.vo.TeamBBSVO;
 import com.ktds.sems.team.vo.TeamSearchVO;
 
@@ -78,5 +80,30 @@ public class TeamController {
 	@RequestMapping("/searchInitBtn")
 	public String teamSearchInit(){
 		return "redirect:/teamList";
+	}
+	@RequestMapping("/team/writeMinutes/{teamId}")
+	public ModelAndView viewWriteMinutesPage(@PathVariable String teamId) {
+		
+		ModelAndView view = new ModelAndView();
+		view.setViewName("team/writeMinutes");
+		view.addObject("teamId", teamId);
+		return view;
+	}
+	
+	@RequestMapping("/team/doWriteAction/{teamId}")
+	public ModelAndView doWriteAction(@PathVariable String teamId, @Valid MinutesVO minutesVO, Errors errors, HttpSession session){
+		
+		return teamService.writeNewMinutes(teamId, minutesVO, errors, session);
+	}
+	
+	@RequestMapping("/team/listMinutes")
+	public ModelAndView viewListMinutesPage(MinutesSearchVO  minutesSearchVO, @RequestParam(required=false, defaultValue="0") int pageNo) {
+		
+		return teamService.viewListMinutes(minutesSearchVO, pageNo);
+	}
+	
+	@RequestMapping("/member/minutesInit")
+	public ModelAndView minutesInit() {
+		return teamService.minutesInit();
 	}
 }

@@ -4,6 +4,11 @@
 
 <mapper namespace="teamDAO">
 	
+	<select id="nextMinutesSeq" resultType="_int">
+		SELECT	MINU_ID_SEQ.NEXTVAL
+		FROM	DUAL
+	</select>
+	
 	<insert id="addNewTeamBBS" parameterType="TeamBBSVO">
 		INSERT INTO TEAM_BBS (
 									   TEAM_BBS_ID, 
@@ -149,7 +154,7 @@
 		FROM	TEAM_BBS
 	</select>	
 	
-	<select id="getOneTeamDetail" parameterType="string" resultType="TeamsListVO">
+	<select id="getOneTeamDetail" parameterType="string" resultType="TeamListVO">
 	SELECT	TEAM_LST_ID teamListId
 			, TEAM_ID teamId
 			, MBR_ID mbrId
@@ -233,4 +238,99 @@
 		WHERE	MBR_ID = #{memberId}
 		AND		BBS_ID	= #{teamBBSId}
 	</update>
+	
+	<insert id="insertNewMinutes" parameterType="MinutesVO">
+		INSERT INTO MINU_INFO (
+										   MINU_ID
+										   , MBR_ID
+										   , MINU_AGE
+										   , ATTENDACNCE
+										   , MINU_PLA
+										   , MINU_CON
+										   , DSC_SBT
+										   , REMARKS
+										   , TEAM_ID
+										   , START_DATE
+										   , END_DATE
+									) 
+		VALUES 						(  
+											#{minutesId}
+											, #{memberId}
+											, #{minutesAgenda}
+											, #{attendance}
+											, #{minutesPlace}
+											, #{minutesContent}
+											, #{decisionSubject}
+											, #{remarks}
+											, #{teamId}
+											, TO_DATE(#{startDate}, 'YYYY-MM-DD HH24:MI')
+											, TO_DATE(#{endDate}, 'YYYY-MM-DD HH24:MI')
+									)	
+	</insert>
+	
+	<select id="getAllMinutesList" parameterType="MinutesSearchVO" resultType="MinutesVO">
+		SELECT	MIN.MINU_ID minutesId
+				, MIN.MBR_ID memberId
+				, TO_CHAR(MIN.START_DATE, 'YYYY/MM/DD') startDate
+				, MIN.MINU_AGE minutesAgenda
+		FROM 	(
+					SELECT	ROWNUM AS RNUM
+							, MINU.*
+					FROM	(
+								SELECT	MINU_INFO.*
+								FROM	(
+											SELECT	MINU_INFO.*
+											FROM	MINU_INFO
+													, TEAM
+											WHERE	MINU_INFO.TEAM_ID = TEAM.TEAM_ID
+										)MINU_INFO
+							<if test="search != null and search != ''">
+							<if test="search == 'id'">
+								WHERE	MINU_INFO.MBR_ID LIKE '%'||#{searchIDKeyword}||'%'
+							</if>
+							</if>
+							<if test="search != null and search != ''">
+							<if test="search == 'subject'">
+								AND		MINU_INFO.MINU_AGE LIKE '%'||#{searchSBTKeyword}||'%'
+							</if>
+							</if>
+							<if test="search != null and search != ''">
+							<if test="search == 'date'">
+								AND		START_DATE <![CDATA[>=]]> TO_DATE(#{startDate}, 'YYYY/MM/DD')
+								AND		START_DATE <![CDATA[<=]]> ( TO_DATE(#{endDate}, 'YYYY/MM/DD') + 1 )
+							</if>
+							</if>
+								ORDER BY	MINU_INFO.MINU_ID DESC
+							) MINU
+					WHERE	ROWNUM <![CDATA[<=]]> #{endIndex}
+				) MIN
+		WHERE   RNUM >= #{startIndex}
+	</select>
+	
+	<select id="getTotalMinutesCount" parameterType="MinutesSearchVO" resultType="_int">
+		SELECT	COUNT(MINU_ID)
+		FROM	(
+					SELECT	MINU_INFO.*
+					FROM	MINU_INFO
+							, TEAM
+					WHERE	MINU_INFO.TEAM_ID = TEAM.TEAM_ID
+				)MINU_INFO
+	<if test="search != null and search != ''">
+	<if test="search == 'id'">
+		WHERE	MINU_INFO.MBR_ID LIKE '%'||#{searchIDKeyword}||'%'
+	</if>
+	</if>
+	<if test="search != null and search != ''">
+	<if test="search == 'subject'">
+		AND		MINU_INFO.MINU_AGE LIKE '%'||#{searchSBTKeyword}||'%'
+	</if>
+	</if>
+	<if test="search != null and search != ''">
+	<if test="search == 'date'">
+		AND		START_DATE <![CDATA[>=]]> TO_DATE(#{startDate}, 'YYYY/MM/DD')
+		AND		START_DATE <![CDATA[<=]]> ( TO_DATE(#{endDate}, 'YYYY/MM/DD') + 1 )
+	</if>
+	</if>
+		ORDER BY	MINU_ID DESC
+	</select>
 </mapper>

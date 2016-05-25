@@ -4,9 +4,15 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 public class MinutesVO {
 
-	private int minutesId;
+	private String minutesId;
+	private String teamId;
 	private String memberId;
-	private String minutesDate;
+	private String startDate;
+	private String endDate;
+	
+	private String startTime;
+	private String endTime;
+	private String agendaDate;
 	
 	@NotEmpty(message = "회의 안건은 필수 입력 값 입니다!")
 	private String minutesAgenda;
@@ -24,11 +30,37 @@ public class MinutesVO {
 	private String decisionSubject;
 	private String remarks;
 	
-	public int getMinutesId() {
+	
+	
+	public String getStartTime() {
+		return startTime;
+	}
+	public void setStartTime(String startTime) {
+		this.startTime = startTime;
+	}
+	public String getEndTime() {
+		return endTime;
+	}
+	public void setEndTime(String endTime) {
+		this.endTime = endTime;
+	}
+	public String getAgendaDate() {
+		return agendaDate;
+	}
+	public void setAgendaDate(String agendaDate) {
+		this.agendaDate = agendaDate;
+	}
+	public String getMinutesId() {
 		return minutesId;
 	}
-	public void setMinutesId(int minutesId) {
+	public void setMinutesId(String minutesId) {
 		this.minutesId = minutesId;
+	}
+	public String getTeamId() {
+		return teamId;
+	}
+	public void setTeamId(String teamId) {
+		this.teamId = teamId;
 	}
 	public String getMemberId() {
 		return memberId;
@@ -36,11 +68,17 @@ public class MinutesVO {
 	public void setMemberId(String memberId) {
 		this.memberId = memberId;
 	}
-	public String getMinutesDate() {
-		return minutesDate;
+	public String getStartDate() {
+		return startDate;
 	}
-	public void setMinutesDate(String minutesDate) {
-		this.minutesDate = minutesDate;
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+	public String getEndDate() {
+		return endDate;
+	}
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
 	}
 	public String getMinutesAgenda() {
 		return minutesAgenda;

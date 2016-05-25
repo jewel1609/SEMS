@@ -15,6 +15,8 @@ import com.ktds.sems.team.dao.TeamDAO;
 import com.ktds.sems.team.vo.TeamSearchVO;
 import com.ktds.sems.team.vo.TeamVO;
 import com.ktds.sems.team.vo.TeamsListVO;
+import com.ktds.sems.team.vo.MinutesSearchVO;
+import com.ktds.sems.team.vo.MinutesVO;
 import com.ktds.sems.team.vo.TeamBBSVO;
 
 import kr.co.hucloud.utilities.SHA256Util;
@@ -157,6 +159,39 @@ public class TeamBizImpl implements TeamBiz {
 	@Override
 	public boolean addNewTeamBBSArticle(TeamBBSVO teamBBS) {
 		return false;
+	}
+	
+	@Override
+	public boolean writeNewMinutes(MinutesVO minutesVO) {
+		
+		int  nextMinutesId = teamDAO.nextMinutesSeq();
+		
+		String MinutesId = "MINU-" + lpad(nextMinutesId + "", 3, "0"); 
+		minutesVO.setMinutesId(MinutesId);
+		System.out.println("Biz MinuteId"+MinutesId);
+		
+		return teamDAO.insertNewMinutes(minutesVO) > 0;
+	}
+
+	private String lpad(String source, int length, String defValue) {
+		
+		int sourceLength = source.length();
+		int needLength = length - sourceLength;
+		
+		for ( int i = 0 ; i < needLength ; i++ ) {
+			source = defValue + source;
+		}
+		return source;
+	}
+
+	@Override
+	public List<MinutesVO> getAllMinutesList(MinutesSearchVO minutesSearchVO) {
+		return teamDAO.getAllMinutesList(minutesSearchVO);
+	}
+
+	@Override
+	public int getTotalMinutesCount(MinutesSearchVO minutesSearchVO) {
+		return teamDAO.getTotalMinutesCount(minutesSearchVO);
 	}
 	
 }

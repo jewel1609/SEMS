@@ -1,48 +1,17 @@
 package com.ktds.sems.team.vo;
 
-public class MinutesSearchVO {
+public class MinutesSearchVO extends MinutesVO{
 
 	private int pageNo;
 	private int startIndex;
 	private int endIndex;
 	
 	private String	search;
-	private String searchKeyword;
-	private String searchType;
+	private String searchIDKeyword;
+	private String searchSBTKeyword;
 	private String startDate;
 	private String endDate;
 	
-	
-	public String getSearch() {
-		return search;
-	}
-	public void setSearch(String search) {
-		this.search = search;
-	}
-	public String getSearchKeyword() {
-		return searchKeyword;
-	}
-	public void setSearchKeyword(String searchKeyword) {
-		this.searchKeyword = searchKeyword;
-	}
-	public String getStartDate() {
-		return startDate;
-	}
-	public void setStartDate(String startDate) {
-		this.startDate = startDate;
-	}
-	public String getEndDate() {
-		return endDate;
-	}
-	public void setEndDate(String endDate) {
-		this.endDate = endDate;
-	}
-	public String getSearchType() {
-		return searchType;
-	}
-	public void setSearchType(String searchType) {
-		this.searchType = searchType;
-	}
 	public int getPageNo() {
 		return pageNo;
 	}
@@ -61,6 +30,35 @@ public class MinutesSearchVO {
 	public void setEndIndex(int endIndex) {
 		this.endIndex = endIndex;
 	}
-	
+	public String getSearch() {
+		return search;
+	}
+	public void setSearch(String search) {
+		this.search = search;
+	}
+	public String getSearchIDKeyword() {
+		return searchIDKeyword;
+	}
+	public void setSearchIDKeyword(String searchIDKeyword) {
+		this.searchIDKeyword = searchIDKeyword;
+	}
+	public String getSearchSBTKeyword() {
+		return searchSBTKeyword;
+	}
+	public void setSearchSBTKeyword(String searchSBTKeyword) {
+		this.searchSBTKeyword = searchSBTKeyword;
+	}
+	public String getStartDate() {
+		return startDate;
+	}
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+	public String getEndDate() {
+		return endDate;
+	}
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
 	
 }

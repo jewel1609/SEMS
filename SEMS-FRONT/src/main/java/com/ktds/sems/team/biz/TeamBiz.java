@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.ktds.sems.team.vo.MinutesSearchVO;
+import com.ktds.sems.team.vo.MinutesVO;
 import com.ktds.sems.team.vo.TeamBBSVO;
 import com.ktds.sems.team.vo.TeamSearchVO;
 import com.ktds.sems.team.vo.TeamVO;
@@ -37,5 +39,11 @@ public interface TeamBiz {
 	public boolean checkLikeByTeamBBSVO(TeamBBSVO bbs);
 
 	public boolean addDislikeRecord(TeamBBSVO bbs);
+	
+	public boolean writeNewMinutes(MinutesVO minutesVO);
+
+	public List<MinutesVO> getAllMinutesList(MinutesSearchVO minutesSearchVO);
+
+	public int getTotalMinutesCount(MinutesSearchVO minutesSearchVO);
 
 }

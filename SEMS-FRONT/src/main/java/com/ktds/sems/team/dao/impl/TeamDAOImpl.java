@@ -1,3 +1,4 @@
+
 package com.ktds.sems.team.dao.impl;
 
 import java.util.List;
@@ -7,6 +8,8 @@ import com.ktds.sems.team.dao.TeamDAO;
 import com.ktds.sems.team.vo.TeamSearchVO;
 import com.ktds.sems.team.vo.TeamVO;
 import com.ktds.sems.team.vo.TeamsListVO;
+import com.ktds.sems.team.vo.MinutesSearchVO;
+import com.ktds.sems.team.vo.MinutesVO;
 import com.ktds.sems.team.vo.TeamBBSVO;
 
 public class TeamDAOImpl  extends SqlSessionDaoSupport implements TeamDAO{
@@ -92,5 +95,24 @@ public class TeamDAOImpl  extends SqlSessionDaoSupport implements TeamDAO{
 		return getSqlSession().update("teamDAO.addDislikeRecord", TeamBBSVO);
 	}
 
+	@Override
+	public int insertNewMinutes(MinutesVO minutesVO) {
+		return getSqlSession().insert("teamDAO.insertNewMinutes", minutesVO);
+	}
+
+	@Override
+	public List<MinutesVO> getAllMinutesList(MinutesSearchVO minutesSearchVO) {
+		return getSqlSession().selectList("teamDAO.getAllMinutesList", minutesSearchVO);
+	}
+
+	@Override
+	public int getTotalMinutesCount(MinutesSearchVO minutesSearchVO) {
+		return getSqlSession().selectOne("teamDAO.getTotalMinutesCount", minutesSearchVO);
+	}
+
+	@Override
+	public int nextMinutesSeq() {
+		return getSqlSession().selectOne("teamDAO.nextMinutesSeq");
+	}
 
 }

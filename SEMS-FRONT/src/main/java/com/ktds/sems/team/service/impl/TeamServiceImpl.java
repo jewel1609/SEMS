@@ -13,6 +13,9 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.team.biz.TeamBiz;
 import com.ktds.sems.team.service.TeamService;
+import com.ktds.sems.team.vo.MinutesListVO;
+import com.ktds.sems.team.vo.MinutesSearchVO;
+import com.ktds.sems.team.vo.MinutesVO;
 import com.ktds.sems.team.vo.TeamBBSListVO;
 import com.ktds.sems.team.vo.TeamBBSVO;
 import com.ktds.sems.team.vo.TeamListVO;
@@ -194,6 +197,79 @@ public class TeamServiceImpl implements TeamService{
 	public String addNewTeamBBSArticle(TeamBBSVO teamBBS, Errors errors, HttpSession session) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	@Override
+	public ModelAndView writeNewMinutes(String teamId, MinutesVO minutesVO, Errors errors, HttpSession session) {
+		
+		minutesVO.setStartDate(minutesVO.getAgendaDate() + " " + minutesVO.getStartTime());
+		minutesVO.setEndDate(minutesVO.getAgendaDate() + " " + minutesVO.getEndTime());
+		
+		ModelAndView view = new ModelAndView();
+		MemberVO memberVO = (MemberVO) session.getAttribute("_MEMBER_");
+		
+		
+		if ( memberVO != null ) {
+			minutesVO.setMemberId(memberVO.getId());
+			minutesVO.setTeamId(teamId);
+			System.out.println("Controller teamId"+teamId);
+			System.out.println(memberVO.getId());
+		}
+		
+		if (errors.hasErrors()) {
+			view.setViewName("team/writeMinutes");
+			view.addObject("minutesVO", minutesVO);
+			return view;
+		}
+		else {
+			boolean result = teamBiz.writeNewMinutes(minutesVO);
+			if ( result ) {
+				view.setViewName("redirect:/listMinutes");
+			}
+			else {
+				throw new RuntimeException("일시적인 장애가 발생했습니다. 잠시 후 다시 이용해주세요.");
+			}
+		}
+		
+		return view;
+	}
+
+	@Override
+	public ModelAndView viewListMinutes(MinutesSearchVO minutesSearchVO, int pageNo) {
+		
+		MinutesListVO minutesListVO = new MinutesListVO();
+		Paging paging = new Paging(5, 5);
+		
+		minutesListVO.setPaging(paging);
+		int totalHistoryCount = teamBiz.getTotalMinutesCount(minutesSearchVO);
+		
+		paging.setPageNumber(pageNo + "");
+		paging.setTotalArticleCount(totalHistoryCount);
+		
+		minutesSearchVO.setStartIndex(paging.getStartArticleNumber());
+		minutesSearchVO.setEndIndex(paging.getEndArticleNumber());
+		
+		List<MinutesVO> minutesList = teamBiz.getAllMinutesList(minutesSearchVO);
+		minutesListVO.setMinutesList(minutesList);
+
+		ModelAndView view = new ModelAndView();
+		view.setViewName("team/listMinutes");
+		view.addObject("minutesListVO", minutesListVO);
+		view.addObject("minutesSearchVO", minutesSearchVO);
+		
+		return view;
+	}
+
+	@Override
+	public ModelAndView minutesInit() {
+		
+		ModelAndView view =new ModelAndView();
+		
+		view.addObject("startDate", null);
+		view.addObject("endDate", null);
+		view.setViewName("redirect:/listMinutes");
+		
+		return view;
 	}
 	
 }
