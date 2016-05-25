@@ -1049,4 +1049,5 @@ public class MemberServiceImpl implements MemberService {
 		return view;
 	}
 	
+	
 }

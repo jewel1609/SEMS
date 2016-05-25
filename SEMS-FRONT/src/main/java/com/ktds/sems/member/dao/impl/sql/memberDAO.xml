@@ -889,4 +889,5 @@
 		SELECT  LGI_HTR_ID_SEQ.CURRVAL
 		FROM    DUAL
 	</select>
+	
 </mapper>

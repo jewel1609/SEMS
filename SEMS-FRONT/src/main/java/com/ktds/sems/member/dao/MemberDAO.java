@@ -162,5 +162,6 @@ public interface MemberDAO {
 	public void deleteJunitTestStampLoginTime(int lgiHtrId);
 	
 	public int currentLoginHistorySeq();
+	
 
 }

@@ -401,4 +401,5 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 		return getSqlSession().selectOne("MemberDAO.currentLoginHistorySeq");
 	}
 
+	
 }

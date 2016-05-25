@@ -105,4 +105,5 @@ public interface MemberService {
 
 	public ModelAndView getAllAttendHistory(HttpSession session, String educationId);
 
+	
 }
