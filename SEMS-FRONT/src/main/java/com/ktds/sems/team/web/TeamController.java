@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.team.service.TeamService;
@@ -36,7 +37,7 @@ public class TeamController {
 	}
 
 	@RequestMapping(value ="/team/teamBBS/doWrite", method = RequestMethod.POST)
-	public String doWriteTeamBBSAction(@Valid TeamBBSVO teamBBSVO, Errors errors,HttpSession session) {
+	public String doWriteTeamBBSAction(@Valid TeamBBSVO teamBBSVO, Errors errors, MultipartHttpServletRequest request, HttpSession session) {
 		
 		if (teamBBSVO.getIsNotice() != null){
 			if(teamBBSVO.getIsNotice().equals("on")){
@@ -45,6 +46,25 @@ public class TeamController {
 		}else{
 			teamBBSVO.setIsNotice("N");	
 		}
-		return teamService.addNewTeamBBSArticle(teamBBSVO, errors,session);
+		return teamService.addNewTeamBBSArticle(teamBBSVO, errors, request , session);
 	}
+	
+	@RequestMapping("/team/teamBBS/detail/{teamBBSId}")
+	public ModelAndView viewTeamBBSDetailPage(@PathVariable String teamBBSId, @RequestParam(required = false, defaultValue = "0") int pageNo 
+			, HttpSession session){
+		return teamService.viewTeamBBSDetailPage(teamBBSId, pageNo ,session);
+	}
+	
+	@RequestMapping("/team/teamBBS/like/{teamBBSId}")
+	public String doLikeBBSAction(@PathVariable String teamBBSId, HttpSession session) {
+		return teamService.doLikeBBSAction(teamBBSId, session);
+	}
+	
+	@RequestMapping("/team/teamBBS/dislike/{teamBBSId}")
+	public String doDislikeBBSAction(@PathVariable String teamBBSId, HttpSession session) {
+		return teamService.doDislikeBBSAction(teamBBSId, session);
+	}
+	
+	
+	
 }
