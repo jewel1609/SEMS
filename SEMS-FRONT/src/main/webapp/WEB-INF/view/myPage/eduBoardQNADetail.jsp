@@ -149,6 +149,9 @@
 			날짜 : ${qnaReplyList.createdDate}
 			<c:if test="${ oneQNABBSByAtcId.mbrId eq sessionId && qnaReplyList.mbrId ne sessionId && qnaReplyList.adtRpl eq 'N'}">
 			&nbsp;&nbsp;&nbsp;&nbsp; <input type="button" class="adoptReplyBtn" value="답변 채택" />
+			</c:if>
+			<c:if test="${ qnaReplyList.adtRpl eq 'Y'}">
+				☆질문자가 채택한 답변☆
 			</c:if> 
 		</span><br/>
 		<span>
