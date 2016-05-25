@@ -7,6 +7,8 @@ import static org.junit.Assert.fail;
 
 import java.util.List;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
@@ -15,6 +17,7 @@ import org.springframework.mock.web.MockHttpSession;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ktds.sems.SemsTestCase;
+import com.ktds.sems.Testable;
 import com.ktds.sems.member.vo.CodeMngVO;
 import com.ktds.sems.member.vo.GrdtTpVO;
 import com.ktds.sems.member.vo.HighestEduTpVO;
@@ -28,6 +31,35 @@ public class MemberBizTest extends SemsTestCase {
 	@Autowired
 	private MemberBiz memberBiz;
 
+	@Before
+	public void setUp() {
+		testHelper(new Testable() {
+			
+			@Override
+			public void preparedTest() {
+				CodeMngVO codeMngVO = new CodeMngVO();
+				codeMngVO.setCdId("TEST");
+				codeMngVO.setCdNm("TEST");
+				codeMngVO.setCdTp("TEST");
+				codeMngVO.setCdTp2("TEST");
+				memberBiz.doCodeMngInsert(codeMngVO);
+			}
+		});
+	}
+	
+	@After
+	public void tearDown() {
+		
+		testHelper(new Testable() {
+			
+			@Override
+			public void preparedTest() {
+				String cdId = "TEST";
+				memberBiz.doCodeMngDelete(cdId);
+			}
+		});
+	}
+	
 	/**
 	 * 계정 잠겨있는지 확인
 	 * 
@@ -235,7 +267,7 @@ public class MemberBizTest extends SemsTestCase {
 	public void doMbrTpDeleteTest(){
 		String cdId = "TEST";
 		int checkMbrTpDelete = memberBiz.doMbrTpDelete(cdId);
-		assertTrue(checkMbrTpDelete >= 1);
+		assertTrue(checkMbrTpDelete > 0);
 	}
 	
 	@Test
@@ -269,33 +301,33 @@ public class MemberBizTest extends SemsTestCase {
 	}
 
 	@Test
-	public void doCodeMng_A_InsertTest() {
+	public void doCodeMngInsertTest() {
 		
 		CodeMngVO codeMngVO = new CodeMngVO();
-		codeMngVO.setCdId("TEST");
-		codeMngVO.setCdNm("테스트3");
-		codeMngVO.setCdTp("TE3");
-		codeMngVO.setCdTp2("ST3");
+		codeMngVO.setCdId("TES2");
+		codeMngVO.setCdNm("TES2");
+		codeMngVO.setCdTp("TES2");
+		codeMngVO.setCdTp2("TES2");
 		
 		boolean isSuccess = memberBiz.doCodeMngInsert(codeMngVO);
 		assertTrue(isSuccess);
 	}
 	
 	@Test
-	public void doCodeMng_B_ModifyTest() {
+	public void doCodeMngModifyTest() {
 		
 		CodeMngVO codeMngVO = new CodeMngVO();
 		codeMngVO.setCdId("TEST");
-		codeMngVO.setCdNm("테스트33");
-		codeMngVO.setCdTp("TE33");
-		codeMngVO.setCdTp2("ST33");
+		codeMngVO.setCdNm("TEST2");
+		codeMngVO.setCdTp("TEST2");
+		codeMngVO.setCdTp2("TEST2");
 		
 		boolean isSuccess = memberBiz.doCodeMngModify(codeMngVO);
 		assertTrue(isSuccess);
 	}
 	
 	@Test
-	public void doCodeMng_C_DeleteTest() {
+	public void doCodeMngDeleteTest() {
 		
 		String cdId = "TEST";
 		boolean isSuccess = memberBiz.doCodeMngDelete(cdId);
