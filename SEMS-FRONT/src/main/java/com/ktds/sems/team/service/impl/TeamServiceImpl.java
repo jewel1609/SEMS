@@ -10,13 +10,14 @@ import org.springframework.validation.Errors;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.ktds.sems.file.biz.FileBiz;
 import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.team.biz.TeamBiz;
 import com.ktds.sems.team.service.TeamService;
 import com.ktds.sems.team.vo.TeamBBSListVO;
 import com.ktds.sems.team.vo.TeamBBSVO;
+import com.ktds.sems.team.vo.TeamListVO;
 import com.ktds.sems.team.vo.TeamSearchVO;
+import com.ktds.sems.team.vo.TeamVO;
 
 import kr.co.hucloud.utilities.web.Paging;
 
@@ -26,6 +27,38 @@ public class TeamServiceImpl implements TeamService{
 	
 	public void setTeamBiz(TeamBiz teamBiz) {
 		this.teamBiz = teamBiz;
+	}
+
+	@Override
+	public ModelAndView getAllTeamListPage(TeamSearchVO teamSearchVO) {
+		
+		if(teamSearchVO == null) {
+			teamSearchVO = new TeamSearchVO();
+			teamSearchVO.setPageNo(0);
+		}
+		
+		TeamListVO teamListVO = new TeamListVO();
+		Paging paging = new Paging();
+		teamListVO.setPaging(paging);
+		
+		paging.setPageNumber(teamSearchVO.getPageNo() + "");
+		
+		int totalTeamCount = teamBiz.getTotalTeamCount();
+		paging.setTotalArticleCount(totalTeamCount);
+		
+		teamSearchVO.setStartIndex(paging.getStartArticleNumber());
+		teamSearchVO.setEndIndex(paging.getEndArticleNumber());	
+		
+		List<TeamVO> teamList = teamBiz.getAllTeamList(teamSearchVO);
+		teamListVO.setTeamList(teamList);
+		
+		ModelAndView view = new ModelAndView();
+		view.setViewName("team/teamList");
+		view.addObject("teamListVO",teamListVO);
+		view.addObject("teamSearchVO", teamSearchVO);
+		
+		return view;
+		
 	}
 
 	@Override
@@ -76,10 +109,16 @@ public class TeamServiceImpl implements TeamService{
 		view.addObject("TeamBBSListVO",searchedListVO );
 		view.setViewName("team/teamBoard");
 		return view;
-	
-	
 	}
 
+	@Override
+	public ModelAndView getOneTeamDetail(String teamListId) {
+		ModelAndView view = new ModelAndView();
+		view.setViewName("team/teamDetail");
+		view.addObject("teamsListVO", teamBiz.getOneTeamDetail(teamListId));
+		return view;
+	}
+	
 	@Override
 	public ModelAndView viewTeamBBSDetailPage(String teamBBSId, int pageNo, HttpSession session) {
 		
@@ -151,7 +190,10 @@ public class TeamServiceImpl implements TeamService{
 		return "redirect:/team/teamBBS/detail/{teamBBSId}";
 	}
 
-	
-	
+	@Override
+	public String addNewTeamBBSArticle(TeamBBSVO teamBBS, Errors errors, HttpSession session) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }

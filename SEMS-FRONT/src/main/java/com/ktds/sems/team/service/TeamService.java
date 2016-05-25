@@ -7,12 +7,17 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.team.vo.TeamBBSVO;
+import com.ktds.sems.team.vo.TeamSearchVO;
 
 public interface TeamService {
 
+	public ModelAndView getAllTeamListPage(TeamSearchVO teamSearchVO);
+	public String addNewTeamBBSArticle(TeamBBSVO teamBBS, Errors errors, HttpSession session);
 	public String addNewTeamBBSArticle(TeamBBSVO teamBBS, Errors errors, MultipartHttpServletRequest request, HttpSession session);
 
 	public ModelAndView viewTeamBBSPage(int pageNo);
+
+	public ModelAndView getOneTeamDetail(String teamId);
 
 	public ModelAndView viewTeamBBSDetailPage(String teamBBSId, int pageNo, HttpSession session);
 

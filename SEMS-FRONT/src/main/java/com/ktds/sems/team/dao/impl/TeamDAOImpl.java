@@ -3,16 +3,30 @@ package com.ktds.sems.team.dao.impl;
 import java.util.List;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;
-
 import com.ktds.sems.team.dao.TeamDAO;
-import com.ktds.sems.team.vo.TeamBBSVO;
 import com.ktds.sems.team.vo.TeamSearchVO;
+import com.ktds.sems.team.vo.TeamVO;
+import com.ktds.sems.team.vo.TeamsListVO;
+import com.ktds.sems.team.vo.TeamBBSVO;
 
 public class TeamDAOImpl  extends SqlSessionDaoSupport implements TeamDAO{
 
 	@Override
-	public int addNewTeamBBSArticle(TeamBBSVO TeamBBSVO) {
-		return getSqlSession().insert("teamDAO.addNewTeamBBS", TeamBBSVO);
+	public int getTotalteamCount() {
+		return getSqlSession().selectOne("teamDAO.getTotalteamCount");
+	}
+
+	@Override
+	public List<TeamVO> getAllTeamList(TeamSearchVO searchVO) {
+		return getSqlSession().selectList("teamDAO.getAllTeamList", searchVO);
+	}
+
+	@Override
+	public int addNewTeamBBSArticle(TeamBBSVO teamBBS) {
+		return getSqlSession().insert("teamDAO.addNewTeamBBS", teamBBS);
+		
+//	public int addNewTeamBBSArticle(TeamBBSVO TeamBBSVO) {
+//		return getSqlSession().insert("teamDAO.addNewTeamBBS", TeamBBSVO);
 	}
 
 	@Override
@@ -24,7 +38,6 @@ public class TeamDAOImpl  extends SqlSessionDaoSupport implements TeamDAO{
 	public String getSysDate() {
 		return getSqlSession().selectOne("teamDAO.getSysDate");
 	}
-
 	@Override
 	public List<TeamBBSVO> getTeamBBSList(TeamSearchVO searchVO) {
 		return getSqlSession().selectList("teamDAO.getTeamBBSList", searchVO);
@@ -35,6 +48,10 @@ public class TeamDAOImpl  extends SqlSessionDaoSupport implements TeamDAO{
 		return getSqlSession().selectOne("teamDAO.getSearchedBBSCount");
 	}
 
+	@Override
+	public TeamsListVO getOneTeamDetail(String teamId) {
+		return getSqlSession().selectOne("teamDAO.getOneTeamDetail", teamId);
+	}
 	@Override
 	public TeamBBSVO getTeamBBS(String teamBBSId) {
 		return getSqlSession().selectOne("teamDAO.getTeamBBS", teamBBSId);

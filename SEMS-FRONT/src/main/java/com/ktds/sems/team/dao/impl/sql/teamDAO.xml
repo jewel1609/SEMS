@@ -40,6 +40,79 @@
 		FROM	DUAL
 	</select>
 	
+	<select id="getAllTeamList" parameterType="TeamSearchVO" resultType="TeamVO">
+		SELECT	T3.TEAM_ID teamId
+				, T3.TEAM_NM teamNumber
+				, T3.TEAM_DT teamDate
+				, T3.EDU_ID educationId
+		FROM	(
+					SELECT	ROWNUM AS RNUM
+							, T2.*
+					FROM	(
+								SELECT	T.TEAM_ID
+										, T.TEAM_NM
+										, T.TEAM_DT
+										, T.EDU_ID
+								FROM	TEAM T
+								WHERE	1 = 1
+								<if test="searchKeyword != null and searchKeyword != ''">
+								AND		(
+											<if test="searchType == 'teamId'">
+												T.TEAM_ID LIKE '%' || #{searchKeyword} || '%'
+											</if>
+											<if test="searchType == 'teamNumber'">
+												T.TEAM_NM LIKE '%' || #{searchKeyword} || '%'
+											</if>
+											<if test="searchType == 'educationId'">
+												T.EDU_ID LIKE '%' || #{searchKeyword} || '%'
+											</if>
+											<if test="startDate != null and startDate != ''">
+												T.TEAM_DT <![CDATA[>=]]> #{startDate}
+											</if>
+											<if test="endDate != null and endDate != ''">
+												T.TEAM_DT <![CDATA[<]]> TO_DATE(#{endDate}, 'YYYY-MM-DD') + 1
+											</if>
+										)
+								</if>
+								ORDER	BY T.TEAM_ID DESC
+							) T2
+					WHERE	ROWNUM <![CDATA[<=]]> #{endIndex}
+				) T3
+		WHERE	RNUM <![CDATA[>=]]> #{startIndex}
+	</select>
+
+	
+	<!-- <select id="getTotalteamCount" resultType="_int">
+		SELECT	COUNT(TEAM_ID)
+		FROM	(
+					SELECT	TEAM.*
+					FROM	(
+								SELECT	*
+								FROM	TEAM
+								WHERE	MBR_ID = #{id}
+								AND		TEAM_ID = '0'
+								<if test="searchKeyword != null and searchType != null">
+								AND		(
+										<if test="searchType == 'teamId'">
+											TEAM_ID LIKE '%' || #{searchKeyword} || '%'
+										</if>
+										<if test="searchType == 'educationId'">
+											AND	EDU_ID LIKE '%' || #{searchKeyword} || '%'
+										</if>
+										<if test="searchType == 'teamName'">
+											AND		TEAM_NM LIKE '%' || #{searchKeyword} || '%'
+										</if>
+										)
+								</if>
+										) TEAM
+		WHERE	PARENT_REPLY_ID = '0'
+</select> -->
+	
+	 
+	 <select id="getTotalteamCount" resultType="_int">
+	 	SELECT	COUNT(*)
+		FROM	TEAM_BBS
+	 </select>
 	<select id="getTeamBBSList" resultType="TeamBBSVO">
 		SELECT	TEAM_BBS.TEAM_BBS_ID teamBBSId,
 	    		TEAM_BBS.TEAM_ID teamId, 
@@ -75,6 +148,14 @@
 		SELECT	COUNT(*)
 		FROM	TEAM_BBS
 	</select>	
+	
+	<select id="getOneTeamDetail" parameterType="string" resultType="TeamsListVO">
+	SELECT	TEAM_LST_ID teamListId
+			, TEAM_ID teamId
+			, MBR_ID mbrId
+	FROM	TEAM_LIST
+	WHERE	TEAM_ID = #{teamListId}
+	</select>
 	
 	<select id="getTeamBBS" parameterType="String" resultType="TeamBBSVO">
 		SELECT		TEAM_BBS_ID teamBBSId,

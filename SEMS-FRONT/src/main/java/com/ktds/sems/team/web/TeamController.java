@@ -9,13 +9,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
-
+import org.springframework.web.bind.annotation.RequestMethod;
 import com.ktds.sems.team.service.TeamService;
 import com.ktds.sems.team.vo.TeamBBSVO;
+import com.ktds.sems.team.vo.TeamSearchVO;
 
 @Controller
 public class TeamController {
@@ -55,6 +55,17 @@ public class TeamController {
 		return teamService.viewTeamBBSDetailPage(teamBBSId, pageNo ,session);
 	}
 	
+	@RequestMapping("/teamList")
+	public ModelAndView viewTeamListPage(TeamSearchVO teamSearchVO) {
+		return teamService.getAllTeamListPage(teamSearchVO);
+	}
+	
+	@RequestMapping("/team/teamDetail/{teamId}")
+	public ModelAndView getOneTeamDetail(@PathVariable String teamId){
+		return teamService.getOneTeamDetail(teamId);
+		
+	}
+	
 	@RequestMapping("/team/teamBBS/like/{teamBBSId}")
 	public String doLikeBBSAction(@PathVariable String teamBBSId, HttpSession session) {
 		return teamService.doLikeBBSAction(teamBBSId, session);
@@ -64,7 +75,8 @@ public class TeamController {
 	public String doDislikeBBSAction(@PathVariable String teamBBSId, HttpSession session) {
 		return teamService.doDislikeBBSAction(teamBBSId, session);
 	}
-	
-	
-	
+	@RequestMapping("/searchInitBtn")
+	public String teamSearchInit(){
+		return "redirect:/teamList";
+	}
 }

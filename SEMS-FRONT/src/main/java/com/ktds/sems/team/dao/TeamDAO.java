@@ -2,10 +2,16 @@ package com.ktds.sems.team.dao;
 
 import java.util.List;
 
-import com.ktds.sems.team.vo.TeamBBSVO;
 import com.ktds.sems.team.vo.TeamSearchVO;
+import com.ktds.sems.team.vo.TeamVO;
+import com.ktds.sems.team.vo.TeamsListVO;
+import com.ktds.sems.team.vo.TeamBBSVO;
 
 public interface TeamDAO {
+
+	public int getTotalteamCount();
+
+	public List<TeamVO> getAllTeamList(TeamSearchVO searchVO);
 
 	public int addNewTeamBBSArticle(TeamBBSVO teamBBS);
 
@@ -16,6 +22,8 @@ public interface TeamDAO {
 	public List<TeamBBSVO> getTeamBBSList(TeamSearchVO searchVO);
 
 	public int getSearchedBBSCount();
+
+	public TeamsListVO getOneTeamDetail(String teamId);
 
 	public TeamBBSVO getTeamBBS(String teamBBSId);
 

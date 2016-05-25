@@ -3,7 +3,6 @@ package com.ktds.sems.team.biz.impl;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
@@ -13,8 +12,10 @@ import com.ktds.sems.file.dao.FileDAO;
 import com.ktds.sems.file.vo.FileVO;
 import com.ktds.sems.team.biz.TeamBiz;
 import com.ktds.sems.team.dao.TeamDAO;
-import com.ktds.sems.team.vo.TeamBBSVO;
 import com.ktds.sems.team.vo.TeamSearchVO;
+import com.ktds.sems.team.vo.TeamVO;
+import com.ktds.sems.team.vo.TeamsListVO;
+import com.ktds.sems.team.vo.TeamBBSVO;
 
 import kr.co.hucloud.utilities.SHA256Util;
 
@@ -30,6 +31,16 @@ public class TeamBizImpl implements TeamBiz {
 	}
 	public void setFileDAO(FileDAO fileDAO) {
 		this.fileDAO = fileDAO;
+	}
+
+	@Override
+	public int getTotalTeamCount() {
+		return teamDAO.getTotalteamCount();
+	}
+
+	@Override
+	public List<TeamVO> getAllTeamList(TeamSearchVO searchVO) {
+		return teamDAO.getAllTeamList(searchVO);
 	}
 
 	@Override
@@ -99,6 +110,11 @@ public class TeamBizImpl implements TeamBiz {
 		return teamDAO.getSearchedBBSCount();
 	}
 
+	@Override
+	public TeamsListVO getOneTeamDetail(String teamId) {
+		return teamDAO.getOneTeamDetail(teamId);
+	}
+
 	public TeamBBSVO getTeamBBS(String teamBBSId) {
 		return teamDAO.getTeamBBS(teamBBSId);
 	}
@@ -137,6 +153,10 @@ public class TeamBizImpl implements TeamBiz {
 	@Override
 	public boolean addDislikeRecord(TeamBBSVO bbs) {
 		return teamDAO.addDislikeRecord(bbs) > 0;
+	}
+	@Override
+	public boolean addNewTeamBBSArticle(TeamBBSVO teamBBS) {
+		return false;
 	}
 	
 }

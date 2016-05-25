@@ -1,10 +1,14 @@
 package com.ktds.sems.team.vo;
 
 public class TeamSearchVO {
-	
+
 	private int pageNo;
 	private int startIndex;
 	private int endIndex;
+	private String searchKeyword;
+	private String searchType;
+	private String startDate;
+	private String endDate;
 	
 	public int getPageNo() {
 		return pageNo;
@@ -23,6 +27,30 @@ public class TeamSearchVO {
 	}
 	public void setEndIndex(int endIndex) {
 		this.endIndex = endIndex;
+	}
+	public String getSearchKeyword() {
+		return searchKeyword;
+	}
+	public void setSearchKeyword(String searchKeyword) {
+		this.searchKeyword = searchKeyword;
+	}
+	public String getSearchType() {
+		return searchType;
+	}
+	public void setSearchType(String searchType) {
+		this.searchType = searchType;
+	}
+	public String getStartDate() {
+		return startDate;
+	}
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+	public String getEndDate() {
+		return endDate;
+	}
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
 	}
 	
 	

@@ -1,11 +1,13 @@
 package com.ktds.sems.team.vo;
 
+
 public class TeamVO {
 	
 	private String teamId;
 	private String teamNumber;
 	private String teamDate;
 	private String educationId;
+	
 	public String getTeamId() {
 		return teamId;
 	}
