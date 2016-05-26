@@ -245,7 +245,7 @@
 	</c:forEach>
 	<tr>
 		<td colspan="10">
-			<form id="pagingForm" onsubmit="return false;">
+			<form id="pagingForm" onkeydown="if(event.keyCode==13) return false;">
 				${ educationHistoryListVO.paging.getPagingList("pageNo", "[@]", "이전", "다음", "pagingForm") }
 			<div style="text-align: right;">
 					<select id="searchType" name="searchType">
