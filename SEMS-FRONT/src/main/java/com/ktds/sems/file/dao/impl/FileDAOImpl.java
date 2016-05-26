@@ -39,4 +39,9 @@ public class FileDAOImpl extends SqlSessionDaoSupport implements FileDAO {
 		return getSqlSession().selectOne("FileDAO.getOneFileByFileId", fileId);
 	}
 
+	@Override
+	public int deleteFile(String articleId) {
+		return getSqlSession().update("FileDAO.deleteFile", articleId);
+	}
+
 }

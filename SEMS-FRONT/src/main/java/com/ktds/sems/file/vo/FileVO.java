@@ -6,6 +6,7 @@ public class FileVO {
 	private String fileName;
 	private String fileLocation;
 	private String articleId;
+	private String isDelete;
 	
 	public int getFileId() {
 		return fileId;
@@ -30,6 +31,12 @@ public class FileVO {
 	}
 	public void setArticleId(String articleId) {
 		this.articleId = articleId;
+	}
+	public String getIsDelete() {
+		return isDelete;
+	}
+	public void setIsDelete(String isDelete) {
+		this.isDelete = isDelete;
 	}
 	
 	

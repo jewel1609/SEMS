@@ -17,4 +17,6 @@ public interface FileDAO {
 	public List<FileVO> getAllFilesByArticleId(String articleId);
 
 	public FileVO getOneFileByFileId(String fileId);
+
+	public int deleteFile(String articleId);
 }

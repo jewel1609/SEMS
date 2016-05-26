@@ -83,4 +83,9 @@ public class FileBizImpl implements FileBiz {
 		return fileDAO.getOneFileByFileId(fileId);
 	}
 
+	@Override
+	public boolean deleteFile(String articleId) {
+		return fileDAO.deleteFile(articleId) > 0;
+	}
+
 }
