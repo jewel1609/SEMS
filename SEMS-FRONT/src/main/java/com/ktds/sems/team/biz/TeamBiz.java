@@ -57,7 +57,7 @@ public interface TeamBiz {
 
 	public boolean writeBBSReply(TeamBBSReplyVO replyVO);
 
-	public List<TeamBBSReplyVO> getTeamBBSReplies(String teamBBSId);
+	public List<TeamBBSReplyVO> getTeamBBSReplies(TeamSearchVO searchVO);
 
 	public boolean writeBBSReReply(TeamBBSReplyVO replyVO);
 
@@ -72,6 +72,10 @@ public interface TeamBiz {
 	public boolean insertMember(TeamsListVO teamsListVO);
 
 	public int getTotalMinutesCount(MinutesSearchVO minutesSearchVO);
+
+	public List<TeamBBSReplyVO> getTeamBBSReReplies(String parentReplyId);
+
+	public int getReplyCountByTeamBBSId(String teamBBSId);
 
 	public List<MinutesVO> getAllMinutes(MinutesSearchVO minutesSearchVO);
 
