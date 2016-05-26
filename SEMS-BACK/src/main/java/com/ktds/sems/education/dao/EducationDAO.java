@@ -4,8 +4,6 @@ import java.util.List;
 
 import com.ktds.sems.education.vo.CategoryVO;
 import com.ktds.sems.education.vo.CostVO;
-import com.ktds.sems.education.vo.EduAttendanceSearchVO;
-import com.ktds.sems.education.vo.EduAttendanceVO;
 import com.ktds.sems.education.vo.EduFileSearchVO;
 import com.ktds.sems.education.vo.EduFileVO;
 import com.ktds.sems.education.vo.EduNoticeSearchVO;
@@ -55,11 +53,6 @@ public interface EducationDAO {
 	
 	public int nextEduNoticeSeq();
 	public int insertNewEduFileNotice(EduNoticeVO eduNoticeVO);
-	public int getTotalAttendanceCount(EduAttendanceSearchVO eduAttendanceSearchVO);
-	public List<EduAttendanceVO> getAllAttendance(EduAttendanceSearchVO eduAttendanceSearchVO);
-	public List<MemberVO> getAllMemberInEducation();
-	public List<TeamVO> getAllTeamInEducation();
-	public List<EducationVO> getAllEducation();
 	public String doActionDeleteBeforeCheck(MemberVO memerVO);
 	
 	public void doActionDelete(String educationId);

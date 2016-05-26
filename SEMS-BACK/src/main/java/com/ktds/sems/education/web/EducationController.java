@@ -5,7 +5,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-import org.slf4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,7 +15,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.common.Session;
 import com.ktds.sems.education.service.EducationService;
-import com.ktds.sems.education.vo.EduAttendanceSearchVO;
 import com.ktds.sems.education.vo.EduFileSearchVO;
 import com.ktds.sems.education.vo.EduNoticeSearchVO;
 import com.ktds.sems.education.vo.EduNoticeVO;
@@ -115,11 +113,6 @@ public class EducationController {
 
 	public void changeEducationApplyState(String educationHistoryId) {
 		educationService.changeEducationApplyState(educationHistoryId);
-	}
-	
-	@RequestMapping("/education/attendance")
-	public ModelAndView viewEducationAttendancePage(EduAttendanceSearchVO eduAttendanceSearchVO, @RequestParam(required = false, defaultValue = "0") int pageNo){
-		return educationService.viewEducationAttendancePage(eduAttendanceSearchVO, pageNo);
 	}
 	
 	@RequestMapping("/doActionDeleteEDU/{educationId}")

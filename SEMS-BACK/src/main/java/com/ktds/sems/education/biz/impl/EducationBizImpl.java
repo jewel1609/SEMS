@@ -2,8 +2,6 @@ package com.ktds.sems.education.biz.impl;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,8 +12,6 @@ import com.ktds.sems.education.dao.EducationDAO;
 import com.ktds.sems.education.service.impl.EducationServiceImpl;
 import com.ktds.sems.education.vo.CategoryVO;
 import com.ktds.sems.education.vo.CostVO;
-import com.ktds.sems.education.vo.EduAttendanceSearchVO;
-import com.ktds.sems.education.vo.EduAttendanceVO;
 import com.ktds.sems.education.vo.EduFileSearchVO;
 import com.ktds.sems.education.vo.EduFileVO;
 import com.ktds.sems.education.vo.EduNoticeSearchVO;
@@ -257,31 +253,6 @@ public class EducationBizImpl implements EducationBiz {
 	@Override
 	public int changeEducationApplyState(String educationHistoryId) {
 		return educationDAO.changeEducationApplyState(educationHistoryId);
-	}
-
-	@Override
-	public int getTotalAttendanceCount(EduAttendanceSearchVO eduAttendanceSearchVO) {
-		return educationDAO.getTotalAttendanceCount(eduAttendanceSearchVO);
-	}
-
-	@Override
-	public List<EduAttendanceVO> getAllAttendance(EduAttendanceSearchVO eduAttendanceSearchVO) {
-		return educationDAO.getAllAttendance(eduAttendanceSearchVO);
-	}
-
-	@Override
-	public List<MemberVO> getAllMemberInEducation() {
-		return educationDAO.getAllMemberInEducation();
-	}
-
-	@Override
-	public List<TeamVO> getAllTeamInEducation() {
-		return educationDAO.getAllTeamInEducation();
-	}
-
-	@Override
-	public List<EducationVO> getAllEducation() {
-		return educationDAO.getAllEducation();
 	}
 
 	@Override
@@ -540,4 +511,5 @@ public class EducationBizImpl implements EducationBiz {
 	public boolean insertReReplyEvalByDislike(ReRplyEvalVO reRplyEvalVO) {
 		return educationDAO.insertReReplyEvalByDislike(reRplyEvalVO) > 0;
 	}
+
 }

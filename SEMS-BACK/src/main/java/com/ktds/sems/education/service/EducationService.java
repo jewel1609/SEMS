@@ -1,25 +1,20 @@
 package com.ktds.sems.education.service;
 
-
-
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.validation.Errors;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.ktds.sems.education.vo.EduAttendanceSearchVO;
 import com.ktds.sems.education.vo.EduFileSearchVO;
 import com.ktds.sems.education.vo.EduNoticeSearchVO;
 import com.ktds.sems.education.vo.EduNoticeVO;
+import com.ktds.sems.education.vo.EduQnaSearchVO;
+import com.ktds.sems.education.vo.EduQnaVO;
 import com.ktds.sems.education.vo.EduReportSearchVO;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationQNAReplyVO;
 import com.ktds.sems.education.vo.EducationVO;
-import com.ktds.sems.education.vo.EduQnaSearchVO;
-import com.ktds.sems.education.vo.EduQnaVO;
-
 
 public interface EducationService {
 	
@@ -53,8 +48,6 @@ public interface EducationService {
 	public ModelAndView writeEduFileNoticeAction(EduNoticeVO eduNoticeVO, Errors errors,  HttpSession session);
 
 	public ModelAndView doActionDelete(String educationId, HttpSession session);
-
-	public ModelAndView viewEducationAttendancePage(EduAttendanceSearchVO eduAttendanceSearchVO, int pageNo);
 
 	public ModelAndView viewReportHistoryPage(EduReportSearchVO reportSearchVO, int pageNo);
 	

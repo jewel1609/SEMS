@@ -43,8 +43,6 @@
 		<typeAlias type="com.ktds.sems.pc.vo.PcSearchVO" alias="PcSearchVO"/>
 		<typeAlias type="com.ktds.sems.pc.vo.UsedPcSearchVO" alias="UsedPcSearchVO"/>
 		<typeAlias type="com.ktds.sems.pc.vo.ReportedPcSearchVO" alias="ReportedPcSearchVO"/>
-		<typeAlias type="com.ktds.sems.education.vo.EduAttendanceVO" alias="EduAttendanceVO"/>
-		<typeAlias type="com.ktds.sems.education.vo.EduAttendanceSearchVO" alias="EduAttendanceSearchVO"/>
 		<typeAlias type="com.ktds.sems.education.vo.TeamVO" alias="TeamVO"/>
 		<typeAlias type="com.ktds.sems.education.vo.EducationPlaceVO" alias="EducationPlaceVO"/>
 		<typeAlias type="com.ktds.sems.education.vo.EduNoticeListVO" alias="EduNoticeListVO"/>
