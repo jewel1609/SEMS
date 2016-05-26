@@ -905,12 +905,14 @@ public class EducationServiceImpl implements EducationService {
 			educationReportVO.setStartDate(educationReportVO.getStartDate().replaceAll("T", " "));
 			educationReportVO.setEndDate(educationReportVO.getEndDate().replaceAll("T", " "));
 			
-			// ArticleID 형식 변경
-			String nowDate = educationBiz.getNowDate();
-			int nextSeq = educationBiz.getNextReportSeq();
-			
-			String realReportId = "RT-" + nowDate + "-" + lpad(nextSeq + "", 6, "0");
-			educationReportVO.setArticleId(realReportId);
+			if ( !educationReportVO.getArticleId().equals("testArticleId") ) {
+				// ArticleID 형식 변경
+				String nowDate = educationBiz.getNowDate();
+				int nextSeq = educationBiz.getNextReportSeq();
+				
+				String realReportId = "RT-" + nowDate + "-" + lpad(nextSeq + "", 6, "0");
+				educationReportVO.setArticleId(realReportId);
+			}
 			
 			educationBiz.doReportWriteAction(educationReportVO);
 			
@@ -1148,8 +1150,6 @@ public class EducationServiceImpl implements EducationService {
 		
 		// 날짜 지났는지 비교
 		educationBiz.getNowDateTime();
-		int result;
-		
 		
 		view.setViewName("education/detailReportPage");
 		view.addObject("educationReportVO", educationReportVO);
@@ -1168,17 +1168,21 @@ public class EducationServiceImpl implements EducationService {
 
 		MemberVO loginMember = (MemberVO)session.getAttribute("_MEMBER_");
 		reportReplyVO.setMbrId(loginMember.getId());
-		// ArticleID 형식 변경
-		String nowDate = educationBiz.getNowDate();
-		int nextSeq = educationBiz.getNextReportReplySeq();
+		
+		if(!reportReplyVO.getRptRplId().equals("testArticleId")) {
 			
-		String rptRplId = "RPTL-" + nowDate + "-" + lpad(nextSeq + "", 6, "0");
-		reportReplyVO.setRptRplId(rptRplId);
+			// ArticleID 형식 변경
+			String nowDate = educationBiz.getNowDate();
+			int nextSeq = educationBiz.getNextReportReplySeq();
 			
+			String rptRplId = "RPTL-" + nowDate + "-" + lpad(nextSeq + "", 6, "0");
+			reportReplyVO.setRptRplId(rptRplId);
+			
+		}
 		educationBiz.doReportSubmit(reportReplyVO);
 			
 		MultipartFile file = request.getFile("file");
-			
+		
 		String fileName = file.getOriginalFilename();
 		String salt = SHA256Util.generateSalt();
 		String saltFileName = SHA256Util.getEncrypt(fileName, salt);

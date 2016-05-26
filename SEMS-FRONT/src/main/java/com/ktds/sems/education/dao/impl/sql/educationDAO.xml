@@ -903,7 +903,6 @@
 			<if test="endDate != null and endDate != ''">
 			AND		END_DATE <![CDATA[<]]> TO_DATE(#{endDate}, 'YYYY-MM-DD') + 1
 			</if>
-			AND		CREATE_DATE <![CDATA[<]]> TO_DATE(#{endDate}, 'YYYY-MM-DD') + 1
 		</if>
 	</select>
 	
