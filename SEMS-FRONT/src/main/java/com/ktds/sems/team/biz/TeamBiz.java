@@ -6,19 +6,17 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.ktds.sems.team.vo.MinutesSearchVO;
 import com.ktds.sems.team.vo.MinutesVO;
+import com.ktds.sems.team.vo.TeamBBSReplyVO;
 import com.ktds.sems.team.vo.TeamBBSVO;
 import com.ktds.sems.team.vo.TeamSearchVO;
 import com.ktds.sems.team.vo.TeamVO;
 import com.ktds.sems.team.vo.TeamsListVO;
-import com.ktds.sems.team.vo.TeamBBSVO;
 
 public interface TeamBiz {
 
-	int getTotalTeamCount();
-
+	public int getTotalTeamCount();
+	
 	public List<TeamVO> getAllTeamList(TeamSearchVO searchVO);
-
-	public boolean addNewTeamBBSArticle(TeamBBSVO teamBBS);
 	
 	public boolean addNewTeamBBSArticle(TeamBBSVO teamBBS, MultipartHttpServletRequest request);
 
@@ -40,10 +38,25 @@ public interface TeamBiz {
 
 	public boolean addDislikeRecord(TeamBBSVO bbs);
 	
+	public String getLikeState(TeamBBSVO bbs);
+
+	public String getDislikeState(TeamBBSVO bbs);
+
+	public boolean addLikeCount(TeamBBSVO bbs);
+
+	public boolean addDislikeCount(TeamBBSVO bbs);
+
+	public boolean writeBBSReply(TeamBBSReplyVO replyVO);
+
+	public List<TeamBBSReplyVO> getTeamBBSReplies(String teamBBSId);
+
+	public boolean writeBBSReReply(TeamBBSReplyVO replyVO);
+
 	public boolean writeNewMinutes(MinutesVO minutesVO);
 
 	public List<MinutesVO> getAllMinutesList(MinutesSearchVO minutesSearchVO);
 
 	public int getTotalMinutesCount(MinutesSearchVO minutesSearchVO);
+
 
 }
