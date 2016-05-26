@@ -3,7 +3,7 @@
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="teamDAO">
-
+	
 	<select id="nextMinutesSeq" resultType="_int">
 		SELECT	MINU_ID_SEQ.NEXTVAL
 		FROM	DUAL
@@ -102,8 +102,8 @@
 			    TEAM_BBS.MBR_ID memberId, 
 			    TEAM_BBS.CREATED_DATE createdDate, 
 		   		TEAM_BBS.MODIFIED_DATE modifiedDate,
-		   		TEAM_BBS.IS_NOTICE isNotice,
-		   		FILES.FCOUNT fileCount
+		   		TEAM_BBS.IS_NOTICE isNotice
+		   		FILES.FCOUNT fileCount		
 		FROM	(
 					SELECT	ROWNUM AS RNUM
 							, TEAM_BBS.*
@@ -114,13 +114,12 @@
 							) TEAM_BBS
 					WHERE	ROWNUM <![CDATA[<=]]> #{endIndex}
 				) TEAM_BBS
-				,
-				(
+				,(
 					SELECT  BBS_ID, COUNT(*) HITS
 					FROM    BBS_HTR
 					GROUP   BY BBS_ID
 				) BBS_HTR
-				 ,
+				,
 				(
 			    	SELECT ATC_ID, COUNT(*) FCOUNT
 			    	FROM FILES
@@ -461,7 +460,8 @@
 									   MBR_ID, 
 									   DESCRIPT,
 									   PARENT_REPLY_ID,
-									   DEPTH
+									   DEPTH,
+									   ORDER_NO
 								  ) 
 					VALUES 		( 
 										#{replyId},
@@ -469,18 +469,29 @@
 										#{memberId},
 										#{descript},								
 										'0',
-										#{depth}
+										#{depth},
+										#{orderNo}
 								 )
 	</insert>
 	
-	<select id="getTeamBBSReplies" parameterType="String" resultType="TeamBBSReplyVO">
+	<select id="getTeamBBSReplies" parameterType="TeamBBSReplyVO" resultType="TeamBBSReplyVO">
 		SELECT	REPLY_ID replyId, 
 				TEAM_BBS_ID teamBBSId, 
 				MBR_ID memberId, 
 				DESCRIPT descript
-		FROM	TEAM_BBS_RPL
-		WHERE  	TEAM_BBS_ID = #{teamBBSId}
-		AND		PARENT_REPLY_ID = 0
+		FROM	(
+					SELECT	ROWNUM AS RNUM
+							, TEAM_BBS_RPL.*
+					FROM	(
+								SELECT	*
+								FROM	TEAM_BBS_RPL
+								WHERE  	PARENT_REPLY_ID = '0'
+								AND		TEAM_BBS_ID =  #{teamBBSId}
+								ORDER	BY REPLY_ID DESC
+							) TEAM_BBS_RPL
+					WHERE	ROWNUM <![CDATA[<=]]> #{endIndex}
+				) TEAM_BBS_RPL
+		WHERE	RNUM >= #{startIndex}
 	</select>
 	
 	<select id="getNextTeamBBSReplySeq" resultType="_int">
@@ -510,7 +521,13 @@
 	</insert>
 	
 	<select id="getNextOrderNoByParentId" parameterType="String" resultType="_int">
-		SELECT	NVL(ORDER_NO, 0) + 1
+		SELECT	MAX(ORDER_NO) + 1
+		FROM	TEAM_BBS_RPL
+		WHERE	PARENT_REPLY_ID	= #{parentReplyId}
+	</select>
+	
+	<select id="isExistedOrderNoByParentId" parameterType="String" resultType="_int">
+		SELECT	COUNT(ORDER_NO)
 		FROM	TEAM_BBS_RPL
 		WHERE	PARENT_REPLY_ID	= #{parentReplyId}
 	</select>
@@ -610,6 +627,22 @@
 	</if>
 	</if>
 		ORDER BY	MINU_ID DESC
+	</select>
+		
+	<select id="getTeamBBSReReplies" parameterType="TeamSearchVO" resultType="TeamBBSReplyVO">
+		SELECT	REPLY_ID replyId, 
+				TEAM_BBS_ID teamBBSId, 
+				MBR_ID memberId, 
+				DESCRIPT descript
+		FROM	TEAM_BBS_RPL
+		WHERE  	PARENT_REPLY_ID = #{parentReplyId}
+	</select>
+	
+	<select id="getReplyCountByTeamBBSId" parameterType="String" resultType="_int">
+		SELECT	COUNT(*)
+		FROM	TEAM_BBS_RPL
+		WHERE	TEAM_BBS_ID = #{teamBBSId}
+		AND		PARENT_REPLY_ID = '0'
 	</select>
 	
 	<delete id="doDeleteTeamListByMemberId">
