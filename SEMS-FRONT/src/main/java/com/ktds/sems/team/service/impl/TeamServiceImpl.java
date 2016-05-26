@@ -13,14 +13,10 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.team.biz.TeamBiz;
 import com.ktds.sems.team.service.TeamService;
-import com.ktds.sems.team.vo.MinutesListVO;
-import com.ktds.sems.team.vo.MinutesSearchVO;
-import com.ktds.sems.team.vo.MinutesVO;
 import com.ktds.sems.team.vo.TeamBBSListVO;
+import com.ktds.sems.team.vo.TeamBBSReplyVO;
 import com.ktds.sems.team.vo.TeamBBSVO;
-import com.ktds.sems.team.vo.TeamListVO;
 import com.ktds.sems.team.vo.TeamSearchVO;
-import com.ktds.sems.team.vo.TeamVO;
 
 import kr.co.hucloud.utilities.web.Paging;
 
@@ -126,19 +122,31 @@ public class TeamServiceImpl implements TeamService{
 	public ModelAndView viewTeamBBSDetailPage(String teamBBSId, int pageNo, HttpSession session) {
 		
 		MemberVO member = (MemberVO) session.getAttribute("_MEMBER_");
-
+		TeamBBSVO teamBBS = teamBiz.getTeamBBS(teamBBSId); 
+		List<TeamBBSReplyVO> replies = teamBiz.getTeamBBSReplies(teamBBSId); 
+		
 		if(member != null) {
 			TeamBBSVO bbs = new TeamBBSVO();
 			bbs.setMemberId(member.getId());
 			bbs.setTeamBBSId(teamBBSId);
 			// 조회수를 추가해준다.
 			teamBiz.addHitsRecord(bbs);
+			
+			// 좋아요 싫어요 정보를 가져온다.
+			String likeState = teamBiz.getLikeState(bbs);
+			String dislikeState = teamBiz.getDislikeState(bbs);
+			logger.info("likeState" + likeState);
+			logger.info("dislikeState" + dislikeState);
+			teamBBS.setLikeState(likeState);
+			teamBBS.setDislikeState(dislikeState);
+		
 		}else{
 			throw new RuntimeException("멤버 정보가 없습니다.");
 		}
 		ModelAndView view = new ModelAndView();
-		TeamBBSVO teamBBS = teamBiz.getTeamBBS(teamBBSId); 
+	
 		view.addObject("teamBBS",teamBBS );
+		view.addObject("replies", replies);
 		view.setViewName("team/detailTeamBBS");
 		return view;
 	}
@@ -160,6 +168,7 @@ public class TeamServiceImpl implements TeamService{
 				throw new RuntimeException("이미 싫어요로 선택하셨습니다.");
 			} else { // 싫어요가 없다면 기록해준다.
 				teamBiz.addLikeRecord(bbs);
+				teamBiz.addLikeCount(bbs);
 			}
 			
 		}else{
@@ -185,6 +194,7 @@ public class TeamServiceImpl implements TeamService{
 				throw new RuntimeException("이미 좋아요로 선택하셨습니다.");
 			} else { // 싫어요가 없다면 기록해준다.
 				teamBiz.addDislikeRecord(bbs);
+				teamBiz.addDislikeCount(bbs);
 			}
 			
 		}else{
@@ -194,11 +204,32 @@ public class TeamServiceImpl implements TeamService{
 	}
 
 	@Override
-	public String addNewTeamBBSArticle(TeamBBSVO teamBBS, Errors errors, HttpSession session) {
-		// TODO Auto-generated method stub
-		return null;
+	public ModelAndView doWriteBBSReplyAction(TeamBBSReplyVO replyVO, int pageNo, HttpSession session) {
+		MemberVO member= (MemberVO) session.getAttribute("_MEMBER_");
+		String id = member.getId();
+		logger.info("member"+id);
+		logger.info("descript"+replyVO.getDescript());
+		logger.info("groupId"+replyVO.getGroupId());
+		logger.info("parentReplyId "+replyVO.getParentReplyId());
+		logger.info("depth"+replyVO.getDepth());
+		logger.info("orderNo"+replyVO.getOrderNo());
+		
+		replyVO.setMemberId(id);
+		replyVO.setDescript(replyVO.getDescript().replaceAll("\n", "<br/>").replaceAll("\r", ""));
+		
+		logger.info("Descript"+replyVO.getDescript());
+		
+		// 대댓글이 아닐시
+		if(replyVO.getParentReplyId().equals("0")){
+			teamBiz.writeBBSReply(replyVO);
+		}else{ //대댓글 일시
+			
+			teamBiz.writeBBSReReply(replyVO);
+		}
+		
+		return new ModelAndView("redirect:/team/teamBBS/detail/" + replyVO.getTeamBBSId());
 	}
-	
+
 	@Override
 	public ModelAndView writeNewMinutes(String teamId, MinutesVO minutesVO, Errors errors, HttpSession session) {
 		
@@ -271,5 +302,6 @@ public class TeamServiceImpl implements TeamService{
 		
 		return view;
 	}
+	
 	
 }
