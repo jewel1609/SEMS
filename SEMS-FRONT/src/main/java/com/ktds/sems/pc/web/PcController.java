@@ -64,8 +64,8 @@ public class PcController {
 	
 	
 	@RequestMapping(value = ("/myPc/reportPage/report"), method = RequestMethod.POST)
-	public void reportProblemPc(@Valid ReportedPcVO reportedPcVO, Errors errors, HttpSession session, HttpServletResponse response, HttpServletRequest request) {
-		String reportStatus = pcService.reportProblemPc(reportedPcVO, errors, session, request);
+	public void reportProblemPc(ReportedPcVO reportedPcVO, HttpServletResponse response, HttpSession session) {
+		String reportStatus = pcService.reportProblemPc(reportedPcVO, response, session);
 		AjaxUtil.sendResponse(response, reportStatus);
 	}
 

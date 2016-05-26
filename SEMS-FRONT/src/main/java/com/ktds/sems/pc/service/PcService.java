@@ -22,7 +22,7 @@ public interface PcService {
 
 	public ModelAndView viewReportPcPage(String educationId, HttpSession session, HttpServletRequest request);
 
-	public String reportProblemPc(ReportedPcVO reportedPcVO, Errors errors, HttpSession session, HttpServletRequest request);
+	public String reportProblemPc(ReportedPcVO reportedPcVO, HttpServletResponse response, HttpSession session);
 
 	public ModelAndView getMyReportedPcList(HttpSession session, ReportedPcSearchVO reportedPcSearchVO);
 

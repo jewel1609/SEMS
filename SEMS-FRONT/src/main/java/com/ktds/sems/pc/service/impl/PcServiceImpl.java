@@ -116,7 +116,7 @@ public class PcServiceImpl implements PcService{
 	 * 이기연
 	 */
 	@Override
-	public String reportProblemPc(ReportedPcVO reportedPcVO, Errors errors, HttpSession session, HttpServletRequest request) {
+	public String reportProblemPc(ReportedPcVO reportedPcVO, HttpServletResponse response, HttpSession session) {
 
 		try {
 			MemberVO memberVO = (MemberVO) session.getAttribute(Session.MEMBER);
