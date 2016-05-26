@@ -1935,11 +1935,6 @@ public class EducationServiceImpl implements EducationService {
 		MemberVO member = (MemberVO) session.getAttribute(Session.MEMBER);
 		educationFileBBSVO.setMemberId(member.getId());
 		
-		System.out.println(educationFileBBSVO.getArticleId());
-		System.out.println(educationFileBBSVO.getContents());
-		System.out.println(educationFileBBSVO.getMemberId());
-		System.out.println(educationFileBBSVO.getTitle());
-		
 		boolean isSuccess = educationBiz.modifyFileBBS(educationFileBBSVO);
 		
 		if ( isSuccess ) {
