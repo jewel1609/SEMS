@@ -255,9 +255,9 @@ public class TeamBizImpl implements TeamBiz {
 		
 		int  nextMinutesId = teamDAO.nextMinutesSeq();
 		
-//		String MinutesId = "MINU-" + lpad(nextMinutesId + "", 3, "0"); 
-//		minutesVO.setMinutesId(MinutesId);
-//		System.out.println("Biz MinuteId"+MinutesId);
+		String MinutesId = "MINU-" + lpad(nextMinutesId + "", 3, "0"); 
+		minutesVO.setMinutesId(MinutesId);
+		System.out.println("Biz MinuteId"+MinutesId);
 		
 		return teamDAO.insertNewMinutes(minutesVO) > 0;
 	}
@@ -295,6 +295,25 @@ public class TeamBizImpl implements TeamBiz {
 	@Override
 	public List<MemberVO> getAllEduMember(String educationId) {
 		return teamDAO.getAllEduMember(educationId);
+	}
+	private String lpad(String source, int length, String defValue) {
+		
+		int sourceLength = source.length();
+		int needLength = length - sourceLength;
+		
+		for ( int i = 0 ; i < needLength ; i++ ) {
+			source = defValue + source;
+		}
+		return source;
+	}
+	
+	@Override
+	public MinutesVO getOneDetailMinutes(String minutesId) {
+		return teamDAO.getOneDetailMinutes(minutesId);
+	}
+	@Override
+	public String getOneDetailMinutesDate(String minutesId) {
+		return teamDAO.getOneDetailMinutesDate(minutesId);
 	}
 
 }
