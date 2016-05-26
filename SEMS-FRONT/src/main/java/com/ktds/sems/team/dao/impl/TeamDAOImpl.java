@@ -242,4 +242,14 @@ public class TeamDAOImpl  extends SqlSessionDaoSupport implements TeamDAO{
 	public int getTotalMinutesCountForAdmin(MinutesSearchVO minutesSearchVO) {
 		return getSqlSession().selectOne("teamDAO.getTotalMinutesCountForAdmin", minutesSearchVO);
 	}
+	
+	@Override
+	public MinutesVO getOneDetailMinutes(String minutesId) {
+		return getSqlSession().selectOne("teamDAO.getOneDetailMinutes", minutesId);
+	}
+
+	@Override
+	public String getOneDetailMinutesDate(String minutesId) {
+		return getSqlSession().selectOne("teamDAO.getOneDetailMinutesDate", minutesId);
+	}
 }
