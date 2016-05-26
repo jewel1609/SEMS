@@ -86,5 +86,9 @@ public interface TeamBiz {
 	public boolean doDeleteBBS(String teamBBSId);
 
 	public boolean isReplyByTeamBBSId(String teamBBSId);
+	
+	public MinutesVO getOneDetailMinutes(String minutesId);
+
+	public String getOneDetailMinutesDate(String minutesId);
 
 }
