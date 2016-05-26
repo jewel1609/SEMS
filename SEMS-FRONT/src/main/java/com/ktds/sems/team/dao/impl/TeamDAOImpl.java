@@ -9,6 +9,10 @@ import com.ktds.sems.team.vo.MinutesSearchVO;
 import com.ktds.sems.team.vo.MinutesVO;
 import com.ktds.sems.team.vo.TeamBBSReplyVO;
 import com.ktds.sems.team.vo.TeamBBSVO;
+import com.ktds.sems.member.vo.MemberVO;
+import java.util.HashMap;
+import java.util.Map;
+
 import com.ktds.sems.team.vo.TeamSearchVO;
 import com.ktds.sems.team.vo.TeamVO;
 import com.ktds.sems.team.vo.TeamsListVO;
@@ -26,8 +30,8 @@ public class TeamDAOImpl  extends SqlSessionDaoSupport implements TeamDAO{
 	}
 	
 	@Override
-	public int addNewTeamBBSArticle(TeamBBSVO TeamBBSVO) {
-		return getSqlSession().insert("teamDAO.addNewTeamBBS", TeamBBSVO);
+	public int addNewTeamBBSArticle(TeamBBSVO teamBBS) {
+		return getSqlSession().insert("teamDAO.addNewTeamBBS", teamBBS);
 	}
 
 	@Override
@@ -172,18 +176,45 @@ public class TeamDAOImpl  extends SqlSessionDaoSupport implements TeamDAO{
 	}
 
 	@Override
-	public List<MinutesVO> getAllMinutesList(MinutesSearchVO minutesSearchVO) {
-		return getSqlSession().selectList("teamDAO.getAllMinutesList", minutesSearchVO);
+	public int nextMinutesSeq() {
+		return getSqlSession().selectOne("teamDAO.nextMinutesSeq");
+	}
+
+	@Override
+	public boolean bulidTeam(String educationId, String teamName) {
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("educationId", educationId);
+		paramMap.put("teamName", teamName);
+		return getSqlSession().insert("teamDAO.bulidTeam", paramMap) > 0;
 	}
 
 	@Override
 	public int getTotalMinutesCount(MinutesSearchVO minutesSearchVO) {
 		return getSqlSession().selectOne("teamDAO.getTotalMinutesCount", minutesSearchVO);
 	}
-
+	
 	@Override
-	public int nextMinutesSeq() {
-		return getSqlSession().selectOne("teamDAO.nextMinutesSeq");
+	public List<MemberVO> getAllEduMember(String educationId) {
+		return getSqlSession().selectList("teamDAO.getAllEduMember", educationId);
+	}
+	
+	@Override
+	public List<MinutesVO> getAllMinutesList(MinutesSearchVO minutesSearchVO) {
+		return getSqlSession().selectList("teamDAO.getAllMinutesList", minutesSearchVO);
+	}
+	
+	@Override
+	public List<MinutesVO> getAllMinutes(MinutesSearchVO minutesSearchVO) {
+		return getSqlSession().selectList("teamDAO.getAllMinutes", minutesSearchVO);
+	}
+	
+	@Override
+	public boolean insertMember(String memberId) {
+		return getSqlSession().insert("teamDAO.insertMember", memberId) > 0;
 	}
 
+	@Override
+	public int getTotalMinutesCountForAdmin(MinutesSearchVO minutesSearchVO) {
+		return getSqlSession().selectOne("teamDAO.getTotalMinutesCountForAdmin", minutesSearchVO);
+	}
 }

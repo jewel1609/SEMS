@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.team.vo.MinutesSearchVO;
 import com.ktds.sems.team.vo.MinutesVO;
 import com.ktds.sems.team.vo.TeamBBSReplyVO;
@@ -29,7 +30,7 @@ public interface TeamBiz {
 	public TeamBBSVO getTeamBBS(String teamBBSId);
 
 	public boolean addHitsRecord(TeamBBSVO bbs);
-
+	
 	public boolean checkDislikeByTeamBBSVO(TeamBBSVO bbs);
 
 	public boolean addLikeRecord(TeamBBSVO bbs);
@@ -37,7 +38,7 @@ public interface TeamBiz {
 	public boolean checkLikeByTeamBBSVO(TeamBBSVO bbs);
 
 	public boolean addDislikeRecord(TeamBBSVO bbs);
-	
+
 	public String getLikeState(TeamBBSVO bbs);
 
 	public String getDislikeState(TeamBBSVO bbs);
@@ -56,7 +57,17 @@ public interface TeamBiz {
 
 	public List<MinutesVO> getAllMinutesList(MinutesSearchVO minutesSearchVO);
 
+	public List<MemberVO> getAllEduMember(String educationId);
+
+	public boolean bulidTeam(String educationId, String teamName);
+
+	public boolean insertMember(String memberId);
+
 	public int getTotalMinutesCount(MinutesSearchVO minutesSearchVO);
+
+	public List<MinutesVO> getAllMinutes(MinutesSearchVO minutesSearchVO);
+
+	int getTotalMinutesCountForAdmin(MinutesSearchVO minutesSearchVO);
 
 	public boolean doModifyAction(TeamBBSVO teamBBS);
 

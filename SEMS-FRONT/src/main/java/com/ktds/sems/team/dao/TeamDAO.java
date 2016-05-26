@@ -6,6 +6,7 @@ import com.ktds.sems.team.vo.MinutesSearchVO;
 import com.ktds.sems.team.vo.MinutesVO;
 import com.ktds.sems.team.vo.TeamBBSReplyVO;
 import com.ktds.sems.team.vo.TeamBBSVO;
+import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.team.vo.TeamSearchVO;
 import com.ktds.sems.team.vo.TeamVO;
 import com.ktds.sems.team.vo.TeamsListVO;
@@ -79,5 +80,15 @@ public interface TeamDAO {
 	public int getTotalMinutesCount(MinutesSearchVO minutesSearchVO);
 
 	public int nextMinutesSeq();
+
+	public List<MinutesVO> getAllMinutes(MinutesSearchVO minutesSearchVO);
+	
+	public List<MemberVO> getAllEduMember(String educationId);
+
+	public boolean bulidTeam(String educationId, String teamName);
+
+	public boolean insertMember(String memberId);
+
+	public int getTotalMinutesCountForAdmin(MinutesSearchVO minutesSearchVO);
 
 }

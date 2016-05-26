@@ -29,6 +29,7 @@ import kr.co.hucloud.utilities.web.AjaxUtil;
 
 @Controller
 public class TeamController {
+	
 	private Logger logger = LoggerFactory.getLogger(TeamController.class);
 	private TeamService teamService;
 	
@@ -157,7 +158,7 @@ public class TeamController {
 	public String doDeleteBBS(@PathVariable String teamBBSId) {
 		return teamService.doDeleteBBS(teamBBSId);
 	}
-	
+
 	@RequestMapping("/searchInitBtn")
 	public String teamSearchInit(){
 		return "redirect:/teamList";
@@ -165,7 +166,7 @@ public class TeamController {
 	
 	@RequestMapping("/team/writeMinutes/{teamId}")
 	public ModelAndView viewWriteMinutesPage(@PathVariable String teamId) {
-		
+
 		ModelAndView view = new ModelAndView();
 		view.setViewName("team/writeMinutes");
 		view.addObject("teamId", teamId);
@@ -186,12 +187,35 @@ public class TeamController {
 	
 	@RequestMapping("/team/listMinutes")
 	public ModelAndView viewListMinutesPage(MinutesSearchVO  minutesSearchVO, @RequestParam(required=false, defaultValue="0") int pageNo) {
-		
 		return teamService.viewListMinutes(minutesSearchVO, pageNo);
 	}
 	
 	@RequestMapping("/member/minutesInit")
 	public ModelAndView minutesInit() {
 		return teamService.minutesInit();
+	}
+	
+	@RequestMapping("/{educationId}/registTeam")
+	public ModelAndView viewEduFilePage(HttpSession session, @PathVariable String educationId){
+		return teamService.getAllEduMember(educationId, session);
+	}
+	
+	@RequestMapping("/buildTeam")
+	public ModelAndView massiveInsertMember(HttpServletRequest request){
+		String[] insertMemberIds = request.getParameterValues("selectMemberId");
+		String educationId = request.getParameter("educationId");
+		String teamName = request.getParameter("teamName");
+		
+		return teamService.massiveInsertMember(insertMemberIds, educationId, teamName);
+	}
+	
+	@RequestMapping("/minutesList")
+	public ModelAndView viewMinutesPage(MinutesSearchVO minutesSearchVO, @RequestParam(required = false, defaultValue = "0") int pageNo, HttpSession session){
+		return teamService.getAllMinutes(minutesSearchVO, pageNo, session);
+	}
+	
+	@RequestMapping("/minutesListInit")
+	public ModelAndView minutesListInit() {
+		return teamService.minutesListInit();
 	}
 }

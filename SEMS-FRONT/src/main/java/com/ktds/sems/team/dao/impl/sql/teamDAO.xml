@@ -244,6 +244,87 @@
 		       TITLE         = #{title}
 		WHERE  TEAM_BBS_ID   = #{teamBBSId}
 	</update>
+		
+	<select id="getAllEduMember" parameterType="string"  resultType="MemberVO">
+		SELECT  MBR_ID id
+		FROM    (
+		            SELECT  MBR_ID
+		            FROM    EDU_CLASS
+		            WHERE   EDU_ID = #{educationId}
+		            AND     STAT = 'EDU_JN_C'
+		        )
+		WHERE   MBR_ID NOT IN   (
+		                            SELECT  MBR_ID
+		                            FROM    TEAM_LIST
+		                        )
+	</select>
+	
+	<insert id="bulidTeam" parameterType="map">
+		INSERT INTO TEAM	(
+							   TEAM_ID
+							   , TEAM_NM
+							   , TEAM_DT
+							   , EDU_ID
+							) 
+		VALUES	(
+					TEAM_SEQ.NEXTVAL
+					, #{teamName}
+					, SYSDATE
+					, #{educationId} 
+				)
+	</insert>
+	
+	<insert id="insertMember" parameterType="string">
+		INSERT INTO SEMS.TEAM_LIST (
+		                                TEAM_LST_ID
+		                                , TEAM_ID
+		                                , MBR_ID
+		                            ) 
+		VALUES  (
+		            TEAM_LST_SEQ.NEXTVAL
+		            , TEAM_SEQ.CURRVAL
+		            , #{memberId}
+		        )
+	</insert>
+	
+	<select id="getTotalMinutesCountForAdmin" parameterType="MinutesSearchVO" resultType="_int">
+		SELECT COUNT(MINU_ID)
+		FROM   MINU_INFO
+		<if test="startDate != null and startDate != ''">
+		WHERE	SUBSTR(START_DATE, 1, 10) = TO_DATE(#{startDate}, 'YYYY-MM-DD')		
+		</if>
+	</select>
+	
+	<select id="getAllMinutes" parameterType="MinutesSearchVO" resultType="MinutesVO">
+		SELECT	MIN.MINU_ID minutesId
+				, MIN.MBR_ID memberId
+				, MIN.MINU_AGE minutesAgenda
+				, MIN.ATTENDACNCE attendance
+				, MIN.MINU_PLA minutesPlace
+				, MIN.MINU_CON minutesContent
+				, MIN.DSC_SBT decisionSubject
+				, MIN.REMARKS remarks
+				, MIN.TEAM_ID teamId
+				, MIN.START_DATE startDate
+				, MIN.END_DATE endDate
+		FROM	(
+				SELECT	ROWNUM AS RNUM
+			   			, MINU.*
+				FROM   (
+								SELECT	MINU_INFO.*
+								FROM   (
+											SELECT	MINU_INFO.*
+											FROM   	MINU_INFO
+						               ) MINU_INFO
+								<if test="startDate != null and startDate != ''">
+				                WHERE	SUBSTR(START_DATE, 1, 10) = TO_DATE(#{startDate}, 'YYYY-MM-DD')		
+								</if>
+				                ORDER   BY   MINU_ID DESC
+				        ) MINU
+				WHERE   ROWNUM <![CDATA[<=]]> #{endIndex}
+				) MIN
+		WHERE	RNUM >= #{startIndex}
+	</select>
 	
 	<select id="getSaltById" parameterType="string" resultType="string">
 		SELECT	SALT salt

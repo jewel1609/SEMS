@@ -14,6 +14,8 @@ import com.ktds.sems.team.vo.TeamSearchVO;
 
 public interface TeamService {
 
+	public ModelAndView getAllTeamListPage(TeamSearchVO teamSearchVO);
+	
 	public String addNewTeamBBSArticle(TeamBBSVO teamBBS, Errors errors, MultipartHttpServletRequest request, HttpSession session);
 
 	public ModelAndView viewTeamBBSPage(int pageNo);
@@ -40,8 +42,6 @@ public interface TeamService {
 
 	public ModelAndView doWriteBBSReplyAction(TeamBBSReplyVO replyVO, int pageNo, HttpSession session);
 
-	public ModelAndView getAllTeamListPage(TeamSearchVO teamSearchVO);
-	
 	public ModelAndView getOneTeamDetail(String teamId);
 
 	public ModelAndView writeNewMinutes(String teamId, MinutesVO minutesVO, Errors errors, HttpSession session);
@@ -49,5 +49,16 @@ public interface TeamService {
 	public ModelAndView viewListMinutes(MinutesSearchVO intminutesSearchVO, int pageNo);
 
 	public ModelAndView minutesInit();
+	
+	/*
+	 * 본호
+	 */
+	public ModelAndView getAllEduMember(String educationId, HttpSession session);
+
+	public ModelAndView massiveInsertMember(String[] insertMemberIds, String educationId, String teamName);
+
+	public ModelAndView getAllMinutes(MinutesSearchVO minutesSearchVO, int pageNo, HttpSession session);
+
+	public ModelAndView minutesListInit();
 	
 }
