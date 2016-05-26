@@ -11,6 +11,16 @@
 <script type="text/javascript">
 
    $(document).ready(function() {
+	   
+	   $(document).on("keyup",".onlyText",function(){
+			regexp = /[@\#$%<>&\=_\’]/gi;
+	
+			v = $(this).val();
+			if (regexp.test(v)) {
+				alert("특수문자를 포함할 수 없습니다.");
+				$(this).val(v.replace(regexp, ''));
+			}
+		});
 	 
 	   $("#searchInitBtn").click(function() {
 			location.href="<c:url value='/${educationId}/eduQna' />";
@@ -96,7 +106,7 @@
 								<option id="id" value="1">아이디</option>
 							</c:if>
 						</select>
-						<input type="text" id="searchKeyword" name="searchKeyword" value="${ eduQnaSearchVO.searchKeyword }"/>
+						<input type="text" class="onlyText" id="searchKeyword" name="searchKeyword" value="${ eduQnaSearchVO.searchKeyword }"/>
 						<input type="button" id="searchBtn" value="검색" />
 						<input type="button" id="searchInitBtn" value="검색 초기화" />
 						<input type="button" id="writeQna" value="QnA등록" />
