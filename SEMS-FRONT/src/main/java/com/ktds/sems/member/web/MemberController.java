@@ -35,8 +35,8 @@ public class MemberController {
 	}
 
 	@RequestMapping(value = "/doRegisterMemberAction", method = RequestMethod.POST)
-	public void doRegisterMemberAction(@Valid MemberVO member, @RequestParam String repeatPassword, Errors errors, HttpSession session, HttpServletResponse response, HttpServletRequest request) {
-		String reportStatus = memberService.addNewMember(member, repeatPassword, errors, session, response, request);
+	public void doRegisterMemberAction(@Valid MemberVO member, @RequestParam String repeatPassword, Errors errors, HttpServletResponse response) {
+		String reportStatus = memberService.addNewMember(member, repeatPassword, errors, response);
 		AjaxUtil.sendResponse(response, reportStatus);
 	}
 

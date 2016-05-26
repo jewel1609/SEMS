@@ -51,12 +51,11 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public String addNewMember(MemberVO member, String repeatPassword, Errors errors, HttpSession session, HttpServletResponse response, HttpServletRequest request) {
+	public String addNewMember(MemberVO member, String repeatPassword, Errors errors, HttpServletResponse response) {
 		ModelAndView view = new ModelAndView();
 		
 		String memberType = member.getMemberType();
 		if (memberType == null) {
-//			view.setViewName("redirect:/invalidAccess");
 			return "NO";
 		}
 		
@@ -68,11 +67,6 @@ public class MemberServiceImpl implements MemberService {
 		if (errors.hasErrors() || !isNotError) {
 			highestEducationLevelList = memberBiz.getHighestEducationLevels();
 			graduationTypeList = memberBiz.getGraduationTypes();
-
-//			view.addObject("graduationTypeList", graduationTypeList);
-//			view.addObject("highestEducationLevelList", highestEducationLevelList);
-//
-//			view.addObject("member", member);
 			return "NO";
 		} else if (isNotError) {
 			setSaltAndPassword(member);
