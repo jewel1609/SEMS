@@ -18,6 +18,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
@@ -28,6 +29,8 @@ import com.ktds.sems.education.service.EducationService;
 import com.ktds.sems.education.util.DateFormatter;
 import com.ktds.sems.education.util.DownloadUtil;
 import com.ktds.sems.education.vo.BBSHistoryVO;
+import com.ktds.sems.education.vo.BBSReplyListVO;
+import com.ktds.sems.education.vo.BBSReplySearchVO;
 import com.ktds.sems.education.vo.BBSReplyVO;
 import com.ktds.sems.education.vo.EduQnaListVO;
 import com.ktds.sems.education.vo.EduQnaSearchVO;
@@ -995,9 +998,8 @@ public class EducationServiceImpl implements EducationService {
 		searchVO.setStartIndex(paging.getStartArticleNumber());
 		searchVO.setEndIndex(paging.getEndArticleNumber());
 		
-		
 		EducationFileBBSListVO educationFileBBSList = new EducationFileBBSListVO();
-		
+
 		EducationVO educationVO = educationBiz.getOneEducationDetail(educationId);
 
 		if ( educationVO == null) {
@@ -1217,7 +1219,7 @@ public class EducationServiceImpl implements EducationService {
 	}
 	
 	@Override
-	public ModelAndView showDetailEducationFileBBS(String articleId, HttpSession session) {
+	public ModelAndView showDetailEducationFileBBS(String articleId, int pageNo, HttpSession session) {
 		ModelAndView view = new ModelAndView();
 		
 		BBSHistoryVO bbsHistoryVO = new BBSHistoryVO();
@@ -1225,16 +1227,42 @@ public class EducationServiceImpl implements EducationService {
 		bbsHistoryVO.setMemberId(member.getId());
 		bbsHistoryVO.setBbsId(articleId);
 		
-		educationBiz.addHitsEducationFileBBSByArticleId(bbsHistoryVO);
-		
 		EducationFileBBSVO educationFileBBS = educationBiz.getOneEducationFileBBS(articleId);
-		List<FileVO> fileList = fileBiz.getAllFilesByArticleId(articleId);
 		
-		view.addObject("fileList", fileList);
-		view.addObject("educationFileBBS", educationFileBBS);
-		view.setViewName("education/detailEducationFileBBS");
+		if ( educationFileBBS != null ) {
+			educationBiz.addHitsEducationFileBBSByArticleId(bbsHistoryVO);
+			
+			List<FileVO> fileList = fileBiz.getAllFilesByArticleId(articleId);
+			
+			BBSReplySearchVO searchVO = new BBSReplySearchVO();
+			searchVO.setArticleId(articleId);
+			searchVO.setPageNo(pageNo);
+			
+			Paging paging = new Paging();
+			paging.setPageNumber(pageNo+"");
+			int totalReplyCount = educationBiz.getTotalFileBBSReplyCountByArticleId(articleId);
+			paging.setTotalArticleCount(totalReplyCount);
+			
+			searchVO.setStartIndex(paging.getStartArticleNumber());
+			searchVO.setEndIndex(paging.getEndArticleNumber());
+			
+			List<BBSReplyVO> replys = educationBiz.getAllBBSReplyByArticle(searchVO);
+			
+			BBSReplyListVO replyList = new BBSReplyListVO();
+			replyList.setBbsReplys(replys);
+			replyList.setPaging(paging);
+			
+			view.addObject("replyList", replyList);
+			view.addObject("fileList", fileList);
+			view.addObject("educationFileBBS", educationFileBBS);
+			view.setViewName("education/detailEducationFileBBS");
+			
+			return view;
+		}
+		else {
+			throw new RuntimeException("잘 못 된 접근입니다.");
+		}
 		
-		return view;
 	}
 
 	@Override
@@ -1599,9 +1627,19 @@ public class EducationServiceImpl implements EducationService {
 	}
 
 	@Override
-	public ModelAndView writeReplyFileBBS(BBSReplyVO bbsReplyVO) {
-		// TODO Auto-generated method stub
-		return null;
+	public ModelAndView writeFileBBSReply(BBSReplyVO bbsReplyVO, HttpSession session) {
+		ModelAndView view = new ModelAndView();
+		MemberVO member = (MemberVO) session.getAttribute(Session.MEMBER);
+		
+		String bbsReplyId = educationBiz.generateBBSReplyId();
+		bbsReplyVO.setReplyId(bbsReplyId);
+		bbsReplyVO.setMemberId(member.getId());
+		
+		boolean isSuccess = educationBiz.writeFileBBSReply(bbsReplyVO);
+		if (isSuccess) {
+			view.setViewName("redirect:/education/fileBBS/detail/" + bbsReplyVO.getArticleId());
+		}
+		return view;
 	}
 
 	@Override
@@ -1840,7 +1878,105 @@ public class EducationServiceImpl implements EducationService {
 		}
 	}
 
-	
+	@Override
+	public void writeFileBBSReReply(BBSReplyVO bbsReplyVO, HttpSession session, HttpServletResponse response) {
+		String message = "NO";
+		MemberVO member = (MemberVO) session.getAttribute(Session.MEMBER);
+		
+		String bbsReplyId = educationBiz.generateBBSReplyId();
+		bbsReplyVO.setReplyId(bbsReplyId);
+		bbsReplyVO.setMemberId(member.getId());
+		
+		int orderNo = educationBiz.getNextOrderNo(bbsReplyVO.getParentReplyId());
+		bbsReplyVO.setOrderNo(orderNo);
+		
+		boolean isSuccess = educationBiz.writeFileBBSReply(bbsReplyVO);
+		if (isSuccess) {
+			message = "OK";
+		}
+		AjaxUtil.sendResponse(response, message);
+	}
+
+	@Override
+	public ModelAndView deleteFileBBS(EducationFileBBSVO educationFileBBSVO, HttpSession session) {
+		ModelAndView view = new ModelAndView();
+		// 사용자 확인
+		MemberVO member = (MemberVO) session.getAttribute(Session.MEMBER);
+		String writer = educationFileBBSVO.getMemberId();
+		
+		boolean isEquals = member.getId().equals(writer);
+		boolean isSuccess = false;
+		if ( isEquals ) {
+			String articleId = educationFileBBSVO.getArticleId();
+			
+			isSuccess = educationBiz.deleteFileBBSByArticleId(articleId);
+			
+			if (isSuccess) {
+				fileBiz.deleteFile(articleId);
+				view.setViewName("redirect:/education/fileBBS/" + educationFileBBSVO.getEducationId());
+			}
+			else {
+				throw new RuntimeException("삭제 실패");
+			}
+		}
+		else {
+			throw new RuntimeException("접근 권한 오류");
+		}
+		
+		return view;
+		
+	}
+
+	@Override
+	public ModelAndView modifyFileBBS(EducationFileBBSVO educationFileBBSVO, MultipartHttpServletRequest request, String fileDelete , HttpSession session) {
+		ModelAndView view = new ModelAndView();
+		String articleId = educationFileBBSVO.getArticleId();
+		
+		MemberVO member = (MemberVO) session.getAttribute(Session.MEMBER);
+		educationFileBBSVO.setMemberId(member.getId());
+		
+		System.out.println(educationFileBBSVO.getArticleId());
+		System.out.println(educationFileBBSVO.getContents());
+		System.out.println(educationFileBBSVO.getMemberId());
+		System.out.println(educationFileBBSVO.getTitle());
+		
+		boolean isSuccess = educationBiz.modifyFileBBS(educationFileBBSVO);
+		
+		if ( isSuccess ) {
+			if ( fileDelete.equals("Y") ) {
+				fileBiz.deleteFile(articleId);
+			}
+			
+			fileBiz.doUploadAndWriteFiles(request, articleId);
+			
+			view.setViewName("redirect:/education/fileBBS/detail/" + educationFileBBSVO.getArticleId());
+		}
+		else {
+			throw new RuntimeException("글 수정 실패");
+		}
+
+		return view; 
+	}
+
+	@Override
+	public ModelAndView showModifyFileBBS(EducationFileBBSVO educationFileBBSVO, HttpSession session) {
+		ModelAndView view = new ModelAndView();
+		
+		MemberVO member = (MemberVO) session.getAttribute(Session.MEMBER);
+		String writer = educationFileBBSVO.getMemberId();
+		
+		boolean isEquals = member.getId().equals(writer);
+		if ( isEquals ) {
+			view.setViewName("education/writeEducationFileBBS");
+			view.addObject("educationFileBBSVO", educationFileBBSVO);
+			view.addObject("isModify", "Y");
+		}
+		else {
+			throw new RuntimeException("접근 권한 오류");
+		}
+		
+		return view;
+	}
 
 }
 

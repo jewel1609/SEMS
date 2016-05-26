@@ -13,6 +13,8 @@ import com.ktds.sems.education.vo.EduQnaSearchVO;
 import com.ktds.sems.education.vo.EduQnaVO;
 import com.ktds.sems.education.vo.EducationBoardHistoryVO;
 import com.ktds.sems.education.vo.BBSHistoryVO;
+import com.ktds.sems.education.vo.BBSReplySearchVO;
+import com.ktds.sems.education.vo.BBSReplyVO;
 import com.ktds.sems.education.vo.EducationFileBBSVO;
 import com.ktds.sems.education.vo.EducationQNABBSSearchVO;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
@@ -603,6 +605,36 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 	@Override
 	public int getTotalQnaEduReplyCount(String eduQnaId) {
 		return getSqlSession().selectOne("EducationDAO.getTotalQnaEduReplyCount", eduQnaId);
+	}
+
+	@Override
+	public int writeFileBBSReply(BBSReplyVO bbsReplyVO) {
+		return getSqlSession().insert("EducationDAO.writeFileBBSReply", bbsReplyVO);
+	}
+
+	@Override
+	public List<BBSReplyVO> getAllBBSReplyByArticle(BBSReplySearchVO searchVO) {
+		return getSqlSession().selectList("EducationDAO.getAllBBSReplyByArticle", searchVO);
+	}
+
+	@Override
+	public int getTotalFileBBSReplyCountByArticleId(String articleId) {
+		return getSqlSession().selectOne("EducationDAO.getTotalFileBBSReplyCountByArticleId", articleId);
+	}
+
+	@Override
+	public int getNextOrderNo(String parentReplyId) {
+		return getSqlSession().selectOne("EducationDAO.getNextOrderNo", parentReplyId);
+	}
+
+	@Override
+	public int deleteFileBBSByArticleId(String articleId) {
+		return getSqlSession().update("EducationDAO.deleteFileBBSByArticleId", articleId);
+	}
+
+	@Override
+	public int modifyFileBBS(EducationFileBBSVO educationFileBBSVO) {
+		return getSqlSession().update("EducationDAO.modifyFileBBS", educationFileBBSVO);
 	}
 
 	@Override

@@ -1,7 +1,5 @@
 package com.ktds.sems.education.web;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -309,8 +307,8 @@ public class EducationController {
 	}
 	
 	@RequestMapping("/education/fileBBS/detail/{articleId}")
-	public ModelAndView viewDetailEducationFileBBSPage (@PathVariable String articleId, HttpSession session) {
-		return educationService.showDetailEducationFileBBS(articleId, session);
+	public ModelAndView viewDetailEducationFileBBSPage (@PathVariable String articleId, @RequestParam(required = false, defaultValue = "0") int pageNo, HttpSession session) {
+		return educationService.showDetailEducationFileBBS(articleId, pageNo, session);
 	}
 	
 	@RequestMapping("/checkEduApplicant")
@@ -379,8 +377,8 @@ public class EducationController {
 	}
 	
 	@RequestMapping("/education/fileBBS/doWriteReply")
-	public ModelAndView doFileBBSWriteReplyAction(BBSReplyVO bbsReplyVO){
-		return educationService.writeReplyFileBBS(bbsReplyVO);
+	public ModelAndView doWriteFileBBSReplyAction(BBSReplyVO bbsReplyVO, HttpSession session){
+		return educationService.writeFileBBSReply(bbsReplyVO, session);
 	}
 	
 	@RequestMapping("/{educationId}/eduQna")
@@ -425,5 +423,25 @@ public class EducationController {
 		String status = educationService.addQnaEduReplyDisLike(replyId, session);
 		AjaxUtil.sendResponse(response, status);
 	}
+	
+	@RequestMapping("/education/fileBBS/doWriteReReply")
+	public void doWriteFileBBSReReplyAction (BBSReplyVO bbsReplyVO, HttpSession session, HttpServletResponse response) {
+		educationService.writeFileBBSReReply(bbsReplyVO, session, response);
+	}
 
+	@RequestMapping("/education/doModifyFileBBSAction")
+	public ModelAndView doModifyFileBBSAction (EducationFileBBSVO educationFileBBSVO, MultipartHttpServletRequest request, @RequestParam String fileDelete , HttpSession session) {
+		return educationService.modifyFileBBS(educationFileBBSVO, request, fileDelete, session);
+	}
+
+	@RequestMapping("/education/modifyFileBBS")
+	public ModelAndView viewModifyFileBBSPage (EducationFileBBSVO educationFileBBSVO, HttpSession session) {
+		return educationService.showModifyFileBBS(educationFileBBSVO, session);
+	}
+	
+	@RequestMapping("/education/fileBBS/doDelete")
+	public ModelAndView doDeleteFileBBSAction(EducationFileBBSVO educationFileBBSVO, HttpSession session) {
+		return educationService.deleteFileBBS(educationFileBBSVO, session);
+	}
+	
 }

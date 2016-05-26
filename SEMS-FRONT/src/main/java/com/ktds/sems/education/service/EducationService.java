@@ -87,7 +87,7 @@ public interface EducationService {
 
 	public ModelAndView modifyReport(EducationReportVO educationReportVO, HttpSession session);
 
-	public ModelAndView showDetailEducationFileBBS(String articleId, HttpSession session);
+	public ModelAndView showDetailEducationFileBBS(String articleId, int pageNo, HttpSession session);
 
 	public ModelAndView doModifyReport(EducationReportVO educationReportVO, HttpSession session, MultipartHttpServletRequest request);
 
@@ -125,6 +125,13 @@ public interface EducationService {
 
 	public void checkClassAttend(String fileId, HttpServletRequest request, HttpServletResponse response);
 
-	public ModelAndView writeReplyFileBBS(BBSReplyVO bbsReplyVO);
+	public ModelAndView writeFileBBSReply(BBSReplyVO bbsReplyVO, HttpSession session);
 
+	public void writeFileBBSReReply(BBSReplyVO bbsReplyVO, HttpSession session, HttpServletResponse response);
+
+	public ModelAndView deleteFileBBS(EducationFileBBSVO educationFileBBSVO, HttpSession session);
+
+	public ModelAndView modifyFileBBS(EducationFileBBSVO educationFileBBSVO, MultipartHttpServletRequest request, String fileDelete , HttpSession session);
+
+	public ModelAndView showModifyFileBBS(EducationFileBBSVO educationFileBBSVO, HttpSession session);
 }

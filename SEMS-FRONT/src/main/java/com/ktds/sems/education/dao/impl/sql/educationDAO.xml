@@ -689,6 +689,7 @@
 								SELECT	*
 								FROM	EDU_FILE_BBS
 								WHERE	EDU_ID = #{educationId}
+								AND		IS_DELETE = 'N'
 								<if test="searchKeyword != null and searchType != null">
 								AND		(
 											<if test="searchType == 'memberId'">
@@ -1269,6 +1270,7 @@
 				, HITS hits
 		FROM	EDU_FILE_BBS
 		WHERE	ATC_ID = #{articleId}
+		AND		IS_DELETE = 'N'
 	</select>
 	
 	<select id="isExistedHitMemberIdByArtileId" resultType="string" parameterType="string">
@@ -1597,6 +1599,89 @@
 		AND		REPLY_ID LIKE 'ER%'
 		AND		ATC_ID LIKE 'EQ%'
 	</select>
+	
+	<insert id="writeFileBBSReply" parameterType="BBSReplyVO">
+		INSERT	INTO BBS_RPL	(
+									REPLY_ID
+									, ATC_ID
+									, PARENT_REPLY_ID
+									, ORDER_NO
+									, DESCRIPTION
+									, MBR_ID
+									, LIKE_CNT
+									, DISLIKE_CNT
+									, CREATED_DATE
+								) 
+		VALUES					(
+									#{replyId}
+									, #{articleId}
+									<if test="parentReplyId != null">
+									, #{parentReplyId}
+									</if>
+									<if test="parentReplyId == null">
+									, '0'
+									</if>
+									, #{orderNo}
+									, #{description}
+									, #{memberId}
+									, '0'
+									, '0'
+									, SYSDATE
+								)
+	</insert>
+	
+	<select id="getAllBBSReplyByArticle" resultType="BBSReplyVO" parameterType="BBSReplySearchVO">
+		SELECT	R.REPLY_ID replyId
+				, R.ATC_ID articleId
+				, R.PARENT_REPLY_ID parentReplyId
+				, R.ORDER_NO orderNo
+				, R.DESCRIPTION description
+				, R.MBR_ID memberId
+				, R.LIKE_CNT likeCount
+				, R.DISLIKE_CNT dislikeCount
+				, R.CREATED_DATE createdDate
+		FROM	(
+					SELECT	ROWNUM AS RNUM
+							, RP.*
+					FROM	(
+								SELECT	*
+								FROM	BBS_RPL
+								WHERE	ATC_ID = #{articleId}
+								START	WITH PARENT_REPLY_ID = '0'
+								CONNECT	BY PRIOR REPLY_ID = PARENT_REPLY_ID
+							) RP
+					WHERE	ROWNUM <![CDATA[<=]]> #{endIndex}
+				) R
+		WHERE	RNUM >= #{startIndex}
+	</select>
+	
+	<select id="getTotalFileBBSReplyCountByArticleId" parameterType="string" resultType="_int">
+		SELECT	COUNT(REPLY_ID)
+		FROM	BBS_RPL
+		WHERE	ATC_ID = #{articleId}
+	</select>
+	
+	<select id="getNextOrderNo" parameterType="string" resultType="_int">
+		SELECT	(MAX(ORDER_NO) + 1) orderNo
+		FROM	BBS_RPL
+		WHERE	REPLY_ID = #{parentReplyId}
+		OR		PARENT_REPLY_ID = #{parentReplyId}
+	</select>
+	
+	<update id="deleteFileBBSByArticleId" parameterType="string">
+		UPDATE	EDU_FILE_BBS
+		SET		IS_DELETE = 'Y'
+		WHERE	ATC_ID = #{articleId}
+	</update>
+	
+	<update id="modifyFileBBS" parameterType="EducationFileBBSVO">
+		UPDATE	EDU_FILE_BBS
+		SET		TITLE = #{title}
+				, CONTENTS = #{contents}
+				, MODIFY_DATE = SYSDATE
+		WHERE	ATC_ID = #{articleId}
+		AND		MBR_ID = #{memberId}
+	</update>
 	
 	<insert id="insertEduBBSAccess" parameterType="EducationBoardHistoryVO">
 		INSERT INTO SEMS.EDU_BRD_HTR (

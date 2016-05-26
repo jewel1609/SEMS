@@ -7,6 +7,8 @@ import com.ktds.sems.education.vo.EduQnaSearchVO;
 import com.ktds.sems.education.vo.EduQnaVO;
 import com.ktds.sems.education.vo.EducationBoardHistoryVO;
 import com.ktds.sems.education.vo.BBSHistoryVO;
+import com.ktds.sems.education.vo.BBSReplySearchVO;
+import com.ktds.sems.education.vo.BBSReplyVO;
 import com.ktds.sems.education.vo.EducationFileBBSVO;
 import com.ktds.sems.education.vo.EducationQNABBSSearchVO;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
@@ -225,6 +227,18 @@ public interface EducationDAO {
 
 	public int getTotalQnaEduReplyCount(String eduQnaId);
 
+	public int writeFileBBSReply(BBSReplyVO bbsReplyVO);
+
+	public List<BBSReplyVO> getAllBBSReplyByArticle(BBSReplySearchVO searchVO);
+
+	public int getTotalFileBBSReplyCountByArticleId(String articleId);
+
+	public int getNextOrderNo(String parentReplyId);
+
+	public int deleteFileBBSByArticleId(String articleId);
+
+	public int modifyFileBBS(EducationFileBBSVO educationFileBBSVO);
+	
 	public int getNextEduBrdHtrId();
 
 	public int insertEduBBSAccess(EducationBoardHistoryVO educationBoardHistoryVO);

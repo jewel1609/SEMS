@@ -5,7 +5,7 @@ public class BBSReplyVO {
 	private String replyId;
 	private String articleId;
 	private String parentReplyId;
-	private String orderNo;
+	private int orderNo;
 	private String description;
 	private String memberId;
 	private String likeCount;
@@ -30,10 +30,10 @@ public class BBSReplyVO {
 	public void setParentReplyId(String parentReplyId) {
 		this.parentReplyId = parentReplyId;
 	}
-	public String getOrderNo() {
+	public int getOrderNo() {
 		return orderNo;
 	}
-	public void setOrderNo(String orderNo) {
+	public void setOrderNo(int orderNo) {
 		this.orderNo = orderNo;
 	}
 	public String getDescription() {

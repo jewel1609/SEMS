@@ -7,6 +7,8 @@ import com.ktds.sems.education.vo.EduQnaSearchVO;
 import com.ktds.sems.education.vo.EduQnaVO;
 import com.ktds.sems.education.vo.EducationBoardHistoryVO;
 import com.ktds.sems.education.vo.BBSHistoryVO;
+import com.ktds.sems.education.vo.BBSReplySearchVO;
+import com.ktds.sems.education.vo.BBSReplyVO;
 import com.ktds.sems.education.vo.EducationFileBBSVO;
 import com.ktds.sems.education.vo.EducationQNABBSSearchVO;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
@@ -223,6 +225,20 @@ public interface EducationBiz {
 	public boolean checkAdoptReply(String replyId);
 
 	public String getEducationIdByFileBBSArticleId(String articleId);
+
+	public boolean writeFileBBSReply(BBSReplyVO bbsReplyVO);
+
+	public String generateBBSReplyId();
+
+	public List<BBSReplyVO> getAllBBSReplyByArticle(BBSReplySearchVO searchVO);
+
+	public int getTotalFileBBSReplyCountByArticleId(String articleId);
+
+	public int getNextOrderNo(String parentReplyId);
+
+	public boolean deleteFileBBSByArticleId(String articleId);
+
+	public boolean modifyFileBBS(EducationFileBBSVO educationFileBBSVO);
 
 	public int getNextEduBrdHtrId();
 

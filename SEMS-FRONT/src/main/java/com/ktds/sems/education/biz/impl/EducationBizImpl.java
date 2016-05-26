@@ -14,6 +14,8 @@ import com.ktds.sems.common.vo.MailVO;
 import com.ktds.sems.education.biz.EducationBiz;
 import com.ktds.sems.education.dao.EducationDAO;
 import com.ktds.sems.education.vo.BBSHistoryVO;
+import com.ktds.sems.education.vo.BBSReplySearchVO;
+import com.ktds.sems.education.vo.BBSReplyVO;
 import com.ktds.sems.education.vo.EduQnaSearchVO;
 import com.ktds.sems.education.vo.EduQnaVO;
 import com.ktds.sems.education.vo.EducationBoardHistoryVO;
@@ -693,6 +695,44 @@ public class EducationBizImpl implements EducationBiz {
 	@Override
 	public int getTotalQnaEduReplyCount(String eduQnaId) {
 		return educationDAO.getTotalQnaEduReplyCount(eduQnaId);
+	}
+
+	@Override
+	public boolean writeFileBBSReply(BBSReplyVO bbsReplyVO) {
+		return educationDAO.writeFileBBSReply(bbsReplyVO) > 0;
+	}
+	
+	@Override
+	public String generateBBSReplyId() {
+		String nowDate = educationDAO.getNowDate();
+		int bbsReplyidSEQ = educationDAO.getNextReplySeq();
+		
+		return "RP-" + nowDate + "-" + lpad(bbsReplyidSEQ+"", 6, "0") ;
+	}
+
+	@Override
+	public List<BBSReplyVO> getAllBBSReplyByArticle(BBSReplySearchVO searchVO) {
+		return educationDAO.getAllBBSReplyByArticle(searchVO);
+	}
+
+	@Override
+	public int getTotalFileBBSReplyCountByArticleId(String articleId) {
+		return educationDAO.getTotalFileBBSReplyCountByArticleId(articleId);
+	}
+
+	@Override
+	public int getNextOrderNo(String parentReplyId) {
+		return educationDAO.getNextOrderNo(parentReplyId);
+	}
+
+	@Override
+	public boolean deleteFileBBSByArticleId(String articleId) {
+		return educationDAO.deleteFileBBSByArticleId(articleId) > 0;
+	}
+
+	@Override
+	public boolean modifyFileBBS(EducationFileBBSVO educationFileBBSVO) {
+		return educationDAO.modifyFileBBS(educationFileBBSVO) > 0;
 	}
 
 	@Override
