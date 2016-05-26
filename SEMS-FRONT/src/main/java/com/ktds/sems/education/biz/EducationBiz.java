@@ -177,7 +177,7 @@ public interface EducationBiz {
 
 	public List<EducationHistoryVO> getJCEducationHistory(EducationHistorySearchVO eduHistorySearchVO);
 
-	public int getTotalEducationQNACount();
+	public int getTotalEducationQNACount(EducationQNABBSSearchVO searchVO);
 
 	public int getTotalQNAReplyCountByAtcId(String atcId);
 

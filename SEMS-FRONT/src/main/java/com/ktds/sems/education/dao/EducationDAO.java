@@ -166,7 +166,7 @@ public interface EducationDAO {
 	
 	public int getEducationFileBBSCount(String educationId);
 	
-	public int getTotalEducationQNACount();
+	public int getTotalEducationQNACount(EducationQNABBSSearchVO searchVO);
 
 	public int getJCEduHistoryCount(EducationHistorySearchVO eduHistorySearchVO);
 

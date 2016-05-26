@@ -800,6 +800,16 @@
 								FROM	EDU_QA_BBS
 								WHERE	ATC_ID LIKE 'AT%'
 								AND		EDU_ID = #{educationId}
+								<if test="searchKeyword != null and searchKeyword != ''">
+									<if test="searchType == 'selectTitleDesc'">
+								AND		TITLE LIKE '%' || #{searchKeyword} || '%'
+									</if>
+								</if>
+								<if test="searchKeyword != null and searchKeyword != ''">
+									<if test="searchType == 'selectMbrId'">
+								AND		MBR_ID LIKE '%' || #{searchKeyword} || '%'
+									</if>
+								</if>
 								ORDER	BY ATC_ID DESC
 							) BBS
 					WHERE	ROWNUM <![CDATA[<=]]> #{endIndex}
@@ -1268,10 +1278,20 @@
 		WHERE	BBS_ID = #{articleId}
 	</select>
 	
-	<select id="getTotalEducationQNACount" resultType="_int">
+	<select id="getTotalEducationQNACount" parameterType="EducationQNABBSSearchVO" resultType="_int">
 		SELECT	COUNT(ATC_ID)
 		FROM	EDU_QA_BBS
 		WHERE	ATC_ID LIKE 'AT%'
+		<if test="searchKeyword != null and searchKeyword != ''">
+			<if test="searchType == 'selectTitleDesc'">
+		AND		TITLE LIKE '%' || #{searchKeyword} || '%'
+			</if>
+		</if>
+		<if test="searchKeyword != null and searchKeyword != ''">
+			<if test="searchType == 'selectMbrId'">
+		AND		MBR_ID LIKE '%' || #{searchKeyword} || '%'
+			</if>
+		</if>
 	</select>
 	
 	<select id="getJCEduHistoryCount" parameterType="EducationHistorySearchVO" resultType="_int">

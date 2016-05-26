@@ -7,6 +7,9 @@ public class EducationQNABBSSearchVO {
 	private int endIndex;
 	private String educationId;
 	
+	private String searchKeyword;
+	private String searchType;
+	
 	public int getPageNo() {
 		return pageNo;
 	}
@@ -31,5 +34,19 @@ public class EducationQNABBSSearchVO {
 	public void setEducationId(String educationId) {
 		this.educationId = educationId;
 	}
+	public String getSearchKeyword() {
+		return searchKeyword;
+	}
+	public void setSearchKeyword(String searchKeyword) {
+		this.searchKeyword = searchKeyword;
+	}
+	public String getSearchType() {
+		return searchType;
+	}
+	public void setSearchType(String searchType) {
+		this.searchType = searchType;
+	}
+	
+	
 	
 }

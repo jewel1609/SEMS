@@ -528,8 +528,8 @@ public class EducationBizImpl implements EducationBiz {
 	}
 	
 	@Override
-	public int getTotalEducationQNACount() {
-		return educationDAO.getTotalEducationQNACount();
+	public int getTotalEducationQNACount(EducationQNABBSSearchVO searchVO) {
+		return educationDAO.getTotalEducationQNACount(searchVO);
 	}
 
 	@Override

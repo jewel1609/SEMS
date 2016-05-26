@@ -466,8 +466,8 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 	}
 
 	@Override
-	public int getTotalEducationQNACount() {
-		return getSqlSession().selectOne("EducationDAO.getTotalEducationQNACount");
+	public int getTotalEducationQNACount(EducationQNABBSSearchVO searchVO) {
+		return getSqlSession().selectOne("EducationDAO.getTotalEducationQNACount", searchVO);
 	}
 
 	@Override

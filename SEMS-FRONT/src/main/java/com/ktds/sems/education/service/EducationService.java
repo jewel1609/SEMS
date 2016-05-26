@@ -67,7 +67,7 @@ public interface EducationService {
 
 	public ModelAndView showWriteFileBBSPage(String educationId);
 
-	public ModelAndView getAllEducationQNAList(int PageNo, String educationId);
+	public ModelAndView getAllEducationQNAList(int PageNo, String educationId, String searchKeyword, String searchType, HttpSession session);
 
 	public ModelAndView doQNAWrite(EducationQNABBSVO eduBBS, Errors errors, HttpSession session, String educationId);
 

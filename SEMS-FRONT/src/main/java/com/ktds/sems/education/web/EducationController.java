@@ -231,8 +231,9 @@ public class EducationController {
 	}
 
 	@RequestMapping("/eduBoard/QNAList/{educationId}")
-	public ModelAndView viewEduBoardQNAListPage(@RequestParam(required=false, defaultValue="0") int pageNo, @PathVariable String educationId) {
-		return educationService.getAllEducationQNAList(pageNo, educationId);
+	public ModelAndView viewEduBoardQNAListPage(@RequestParam(required=false, defaultValue="0") int pageNo, @PathVariable String educationId, 
+			@RequestParam(required = false, defaultValue = "") String searchKeyword, @RequestParam(required = false, defaultValue = "") String searchType, HttpSession session ) {
+		return educationService.getAllEducationQNAList(pageNo, educationId, searchKeyword, searchType, session);
 	}
 	
 	@RequestMapping("/education/fileBBS/{educationId}")

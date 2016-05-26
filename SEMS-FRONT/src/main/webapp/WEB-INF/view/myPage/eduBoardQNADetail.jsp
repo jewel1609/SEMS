@@ -10,8 +10,14 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#listBtn").click(function() {
-			var educationId = $("#educationId").val();
-			location.href="<c:url value='/eduBoard/QNAList/'/>"+educationId;
+			var educationId = $("#eduId").val();
+			//location.href="<c:url value='/eduBoard/QNAList/'/>"+educationId; 
+			
+			$("#searchForm").attr("action", "<c:url value="/eduBoard/QNAList/"/>"+educationId);
+			$("#searchForm").attr("method", "POST");
+			$("#searchForm").submit();
+			
+			
 		});
 		
 		$("#replyBtn").click(function() {
@@ -65,6 +71,13 @@
 		$(".likeBtn").click(function() {
 			
 			var replyId = $(this).parent().children(":eq(0)").children(":eq(0)").val();
+			var writerId = $(this).parent().children(":eq(0)").children(":eq(1)").val();
+			var sessionId = $("#sessionId").val();
+			
+			if ( sessionId == writerId ) {
+				alert("작성자가 추천할 수 없습니다.");
+				return;
+			} 
 			
 			
 			if ( confirm("추천하시겠습니까? 한 번 추천하면 취소할 수 없습니다.")) {
@@ -91,7 +104,13 @@
 		$(".dislikeBtn").click(function() {
 			
 			var replyId = $(this).parent().children(":eq(0)").children(":eq(0)").val();
+			var writerId = $(this).parent().children(":eq(0)").children(":eq(1)").val();
+			var sessionId = $("#sessionId").val();
 			
+			if ( sessionId == writerId ) {
+				alert("작성자가 반대할 수 없습니다.");
+				return;
+			} 
 			
 			if ( confirm("반대하시겠습니까? 한 번 반대하면 취소할 수 없습니다.")) {
 				
@@ -144,6 +163,7 @@
 		<span>
 			작성자 : ${qnaReplyList.mbrId}
 			<input type="hidden" class="replyId" name="replyId" value="${qnaReplyList.replyId}" />
+			<input type="hidden" class="writerId" name="writerId" value="${qnaReplyList.mbrId}" />
 		</span><br/>
 		<span> 
 			날짜 : ${qnaReplyList.createdDate}
@@ -167,6 +187,7 @@
 	<form id="pagingForm">
 	${qnaReplyListVO.paging.getPagingList("pageNo", "[@]", "이전", "다음", "pagingForm") }
 	</form>
+	<input type="hidden" id="sessionId" value="${sessionId}" />
 	
 	</c:if>
 	
@@ -181,6 +202,11 @@
 	<input type="button" id="replyBtn" value="답변 쓰기"/>
 	</form:form>
 	<input type="button" id="listBtn" value="질문 리스트로"/>
-	
+	<form id="searchForm">
+	<input type="hidden" id="searchKeyword" name="searchKeyword" value="${searchSessionVO.searchKeyword}"/>
+	<input type="hidden" id="searchType" name="searchType" value="${searchSessionVO.searchType}"/>
+	<input type="hidden" id="eduId" name="eduId" value="${searchSessionVO.educationId}"/>
+	</form>
+ 	
 </body>
 </html>

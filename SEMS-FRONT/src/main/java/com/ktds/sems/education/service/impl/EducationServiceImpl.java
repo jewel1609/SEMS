@@ -764,8 +764,7 @@ public class EducationServiceImpl implements EducationService {
 	}
 	
 	@Override
-	public ModelAndView getAllEducationQNAList(int pageNo, String educationId) {
-		
+	public ModelAndView getAllEducationQNAList(int pageNo, String educationId, String searchKeyword, String searchType, HttpSession session) {
 		ModelAndView view = new ModelAndView();
 		EducationQNABBSListVO educationQNABBSListVO = new EducationQNABBSListVO();
 		Paging paging = new Paging();
@@ -773,19 +772,24 @@ public class EducationServiceImpl implements EducationService {
 		
 		paging.setPageNumber(pageNo + "");
 		
-		int totalEducationQNACount = educationBiz.getTotalEducationQNACount();
-		paging.setTotalArticleCount(totalEducationQNACount);
-		
 		EducationQNABBSSearchVO searchVO = new EducationQNABBSSearchVO();
 		searchVO.setStartIndex(paging.getStartArticleNumber());
 		searchVO.setEndIndex(paging.getEndArticleNumber());
 		searchVO.setEducationId(educationId);
+		searchVO.setSearchKeyword(searchKeyword);
+		searchVO.setSearchType(searchType);
+		
+		session.setAttribute("_SEARCH_QNA_", searchVO);
+		
+		int totalEducationQNACount = educationBiz.getTotalEducationQNACount(searchVO);
+		paging.setTotalArticleCount(totalEducationQNACount);
 		
 		List<EducationQNABBSVO> educationQNAList = educationBiz.getAllEducationQNAList(searchVO);
 		educationQNABBSListVO.setEducationQnaBbsList(educationQNAList);
 		
 		view.addObject("educationQNABBSListVO", educationQNABBSListVO);
 		view.addObject("eduId", educationId);
+		view.addObject("searchVO", searchVO);
 		view.setViewName("myPage/eduBoardQNAList");
 		
 		
@@ -1379,6 +1383,8 @@ public class EducationServiceImpl implements EducationService {
 		MemberVO sessionMember = (MemberVO) session.getAttribute("_MEMBER_");
 		String sessionId = sessionMember.getId();
 		
+		EducationQNABBSSearchVO searchSessionVO = (EducationQNABBSSearchVO)session.getAttribute("_SEARCH_QNA_");
+		
 		EducationQNABBSVO oneQNABBSByAtcId = educationBiz.getOneQNABBSByAtcId(atcId);
 		
 		//조회수 증가
@@ -1390,6 +1396,8 @@ public class EducationServiceImpl implements EducationService {
 		view.addObject("sessionId", sessionId);
 		view.addObject("qnaReplyListVO", qnaReplyListVO);
 		view.addObject("oneQNABBSByAtcId", oneQNABBSByAtcId);
+		view.addObject("searchSessionVO", searchSessionVO);
+		
 		
 		view.setViewName("myPage/eduBoardQNADetail");
 		
