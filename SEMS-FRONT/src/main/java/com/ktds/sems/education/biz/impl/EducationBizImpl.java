@@ -557,13 +557,13 @@ public class EducationBizImpl implements EducationBiz {
 		}
 		if ( !prevReportVO.getContents().equals(educationReportVO.getContents()) ) {
 			changedReportVO.setContents(educationReportVO.getContents());
-		}
+		} 
 		if ( !prevReportVO.getStartDate().equals(educationReportVO.getStartDate()) ) {
 			changedReportVO.setStartDate(educationReportVO.getStartDate().replaceAll("T", " "));
 		}
 		if ( !prevReportVO.getEndDate().equals(educationReportVO.getEndDate()) ) {
 			changedReportVO.setEndDate(educationReportVO.getEndDate().replaceAll("T", " "));
-		}
+		}	
 		
 		educationDAO.modifyReport(changedReportVO);
 	}
