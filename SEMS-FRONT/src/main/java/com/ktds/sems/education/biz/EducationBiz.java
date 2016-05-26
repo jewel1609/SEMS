@@ -222,4 +222,8 @@ public interface EducationBiz {
 	public boolean checkAdoptReply(String replyId);
 
 	public String getEducationIdByFileBBSArticleId(String articleId);
+
+	public boolean insertEducationState(String educationId, String memberId);
+
+	public boolean insertEduStateToReserve(String educationId, String id);
 }

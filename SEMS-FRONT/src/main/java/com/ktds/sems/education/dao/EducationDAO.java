@@ -224,4 +224,8 @@ public interface EducationDAO {
 
 	public int getTotalQnaEduReplyCount(String eduQnaId);
 
+	public int insertEducationState(String educationId, String memberId);
+
+	public int insertEduStateToReserve(String educationId, String id);
+
 }

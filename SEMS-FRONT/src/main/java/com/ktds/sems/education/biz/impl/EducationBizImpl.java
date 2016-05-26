@@ -693,6 +693,16 @@ public class EducationBizImpl implements EducationBiz {
 	public int getTotalQnaEduReplyCount(String eduQnaId) {
 		return educationDAO.getTotalQnaEduReplyCount(eduQnaId);
 	}
+
+	@Override
+	public boolean insertEducationState(String educationId, String memberId) {
+		return educationDAO.insertEducationState(educationId, memberId) > 0;
+	}
+
+	@Override
+	public boolean insertEduStateToReserve(String educationId, String id) {
+		return educationDAO.insertEduStateToReserve(educationId, id) > 0;
+	}
 	
 }
 

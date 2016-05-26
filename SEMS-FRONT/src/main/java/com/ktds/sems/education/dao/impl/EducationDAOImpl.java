@@ -604,4 +604,22 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 		return getSqlSession().selectOne("EducationDAO.getTotalQnaEduReplyCount", eduQnaId);
 	}
 
+	@Override
+	public int insertEducationState(String educationId, String memberId) {
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("educationId", educationId);
+		paramMap.put("memberId", memberId);
+		
+		return getSqlSession().insert("EducationDAO.insertEducationState", paramMap);
+	}
+
+	@Override
+	public int insertEduStateToReserve(String educationId, String id) {
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("educationId", educationId);
+		paramMap.put("id", id);
+		
+		return getSqlSession().insert("EducationDAO.insertEduStateToReserve", paramMap);
+	}
+
 }

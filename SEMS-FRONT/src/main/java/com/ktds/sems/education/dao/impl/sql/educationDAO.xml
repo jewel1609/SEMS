@@ -218,9 +218,9 @@
  	
 	<delete id="doCancelEducation" parameterType="string">
 		DELETE	
-		FROM	EDU_HTR
+		FROM	EDU_CLASS
 		WHERE	EDU_ID = #{educationId}
-		AND		MBR_ID = #{id} 
+		AND		MBR_ID = #{id}
 	</delete>
     
     <select id="getMemberRegInfo" parameterType="string"  resultType="EducationVO">
@@ -244,7 +244,7 @@
 				, EDU_TIME
 		WHERE	EDU_ID IN (
 	                        SELECT  EDU_ID
-	                        FROM    EDU_HTR
+	                        FROM    EDU_CLASS
 	                        WHERE   MBR_ID = #{id}
 	                        )
 		AND		EDU.COST = EDU_CST.CD_ID
@@ -299,7 +299,7 @@
     
     <select id="isApplyMemberByEducationId" parameterType="map" resultType="string">
     	SELECT  STAT
-    	FROM	EDU_HTR
+    	FROM	EDU_CLASS
     	WHERE	EDU_ID = #{educationId}
     	AND		MBR_ID = #{id}
     </select>
@@ -638,8 +638,8 @@
 	</delete>
 		
 	<select id="getTotalMemberNumber" parameterType="string" resultType="_int">
-		SELECT	COUNT(EDU_HTR_ID)
-		FROM	EDU_HTR
+		SELECT	COUNT(EDU_CLASS_ID)
+		FROM	EDU_CLASS
 		WHERE	EDU_ID = #{educationId}
 		AND		( STAT = 'EDU_JN_A'
 		OR		STAT = 'EDU_JN_C' )
@@ -882,6 +882,7 @@
 			<if test="endDate != null and endDate != ''">
 			AND		END_DATE <![CDATA[<]]> TO_DATE(#{endDate}, 'YYYY-MM-DD') + 1
 			</if>
+			AND		CREATE_DATE <![CDATA[<]]> TO_DATE(#{endDate}, 'YYYY-MM-DD') + 1
 		</if>
 	</select>
 	
@@ -1561,4 +1562,34 @@
 		AND		REPLY_ID LIKE 'ER%'
 		AND		ATC_ID LIKE 'EQ%'
 	</select>
+	
+	 <insert id="insertEducationState" parameterType="map">
+    	INSERT	INTO	EDU_CLASS(
+									EDU_CLASS_ID
+									, EDU_ID
+									, MBR_ID
+									, STAT
+								) 
+						VALUES	( 
+									EDU_CLASS_ID_SEQ.NEXTVAL
+									, #{educationId}
+									, #{memberId}
+									, 'EDU_JN_A'
+							 	)
+   	</insert>
+   	
+   	 <insert id="insertEduStateToReserve" parameterType="map">
+    	INSERT	INTO	EDU_CLASS(
+									EDU_CLASS_ID
+									, EDU_ID
+									, MBR_ID
+									, STAT
+								) 
+						VALUES	( 
+									EDU_CLASS_ID_SEQ.NEXTVAL
+									, #{educationId}
+									, #{id}
+									, 'EDU_RE_A'
+							 	)
+   	</insert>
 </mapper>

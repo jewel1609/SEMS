@@ -323,9 +323,10 @@ public class EducationServiceImpl implements EducationService {
 	 * 교육 참가 신청
 	 */
 	public String insertEducation(String educationId, String memberId) {
-		boolean isResult = educationBiz.doApplyEducation(educationId, memberId);
+		boolean isResult1 = educationBiz.doApplyEducation(educationId, memberId);
+		boolean isResult2 = educationBiz.insertEducationState(educationId, memberId);
 		
-		if( isResult ){
+		if( isResult1 && isResult2 ){
 			return "OK";
 		} else{
 			throw new RuntimeException("일시적인 장애가 발생했습니다. 잠시 후 다시 시도해주세요.");
@@ -348,8 +349,10 @@ public class EducationServiceImpl implements EducationService {
 	public String doReserveEducation(String educationId, HttpSession session) {
 		MemberVO loginMember = (MemberVO)session.getAttribute("_MEMBER_");
 		
-		boolean isResult = educationBiz.doReserveEducation(educationId, loginMember.getId());
-		if( isResult ){
+		boolean isResult1 = educationBiz.doReserveEducation(educationId, loginMember.getId());
+		boolean isResult2 = educationBiz.insertEduStateToReserve(educationId, loginMember.getId());
+		
+		if( isResult1 && isResult2 ){
 			return "OK";
 		} else{
 			throw new RuntimeException("일시적인 장애가 발생했습니다. 잠시 후 다시 시도해주세요.");
@@ -455,7 +458,7 @@ public class EducationServiceImpl implements EducationService {
 			
 			String status = educationBiz.isApplyMemberByEducationId(educationId, loginMember.getId());
 			
-			// 참가 신청자는 취소와 동시에, 첫번째 예약자를 참가신청자로 변경한다.
+			// 참가 신청자는 취소신청 상태로 업데이트와 동시에, 첫번째 예약자를 참가신청자로 변경한다.
 			if (status.equals("EDU_JN_A")) {
 				result1 = educationBiz.updateStateToApply(educationId);
 			}
