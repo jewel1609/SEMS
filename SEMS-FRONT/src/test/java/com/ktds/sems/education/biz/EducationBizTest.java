@@ -324,6 +324,7 @@ public class EducationBizTest extends SemsTestCase {
 	}
 
 	/**
+	 * Education Report
 	 * Search Title
 	 */
 	@Test
@@ -362,6 +363,7 @@ public class EducationBizTest extends SemsTestCase {
 	}
 	
 	/**
+	 * Education Report
 	 * Search startDate
 	 */
 	@Test
@@ -401,6 +403,7 @@ public class EducationBizTest extends SemsTestCase {
 	}
 	
 	/**
+	 * Education Report
 	 * Search endDate
 	 */
 	@Test
@@ -440,6 +443,7 @@ public class EducationBizTest extends SemsTestCase {
 	}
 	
 	/**
+	 * Education Report
 	 * Search title
 	 */
 	@Test
@@ -454,6 +458,7 @@ public class EducationBizTest extends SemsTestCase {
 	}
 	
 	/**
+	 * Education Report
 	 * Search startDate
 	 */
 	@Test
@@ -469,6 +474,7 @@ public class EducationBizTest extends SemsTestCase {
 	}
 	
 	/**
+	 * Education Report
 	 * Search endDate
 	 */
 	@Test
@@ -484,6 +490,7 @@ public class EducationBizTest extends SemsTestCase {
 	}
 
 	/**
+	 * Education Report
 	 * Get One Education Report Test
 	 */
 	@Test
@@ -507,6 +514,7 @@ public class EducationBizTest extends SemsTestCase {
 	}
 	
 	/**
+	 * Education Report
 	 * Get One Education Report Test - Error
 	 */
 	@Test
