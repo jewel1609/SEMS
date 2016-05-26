@@ -128,8 +128,6 @@ public class PcServiceTest extends SemsTestCase {
 		memberVO.setId("junitTest1316");
 		session.setAttribute(Session.MEMBER, memberVO);
 
-		String myPcIp = request.getRemoteHost();
-
 		ModelAndView view = pcService.viewMyPcPage(session, request);
 		assertNotNull(view);
 		assertEquals(view.getViewName(), "myPage/pc/myPc");
@@ -148,6 +146,7 @@ public class PcServiceTest extends SemsTestCase {
 
 		String result = pcService.doRegisterMyPc(educationId, eduLocation, usedPcIp, session);
 		assertNotNull(result);
+		assertEquals(result, "FAIL");
 	}
 
 	@Test
@@ -163,6 +162,7 @@ public class PcServiceTest extends SemsTestCase {
 
 		String result = pcService.doRegisterMyPc(educationId, eduLocation, usedPcIp, session);
 		assertNotNull(result);
+		assertEquals(result, "OK");
 	}
 
 	@Test
