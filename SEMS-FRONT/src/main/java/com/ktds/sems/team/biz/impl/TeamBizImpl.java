@@ -59,7 +59,6 @@ public class TeamBizImpl implements TeamBiz {
 	
 	
 	
-
 	@Override
 	public int getTotalTeamCount() {
 		return teamDAO.getTotalteamCount();
@@ -81,32 +80,32 @@ public class TeamBizImpl implements TeamBiz {
 
 		teamBBS.setTeamId(teamId);
 
-//		teamBBSId = lpad(teamBBSId, 6, "0");
-//		teamBBSId = "TBBS" + '-' + sysdate + '-' + teamBBSId;
-//		teamBBS.setTeamBBSId(teamBBSId);
+		teamBBSId = lpad(teamBBSId, 6, "0");
+		teamBBSId = "TBBS" + '-' + sysdate + '-' + teamBBSId;
+		teamBBS.setTeamBBSId(teamBBSId);
 
 		MultipartFile file = request.getFile("file");
-
+		
 		String fileName = file.getOriginalFilename();
 		String salt = SHA256Util.generateSalt();
 		String saltFileName = SHA256Util.getEncrypt(fileName, salt);
-
+		
 		String filePath = "D:\\" + saltFileName;
-
+		
 		if ( !file.isEmpty() ) {
-
+			
 			File files = new File(filePath);
-
+			
 			try {
 				file.transferTo(files);
-
+				
 				FileVO fileVO = new FileVO();
 				fileVO.setArticleId(teamBBS.getTeamBBSId());
 				fileVO.setFileName(fileName);
 				fileVO.setFileLocation(filePath);
-
+				
 				fileDAO.doWriteFile(fileVO);
-
+				
 			} catch (IllegalStateException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
@@ -159,11 +158,11 @@ public class TeamBizImpl implements TeamBiz {
 
 		String bbbsHistoryId = String.valueOf(teamDAO.getNextBBSHistorySeq());
 		String sysdate = teamDAO.getSysDate();
-
-//		bbbsHistoryId = lpad(bbbsHistoryId, 6, "0");
-//		bbbsHistoryId = "BHTR" + '-' + sysdate + '-' + bbbsHistoryId;
-//		bbs.setBbsHistoryId(bbbsHistoryId);
-
+		
+		bbbsHistoryId = lpad(bbbsHistoryId, 6, "0");
+		bbbsHistoryId = "BHTR" + '-' + sysdate + '-' + bbbsHistoryId;
+		bbs.setBbsHistoryId(bbbsHistoryId);
+		
 		int bbsCount =  teamDAO.isAlreadyCheckBBS(bbs);
 		// 처음으로 들렸던 기록이라면 기록한다.
 		if( bbsCount == 0 ) {
@@ -195,7 +194,6 @@ public class TeamBizImpl implements TeamBiz {
 	public List<String> getFileInfo(String teamBBSId) {
 		return teamDAO.getFileInfo(teamBBSId);
 	}
-
 	@Override
 	public boolean doModifyAction(TeamBBSVO teamBBS) {
 		return teamDAO.doModifyAction(teamBBS) > 0;
@@ -221,57 +219,57 @@ public class TeamBizImpl implements TeamBiz {
 		return teamDAO.isReplyByTeamBBSId(teamBBSId).size() > 0;
 	}
 
+	
 	@Override
 	public String getLikeState(TeamBBSVO bbs) {
 		return teamDAO.getLikeState(bbs);
 	}
-
 	@Override
 	public String getDislikeState(TeamBBSVO bbs) {
 		return teamDAO.getDislikeState(bbs);
 	}
-
 	@Override
 	public boolean addLikeCount(TeamBBSVO bbs) {
 		return teamDAO.addLikeCount(bbs) > 0;
 	}
-
 	@Override
 	public boolean addDislikeCount(TeamBBSVO bbs) {
 		return teamDAO.addDislikeCount(bbs) > 0;
 	}
-
 	@Override
 	public boolean writeBBSReply(TeamBBSReplyVO replyVO) {
 		String teamBBSReplyId = String.valueOf(teamDAO.getNextTeamBBSReplySeq());
 		String sysdate = teamDAO.getSysDate();
-//		teamBBSReplyId = lpad(teamBBSReplyId, 6, "0");
-//		teamBBSReplyId = "TBRP" + '-' + sysdate + '-' + teamBBSReplyId;
-//		replyVO.setReplyId(teamBBSReplyId);
+		teamBBSReplyId = lpad(teamBBSReplyId, 6, "0");
+		teamBBSReplyId = "TBRP" + '-' + sysdate + '-' + teamBBSReplyId;
+		replyVO.setReplyId(teamBBSReplyId);
 		return teamDAO.writeBBSReply(replyVO) > 0;
 	}
-
 	@Override
-	public List<TeamBBSReplyVO> getTeamBBSReplies(String teamBBSId) {
-		return teamDAO.getTeamBBSReplies(teamBBSId);
+	public List<TeamBBSReplyVO> getTeamBBSReplies(TeamSearchVO searchVO) {
+		return teamDAO.getTeamBBSReplies(searchVO);
 	}
-
 	@Override
 	public boolean writeBBSReReply(TeamBBSReplyVO replyVO) {
 		String teamBBSReplyId = String.valueOf(teamDAO.getNextTeamBBSReplySeq());
 		String sysdate = teamDAO.getSysDate();
-//		teamBBSReplyId = lpad(teamBBSReplyId, 6 ,"0");
-//		teamBBSReplyId = "TBRP" + '-' + sysdate + '-' + teamBBSReplyId;
-//		replyVO.setReplyId(teamBBSReplyId);
-
+		teamBBSReplyId = lpad(teamBBSReplyId, 6 ,"0");
+		teamBBSReplyId = "TBRP" + '-' + sysdate + '-' + teamBBSReplyId;
+		replyVO.setReplyId(teamBBSReplyId);
+		
 		logger.info("orderNobefore"+replyVO.getParentReplyId());
-		int orderNo = teamDAO.getNextOrderNoByParentId(replyVO.getParentReplyId());
+		int orderNo  = 0;
+		
+		if( teamDAO.isExistedOrderNoByParentId(replyVO.getParentReplyId()) == 0){
+			orderNo = 0;
+		}else{
+			orderNo = teamDAO.getNextOrderNoByParentId(replyVO.getParentReplyId());
+		}
 		logger.info("orderNo"+orderNo);
 		replyVO.setOrderNo(orderNo);
-
+		
 		return teamDAO.writeBBSReReply(replyVO) > 0;
 	}
-
 	@Override
 	public boolean writeNewMinutes(MinutesVO minutesVO) {
 		
@@ -283,15 +281,11 @@ public class TeamBizImpl implements TeamBiz {
 		
 		return teamDAO.insertNewMinutes(minutesVO) > 0;
 	}
-	
+
+
 	@Override
 	public boolean bulidTeam(String educationId, String teamName) {
 		return teamDAO.bulidTeam(educationId, teamName);
-	}
-
-	@Override
-	public boolean insertMember(TeamsListVO teamsListVO) {
-		return teamDAO.insertMember(teamsListVO);
 	}
 
 	@Override
@@ -303,12 +297,17 @@ public class TeamBizImpl implements TeamBiz {
 	public int getTotalMinutesCount(MinutesSearchVO minutesSearchVO) {
 		return teamDAO.getTotalMinutesCount(minutesSearchVO);
 	}
+	
+	@Override
+	public boolean insertMember(TeamsListVO teamsListVO) {
+		return teamDAO.insertMember(teamsListVO);
+	}
 
 	@Override
 	public List<MinutesVO> getAllMinutesList(MinutesSearchVO minutesSearchVO) {
 		return teamDAO.getAllMinutesList(minutesSearchVO);
 	}
-
+	
 	@Override
 	public int getTotalMinutesCountForAdmin(MinutesSearchVO minutesSearchVO) {
 		return teamDAO.getTotalMinutesCountForAdmin(minutesSearchVO);
@@ -331,6 +330,15 @@ public class TeamBizImpl implements TeamBiz {
 			source = defValue + source;
 		}
 		return source;
+	}
+
+	@Override
+	public List<TeamBBSReplyVO> getTeamBBSReReplies(String parentReplyId) {
+		return teamDAO.getTeamBBSReReplies(parentReplyId);
+	}
+	@Override
+	public int getReplyCountByTeamBBSId(String teamBBSId) {
+		return teamDAO.getReplyCountByTeamBBSId(teamBBSId);
 	}
 	
 	@Override
