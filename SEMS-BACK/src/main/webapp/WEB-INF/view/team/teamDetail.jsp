@@ -10,11 +10,17 @@
 		width: 800px;
 		text-align:center;
 	}
+	
+	th {
+		background-color:gray;
+		color:white;
+	}
 </style>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>팀 상세 페이지</title>
 </head>
 <body>
+
 	<div id="teamMember">
 		<table border="1">
 			<tr>
@@ -58,17 +64,25 @@
 				<th>싫어요</th>
 				<th>조회수</th>
 			</tr>
-		<c:forEach items="${ bbss }" var="bbs">
-			<tr>
-				<td>${ bbs.teamBBSId }</td>
-				<td><a href="<c:url value="/teamBBSDetail/${ bbs.teamBBSId }"/>">${ bbs.title }</a></td>
-				<td>${ bbs.memberId }</td>
-				<td>${ bbs.createdDate }</td>
-				<td>${ bbs.likeCount }</td>
-				<td>${ bbs.disLikeCount }</td>
-				<td>${ bbs.hits }</td>
-			</tr>
-			</c:forEach>
+			
+			<c:if test="${ bbss eq '[]' }">
+				<tr>
+					<td colspan="7"> 등록된 글이 없습니다. </td>
+				</tr>
+			</c:if>
+			<c:if test="${ bbss ne '[]' }">
+				<c:forEach items="${ bbss }" var="bbs">
+					<tr>
+						<td>${ bbs.teamBBSId }</td>
+						<td><a href="<c:url value="/teamBBSDetail/${ bbs.teamBBSId }"/>">${ bbs.title }</a></td>
+						<td>${ bbs.memberId }</td>
+						<td>${ bbs.createdDate }</td>
+						<td>${ bbs.likeCount }</td>
+						<td>${ bbs.disLikeCount }</td>
+						<td>${ bbs.hits }</td>
+					</tr>
+				</c:forEach>
+			</c:if>
 		</table>
 	</div>
 </body>

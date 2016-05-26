@@ -65,7 +65,6 @@ public class TeamDAOTest extends SemsTestCase {
 	@Test
 	public void selectTeamBBSByTeamIdTest() {
 		String teamId = "1";
-		
 		List<TeamBBSVO> bbsList = teamDAO.selectTeamBBSByTeamId(teamId);
 
 		assertNotNull(bbsList);
@@ -75,7 +74,6 @@ public class TeamDAOTest extends SemsTestCase {
 	@Test
 	public void selectOneTeamBBSDetailByTeamBBSIdTest() {
 		String teamBBSId = "39";
-
 		TeamBBSVO bbsVO = teamDAO.selectOneTeamBBSDetailByTeamBBSId(teamBBSId);
 		
 		assertNotNull(bbsVO);
@@ -85,7 +83,6 @@ public class TeamDAOTest extends SemsTestCase {
 	@Test
 	public void selectAllTeamBBSRpleByTeamBBSIdTest() {
 		String teamBBSId = "39";
-		
 		List<TeamBBSRplVO> bbsRplVO = teamDAO.selectAllTeamBBSRpleByTeamBBSId(teamBBSId);
 
 		assertNotNull(bbsRplVO);
@@ -95,7 +92,6 @@ public class TeamDAOTest extends SemsTestCase {
 	@Test
 	public void selectAllTeamByMemberIdTest() {
 		String memberId = "test02";
-		
 		List<TeamVO> teamList = teamDAO.selectAllTeamByMemberId(memberId);
 
 		assertNotNull(teamList);

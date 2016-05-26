@@ -26,7 +26,6 @@ public class TeamController {
 	
 	@RequestMapping("/teamDetail/{teamId}")
 	public ModelAndView getOneTeamDetail(@PathVariable String teamId) {
-		System.out.println(teamId);
 		ModelAndView view = teamService.getOneTeamDetail(teamId);
 		return view;
 	}
@@ -40,7 +39,6 @@ public class TeamController {
 	
 	@RequestMapping("otherTeam/{memberId}")
 	public ModelAndView getAllTeamByMemberId(@PathVariable String memberId) {
-		System.out.println("memberId = "+ memberId);
 		ModelAndView view = teamService.getAllTeamByMemberId(memberId);
 		return view;
 	}

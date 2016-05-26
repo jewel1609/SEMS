@@ -43,7 +43,7 @@
 	</select>
 	
 	<select id="selectTeamBBSByTeamId" parameterType="string" resultType="TeamBBSVO" >
-		SELECT 	ROWNUM teamBBSId
+		SELECT 	TEAM_BBS_ID teamBBSId
 				, TEAM_ID teamId
 				, TITLE title
 				, DESCRIPT descript

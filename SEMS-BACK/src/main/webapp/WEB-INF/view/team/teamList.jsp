@@ -6,20 +6,26 @@
 <head>
 <script type="text/javascript" src="<c:url value='/resources/js/jquery.min.js"'/>"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style>
+	th {
+		background-color:gray;
+		color:white;
+	}
+</style>
 <title>팀 리스트 페이지</title>
 </head>
 <body>
 	<table border="1" align="center">
 		<tr>
-			<td>팀 아이디</td>
-			<td>팀 이름</td>
-			<td>팀 생성날짜</td>
-			<td>교육 아이디</td>
+			<th>팀 아이디</th>
+			<th>팀 이름</th>
+			<th>팀 생성날짜</th>
+			<th>교육 아이디</th>
 		</tr>
 		<c:forEach items="${ teamSearchListVO.teamList }" var="team">
 			<tr>
 				<td> ${ team.teamId }</td>
-				<td><a href="teamDetail/${team.teamId}">${ team.teamName }</a></td>
+				<td><a href="<c:url value="/teamDetail/${team.teamId}"/>">${ team.teamName }</a></td>
 				<td> ${ team.teamDate }</td>
 				<td> ${ team.educationId }</td>
 			</tr>
