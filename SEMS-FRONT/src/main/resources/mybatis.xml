@@ -39,6 +39,7 @@
 		<typeAlias type="com.ktds.sems.team.vo.TeamVO" alias="TeamVO"/>
 		<typeAlias type="com.ktds.sems.team.vo.TeamSearchVO" alias="TeamSearchVO"/>
 		<typeAlias type="com.ktds.sems.team.vo.TeamListVO" alias="TeamListVO"/>
+		<typeAlias type="com.ktds.sems.team.vo.TeamsListVO" alias="TeamsListVO"/>
 		<typeAlias type="com.ktds.sems.team.vo.TeamBBSVO" alias="TeamBBSVO"/>
 		<typeAlias type="com.ktds.sems.education.vo.EduClassVO" alias="EduClassVO"/>
 		<typeAlias type="com.ktds.sems.education.vo.ReportReplyVO" alias="ReportReplyVO"/>
@@ -53,6 +54,7 @@
 		<typeAlias type="com.ktds.sems.team.vo.MinutesListVO" alias="MinutesListVO"/>
 		<typeAlias type="com.ktds.sems.team.vo.MinutesSearchVO" alias="MinutesSearchVO"/>
 		<typeAlias type="com.ktds.sems.team.vo.TeamBBSReplyVO" alias="TeamBBSReplyVO" />
+		<typeAlias type="com.ktds.sems.team.vo.TeamsListsVO" alias="TeamsListsVO"/>
 	</typeAliases>
 
 	<mappers>
