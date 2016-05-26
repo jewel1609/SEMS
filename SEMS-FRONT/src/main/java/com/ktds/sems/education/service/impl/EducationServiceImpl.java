@@ -817,7 +817,7 @@ public class EducationServiceImpl implements EducationService {
 		
 		if ( !errors.hasErrors() ) {
 			educationBiz.addQNABBS(eduBBS);
-			view.setViewName("redirect:/eduBoard/QNAList");
+			view.setViewName("redirect:/eduBoard/QNAList/" + educationId);
 		}else{
 			throw new RuntimeException("일시적인 장애가 발생했습니다. 잠시 후 다시 시도해주세요.");
 		}

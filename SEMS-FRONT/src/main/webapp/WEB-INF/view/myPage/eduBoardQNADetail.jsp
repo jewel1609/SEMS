@@ -171,7 +171,7 @@
 			&nbsp;&nbsp;&nbsp;&nbsp; <input type="button" class="adoptReplyBtn" value="답변 채택" />
 			</c:if>
 			<c:if test="${ qnaReplyList.adtRpl eq 'Y'}">
-				☆질문자가 채택한 답변☆
+			<span style="color:red">☆채택된 답변☆</span>
 			</c:if> 
 		</span><br/>
 		<span>
