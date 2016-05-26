@@ -25,101 +25,23 @@
 <body>
 	수강생 출결 이력<br/><br/>
 	
-	정상 출석 : ○ / 지각 : △ / 조퇴 : ● / 결석 : X<br/><br/>
-	
-	
+	팀명 : ${ teamName } <br/>
+	팀 아이디 : ${ teamId } <br/>
+	교육명 : ${ attendanceList.get(0).educationTitle } <br/>
+	교육 아이디 : ${ attendanceList.get(0).educationId } <br/><br/>
+		
 	<table>
 		<tr>
-			<th>교육명</th>
-			<th>교육 아이디</th>
-			<th>수강생 이름</th>
-			<th>수강생 아이디</th>
-			<th>출근 시간</th>
-			<th>퇴근시간</th>
-			<th>출결 상태</th>
+			<th>날짜</th>
+			<th>전체 출결</th>
 		</tr>
 		
-		<c:forEach items="${ AllMemberAllAttendanceList }" var="oneMemberATD">
-			<c:forEach items="${ oneMemberATD }" var="attend">
-				<tr>
-					<td>${ attend.educationTitle }</td>
-					<td>${ attend.educationId }</td>
-					<td>${ attend.memberName }</td>
-					<td>${ attend.memberId }</td>
-					<td>${ attend.attendTime }</td>
-					<td>${ attend.leaveTime }</td>
-					<td>${ attend.state }</td>
-				</tr>
-			</c:forEach>
+		<c:forEach items="${ attendanceList }" var="attend">
+			<tr>
+				<td>${ attend.attendTime }</td>
+				<td>${ attend.state }</td>
+			</tr>
 		</c:forEach>
 	</table>
-	
-	<%
-		int day = 0;
-		int late = 0;
-		int absence = 0;
-		int earlyLeave = 0;
-		int attend = 0;
-	%>
-	
-	<c:forEach items="${ AllMemberAllAttendanceList }" var="oneMemberATD">
-			<c:forEach items="${ oneMemberATD }" var="attend">
-				<%
-					day++;
-				%>
-				<c:if test="${ attend.state eq '△' }">
-					<%
-						late++;
-					%>
-				</c:if>
-				<c:if test="${ attend.state eq 'X' }">
-					<%
-						absence++;
-					%>
-				</c:if>
-				<c:if test="${ attend.state eq '●' }">
-					<%
-						earlyLeave++;
-					%>
-				</c:if>
-				<c:if test="${ attend.state eq '○' }">
-					<%
-						attend++;
-					%>
-				</c:if>
-			</c:forEach>
-	</c:forEach>
-	
-	<br/>
-	<table>
-		<tr>
-			<th>전체 일수</th>
-			<th>정상 출석 일수</th>
-			<th>지각/조퇴 일수</th>
-			<th>결석 일수</th>
-		</tr>
-		<tr>
-			<td>
-				<% pageContext.setAttribute("day", day); %>
-				${ day }
-			</td>
-			<td>
-				<% pageContext.setAttribute("attend", attend); %>
-				${ attend }
-			</td>
-			<td>
-				<% 
-					int lateAndEarlyLeave = late + earlyLeave;
-					pageContext.setAttribute("lateAndEarlyLeave", lateAndEarlyLeave);
-				%>
-				${ lateAndEarlyLeave }
-			</td>
-			<td>
-				<% pageContext.setAttribute("absence", absence); %>
-				${ absence }
-			</td>
-		</tr>
-	</table>
-	
 </body>
 </html>

@@ -36,7 +36,7 @@
 		<c:forEach items="${ teamList }" var="team">
 			<tr>
 				<td>
-					<a href="<c:url value="/attendanceHistory/teamDetail/${team.educationId}/${team.teamId}"/>">${ team.teamName }</a>
+					<a href="<c:url value="/attendanceHistory/teamDetail/${team.educationId}/${team.teamId}/${team.educationTitle}"/>">${ team.teamName }</a>
 				</td>
 				<td>${team.educationTitle}</td>
 				<td>${team.educationId}</td>

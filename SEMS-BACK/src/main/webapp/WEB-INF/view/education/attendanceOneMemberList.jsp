@@ -18,39 +18,69 @@
 </style>
 <script type="text/javascript" src="<c:url value='/resources/js/jquery.min.js'/>"></script>
 <script type="text/javascript">
+$(document).ready(function() {
+	$("#searchBtn").click(function() {
+		if ($("#startDate") || $("#endDate")) {
+			
+			var startDate = $("#startDate").val();
+			var endDate = $("#endDate").val();
 
+			if (startDate == "" || endDate == "") {
+
+				if (startDate == "") {
+					alert("검색 시작일을 입력해주세요.");
+					return;
+				}
+				if (endDate == "") {
+					alert("검색 종료일을 입력해주세요.");
+					return;
+				}
+			} else if (startDate > endDate) {
+				alert("검색일을 잘못 입력하셨습니다.");
+				return;
+			}
+		} else {
+			alert("검색 조건을 입력하세요.");
+		}
+		movePage('0');
+	});
+});
 </script>
 <title>수강생 출결 이력</title>
 </head>
 <body>
 	수강생 출결 이력<br/><br/>
 	
+	수강생 아이디 : ${ AllEduAllAttendanceList.get(0).get(0).memberId } <br/><br/>
+	
 	정상 출석 : ○ / 지각 : △ / 조퇴 : ● / 결석 : X<br/><br/>
 	
 	
-	<table>
-		<tr>
-			<th>교육명</th>
-			<th>교육 아이디</th>
-			<th>수강생 이름</th>
-			<th>수강생 아이디</th>
-			<th>출근 시간</th>
-			<th>퇴근시간</th>
-			<th>출결 상태</th>
-		</tr>
+	
 		
-		<c:forEach items="${ attendanceList }" var="attend">
-			<tr>
-				<td>${ attend.educationTitle }</td>
-				<td>${ attend.educationId }</td>
-				<td>${ attend.memberName }</td>
-				<td>${ attend.memberId }</td>
-				<td>${ attend.attendTime }</td>
-				<td>${ attend.leaveTime }</td>
-				<td>${ attend.state }</td>
-			</tr>
+		<c:forEach items="${ AllEduAllAttendanceList }" var="oneMemberATD">
+		
+			교육명 : ${ oneMemberATD.get(0).educationTitle } <br/>
+			교육 아이디 : ${ oneMemberATD.get(0).educationId } <br/>
+			<table>
+				<tr>
+					<th>날짜</th>
+					<th>출결 상태</th>
+				</tr>
+		
+				<c:forEach items="${ oneMemberATD }" var="attend">
+					<tr>
+						<td style="CURSOR:hand;" title="${ attend.leaveTime }">${ attend.attendTime }</td>
+						<td>
+						<c:if test="${ attend.state eq 'X' }">
+							${ attend.state } <a href="<c:url value='/attendanceHistory/updateState'/>">변경</a>
+						</c:if>
+						<c:if test="${ attend.state ne 'X' }">${ attend.state }</c:if>
+						</td>
+					</tr>
+				</c:forEach>	
+			</table><br/>
 		</c:forEach>
-	</table>
 	
 	<%
 		int day = 0;
@@ -60,33 +90,34 @@
 		int attend = 0;
 	%>
 	
-	<c:forEach items="${ attendanceList }" var="attend">
-		<%
-			day++;
-		%>
-		<c:if test="${ attend.state eq '△' }">
-			<%
-				late++;
-			%>
-		</c:if>
-		<c:if test="${ attend.state eq 'X' }">
-			<%
-				absence++;
-			%>
-		</c:if>
-		<c:if test="${ attend.state eq '●' }">
-			<%
-				earlyLeave++;
-			%>
-		</c:if>
-		<c:if test="${ attend.state eq '○' }">
-			<%
-				attend++;
-			%>
-		</c:if>
+	<c:forEach items="${ AllEduAllAttendanceList }" var="oneMemberATD">
+			<c:forEach items="${ oneMemberATD }" var="attend">
+				<%
+					day++;
+				%>
+				<c:if test="${ attend.state eq '△' }">
+					<%
+						late++;
+					%>
+				</c:if>
+				<c:if test="${ attend.state eq 'X' }">
+					<%
+						absence++;
+					%>
+				</c:if>
+				<c:if test="${ attend.state eq '●' }">
+					<%
+						earlyLeave++;
+					%>
+				</c:if>
+				<c:if test="${ attend.state eq '○' }">
+					<%
+						attend++;
+					%>
+				</c:if>
+		</c:forEach>
 	</c:forEach>
 	
-	<br/>
 	<table>
 		<tr>
 			<th>전체 일수</th>
@@ -117,5 +148,11 @@
 		</tr>
 	</table>
 	
+	<form name="searchForm" id="searchForm">
+		<input type="date" id="startDate" name="startDate"/> 
+		<input type="date" id="endDate" name="endDate"/> 
+		<input type="button" id="searchBtn" value="검색" /> 
+		<input type="button" id="searchInitBtn" value="검색 초기화" />
+	</form>
 </body>
 </html>
