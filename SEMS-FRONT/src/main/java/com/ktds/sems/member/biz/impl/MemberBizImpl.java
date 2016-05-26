@@ -1,6 +1,7 @@
 package com.ktds.sems.member.biz.impl;
 
 import java.io.File;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -13,6 +14,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -746,7 +748,6 @@ public class MemberBizImpl implements MemberBiz {
 	@Override
 	public List<EducationVO> getAllAttendClassListById(MemberVO loginVO) {	
 		
-		/* 회원별 강의 */
 		List<EducationVO> eduListByMember = new ArrayList<EducationVO>();
 		eduListByMember = memberDAO.getEduListByMember(loginVO);
 		
@@ -754,7 +755,7 @@ public class MemberBizImpl implements MemberBiz {
 	}
 
 	@Override
-	public List<AttendVO> getAllAttendHistory(MemberVO memberVO, String educationId) {
+	public Map<String, List<String>> getAllAttendHistory(MemberVO memberVO, String educationId) {
 		
 		Map<String, String> eduIdAndMemberId = new HashMap<String, String>();
 
@@ -762,18 +763,21 @@ public class MemberBizImpl implements MemberBiz {
 		eduIdAndMemberId.put("memberId", memberVO.getId());
 		EducationVO educationVO = memberDAO.getOneEducationInfo(eduIdAndMemberId);
 		List<AttendVO> attendList = memberDAO.getAllAttendHistoryListById(eduIdAndMemberId);
-		Map<String, String> attendHistoryList= getStateByEachClass(educationVO, attendList);
+		Map<String, List<String>> attendHistoryList= getStateByEachClass(educationVO, attendList);
 			
-		return null;
+		return attendHistoryList;
 	}
 	
 	
-	private Map<String, String> getStateByEachClass(EducationVO educationVO, List<AttendVO> attendList) {
+	private Map<String, List<String>> getStateByEachClass(EducationVO educationVO, List<AttendVO> attendList) {
+		
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
 		
 		/* 강의 날짜 구간 */
 		String classStartDate = educationVO.getStartDate();
 		String classEndDate = educationVO.getEndDate();
-		
+
 		int sYear = Integer.parseInt(classStartDate.substring(0, 4));
 		int sMonth = Integer.parseInt(classStartDate.substring(5, 7));
 		int sDate = Integer.parseInt(classStartDate.substring(8, 10));
@@ -782,23 +786,55 @@ public class MemberBizImpl implements MemberBiz {
 		int eMonth = Integer.parseInt(classEndDate.substring(5, 7));
 		int eDate = Integer.parseInt(classEndDate.substring(8, 10));
 		
-		Date startDate = new Date(sYear, sMonth-1, sDate);
-		Date endDate = new Date(eYear, eMonth-1, eDate);
+		//Date startDate = new Date(sYear, sMonth-1, sDate);
+		//Date endDate = new Date(eYear, eMonth-1, eDate);
+
+		Calendar cal1 = Calendar.getInstance();
+		cal1.set(sYear, sMonth - 1 , sDate);
+		Date startDate = cal1.getTime();
 		
-		// 날짜들이 들어있는 List
+		Calendar cal2 = Calendar.getInstance();
+		cal2.set(eYear, eMonth - 1, eDate + 1);
+		Date endDate = cal2.getTime();
+
+		/* 어제 구하기 */
+		Date today = new Date();
+		Date beforeDate = new Date();
+		beforeDate.setTime( today.getTime() - ( (long) 1000 * 60 * 60 * 24 ) );
+
+		/* 날짜들이 들어있는 List */
 		List<Date> dates = getDaysBetweenDates(startDate, endDate);
-		// 출석 정보를 담는 Map <날짜, 출석결과>
-		Map<String, String> attendHistoryMap = new HashMap<String, String> ();
 		
-		// 하루 하루
+		/* 어제까지의 날짜들이 들어있는 List */
+		List<Date> datesUntilToday = getDaysBetweenDates(startDate, beforeDate);
+		
+		/* 출석 정보를 담는 Map <날짜, 출석결과> */
+		Map<String, List<String>> attendHistoryMap = new HashMap<String, List<String>> ();
+		
+		/* 하루 하루 */
 		String eachDate = null;
-		// 출석결과
-		// 회원이 출석한 날짜
+		
+		/* 회원이 출석, 퇴근한 날짜 */
 		String memberAttendDate = null;
 		String memberLeaveDate = null;
-		// 수업의 시작, 끝 시간
-		SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
-
+		List<String> statusAndTime;
+		
+		for (Date date : dates) {
+			statusAndTime = new ArrayList<String>();
+			statusAndTime.add("-");
+			statusAndTime.add(" ");
+			eachDate = dateFormat.format(date);
+			attendHistoryMap.put(eachDate, statusAndTime);
+		}
+		
+		for(Date date: datesUntilToday) { 
+			statusAndTime = new ArrayList<String>();
+			statusAndTime.add("X");
+			statusAndTime.add(" ");
+			eachDate = dateFormat.format(date);
+			attendHistoryMap.put(eachDate, statusAndTime);
+		}
+		
 		try {
 			String classStartTime = educationVO.getStartTime();
 			Calendar classStartCal = Calendar.getInstance();
@@ -816,7 +852,7 @@ public class MemberBizImpl implements MemberBiz {
 			Calendar leaveCal = Calendar.getInstance();
 			for (Date date : dates) {
 				for (int i = 0; i < attendList.size(); i++) {
-					eachDate = date.getYear() + "-"+ lpad((date.getMonth()+1) +"", 2, "0") + "-" + lpad(date.getDate()+"", 2, "0");
+					eachDate = dateFormat.format(date);
 					
 					memberAttendDate = attendList.get(i).getAttendTime();
 					String memberDate = memberAttendDate.substring(0, 10);
@@ -830,23 +866,35 @@ public class MemberBizImpl implements MemberBiz {
 					Date memberLeaveDateFormat = timeFormat.parse(memberLeaveDate);
 					leaveCal.setTime(memberLeaveDateFormat);
 					long calMemberLeaveSecond = leaveCal.getTimeInMillis();
-					System.out.println("원본 : " + memberDate + "비교 : " + eachDate + "결과 : " + memberDate.equals(eachDate));
+					
 					if(memberDate.equals(eachDate)) {
 						// 결석
 						if ( ((calEduEndSecond - calEduStartSecond)/2 - (calMemberLeaveSecond - calMemberAttendSecond)) > 0 ) {
-							attendHistoryMap.put(eachDate, "결석");
+							statusAndTime = new ArrayList<String>();
+							statusAndTime.add("X");
+							statusAndTime.add(" ");
+							attendHistoryMap.put(eachDate, statusAndTime);
 						}
 						// 출석
 						else if ( (calEduStartSecond - calMemberAttendSecond) >= 0 && (calMemberLeaveSecond - calEduEndSecond) >= 0 ) {
-							attendHistoryMap.put(eachDate, "출석");
+							statusAndTime = new ArrayList<String>();
+							statusAndTime.add("○");
+							statusAndTime.add(memberAttendDate + " ~ " + memberLeaveDate);
+							attendHistoryMap.put(eachDate, statusAndTime);
 						}
 						// 지각
 						else if ( (calEduStartSecond - calMemberAttendSecond) < 0 && (calMemberLeaveSecond - calEduEndSecond) >= 0 ) {
-							attendHistoryMap.put(eachDate, "지각");
+							statusAndTime = new ArrayList<String>();
+							statusAndTime.add("△");
+							statusAndTime.add(memberAttendDate + " ~ " + memberLeaveDate);
+							attendHistoryMap.put(eachDate, statusAndTime);
 						}
 						// 조퇴
 						else if ( (calMemberLeaveSecond - calEduEndSecond) <= 0 ) {
-							attendHistoryMap.put(eachDate, "조퇴");
+							statusAndTime = new ArrayList<String>();
+							statusAndTime.add("●");
+							statusAndTime.add(memberAttendDate + " ~ " + memberLeaveDate);
+							attendHistoryMap.put(eachDate, statusAndTime);
 						}
 					}
 				}
@@ -855,28 +903,18 @@ public class MemberBizImpl implements MemberBiz {
 			System.out.println("형식 변환 오류");
 		}
 
-		Set<String> keySet = attendHistoryMap.keySet();
-		Iterator<String> keyIterator = keySet.iterator();
+		Map<String, List<String>> treeMap = new TreeMap<String, List<String>>(attendHistoryMap);
+		Iterator<String> treeMapIter = treeMap.keySet().iterator();
 		String key = null;
-		while(keyIterator.hasNext()){
-			key = keyIterator.next();
+		while(treeMapIter.hasNext()){
+			key = treeMapIter.next();
 			System.out.println("날짜 : " + key + " 값 : "+ attendHistoryMap.get(key));
 		}
 		
-		return attendHistoryMap;
+		return treeMap;
 		
 	}
 	
-	private String lpad(String source, int length, String defValue) {
-		int sourceLength = source.length();
-		int needLength = length - sourceLength;
-		
-		for (int i = 0; i < needLength; i++) {
-			source = defValue + source;
-		}
-		return source;
-		
-	}
 	
 	private List<Date> getDaysBetweenDates(Date startdate, Date enddate)
 	{
