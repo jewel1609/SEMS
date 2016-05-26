@@ -6,6 +6,9 @@ public class EducationSearchVO {
 	private int startIndex;
 	private int endIndex;
 	private String memberId;
+	private String searchKeyword;
+	private String searchStartDate;
+	private String searchEndDate;
 	
 	public int getPageNo() {
 		return pageNo;
@@ -31,6 +34,23 @@ public class EducationSearchVO {
 	public void setEndIndex(int endIndex) {
 		this.endIndex = endIndex;
 	}
-	
+	public String getSearchKeyword() {
+		return searchKeyword;
+	}
+	public void setSearchKeyword(String searchKeyword) {
+		this.searchKeyword = searchKeyword;
+	}
+	public String getSearchStartDate() {
+		return searchStartDate;
+	}
+	public void setSearchStartDate(String searchStartDate) {
+		this.searchStartDate = searchStartDate;
+	}
+	public String getSearchEndDate() {
+		return searchEndDate;
+	}
+	public void setSearchEndDate(String searchEndDate) {
+		this.searchEndDate = searchEndDate;
+	}
 	
 }
