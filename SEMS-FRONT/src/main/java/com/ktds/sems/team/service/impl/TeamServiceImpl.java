@@ -505,7 +505,10 @@ public class TeamServiceImpl implements TeamService{
 		for(String memberId : insertMemberIds){
 			
 			teamsListVO.setMbrId(memberId);
-			teamBiz.insertMember(teamsListVO);			
+			boolean isInsertMember = teamBiz.insertMember(teamsListVO);	
+			if(!isInsertMember){
+				throw new RuntimeException("실패했습니다.");
+			}
 		}
 
 		ModelAndView view = new ModelAndView();
