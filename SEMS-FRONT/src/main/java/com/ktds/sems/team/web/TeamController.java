@@ -90,6 +90,13 @@ public class TeamController {
 		return view;
 	}
 	
+	@RequestMapping(value ="/team/teamBBS/detail/doWriteReply", method = RequestMethod.POST)
+	public ModelAndView doWriteBBSReplyAction(@Valid TeamBBSReplyVO teamBBSReplyVO, 
+			@RequestParam(required = false, defaultValue = "0") int pageNo ,HttpSession session ){
+		logger.info(teamBBSReplyVO.getDescript()+"");
+		return teamService.doWriteBBSReplyAction(teamBBSReplyVO, pageNo, session);
+	}
+	
 	@RequestMapping("/team/doWriteAction/{teamId}")
 	public ModelAndView doWriteAction(@PathVariable String teamId, @Valid MinutesVO minutesVO, Errors errors, HttpSession session){
 		
