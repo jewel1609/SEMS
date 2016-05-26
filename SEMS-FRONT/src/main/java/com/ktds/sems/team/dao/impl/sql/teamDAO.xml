@@ -102,7 +102,8 @@
 			    TEAM_BBS.MBR_ID memberId, 
 			    TEAM_BBS.CREATED_DATE createdDate, 
 		   		TEAM_BBS.MODIFIED_DATE modifiedDate,
-		   		TEAM_BBS.IS_NOTICE isNotice
+		   		TEAM_BBS.IS_NOTICE isNotice,
+		   		FILES.FCOUNT fileCount
 		FROM	(
 					SELECT	ROWNUM AS RNUM
 							, TEAM_BBS.*
@@ -113,19 +114,101 @@
 							) TEAM_BBS
 					WHERE	ROWNUM <![CDATA[<=]]> #{endIndex}
 				) TEAM_BBS
-				,(
+				,
+				(
 					SELECT  BBS_ID, COUNT(*) HITS
 					FROM    BBS_HTR
 					GROUP   BY BBS_ID
 				) BBS_HTR
+				 ,
+				(
+			    	SELECT ATC_ID, COUNT(*) FCOUNT
+			    	FROM FILES
+			     	GROUP BY ATC_ID
+			    ) FILES
 		WHERE	RNUM >= #{startIndex}
 		AND		BBS_HTR.BBS_ID (+)= TEAM_BBS.TEAM_BBS_ID
+		AND     FILES.ATC_ID (+)= TEAM_BBS.TEAM_BBS_ID 
 	</select>
 	
 	<select  id="getSearchedBBSCount" resultType="_int">
 		SELECT	COUNT(*)
 		FROM	TEAM_BBS
 	</select>	
+	
+	<select id="getStartYear" resultType="string">
+		SELECT	SUBSTR(TO_CHAR(CREATED_DATE, 'YYYY'), 1, 4) CDATE
+		FROM	(
+                    SELECT CREATED_DATE
+                    FROM    TEAM_BBS
+                    ORDER BY CREATED_DATE ASC
+                )
+        WHERE   ROWNUM = 1
+	</select>
+	
+	<select id="getEndYear" resultType="string">
+		SELECT	SUBSTR(TO_CHAR(SYSDATE, 'YYYY'), 1, 4) SDATE
+		FROM	DUAL
+	</select>
+	
+	<select id="doSearchList" parameterType="map" resultType="TeamBBSVO">
+		SELECT	TEAM_BBS_ID teamBBSId
+				, TEAM_ID teamId
+				, TITLE title
+				, DESCRIPT descript
+				, HITS hits
+				, LIKE_CNT likeCount
+				, DISLIKE_CNT disLikeCount
+				, MBR_ID memberId
+				, CREATED_DATE createdDate
+				, MODIFIED_DATE modifiedDate
+				, IS_NOTICE isNotice
+				, FILES.FCOUNT fileCount
+         FROM   (
+               SELECT   ROWNUM   AS RNUM
+                     , TEAM_BBS.*
+               FROM   (
+                        SELECT   *
+                        FROM   SEMS.TEAM_BBS
+                        WHERE  1=1	 
+			         
+			           <if test="teamBBSVO.title != null">
+			           		AND LOWER(TITLE) LIKE '%'||#{teamBBSVO.title}||'%'
+			           </if>
+			           <if test="teamBBSVO.descript != null"> 
+			           		AND LOWER(DESCRIPT) LIKE '%'||#{teamBBSVO.descript}||'%'
+			           </if>
+			           <if test="teamBBSVO.memberId != null">
+			           		AND MBR_ID LIKE #{teamBBSVO.memberId}
+			           </if>
+			           <if test="teamBBSVO.createdDate != null">
+					        AND SUBSTR(TO_CHAR(CREATED_DATE, 'YYYY/MM'), 1,7) LIKE #{teamBBSVO.createdDate}
+			           </if>
+			           <if test="teamBBSVO.modifiedDate != null">
+			           		AND SUBSTR(TO_CHAR(MODIFIED_DATE, 'YYYY/MM'), 1,7) LIKE #{teamBBSVO.modifiedDate}
+			           </if>
+			           <if test="teamBBSVO.hits != null">
+			           		AND HITS >= #{teamBBSVO.hits}
+			           </if>
+			           <if test="teamBBSVO.likeCount != null">
+			           		AND LIKE_CNT >= #{teamBBSVO.likeCount}
+			           </if>
+			           <if test="teamBBSVO.disLikeCount != null">
+			           		AND DISLIKE_CNT >= #{teamBBSVO.disLikeCount}
+			           </if>
+                        ORDER   BY TEAM_BBS_ID DESC
+                     ) TEAM_BBS
+               WHERE   ROWNUM <![CDATA[<=]]> #{searchVO.endIndex}
+            ) BBS
+            ,
+            (
+			    SELECT ATC_ID, COUNT(*) FCOUNT
+			    FROM FILES
+			    GROUP BY ATC_ID
+			) FILES
+      WHERE   RNUM >= #{searchVO.startIndex}
+      AND     FILES.ATC_ID (+)= BBS.TEAM_BBS_ID 
+    </select>
 	
 	<select id="getOneTeamDetail" parameterType="string" resultType="TeamsListVO">
 	SELECT	TEAM_LST_ID teamListId
@@ -235,6 +318,13 @@
 		WHERE	MBR_ID = #{memberId}
 		AND		TEAM_BBS_ID	= #{teamBBSId}
 	</update>
+	
+	<select id="getFileInfo" parameterType="string" resultType="string">
+		SELECT  FILE_NM fileName
+		FROM    FILES, TEAM_BBS
+		WHERE	TEAM_BBS_ID = #{teamBBSId}
+		AND   	ATC_ID = TEAM_BBS_ID
+	</select>
 	
 	<update id="doModifyAction" parameterType="TeamBBSVO">
 		UPDATE SEMS.TEAM_BBS

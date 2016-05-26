@@ -39,6 +39,7 @@ public class TeamController {
 
 	@RequestMapping("/team/teamBBS/board")
 	public ModelAndView viewTeamBBSPage(@RequestParam(required = false, defaultValue = "0") int pageNo) {
+			
 		return teamService.viewTeamBBSPage(pageNo);
 	}
 	
@@ -126,6 +127,76 @@ public class TeamController {
 		
 	}
 	
+	@RequestMapping("/team/teamBBS/searchBBSList")
+	public ModelAndView doSearchList(@RequestParam String createdYear, @RequestParam String createdMonth, @RequestParam String teamBBSId,
+				@RequestParam String modifiedYear, @RequestParam String modifiedMonth, @RequestParam String title, @RequestParam String memberId, 
+				@RequestParam String descript, @RequestParam String likeCount, @RequestParam String disLikeCount,  @RequestParam(required=false, defaultValue="0") String pageNo){
+		
+		if(pageNo.length() > 1) {
+			pageNo = "0";
+		}
+		
+		TeamBBSVO teamBBSVO = new TeamBBSVO();
+		
+		if( createdMonth.length() > 0 ) {
+			if( createdMonth.length() == 1 ) {
+				createdMonth = "0" + createdMonth;
+			}
+			teamBBSVO.setCreatedDate(createdYear + "/" + createdMonth);
+		}
+		else {
+			teamBBSVO.setCreatedDate(null);
+		}
+		if ( modifiedMonth.length() > 0 ){
+			if(modifiedMonth.length() == 1) {
+				modifiedMonth = "0" + modifiedMonth;
+			}
+			teamBBSVO.setModifiedDate(modifiedYear + "/" + modifiedMonth);
+		}
+		else {
+			teamBBSVO.setModifiedDate(null);
+		}
+		if(title.equals("")) {
+			title = null;
+		}
+		if(memberId.equals("")){
+			memberId = null;
+		}
+		if(descript.equals("")){
+			descript = null;
+		}
+		if(likeCount.equals("")){
+			likeCount = null;
+		}
+		if(disLikeCount.equals("")){
+			disLikeCount = null;
+		}
+		
+		if(title != null){
+			title=title.trim().toLowerCase();
+			logger.info(title);
+		}
+		if(memberId != null){
+			teamBBSVO.setMemberId(memberId);
+		}
+		
+		if(descript != null){
+			teamBBSVO.setDescript(descript);
+		}
+		
+		if(likeCount != null){
+			teamBBSVO.setLikeCount(Integer.parseInt(likeCount));
+		}
+		
+		if(disLikeCount != null){
+			teamBBSVO.setDisLikeCount(Integer.parseInt(disLikeCount));
+		}
+		teamBBSVO.setTitle(title);
+		teamBBSVO.setTeamBBSId(teamBBSId);
+		
+		return teamService.doSearchList( teamBBSVO , Integer.parseInt(pageNo) );
+	}
+
 	@RequestMapping("/team/teamBBS/like/{teamBBSId}")
 	public String doLikeBBSAction(@PathVariable String teamBBSId, HttpSession session) {
 		return teamService.doLikeBBSAction(teamBBSId, session);

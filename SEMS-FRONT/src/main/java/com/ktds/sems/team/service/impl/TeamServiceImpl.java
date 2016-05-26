@@ -120,11 +120,17 @@ public class TeamServiceImpl implements TeamService{
 		searchVO.setStartIndex(paging.getStartArticleNumber());
 		searchVO.setEndIndex(paging.getEndArticleNumber());	
 
+		String startYear = teamBiz.getStartYear();
+		String endYear = teamBiz.getEndYear();
+		
 		ModelAndView view = new ModelAndView();
+		
 		List<TeamBBSVO> teamBBSList = teamBiz.getTeamBBSList(searchVO);
 		searchedListVO.setTeamBBSList(teamBBSList);
 
 		//	logger.info("teamBBSList사이즈"+teamBBSList.size());
+		view.addObject("fromYear", startYear);
+		view.addObject("toYear", endYear);
 		view.addObject("TeamBBSListVO",searchedListVO );
 		view.setViewName("team/teamBoard");
 		return view;
@@ -165,6 +171,42 @@ public class TeamServiceImpl implements TeamService{
 	}
 
 	@Override
+	public ModelAndView doSearchList(TeamBBSVO teamBBSVO, int pageNo ) {
+		TeamBBSListVO searchedListVO = new TeamBBSListVO();
+		Paging paging = new Paging(15,15);
+		
+		searchedListVO.setPaging(paging);
+		paging.setPageNumber(pageNo + "");
+		
+		int searchedBBSCount = teamBiz.getSearchedBBSCount();
+		if(searchedBBSCount == 0 ){
+			searchedBBSCount ++;
+		}
+		paging.setTotalArticleCount(searchedBBSCount);
+		
+		TeamSearchVO searchVO = new TeamSearchVO();
+		searchVO.setStartIndex(paging.getStartArticleNumber());
+		searchVO.setEndIndex(paging.getEndArticleNumber());	
+		
+		List<TeamBBSVO> searchedBBS = teamBiz.doSearchList(teamBBSVO, searchVO);
+		
+		searchedListVO.setTeamBBSList(searchedBBS);
+		
+		String startYear = teamBiz.getStartYear();
+		String endYear = teamBiz.getEndYear();
+		ModelAndView view = new ModelAndView();
+		
+		view.addObject("fromYear", startYear);
+		view.addObject("toYear", endYear);
+		
+		view.addObject("searchKeyword", teamBBSVO);
+		view.addObject("searchedListVO", searchedListVO);
+		
+		view.setViewName("team/teamBoard");
+		return view;
+	}
+
+	@Override
 	public ModelAndView viewTeamBBSDetailPage(String teamBBSId, int pageNo, HttpSession session) {
 
 		MemberVO member = (MemberVO) session.getAttribute("_MEMBER_");
@@ -191,7 +233,11 @@ public class TeamServiceImpl implements TeamService{
 		}
 		ModelAndView view = new ModelAndView();
 
+		
+		List<String> fileName = teamBiz.getFileInfo(teamBBSId);
+		
 		view.addObject("teamBBS",teamBBS );
+		view.addObject("fileName", fileName);
 		view.addObject("memberId", member.getId());
 		view.addObject("replies", replies);
 		view.setViewName("team/detailTeamBBS");
@@ -536,5 +582,4 @@ public class TeamServiceImpl implements TeamService{
 		}
 		return view;
 	}
-
 }

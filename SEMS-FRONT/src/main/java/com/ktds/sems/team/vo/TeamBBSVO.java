@@ -15,11 +15,18 @@ public class TeamBBSVO{
 	private String isNotice;
 	
 	private String bbsHistoryId;
+	private String fileCount;
 	private String likeState;
 	private String dislikeState;
 	
 	private String fileName;
 	
+	public String getFileCount() {
+		return fileCount;
+	}
+	public void setFileCount(String fileCount) {
+		this.fileCount = fileCount;
+	}
 	public String getFileName() {
 		return fileName;
 	}

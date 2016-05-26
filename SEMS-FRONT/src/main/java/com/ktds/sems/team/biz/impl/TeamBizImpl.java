@@ -101,6 +101,21 @@ public class TeamBizImpl implements TeamBiz {
 	}
 
 	@Override
+	public List<TeamBBSVO> doSearchList(TeamBBSVO teamBBSVO, TeamSearchVO searchVO) {
+		return teamDAO.doSearchList(teamBBSVO,searchVO);
+	}
+
+	@Override
+	public String getStartYear() {
+		return teamDAO.getStartYear();
+	}
+
+	@Override
+	public String getEndYear() {
+		return teamDAO.getEndYear();
+	}
+
+	@Override
 	public int getSearchedBBSCount() {
 		return teamDAO.getSearchedBBSCount();
 	}
@@ -153,6 +168,10 @@ public class TeamBizImpl implements TeamBiz {
 	@Override
 	public boolean addDislikeRecord(TeamBBSVO bbs) {
 		return teamDAO.addDislikeRecord(bbs) > 0;
+	}
+
+	public List<String> getFileInfo(String teamBBSId) {
+		return teamDAO.getFileInfo(teamBBSId);
 	}
 
 	@Override

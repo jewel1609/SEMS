@@ -1,6 +1,8 @@
 package com.ktds.sems.team.dao.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 
@@ -56,6 +58,24 @@ public class TeamDAOImpl  extends SqlSessionDaoSupport implements TeamDAO{
 	}
 
 	@Override
+	public List<TeamBBSVO> doSearchList(TeamBBSVO teamBBSVO, TeamSearchVO searchVO) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("teamBBSVO", teamBBSVO);
+		paramMap.put("searchVO", searchVO );
+		return getSqlSession().selectList("teamDAO.doSearchList", paramMap);
+	}
+
+	@Override
+	public String getStartYear() {
+		return getSqlSession().selectOne("teamDAO.getStartYear");
+	}
+
+	@Override
+	public String getEndYear() {
+		return getSqlSession().selectOne("teamDAO.getEndYear");
+	}
+
+	@Override
 	public List<TeamsListVO> getOneTeamDetail(String teamId) {
 		return getSqlSession().selectList("teamDAO.getOneTeamDetail", teamId);
 	}
@@ -100,6 +120,11 @@ public class TeamDAOImpl  extends SqlSessionDaoSupport implements TeamDAO{
 		return getSqlSession().update("teamDAO.addDislikeRecord", TeamBBSVO);
 	}
 
+	@Override
+	public List<String> getFileInfo(String teamBBSId) {
+		return getSqlSession().selectList("teamDAO.getFileInfo", teamBBSId);
+	}
+	
 	@Override
 	public int doModifyAction(TeamBBSVO teamBBS) {
 		return getSqlSession().update("teamDAO.doModifyAction", teamBBS);

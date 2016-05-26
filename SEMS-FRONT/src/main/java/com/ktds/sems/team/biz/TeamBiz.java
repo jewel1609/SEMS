@@ -25,6 +25,12 @@ public interface TeamBiz {
 
 	public int getSearchedBBSCount();
 
+	public List<TeamBBSVO> doSearchList(TeamBBSVO teamBBSVO, TeamSearchVO searchVO);
+
+	public String getStartYear();
+
+	public String getEndYear();
+
 	public List<TeamsListVO> getOneTeamDetail(String teamId);
 
 	public TeamBBSVO getTeamBBS(String teamBBSId);
@@ -38,6 +44,8 @@ public interface TeamBiz {
 	public boolean checkLikeByTeamBBSVO(TeamBBSVO bbs);
 
 	public boolean addDislikeRecord(TeamBBSVO bbs);
+
+	public List<String> getFileInfo(String teamBBSId);
 
 	public String getLikeState(TeamBBSVO bbs);
 

@@ -20,6 +20,8 @@ public interface TeamService {
 
 	public ModelAndView viewTeamBBSPage(int pageNo);
 
+	public ModelAndView doSearchList(TeamBBSVO teamBBSVO, int pageNo );
+
 	public ModelAndView checkPassword(String teamBBSId,String type);
 
 	public ModelAndView viewModifyPage(String teamBBSId);
