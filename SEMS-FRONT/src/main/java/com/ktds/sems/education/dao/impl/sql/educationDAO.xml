@@ -646,19 +646,30 @@
 	</select>
 	
 	<update id="updateStateToApply" parameterType="string">
-		UPDATE	EDU_HTR
+		UPDATE	EDU_CLASS
 		SET		STAT = 'EDU_JN_A'
-		WHERE	EDU_HTR_ID = (
-								SELECT	EDU_HTR_ID
-								FROM	(
-											SELECT	*
-											FROM	EDU_HTR
-											WHERE	STAT = 'EDU_RE_A'
-											AND		EDU_ID = #{educationId}
-											ORDER BY	EDU_HTR_DT ASC
-										)
-								WHERE	ROWNUM = 1
-					    	)		
+		WHERE	(EDU_ID, MBR_ID) = (
+										SELECT	EDU_ID
+												, MBR_ID
+										FROM	(
+													SELECT  RE.STAT
+													        , RE.MBR_ID
+													        , RE.EDU_ID
+													        , HTR.EDU_HTR_DT
+													FROM    (
+													            SELECT  *
+													            FROM    EDU_CLASS CL
+													            WHERE   CL.STAT = 'EDU_RE_A'
+													            AND		CL.EDU_ID = #{educationId}
+													         ) RE
+													       	, EDU_HTR HTR
+													WHERE   HTR.EDU_ID = RE.EDU_ID
+													AND     HTR.MBR_ID = RE.MBR_ID
+													AND     HTR.STAT = RE.STAT
+													ORDER BY	HTR.EDU_HTR_DT ASC
+												)
+										WHERE	ROWNUM = 1
+					    			)
 	</update>
 	
 	<select id="getEducationFileBBSList" parameterType="FileBBSSearchVO" resultType="EducationFileBBSVO">
