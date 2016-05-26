@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import com.ktds.sems.education.dao.EducationDAO;
 import com.ktds.sems.education.vo.EduQnaSearchVO;
 import com.ktds.sems.education.vo.EduQnaVO;
+import com.ktds.sems.education.vo.EducationBoardHistoryVO;
 import com.ktds.sems.education.vo.BBSHistoryVO;
 import com.ktds.sems.education.vo.EducationFileBBSVO;
 import com.ktds.sems.education.vo.EducationQNABBSSearchVO;
@@ -602,6 +603,21 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 	@Override
 	public int getTotalQnaEduReplyCount(String eduQnaId) {
 		return getSqlSession().selectOne("EducationDAO.getTotalQnaEduReplyCount", eduQnaId);
+	}
+
+	@Override
+	public int getNextEduBrdHtrId() {
+		return getSqlSession().selectOne("EducationDAO.getNextEduBrdHtrId");
+	}
+
+	@Override
+	public int insertEduBBSAccess(EducationBoardHistoryVO educationBoardHistoryVO) {
+		return getSqlSession().insert("EducationDAO.insertEduBBSAccess", educationBoardHistoryVO);
+	}
+
+	@Override
+	public List<String> getEduBBSAccessMemberList(String educationId) {
+		return getSqlSession().selectList("EducationDAO.getEduBBSAccessMemberList", educationId);
 	}
 
 	@Override

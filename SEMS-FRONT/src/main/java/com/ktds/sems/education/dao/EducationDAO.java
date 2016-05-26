@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.ktds.sems.education.vo.EduQnaSearchVO;
 import com.ktds.sems.education.vo.EduQnaVO;
+import com.ktds.sems.education.vo.EducationBoardHistoryVO;
 import com.ktds.sems.education.vo.BBSHistoryVO;
 import com.ktds.sems.education.vo.EducationFileBBSVO;
 import com.ktds.sems.education.vo.EducationQNABBSSearchVO;
@@ -223,6 +224,12 @@ public interface EducationDAO {
 	public int addQnaEduReplyDisLike(String replyId);
 
 	public int getTotalQnaEduReplyCount(String eduQnaId);
+
+	public int getNextEduBrdHtrId();
+
+	public int insertEduBBSAccess(EducationBoardHistoryVO educationBoardHistoryVO);
+
+	public List<String> getEduBBSAccessMemberList(String educationId);
 
 	public int insertEducationState(String educationId, String memberId);
 

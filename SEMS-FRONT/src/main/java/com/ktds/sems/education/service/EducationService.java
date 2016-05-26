@@ -99,7 +99,7 @@ public interface EducationService {
 
 	public ModelAndView viewEduBoardQNADetailPage(String atcId, int pageNo, HttpSession session);
 
-	public ModelAndView getEduBoardByEducationId(String educationId);
+	public ModelAndView getEduBoardByEducationId(String educationId, HttpSession session);
 
 	public String plusRecommendReply(String replyId, HttpSession session);
 

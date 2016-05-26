@@ -340,8 +340,8 @@ public class EducationController {
 	}
 
 	@RequestMapping("/eduBoard/{educationId}")
-	public ModelAndView viewEduBoardPage(@PathVariable String educationId) {
-		return educationService.getEduBoardByEducationId(educationId);
+	public ModelAndView viewEduBoardPage(@PathVariable String educationId, HttpSession session) {
+		return educationService.getEduBoardByEducationId(educationId, session);
 	}
 	
 	@RequestMapping("/plusRecommendReply")

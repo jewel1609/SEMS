@@ -1535,6 +1535,11 @@
 		FROM	DUAL
 	</select>
 	
+	<select id="getNextEduBrdHtrId" resultType="_int">
+		SELECT	EDU_BRD_HTR_ID_SEQ.NEXTVAL
+		FROM	DUAL
+	</select>
+	
 	<insert id="insertEduQna" parameterType="EduQnaVO">
 		INSERT INTO EDU_QA_BBS	(
 								   ATC_ID
@@ -1591,6 +1596,36 @@
 		WHERE	ATC_ID = #{atcId}
 		AND		REPLY_ID LIKE 'ER%'
 		AND		ATC_ID LIKE 'EQ%'
+	</select>
+	
+	<insert id="insertEduBBSAccess" parameterType="EducationBoardHistoryVO">
+		INSERT INTO SEMS.EDU_BRD_HTR (
+  										 EDU_BRD_HTR_ID
+  										 , MBR_ID
+  										 , ACS_DT
+  										 , EDU_ID
+  									) 
+		VALUES 						( 
+										#{educationBoardHistoryId}
+										, #{memberId}
+										, SYSDATE
+										, #{educationId}
+									)
+	</insert>
+	
+	<select id="getEduBBSAccessMemberList" parameterType="string" resultType="string">
+		SELECT		M.NM
+        FROM 		EDU_BRD_HTR EBH
+             		, MBR M
+        WHERE 		ACS_DT = 
+        						(
+				                    SELECT MAX(ACS_DT) 
+				                    FROM EDU_BRD_HTR 
+				                    WHERE MBR_ID = EBH.MBR_ID
+			                    )
+        AND EDU_ID = #{educationId}
+        AND EBH.MBR_ID = M.ID
+        AND ROWNUM <![CDATA[<=]]> 10
 	</select>
 	
 	 <insert id="insertEducationState" parameterType="map">

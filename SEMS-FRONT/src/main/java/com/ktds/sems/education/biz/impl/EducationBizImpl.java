@@ -16,6 +16,7 @@ import com.ktds.sems.education.dao.EducationDAO;
 import com.ktds.sems.education.vo.BBSHistoryVO;
 import com.ktds.sems.education.vo.EduQnaSearchVO;
 import com.ktds.sems.education.vo.EduQnaVO;
+import com.ktds.sems.education.vo.EducationBoardHistoryVO;
 import com.ktds.sems.education.vo.EducationFileBBSVO;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationHistoryVO;
@@ -692,6 +693,21 @@ public class EducationBizImpl implements EducationBiz {
 	@Override
 	public int getTotalQnaEduReplyCount(String eduQnaId) {
 		return educationDAO.getTotalQnaEduReplyCount(eduQnaId);
+	}
+
+	@Override
+	public int getNextEduBrdHtrId() {
+		return educationDAO.getNextEduBrdHtrId();
+	}
+
+	@Override
+	public boolean insertEduBBSAccess(EducationBoardHistoryVO educationBoardHistoryVO) {
+		return educationDAO.insertEduBBSAccess(educationBoardHistoryVO) > 0;
+	}
+
+	@Override
+	public List<String> getEduBBSAccessMemberList(String educationId) {
+		return educationDAO.getEduBBSAccessMemberList(educationId);
 	}
 
 	@Override

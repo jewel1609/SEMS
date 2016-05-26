@@ -33,6 +33,7 @@ import com.ktds.sems.education.vo.EduQnaListVO;
 import com.ktds.sems.education.vo.EduQnaSearchVO;
 import com.ktds.sems.education.vo.EduQnaVO;
 import com.ktds.sems.education.vo.EduReplyListVO;
+import com.ktds.sems.education.vo.EducationBoardHistoryVO;
 import com.ktds.sems.education.vo.EducationFileBBSListVO;
 import com.ktds.sems.education.vo.EducationFileBBSVO;
 import com.ktds.sems.education.vo.EducationHistoryListVO;
@@ -1409,8 +1410,11 @@ public class EducationServiceImpl implements EducationService {
 	}
 
 	@Override
-	public ModelAndView getEduBoardByEducationId(String educationId) {
+	public ModelAndView getEduBoardByEducationId(String educationId, HttpSession session) {
 		ModelAndView view = new ModelAndView();
+		
+		EducationVO educationVO = new EducationVO();
+		educationVO = educationBiz.getOneEducationDetail(educationId);
 		
 		FileBBSSearchVO searchVO = new FileBBSSearchVO();
 		searchVO.setEndIndex(10);
@@ -1418,10 +1422,48 @@ public class EducationServiceImpl implements EducationService {
 		searchVO.setEducationId(educationId);
 		List<EducationFileBBSVO> educationItems = educationBiz.getEducationFileBBSList(searchVO);
 		
-		view.addObject("educationId", educationId);
+		EducationQNABBSSearchVO searchVO1 = new EducationQNABBSSearchVO();
+		searchVO1.setEndIndex(10);
+		searchVO1.setStartIndex(1);
+		searchVO1.setEducationId(educationId);
+		List<EducationQNABBSVO> educationQNAList = educationBiz.getAllEducationQNAList(searchVO1);
+		
+		EducationReportSearchVO educationReportSearchVO = new EducationReportSearchVO();
+		educationReportSearchVO.setStartIndex(1);
+		educationReportSearchVO.setEndIndex(10);
+		educationReportSearchVO.setEducationId(educationId);
+		List<EducationReportVO> educationReportList = educationBiz.getAllEducationReportList(educationReportSearchVO);
+		
+		insertEduBBSAccess(educationId, session);
+		List<String> memberList = getEduBBSAccessMemberList(educationId);
+		
+		view.addObject("memberList",memberList);
+		view.addObject("educationVO", educationVO);
 		view.addObject("educationItems", educationItems);
+		view.addObject("educationQNAList", educationQNAList);
+		view.addObject("educationReportList", educationReportList);
 		view.setViewName("myPage/educationBBS");
 		return view;
+	}
+
+	private boolean insertEduBBSAccess(String educationId, HttpSession session) {
+		MemberVO memberVO = (MemberVO) session.getAttribute(Session.MEMBER);
+		
+		String nowDate = educationBiz.getNowDate();
+		int nextSeq = educationBiz.getNextEduBrdHtrId();
+		String educationBoardHistoryId = "RP-" + nowDate + "-" + lpad(nextSeq + "", 6, "0");
+		
+		EducationBoardHistoryVO educationBoardHistoryVO = new EducationBoardHistoryVO();
+		educationBoardHistoryVO.setMemberId(memberVO.getId());
+		educationBoardHistoryVO.setEducationId(educationId);
+		educationBoardHistoryVO.setEducationBoardHistoryId(educationBoardHistoryId);
+		
+		boolean isInsertEduBBSAccess = educationBiz.insertEduBBSAccess(educationBoardHistoryVO);
+		return isInsertEduBBSAccess;
+	}
+	
+	private List<String> getEduBBSAccessMemberList(String educationId) {
+		return educationBiz.getEduBBSAccessMemberList(educationId);
 	}
 
 	@Override

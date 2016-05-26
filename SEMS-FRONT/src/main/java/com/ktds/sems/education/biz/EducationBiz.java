@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.ktds.sems.education.vo.EduQnaSearchVO;
 import com.ktds.sems.education.vo.EduQnaVO;
+import com.ktds.sems.education.vo.EducationBoardHistoryVO;
 import com.ktds.sems.education.vo.BBSHistoryVO;
 import com.ktds.sems.education.vo.EducationFileBBSVO;
 import com.ktds.sems.education.vo.EducationQNABBSSearchVO;
@@ -222,6 +223,12 @@ public interface EducationBiz {
 	public boolean checkAdoptReply(String replyId);
 
 	public String getEducationIdByFileBBSArticleId(String articleId);
+
+	public int getNextEduBrdHtrId();
+
+	public boolean insertEduBBSAccess(EducationBoardHistoryVO educationBoardHistoryVO);
+
+	public List<String> getEduBBSAccessMemberList(String educationId);
 
 	public boolean insertEducationState(String educationId, String memberId);
 
