@@ -58,5 +58,14 @@ public interface TeamBiz {
 
 	public int getTotalMinutesCount(MinutesSearchVO minutesSearchVO);
 
+	public boolean doModifyAction(TeamBBSVO teamBBS);
+
+	public String getSaltById(String sessionId);
+
+	public String getPasswordById(String sessionId);
+
+	public boolean doDeleteBBS(String teamBBSId);
+
+	public boolean isReplyByTeamBBSId(String teamBBSId);
 
 }

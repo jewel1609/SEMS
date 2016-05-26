@@ -18,11 +18,25 @@ public interface TeamService {
 
 	public ModelAndView viewTeamBBSPage(int pageNo);
 
+	public ModelAndView checkPassword(String teamBBSId,String type);
+
+	public ModelAndView viewModifyPage(String teamBBSId);
+
 	public ModelAndView viewTeamBBSDetailPage(String teamBBSId, int pageNo, HttpSession session);
 
 	public String doLikeBBSAction(String teamBBSId, HttpSession session);
 
 	public String doDislikeBBSAction(String teamBBSId, HttpSession session);
+
+	public ModelAndView doModifyAction(TeamBBSVO teamBBS, MultipartHttpServletRequest request, HttpSession session);
+
+	public String getSaltById(String sessionId);
+
+	public String getPasswordById(String sessionId);
+
+	public String doDeleteBBS(String teamBBSId);
+
+	public String isReplyByTeamBBSId(String teamBBSId);
 
 	public ModelAndView doWriteBBSReplyAction(TeamBBSReplyVO replyVO, int pageNo, HttpSession session);
 

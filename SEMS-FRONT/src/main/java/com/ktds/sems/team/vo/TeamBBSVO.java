@@ -1,6 +1,6 @@
 package com.ktds.sems.team.vo;
 
-public class TeamBBSVO {
+public class TeamBBSVO{
 	
 	private String teamBBSId;
 	private String teamId;
@@ -18,6 +18,14 @@ public class TeamBBSVO {
 	private String likeState;
 	private String dislikeState;
 	
+	private String fileName;
+	
+	public String getFileName() {
+		return fileName;
+	}
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
 	public String getTeamBBSId() {
 		return teamBBSId;
 	}

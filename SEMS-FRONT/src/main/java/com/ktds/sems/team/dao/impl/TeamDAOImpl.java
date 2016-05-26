@@ -97,6 +97,31 @@ public class TeamDAOImpl  extends SqlSessionDaoSupport implements TeamDAO{
 	}
 
 	@Override
+	public int doModifyAction(TeamBBSVO teamBBS) {
+		return getSqlSession().update("teamDAO.doModifyAction", teamBBS);
+	}
+
+	@Override
+	public String getSaltById(String sessionId) {
+		return getSqlSession().selectOne("teamDAO.getSaltById", sessionId);
+	}
+
+	@Override
+	public String getPasswordById(String sessionId) {
+		return getSqlSession().selectOne("teamDAO.getPasswordById", sessionId);
+	}
+
+	@Override
+	public int doDeleteBBS(String teamBBSId) {
+		return getSqlSession().delete("teamDAO.doDeleteBBS", teamBBSId);
+	}
+
+	@Override
+	public List<String> isReplyByTeamBBSId(String teamBBSId) {
+		return getSqlSession().selectList("teamDAO.isReplyByTeamBBSId", teamBBSId);
+	}
+
+	@Override
 	public String getLikeState(TeamBBSVO TeamBBSVO) {
 		return getSqlSession().selectOne("teamDAO.getLikeState", TeamBBSVO);
 	}

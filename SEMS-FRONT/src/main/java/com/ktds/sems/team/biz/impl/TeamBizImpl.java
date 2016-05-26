@@ -148,6 +148,28 @@ public class TeamBizImpl implements TeamBiz {
 	public boolean addDislikeRecord(TeamBBSVO bbs) {
 		return teamDAO.addDislikeRecord(bbs) > 0;
 	}
+
+	@Override
+	public boolean doModifyAction(TeamBBSVO teamBBS) {
+		return teamDAO.doModifyAction(teamBBS) > 0;
+	}
+	@Override
+	public String getSaltById(String sessionId) {
+		return teamDAO.getSaltById(sessionId);
+	}
+	@Override
+	public String getPasswordById(String sessionId) {
+		return teamDAO.getPasswordById(sessionId);
+	}
+	@Override
+	public boolean doDeleteBBS(String teamBBSId) {
+		return teamDAO.doDeleteBBS(teamBBSId) > 0;
+	}
+	@Override
+	public boolean isReplyByTeamBBSId(String teamBBSId) {
+		return teamDAO.isReplyByTeamBBSId(teamBBSId).size() > 0;
+	}
+
 	@Override
 	public String getLikeState(TeamBBSVO bbs) {
 		return teamDAO.getLikeState(bbs);

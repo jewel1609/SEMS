@@ -48,16 +48,30 @@
 			
 		});
 		
+		$("#checkBBS").click(function(){
+			$.post("<c:url value="/team/checkReply" />"
+					, { "teamBBSId" : $("#teamBBSId").val() }
+					, function(data) {
+						if(!data) {
+							alert("통신 실패");
+						}
+						else if( data == "NO" ){
+							alert("댓글이 존재하므로 지울 수 없습니다.");
+							return;
+						}
+						else if( data == "OK" ){
+							location.href = "<c:url value='/team/checkBBSDelete/${teamBBS.teamBBSId }' />";
+						}
+					});
+		});
 		
 	});
 	
-
 </script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>팀별 게시판 상세 페이지</title>
 </head>
 <body>
-	
 	<table>
 		<tr> 
 			<td>게시글 아이디</td>
@@ -158,6 +172,11 @@
 			</td>
 		</tr>
 	</table>
-
+	<c:if test="${ teamBBS.memberId eq memberId }">
+		<a href="<c:url value='/team/checkBBSModify/${teamBBS.teamBBSId }' />">수정</a> /
+		<input type="hidden" id="teamBBSId" name="teamBBSId" value="${ teamBBS.teamBBSId }" />
+		<input type="button" id="checkBBS" name="checkBBS" value="삭제"/>
+		<%-- <a href="<c:url value='/team/checkBBSDelete/${teamBBS.teamBBSId }' />">삭제</a> --%>
+	</c:if>
 </body>
 </html>

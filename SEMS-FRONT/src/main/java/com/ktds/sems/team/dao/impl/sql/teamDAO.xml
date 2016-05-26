@@ -3,7 +3,7 @@
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="teamDAO">
-	
+
 	<select id="nextMinutesSeq" resultType="_int">
 		SELECT	MINU_ID_SEQ.NEXTVAL
 		FROM	DUAL
@@ -146,7 +146,8 @@
 					MBR_ID memberId, 
 					CREATED_DATE createdDate, 
 			   		MODIFIED_DATE modifiedDate,
-			   		IS_NOTICE isNotice
+			   		IS_NOTICE isNotice,
+			   		FILE_NM	fileName
 		FROM		TEAM_BBS
 					,
 					(
@@ -154,7 +155,9 @@
 						FROM	BBS_HTR
 						WHERE 	BBS_ID = #{teamBBSId}
 					) COUNT_HITS
+					, FILES
 		WHERE		TEAM_BBS_ID = #{teamBBSId}
+		AND			TEAM_BBS.TEAM_BBS_ID = FILES.ATC_ID
 	</select>
 	
 	<select id="isAlreadyCheckBBS" parameterType="TeamBBSVO" resultType="_int">
@@ -232,6 +235,39 @@
 		WHERE	MBR_ID = #{memberId}
 		AND		TEAM_BBS_ID	= #{teamBBSId}
 	</update>
+	
+	<update id="doModifyAction" parameterType="TeamBBSVO">
+		UPDATE SEMS.TEAM_BBS
+		SET    DESCRIPT      = #{descript},
+		       IS_NOTICE     = #{isNotice},
+		       MODIFIED_DATE = SYSDATE,
+		       TITLE         = #{title}
+		WHERE  TEAM_BBS_ID   = #{teamBBSId}
+	</update>
+	
+	<select id="getSaltById" parameterType="string" resultType="string">
+		SELECT	SALT salt
+		FROM	MBR
+		WHERE	ID = #{ sessionId }
+	</select>
+	
+	<select id="getPasswordById" parameterType="string" resultType="string">
+		SELECT	PWD password
+		FROM	MBR
+		WHERE	ID = #{ sessinoId }
+	</select>
+	
+	<delete id="doDeleteBBS" parameterType="string">
+		DELETE
+		FROM	TEAM_BBS
+		WHERE	TEAM_BBS_ID = #{teamBBSId}
+	</delete>
+	
+	<select id="isReplyByTeamBBSId" parameterType="string" resultType="string">
+		SELECT  REPLY_ID
+		FROM	TEAM_BBS_RPL
+		WHERE	TEAM_BBS_ID = #{teamBBSId}
+	</select>
 	
 	<update id="addDislikeCount" parameterType="TeamBBSVO">
 		UPDATE	TEAM_BBS

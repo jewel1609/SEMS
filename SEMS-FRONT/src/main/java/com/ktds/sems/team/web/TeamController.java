@@ -1,5 +1,7 @@
 package com.ktds.sems.team.web;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.team.service.TeamService;
 import com.ktds.sems.team.vo.MinutesSearchVO;
 import com.ktds.sems.team.vo.MinutesVO;
@@ -21,11 +24,14 @@ import com.ktds.sems.team.vo.TeamBBSReplyVO;
 import com.ktds.sems.team.vo.TeamBBSVO;
 import com.ktds.sems.team.vo.TeamSearchVO;
 
+import kr.co.hucloud.utilities.SHA256Util;
+import kr.co.hucloud.utilities.web.AjaxUtil;
+
 @Controller
 public class TeamController {
 	private Logger logger = LoggerFactory.getLogger(TeamController.class);
 	private TeamService teamService;
-
+	
 	public void setTeamService(TeamService teamService) {
 		this.teamService = teamService;
 	}
@@ -58,6 +64,55 @@ public class TeamController {
 			, HttpSession session){
 		return teamService.viewTeamBBSDetailPage(teamBBSId, pageNo ,session);
 	}
+	/**
+	 * 민
+	 * @param teamBBSId
+	 * @return
+	 */
+	@RequestMapping("/team/checkBBSModify/{teamBBSId}")
+	public ModelAndView checkPasswordModify(@PathVariable String teamBBSId){
+		String type = "modify";
+		return teamService.checkPassword(teamBBSId, type);
+	}
+	
+	@RequestMapping("/team/checkBBSDelete/{teamBBSId}")
+	public ModelAndView checkPasswordDelete(@PathVariable String teamBBSId){
+		String type = "delete";
+		return teamService.checkPassword(teamBBSId, type);
+	}
+	
+	@RequestMapping("/team/checkReply")
+	public void isReplyByTeamBBSId(HttpServletRequest request, HttpServletResponse response){
+		String teamBBSId = request.getParameter("teamBBSId");
+		//TODO 이거해야댐
+		String status = teamService.isReplyByTeamBBSId(teamBBSId);
+		AjaxUtil.sendResponse(response, status);
+	}
+	/**
+	 * 민
+	 * @param teamBBSId
+	 * @return
+	 */
+	@RequestMapping("/team/doModifyBBS/{teamBBSId}")
+	public ModelAndView viewModifyPage(@PathVariable String teamBBSId){
+		return teamService.viewModifyPage(teamBBSId);
+	}
+	/**
+	 * 민
+	 * @param teamBBS
+	 * @return
+	 */
+	@RequestMapping("/team/doModifyAction")
+	public ModelAndView doModifyAction(TeamBBSVO teamBBS, MultipartHttpServletRequest request, HttpSession session){
+		if (teamBBS.getIsNotice() != null){
+			if(teamBBS.getIsNotice().equals("on")){
+				teamBBS.setIsNotice("Y");	
+			}
+		}else{
+			teamBBS.setIsNotice("N");
+		}
+		return teamService.doModifyAction(teamBBS, request, session);
+	}
 	
 	@RequestMapping("/teamList")
 	public ModelAndView viewTeamListPage(TeamSearchVO teamSearchVO) {
@@ -78,6 +133,29 @@ public class TeamController {
 	@RequestMapping("/team/teamBBS/dislike/{teamBBSId}")
 	public String doDislikeBBSAction(@PathVariable String teamBBSId, HttpSession session) {
 		return teamService.doDislikeBBSAction(teamBBSId, session);
+	}
+	
+	@RequestMapping("/team/doCheckPassword")
+	public void doCheckPassword(@RequestParam String password, HttpSession session,
+			HttpServletResponse response) {
+
+		MemberVO member = (MemberVO) session.getAttribute("_MEMBER_");
+		String sessionId = member.getId();
+		String originSalt = teamService.getSaltById(sessionId);
+		String inputPassword = SHA256Util.getEncrypt(password, originSalt);
+		
+		String originPassword = teamService.getPasswordById(sessionId);
+		if (inputPassword.equals(originPassword)) {
+			AjaxUtil.sendResponse(response, "OK");
+		} else {
+			AjaxUtil.sendResponse(response, "NO");
+		}
+
+	}
+	
+	@RequestMapping("/team/doDeleteBBS/{teamBBSId}")
+	public String doDeleteBBS(@PathVariable String teamBBSId) {
+		return teamService.doDeleteBBS(teamBBSId);
 	}
 	
 	@RequestMapping("/searchInitBtn")
