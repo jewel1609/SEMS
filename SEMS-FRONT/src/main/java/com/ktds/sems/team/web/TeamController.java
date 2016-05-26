@@ -289,4 +289,9 @@ public class TeamController {
 	public ModelAndView minutesListInit() {
 		return teamService.minutesListInit();
 	}
+	
+	@RequestMapping("/team/detailMinutes/{minutesId}")
+	public ModelAndView getOneDetailMinutes(@PathVariable String minutesId, HttpSession session) {
+		return teamService.getOneDetailMinutes(minutesId, session);
+	}
 }
