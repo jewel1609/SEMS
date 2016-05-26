@@ -1270,7 +1270,6 @@
 				, HITS hits
 		FROM	EDU_FILE_BBS
 		WHERE	ATC_ID = #{articleId}
-		AND		IS_DELETE = 'N'
 	</select>
 	
 	<select id="isExistedHitMemberIdByArtileId" resultType="string" parameterType="string">
