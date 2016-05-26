@@ -98,5 +98,9 @@ public interface TeamDAO {
 	public boolean insertMember(String memberId);
 
 	public int getTotalMinutesCountForAdmin(MinutesSearchVO minutesSearchVO);
+	
+	public MinutesVO getOneDetailMinutes(String minutesId);
+
+	public String getOneDetailMinutesDate(String minutesId);
 
 }
