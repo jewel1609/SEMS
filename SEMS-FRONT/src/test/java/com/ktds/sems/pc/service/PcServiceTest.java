@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BeanPropertyBindingResult;
@@ -106,16 +107,13 @@ public class PcServiceTest extends SemsTestCase {
 		reportedPcVO.setReportedComment("JUnit test...");
 		reportedPcVO.setPcId("testPcNumber");
 
-		MockHttpServletRequest request = new MockHttpServletRequest();
-
+		MockHttpServletResponse response = new MockHttpServletResponse();
 		MockHttpSession session = new MockHttpSession();
 		MemberVO memberVO = new MemberVO();
 		memberVO.setId("junitTest1316");
 		session.setAttribute(Session.MEMBER, memberVO);
 
-		BindingResult errors = new BeanPropertyBindingResult(memberVO, "reportPc");
-
-		String reportProblemPc = pcService.reportProblemPc(reportedPcVO, errors, session, request);
+		String reportProblemPc = pcService.reportProblemPc(reportedPcVO, response, session);
 		assertNotNull(reportProblemPc);
 	}
 
