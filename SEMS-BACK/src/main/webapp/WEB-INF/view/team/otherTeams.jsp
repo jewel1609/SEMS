@@ -16,13 +16,13 @@
 <body>
 	<table border="1" align="center">
 		<tr>
-			<td colspan="4" align="center" >${ memberId }님의 팀 목록</td>
+			<th colspan="4" align="center" >${ memberId }님의 팀 목록</td>
 		</tr>
 		<tr>
-			<td>팀아이디</td>
-			<td>팀이름</td>
-			<td>팀생성일</td>
-			<td>교육아이디</td>
+			<th>팀아이디</th>
+			<th>팀이름</th>
+			<th>팀생성일</th>
+			<th>교육아이디</th>
 		</tr>
 		<c:forEach items="${ allTeam }" var="team">
 			<tr>

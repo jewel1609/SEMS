@@ -6,7 +6,7 @@
 <head>
 <style>
 	table {
-			width:1000px;
+			width:400px;
 			height:80px;
 	}
 	th {
@@ -18,7 +18,7 @@
 		text-align:center;
 		}
 	td#descript {
-		
+		height:400px;
 	}
 </style>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">

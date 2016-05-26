@@ -6,8 +6,8 @@
 <head>
 <style>
 	table {
-		height: 50px;
-		width: 800px;
+		width: 600px;
+		height: 100px;
 		text-align:center;
 	}
 	
