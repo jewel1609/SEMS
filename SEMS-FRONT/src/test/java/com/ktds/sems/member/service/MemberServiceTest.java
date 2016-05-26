@@ -184,44 +184,10 @@ public class MemberServiceTest extends SemsTestCase {
 			fail("list is null");
 		}
 	}
-
-/*	@Test
-	public void addNewTeacherMemberTest() {
-		MemberVO member = new MemberVO();
-		member.setId("JunitId1");
-		member.setPassword("JunitPassword1@");
-		String repeatPasswrod = ("JunitPassword1@");
-		member.setName("으악");
-		member.setEmail("Junit@naver.com");
-		member.setBirthDate("1991-01-01");
-		member.setPhoneNumber("010-1234-5678");
-		member.setMemberType("TR");
-
-		BindingResult errors = new BeanPropertyBindingResult(member, "registerForm");
-		MemberValidator memberValidator = new MemberValidator();
-		memberValidator.validate(member, errors);
-		MockHttpSession session = new MockHttpSession();
-
-		ModelAndView view = memberService.addNewMember(member, repeatPassword, errors, session, response, request);
-		assertNotNull(view);
-
-		if (view != null) {
-			String viewName = view.getViewName();
-			assertNotNull(viewName);
-			assertEquals(viewName, "redirect:/");
-
-			assertTrue(memberDAO.isExistId(member.getId()) != null);
-
-			memberDAO.delectJunitTestMember(member.getId());
-		} else {
-			fail("Fail...");
-		}
-	}*/
 	
 	//TODO
 	@Test
-	public void addNewMember() {
-		//MemberVO member, String repeatPassword, Errors errors, HttpSession session, HttpServletResponse response, HttpServletRequest request
+	public void addNewTeacherMemberTest() {
 		MemberVO member = new MemberVO();
 		member.setId("JunitId1");
 		member.setPassword("JunitPassword1@");
@@ -233,21 +199,14 @@ public class MemberServiceTest extends SemsTestCase {
 		member.setMemberType("TR");
 		
 		BindingResult errors = new BeanPropertyBindingResult(member, "registerForm");
-		MockHttpSession session = new MockHttpSession();
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		MockHttpServletRequest requset = new MockHttpServletRequest();
 		
-		String addNewMemberResultString = memberService.addNewMember(member, repeatPasswrod, errors, session, response, requset);
+		String addNewMemberResultString = memberService.addNewMember(member, repeatPasswrod, errors, response);
 		
-		if(addNewMemberResultString == "OK") {
-			
-		} 
-		else if (addNewMemberResultString == "NO") {
-			
-		} 
-		else {
+		if(addNewMemberResultString != "OK" && addNewMemberResultString != "NO") {
 			fail("fail....");
-		}
+		} 
 	}
 
 	@Test
@@ -269,11 +228,10 @@ public class MemberServiceTest extends SemsTestCase {
 		BindingResult errors = new BeanPropertyBindingResult(member, "registerForm");
 		MemberValidator memberValidator = new MemberValidator();
 		memberValidator.validate(member, errors);
-		MockHttpSession session = new MockHttpSession();
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		MockHttpServletRequest requset = new MockHttpServletRequest();
 
-		String addNewMemberResultString = memberService.addNewMember(member, repeatPasswrod, errors, session, response, requset);
+		String addNewMemberResultString = memberService.addNewMember(member, repeatPasswrod, errors, response);
 		
 		assertNotNull(addNewMemberResultString);
 
@@ -312,7 +270,7 @@ public class MemberServiceTest extends SemsTestCase {
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		MockHttpServletRequest requset = new MockHttpServletRequest();
 		
-		String addNewMemberResultString = memberService.addNewMember(member, repeatPasswrod, errors, session, response, requset);
+		String addNewMemberResultString = memberService.addNewMember(member, repeatPasswrod, errors, response);
 		
 //		
 //		ModelAndView view = memberService.addNewMember(member, repeatPasswrod, errors, session, response, requset);
@@ -361,7 +319,7 @@ public class MemberServiceTest extends SemsTestCase {
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		MockHttpServletRequest requset = new MockHttpServletRequest();
 		
-		String addNewMemberResultString = memberService.addNewMember(member, repeatPasswrod, errors, session, response, requset);
+		String addNewMemberResultString = memberService.addNewMember(member, repeatPasswrod, errors, response);
 		
 //		ModelAndView view = memberService.addNewMember(member, repeatPasswrod, errors, session, response, requset);
 //		assertNotNull(view);
@@ -410,7 +368,7 @@ public class MemberServiceTest extends SemsTestCase {
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		MockHttpServletRequest requset = new MockHttpServletRequest();
 		
-		String addNewMemberResultString = memberService.addNewMember(member, repeatPasswrod, errors, session, response, requset);
+		String addNewMemberResultString = memberService.addNewMember(member, repeatPasswrod, errors, response);
 
 //		ModelAndView view = memberService.addNewMember(member, repeatPasswrod, errors, session, response, requset);
 //		assertNotNull(view);
@@ -458,7 +416,7 @@ public class MemberServiceTest extends SemsTestCase {
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		MockHttpServletRequest requset = new MockHttpServletRequest();
 		
-		String addNewMemberResultString = memberService.addNewMember(member, repeatPasswrod, errors, session, response, requset);
+		String addNewMemberResultString = memberService.addNewMember(member, repeatPasswrod, errors, response);
 		
 //		ModelAndView view = memberService.addNewMember(member, repeatPasswrod, errors, session, response, requset);
 //		assertNotNull(view);
@@ -506,7 +464,7 @@ public class MemberServiceTest extends SemsTestCase {
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		MockHttpServletRequest requset = new MockHttpServletRequest();
 		
-		String addNewMemberResultString = memberService.addNewMember(member, repeatPasswrod, errors, session, response, requset);
+		String addNewMemberResultString = memberService.addNewMember(member, repeatPasswrod, errors, response);
 		
 //
 //		ModelAndView view = memberService.addNewMember(member, repeatPasswrod, errors, session, response, requset);
@@ -558,7 +516,7 @@ public class MemberServiceTest extends SemsTestCase {
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		MockHttpServletRequest requset = new MockHttpServletRequest();
 
-		String addNewMemberResultString = memberService.addNewMember(member, repeatPasswrod, errors, session, response, requset);
+		String addNewMemberResultString = memberService.addNewMember(member, repeatPasswrod, errors, response);
 //		
 //		ModelAndView view = memberService.addNewMember(member, repeatPasswrod, errors, session, response, requset);
 //		assertNotNull(view);
@@ -610,7 +568,7 @@ public class MemberServiceTest extends SemsTestCase {
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		MockHttpServletRequest requset = new MockHttpServletRequest();
 		
-		String addNewMemberResultString = memberService.addNewMember(member, repeatPasswrod, errors, session, response, requset);
+		String addNewMemberResultString = memberService.addNewMember(member, repeatPasswrod, errors, response);
 		
 //		ModelAndView view = memberService.addNewMember(member, repeatPasswrod, errors, session, response, requset);
 //		assertNotNull(view);
@@ -662,7 +620,7 @@ public class MemberServiceTest extends SemsTestCase {
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		MockHttpServletRequest requset = new MockHttpServletRequest();
 		
-		String addNewMemberResultString = memberService.addNewMember(member, repeatPasswrod, errors, session, response, requset);
+		String addNewMemberResultString = memberService.addNewMember(member, repeatPasswrod, errors, response);
 //		
 //		ModelAndView view = memberService.addNewMember(member, repeatPasswrod, errors, session, response, requset);
 //		assertNotNull(view);
@@ -714,7 +672,7 @@ public class MemberServiceTest extends SemsTestCase {
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		MockHttpServletRequest requset = new MockHttpServletRequest();
 		
-		String addNewMemberResultString = memberService.addNewMember(member, repeatPasswrod, errors, session, response, requset);
+		String addNewMemberResultString = memberService.addNewMember(member, repeatPasswrod, errors, response);
 		
 //		
 //		ModelAndView view = memberService.addNewMember(member, repeatPasswrod, errors, session, response, requset);
@@ -764,7 +722,7 @@ public class MemberServiceTest extends SemsTestCase {
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		MockHttpServletRequest requset = new MockHttpServletRequest();
 		
-		String addNewMemberResultString = memberService.addNewMember(member, repeatPasswrod, errors, session, response, requset);
+		String addNewMemberResultString = memberService.addNewMember(member, repeatPasswrod, errors, response);
 		
 //		
 //		ModelAndView view = memberService.addNewMember(member, repeatPasswrod, errors, session, response, requset);
@@ -814,7 +772,7 @@ public class MemberServiceTest extends SemsTestCase {
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		MockHttpServletRequest requset = new MockHttpServletRequest();
 		
-		String addNewMemberResultString = memberService.addNewMember(member, repeatPasswrod, errors, session, response, requset);
+		String addNewMemberResultString = memberService.addNewMember(member, repeatPasswrod, errors, response);
 		
 		
 //		ModelAndView view = memberService.addNewMember(member, repeatPasswrod, errors, session, response, requset);
@@ -855,7 +813,7 @@ public class MemberServiceTest extends SemsTestCase {
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		MockHttpServletRequest requset = new MockHttpServletRequest();
 		
-		String addNewMemberResultString = memberService.addNewMember(member, repeatPasswrod, errors, session, response, requset);
+		String addNewMemberResultString = memberService.addNewMember(member, repeatPasswrod, errors, response);
 		
 //		
 //		ModelAndView view = memberService.addNewMember(member, repeatPasswrod, errors, session, response, requset);
@@ -898,6 +856,7 @@ public class MemberServiceTest extends SemsTestCase {
 		member.setBirthDate("1991-01-01");
 		member.setPhoneNumber("010-1234-5678");
 		member.setMemberType("MBR");
+		String repeatPasswrod = ("JunitPassword1@");
 
 		BindingResult errors = new BeanPropertyBindingResult(member, "registerForm");
 		MockHttpSession session = new MockHttpSession();
@@ -907,11 +866,8 @@ public class MemberServiceTest extends SemsTestCase {
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		MockHttpServletRequest requset = new MockHttpServletRequest();
 		
-		String repeatPasswrod = ("JunitPassword1@");
+		String addNewMemberResultString = memberService.addNewMember(member, repeatPasswrod, errors, response);
 		
-		String addNewMemberResultString = memberService.addNewMember(member, repeatPasswrod, errors, session, response, requset);
-		
-//		
 //		ModelAndView view = memberService.addNewMember(member, errors, null);
 //		assertNotNull(view);
 //
