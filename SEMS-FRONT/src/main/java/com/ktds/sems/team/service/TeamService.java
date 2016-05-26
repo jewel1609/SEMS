@@ -13,6 +13,17 @@ import com.ktds.sems.team.vo.TeamBBSVO;
 import com.ktds.sems.team.vo.TeamSearchVO;
 
 public interface TeamService {
+	
+	
+
+	public ModelAndView getAllMyTeamList(int pageNo);
+
+
+	public ModelAndView getOneMyTeamDetail(String teamId, HttpSession session, int pageNo);
+
+
+	
+	
 
 	public ModelAndView getAllTeamListPage(TeamSearchVO teamSearchVO);
 	

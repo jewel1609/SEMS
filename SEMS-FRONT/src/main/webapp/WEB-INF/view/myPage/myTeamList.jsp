@@ -9,7 +9,7 @@
 <script type="text/javascript">
 
 $(document).ready(function() {
-
+	
 		$(".onlyText").keyup(function(event) {
 			regexp = /[@\#$%<>&\()\=_\’]/gi;
 	
@@ -22,55 +22,29 @@ $(document).ready(function() {
 
 		
 		$("#initSearch").click(function() {
-			location.href="<c:url value='/educationList'/>";
+			location.href="<c:url value='/TeamList'/>";
 		});
 		
 		$("#searchBtn").click(function() {
 			
-			var startYear = $("#startYear").val();
-			var startMonth = $("#startMonth").val();
+			var searchYear = $("#searchYear").val();
+			var searchMonth = $("#searchMonth").val();
 			
-			startMonth = fillString(startMonth);
+			searchMonth = fillString(searchMonth);
 			
-			if (startYear == "" || startYear.length == 0) {
-				alert("시작 년도를 선택하세요.");
-				$("#startYear").focus();
+			if (searchYear == "" || searchYear.length == 0) {
+				alert("검색 년도를 선택하세요.");
+				$("#searchYear").focus();
 				return;
 			}
-			if (startMonth == "" || startMonth.length == 0) {
+			if (searchMonth == "" || searchMonth.length == 0) {
 				alert("시작 월을 선택하세요.");
-				$("#startMonth").focus();
+				$("#searchMonth").focus();
 				return;
 			}
 			
-			var endYear = $("#endYear").val();
-			var endMonth = $("#endMonth").val();
-
-			endMonth = fillString(endMonth);
 			
-			if (endYear == "" || endYear.length == 0) {
-				alert("종료 년도를 선택하세요.");
-				$("#endYear").focus();
-				return;
-			}
-			if (endMonth == "" || endMonth.length == 0) {
-				alert("종료 월을 선택하세요.");
-				$("#endMonth").focus();
-				return;
-			}
-			
-			var startSearchDate = startYear + startMonth;
-			var endSearchDate = endYear + endMonth;
-			
-			startSearchDate = parseInt(startSearchDate);
-			endSearchDate = parseInt(endSearchDate);
-			
-			if(startSearchDate > endSearchDate) {
-				alert("기간 범위 오류");
-				return;
-			}
-			
-			$("#searchForm").attr("action", "<c:url value="/searchList"/>");
+			$("#searchForm").attr("action", "<c:url value="/searchList"/>");		//searchList
 			$("#searchForm").attr("method", "POST");
 			$("#searchForm").submit();
 		});
@@ -92,98 +66,54 @@ $(document).ready(function() {
 <body>
 
 <form name="searchForm" id="searchForm" >
+
 <table>
 	<tr>
-		<th>기간</th>
+		<th>강의명</th>
 		<td>
-			<select id="startYear" name="startYear" >
+			<input type="text" class="onlyText" name="eduName" id="eduName" value="${searchKeyword.educationName }" />
+		</td>
+	</tr>
+	<tr>
+		<th>팀 명</th>
+		<td>
+			<input type="text" class="onlyText" name="teamName" id="teamName" value="${searchKeyword.teamName }" />
+		</td>
+	</tr>
+	<tr>
+		<th>팀원 수</th>
+		<td>
+	<input type="text" class="onlyText" name="teamNumber" id="teamNumber" value="${searchKeyword.teamCount }" />
+		</td>
+	</tr>
+	<tr>
+		<th>팀 생성일</th>
+		<td>
+			<select id="searchYear" name="searchYear" >
 				<option value="" selected="selected"></option>
-				<c:forEach var="startYear" begin="${fromYear}" end="${toYear}" step="1">
-					<c:if test="${ searchKeyword.startYear eq  startYear }">
-						<option value="${ startYear }" selected="selected">${ startYear }</option>
+				<c:forEach var="searchYear" begin="2013" end="2025" step="1">
+					<c:if test="${ searchKeyword.searchYear eq  searchYear }">
+						<option value="${ searchYear }" selected="selected">${ searchYear }</option>
 					</c:if> 
-					<c:if test="${ searchKeyword.startYear ne startYear }">
-						<option value="${ startYear }" >${ startYear }</option>
+					<c:if test="${ searchKeyword.searchYear ne searchYear }">
+						<option value="${ searchYear }" >${ searchYear }</option>
 					</c:if> 
 				</c:forEach>
 			</select>년
 			
-			<select id="startMonth" name="startMonth" >
+			<select id="searchMonth" name="searchMonth" >
 				<option value="" selected="selected"></option>
-				<c:forEach var="startMonth" begin="01" end="12" step="1">
-					<c:if test="${ searchKeyword.startMonth eq  startMonth }">
-						<option value="${ startMonth }" selected="selected">${ startMonth }</option>
+				<c:forEach var="searchMonth" begin="01" end="12" step="1">
+					<c:if test="${ searchKeyword.searchMonth eq  searchMonth }">
+						<option value="${ searchMonth }" selected="selected">${ searchMonth }</option>
 					</c:if> 
-					<c:if test="${ searchKeyword.startMonth ne startMonth }">
-						<option value="${ startMonth }" >${ startMonth }</option>
-					</c:if> 
-				</c:forEach>
-			</select>월
-			~
-			<select id="endYear" name="endYear" >
-				<option value="" selected="selected"></option>
-				<c:forEach var="endYear" begin="${fromYear}" end="${toYear}" step="1">
-					<c:if test="${ searchKeyword.endYear eq  endYear }">
-						<option value="${ endYear }" selected="selected">${ endYear }</option>
-					</c:if> 
-					<c:if test="${ searchKeyword.endYear ne endYear }">
-						<option value="${ endYear }" >${ endYear }</option>
-					</c:if> 
-				</c:forEach>
-			</select>년
-			-
-			<select id="endMonth" name="endMonth">
-				<option value="" selected="selected" ></option>
-				<c:forEach var="endMonth" begin="01" end="12" step="1">
-					<c:if test="${ searchKeyword.endMonth eq  endMonth }">
-						<option value="${ endMonth }" selected="selected">${ endMonth }</option>
-					</c:if> 
-					<c:if test="${ searchKeyword.endMonth ne endMonth }">
-						<option value="${ endMonth }" >${ endMonth }</option>
+					<c:if test="${ searchKeyword.searchMonth ne searchMonth }">
+						<option value="${ searchMonth }" >${ searchMonth }</option>
 					</c:if> 
 				</c:forEach>
 			</select>월
 		</td>
-	</tr>
-	<tr>
-		<th>교육명</th>
-		<td>
-			<input type="text" class="onlyText" name="eduName" id="eduName" value="${searchKeyword.educationTitle }" />
-		</td>
-	</tr>
-	<tr>
-		<th>교육 형태</th>
-		<td>
-
-			<select name="educationType" id="educationType" >
-				<option value="" selected="selected"></option>
-				<c:forEach items="${ typeName }" var="tpName">
-					<c:if test="${searchKeyword.educationType eq tpName}">
-						<option value="${ tpName }" selected="selected">${ tpName }</option>
-					</c:if>
-					<c:if test="${searchKeyword.educationType ne tpName}">
-					<option value="${ tpName }">${ tpName }</option>
-					</c:if>
-				</c:forEach>
-			</select>
-		</td>
-	</tr>
-	<tr>
-		<th>비용</th>
-		<td>
-			<select name="cost" id="cost">
-					<option value="" selected="selected"></option>
-				<c:forEach items="${ costName }" var="csName">
-					<c:if test="${searchKeyword.cost eq csName}">
-					<option value="${ csName }" selected="selected">${ csName }</option>
-					</c:if>
-					<c:if test="${searchKeyword.cost ne csName}">
-					<option value="${ csName }">${ csName }</option>
-					</c:if>
-				</c:forEach>
-			</select>
-		</td>
-	</tr>
+	</tr>	
 	<tr>
 		<td colspan="2">
 			<input type="hidden" value="0" id="searchPageNo" />
@@ -192,50 +122,31 @@ $(document).ready(function() {
 		</td>
 	</tr>
 </table>
+
 <table border="1">
 	<tr>
-		<th>강의명</th>
-		<th>팀명</th>
-		<th>강의 기간</th>
+		<th>팀 명</th>
+		<th>강의 명</th>
 		<th>팀원 수</th>
 		<th>팀 생성일</th>
 	</tr>
-	 <c:forEach items="${ educationListVO.educationList }" var="education">
+	 <c:forEach items="${ teamListVO.teamList }" var="team">
 	<tr>
-		<td><a href="<c:url value='/eduDetail/${education.educationId}'/>">${ education.educationTitle }</a></td>
-		<td>${ education.educationCategory }</td>
-		<td>${ education.startDate } ~ ${ education.endDate }</td>
-		<td>${ education.typeName }</td>
-		<td>${ education.costName }</td>
+		<td><a href="<c:url value='/myTeamDetail/${team.teamId}'/>">${ team.teamName }</a></td>
+		<td>${ team.educationName }</td>
+		<td>${ team.teamCount }</td>
+		<td>${ team.teamDate }</td>
 	</tr>
 	</c:forEach> 
-	
-	<c:forEach items="${ searchedListVO.educationList }" var="education">
-	<tr>
-		<td><a href="<c:url value='/eduDetail/${education.educationId}'/>">${ education.educationTitle }</a></td>
-		<td>${ education.educationCategory }</td>
-		<td>${ education.startDate } ~ ${ education.endDate }</td>
-		<td>${ education.typeName }</td>
-		<td>${ education.costName }</td>
-	</tr>
-	</c:forEach>
 
   	<tr>
 		<td colspan="5" align="center">
-			<c:if test="${ educationListVO ne null }">
-			${educationListVO.paging.getPagingList("pageNo", "[@]", "이전", "다음", "searchForm")}
-			</c:if>
-			<c:if test="${ searchedListVO ne null }">
-			${searchedListVO.paging.getPagingList("pageNo", "[@]", "이전", "다음", "searchForm")}
-			</c:if>
+			${teamListVO.paging.getPagingList("pageNo", "[@]", "이전", "다음", "searchForm")}
 		</td>
 	</tr>  
 
 </table>
 </form>
-	<div class="clear"></div>
-		<div class="calendar">
-			<jsp:include page="/WEB-INF/view/education/calendar.jsp"></jsp:include>
-	</div>
+	
 </body>
 </html>

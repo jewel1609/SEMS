@@ -37,6 +37,28 @@ public class TeamBizImpl implements TeamBiz {
 	public void setFileDAO(FileDAO fileDAO) {
 		this.fileDAO = fileDAO;
 	}
+	
+	
+	@Override
+	public List<TeamVO> getAllMyTeamList(TeamSearchVO searchVO) {
+		return teamDAO.getAllMyTeamList(searchVO);
+	}
+
+	
+	@Override
+	public int getMyTotalTeamCount() {
+		return teamDAO.getMyTotalTeamCount();
+	}
+
+
+	@Override
+	public TeamVO getOneMyTeamDetail(String teamId) {
+		return teamDAO.getOneMyTeamDetail(teamId);
+	}
+	
+	
+	
+	
 
 	@Override
 	public int getTotalTeamCount() {

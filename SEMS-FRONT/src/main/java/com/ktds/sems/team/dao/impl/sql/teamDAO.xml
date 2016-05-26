@@ -4,6 +4,69 @@
 
 <mapper namespace="teamDAO">
 	
+
+<select id="getMyTotalTeamCount" resultType = "_int">
+			SELECT COUNT(*)
+			FROM SEMS.TEAM
+	</select>
+
+
+	<select id="getAllMyTeamList"  parameterType="TeamSearchVO" resultType="TeamVO">
+		SELECT	T.TEAM_ID teamId
+					, T.TEAM_NM teamName
+					, T.TEAM_DT teamDate
+					, T.EDU_ID educationId
+					, EI.EDU_TTL educationName
+					, L.CNT teamCount
+        FROM	(
+                    SELECT	ROWNUM AS RNUM
+                            , T.*
+                    FROM	(
+                                SELECT	TEAM.*			
+                                FROM	TEAM
+                                ORDER	BY TEAM_ID DESC
+                            ) T
+                    WHERE	ROWNUM <![CDATA[<=]]> #{endIndex}
+                ) T
+                , 
+                (
+                    SELECT  COUNT(*) CNT, TEAM_ID 
+                    FROM    TEAM_LIST
+                    GROUP   BY TEAM_ID
+                ) L
+                , EDU_INFO EI
+        WHERE	RNUM >= #{startIndex}
+        AND     L.TEAM_ID (+)= T.TEAM_ID
+        AND		EI.EDU_ID = T.EDU_ID
+
+
+	</select>
+
+		<select id="teamCount" parameterType="_int" resultType="_int">
+	
+	SELECT COUNT(TEAM_LST_ID)
+	FROM	TEAM_LIST
+	WHERE	TEAM_ID=#{teamId}
+	
+	</select>
+
+		<select id="getOneMyTeamDetail" parameterType="String" resultType="TeamVO">
+		SELECT 		TEAM.TEAM_NM	teamName
+					, TEAM_LIST.MBR_ID	memberId
+					, COUNT(MBR_ID)	teamCount
+		FROM   	    TEAM_LIST,	TEAM
+		WHERE 	    TEAM_LIST.TEAM_ID = #{teamId}
+		AND			TEAM_LIST.TEAM_ID = TEAM.TEAM_ID
+		GROUP BY 	TEAM.TEAM_NM , TEAM_LIST.MBR_ID		
+	
+		
+		
+	</select>
+
+
+
+
+
 	<select id="nextMinutesSeq" resultType="_int">
 		SELECT	MINU_ID_SEQ.NEXTVAL
 		FROM	DUAL

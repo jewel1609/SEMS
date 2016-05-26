@@ -14,6 +14,15 @@ import com.ktds.sems.team.vo.TeamVO;
 import com.ktds.sems.team.vo.TeamsListVO;
 
 public interface TeamBiz {
+	
+	
+	public int getMyTotalTeamCount();
+
+	public List<TeamVO> getAllMyTeamList(TeamSearchVO searchVO);
+
+	public TeamVO getOneMyTeamDetail(String teamId);
+	
+	
 
 	public int getTotalTeamCount();
 	
