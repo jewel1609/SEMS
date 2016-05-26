@@ -7,7 +7,10 @@ public class FileBBSSearchVO {
 	private int endIndex;
 	
 	private String educationId;
+	private String searchType;
 	private String searchKeyword;
+	private String startDate;
+	private String endDate;
 
 	public int getPageNo() {
 		return pageNo;
@@ -39,4 +42,23 @@ public class FileBBSSearchVO {
 	public void setSearchKeyword(String searchKeyword) {
 		this.searchKeyword = searchKeyword;
 	}
+	public String getStartDate() {
+		return startDate;
+	}
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+	public String getEndDate() {
+		return endDate;
+	}
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
+	public String getSearchType() {
+		return searchType;
+	}
+	public void setSearchType(String searchType) {
+		this.searchType = searchType;
+	}
+	
 }
