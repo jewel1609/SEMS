@@ -25,7 +25,7 @@ $(document).ready(function() {
 			}
 		}
 		
-		else if ($("#search option:selected").val() == "id") {
+		else if ($("#search option:selected").val() == "subject") {
 			if ($("#searchSBTKeyword").val() == "") {
 				alert("회의 안건에 대한 키워드를 입력해주세요.");
 
@@ -135,7 +135,7 @@ th, td {
 			<c:forEach items="${ minutesListVO.minutesList }" var="minutes">
 				<tr>
 					<th>${ minutes.memberId }</th>
-					<th><a href="<c:url value='/team/minutesDetail/${ minutes.memberId }' />">${ minutes.startDate }</a></th>
+					<th><a href="<c:url value='/team/detailMinutes/${ minutes.minutesId }' />">${ minutes.startDate }</a></th>
 					<th>${ minutes.minutesAgenda }</th>
 				</tr>
 			</c:forEach>
