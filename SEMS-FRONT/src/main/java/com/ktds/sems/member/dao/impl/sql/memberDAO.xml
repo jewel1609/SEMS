@@ -644,6 +644,13 @@
 		WHERE	RNUM <![CDATA[>=]]> #{startIndex}
 		AND     RNUM <![CDATA[<=]]> #{endIndex}
 		AND		EI.EDU_ID = EH.EDU_ID
+		<if test="searchKeyword != null and searchKeyword != ''">
+		AND		EI.EDU_TTL LIKE '%'|| #{searchKeyword} ||'%'
+		</if>
+		<if test="searchStartDate != null and searchStartDate != ''">
+		AND		EI.SRT_DATE <![CDATA[>=]]> TO_DATE(#{searchStartDate}, 'YYYY-MM-DD')	
+		AND		EI.END_DATE <![CDATA[<=]]> TO_DATE(#{searchEndDate}, 'YYYY-MM-DD') + 1	
+		</if>
 		AND		EI.END_DATE <![CDATA[<]]> TO_CHAR(SYSDATE, 'YYYY-MM-DD')
 		ORDER BY EI.EDU_ID DESC
 	</select>
