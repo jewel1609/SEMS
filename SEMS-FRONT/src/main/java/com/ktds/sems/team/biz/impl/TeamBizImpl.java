@@ -38,12 +38,10 @@ public class TeamBizImpl implements TeamBiz {
 		this.fileDAO = fileDAO;
 	}
 	
-	
 	@Override
 	public List<TeamVO> getAllMyTeamList(TeamSearchVO searchVO) {
 		return teamDAO.getAllMyTeamList(searchVO);
 	}
-
 	
 	@Override
 	public int getMyTotalTeamCount() {
@@ -55,9 +53,6 @@ public class TeamBizImpl implements TeamBiz {
 	public TeamVO getOneMyTeamDetail(String teamId) {
 		return teamDAO.getOneMyTeamDetail(teamId);
 	}
-	
-	
-	
 	
 	@Override
 	public int getTotalTeamCount() {
@@ -270,6 +265,7 @@ public class TeamBizImpl implements TeamBiz {
 		
 		return teamDAO.writeBBSReReply(replyVO) > 0;
 	}
+	
 	@Override
 	public boolean writeNewMinutes(MinutesVO minutesVO) {
 		
@@ -281,7 +277,6 @@ public class TeamBizImpl implements TeamBiz {
 		
 		return teamDAO.insertNewMinutes(minutesVO) > 0;
 	}
-
 
 	@Override
 	public boolean bulidTeam(String educationId, String teamName) {

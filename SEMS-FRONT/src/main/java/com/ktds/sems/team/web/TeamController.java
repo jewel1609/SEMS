@@ -1,8 +1,6 @@
 package com.ktds.sems.team.web;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -18,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.team.service.TeamService;
 import com.ktds.sems.team.vo.MinutesSearchVO;
 import com.ktds.sems.team.vo.MinutesVO;
@@ -25,6 +24,7 @@ import com.ktds.sems.team.vo.TeamBBSReplyVO;
 import com.ktds.sems.team.vo.TeamBBSVO;
 import com.ktds.sems.team.vo.TeamSearchVO;
 
+import kr.co.hucloud.utilities.SHA256Util;
 import kr.co.hucloud.utilities.web.AjaxUtil;
 
 @Controller

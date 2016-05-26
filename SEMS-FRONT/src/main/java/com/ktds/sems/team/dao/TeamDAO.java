@@ -13,18 +13,11 @@ import com.ktds.sems.team.vo.TeamsListVO;
 
 public interface TeamDAO {
 	
-	
-	
-	
 	public List<TeamVO> getAllMyTeamList(TeamSearchVO searchVO);
 
 	public int getMyTotalTeamCount();
 
 	public TeamVO getOneMyTeamDetail(String teamId);
-
-
-	
-	
 
 	public int getTotalteamCount();
 

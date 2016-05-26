@@ -21,8 +21,6 @@ public interface TeamBiz {
 	public List<TeamVO> getAllMyTeamList(TeamSearchVO searchVO);
 
 	public TeamVO getOneMyTeamDetail(String teamId);
-	
-	
 
 	public int getTotalTeamCount();
 	

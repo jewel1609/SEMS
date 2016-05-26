@@ -15,15 +15,9 @@ import com.ktds.sems.team.vo.TeamSearchVO;
 public interface TeamService {
 	
 	
-
 	public ModelAndView getAllMyTeamList(int pageNo);
 
-
 	public ModelAndView getOneMyTeamDetail(String teamId, HttpSession session, int pageNo);
-
-
-	
-	
 
 	public ModelAndView getAllTeamListPage(TeamSearchVO teamSearchVO);
 	
@@ -43,16 +37,6 @@ public interface TeamService {
 
 	public String doDislikeBBSAction(String teamBBSId, HttpSession session);
 
-	public ModelAndView doModifyAction(TeamBBSVO teamBBS, MultipartHttpServletRequest request, HttpSession session);
-
-	public String getSaltById(String sessionId);
-
-	public String getPasswordById(String sessionId);
-
-	public String doDeleteBBS(String teamBBSId);
-
-	public String isReplyByTeamBBSId(String teamBBSId);
-
 	public ModelAndView doWriteBBSReplyAction(TeamBBSReplyVO replyVO, HttpSession session);
 
 	public ModelAndView getOneTeamDetail(String teamId);
@@ -67,13 +51,7 @@ public interface TeamService {
 	
 	public ModelAndView viewReReplyPage(String teamBBSId, HttpSession session, String parentReplyId);
 
-	public ModelAndView getAllEduMember(String educationId, HttpSession session);
-
-	public ModelAndView massiveInsertMember(String[] insertMemberIds, String educationId, String teamName, String teamListId);
-
 	public ModelAndView getAllMinutes(MinutesSearchVO minutesSearchVO, int pageNo, HttpSession session);
-
-	public ModelAndView minutesListInit();
 
 	public void doDeleteTeamListByMemberId(String memberId);
 	

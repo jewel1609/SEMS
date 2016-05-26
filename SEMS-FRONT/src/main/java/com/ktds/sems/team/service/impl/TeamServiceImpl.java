@@ -23,6 +23,7 @@ import com.ktds.sems.team.vo.TeamBBSVO;
 import com.ktds.sems.team.vo.TeamListVO;
 import com.ktds.sems.team.vo.TeamSearchVO;
 import com.ktds.sems.team.vo.TeamVO;
+import com.ktds.sems.team.vo.TeamsListsVO;
 
 import kr.co.hucloud.utilities.web.Paging;
 
@@ -34,9 +35,7 @@ public class TeamServiceImpl implements TeamService{
 		this.teamBiz = teamBiz;
 	}
 	
-	
-
-@Override
+	@Override
 	public ModelAndView getAllMyTeamList(int pageNo) {
 		
 		TeamListVO teamListVO = new TeamListVO();
@@ -67,8 +66,6 @@ public class TeamServiceImpl implements TeamService{
 		return view;
 	}
 
-
-
 	@Override
 	public ModelAndView getOneMyTeamDetail(String teamId, HttpSession session, int pageNo) {
 	
@@ -76,16 +73,9 @@ public class TeamServiceImpl implements TeamService{
 		TeamVO team = teamBiz.getOneMyTeamDetail(teamId);
 		view.addObject("team", team);
 		view.setViewName("myPage/teamDetail");		
-
 	
 		return view;
-
-
 	}
-
-	
-	
-	
 
 	@Override
 	public ModelAndView getAllTeamListPage(TeamSearchVO teamSearchVO) {
@@ -524,5 +514,7 @@ public class TeamServiceImpl implements TeamService{
 	public void doDeleteTeamListByMemberId(String memberId) {
 		teamBiz.doDeleteTeamListByMemberId(memberId);
 	}
+
+	
 
 }

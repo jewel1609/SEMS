@@ -17,8 +17,6 @@ import com.ktds.sems.team.vo.TeamVO;
 import com.ktds.sems.team.vo.TeamsListVO;
 
 public class TeamDAOImpl  extends SqlSessionDaoSupport implements TeamDAO{
-	
-	
 
 	@Override
     public List<TeamVO> getAllMyTeamList(TeamSearchVO searchVO) {
@@ -34,9 +32,6 @@ public class TeamDAOImpl  extends SqlSessionDaoSupport implements TeamDAO{
 	public TeamVO getOneMyTeamDetail(String teamId) {
 	return getSqlSession().selectOne("teamDAO.getOneMyTeamDetail", teamId);
 	}
-
-	
-	
 
 	@Override
 	public int getTotalteamCount() {
@@ -279,9 +274,13 @@ public class TeamDAOImpl  extends SqlSessionDaoSupport implements TeamDAO{
 		return getSqlSession().selectList("teamDAO.getTeamBBSReReplies", parentReplyId);
 	}
 	
-	
 	@Override
 	public String getOneDetailMinutesDate(String minutesId) {
 		return getSqlSession().selectOne("teamDAO.getOneDetailMinutesDate", minutesId);
+	}
+
+	@Override
+	public int getReplyCountByTeamBBSId(String teamBBSId) {
+		return getSqlSession().selectOne("teamDAO.getReplyCountByTeamBBSId", teamBBSId);
 	}
 }
