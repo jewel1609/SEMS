@@ -2,11 +2,11 @@ package com.ktds.sems.team.dao;
 
 import java.util.List;
 
+import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.team.vo.MinutesSearchVO;
 import com.ktds.sems.team.vo.MinutesVO;
 import com.ktds.sems.team.vo.TeamBBSReplyVO;
 import com.ktds.sems.team.vo.TeamBBSVO;
-import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.team.vo.TeamSearchVO;
 import com.ktds.sems.team.vo.TeamVO;
 import com.ktds.sems.team.vo.TeamsListVO;
@@ -63,7 +63,7 @@ public interface TeamDAO {
 
 	public int writeBBSReply(TeamBBSReplyVO replyVO);
 
-	public List<TeamBBSReplyVO> getTeamBBSReplies(String teamBBSId);
+	public List<TeamBBSReplyVO> getTeamBBSReplies(TeamSearchVO searchVO);
 
 	public int getNextTeamBBSReplySeq();
 
@@ -88,6 +88,12 @@ public interface TeamDAO {
 	public int getTotalMinutesCount(MinutesSearchVO minutesSearchVO);
 
 	public int nextMinutesSeq();
+
+	public int isExistedOrderNoByParentId(String parentReplyId);
+
+	public List<TeamBBSReplyVO> getTeamBBSReReplies(String parentReplyId);
+
+	public int getReplyCountByTeamBBSId(String teamBBSId);
 
 	public List<MinutesVO> getAllMinutes(MinutesSearchVO minutesSearchVO);
 	
