@@ -1,16 +1,17 @@
-
 package com.ktds.sems.team.dao.impl;
 
 import java.util.List;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;
+
 import com.ktds.sems.team.dao.TeamDAO;
+import com.ktds.sems.team.vo.MinutesSearchVO;
+import com.ktds.sems.team.vo.MinutesVO;
+import com.ktds.sems.team.vo.TeamBBSReplyVO;
+import com.ktds.sems.team.vo.TeamBBSVO;
 import com.ktds.sems.team.vo.TeamSearchVO;
 import com.ktds.sems.team.vo.TeamVO;
 import com.ktds.sems.team.vo.TeamsListVO;
-import com.ktds.sems.team.vo.MinutesSearchVO;
-import com.ktds.sems.team.vo.MinutesVO;
-import com.ktds.sems.team.vo.TeamBBSVO;
 
 public class TeamDAOImpl  extends SqlSessionDaoSupport implements TeamDAO{
 
@@ -23,13 +24,10 @@ public class TeamDAOImpl  extends SqlSessionDaoSupport implements TeamDAO{
 	public List<TeamVO> getAllTeamList(TeamSearchVO searchVO) {
 		return getSqlSession().selectList("teamDAO.getAllTeamList", searchVO);
 	}
-
+	
 	@Override
-	public int addNewTeamBBSArticle(TeamBBSVO teamBBS) {
-		return getSqlSession().insert("teamDAO.addNewTeamBBS", teamBBS);
-		
-//	public int addNewTeamBBSArticle(TeamBBSVO TeamBBSVO) {
-//		return getSqlSession().insert("teamDAO.addNewTeamBBS", TeamBBSVO);
+	public int addNewTeamBBSArticle(TeamBBSVO TeamBBSVO) {
+		return getSqlSession().insert("teamDAO.addNewTeamBBS", TeamBBSVO);
 	}
 
 	@Override
@@ -41,6 +39,7 @@ public class TeamDAOImpl  extends SqlSessionDaoSupport implements TeamDAO{
 	public String getSysDate() {
 		return getSqlSession().selectOne("teamDAO.getSysDate");
 	}
+
 	@Override
 	public List<TeamBBSVO> getTeamBBSList(TeamSearchVO searchVO) {
 		return getSqlSession().selectList("teamDAO.getTeamBBSList", searchVO);
@@ -55,6 +54,7 @@ public class TeamDAOImpl  extends SqlSessionDaoSupport implements TeamDAO{
 	public TeamsListVO getOneTeamDetail(String teamId) {
 		return getSqlSession().selectOne("teamDAO.getOneTeamDetail", teamId);
 	}
+	
 	@Override
 	public TeamBBSVO getTeamBBS(String teamBBSId) {
 		return getSqlSession().selectOne("teamDAO.getTeamBBS", teamBBSId);
@@ -93,6 +93,51 @@ public class TeamDAOImpl  extends SqlSessionDaoSupport implements TeamDAO{
 	@Override
 	public int addDislikeRecord(TeamBBSVO TeamBBSVO) {
 		return getSqlSession().update("teamDAO.addDislikeRecord", TeamBBSVO);
+	}
+
+	@Override
+	public String getLikeState(TeamBBSVO TeamBBSVO) {
+		return getSqlSession().selectOne("teamDAO.getLikeState", TeamBBSVO);
+	}
+
+	@Override
+	public String getDislikeState(TeamBBSVO TeamBBSVO) {
+		return getSqlSession().selectOne("teamDAO.getDislikeState", TeamBBSVO);
+	}
+
+	@Override
+	public int addLikeCount(TeamBBSVO TeamBBSVO) {
+		return getSqlSession().update("teamDAO.addLikeCount", TeamBBSVO);
+	}
+
+	@Override
+	public int addDislikeCount(TeamBBSVO TeamBBSVO) {
+		return getSqlSession().update("teamDAO.addDislikeCount", TeamBBSVO);
+	}
+
+	@Override
+	public int writeBBSReply(TeamBBSReplyVO TeamBBSReplyVO) {
+		return getSqlSession().insert("teamDAO.writeBBSReply", TeamBBSReplyVO);
+	}
+
+	@Override
+	public List<TeamBBSReplyVO> getTeamBBSReplies(String teamBBSId) {
+		return getSqlSession().selectList("teamDAO.getTeamBBSReplies", teamBBSId);
+	}
+
+	@Override
+	public int getNextTeamBBSReplySeq() {
+		return getSqlSession().selectOne("teamDAO.getNextTeamBBSReplySeq");
+	}
+
+	@Override
+	public int writeBBSReReply(TeamBBSReplyVO TeamBBSReplyVO) {
+		return getSqlSession().insert("teamDAO.writeBBSReReply", TeamBBSReplyVO);
+	}
+
+	@Override
+	public int getNextOrderNoByParentId(String parentReplyId) {
+		return getSqlSession().selectOne("teamDAO.getNextOrderNoByParentId", parentReplyId);
 	}
 
 	@Override
