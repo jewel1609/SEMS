@@ -188,4 +188,35 @@
 		SELECT	PC_ID_SEQ.NEXTVAL
 		FROM	DUAL
 	</select>
+	<select id="getSysdate" resultType="string">
+		SELECT	TO_CHAR(SYSDATE, 'YYYYMMDD')
+		FROM	DUAL
+	</select>
+	<insert id="doRegistClassInformation" parameterType="PcVO">
+		INSERT INTO EDU_PLACE 	(
+		   							EDU_PLACE_ID
+		   							, EDU_PLACE_NAME
+		   							, EDU_PLACE_LOC
+		   						) 
+		VALUES 					( 
+									#{educationPlaceId}
+									, #{educationPlaceName}
+									, #{educationLocation} 
+		 						)
+	</insert>
+	<insert id="doRegistClassCommonObject" parameterType="PcVO">
+		INSERT INTO PC 	(
+						   	PC_ID
+						   	, PC_NAME
+						   	, EDU_PLACE_ID
+						   	, IP
+						) 
+		VALUES 			( 
+							#{pcId}
+							, #{pcName}
+							, #{educationPlaceId}
+							, #{ip}
+		 				)
+	</insert>
+	
 </mapper>

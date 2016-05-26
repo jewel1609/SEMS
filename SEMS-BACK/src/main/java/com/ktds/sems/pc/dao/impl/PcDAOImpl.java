@@ -6,6 +6,7 @@ import org.mybatis.spring.support.SqlSessionDaoSupport;
 
 import com.ktds.sems.education.vo.EducationPlaceVO;
 import com.ktds.sems.pc.dao.PcDAO;
+import com.ktds.sems.pc.vo.PcVO;
 import com.ktds.sems.pc.vo.ReportedPcSearchVO;
 import com.ktds.sems.pc.vo.ReportedPcVO;
 import com.ktds.sems.pc.vo.UsedPcSearchVO;
@@ -51,6 +52,21 @@ public class PcDAOImpl extends SqlSessionDaoSupport implements PcDAO {
 	@Override
 	public List<EducationPlaceVO> getEducationPlaceList() {
 		return getSqlSession().selectList("PcDAO.getEducationPlaceList");
+	}
+
+	@Override
+	public String getSysdate() {
+		return getSqlSession().selectOne("PcDAO.getSysdate");
+	}
+
+	@Override
+	public void doRegistClassInformation(PcVO pcVO) {
+		getSqlSession().insert("PcDAO.doRegistClassInformation",pcVO);
+	}
+
+	@Override
+	public void doRegistClassCommonObject(PcVO pcVO) {
+		getSqlSession().insert("PcDAO.doRegistClassCommonObject",pcVO);
 	}
 
 }

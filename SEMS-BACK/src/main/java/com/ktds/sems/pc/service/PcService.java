@@ -20,7 +20,7 @@ public interface PcService {
 
 	public ModelAndView educationPlaceSetting(HttpSession session);
 
-	public ModelAndView doRegistClass(PcVO pcVO, Errors errors, HttpSession session);
+	public ModelAndView doRegistClass(PcVO pcVO, HttpSession session);
 
 	public ModelAndView viewEducationPlaceList();
 }

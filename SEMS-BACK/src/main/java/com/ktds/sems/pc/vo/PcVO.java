@@ -5,7 +5,9 @@ import com.ktds.sems.education.vo.EducationPlaceVO;
 public class PcVO extends EducationPlaceVO {
 
 	private String pcId;
+	
 	private String pcName;
+	
 	private String ip;
 
 	public String getPcId() {

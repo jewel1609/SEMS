@@ -3,7 +3,9 @@ package com.ktds.sems.education.vo;
 public class EducationPlaceVO extends EducationVO {
 	
 	private String educationPlaceId;
+	
 	private String educationPlaceName;
+
 	private String educationLocation;
 
 	public String getEducationPlaceId() {

@@ -61,15 +61,19 @@ td {
 					<td>PC 대수</td>
 				</tr>
 				<tr>
-					<td colspan="2"><input type="text"name="educationLocation" placeholder="location" size="30" /></td>
-					<td><input type="text" name="educationPlaceName" placeholder="placeName" size="30" /></td>
-									<td><select id="pc">
+					<td colspan="2"><input type="text"name="educationLocation" placeholder="location" size="20" /></td>
+					<td><input type="text" name="educationPlaceName" placeholder="placeName" size="20" /></td>
+					<td>
+						<select id="pc">
 							<c:forEach var="pcCount" begin="0" end="30" step="1">
 								<option value="${pcCount}"><c:out value="${pcCount}대" /></option>
 							</c:forEach>
-					</select></td>
+						</select>
+					</td>
 				</tr>
-				<tr><td colspan="4"align="center">PC별 IP</td></tr>
+				<tr><td colspan="4"align="center">PC별 IP
+				</td>
+				</tr>
 				<tr>
 					<td colspan="4"><span id="ipClass"></span></td>
 				</tr>

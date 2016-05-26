@@ -46,16 +46,47 @@ public class PcBizImpl implements PcBiz {
 
 	@Override
 	public void doRegistClassInformation(PcVO pcVO) {
-		int seq = pcDAO.nextPcSequence();
+		pcVO.setEducationPlaceId(eduPlaceIDReconstructor());
+		pcDAO.doRegistClassInformation(pcVO);
 	}
 
 	@Override
 	public void doRegistClassCommonObject(PcVO pcVO) {
-		int seq = pcDAO.nextEducationPlaceSequence();
+		pcVO.setPcId(pcIDReconstructor());
+		pcDAO.doRegistClassCommonObject(pcVO);
 	}
 
 	@Override
 	public List<EducationPlaceVO> getEducationPlaceList() {
 		return pcDAO.getEducationPlaceList();
+	}
+	
+	private String eduPlaceIDReconstructor() {
+		String resultId = null;
+		String sysdate = pcDAO.getSysdate();
+		int eduPlaceSeq = pcDAO.nextPcSequence();
+		
+		resultId = "EP-"+sysdate+"-"+lpad(eduPlaceSeq, 6);
+		return resultId;
+	}
+	
+	private String pcIDReconstructor() {
+		String resultId = null;
+		String sysdate = pcDAO.getSysdate();
+		int pcSeq = pcDAO.nextEducationPlaceSequence();
+		
+		resultId = "PI-"+sysdate+"-"+lpad(pcSeq, 6);
+		return resultId;
+	}
+	
+	private String lpad(int allSequencesReConstructor, int size) {
+		String sequences = String.valueOf(allSequencesReConstructor);
+		int length = sequences.length();
+		int needLength = size - length;
+		
+		for (int i = 0; i < needLength; i++) {
+			sequences = "0"+sequences;
+		}
+		return sequences;
 	}
 }

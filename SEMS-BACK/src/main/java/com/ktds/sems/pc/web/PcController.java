@@ -49,8 +49,8 @@ public class PcController {
 	}
 	
 	@RequestMapping(value="/doRegistClass", method=RequestMethod.POST)
-	public ModelAndView doRegistClass(@Valid PcVO pcVO, Errors errors, HttpSession session){
-		return pcService.doRegistClass(pcVO, errors, session);
+	public ModelAndView doRegistClass(PcVO pcVO, HttpSession session){
+		return pcService.doRegistClass(pcVO, session);
 	}
 	
 	@RequestMapping("/eduPlaceList")

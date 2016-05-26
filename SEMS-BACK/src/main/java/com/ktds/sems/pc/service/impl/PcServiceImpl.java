@@ -125,22 +125,19 @@ public class PcServiceImpl implements PcService {
 	}
 
 	@Override
-	public ModelAndView doRegistClass(PcVO pcVO, Errors errors, HttpSession session) {
+	public ModelAndView doRegistClass(PcVO pcVO, HttpSession session) {
 		ModelAndView view = new ModelAndView();
 		MemberVO memberVO = (MemberVO) session.getAttribute(Session.MEMBER);
-		String memeberType = (String) session.getAttribute(Session.MEMBER_TYPE);
-		memberVO.setId(memberVO.getId());
 		if (memberVO.getId() != null) {
-			if (memeberType.equals("ADM")) {
-				if (!errors.hasErrors()) {
-					
+			if (memberVO.getMemberType().equals("ADM")) {
+				logger.info(pcVO.getIp());
+				if (pcVO.getIp() != null) {
 					pcBiz.doRegistClassInformation(pcVO);
 					pcBiz.doRegistClassCommonObject(pcVO);
-
-					view.setViewName("pc/eduPlaceSet");
 				} else {
-					throw new RuntimeException("설정을 다시해주세요.");
+					throw new RuntimeException("");
 				}
+				view.setViewName("pc/eduPlaceSet");
 			} else {
 				throw new RuntimeException("등록권한이 없습니다.");
 			}
@@ -149,16 +146,17 @@ public class PcServiceImpl implements PcService {
 		}
 		return view;
 	}
+
 	@Override
 	public ModelAndView viewEducationPlaceList() {
-		
+
 		ModelAndView view = new ModelAndView();
-		
+
 		List<EducationPlaceVO> eduPlaceList = pcBiz.getEducationPlaceList();
-		
+
 		view.setViewName("education/EduPlaceList");
 		view.addObject("eduPlaceList", eduPlaceList);
-		
+
 		return view;
 	}
 
