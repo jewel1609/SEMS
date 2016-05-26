@@ -1,6 +1,5 @@
 package com.ktds.sems.pc.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -96,7 +95,7 @@ public class PcServiceImpl implements PcService{
 	}
 
 	/**
-	 * PC를 신고할 수 있는 팝업 창 
+	 * PC를 신고할 수 있는 팝업 창
 	 * 이기연
 	 */
 	@Override
