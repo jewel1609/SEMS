@@ -31,6 +31,17 @@
 		});
 
 		$("#writeButton").click (function () {
+			
+			if ( $("#title").val() == '' ) {
+				alert("제목을 입력하세요!");
+				return;
+			}
+			
+			if ( $("#contents").val() == '' ) {
+				alert("내용을 입력하세요!");
+				return;
+			}
+			
 			$("#writeForm").attr("action", "<c:url value='/education/doWriteFileBBSAction' />" );
 			$("#writeForm").submit();
 		});
@@ -44,6 +55,17 @@
 		});
 		
 		$("#modifyButton").click(function () {
+			
+			if ( $("#title").val() == '' ) {
+				alert("제목을 입력하세요!");
+				return;
+			}
+			
+			if ( $("#contents").val() == '' ) {
+				alert("내용을 입력하세요!");
+				return;
+			}
+			
 			$("#writeForm").attr("action", "<c:url value='/education/doModifyFileBBSAction' />" );
 			$("#writeForm").submit();
 		});
@@ -55,10 +77,10 @@
 <body>
 	<form:form id="writeForm" commandName="educationFileBBSVO" method="POST" enctype="multipart/form-data">
 		
-		<input name="title" type="text" class="textInput" placeholder="제목을 입력하세요." style="width: 500px;" value="${educationFileBBSVO.title}"/>
+		<input id="title" name="title" type="text" class="textInput" placeholder="제목을 입력하세요." style="width: 500px;" value="${educationFileBBSVO.title}"/>
 		<br/>
 		<br/>
-		<textarea name="contents" class="textInput" placeholder="내용을 입력하세요." style="width: 500px; height: 400px;">${educationFileBBSVO.contents}</textarea>
+		<textarea id="contents" name="contents" class="textInput" placeholder="내용을 입력하세요." style="width: 500px; height: 400px;">${educationFileBBSVO.contents}</textarea>
 		<br/>
 		<br/>
 		<c:if test="${isModify eq null}">
