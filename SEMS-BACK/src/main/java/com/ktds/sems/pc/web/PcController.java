@@ -45,4 +45,9 @@ public class PcController {
 		view.setViewName("pc/eduPlaceSet");
 		return view;
 	}
+	
+	@RequestMapping("/eduPlaceList")
+	public ModelAndView viewEducationPlaceList() {
+		return pcService.viewEducationPlaceList();
+	}
 }

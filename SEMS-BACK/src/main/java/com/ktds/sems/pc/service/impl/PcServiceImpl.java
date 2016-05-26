@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ktds.sems.education.vo.EducationPlaceVO;
 import com.ktds.sems.pc.biz.PcBiz;
 import com.ktds.sems.pc.service.PcService;
 import com.ktds.sems.pc.vo.ReportedPcListVO;
@@ -104,6 +105,19 @@ public class PcServiceImpl implements PcService {
 		} else {
 			throw new RuntimeException("일시적인 오류가 발생했습니다.");
 		}
+	}
+
+	@Override
+	public ModelAndView viewEducationPlaceList() {
+		
+		ModelAndView view = new ModelAndView();
+		
+		List<EducationPlaceVO> eduPlaceList = pcBiz.getEducationPlaceList();
+		
+		view.setViewName("education/EduPlaceList");
+		view.addObject("eduPlaceList", eduPlaceList);
+		
+		return view;
 	}
 
 }

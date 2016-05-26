@@ -2,6 +2,7 @@ package com.ktds.sems.pc.biz.impl;
 
 import java.util.List;
 
+import com.ktds.sems.education.vo.EducationPlaceVO;
 import com.ktds.sems.pc.biz.PcBiz;
 import com.ktds.sems.pc.dao.PcDAO;
 import com.ktds.sems.pc.vo.ReportedPcSearchVO;
@@ -40,6 +41,11 @@ public class PcBizImpl implements PcBiz {
 	@Override
 	public boolean changeReportedState(ReportedPcVO reportedPcVO) {
 		return pcDAO.changeReportedState(reportedPcVO) > 0;
+	}
+
+	@Override
+	public List<EducationPlaceVO> getEducationPlaceList() {
+		return pcDAO.getEducationPlaceList();
 	}
 
 }

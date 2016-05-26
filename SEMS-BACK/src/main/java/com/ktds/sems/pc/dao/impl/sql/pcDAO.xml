@@ -180,4 +180,8 @@
 		SET		RPT_STAT = #{reportedState}
 		WHERE	RPT_PC_ID = #{reportedPcId}
 	</update>
+	
+	<select id="getEducationPlaceList" resultType="EducationPlaceVO">
+		SELECT	
+	</select>
 </mapper>

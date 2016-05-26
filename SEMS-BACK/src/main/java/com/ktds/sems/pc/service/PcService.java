@@ -14,4 +14,6 @@ public interface PcService {
 
 	public String changeReportedState(ReportedPcVO reportedPcVO);
 
+	public ModelAndView viewEducationPlaceList();
+
 }

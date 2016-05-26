@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 
+import com.ktds.sems.education.vo.EducationPlaceVO;
 import com.ktds.sems.pc.dao.PcDAO;
 import com.ktds.sems.pc.vo.ReportedPcSearchVO;
 import com.ktds.sems.pc.vo.ReportedPcVO;
@@ -35,6 +36,11 @@ public class PcDAOImpl extends SqlSessionDaoSupport implements PcDAO {
 	@Override
 	public int changeReportedState(ReportedPcVO reportedPcVO) {
 		return getSqlSession().update("PcDAO.changeReportedState", reportedPcVO);
+	}
+
+	@Override
+	public List<EducationPlaceVO> getEducationPlaceList() {
+		return getSqlSession().selectList("PcDAO.getEducationPlaceList");
 	}
 
 }
