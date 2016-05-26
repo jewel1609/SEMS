@@ -6,15 +6,12 @@ import java.util.Map;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 
+import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.team.dao.TeamDAO;
 import com.ktds.sems.team.vo.MinutesSearchVO;
 import com.ktds.sems.team.vo.MinutesVO;
 import com.ktds.sems.team.vo.TeamBBSReplyVO;
 import com.ktds.sems.team.vo.TeamBBSVO;
-import com.ktds.sems.member.vo.MemberVO;
-import java.util.HashMap;
-import java.util.Map;
-
 import com.ktds.sems.team.vo.TeamSearchVO;
 import com.ktds.sems.team.vo.TeamVO;
 import com.ktds.sems.team.vo.TeamsListVO;
@@ -32,8 +29,8 @@ public class TeamDAOImpl  extends SqlSessionDaoSupport implements TeamDAO{
 	}
 	
 	@Override
-	public int addNewTeamBBSArticle(TeamBBSVO teamBBS) {
-		return getSqlSession().insert("teamDAO.addNewTeamBBS", teamBBS);
+	public int addNewTeamBBSArticle(TeamBBSVO TeamBBSVO) {
+		return getSqlSession().insert("teamDAO.addNewTeamBBS", TeamBBSVO);
 	}
 
 	@Override
@@ -45,7 +42,6 @@ public class TeamDAOImpl  extends SqlSessionDaoSupport implements TeamDAO{
 	public String getSysDate() {
 		return getSqlSession().selectOne("teamDAO.getSysDate");
 	}
-	
 
 	@Override
 	public List<TeamBBSVO> getTeamBBSList(TeamSearchVO searchVO) {
@@ -176,8 +172,8 @@ public class TeamDAOImpl  extends SqlSessionDaoSupport implements TeamDAO{
 	}
 
 	@Override
-	public List<TeamBBSReplyVO> getTeamBBSReplies(String teamBBSId) {
-		return getSqlSession().selectList("teamDAO.getTeamBBSReplies", teamBBSId);
+	public List<TeamBBSReplyVO> getTeamBBSReplies(TeamSearchVO searchVO) {
+		return getSqlSession().selectList("teamDAO.getTeamBBSReplies", searchVO);
 	}
 
 	@Override
@@ -244,6 +240,29 @@ public class TeamDAOImpl  extends SqlSessionDaoSupport implements TeamDAO{
 	}
 
 	@Override
+	public void doDeleteTeamListByMemberId(String memberId) {
+		getSqlSession().delete("teamDAO.doDeleteTeamListByMemberId", memberId);
+	}
+	
+	@Override
+	public MinutesVO getOneDetailMinutes(String minutesId) {
+		return getSqlSession().selectOne("teamDAO.getOneDetailMinutes", minutesId);
+	}
+
+	@Override
+	public int isExistedOrderNoByParentId(String parentReplyId) {
+		return getSqlSession().selectOne("teamDAO.isExistedOrderNoByParentId", parentReplyId);
+	}
+
+	@Override
+	public List<TeamBBSReplyVO> getTeamBBSReReplies(String parentReplyId) {
+		return getSqlSession().selectList("teamDAO.getTeamBBSReReplies", parentReplyId);
+	}
+	
+	public int getTotalMinutesCountForAdmin(MinutesSearchVO minutesSearchVO) {
+		return getSqlSession().selectOne("teamDAO.getTotalMinutesCountForAdmin", minutesSearchVO);
+	}
+
 	public void doDeleteTeamListByMemberId(String memberId) {
 		getSqlSession().delete("teamDAO.doDeleteTeamListByMemberId", memberId);
 	}
