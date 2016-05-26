@@ -8,11 +8,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ktds.sems.SemsTestCase;
+import com.ktds.sems.Testable;
+import com.ktds.sems.education.vo.EducationReportSearchVO;
+import com.ktds.sems.education.vo.EducationReportVO;
 import com.ktds.sems.education.vo.EducationSearchVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.QNASearchVO;
@@ -27,6 +32,38 @@ import kr.co.hucloud.utilities.web.Paging;
 public class EducationDAOTest extends SemsTestCase{
 	@Autowired
 	private EducationDAO educationDAO;
+	
+	@Before
+	public void setUp() {
+		testHelper(new Testable() {
+			
+			@Override
+			public void preparedTest() {
+				EducationReportVO educationReportVO = new EducationReportVO();
+				educationReportVO.setArticleId("testArticleId");
+				educationReportVO.setEducationId("testEducationId");
+				educationReportVO.setMemberId("testMemeberId");
+				educationReportVO.setTitle("testTitle");
+				educationReportVO.setContents("testContents");
+				educationReportVO.setStartDate("2016-05-26");
+				educationReportVO.setEndDate("2016-05-30");
+				educationDAO.doReportWriteAction(educationReportVO);
+			}
+		});
+	}
+	
+	@After
+	public void tearDown() {
+		testHelper(new Testable() {
+			
+			@Override
+			public void preparedTest() {
+				EducationReportVO educationReportVO = new EducationReportVO();
+				educationReportVO.setArticleId("testArticleId");
+				educationDAO.deleteReport(educationReportVO);
+			}
+		});
+	}
 	
 	@Test
 	public void getAllEducationListTest(){
@@ -410,6 +447,173 @@ public class EducationDAOTest extends SemsTestCase{
 		assertTrue(reports.size() > 0);
 	}
 	
+	
+	/**
+	 * Education Report
+	 * Search startDate
+	 */
+	@Test
+	public void getAllEducationReportListTest_SearchStartDate( ) {
+		
+		EducationReportSearchVO educationReportSearchVO = new EducationReportSearchVO();
+		educationReportSearchVO.setPageNo(0);
+		
+		Paging paging = new Paging();
+		paging.setPageNumber(educationReportSearchVO.getPageNo() + "");
+		
+		int totalCount = educationDAO.getTotalEducationReportCount(educationReportSearchVO);
+		paging.setTotalArticleCount(totalCount);
+		
+		educationReportSearchVO.setStartIndex(paging.getStartArticleNumber());
+		educationReportSearchVO.setEndIndex(paging.getEndArticleNumber());
+		educationReportSearchVO.setEducationId("testEducationId");
+		educationReportSearchVO.setSearchType("startDate");
+		educationReportSearchVO.setStartDate("2015-05-01");
+		educationReportSearchVO.setEndDate("2017-05-01");
+		
+		List<EducationReportVO> educationReportList = educationDAO.getAllEducationReportList(educationReportSearchVO);
+		if(educationReportList != null) {
+			for (EducationReportVO educationReportVO : educationReportList) {
+				
+				assertNotNull(educationReportVO.getArticleId());
+				assertNotNull(educationReportVO.getEducationId());
+				assertNotNull(educationReportVO.getMemberId());
+				assertNotNull(educationReportVO.getTitle());
+				assertNotNull(educationReportVO.getStartDate());
+				assertNotNull(educationReportVO.getEndDate());
+				
+			}
+		} else {
+			fail("fail");
+		}
+	}
+	
+	/**
+	 * Education Report
+	 * Search endDate
+	 */
+	@Test
+	public void getAllEducationReportListTest_SearchEndDate( ) {
+		
+		EducationReportSearchVO educationReportSearchVO = new EducationReportSearchVO();
+		educationReportSearchVO.setPageNo(0);
+		
+		Paging paging = new Paging();
+		paging.setPageNumber(educationReportSearchVO.getPageNo() + "");
+		
+		int totalCount = educationDAO.getTotalEducationReportCount(educationReportSearchVO);
+		paging.setTotalArticleCount(totalCount);
+		
+		educationReportSearchVO.setStartIndex(paging.getStartArticleNumber());
+		educationReportSearchVO.setEndIndex(paging.getEndArticleNumber());
+		educationReportSearchVO.setEducationId("testEducationId");
+		educationReportSearchVO.setSearchType("endDate");
+		educationReportSearchVO.setStartDate("2015-05-01");
+		educationReportSearchVO.setEndDate("2017-05-01");
+		
+		List<EducationReportVO> educationReportList = educationDAO.getAllEducationReportList(educationReportSearchVO);
+		if(educationReportList != null) {
+			for (EducationReportVO educationReportVO : educationReportList) {
+				
+				assertNotNull(educationReportVO.getArticleId());
+				assertNotNull(educationReportVO.getEducationId());
+				assertNotNull(educationReportVO.getMemberId());
+				assertNotNull(educationReportVO.getTitle());
+				assertNotNull(educationReportVO.getStartDate());
+				assertNotNull(educationReportVO.getEndDate());
+				
+			}
+		} else {
+			fail("fail");
+		}
+	}
+	
+	/**
+	 * Education Report
+	 * Search title
+	 */
+	@Test
+	public void getTotalEducationReportCountTest_SearchTitle() {
+	
+		EducationReportSearchVO educationReportSearchVO = new EducationReportSearchVO();
+		educationReportSearchVO.setSearchType("title");
+		educationReportSearchVO.setSearchKeyword("test");
+		
+		int totalCount = educationDAO.getTotalEducationReportCount(educationReportSearchVO);
+		assertTrue(totalCount > 0);
+	}
+	
+	/**
+	 * Education Report
+	 * Search startDate
+	 */
+	@Test
+	public void getTotalEducationReportCountTest_SearchStartDate() {
+		
+		EducationReportSearchVO educationReportSearchVO = new EducationReportSearchVO();
+		educationReportSearchVO.setSearchType("startDate");
+		educationReportSearchVO.setStartDate("2015-05-01");
+		educationReportSearchVO.setEndDate("2017-05-01");
+		
+		int totalCount = educationDAO.getTotalEducationReportCount(educationReportSearchVO);
+		assertTrue(totalCount > 0);
+	}
+	
+	/**
+	 * Education Report
+	 * Search endDate
+	 */
+	@Test
+	public void getTotalEducationReportCountTest_SearchEndDate() {
+		
+		EducationReportSearchVO educationReportSearchVO = new EducationReportSearchVO();
+		educationReportSearchVO.setSearchType("endDate");
+		educationReportSearchVO.setStartDate("2015-05-01");
+		educationReportSearchVO.setEndDate("2017-05-01");
+		
+		int totalCount = educationDAO.getTotalEducationReportCount(educationReportSearchVO);
+		assertTrue(totalCount > 0);
+	}
+
+	/**
+	 * Education Report
+	 * Get One Education Report Test
+	 */
+	@Test
+	public void getOneEducationReportTest() {
+		
+		EducationReportVO educationReportVO = new EducationReportVO();
+		educationReportVO.setArticleId("testArticleId");
+		
+		EducationReportVO newEducationReportVO = educationDAO.getOneEducationReport(educationReportVO);
+		if(newEducationReportVO != null) {
+			assertNotNull(newEducationReportVO.getArticleId());
+			assertNotNull(newEducationReportVO.getEducationId());
+			assertNotNull(newEducationReportVO.getMemberId());
+			assertNotNull(newEducationReportVO.getTitle());
+			assertNotNull(newEducationReportVO.getStartDate());
+			assertNotNull(newEducationReportVO.getEndDate());
+			
+		} else {
+			fail("fail");
+		}
+	}
+	
+	/**
+	 * Education Report
+	 * Get One Education Report Test - Error
+	 */
+	@Test
+	public void getOneEducationReportTest_Error() {
+		
+		EducationReportVO educationReportVO = new EducationReportVO();
+		educationReportVO.setArticleId("NO_TEST_DATE");
+		
+		EducationReportVO newEducationReportVO = educationDAO.getOneEducationReport(educationReportVO);
+		if(newEducationReportVO != null) {
+			fail("fail");
+		}
+	}
 }
 
 
