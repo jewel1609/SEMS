@@ -24,7 +24,7 @@ public interface TeamBiz {
 
 	public int getSearchedBBSCount();
 
-	public TeamsListVO getOneTeamDetail(String teamId);
+	public List<TeamsListVO> getOneTeamDetail(String teamId);
 
 	public TeamBBSVO getTeamBBS(String teamBBSId);
 

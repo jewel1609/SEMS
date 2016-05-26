@@ -127,7 +127,7 @@
 		FROM	TEAM_BBS
 	</select>	
 	
-	<select id="getOneTeamDetail" parameterType="string" resultType="TeamListVO">
+	<select id="getOneTeamDetail" parameterType="string" resultType="TeamsListVO">
 	SELECT	TEAM_LST_ID teamListId
 			, TEAM_ID teamId
 			, MBR_ID mbrId

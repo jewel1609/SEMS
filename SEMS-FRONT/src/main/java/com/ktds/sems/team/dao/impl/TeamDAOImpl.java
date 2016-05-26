@@ -39,6 +39,7 @@ public class TeamDAOImpl  extends SqlSessionDaoSupport implements TeamDAO{
 	public String getSysDate() {
 		return getSqlSession().selectOne("teamDAO.getSysDate");
 	}
+	
 
 	@Override
 	public List<TeamBBSVO> getTeamBBSList(TeamSearchVO searchVO) {
@@ -51,8 +52,8 @@ public class TeamDAOImpl  extends SqlSessionDaoSupport implements TeamDAO{
 	}
 
 	@Override
-	public TeamsListVO getOneTeamDetail(String teamId) {
-		return getSqlSession().selectOne("teamDAO.getOneTeamDetail", teamId);
+	public List<TeamsListVO> getOneTeamDetail(String teamId) {
+		return getSqlSession().selectList("teamDAO.getOneTeamDetail", teamId);
 	}
 	
 	@Override

@@ -35,4 +35,5 @@ public interface TeamService {
 	public ModelAndView viewListMinutes(MinutesSearchVO intminutesSearchVO, int pageNo);
 
 	public ModelAndView minutesInit();
+	
 }

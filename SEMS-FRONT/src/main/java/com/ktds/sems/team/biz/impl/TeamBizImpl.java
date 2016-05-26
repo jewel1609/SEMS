@@ -105,7 +105,7 @@ public class TeamBizImpl implements TeamBiz {
 	}
 
 	@Override
-	public TeamsListVO getOneTeamDetail(String teamId) {
+	public List<TeamsListVO> getOneTeamDetail(String teamId) {
 		return teamDAO.getOneTeamDetail(teamId);
 	}
 	

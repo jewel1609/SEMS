@@ -79,10 +79,12 @@ public class TeamController {
 	public String doDislikeBBSAction(@PathVariable String teamBBSId, HttpSession session) {
 		return teamService.doDislikeBBSAction(teamBBSId, session);
 	}
+	
 	@RequestMapping("/searchInitBtn")
 	public String teamSearchInit(){
 		return "redirect:/teamList";
 	}
+	
 	@RequestMapping("/team/writeMinutes/{teamId}")
 	public ModelAndView viewWriteMinutesPage(@PathVariable String teamId) {
 		
@@ -101,7 +103,6 @@ public class TeamController {
 	
 	@RequestMapping("/team/doWriteAction/{teamId}")
 	public ModelAndView doWriteAction(@PathVariable String teamId, @Valid MinutesVO minutesVO, Errors errors, HttpSession session){
-		
 		return teamService.writeNewMinutes(teamId, minutesVO, errors, session);
 	}
 	

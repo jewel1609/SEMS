@@ -22,6 +22,7 @@ import com.ktds.sems.team.vo.TeamBBSVO;
 import com.ktds.sems.team.vo.TeamListVO;
 import com.ktds.sems.team.vo.TeamSearchVO;
 import com.ktds.sems.team.vo.TeamVO;
+import com.ktds.sems.team.vo.TeamsListsVO;
 
 import kr.co.hucloud.utilities.web.Paging;
 
@@ -118,8 +119,13 @@ public class TeamServiceImpl implements TeamService{
 	@Override
 	public ModelAndView getOneTeamDetail(String teamListId) {
 		ModelAndView view = new ModelAndView();
+		TeamsListsVO teamsListsVO = new TeamsListsVO();
+		
+		teamsListsVO.setTeamsListsVO(teamBiz.getOneTeamDetail(teamListId));
+		
 		view.setViewName("team/teamDetail");
-		view.addObject("teamsListVO", teamBiz.getOneTeamDetail(teamListId));
+		view.addObject("teamsListsVO", teamsListsVO);
+		
 		return view;
 	}
 	
