@@ -276,8 +276,9 @@ public class TeamController {
 		String[] insertMemberIds = request.getParameterValues("selectMemberId");
 		String educationId = request.getParameter("educationId");
 		String teamName = request.getParameter("teamName");
+		String teamListId = null;
 		
-		return teamService.massiveInsertMember(insertMemberIds, educationId, teamName);
+		return teamService.massiveInsertMember(insertMemberIds, educationId, teamName, teamListId);
 	}
 	
 	@RequestMapping("/minutesList")

@@ -14,9 +14,9 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.common.Session;
-import com.ktds.sems.member.vo.MemberListVO;
 import com.ktds.sems.file.biz.FileBiz;
 import com.ktds.sems.file.vo.FileVO;
+import com.ktds.sems.member.vo.MemberListVO;
 import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.team.biz.TeamBiz;
 import com.ktds.sems.team.service.TeamService;
@@ -29,6 +29,7 @@ import com.ktds.sems.team.vo.TeamBBSVO;
 import com.ktds.sems.team.vo.TeamListVO;
 import com.ktds.sems.team.vo.TeamSearchVO;
 import com.ktds.sems.team.vo.TeamVO;
+import com.ktds.sems.team.vo.TeamsListVO;
 import com.ktds.sems.team.vo.TeamsListsVO;
 
 import kr.co.hucloud.utilities.SHA256Util;
@@ -493,11 +494,18 @@ public class TeamServiceImpl implements TeamService{
 	}
 
 	@Override
-	public ModelAndView massiveInsertMember(String[] insertMemberIds, String educationId, String teamName) {
+	public ModelAndView massiveInsertMember(String[] insertMemberIds, String educationId, String teamName, String teamListId) {
 
+		TeamsListVO teamsListVO = new TeamsListVO();
+		if(teamListId != null) {
+			teamsListVO.setTeamListId(teamListId);
+		}
+		
 		teamBiz.bulidTeam(educationId, teamName);
 		for(String memberId : insertMemberIds){
-			teamBiz.insertMember(memberId);			
+			
+			teamsListVO.setMbrId(memberId);
+			teamBiz.insertMember(teamsListVO);			
 		}
 
 		ModelAndView view = new ModelAndView();
@@ -516,7 +524,7 @@ public class TeamServiceImpl implements TeamService{
 	public ModelAndView viewListMinutes(MinutesSearchVO minutesSearchVO, int pageNo) {
 
 		MinutesListVO minutesListVO = new MinutesListVO();
-		Paging paging = new Paging(10, 10);
+		Paging paging = new Paging(5, 5);
 
 		minutesListVO.setPaging(paging);
 		int totalHistoryCount = teamBiz.getTotalMinutesCount(minutesSearchVO);
@@ -606,4 +614,9 @@ public class TeamServiceImpl implements TeamService{
 		}
 		return view;
 	}
+	@Override
+	public void doDeleteTeamListByMemberId(String memberId) {
+		teamBiz.doDeleteTeamListByMemberId(memberId);
+	}
+
 }

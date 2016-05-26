@@ -234,13 +234,18 @@ public class TeamDAOImpl  extends SqlSessionDaoSupport implements TeamDAO{
 	}
 	
 	@Override
-	public boolean insertMember(String memberId) {
-		return getSqlSession().insert("teamDAO.insertMember", memberId) > 0;
+	public boolean insertMember(TeamsListVO teamsListVO) {
+		return getSqlSession().insert("teamDAO.insertMember", teamsListVO) > 0;
 	}
 
 	@Override
 	public int getTotalMinutesCountForAdmin(MinutesSearchVO minutesSearchVO) {
 		return getSqlSession().selectOne("teamDAO.getTotalMinutesCountForAdmin", minutesSearchVO);
+	}
+
+	@Override
+	public void doDeleteTeamListByMemberId(String memberId) {
+		getSqlSession().delete("teamDAO.doDeleteTeamListByMemberId", memberId);
 	}
 	
 	@Override

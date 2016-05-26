@@ -364,16 +364,23 @@
 				)
 	</insert>
 	
-	<insert id="insertMember" parameterType="string">
+	<insert id="insertMember" parameterType="TeamsListVO">
 		INSERT INTO SEMS.TEAM_LIST (
 		                                TEAM_LST_ID
 		                                , TEAM_ID
 		                                , MBR_ID
 		                            ) 
 		VALUES  (
-		            TEAM_LST_SEQ.NEXTVAL
+		            <choose>
+		            	<when test="teamListId != null and teamListId != ''">
+							#{teamListId}
+		            	</when>
+		            	<otherwise>
+				            TEAM_LST_SEQ.NEXTVAL
+		            	</otherwise>
+		            </choose>
 		            , TEAM_SEQ.CURRVAL
-		            , #{memberId}
+		            , #{mbrId}
 		        )
 	</insert>
 	
@@ -604,6 +611,12 @@
 	</if>
 		ORDER BY	MINU_ID DESC
 	</select>
+	
+	<delete id="doDeleteTeamListByMemberId">
+		DELETE
+		FROM	TEAM_LIST
+		WHERE	MBR_ID = #{memberId}
+	</delete>
 	
 	<select id="getOneDetailMinutes" parameterType="String" resultType="MinutesVO">
 		SELECT 

@@ -95,12 +95,14 @@ public interface TeamDAO {
 
 	public boolean bulidTeam(String educationId, String teamName);
 
-	public boolean insertMember(String memberId);
+	public boolean insertMember(TeamsListVO teamsListVO);
 
 	public int getTotalMinutesCountForAdmin(MinutesSearchVO minutesSearchVO);
 	
 	public MinutesVO getOneDetailMinutes(String minutesId);
 
 	public String getOneDetailMinutesDate(String minutesId);
+
+	public void doDeleteTeamListByMemberId(String memberId);
 
 }

@@ -69,7 +69,7 @@ public interface TeamBiz {
 
 	public boolean bulidTeam(String educationId, String teamName);
 
-	public boolean insertMember(String memberId);
+	public boolean insertMember(TeamsListVO teamsListVO);
 
 	public int getTotalMinutesCount(MinutesSearchVO minutesSearchVO);
 
@@ -90,5 +90,7 @@ public interface TeamBiz {
 	public MinutesVO getOneDetailMinutes(String minutesId);
 
 	public String getOneDetailMinutesDate(String minutesId);
+
+	public void doDeleteTeamListByMemberId(String memberId);
 
 }

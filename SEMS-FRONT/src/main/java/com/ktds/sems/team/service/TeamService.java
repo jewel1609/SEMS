@@ -59,10 +59,12 @@ public interface TeamService {
 	 */
 	public ModelAndView getAllEduMember(String educationId, HttpSession session);
 
-	public ModelAndView massiveInsertMember(String[] insertMemberIds, String educationId, String teamName);
+	public ModelAndView massiveInsertMember(String[] insertMemberIds, String educationId, String teamName, String teamListId);
 
 	public ModelAndView getAllMinutes(MinutesSearchVO minutesSearchVO, int pageNo, HttpSession session);
 
 	public ModelAndView minutesListInit();
+
+	public void doDeleteTeamListByMemberId(String memberId);
 	
 }

@@ -9,9 +9,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.file.dao.FileDAO;
 import com.ktds.sems.file.vo.FileVO;
+import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.team.biz.TeamBiz;
 import com.ktds.sems.team.dao.TeamDAO;
 import com.ktds.sems.team.vo.MinutesSearchVO;
@@ -268,8 +268,8 @@ public class TeamBizImpl implements TeamBiz {
 	}
 
 	@Override
-	public boolean insertMember(String memberId) {
-		return teamDAO.insertMember(memberId);
+	public boolean insertMember(TeamsListVO teamsListVO) {
+		return teamDAO.insertMember(teamsListVO);
 	}
 
 	@Override
@@ -295,6 +295,10 @@ public class TeamBizImpl implements TeamBiz {
 	@Override
 	public List<MemberVO> getAllEduMember(String educationId) {
 		return teamDAO.getAllEduMember(educationId);
+	}
+	@Override
+	public void doDeleteTeamListByMemberId(String memberId) {
+		teamDAO.doDeleteTeamListByMemberId(memberId);
 	}
 	private String lpad(String source, int length, String defValue) {
 		
