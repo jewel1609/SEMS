@@ -154,7 +154,12 @@
                                          else {
                                              $('#eventName').closest('.form-group').addClass('has-error');
                                          }
-                                     });   
+                                     }); 
+                                     
+                                   //today click
+                                     $('#my-today-button').click(function() {
+                                     $('#calendar').fullCalendar('today');
+                                 });
 
                                      //Calendar views
                                      $('body').on('click', '#fc-actions [data-view]', function(e){
