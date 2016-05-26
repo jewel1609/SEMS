@@ -13,6 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ktds.sems.SemsTestCase;
+import com.ktds.sems.education.vo.EduQnaListVO;
+import com.ktds.sems.education.vo.EduQnaSearchVO;
+import com.ktds.sems.education.vo.EduQnaVO;
+import com.ktds.sems.education.vo.EducationQNAReplyListVO;
+import com.ktds.sems.education.vo.EducationQNAReplySearchVO;
+import com.ktds.sems.education.vo.EducationQNAReplyVO;
 import com.ktds.sems.Testable;
 import com.ktds.sems.education.vo.EducationReportSearchVO;
 import com.ktds.sems.education.vo.EducationReportVO;
@@ -282,7 +288,7 @@ public class EducationBizTest extends SemsTestCase {
 		boolean test = educationBiz.exportQNAListAsExcel(memberId);
 		assertTrue(test);
 	}
-
+	
 	@Test
 	public void getTotalReportReplyCountTest() {
 		ReportReplySearchVO reportReplySearchVO = new ReportReplySearchVO();
@@ -527,5 +533,97 @@ public class EducationBizTest extends SemsTestCase {
 		if(newEducationReportVO != null) {
 			fail("fail");
 		}
+	}
+	
+	@Test
+	public void getTotalEduQnaCountTest() {
+		EduQnaSearchVO eduQnaSearchVO = new EduQnaSearchVO();
+		eduQnaSearchVO.setEducationId("ED-20160513-000166");
+		int totalReportCount = educationBiz.getTotalEduQnaCount(eduQnaSearchVO);
+		assertTrue(totalReportCount>0);
+	}
+	
+	@Test
+	public void getAllEduQnaTest() {
+		EduQnaListVO eduQnaListVO = new EduQnaListVO();
+		EduQnaSearchVO eduQnaSearchVO = new EduQnaSearchVO();
+		eduQnaSearchVO.setEducationId("ED-20160513-000166");
+		Paging paging = new Paging(20,20);
+		
+		eduQnaListVO.setPaging(paging);
+		int totalReportCount = educationBiz.getTotalEduQnaCount(eduQnaSearchVO);
+		assertTrue(totalReportCount>0);
+		
+		paging.setPageNumber(0 + "");
+		paging.setTotalArticleCount(totalReportCount);
+		
+		eduQnaSearchVO.setStartIndex(paging.getStartArticleNumber());
+		eduQnaSearchVO.setEndIndex(paging.getEndArticleNumber());
+
+		List<EduQnaVO> eduQna = educationBiz.getAllEduQna(eduQnaSearchVO);
+		eduQnaListVO.setEduQnaList(eduQna);
+		assertTrue(eduQna.size() > 0);
+
+	}
+	
+	@Test
+	public void confirmMemberOfEduTest() {
+		String memberId = "test02";
+		String educationId = "ED-20160513-000166";
+		
+		boolean confirmMemberOfEdu = educationBiz.confirmMemberOfEdu(educationId, memberId);
+		assertTrue(confirmMemberOfEdu);
+	}
+	
+	@Test
+	public void insertEduQnaTest() {
+		EduQnaVO eduQnaVO = new EduQnaVO();
+		String memberId = "test02";
+		String eduQnaId = "JUNIT TEST";
+		
+		eduQnaVO.setMemberId(memberId);
+		eduQnaVO.setEduQnaId(eduQnaId);
+		eduQnaVO.setEducationId("ED-20160513-000166");
+		eduQnaVO.setTitle("JUNIT TEST");
+		eduQnaVO.setContents("JUNIT TEST");
+		
+		boolean result = educationBiz.insertEduQna(eduQnaVO);
+		assertTrue(result);
+	}
+	
+	@Test
+	public void getNextEqbSeqTest() {
+		int nextEqbSeq = educationBiz.getNextEqbSeq();
+		assertTrue(nextEqbSeq>0);
+	}
+	
+	@Test
+	public void detailOfEduQnaTest() {
+		EduQnaVO eduQnaVO = educationBiz.detailOfEduQna("EQ-20160525-000073");
+		assertNotNull(eduQnaVO);		
+	}
+	
+	@Test
+	public void addHitsToEduQnaTest() {
+		boolean result = educationBiz.addHitsToEduQna("EQ-20160525-000073");
+		assertTrue(result);
+	}
+	
+	@Test
+	public void addQnaEduReplyLikeTest() {
+		boolean resultTwo = educationBiz.addQnaEduReplyLike("ER-20160525-000904");
+		assertTrue(resultTwo);
+	}
+	
+	@Test
+	public void addQnaEduReplyDisLikeTest() {
+		boolean resultTwo = educationBiz.addQnaEduReplyDisLike("ER-20160525-000904");
+		assertTrue(resultTwo);
+	}
+	
+	@Test
+	public void getTotalQnaEduReplyCountTest() {
+		int totalReportCount = educationBiz.getTotalQnaEduReplyCount("EQ-20160525-000073");
+		assertTrue(totalReportCount>0);
 	}
 }

@@ -32,11 +32,17 @@ import com.ktds.sems.SemsTestCase;
 import com.ktds.sems.Testable;
 import com.ktds.sems.common.Session;
 import com.ktds.sems.education.biz.EducationBiz;
+import com.ktds.sems.education.vo.EduQnaListVO;
+import com.ktds.sems.education.vo.EduQnaSearchVO;
+import com.ktds.sems.education.vo.EduQnaVO;
 import com.ktds.sems.education.vo.EduReplyListVO;
 import com.ktds.sems.education.vo.EducationListVO;
 import com.ktds.sems.education.vo.EducationReportListVO;
 import com.ktds.sems.education.vo.EducationReportSearchVO;
 import com.ktds.sems.education.vo.EducationReportVO;
+import com.ktds.sems.education.vo.EducationQNAReplyListVO;
+import com.ktds.sems.education.vo.EducationQNAReplySearchVO;
+import com.ktds.sems.education.vo.EducationQNAReplyVO;
 import com.ktds.sems.education.vo.EducationSearchVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.QNASearchVO;
@@ -46,6 +52,7 @@ import com.ktds.sems.education.vo.ReportReplySearchVO;
 import com.ktds.sems.education.vo.ReportReplyVO;
 import com.ktds.sems.file.biz.FileBiz;
 import com.ktds.sems.file.vo.FileVO;
+import com.ktds.sems.education.vo.ReRplyEvalVO;
 import com.ktds.sems.member.vo.MemberVO;
 
 import kr.co.hucloud.utilities.web.Paging;
@@ -447,241 +454,7 @@ public class EducationServiceTest extends SemsTestCase {
 
 		QNASearchVO qnaSearchVO = new QNASearchVO();
 		MockHttpSession session = new MockHttpSession();
-
-		MemberVO memberVO = new MemberVO();
-		memberVO.setId("test02");
-
-		session.setAttribute(Session.MEMBER, memberVO);
-
-		ModelAndView view = educationService.showMyQNAList(qnaSearchVO, session);
-
-		if (view != null) {
-
-			String viewName = view.getViewName();
-			assertNotNull(viewName);
-
-		} else {
-			fail("fail");
-		}
-	}
-
-	@Test
-	public void showMyQNADetailTest() {
-		String replyId = "RP-20160517-000204";
-		MockHttpSession session = new MockHttpSession();
-
-		ModelAndView view = educationService.showMyQNADetail(replyId, session);
-		if (view != null) {
-
-			String viewName = view.getViewName();
-			assertNotNull(viewName);
-			assertEquals(viewName, "myPage/myQNADetail");
-
-		} else {
-			fail("fail");
-		}
-	}
-
-	@Test
-	public void viewReportListPageTest() {
-
-		Paging paging = new Paging();
-		EducationReportSearchVO educationReportSearchVO = new EducationReportSearchVO();
-		educationReportSearchVO.setPageNo(0);
-		educationReportSearchVO.setEducationId("ED-20160519-000233");
-		educationReportSearchVO.setSearchType("JunitTest");
-		educationReportSearchVO.setSearchKeyword("Test");
-		educationReportSearchVO.setStartDate("2222-02-22");
-		educationReportSearchVO.setEndDate("2222-02-22");
-
-		int totalEduReportCount = educationBiz.getTotalEducationReportCount(educationReportSearchVO);
-		assertTrue(totalEduReportCount > 0);
-		paging.setTotalArticleCount(totalEduReportCount);
-
-		paging.setPageNumber("0");
-		educationReportSearchVO.setStartIndex(paging.getStartArticleNumber());
-		educationReportSearchVO.setEndIndex(paging.getEndArticleNumber());
-
-		List<EducationReportVO> educationReportList = educationBiz.getAllEducationReportList(educationReportSearchVO);
-		assertNotNull(educationReportList);
-		assertTrue(educationReportList.size() > 0);
-
-		EducationReportListVO educationReportListVO = new EducationReportListVO();
-		educationReportListVO.setEducationReportList(educationReportList);
-		educationReportListVO.setPaging(paging);
-		assertNotNull(educationReportListVO);
-
-		ModelAndView view = educationService.viewReportListPage(educationReportSearchVO);
-
-		if (view != null) {
-			String viewName = view.getViewName();
-			assertNotNull(viewName);
-			assertEquals(viewName, "education/reportList");
-		} else {
-			fail("fail");
-		}
-	}
-
-	@Test
-	public void viewReportWriteTest() {
-
-		MockHttpSession session = new MockHttpSession();
-
-		MemberVO loginMember = new MemberVO();
-		loginMember.setId("gangsa3");
-		loginMember.setMemberType("TR");
-		session.setAttribute(Session.MEMBER, loginMember);
-
-		String educationId = "ED-20160519-000233";
-
-		EducationReportVO educationReportVO = new EducationReportVO();
-		educationReportVO.setEducationId(educationId);
-		educationReportVO.setStartDate("2016-05-25");
-
-		ModelAndView view = educationService.viewReportWrite(educationId, session);
-
-		if (view != null) {
-			String viewName = view.getViewName();
-			assertNotNull(viewName);
-			assertEquals(viewName, "education/reportWrite");
-		} else {
-			fail("fail");
-		}
-
-	}
-
-	@Test
-	public void doReportWriteActionTest() {
-
-		MockHttpSession session = new MockHttpSession();
-
-		MemberVO loginMember = new MemberVO();
-		loginMember.setId("Junit");
-		session.setAttribute(Session.MEMBER, loginMember);
-
-		EducationReportVO educationReportVO = new EducationReportVO();
-		educationReportVO.setArticleId("JunitTest..");
-		educationReportVO.setEducationId("JunitTest..");
-		educationReportVO.setMemberId(loginMember.getId());
-		educationReportVO.setTitle("JunitTest..");
-		educationReportVO.setContents("JunitTest..");
-		educationReportVO.setStartDate("2016-05-26 10:00");
-		educationReportVO.setEndDate("2016-05-26 11:00");
-
-		BindingResult errors = new BeanPropertyBindingResult(educationReportVO, "reportWriteForm");
-
-		MockMultipartHttpServletRequest request = new MockMultipartHttpServletRequest();
-
-		Path path = Paths.get("D:\\핸드폰.xlsx");
-		String name = "file";
-		String originalFileName = "핸드폰";
-		String contentType = "text/plain";
-
-		byte[] content = null;
-
-		try {
-			content = Files.readAllBytes(path);
-		} catch (final IOException e) {
-
-		}
-
-		MultipartFile file = new MockMultipartFile(name, originalFileName, contentType, content);
-		request.addFile(file);
-
-		ModelAndView view = educationService.doReportWriteAction(educationReportVO, errors, request, session);
-		if (view != null) {
-			String viewName = view.getViewName();
-			assertNotNull(viewName);
-			assertEquals(viewName, "redirect:/education/reportList/" + educationReportVO.getEducationId());
-		} else {
-			fail("fail");
-		}
-
-	}
-
-	@Test
-	public void viewDetailEducationReportTest() {
-
-		MockHttpSession session = new MockHttpSession();
-
-		int pageNo = 0;
-		Paging paging = new Paging(10, 10);
-
-		paging.setPageNumber(pageNo + "");
-
-		MemberVO loginMember = new MemberVO();
-		loginMember.setId("testMemberId");
-		session.setAttribute(Session.MEMBER, loginMember);
-
-		EducationReportVO educationReportVO = new EducationReportVO();
-		educationReportVO.setArticleId("testArticleId");
-		educationReportVO.setEducationId("testEducationId");
-		educationReportVO.setMemberId("testMemberId");
-		educationReportVO.setTitle("testTitle");
-		educationReportVO.setContents("testContents");
-		educationReportVO.setStartDate("2016-05-25");
-		educationReportVO.setEndDate("2016-05-26");
-
-		int totalReportReplyCount = educationBiz.getReportReplyCount(educationReportVO.getArticleId());
-		assertTrue(totalReportReplyCount > 0);
-		paging.setTotalArticleCount(totalReportReplyCount);
-
-		ReportReplySearchVO searchVO = new ReportReplySearchVO();
-
-		searchVO.setStartIndex(paging.getStartArticleNumber());
-		searchVO.setEndIndex(paging.getEndArticleNumber());
-
-		educationReportVO = educationBiz.getOneEducationReport(educationReportVO);
-		assertNotNull(educationReportVO);
-
-		List<FileVO> reportFile = fileBiz.getOneFileId(educationReportVO.getArticleId());
-		if(reportFile != null) {
-			for (FileVO fileVO : reportFile) {
-				assertNotNull(fileVO.getFileId());
-				assertNotNull(fileVO.getFileName());
-				assertNotNull(fileVO.getFileLocation());
-			}
-		} else {
-			fail("fail");
-		}
-
-		List<ReportReplyVO> reportReplyList = educationBiz.getAllReportByArticleId(educationReportVO.getArticleId(),
-				searchVO);
-		if(reportReplyList != null) {
-			for (ReportReplyVO reportReplyVO : reportReplyList) {
-				assertNotNull(reportReplyVO.getRptRplId());
-				assertNotNull(reportReplyVO.getMbrId());
-				assertNotNull(reportReplyVO.getBbsId());
-				assertNotNull(reportReplyVO.getCreatedDate());
-				assertNotNull(reportReplyVO.getFileName());
-			}
-		} else {
-			fail("fail");
-		}
-
-		ReportReplyListVO reportReplyListVO = new ReportReplyListVO();
-		reportReplyListVO.setReportReplyList(reportReplyList);
-		reportReplyListVO.setPaging(paging);
-		assertNotNull(reportReplyListVO);
-
-		ModelAndView view = educationService.viewDetailEducationReport(educationReportVO, session, pageNo);
-
-		if (view != null) {
-			String viewName = view.getViewName();
-			assertNotNull(viewName);
-			assertEquals(viewName, "education/detailReportPage");
-		} else {
-			fail("fail");
-		}
-
-	}
-
-	
-	@Test
-	public void getAllReportReplyTest(){
-		ReportReplySearchVO reportReplySearchVO = new ReportReplySearchVO();
-		int pageNo = 0;
-		MockHttpSession session = new MockHttpSession();
+		
 		MemberVO memberVO = new MemberVO();
 		memberVO.setId("test02");
 		session.setAttribute(Session.MEMBER_TYPE, "MBR");
@@ -835,4 +608,118 @@ public class EducationServiceTest extends SemsTestCase {
 		assertEquals(view, "redirect:/education/detailReport/" + educationReportVO.getArticleId());
 		
 	}
+	
+	@Test
+	public void getAllQnaArticleTest() {
+		EduQnaSearchVO eduQnaSearchVO = new EduQnaSearchVO();
+		int pageNo = 0;
+		eduQnaSearchVO.setEducationId("ED-20160513-000166");
+		ModelAndView view = educationService.getAllQnaArticle(eduQnaSearchVO, pageNo);
+		String viewName = view.getViewName();
+		assertNotNull(viewName);
+		assertTrue(viewName == "education/eduQnaPage");
+	}
+	
+	@Test
+	public void viewWriteEduQnaTest() {
+		MockHttpSession session = new MockHttpSession();
+		String educationId = "ED-20160513-000166";
+		
+		MemberVO memberVO = new MemberVO();
+		memberVO.setId("test02");
+		
+		session.setAttribute(Session.MEMBER, memberVO);
+		
+		ModelAndView view = educationService.viewWriteEduQna(educationId, session);
+		String viewName = view.getViewName();
+		assertNotNull(viewName);
+		assertTrue(viewName == "education/eduQnaWrite");
+	}
+	
+	@Test
+	public void doWriteEduQnaActionTest() {
+		EduQnaVO eduQnaVO = new EduQnaVO();
+		MockHttpSession session = new MockHttpSession();
+		String educationId = "ED-20160513-000166";
+		
+		MemberVO memberVO = new MemberVO();
+		memberVO.setId("test02");
+		memberVO.setMemberType("MBR");
+		
+		session.setAttribute(Session.MEMBER, memberVO);
+		eduQnaVO.setMemberId(memberVO.getId());
+		eduQnaVO.setEduQnaId("EQ-20160525-000073");
+		eduQnaVO.setEducationId(educationId);
+		eduQnaVO.setTitle("JUNIT TEST");
+		eduQnaVO.setContents("JUNIT TEST");
+		
+		ModelAndView view = educationService.doWriteEduQnaAction(eduQnaVO, session);
+		String viewName = view.getViewName();
+		assertNotNull(viewName);
+	}
+	
+	@Test
+	public void detailOfEduQnaTest() {
+		String eduQnaId = "EQ-20160525-000073";
+		String educationId = "ED-20160513-000166";
+		MockHttpSession session = new MockHttpSession();
+		MemberVO memberVO = new MemberVO();
+		memberVO.setId("test02");
+		memberVO.setMemberType("MBR");
+		
+		session.setAttribute(Session.MEMBER, memberVO);
+		int pageNo = 0;
+		
+		ModelAndView view = educationService.detailOfEduQna(eduQnaId, educationId, session, pageNo);
+		String viewName = view.getViewName();
+		assertNotNull(viewName);
+		assertTrue(viewName == "education/eduQnaDetail");
+	}
+	
+	@Test
+	public void doEduQnaReplyActionTest() {
+		EducationQNAReplyVO eduBBSReplyVO = new EducationQNAReplyVO();
+		MockHttpSession session = new MockHttpSession();
+		MemberVO memberVO = new MemberVO();
+		memberVO.setId("test02");
+		memberVO.setMemberType("MBR");
+		
+		session.setAttribute(Session.MEMBER, memberVO);
+		String educationId = "ED-20160513-000166";
+		
+		BindingResult errors = new BeanPropertyBindingResult(eduBBSReplyVO,"replyWriteForm");
+		
+		eduBBSReplyVO.setAtcId("EQ-20160525-000073");
+		eduBBSReplyVO.setDescription("JUNIT TEST");
+		ModelAndView view = educationService.doEduQnaReplyAction(eduBBSReplyVO, errors, session, educationId);
+		String viewName = view.getViewName();
+		assertNotNull(viewName);
+	}
+	
+	@Test
+	public void addQnaEduReplyLikeTest() {
+		String replyId = "ER-20160525-000906";
+		MockHttpSession session = new MockHttpSession();
+		MemberVO memberVO = new MemberVO();
+		memberVO.setId("test02");
+		memberVO.setMemberType("MBR");
+		
+		session.setAttribute(Session.MEMBER, memberVO);
+		String result = educationService.addQnaEduReplyLike(replyId, session);
+		assertTrue(result == "OK");
+	}
+	
+	@Test
+	public void addQnaEduReplyDisLikeTest() {
+		String replyId = "ER-20160525-000906";
+		MockHttpSession session = new MockHttpSession();
+		MemberVO memberVO = new MemberVO();
+		memberVO.setId("test02");
+		memberVO.setMemberType("MBR");
+		
+		session.setAttribute(Session.MEMBER, memberVO);
+		String result = educationService.addQnaEduReplyDisLike(replyId, session);
+		assertTrue(result == "OK");
+	}
+	
 }
