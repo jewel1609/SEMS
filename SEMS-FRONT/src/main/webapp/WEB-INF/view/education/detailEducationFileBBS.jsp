@@ -248,7 +248,5 @@
 		<input id="writeReplyButton" type="button" class="inputButton" value="질문하기" />
 	</form:form>
 	
-	
-	
 </body>
 </html>
