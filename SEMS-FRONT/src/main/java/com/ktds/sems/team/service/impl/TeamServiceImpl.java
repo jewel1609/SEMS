@@ -516,7 +516,7 @@ public class TeamServiceImpl implements TeamService{
 	public ModelAndView viewListMinutes(MinutesSearchVO minutesSearchVO, int pageNo) {
 
 		MinutesListVO minutesListVO = new MinutesListVO();
-		Paging paging = new Paging(5, 5);
+		Paging paging = new Paging(10, 10);
 
 		minutesListVO.setPaging(paging);
 		int totalHistoryCount = teamBiz.getTotalMinutesCount(minutesSearchVO);
@@ -548,6 +548,30 @@ public class TeamServiceImpl implements TeamService{
 		view.setViewName("redirect:/listMinutes");
 
 		return view;
+	}
+	
+	@Override
+	public ModelAndView getOneDetailMinutes(String minutesId, HttpSession session) {
+		
+		//MemberVO loginMember = (MemberVO) session.getAttribute("_MEMBER_");
+		
+		//String loginMemberId = loginMember.getId();
+		
+		//System.out.println(loginMemberId);
+		//System.out.println(memberId);
+		if (minutesId != null) {
+			MinutesVO minutesVO = teamBiz.getOneDetailMinutes(minutesId);
+			
+			String startMinutesDate = teamBiz.getOneDetailMinutesDate(minutesId);
+			ModelAndView view = new ModelAndView();
+			minutesVO.setMinutesDate(startMinutesDate);
+			view.addObject("minutesVO", minutesVO);
+			view.setViewName("team/detailMinutes");
+			
+			return view;
+		} else {
+			throw new RuntimeException("접근 가능한 권한이 아닙니다.");
+		}
 	}
 
 	@Override
