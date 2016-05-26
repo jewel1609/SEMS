@@ -10,6 +10,8 @@ public class TeamSearchVO {
 	private String startDate;
 	private String endDate;
 	
+	private String teamBBSId;
+	
 	public int getPageNo() {
 		return pageNo;
 	}
@@ -51,6 +53,12 @@ public class TeamSearchVO {
 	}
 	public void setEndDate(String endDate) {
 		this.endDate = endDate;
+	}
+	public String getTeamBBSId() {
+		return teamBBSId;
+	}
+	public void setTeamBBSId(String teamBBSId) {
+		this.teamBBSId = teamBBSId;
 	}
 	
 	
