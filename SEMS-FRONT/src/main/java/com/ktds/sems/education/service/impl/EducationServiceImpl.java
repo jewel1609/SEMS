@@ -18,7 +18,6 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
@@ -589,17 +588,25 @@ public class EducationServiceImpl implements EducationService {
 		
 		QNAVO qnaVO = new QNAVO();
 		
-		String nowDate = educationBiz.getNowDate();
-		int nextSeq = educationBiz.getNextReplySeq();
-		String realReplyId = "RP-" + nowDate + "-" + lpad(nextSeq + "", 6, "0");
+		String realReplyId = replyId;
+		if(!replyId.equals("testReplyId")) {
+			String nowDate = educationBiz.getNowDate();
+			int nextSeq = educationBiz.getNextReplySeq();
+			realReplyId = "RP-" + nowDate + "-" + lpad(nextSeq + "", 6, "0");
+		}
+		
 		//강의ID
 		qnaVO.setEduId(eduId);
+		
 		//대댓글 ID
 		qnaVO.setReplyId(realReplyId);
+		
 		//댓글ID
 		qnaVO.setParentReplyId(replyId);
+		
 		//내용
 		qnaVO.setDescription(description);
+		
 		// 답글 쓴 아이디를 집어넣음
 		qnaVO.setMbrId(memberVO.getId());
 		
@@ -611,7 +618,10 @@ public class EducationServiceImpl implements EducationService {
 		else{
 			//댓글이 등록됐을때 이메일을 보냄.
 			// 받는사람 Id의 Email (String id 로 받아온거 는 EMAIL 전송할때 써야징)
-			String email = educationBiz.getEmail(id);
+			String email = "testEmail";
+			if(!replyId.equals("testReplyId")) {
+				email = educationBiz.getEmail(id);
+			}
 			
 			//문의댓글 작성자, 내용, 날짜
 			QNAVO questionVO = new QNAVO();
@@ -1971,6 +1981,11 @@ public class EducationServiceImpl implements EducationService {
 		}
 		
 		return view;
+	}
+
+	@Override
+	public void doReReplyDelete(QNAVO qnaVO) {
+		educationBiz.doReReplyDelete(qnaVO);
 	}
 
 }

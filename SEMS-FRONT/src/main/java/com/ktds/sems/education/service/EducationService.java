@@ -134,4 +134,7 @@ public interface EducationService {
 	public ModelAndView modifyFileBBS(EducationFileBBSVO educationFileBBSVO, MultipartHttpServletRequest request, String fileDelete , HttpSession session);
 
 	public ModelAndView showModifyFileBBS(EducationFileBBSVO educationFileBBSVO, HttpSession session);
+
+	public void doReReplyDelete(QNAVO qnaVO);
+
 }

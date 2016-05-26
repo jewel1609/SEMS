@@ -11,8 +11,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,34 +23,24 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.SemsTestCase;
 import com.ktds.sems.Testable;
 import com.ktds.sems.common.Session;
 import com.ktds.sems.education.biz.EducationBiz;
-import com.ktds.sems.education.vo.EduQnaListVO;
 import com.ktds.sems.education.vo.EduQnaSearchVO;
 import com.ktds.sems.education.vo.EduQnaVO;
 import com.ktds.sems.education.vo.EduReplyListVO;
 import com.ktds.sems.education.vo.EducationListVO;
-import com.ktds.sems.education.vo.EducationReportListVO;
-import com.ktds.sems.education.vo.EducationReportSearchVO;
-import com.ktds.sems.education.vo.EducationReportVO;
-import com.ktds.sems.education.vo.EducationQNAReplyListVO;
-import com.ktds.sems.education.vo.EducationQNAReplySearchVO;
 import com.ktds.sems.education.vo.EducationQNAReplyVO;
+import com.ktds.sems.education.vo.EducationReportVO;
 import com.ktds.sems.education.vo.EducationSearchVO;
 import com.ktds.sems.education.vo.EducationVO;
-import com.ktds.sems.education.vo.QNASearchVO;
+import com.ktds.sems.education.vo.QNAListVO;
 import com.ktds.sems.education.vo.QNAVO;
-import com.ktds.sems.education.vo.ReportReplyListVO;
-import com.ktds.sems.education.vo.ReportReplySearchVO;
 import com.ktds.sems.education.vo.ReportReplyVO;
 import com.ktds.sems.file.biz.FileBiz;
-import com.ktds.sems.file.vo.FileVO;
-import com.ktds.sems.education.vo.ReRplyEvalVO;
 import com.ktds.sems.member.vo.MemberVO;
 
 import kr.co.hucloud.utilities.web.Paging;
@@ -156,6 +144,25 @@ public class EducationServiceTest extends SemsTestCase {
 				educationService.doReportSubmit(reportReplyVO, request, session);
 			}
 		});
+		
+		testHelper(new Testable() {
+			
+			@Override
+			public void preparedTest() {
+				
+				String replyId = "testReplyId";
+				String eduId = "testEduId";
+				String id = "testId";
+				String description = "testDescription";
+				
+				MemberVO member = new MemberVO();
+				member.setId("testMemberId");
+				MockHttpSession session = new MockHttpSession();
+				session.setAttribute(Session.MEMBER, member);
+				
+				educationService.doReReplyInsert(replyId, eduId, id, description, session);
+			}
+		});
 	}
 	
 	@After
@@ -175,6 +182,17 @@ public class EducationServiceTest extends SemsTestCase {
 				session.setAttribute("_MEMBER_", memberVO);
 				
 				educationService.deleteReport(educationReportVO, session);
+			}
+		});
+		
+		testHelper(new Testable() {
+			
+			@Override
+			public void preparedTest() {
+
+				QNAVO qnaVO = new QNAVO();
+				qnaVO.setReplyId("testReplyId");
+				educationService.doReReplyDelete(qnaVO);
 			}
 		});
 	}
@@ -452,27 +470,35 @@ public class EducationServiceTest extends SemsTestCase {
 	@Test
 	public void showMyQNAListTest() {
 
-		QNASearchVO qnaSearchVO = new QNASearchVO();
 		MockHttpSession session = new MockHttpSession();
-		
 		MemberVO memberVO = new MemberVO();
-		memberVO.setId("test02");
-		session.setAttribute(Session.MEMBER_TYPE, "MBR");
-		session.setAttribute("_MEMBER_", memberVO);
-		ModelAndView view = educationService.getAllReportReply(reportReplySearchVO, pageNo, session);
-		assertNotNull(view);
-		String viewName = view.getViewName();
-		assertNotNull(viewName);
-		assertEquals(viewName, "myPage/myReportList");
-		
-		memberVO.setId("gangsa3");
-		session.setAttribute(Session.MEMBER_TYPE, "TR");
-		session.setAttribute("_MEMBER_", memberVO);
-		view = educationService.getAllReportReply(reportReplySearchVO, pageNo, session);
-		assertNotNull(view);
-		viewName = view.getViewName();
-		assertNotNull(viewName);
-		assertEquals(viewName, "myPage/teacherReportList");
+		memberVO.setId("testMemberId");
+		session.setAttribute(Session.MEMBER, memberVO);
+
+		ModelAndView view = educationService.showMyQNAList(null, session);
+		if(view != null) {
+			String viewName = view.getViewName();
+			assertNotNull(viewName);
+			assertEquals(viewName, "myPage/myQNAList");
+			QNAListVO qnaListVO = (QNAListVO) view.getModel().get("qnaListVO");
+			if(qnaListVO != null) {
+				assertNotNull(qnaListVO.getPaging());
+				List<QNAVO> qnaList = qnaListVO.getQnaList();
+				
+				if(qnaList != null) {
+					
+					for (QNAVO qnavo : qnaList) {
+						assertNotNull(qnavo.getReplyId());
+					}
+				} else {
+					fail("fail");
+				}
+			} else {
+				fail("fail");
+			}
+		} else {
+			fail("fail");
+		}
 	}
 	
 	@Test
