@@ -13,6 +13,7 @@ public class MinutesVO {
 	private String startTime;
 	private String endTime;
 	private String agendaDate;
+	private String minutesDate;
 	
 	@NotEmpty(message = "회의 안건은 필수 입력 값 입니다!")
 	private String minutesAgenda;
@@ -115,6 +116,12 @@ public class MinutesVO {
 	}
 	public void setRemarks(String remarks) {
 		this.remarks = remarks;
+	}
+	public String getMinutesDate() {
+		return minutesDate;
+	}
+	public void setMinutesDate(String minutesDate) {
+		this.minutesDate = minutesDate;
 	}
 	
 }
