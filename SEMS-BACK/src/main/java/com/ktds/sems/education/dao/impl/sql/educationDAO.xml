@@ -592,9 +592,8 @@
 				, MODIFY_DATE modifyDate
 				, HITS hits
 		FROM	IMP_ATC
-		WHERE	EDU_ID =  #{educationId} 
-		AND		IS_DELETE = 'N'
-		OR		IMP_TP ='important'
+		WHERE	IS_DELETE = 'N' 
+		AND     ((EDU_ID =  #{educationId}  AND IMP_TP ='normal') OR IMP_TP ='important')
 		ORDER	BY IMP_ATC_ID
 	</select>
 	
