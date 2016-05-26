@@ -50,8 +50,8 @@
 			var tmpStr2 = cdNm.val();
 			tmpStr = tmpStr.replace(engregexp, '');
 			tmpStr2 = tmpStr2.replace(noengregexp, '');
-			if ( (tmpStr.length * 3) + tmpStr2.length > 20 ) {
-				alert("CODE NAME은 20글자 이하로 써주세요.");
+			if ( (tmpStr.length * 3) + tmpStr2.length > 6 ) {
+				alert("코드 타이틀은 6글자 이하로 써주세요.");
 				return;
 			}
 			
@@ -117,15 +117,15 @@
 			var tmpStr2 = $(this).val();
 			tmpStr = tmpStr.replace(engregexp, '');
 			tmpStr2 = tmpStr2.replace(noengregexp, '');
-			if ( (tmpStr.length * 3) + tmpStr2.length > 20 ) {
-				alert("글자 수가 너무 큽니다.");
+			if ( tmpStr.length + tmpStr2.length > 6 ) {
+				alert("글자 수가 너무 큽니다. 최대 6글자 입력가능합니다.");
 				while(v.length > 0){
 					v = v.substring(0, v.length - 1);
 					tmpStr = v;
 					tmpStr2 = v;
 					tmpStr = tmpStr.replace(engregexp, '');
 					tmpStr2 = tmpStr2.replace(noengregexp, '');
-					if ( (tmpStr.length * 3) + tmpStr2.length <= 20 ) {
+					if ( tmpStr.length + tmpStr2.length <= 6 ) {
 						break;
 					}
 				}
@@ -226,7 +226,7 @@
 				<input type="hidden" id="${codeMng.cdId}" name="cdId" value="${codeMng.cdId}"/>
 				<td style="text-align:center">${codeMng.cdId}</td>
 				<td>
-					<input style="text-align:center" type="text" id="${codeMng.cdNm}" name="cdNm" value="${codeMng.cdNm}"/>
+					<input class="onlyText" style="text-align:center" type="text" id="${codeMng.cdNm}" name="cdNm" value="${codeMng.cdNm}"/>
 				</td>
 				<input type="hidden" id="${codeMng.cdTp}" name="cdTp" value="${codeMng.cdTp}"/>
 				<td style="text-align:center">${codeMng.cdTp}</td>
