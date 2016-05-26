@@ -28,9 +28,55 @@
 	};
 	
 	$(document).ready (function () {
+		$(".reReplyBtn").click(function() {
+			$(this).parent().parent().parent().children(":eq(2)").slideToggle();
+		});
+		
 		$("#writeReplyButton").click(function () {
 			$("#writeReplyForm").attr("action", "<c:url value='/education/fileBBS/doWriteReply' />");
 			$("#writeReplyForm").submit();
+		});
+		
+		$("#modifyButton").click (function () {
+			$("#modifyAndDeleteForm").attr("action", "<c:url value='/education/modifyFileBBS' />");
+			$("#modifyAndDeleteForm").submit();
+		});
+		
+		$("#deleteButton").click (function () {
+			$("#modifyAndDeleteForm").attr("action", "<c:url value='/education/fileBBS/doDelete' />");
+			$("#modifyAndDeleteForm").submit();
+		});
+		
+		$(".registReReplyBtn").click(function (){
+			var articleId = "<c:out value="${ educationFileBBS.articleId }"/>";
+			var parentReplyId =  $(this).parent().parent().parent().parent().children(":eq(0)").children(":eq(0)").children(":eq(2)").val();
+			var description = $(this).parent().children(":eq(1)").val();
+			
+			if(description==""){
+				alert("내용을 입력해주세요.");
+				return;
+			}
+
+			if ( confirm("입력한 내용으로 답글을 다시겠습니까?") == true ) {
+				
+				$.post("<c:url value="/education/fileBBS/doWriteReReply"/>", {
+					"articleId" : articleId,
+					"parentReplyId" : parentReplyId,
+					"description" : description
+				}, function(data) {
+					if(data == "OK") {
+						alert("답글이 등록되었습니다.");
+						location.href="<c:url value="/education/fileBBS/detail/${educationFileBBS.articleId}"/>";
+					}
+					else if(data == "NO"){
+						alert("답글 등록이 실패하였습니다.");
+						location.href= history.back(-1);
+					}
+				});
+			}
+			else {
+				return;
+			}
 		});
 	});
 	
@@ -112,76 +158,87 @@
 			</td>
 		</tr>
 	</table>
+	<form:form commandName="educationFileBBSVO" id="modifyAndDeleteForm" method="POST">
+		<input type="hidden" name="educationId" value="${educationFileBBS.educationId}" />
+		<input type="hidden" name="articleId" value="${educationFileBBS.articleId}" />
+		<input type="hidden" name="memberId" value="${educationFileBBS.memberId}" />
+		<input type="hidden" name="title" value="${educationFileBBS.title}" />
+		<input type="hidden" name="contents" value="${educationFileBBS.contents}" />
+		<input type="hidden" name="createDate" value="${educationFileBBS.createDate}" />
+		<input type="hidden" name="hits" value="${educationFileBBS.hits}" />
+	</form:form>
 	<c:forEach items="${fileList}" var="file">
 		<a href="javascript:download(${file.fileId});" >
 			${file.fileName} <br/>
 		</a>
 	</c:forEach>
 	<input id="backButton" class="inputButton" type="button" value="목록으로"/>
+	<c:if test="${sessionScope._MEMBER_.id eq educationFileBBS.memberId}"> 
+		<input id="modifyButton" type="button" class="inputButton" value="수정하기" />
+		<input id="deleteButton" type="button" class="inputButton" value="삭제하기" />
+	</c:if>
 	<hr/>
-	<h3>질문등록</h3>
-	
-	<c:if test="${ eduReplyListVO.qnaList.size() gt 0 }">
-	<div id="tableTwo">
-		<c:forEach items="${eduReplyListVO.qnaList}" var="qna">
-			<div style="padding-left:${qna.depth * 20}px">
-				<div>
+	<div style="width: 500px;">
+		<h3>질문등록</h3>
+		
+		<c:if test="${ replyList.bbsReplys.size() gt 0 }">
+		<div id="tableTwo">
+			<c:forEach items="${replyList.bbsReplys}" var="reply">
+				<c:if test="${reply.parentReplyId eq '0'}">
 					<div>
-						<span>작성자 : </span>
-						<span>${ qna.mbrId }</span>
-						<input type="hidden" value="${qna.replyId }"/>
-						<br/>
-					</div>
-					<div>
-						<span>날짜 : </span>${ qna.createdDate }
-					</div>
-				</div>
-				<div>
-					<div>
-						<span>내용 : </span>${ qna.description }
-						
-						<c:if test="${ qna.depth eq 1 and memberType eq 'ADM'}">
-							<div style="text-align:right; cursor:pointer" class="reReplyBtn">&nbsp; + </div>
-						</c:if>
-					</div>
-				</div>
-			
-				<div class="registNewReReply">
-					<div>
-						<form id="registReReplyForm">
-							<div>답변내용 :</div> 
-							<textarea class="reReplyContent" name="reReplyContent" cols="28" rows="5" placeholder="답글을 입력하세요."></textarea>
-							<div style="text-align:right; cursor:pointer" class="registReReplyBtn">답글 등록</div>
-						</form>
-					</div>
-				</div>
-				<c:if test="${ qna.depth eq 2 }">
+				</c:if>
+				<c:if test="${reply.parentReplyId ne '0'}">
+					<div style="padding-left:20px">
+				</c:if>
 					<div>
 						<div>
-							<span class="likeBtn" style="cursor:pointer">추천 : </span>${ qna.likeCnt } &nbsp;&nbsp;
-							<span class="dislikeBtn" style="cursor:pointer">반대 : </span>${ qna.dislikeCnt }
+							<span>작성자 : </span>
+							<span>${ reply.memberId }</span>
+							<input type="hidden" value="${reply.replyId }"/>
+							<br/>
+						</div>
+						<div>
+							<span>날짜 : </span>${ reply.createdDate }
 						</div>
 					</div>
-				</c:if>
-			</div>
-			<hr/>
-		</c:forEach>
+					<div>
+						<div>
+							<span>내용 : </span>${ reply.description }
+							
+							<c:if test="${ reply.parentReplyId eq '0'}">
+								<div style="text-align:right; cursor:pointer" class="reReplyBtn">&nbsp; + </div>
+							</c:if>
+						</div>
+					</div>
+				
+					<div class="registNewReReply">
+						<div>
+							<form id="registReReplyForm">
+								<div>답변내용 :</div> 
+								<textarea class="reReplyContent" name="reReplyContent" cols="28" rows="5" placeholder="답글을 입력하세요."></textarea>
+								<br/>
+								<input type="button" class="registReReplyBtn inputButton" value="답변 달기" />
+							</form>
+						</div>
+					</div>
+				</div>
+				<hr/>
+			</c:forEach>
+		</div>
+	
+		<div style="text-algin:center">
+			<table>
+				<tr>
+					<td colspan="6" style="text-align:center">
+						<form id="pagingForm">
+								${replyList.paging.getPagingList("pageNo", "[@]", "이전", "다음", "pagingForm")}
+						</form>
+					</td>
+				</tr>
+			</table>
+		</div>
+		</c:if>
 	</div>
-
-	<div style="text-algin:center">
-		<table>
-			<tr>
-				<td colspan="6" style="text-align:center">
-					<form id="pagingForm">
-						<c:if test="${ eduReplyListVO ne null }">
-							${eduReplyListVO.paging.getPagingList("pageNo", "[@]", "이전", "다음", "pagingForm")}
-						</c:if>
-					</form>
-				</td>
-			</tr>
-		</table>
-	</div>
-	</c:if>
 	
 	<form:form id="writeReplyForm" commandName="bbsReplyVO" method="post">
 		<input type="hidden" name="articleId" value="${educationFileBBS.articleId}">

@@ -6,6 +6,18 @@
 <html>
 <head>
 <link href="<c:url value='/resources/css/eduDetail.css'/>" rel="stylesheet"/>
+<style type="text/css">
+.inputButton {
+	border:none;
+	border-radius:5px;
+	padding:6px 12px;
+	font-weight:bold;
+	text-transform:uppercase;
+	color:#FFFFFF;
+	background-color:#E05149;
+	cursor: pointer;
+}
+</style>
 <script type="text/javascript" src="<c:url value='/resources/js/jquery.min.js'/>"></script> 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
@@ -82,7 +94,7 @@
 	<c:if test="${sessionScope._MEMBER_.id eq teacherId}">
 		<form action="<c:url value='/education/writeFileBBS' />" method="post">
 			<input type="hidden" name="educationId" value="${educationId}"/>
-			<input type="submit" value="글쓰기"/>
+			<input type="submit" class="inputButton" value="글쓰기"/>
 		</form>
 	</c:if>
 </body>

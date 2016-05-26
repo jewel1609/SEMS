@@ -20,6 +20,16 @@
 <script type="text/javascript" src="<c:url value='/resources/js/jquery.min.js'/>"></script>
 <script type="text/javascript">
 	$(document).ready(function () {
+		
+		$("#deleteButton").click (function () {
+			if ( confirm("정말 삭제 하시겠습니까?") == true ) {
+				$("#fileDelete").val("Y");
+			}
+			else {
+				return;
+			}
+		});
+
 		$("#writeButton").click (function () {
 			$("#writeForm").attr("action", "<c:url value='/education/doWriteFileBBSAction' />" );
 			$("#writeForm").submit();
@@ -32,6 +42,11 @@
 				$("#fileName").append("<div class='deleteFile'>"+files[i]+"</div>");
 			}
 		});
+		
+		$("#modifyButton").click(function () {
+			$("#writeForm").attr("action", "<c:url value='/education/doModifyFileBBSAction' />" );
+			$("#writeForm").submit();
+		});
 	});
 </script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -39,19 +54,32 @@
 </head>
 <body>
 	<form:form id="writeForm" commandName="educationFileBBSVO" method="POST" enctype="multipart/form-data">
-		<input type="hidden" name="educationId" value="${educationId}"/>
-		<input name="title" type="text" placeholder="제목을 입력하세요."/>
+		
+		<input name="title" type="text" class="textInput" placeholder="제목을 입력하세요." style="width: 500px;" value="${educationFileBBSVO.title}"/>
 		<br/>
 		<br/>
-		<textarea name="contents" placeholder="내용을 입력하세요."></textarea>
+		<textarea name="contents" class="textInput" placeholder="내용을 입력하세요." style="width: 500px; height: 400px;">${educationFileBBSVO.contents}</textarea>
 		<br/>
 		<br/>
+		<c:if test="${isModify eq null}">
+			<input type="hidden" name="educationId" value="${educationId}"/>
+		</c:if>
+		<c:if test="${isModify ne null}">
+			<input id="deleteButton" class="inputButton" type="button" value="기존 파일 삭제" />
+			<input id="fileDelete" type="hidden"  name="fileDelete" value="N" />
+			<input type="hidden" name="articleId" value="${educationFileBBSVO.articleId}" />
+		</c:if>
 		<input id="file" type="file" name="file" multiple="multiple"/>
 		<br/>
 		<br/>
 		<span id="fileName"></span>
 	</form:form>
-	<br/><br/>
-	<input id="writeButton" class="inputButton" type="button" value="등록"/>
+	<br/>
+	<c:if test="${isModify eq null}">
+		<input id="writeButton" class="inputButton" type="button" value="등록"/>
+	</c:if>
+	<c:if test="${isModify ne null}">
+		<input id="modifyButton" class="inputButton" type="button" value="수정"/>
+	</c:if>
 </body>
 </html>
