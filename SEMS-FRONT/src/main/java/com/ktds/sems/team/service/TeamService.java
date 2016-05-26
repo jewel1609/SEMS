@@ -25,7 +25,7 @@ public interface TeamService {
 	public ModelAndView checkPassword(String teamBBSId,String type);
 
 	public ModelAndView viewModifyPage(String teamBBSId);
-
+	
 	public ModelAndView viewTeamBBSDetailPage(String teamBBSId, int pageNo, HttpSession session);
 
 	public String doLikeBBSAction(String teamBBSId, HttpSession session);
@@ -42,8 +42,10 @@ public interface TeamService {
 
 	public String isReplyByTeamBBSId(String teamBBSId);
 
-	public ModelAndView doWriteBBSReplyAction(TeamBBSReplyVO replyVO, int pageNo, HttpSession session);
+	public ModelAndView doWriteBBSReplyAction(TeamBBSReplyVO replyVO, HttpSession session);
 
+	public ModelAndView getAllTeamListPage(TeamSearchVO teamSearchVO);
+	
 	public ModelAndView getOneTeamDetail(String teamId);
 
 	public ModelAndView writeNewMinutes(String teamId, MinutesVO minutesVO, Errors errors, HttpSession session);
@@ -51,12 +53,11 @@ public interface TeamService {
 	public ModelAndView viewListMinutes(MinutesSearchVO intminutesSearchVO, int pageNo);
 
 	public ModelAndView minutesInit();
-	
+
 	public ModelAndView getOneDetailMinutes(String minutesId, HttpSession session);
 	
-	/*
-	 * 본호
-	 */
+	public ModelAndView viewReReplyPage(String teamBBSId, HttpSession session, String parentReplyId);
+
 	public ModelAndView getAllEduMember(String educationId, HttpSession session);
 
 	public ModelAndView massiveInsertMember(String[] insertMemberIds, String educationId, String teamName, String teamListId);
