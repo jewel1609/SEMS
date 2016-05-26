@@ -13,8 +13,10 @@ public class TeamBBSVO {
 	private String createdDate;
 	private String modifiedDate;
 	private String isNotice;
-
+	
 	private String bbsHistoryId;
+	private String likeState;
+	private String dislikeState;
 	
 	public String getTeamBBSId() {
 		return teamBBSId;
@@ -88,10 +90,18 @@ public class TeamBBSVO {
 	public void setBbsHistoryId(String bbsHistoryId) {
 		this.bbsHistoryId = bbsHistoryId;
 	}
-	
-	
-	
-	
+	public String getDislikeState() {
+		return dislikeState;
+	}
+	public void setDislikeState(String dislikeState) {
+		this.dislikeState = dislikeState;
+	}
+	public String getLikeState() {
+		return likeState;
+	}
+	public void setLikeState(String likeState) {
+		this.likeState = likeState;
+	}
 	
 	
 	
