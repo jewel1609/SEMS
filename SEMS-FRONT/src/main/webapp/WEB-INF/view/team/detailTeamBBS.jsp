@@ -11,6 +11,7 @@
 		$(".hide").hide();
 		
 		$(".writeReply").click(function(){
+			
 			//this 현재클릭한 놈의 부모부모부모 즉 table을 찾아감
 			var table = $(this).parent().parent().parent();
 			console.log(table.text());
@@ -20,15 +21,25 @@
 			var depth = table.children(":eq(2)").children(":eq(0)").html();
 			var orderNo = table.children(":eq(2)").children(":eq(1)").html();
 			var replyId = table.children(":eq(3)").children(":eq(0)").html();
+			var teamBBSId = $("#teamBBSId").val();
 			
 			$("#depth").val(parseInt(depth)+ 1);
 			$("#parentReplyId").val(replyId);
 			$("#groupId").val(groupId);
 			$("#orderNo").val(orderNo);
+		 
+			$.ajax({
+	            type: "POST",
+	            url: "/team/teamBBS/detail/doGetReReply",
+	            data:{ "parentReplyId" : replyId,
+						"teamBBSId" : teamBBSId
+	            },
+	            success: function(response) {
+	                $("#subViewDiv").html( response );
+	            }
+	        });
+			
 
-			alert(replyId);
-			alert(depth);
-			alert(orderNo);
 			var form = $("#formWrapper").html();
 			$("#formWrapper").detach();
 			
@@ -64,14 +75,15 @@
 						}
 					});
 		});
-		
 	});
 	
+
 </script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>팀별 게시판 상세 페이지</title>
 </head>
 <body>
+	
 	<table>
 		<tr> 
 			<td>게시글 아이디</td>
@@ -91,7 +103,7 @@
 			<td>${teamBBS.createdDate }</td>
 			<td>${teamBBS.modifiedDate }</td>
 			<td>${teamBBS.isNotice}</td>
-			<!-- EducationController에 있는 "/downloadFile"로 teamBBSId 전송 및 처리 -->
+				<!-- EducationController에 있는 "/downloadFile"로 teamBBSId 전송 및 처리 -->
 			<td><a href="/downloadFile/${teamBBS.teamBBSId }">${fileName}</a></td>
 		</tr>	
 	</table>
@@ -109,14 +121,14 @@
 	</c:if>
 	
 	 <div>
-  	<c:forEach items="${replies}" var="reply">
+  	<c:forEach items="${teamBBSReplyListVO.teamBBSReplyList}" var="reply">
    		<div style="padding-left:${ reply.depth * 20}px">
    		  <table width ="100%" border="2px">
 			<tr>
 				<td width="150px">${ reply.memberId }</td>			
 				<td width="*">
 					${ reply.descript }<br/>
-					<span class="writeReply" style="cursor:pointer;">댓글 달기</span>
+					<span class="writeReply" style="cursor:pointer;">댓글 보기</span>
 				</td>			
 			</tr>
 			
@@ -136,12 +148,16 @@
 	 	 </div>
  	</c:forEach>
 	</div>
-
+	
 	<div id="formWrapper" class="hide">
 		<table border="1">
+			<div id="subViewDiv"></div>
+				
 			<tr>
+				
 				<td>
-					<form:form id="writeReplyForm" commandName="teamBBSReplyVO" method="POST" action="/team/teamBBS/detail/doWriteReply">
+				<form:form id="writeReplyForm" commandName="teamBBSReplyVO" method="POST" action="/team/teamBBS/detail/doWriteReply">
+					
 						<input type="hidden" id="replyId" name="replyId">
 						<input type="hidden" id="teamBBSId" name="teamBBSId" value="<c:out value="${teamBBS.teamBBSId}" />">
 						<textarea name="descript" id="descript" rows="5" cols="20"></textarea>
@@ -151,17 +167,18 @@
 	   					<input type="hidden" id="orderNo" name="orderNo" value ="0"/>
 						<input type="submit" value="등록" />
 						<input type="button" id="cancelBtn" value="취소" />
-					</form:form>
+				
+				</form:form>
 				</td>
 			</tr>
 		</table>
 	</div>
 	
 	<br>
+	<form:form id="replyForm" commandName="teamBBSReplyVO" method="POST" action="/team/teamBBS/detail/doWriteReply">
 	<table border="1">
 		<tr>
 			<td>
-				<form:form id="replyForm" commandName="teamBBSReplyVO" method="POST" action="/team/teamBBS/detail/doWriteReply">
 					<input type="hidden" id="replyId" name="replyId">
 					<input type="hidden" id="teamBBSId" name="teamBBSId" value="<c:out value="${teamBBS.teamBBSId}" />">
 					<textarea name="descript" id="descript" rows="5" cols="20"></textarea>
@@ -171,10 +188,14 @@
    					<input type="hidden" id="orderNo" name="orderNo" value ="0"/>
 					<input type="submit" value="등록" />
 					<input type="button" id="cancelBtn" value="취소" />
-				</form:form>
 			</td>
 		</tr>
+		
 	</table>
+		${teamBBSReplyListVO.paging.getPagingList("pageNo", "[@]", "이전", "다음", "replyForm")}
+		
+	</form:form>
+	
 	<c:if test="${ teamBBS.memberId eq memberId }">
 		<a href="<c:url value='/team/checkBBSModify/${teamBBS.teamBBSId }' />">수정</a> /
 		<input type="hidden" id="teamBBSId" name="teamBBSId" value="${ teamBBS.teamBBSId }" />
