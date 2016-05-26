@@ -229,22 +229,10 @@ public class MemberServiceTest extends SemsTestCase {
 		MemberValidator memberValidator = new MemberValidator();
 		memberValidator.validate(member, errors);
 		MockHttpServletResponse response = new MockHttpServletResponse();
-		MockHttpServletRequest requset = new MockHttpServletRequest();
 
 		String addNewMemberResultString = memberService.addNewMember(member, repeatPasswrod, errors, response);
-		
 		assertNotNull(addNewMemberResultString);
 
-//		if (view != null) {
-//			String viewName = view.getViewName();
-//			assertNotNull(viewName);
-//			assertEquals(viewName, "redirect:/");
-//
-//			assertTrue(memberDAO.isExistId(member.getId()) != null);
-//			memberDAO.delectJunitTestMember(member.getId());
-//		} else {
-//			fail("Fail...");
-//		}
 	}
 
 	@Test
