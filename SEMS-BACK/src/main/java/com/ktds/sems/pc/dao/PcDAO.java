@@ -2,6 +2,7 @@ package com.ktds.sems.pc.dao;
 
 import java.util.List;
 
+import com.ktds.sems.education.vo.EducationPlaceSearchVO;
 import com.ktds.sems.education.vo.EducationPlaceVO;
 import com.ktds.sems.pc.vo.PcVO;
 import com.ktds.sems.pc.vo.ReportedPcSearchVO;
@@ -25,13 +26,15 @@ public interface PcDAO {
 	
 	public int nextPcSequence();
 
-	public List<EducationPlaceVO> getEducationPlaceList();
+	public List<EducationPlaceVO> getEducationPlaceList(EducationPlaceSearchVO eduPlaceSearchVO);
 
 	public String getSysdate();
 
 	public void doRegistEduPlace(PcVO pcVO);
 
 	public void doRegistPC(PcVO pcVO);
+
+	public int getTotalEduPlaceCount(EducationPlaceSearchVO eduPlaceSearchVO);
 
 	public void doActionDeleteEduPlace(String educationPlaceId);
 

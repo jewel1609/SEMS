@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ktds.sems.education.vo.EducationPlaceSearchVO;
 import com.ktds.sems.pc.vo.PcVO;
 import com.ktds.sems.pc.vo.ReportedPcSearchVO;
 import com.ktds.sems.pc.vo.ReportedPcVO;
@@ -22,7 +23,7 @@ public interface PcService {
 
 	public ModelAndView doRegistClass(PcVO pcVO, HttpSession session);
 
-	public ModelAndView viewEducationPlaceList();
+	public ModelAndView viewEducationPlaceList(EducationPlaceSearchVO eduPlaceSearchVO, int pageNo);
 
 	public ModelAndView doActionDeleteEduPlace(String educationPlaceId, HttpSession session, HttpServletResponse response);
 

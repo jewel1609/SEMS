@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 
+import com.ktds.sems.education.vo.EducationPlaceSearchVO;
 import com.ktds.sems.education.vo.EducationPlaceVO;
 import com.ktds.sems.pc.dao.PcDAO;
 import com.ktds.sems.pc.vo.PcVO;
@@ -50,8 +51,8 @@ public class PcDAOImpl extends SqlSessionDaoSupport implements PcDAO {
 	}
 
 	@Override
-	public List<EducationPlaceVO> getEducationPlaceList() {
-		return getSqlSession().selectList("PcDAO.getEducationPlaceList");
+	public List<EducationPlaceVO> getEducationPlaceList(EducationPlaceSearchVO eduPlaceSearchVO) {
+		return getSqlSession().selectList("PcDAO.getEducationPlaceList", eduPlaceSearchVO);
 	}
 
 	@Override
@@ -70,6 +71,11 @@ public class PcDAOImpl extends SqlSessionDaoSupport implements PcDAO {
 	}
 
 	@Override
+	public int getTotalEduPlaceCount(EducationPlaceSearchVO eduPlaceSearchVO) {
+		return getSqlSession().selectOne("PcDAO.getTotalEduPlaceCount", eduPlaceSearchVO);
+	}
+
+	@Override
 	public void doActionDeleteEduPlaceBeforePCFKUpdate(String educationPlaceId) {
 		getSqlSession().update("PcDAO.doActionDeleteEduPlaceBeforePCFKUpdate", educationPlaceId);
 	}
@@ -83,6 +89,5 @@ public class PcDAOImpl extends SqlSessionDaoSupport implements PcDAO {
 	public void doActionDeleteEduPC(String pcId) {
 		getSqlSession().delete("PcDAO.doActionDeleteEduPC", pcId);
 	}
-
 
 }

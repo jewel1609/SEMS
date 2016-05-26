@@ -14,6 +14,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.common.Session;
+import com.ktds.sems.education.vo.EducationPlaceListVO;
+import com.ktds.sems.education.vo.EducationPlaceSearchVO;
 import com.ktds.sems.education.vo.EducationPlaceVO;
 import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.pc.biz.PcBiz;
@@ -147,7 +149,7 @@ public class PcServiceImpl implements PcService {
 			
 			// TODO 공용 자원 등록
 			
-			view.setViewName("pc/eduPlaceSet");
+			view.setViewName("redirect:/eduPlaceList");
 		} 
 		else {
 			throw new RuntimeException("등록권한이 없습니다.");
@@ -157,14 +159,25 @@ public class PcServiceImpl implements PcService {
 	}
 
 	@Override
-	public ModelAndView viewEducationPlaceList() {
-
+	public ModelAndView viewEducationPlaceList(EducationPlaceSearchVO eduPlaceSearchVO, int pageNo) {
+		
 		ModelAndView view = new ModelAndView();
-
-		List<EducationPlaceVO> eduPlaceList = pcBiz.getEducationPlaceList();
+		EducationPlaceListVO eduListVO = new EducationPlaceListVO();
+		Paging paging = new Paging();
+		eduListVO.setPaging(paging);
+		
+		int totalPlaceCount = pcBiz.getTotalEduPlaceCount(eduPlaceSearchVO);
+		paging.setPageNumber(pageNo + "");
+		paging.setTotalArticleCount(totalPlaceCount);
+		
+		eduPlaceSearchVO.setStartIndex(paging.getStartArticleNumber());
+		eduPlaceSearchVO.setEndIndex(paging.getEndArticleNumber());
+		
+		List<EducationPlaceVO> eduPlaceList = pcBiz.getEducationPlaceList(eduPlaceSearchVO);
+		eduListVO.setEduPlaceList(eduPlaceList);
 
 		view.setViewName("education/eduPlaceList");
-		view.addObject("eduPlaceList", eduPlaceList);
+		view.addObject("eduListVO", eduListVO);
 
 		return view;
 	}

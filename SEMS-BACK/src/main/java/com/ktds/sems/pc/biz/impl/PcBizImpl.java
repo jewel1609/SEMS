@@ -2,6 +2,7 @@ package com.ktds.sems.pc.biz.impl;
 
 import java.util.List;
 
+import com.ktds.sems.education.vo.EducationPlaceSearchVO;
 import com.ktds.sems.education.vo.EducationPlaceVO;
 import com.ktds.sems.pc.biz.PcBiz;
 import com.ktds.sems.pc.dao.PcDAO;
@@ -67,8 +68,8 @@ public class PcBizImpl implements PcBiz {
 	}
 
 	@Override
-	public List<EducationPlaceVO> getEducationPlaceList() {
-		return pcDAO.getEducationPlaceList();
+	public List<EducationPlaceVO> getEducationPlaceList(EducationPlaceSearchVO eduPlaceSearchVO) {
+		return pcDAO.getEducationPlaceList(eduPlaceSearchVO);
 	}
 	
 	private String eduPlaceIDReconstructor() {
@@ -98,6 +99,11 @@ public class PcBizImpl implements PcBiz {
 			sequences = "0"+sequences;
 		}
 		return sequences;
+	}
+
+	@Override
+	public int getTotalEduPlaceCount(EducationPlaceSearchVO eduPlaceSearchVO) {
+		return pcDAO.getTotalEduPlaceCount(eduPlaceSearchVO);
 	}
 
 	@Override

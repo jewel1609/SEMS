@@ -7,8 +7,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ktds.sems.education.vo.EducationPlaceSearchVO;
 import com.ktds.sems.pc.service.PcService;
 import com.ktds.sems.pc.vo.PcVO;
 import com.ktds.sems.pc.vo.ReportedPcSearchVO;
@@ -53,8 +55,8 @@ public class PcController {
 	}
 	
 	@RequestMapping("/eduPlaceList")
-	public ModelAndView viewEducationPlaceList() {
-		return pcService.viewEducationPlaceList();
+	public ModelAndView viewEducationPlaceList(EducationPlaceSearchVO eduPlaceSearchVO, @RequestParam(required = false, defaultValue = "0") int pageNo) {
+		return pcService.viewEducationPlaceList(eduPlaceSearchVO, pageNo);
 	}
 	
 	@RequestMapping("/doActionDeleteEduPlace/{educationPlaceId}")

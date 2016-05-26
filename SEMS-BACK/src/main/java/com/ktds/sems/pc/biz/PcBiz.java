@@ -2,6 +2,7 @@ package com.ktds.sems.pc.biz;
 
 import java.util.List;
 
+import com.ktds.sems.education.vo.EducationPlaceSearchVO;
 import com.ktds.sems.education.vo.EducationPlaceVO;
 import com.ktds.sems.pc.vo.PcVO;
 import com.ktds.sems.pc.vo.ReportedPcSearchVO;
@@ -25,7 +26,9 @@ public interface PcBiz {
 
 	public void doRegistPC(PcVO pcVO);
 
-	public List<EducationPlaceVO> getEducationPlaceList();
+	public List<EducationPlaceVO> getEducationPlaceList(EducationPlaceSearchVO eduPlaceSearchVO);
+
+	public int getTotalEduPlaceCount(EducationPlaceSearchVO eduPlaceSearchVO);
 
 	public void doActionDeleteEduPlace(String educationPlaceId);
 

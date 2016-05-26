@@ -219,7 +219,7 @@
 		 				)
 	</insert>
 	
-	<select id="getEducationPlaceList" resultType="PcVO">
+	<select id="getEducationPlaceList" parameterType="EducationPlaceSearchVO" resultType="PcVO">
 		SELECT	DISTINCT EP.EDU_PLACE_ID educationPlaceId
 				, EP.EDU_PLACE_NAME educationPlaceName
 				, EP.EDU_PLACE_LOC educationLocation
@@ -228,9 +228,19 @@
 					FROM	PC
 					WHERE	EDU_PLACE_ID = EP.EDU_PLACE_ID
 				  ) pcCount
-		FROM	PC P
-				, EDU_PLACE EP
-		WHERE	P.EDU_PLACE_ID = EP.EDU_PLACE_ID
+		FROM	(
+		            SELECT  ROWNUM AS RNUM
+		                    , EPL.*
+		            FROM    (
+		                        SELECT  * 
+		                        FROM	EDU_PLACE
+		                        ORDER   BY EDU_PLACE_ID DESC
+		                    ) EPL
+		            WHERE	ROWNUM <![CDATA[<=]]> #{endIndex}
+		        ) EP
+		        , PC P
+		WHERE	RNUM >= #{startIndex}
+		AND		P.EDU_PLACE_ID = EP.EDU_PLACE_ID
 	</select>
 	<delete id="doActionDeleteEduPlace" parameterType="string">
 		DELETE	
@@ -247,5 +257,11 @@
 		FROM	PC
 		WHERE	PC_ID = #{pcId}
 	</delete>
+	
+	<select id="getTotalEduPlaceCount" parameterType="EducationPlaceSearchVO" resultType="_int">
+		SELECT	COUNT(EDU_PLACE_ID)
+		FROM	EDU_PLACE
+		
+	</select>
 	
 </mapper>
