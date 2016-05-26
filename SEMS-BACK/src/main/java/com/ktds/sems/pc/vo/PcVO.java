@@ -1,5 +1,7 @@
 package com.ktds.sems.pc.vo;
 
+import java.util.List;
+
 import com.ktds.sems.education.vo.EducationPlaceVO;
 
 public class PcVO extends EducationPlaceVO {
@@ -9,6 +11,26 @@ public class PcVO extends EducationPlaceVO {
 	private String pcName;
 	
 	private String ip;
+	
+	private List<PcVO> pcList;
+	
+	private int pcCount;
+	
+	public int getPcCount() {
+		return pcCount;
+	}
+
+	public void setPcCount(int pcCount) {
+		this.pcCount = pcCount;
+	}
+
+	public List<PcVO> getPcList() {
+		return pcList;
+	}
+
+	public void setPcList(List<PcVO> pcList) {
+		this.pcList = pcList;
+	}
 
 	public String getPcId() {
 		return pcId;

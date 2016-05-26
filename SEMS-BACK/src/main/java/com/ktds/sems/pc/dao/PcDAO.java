@@ -29,9 +29,9 @@ public interface PcDAO {
 
 	public String getSysdate();
 
-	public void doRegistClassInformation(PcVO pcVO);
+	public void doRegistEduPlace(PcVO pcVO);
 
-	public void doRegistClassCommonObject(PcVO pcVO);
+	public void doRegistPC(PcVO pcVO);
 
 	
 }

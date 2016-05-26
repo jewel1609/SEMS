@@ -21,9 +21,9 @@ public interface PcBiz {
 
 	public boolean changeReportedState(ReportedPcVO reportedPcVO);
 
-	public void doRegistClassInformation(PcVO pcVO);
+	public String doRegistEduPlace(PcVO pcVO);
 
-	public void doRegistClassCommonObject(PcVO pcVO);
+	public void doRegistPC(PcVO pcVO);
 
 	public List<EducationPlaceVO> getEducationPlaceList();
 

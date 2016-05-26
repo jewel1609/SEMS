@@ -192,7 +192,7 @@
 		SELECT	TO_CHAR(SYSDATE, 'YYYYMMDD')
 		FROM	DUAL
 	</select>
-	<insert id="doRegistClassInformation" parameterType="PcVO">
+	<insert id="doRegistEduPlace" parameterType="PcVO">
 		INSERT INTO EDU_PLACE 	(
 		   							EDU_PLACE_ID
 		   							, EDU_PLACE_NAME
@@ -204,7 +204,7 @@
 									, #{educationLocation} 
 		 						)
 	</insert>
-	<insert id="doRegistClassCommonObject" parameterType="PcVO">
+	<insert id="doRegistPC" parameterType="PcVO">
 		INSERT INTO PC 	(
 						   	PC_ID
 						   	, PC_NAME
@@ -218,5 +218,19 @@
 							, #{ip}
 		 				)
 	</insert>
+	
+	<select id="getEducationPlaceList" resultType="PcVO">
+		SELECT	EP.EDU_PLACE_ID educationPlaceId
+				, EP.EDU_PLACE_NAME educationPlaceName
+				, EP.EDU_PLACE_LOC educationLocation
+				, (
+					SELECT	COUNT(PC_ID)
+					FROM	PC
+					WHERE	EDU_PLACE_ID = EP.EDU_PLACE_ID
+				  ) pcCount
+		FROM	PC P
+				, EDU_PLACE EP
+		WHERE	P.EDU_PLACE_ID = EP.EDU_PLACE_ID
+	</select>
 	
 </mapper>

@@ -19,13 +19,47 @@ td {
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#submit").click(function() {
+			
+			// 강의장 위치 Validation
+			if ( $("#educationLocation").val() == "" ) {
+				alert("강의장 위치를 입력하세요");
+				$("#educationLocation").focus();
+				return false;
+			}
+			
+			// 강의장 명 Validation
+			if ( $("#educationPlaceName").val() == "") {
+				alert("강의장 명을 입력하세요");
+				$("#educationPlaceName").focus();
+				return false;
+			}
+			
+			// PC 정보 Validation
+			if ( $(".pcName").val() == "" || $(".ip").val() == "" ) {
+				alert("PC 정보를 입력하세요");
+				return false;
+			}
+			else {
+				// IP Validation
+				var regExp = new RegExp("^[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}$");
+				var boxIncrease = $("#pc option:selected").val();
+				
+				for (var i = 0; i < boxIncrease; i++) {
+					var ip = $(".ip"+ i).val();
+					var isValidIP = regExp.test(ip);
+			           if ( isValidIP == false ) {
+			               alert("IP 양식이 바르지 않습니다");
+			               return false;
+	            	 }
+				}
+			}
+			
 			if (confirm("강의실 설정이 완료 되었습니다. 등록하시겠습니까?")) {
-				//location.href = "<c:url value='/doRegistClass' />";
 				var form = $("#classRoomForm");
 				form.attr("action", "<c:url value="/doRegistClass "/>");
 				form.submit();
 			} else {
-				return;
+				return false;
 			}
 		});
 		$("#cancle").click(function() {
@@ -37,11 +71,13 @@ td {
 		});
 		
 		$("#pc").change(function() {
+			$(".pcInfo").detach();
+			
 			var boxIncrease = $("#pc option:selected").val();
 			if (boxIncrease != null) {
 			//	$("#ipClass").detach(boxIncrease);
 				for (var i = 0; i < boxIncrease; i++) {
-					var tmp = 'PCName : <input type="text" name="pcName" size="20" />'+' IP Addr : <input type="text" name="ip" size="20" /><br/>';
+					var tmp = '<div class="pcInfo"> PCName : <input type="text" name="pcList[' + i + '].pcName" class="pcName" size="20" />'+' IP Addr : <input type="text" name="pcList[' + i + '].ip" class="ip' + i + '" size="20" /> </div>';
 					$("#ipClass").append(tmp);
 				}
 			} else {
@@ -56,13 +92,17 @@ td {
 		<form:form commandName="pcVO" method="post" id="classRoomForm">
 			<table border="1" style="float: left; margin-left: 27%;">
 				<tr>
-					<td colspan="2">강의장 위치</td>
+					<td>강의장 위치</td>
 					<td>강의장 명</td>
 					<td>PC 대수</td>
 				</tr>
 				<tr>
-					<td colspan="2"><input type="text"name="educationLocation" placeholder="location" size="20" /></td>
-					<td><input type="text" name="educationPlaceName" placeholder="placeName" size="20" /></td>
+					<td>
+						<input type="text" id="educationLocation" name="educationLocation" placeholder="location" size="30" />
+					</td>
+					<td>
+						<input type="text" id="educationPlaceName" name="educationPlaceName" placeholder="placeName" size="30" />
+					</td>
 					<td>
 						<select id="pc">
 							<c:forEach var="pcCount" begin="0" end="30" step="1">
@@ -71,11 +111,12 @@ td {
 						</select>
 					</td>
 				</tr>
-				<tr><td colspan="4"align="center">PC별 IP
+				<tr>
+					<td colspan="3"align="center">PC별 IP
 				</td>
 				</tr>
 				<tr>
-					<td colspan="4"><span id="ipClass"></span></td>
+					<td colspan="3"><span id="ipClass"></span></td>
 				</tr>
 			</table>
 			<div align="left">

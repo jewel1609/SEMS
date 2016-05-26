@@ -45,15 +45,25 @@ public class PcBizImpl implements PcBiz {
 	}
 
 	@Override
-	public void doRegistClassInformation(PcVO pcVO) {
+	public String doRegistEduPlace(PcVO pcVO) {
 		pcVO.setEducationPlaceId(eduPlaceIDReconstructor());
-		pcDAO.doRegistClassInformation(pcVO);
+		pcDAO.doRegistEduPlace(pcVO);
+		
+		return pcVO.getEducationPlaceId();
 	}
 
 	@Override
-	public void doRegistClassCommonObject(PcVO pcVO) {
-		pcVO.setPcId(pcIDReconstructor());
-		pcDAO.doRegistClassCommonObject(pcVO);
+	public void doRegistPC(PcVO pcVO) {
+		
+		String educationPlaceId = pcVO.getEducationPlaceId();
+		
+		for(PcVO writePc : pcVO.getPcList() ) {
+			
+			writePc.setPcId(pcIDReconstructor());
+			writePc.setEducationPlaceId(educationPlaceId);
+			
+			pcDAO.doRegistPC(writePc);
+		}
 	}
 
 	@Override
@@ -62,18 +72,18 @@ public class PcBizImpl implements PcBiz {
 	}
 	
 	private String eduPlaceIDReconstructor() {
-		String resultId = null;
+		String resultId = "";
 		String sysdate = pcDAO.getSysdate();
-		int eduPlaceSeq = pcDAO.nextPcSequence();
+		int eduPlaceSeq = pcDAO.nextEducationPlaceSequence();
 		
 		resultId = "EP-"+sysdate+"-"+lpad(eduPlaceSeq, 6);
 		return resultId;
 	}
 	
 	private String pcIDReconstructor() {
-		String resultId = null;
+		String resultId = "";
 		String sysdate = pcDAO.getSysdate();
-		int pcSeq = pcDAO.nextEducationPlaceSequence();
+		int pcSeq = pcDAO.nextPcSequence();
 		
 		resultId = "PI-"+sysdate+"-"+lpad(pcSeq, 6);
 		return resultId;

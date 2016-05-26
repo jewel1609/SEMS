@@ -2,7 +2,6 @@ package com.ktds.sems.pc.service;
 
 import javax.servlet.http.HttpSession;
 
-import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.pc.vo.PcVO;

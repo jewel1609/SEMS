@@ -60,13 +60,13 @@ public class PcDAOImpl extends SqlSessionDaoSupport implements PcDAO {
 	}
 
 	@Override
-	public void doRegistClassInformation(PcVO pcVO) {
-		getSqlSession().insert("PcDAO.doRegistClassInformation",pcVO);
+	public void doRegistEduPlace(PcVO pcVO) {
+		getSqlSession().insert("PcDAO.doRegistEduPlace",pcVO);
 	}
 
 	@Override
-	public void doRegistClassCommonObject(PcVO pcVO) {
-		getSqlSession().insert("PcDAO.doRegistClassCommonObject",pcVO);
+	public void doRegistPC(PcVO pcVO) {
+		getSqlSession().insert("PcDAO.doRegistPC",pcVO);
 	}
 
 }
