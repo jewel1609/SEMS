@@ -13,10 +13,9 @@
 			var startDate = $("#startDate").val();
 			
 			if (startDate == "") {
-				// 검색 기간 입력 되지 않은 경우
-					alert("검색시작일을 지정해주세요.");
-					$("#startDate").focus();
-					return;
+				alert("검색시작일을 지정해주세요.");
+				$("#startDate").focus();
+				return;
 			}
 			movePage('0');
 		});
@@ -38,7 +37,6 @@
     padding: 5px 10px;
   }
 </style>
-
 <title>Insert title here</title>
 </head>
 <body>
@@ -57,31 +55,33 @@
 			<th>startDate</th>
 			<th>endDate</th>
 		</tr>
+		
 		<c:forEach items="${ minutesListVO.minutesList }" var="minutes">
-		<tr>
-			<td class="menutd">${ minutes.minutesId }</td>
-			<td class="menutd">${ minutes.memberId }</td>
-			<td class="menutd">${ minutes.minutesAgenda }</td>
-			<td class="menutd">${ minutes.attendance }</td>
-			<td class="menutd">${ minutes.minutesPlace }</td>
-			<td class="menutd">${ minutes.minutesContent }</td>
-			<td class="menutd">${ minutes.decisionSubject }</td>
-			<td class="menutd">${ minutes.remarks }</td>
-			<td class="menutd">${ minutes.teamId }</td>
-			<td class="menutd">${ minutes.startDate }</td>
-			<td class="menutd">${ minutes.endDate }</td>
-		</tr>
+			<tr>
+				<td class="menutd">${ minutes.minutesId }</td>
+				<td class="menutd">${ minutes.memberId }</td>
+				<td class="menutd">${ minutes.minutesAgenda }</td>
+				<td class="menutd">${ minutes.attendance }</td>
+				<td class="menutd">${ minutes.minutesPlace }</td>
+				<td class="menutd">${ minutes.minutesContent }</td>
+				<td class="menutd">${ minutes.decisionSubject }</td>
+				<td class="menutd">${ minutes.remarks }</td>
+				<td class="menutd">${ minutes.teamId }</td>
+				<td class="menutd">${ minutes.startDate }</td>
+				<td class="menutd">${ minutes.endDate }</td>
+			</tr>
 		</c:forEach>
+		
 		<tr>
 			<td colspan="5" align="center">
 				<form name="searchForm" id="searchForm">
-					<div style="text-align: left;">
-						${ minutesListVO.paging.getPagingList("pageNo", "[@]", "이전", "다음", "searchForm")}
+					<div style="text-align: center;">
+						${ minutesListVO.paging.getPagingList("pageNo", "[@]", "[이전]", "[다음]", "searchForm")}
 					</div>
 					<div style="text-align: right;">
 						<input type="date" name="startDate" id="startDate" value="${minutesSearchVO.startDate}" />
 						<input type="button" id="searchBtn" value="검색" />
-						<input type="button" id="searchInitBtn" value="검색 초기화" />
+						<input type="button" id="searchInitBtn" value="전체 조회" />
 					</div>
 				</form>
 			</td>
