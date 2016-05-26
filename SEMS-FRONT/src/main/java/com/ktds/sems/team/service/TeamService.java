@@ -55,8 +55,6 @@ public interface TeamService {
 
 	public ModelAndView doWriteBBSReplyAction(TeamBBSReplyVO replyVO, HttpSession session);
 
-	public ModelAndView getAllTeamListPage(TeamSearchVO teamSearchVO);
-	
 	public ModelAndView getOneTeamDetail(String teamId);
 
 	public ModelAndView writeNewMinutes(String teamId, MinutesVO minutesVO, Errors errors, HttpSession session);
