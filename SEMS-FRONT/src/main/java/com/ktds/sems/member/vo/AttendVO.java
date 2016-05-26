@@ -7,8 +7,7 @@ public class AttendVO {
 	private String attendTime;
 	private String leaveTime;
 	private String educationId;
-
-
+	
 	public int getId() {
 		return id;
 	}
