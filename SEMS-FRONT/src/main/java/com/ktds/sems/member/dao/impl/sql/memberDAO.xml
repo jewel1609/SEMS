@@ -583,13 +583,23 @@
 	</select>
 
 	<select id="getCourseCountById" parameterType="string" resultType="_int">
-		SELECT	COUNT(EDU_CLASS_ID)
-		FROM	EDU_CLASS
-		WHERE	STAT = 'EDU_JN_C'
-		AND		MBR_ID = #{id}
+		SELECT	COUNT(EI.EDU_ID)
+		FROM	EDU_INFO EI
+				, (
+					SELECT	ROWNUM AS RNUM
+							, EDU_HTR_M.*
+					FROM	(
+								SELECT	*
+								FROM	EDU_HTR
+								WHERE	MBR_ID = #{id}
+								AND		STAT = 'EDU_JN_C'
+							) EDU_HTR_M
+				) EH
+		WHERE	EI.EDU_ID = EH.EDU_ID
+		AND		EI.END_DATE <![CDATA[<]]> TO_CHAR(SYSDATE, 'YYYY-MM-DD')
 	</select>
 	
-	<select id="getCourseList" parameterType="EducationSearchVO" resultType="EducationVO">
+	<select id="getCourseList" parameterType="string" resultType="EducationVO">
 		SELECT	EI.EDU_ID educationId
 				, EI.EDU_TTL educationTitle
 				, EH.MBR_ID memberId
@@ -607,10 +617,34 @@
 								AND		STAT = 'EDU_JN_C'
 							) EDU_CLASS_M
 				) EH
+		WHERE	EI.EDU_ID = EH.EDU_ID
+		AND		EI.SRT_DATE <![CDATA[<=]]> TO_CHAR(SYSDATE, 'YYYY-MM-DD')
+		AND		EI.END_DATE <![CDATA[>=]]> TO_CHAR(SYSDATE, 'YYYY-MM-DD')
+		ORDER BY EI.EDU_ID DESC
+	</select>
+	
+	<select id="getPreCourseList" parameterType="EducationSearchVO" resultType="EducationVO">
+		SELECT	EI.EDU_ID educationId
+				, EI.EDU_TTL educationTitle
+				, EH.MBR_ID memberId
+				, EH.STAT status
+				, EI.SRT_DATE startDate
+				, EI.END_DATE endDate
+		FROM	EDU_INFO EI
+				, (
+					SELECT	ROWNUM AS RNUM
+							, EDU_HTR_M.*
+					FROM	(
+								SELECT	*
+								FROM	EDU_CLASS
+								WHERE	MBR_ID = #{memberId}
+								AND		STAT = 'EDU_JN_C'
+							) EDU_HTR_M
+				) EH
 		WHERE	RNUM <![CDATA[>=]]> #{startIndex}
 		AND     RNUM <![CDATA[<=]]> #{endIndex}
 		AND		EI.EDU_ID = EH.EDU_ID
-		AND		EI.END_DATE <![CDATA[>=]]> TO_CHAR(SYSDATE, 'YYYY-MM-DD')
+		AND		EI.END_DATE <![CDATA[<]]> TO_CHAR(SYSDATE, 'YYYY-MM-DD')
 		ORDER BY EI.EDU_ID DESC
 	</select>
 
