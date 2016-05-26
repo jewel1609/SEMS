@@ -72,7 +72,7 @@ public interface EducationService {
 
 	public ModelAndView getAllTeamList();
 
-	public ModelAndView getOneTeamAttendance(String educationId, String teamId);
+	public ModelAndView getOneTeamAttendance(String educationId, String teamId, String educationTitle);
 
 	public ModelAndView viewWriteEduQna(String educationId, HttpSession session);
 

@@ -255,8 +255,11 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 	}
 
 	@Override
-	public List<MemberVO> getAllMemberListByTeamId(String teamId) {
-		return getSqlSession().selectList("EducationDAO.getAllMemberListByTeamId", teamId);
+	public List<MemberVO> getAllMemberListByTeamId(String educationId, String teamId) {
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("educationId", educationId);
+		paramMap.put("teamId", teamId);
+		return getSqlSession().selectList("EducationDAO.getAllMemberListByTeamId", paramMap);
 	}
 
 	@Override

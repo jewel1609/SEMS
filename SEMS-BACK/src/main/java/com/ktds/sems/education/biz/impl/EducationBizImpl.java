@@ -407,8 +407,8 @@ public class EducationBizImpl implements EducationBiz {
 	}
 
 	@Override
-	public List<MemberVO> getAllMemberListByTeamId(String teamId) {
-		return educationDAO.getAllMemberListByTeamId(teamId);
+	public List<MemberVO> getAllMemberListByTeamId(String educationId, String teamId) {
+		return educationDAO.getAllMemberListByTeamId(educationId, teamId);
 	}
 
 	@Override

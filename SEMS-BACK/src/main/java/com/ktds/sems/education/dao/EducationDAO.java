@@ -75,7 +75,7 @@ public interface EducationDAO {
 	public int doDeleteEduNotice(String eduNoticeId);
 	public int doEduFileNoticeModify(EduNoticeVO changeEduNoticeVO);
 	public List<TeamVO> getAllTeamList();
-	public List<MemberVO> getAllMemberListByTeamId(String teamId);
+	public List<MemberVO> getAllMemberListByTeamId(String educationId, String teamId);
 	public int confirmMemberOfEdu(String educationId, String memberId);
 	public int insertEduQna(EduQnaVO eduQnaVO);
 	public int getNextEqbSeq();

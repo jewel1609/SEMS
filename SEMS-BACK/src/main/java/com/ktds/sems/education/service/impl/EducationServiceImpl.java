@@ -643,6 +643,7 @@ public class EducationServiceImpl implements EducationService {
 		List<AttendVO> attendanceList = new ArrayList<AttendVO>();
 		List<AttendVO> allAttendanceList = new ArrayList<AttendVO>();
 		List<EducationVO> educationInfoList = new ArrayList<EducationVO>();
+		List<List<AttendVO>> AllEduAllAttendanceList = new ArrayList<List<AttendVO>>();
 		
 		// 멤버가 수강 중인교육 정보
 		educationInfoList = educationBiz.getJoinEducation(memberId);
@@ -650,8 +651,12 @@ public class EducationServiceImpl implements EducationService {
 		// 멤버의 출석 이력
 		attendanceList = educationBiz.getOneMemberAttendance(memberId);
 		
-		// 출결 상태 구하기
-		allAttendanceList = this.getState(educationInfoList, attendanceList, memberId);
+		for (EducationVO educationVO : educationInfoList) {
+			
+			// 출결 상태 구하기
+			allAttendanceList = this.getState(educationVO, attendanceList, memberId);
+			AllEduAllAttendanceList.add(allAttendanceList);
+		}
 		
 		ModelAndView view = new ModelAndView();
 		
@@ -661,7 +666,7 @@ public class EducationServiceImpl implements EducationService {
 			//view.addObject("errorCode", "NOATD");
 		} else {
 			view.setViewName("education/attendanceOneMemberList");
-			view.addObject("attendanceList", allAttendanceList);
+			view.addObject("AllEduAllAttendanceList", AllEduAllAttendanceList);
 		}
 		return view;
 	}
@@ -684,47 +689,86 @@ public class EducationServiceImpl implements EducationService {
 	@Override
 	public ModelAndView getOneEducationAttendance(String educationId) {
 		List<AttendVO> attendanceList = new ArrayList<AttendVO>();
-		List<AttendVO> oneMemberAllAttendanceList = new ArrayList<AttendVO>();
-		List<EducationVO> educationInfoList = new ArrayList<EducationVO>();
 		List<MemberVO> allMemberList = new ArrayList<MemberVO>();
-		List<List<AttendVO>> AllMemberAllAttendanceList = new ArrayList<List<AttendVO>>();
+		EducationVO educationVO = new EducationVO();
 		
 		// 그 교육을 듣는 학생들
 		allMemberList = educationBiz.getAllMemberListByEduId(educationId);
 		
-		for (MemberVO member : allMemberList) {
-			educationInfoList = new ArrayList<EducationVO>();
-			
-			// 멤버가 수강 중인교육 정보 하나
-			educationInfoList.add(educationBiz.getOneEducation(educationId));
-			
-			// 멤버마다의 출석 이력
-			attendanceList = educationBiz.getOneMemberAttendance(member.getId());
-						
-			// 출결 상태 구하기
-			oneMemberAllAttendanceList = this.getState(educationInfoList, attendanceList, member.getId());
-			AllMemberAllAttendanceList.add(oneMemberAllAttendanceList);
-		}
+		// 멤버가 수강 중인교육 정보 하나
+		educationVO = educationBiz.getOneEducation(educationId);
+					
+		// 출결 상태 구하기
+		attendanceList = this.getAllMemberState(educationVO, allMemberList);
 		
 		ModelAndView view = new ModelAndView();
 		
-		if (educationInfoList.size() == 0) {
+		if (educationVO == null) {
 			view.setViewName("redirect:/attendanceHistory/educationList");
 		} else {
 			view.setViewName("education/attendanceOneEduList");
-			view.addObject("AllMemberAllAttendanceList", AllMemberAllAttendanceList);
+			view.addObject("attendanceList", attendanceList);
 		}
 		return view;
 	}
 	
-	// 한 수강생의 출결 이력 구하기
 	/**
 	 * @author 206-002 공정민
 	 */
-	public List<AttendVO> getState(List<EducationVO> educationInfoList, List<AttendVO> attendanceList, String memberId) {
+	@Override
+	public ModelAndView getAllTeamList() {
+		List<TeamVO> teamList = educationBiz.getAllTeamList();
+		ModelAndView view = new ModelAndView();
+		view.setViewName("education/attendanceAllTeamList");
+		view.addObject("teamList", teamList);
+		return view;
+	}
+	
+	/**
+	 * @author 206-002 공정민
+	 */
+	@Override
+	public ModelAndView getOneTeamAttendance(String educationId, String teamId, String teamName) {
+		List<MemberVO> allMemberList = new ArrayList<MemberVO>();
+		EducationVO educationVO = new EducationVO();
+		List<AttendVO> attendanceList = new ArrayList<AttendVO>();
+		
+		// 그 팀에 속한 학생들
+		allMemberList = educationBiz.getAllMemberListByTeamId(educationId, teamId);
+		
+		// 멤버가 수강 중인교육 정보
+		educationVO = educationBiz.getOneEducation(educationId);
+			
+		// 출결 상태 구하기
+		attendanceList = this.getAllMemberState(educationVO, allMemberList);
+		
+		ModelAndView view = new ModelAndView();
+		
+		if (educationVO == null) {
+			view.setViewName("redirect:/attendanceHistory/teamList");
+		} else {
+			view.setViewName("education/attendanceOneTeamList");
+			view.addObject("attendanceList", attendanceList);
+			view.addObject("teamId", teamId);
+			view.addObject("teamName", teamName);
+		}
+		return view;
+	}
+	
+	// 하나의 교육, 날짜별 (총 OO명, 정상 출석 OO명, 지각 OO명, 결석 OO명)
+	/**
+	 * @author 206-002 공정민
+	 */
+	public List<AttendVO> getAllMemberState (EducationVO educationVO, List<MemberVO> allMemberList) {
 		boolean isAttend = false;
 		List<AttendVO> allAttendanceList = new ArrayList<AttendVO>();
+		List<AttendVO> attendanceList = new ArrayList<AttendVO>();
 		AttendVO attendVO = new AttendVO();
+		
+		int attendNum;
+		int lateNum;
+		int earlyLeaveNum;
+		int absenceNum;
 		
 		Calendar cal = Calendar.getInstance();
 		Calendar cal2 = Calendar.getInstance();
@@ -745,6 +789,7 @@ public class EducationServiceImpl implements EducationService {
 		Date attendDate = new Date();
 		Date eduStartTime = new Date();
 		Date eduEndTime = new Date();
+		Date today = new Date();
 		
 		long calEduStartDate;
 		long calEduEndDate;
@@ -759,7 +804,6 @@ public class EducationServiceImpl implements EducationService {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
 		
-		for (EducationVO educationVO : educationInfoList) {
 			startDate = educationVO.getStartDate() + " " + educationVO.getStartTime();
 			endDate = educationVO.getEndDate() + " " + educationVO.getEndTime();
 			
@@ -786,12 +830,174 @@ public class EducationServiceImpl implements EducationService {
 				cal6.setTime(eduStartDate);
 				calDateVar = calEduStartDate;
 				
+				if (eduEndDate.compareTo(today) > 0) {
+					eduEndDate = today;
+				}
+				
+				while(calDateVar <= calEduEndDate) {
+					// 교육 시작일부터 종료일까지 하루하루
+					attendVO = new AttendVO();
+					
+					attendNum = 0;
+					lateNum = 0;
+					earlyLeaveNum = 0;
+					absenceNum = 0;
+					
+					for (MemberVO member : allMemberList) {
+						// 멤버마다의 출석 이력
+						attendanceList = new ArrayList<AttendVO>();
+						attendanceList = educationBiz.getOneMemberAttendance(member.getId());
+					
+						for (AttendVO attend : attendanceList) {
+							// 전체 이력 조회
+							attendDate = dateFormat.parse(attend.getAttendTime());
+							attendTime = timeFormat.parse(attend.getAttendTime().substring(11));
+							leaveTime = timeFormat.parse(attend.getLeaveTime().substring(11));
+							
+							cal7.setTime(attendTime);
+							cal8.setTime(leaveTime);
+							cal9.setTime(attendDate);
+							
+							calAttendTime = cal7.getTimeInMillis();
+							calLeaveTime = cal8.getTimeInMillis();
+							
+							// 해당 날짜가 이력에 있으면
+							if (attend.getEducationId().equals(educationVO.getEducationId())
+									&& (cal6.get(Calendar.YEAR) == cal9.get(Calendar.YEAR))
+									&& (cal6.get(Calendar.MONTH) == cal9.get(Calendar.MONTH))
+									&& (cal6.get(Calendar.DATE) == cal9.get(Calendar.DATE))) {
+								isAttend = true;
+								
+								if ((calEduBeforeOneHour <= calAttendTime)
+										&& (calAttendTime <= calEduStartTime)) {
+									// 정상출석 : 1시간 전 < 출근시간 < 교육 시작시간 
+									attendNum++;
+								}
+								else if ((calEduStartTime < calAttendTime) 
+										&& (calAttendTime < calEduHalfTime)) {
+									// 지각 : 교육 시작시간 < 출근시간 < 절반시간
+									lateNum++;
+								}
+								
+								if (calLeaveTime < calEduEndTime) {
+									// 조퇴 : 퇴근시간 < 종료시간 & 퇴근시간 - 출근시간 >= 4시간
+									if ((calLeaveTime - calAttendTime) >= 14400000 ) {
+										earlyLeaveNum++;
+									}
+									else {
+										// 퇴근시간 - 출근시간 < 4시간이면 결석
+										absenceNum++;
+									}
+								}
+							}
+						}
+						
+						if (!isAttend) {
+							// 출석 이력이 없다면 결석
+							absenceNum++;
+						}
+					}
+					
+					attendVO.setAttendTime(String.valueOf(cal6.get(Calendar.YEAR))+"-"
+							+String.valueOf(cal6.get(Calendar.MONTH)+1)+"-"
+							+String.valueOf(cal6.get(Calendar.DATE)));
+					attendVO.setEducationId(educationVO.getEducationId());
+					attendVO.setEducationTitle(educationVO.getEducationTitle());
+					attendVO.setState("총 "+allMemberList.size()+" 명, 정상 출석 "+attendNum+" 명, 지각 "+
+					lateNum+" 명, 조퇴 "+earlyLeaveNum+" 명, 결석 "+absenceNum+" 명");
+					allAttendanceList.add(attendVO);
+					
+					isAttend = false;
+					cal6.add(Calendar.DATE, +1);
+					calDateVar = cal6.getTimeInMillis();
+				}
+			} catch (ParseException e) {
+				e.getMessage();
+				throw new RuntimeException(e);
+			}
+		return allAttendanceList;
+	}
+	
+	// 하나의 교육, 한 수강생의 출결 이력 구하기
+	/**
+	 * @author 206-002 공정민
+	 */
+	public List<AttendVO> getState(EducationVO educationVO, List<AttendVO> attendanceList, String memberId) {
+		boolean isAttend = false;
+		List<AttendVO> allAttendanceList = new ArrayList<AttendVO>();
+		AttendVO attendVO = new AttendVO();
+		
+		Calendar cal = Calendar.getInstance();
+		Calendar cal2 = Calendar.getInstance();
+		Calendar cal4 = Calendar.getInstance();
+		Calendar cal5 = Calendar.getInstance();
+		Calendar cal6 = Calendar.getInstance();
+		Calendar cal7 = Calendar.getInstance();
+		Calendar cal8 = Calendar.getInstance();
+		Calendar cal9 = Calendar.getInstance();
+		
+		String startDate = "";
+		String endDate = "";
+
+		Date eduStartDate = new Date();
+		Date eduEndDate = new Date();
+		Date attendTime = new Date();
+		Date leaveTime = new Date();
+		Date attendDate = new Date();
+		Date eduStartTime = new Date();
+		Date eduEndTime = new Date();
+		Date today = new Date();
+		
+		long calEduStartDate;
+		long calEduEndDate;
+		long calEduStartTime;
+		long calEduEndTime;
+		long calEduBeforeOneHour;
+		long calEduHalfTime;
+		long calDateVar;
+		long calAttendTime;
+		long calLeaveTime;
+		
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+		
+			startDate = educationVO.getStartDate() + " " + educationVO.getStartTime();
+			endDate = educationVO.getEndDate() + " " + educationVO.getEndTime();
+			
+			try {
+				eduStartDate = dateFormat.parse(startDate);
+				eduEndDate = dateFormat.parse(endDate);
+				eduStartTime = timeFormat.parse(educationVO.getStartTime());
+				eduEndTime = timeFormat.parse(educationVO.getEndTime());
+
+				cal.setTime(eduStartDate);
+				cal2.setTime(eduEndDate);
+				cal4.setTime(eduStartTime);
+				cal5.setTime(eduEndTime);
+				
+				calEduStartDate = cal.getTimeInMillis();
+				calEduEndDate = cal2.getTimeInMillis();
+				calEduStartTime = cal4.getTimeInMillis();
+				calEduEndTime = cal5.getTimeInMillis();
+
+				cal4.add(Calendar.HOUR, -1);
+				calEduBeforeOneHour = cal4.getTimeInMillis();
+				calEduHalfTime = calEduEndTime - ((calEduEndTime - calEduStartTime) / 2);
+
+				cal6.setTime(eduStartDate);
+				calDateVar = calEduStartDate;
+				
+				if (eduEndDate.compareTo(today) > 0) {
+					eduEndDate = today;
+				}
+				
 				while(calDateVar <= calEduEndDate) {
 					// 교육 시작일부터 종료일까지 하루하루
 					attendVO = new AttendVO();
 					
 					for (AttendVO attend : attendanceList) {
 						// 전체 이력 조회
+						
 						attendDate = dateFormat.parse(attend.getAttendTime());
 						attendTime = timeFormat.parse(attend.getAttendTime().substring(11));
 						leaveTime = timeFormat.parse(attend.getLeaveTime().substring(11));
@@ -808,8 +1014,10 @@ public class EducationServiceImpl implements EducationService {
 								&& (cal6.get(Calendar.YEAR) == cal9.get(Calendar.YEAR))
 								&& (cal6.get(Calendar.MONTH) == cal9.get(Calendar.MONTH))
 								&& (cal6.get(Calendar.DATE) == cal9.get(Calendar.DATE))) {
-							attendVO = attend;
+							
 							isAttend = true;
+							attendVO.setLeaveTime("출석 "+attend.getAttendTime().substring(11)
+									+" 퇴근 "+attend.getLeaveTime().substring(11));
 							
 							if ((calEduBeforeOneHour <= calAttendTime)
 									&& (calAttendTime <= calEduStartTime)) {
@@ -840,16 +1048,15 @@ public class EducationServiceImpl implements EducationService {
 					
 					if (!isAttend) {
 						// 출석 이력이 없다면 결석
-						attendVO.setId(0);
-						attendVO.setEducationId(educationVO.getEducationId());
-						attendVO.setMemberId(memberId);
-						attendVO.setAttendTime(String.valueOf(cal6.get(Calendar.YEAR))+"-"
-								+String.valueOf(cal6.get(Calendar.MONTH)+1)+"-"
-								+String.valueOf(cal6.get(Calendar.DATE))+" (결석)");
 						attendVO.setState("X");
-						attendVO.setLeaveTime("(결석)");
-						attendVO.setEducationTitle(educationVO.getEducationTitle());
 					}
+					
+					attendVO.setMemberId(memberId);
+					attendVO.setEducationId(educationVO.getEducationId());
+					attendVO.setEducationTitle(educationVO.getEducationTitle());
+					attendVO.setAttendTime(String.valueOf(cal6.get(Calendar.YEAR))+"-"
+							+String.valueOf(cal6.get(Calendar.MONTH)+1)+"-"
+							+String.valueOf(cal6.get(Calendar.DATE)));
 					
 					allAttendanceList.add(attendVO);
 					
@@ -861,54 +1068,7 @@ public class EducationServiceImpl implements EducationService {
 				e.getMessage();
 				throw new RuntimeException(e);
 			}
-		}
 		return allAttendanceList;
-	}
-
-	@Override
-	public ModelAndView getAllTeamList() {
-		List<TeamVO> teamList = educationBiz.getAllTeamList();
-		ModelAndView view = new ModelAndView();
-		view.setViewName("education/attendanceAllTeamList");
-		view.addObject("teamList", teamList);
-		return view;
-	}
-
-	@Override
-	public ModelAndView getOneTeamAttendance(String educationId, String teamId) {
-		List<MemberVO> allMemberList = new ArrayList<MemberVO>();
-		List<AttendVO> attendanceList = new ArrayList<AttendVO>();
-		List<EducationVO> educationInfoList = new ArrayList<EducationVO>();
-		
-		List<AttendVO> oneMemberAllAttendanceList = new ArrayList<AttendVO>();
-		List<List<AttendVO>> AllMemberAllAttendanceList = new ArrayList<List<AttendVO>>();
-		
-		// 그 팀에 속한 학생들
-		allMemberList = educationBiz.getAllMemberListByTeamId(teamId);
-		
-		for (MemberVO member : allMemberList) {
-			educationInfoList = new ArrayList<EducationVO>();
-			
-			// 멤버가 수강 중인교육 정보
-			educationInfoList = educationBiz.getJoinEducation(member.getId());
-			
-			// 멤버마다의 출석 이력
-			attendanceList = educationBiz.getOneMemberAttendance(member.getId());
-						
-			// 출결 상태 구하기
-			oneMemberAllAttendanceList = this.getState(educationInfoList, attendanceList, member.getId());
-			AllMemberAllAttendanceList.add(oneMemberAllAttendanceList);
-		}
-		
-		ModelAndView view = new ModelAndView();
-		
-		if (educationInfoList.size() == 0) {
-			view.setViewName("redirect:/attendanceHistory/teamList");
-		} else {
-			view.setViewName("education/attendanceOneTeamList");
-			view.addObject("AllMemberAllAttendanceList", AllMemberAllAttendanceList);
-		}
-		return view;
 	}
 
 	@Override

@@ -201,9 +201,10 @@ public class EducationController {
 		return educationService.getAllTeamList();
 	}
 	
-	@RequestMapping("/attendanceHistory/teamDetail/{educationId}/{teamId}")
-	public ModelAndView viewAttendanceHistoryOneTeam(@PathVariable String educationId, @PathVariable String teamId){
-		return educationService.getOneTeamAttendance(educationId, teamId);
+	@RequestMapping("/attendanceHistory/teamDetail/{educationId}/{teamId}/{educationTitle}")
+	public ModelAndView viewAttendanceHistoryOneTeam(@PathVariable String educationId
+			, @PathVariable String teamId, @PathVariable String educationTitle){
+		return educationService.getOneTeamAttendance(educationId, teamId, educationTitle);
 	}
 	
 	@RequestMapping("/writeEduQna/{educationId}")

@@ -107,7 +107,7 @@ public interface EducationBiz {
 
 	public List<TeamVO> getAllTeamList();
 
-	public List<MemberVO> getAllMemberListByTeamId(String teamId);
+	public List<MemberVO> getAllMemberListByTeamId(String educationId, String teamId);
 
 	public boolean confirmMemberOfEdu(String educationId, String memberId);
 

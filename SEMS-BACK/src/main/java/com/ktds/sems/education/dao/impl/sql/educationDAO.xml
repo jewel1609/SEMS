@@ -745,7 +745,11 @@
 				, INFO.EDU_TTL educationTitle
 		FROM	TEAM
 				, EDU_INFO INFO
+				, EDU_CLASS CL
 		WHERE	INFO.EDU_ID = TEAM.EDU_ID
+		AND		CL.EDU_ID = INFO.EDU_ID
+		AND		CL.STAT = 'EDU_JN_C'
+		AND     INFO.SRT_DATE <![CDATA[<]]> SYSDATE
 	</select>
 	
 	<select id="getAllMemberListByTeamId" parameterType="string" resultType="MemberVO">
@@ -760,6 +764,7 @@
         AND     MBR.ID = TL.MBR_ID
         AND     CL.EDU_ID = INFO.EDU_ID
         AND     TL.TEAM_ID = #{teamId}
+        AND		INFO.EDU_ID = #{educationId}
 		AND		CL.STAT = 'EDU_JN_C'
 		AND		MBR.MBR_TP = 'MBR'
 		AND     INFO.SRT_DATE <![CDATA[<]]> SYSDATE
