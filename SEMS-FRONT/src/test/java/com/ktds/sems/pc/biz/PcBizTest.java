@@ -105,5 +105,11 @@ public class PcBizTest extends SemsTestCase {
 		
 		assertNotNull(result);
 	}
+	
+	@Test
+	public void getPcIdByIpTest() {
+		String result = pcBiz.getPcIdByIp("10.225.152.167");
+		assertNotNull(result);
+	}
 
 }

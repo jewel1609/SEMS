@@ -105,4 +105,10 @@ public class PcDAOTest extends SemsTestCase {
 		
 		assertNotNull(result);
 	}
+	
+	@Test
+	public void getPcIdByIpTest() {
+		String result = pcDAO.getPcIdByIp("10.225.152.167");
+		assertNotNull(result);
+	}
 }
