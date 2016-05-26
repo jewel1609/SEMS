@@ -1969,9 +1969,12 @@ public class EducationServiceImpl implements EducationService {
 		
 		boolean isEquals = member.getId().equals(writer);
 		if ( isEquals ) {
+			
+			List<FileVO> fileList = fileBiz.getAllFilesByArticleId(educationFileBBSVO.getArticleId());
 			view.setViewName("education/writeEducationFileBBS");
 			view.addObject("educationFileBBSVO", educationFileBBSVO);
 			view.addObject("isModify", "Y");
+			view.addObject("fileList", fileList);
 		}
 		else {
 			throw new RuntimeException("접근 권한 오류");
