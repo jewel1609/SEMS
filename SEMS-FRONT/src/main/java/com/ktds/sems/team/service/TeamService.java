@@ -52,6 +52,8 @@ public interface TeamService {
 
 	public ModelAndView minutesInit();
 	
+	public ModelAndView getOneDetailMinutes(String minutesId, HttpSession session);
+	
 	/*
 	 * 본호
 	 */
