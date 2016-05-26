@@ -36,7 +36,7 @@
 				<th>endDate</th>
 		
 			</tr>
-			<c:forEach items="${ educationListVO.educationList }" var="educationVO">
+			<c:forEach items="${educationListVO}" var="educationVO">
 				<tr>
 					<td>${ educationVO.educationId }</td>
 					<td><span class="educationId" >${ educationVO.educationTitle }</span></td>
@@ -68,7 +68,7 @@
 				<th>endDate</th>
 		
 			</tr>
-			<c:forEach items="${ educationListVO.educationList }" var="educationVO">
+			<c:forEach items="${ preEducationListVO.educationList }" var="educationVO">
 				<tr>
 					<td>${ educationVO.educationId }</td>
 					<td><span class="educationId" >${ educationVO.educationTitle }</span></td>
@@ -83,7 +83,7 @@
 			<tr>
 				<td colspan="10">
 					<form id="pagingForm">
-						${ educationListVO.paging.getPagingList("pageNo", "[@]", "이전", "다음", "pagingForm") }
+						${ preEducationListVO.paging.getPagingList("pageNo", "[@]", "이전", "다음", "pagingForm") }
 					</form>
 				</td>
 			</tr>
