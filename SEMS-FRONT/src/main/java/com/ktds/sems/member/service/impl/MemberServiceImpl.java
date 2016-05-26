@@ -941,7 +941,7 @@ public class MemberServiceImpl implements MemberService {
 	 * 구본호 > 이기연(SM)
 	 */
 	@Override
-	public ModelAndView getCourseList(HttpSession session, int pageNo) {
+	public ModelAndView getCourseList(HttpSession session, int pageNo, EducationSearchVO educationSearchVO) {
 
 		EducationListVO preEducationListVO = new EducationListVO();
 		Paging paging = new Paging();
@@ -953,7 +953,6 @@ public class MemberServiceImpl implements MemberService {
 		int getPreCourseCountById = memberBiz.getCourseCountById(memberVO.getId());
 		paging.setTotalArticleCount(getPreCourseCountById);
 
-		EducationSearchVO educationSearchVO = new EducationSearchVO();
 		educationSearchVO.setPageNo(pageNo);
 		educationSearchVO.setStartIndex(paging.getStartArticleNumber());
 		educationSearchVO.setEndIndex(paging.getEndArticleNumber());
@@ -969,6 +968,7 @@ public class MemberServiceImpl implements MemberService {
 		if ( myEducationList.size() >= 0 ) {
 			view.setViewName("myPage/myEduCourseInfo");
 			view.addObject("educationListVO", myEducationList);
+			view.addObject("educationSearchVO", educationSearchVO);
 			view.addObject("preEducationListVO", preEducationListVO);
 		} 
 		else {
