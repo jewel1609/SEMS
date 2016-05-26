@@ -20,6 +20,10 @@ public interface PcDAO {
 
 	public int changeReportedState(ReportedPcVO reportedPcVO);
 
+	public int nextEducationPlaceSequence();
+	
+	public int nextPcSequence();
+
 	public List<EducationPlaceVO> getEducationPlaceList();
 
 }

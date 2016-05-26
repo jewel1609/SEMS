@@ -1,7 +1,11 @@
 package com.ktds.sems.pc.service;
 
+import javax.servlet.http.HttpSession;
+
+import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ktds.sems.pc.vo.PcVO;
 import com.ktds.sems.pc.vo.ReportedPcSearchVO;
 import com.ktds.sems.pc.vo.ReportedPcVO;
 import com.ktds.sems.pc.vo.UsedPcSearchVO;
@@ -14,6 +18,9 @@ public interface PcService {
 
 	public String changeReportedState(ReportedPcVO reportedPcVO);
 
-	public ModelAndView viewEducationPlaceList();
+	public ModelAndView educationPlaceSetting(HttpSession session);
 
+	public ModelAndView doRegistClass(PcVO pcVO, Errors errors, HttpSession session);
+
+	public ModelAndView viewEducationPlaceList();
 }

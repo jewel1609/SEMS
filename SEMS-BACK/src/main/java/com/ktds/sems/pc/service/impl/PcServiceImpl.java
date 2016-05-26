@@ -2,11 +2,19 @@ package com.ktds.sems.pc.service.impl;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ktds.sems.common.Session;
 import com.ktds.sems.education.vo.EducationPlaceVO;
+import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.pc.biz.PcBiz;
 import com.ktds.sems.pc.service.PcService;
+import com.ktds.sems.pc.vo.PcVO;
 import com.ktds.sems.pc.vo.ReportedPcListVO;
 import com.ktds.sems.pc.vo.ReportedPcSearchVO;
 import com.ktds.sems.pc.vo.ReportedPcVO;
@@ -20,6 +28,8 @@ public class PcServiceImpl implements PcService {
 
 	private PcBiz pcBiz;
 
+	private Logger logger = LoggerFactory.getLogger(PcServiceImpl.class);
+
 	public void setPcBiz(PcBiz pcBiz) {
 		this.pcBiz = pcBiz;
 	}
@@ -30,67 +40,67 @@ public class PcServiceImpl implements PcService {
 		UsedPcListVO usedPcListVO = new UsedPcListVO();
 		Paging paging = new Paging();
 		usedPcListVO.setPaging(paging);
-		
-		if(usedPcSearchVO == null) {
+
+		if (usedPcSearchVO == null) {
 			usedPcSearchVO = new UsedPcSearchVO();
 			usedPcSearchVO.setPageNo(0);
 		}
-		
+
 		paging.setPageNumber(usedPcSearchVO.getPageNo() + "");
-		
+
 		int totalCount = pcBiz.getTotalUsedPcCount(usedPcSearchVO);
 		paging.setTotalArticleCount(totalCount);
 
 		usedPcSearchVO.setStartIndex(paging.getStartArticleNumber());
 		usedPcSearchVO.setEndIndex(paging.getEndArticleNumber());
-		
+
 		List<UsedPcVO> usedPcList = pcBiz.getUsedPcList(usedPcSearchVO);
 		usedPcListVO.setUsedPcList(usedPcList);
-		
+
 		ModelAndView view = new ModelAndView();
 		view.setViewName("pc/usedPcList");
 		view.addObject("usedPcListVO", usedPcListVO);
 		view.addObject("usedPcSearchVO", usedPcSearchVO);
-		
+
 		return view;
 	}
 
 	@Override
 	public ModelAndView getReportedPcListWithPaging(ReportedPcSearchVO reportedPcSearchVO) {
-		
+
 		ReportedPcListVO reportedPcListVO = new ReportedPcListVO();
 		Paging paging = new Paging();
 		reportedPcListVO.setPaging(paging);
-		
-		if(reportedPcSearchVO == null) {
+
+		if (reportedPcSearchVO == null) {
 			reportedPcSearchVO = new ReportedPcSearchVO();
 			reportedPcSearchVO.setPageNo(0);
 		}
 		paging.setPageNumber(reportedPcSearchVO.getPageNo() + "");
-		
+
 		int totalCount = pcBiz.getTotalReportedPcCount(reportedPcSearchVO);
 		paging.setTotalArticleCount(totalCount);
-		
+
 		reportedPcSearchVO.setStartIndex(paging.getStartArticleNumber());
 		reportedPcSearchVO.setEndIndex(paging.getEndArticleNumber());
-		
+
 		List<ReportedPcVO> reportedPcList = pcBiz.getReportedPcListWithPaging(reportedPcSearchVO);
 		reportedPcListVO.setReportedPcList(reportedPcList);
-		
+
 		ModelAndView view = new ModelAndView();
 		view.setViewName("pc/reportedPcList");
 		view.addObject("reportedPcListVO", reportedPcListVO);
 		view.addObject("reportedPcSearchVO", reportedPcSearchVO);
-		
+
 		return view;
 	}
 
 	@Override
 	public String changeReportedState(ReportedPcVO reportedPcVO) {
-		
+
 		String reportedState = reportedPcVO.getReportedState();
-		
-		if(reportedState.equals("PC_WT_IN")) {
+
+		if (reportedState.equals("PC_WT_IN")) {
 			reportedPcVO.setReportedState("PC_PB_CH");
 		} else if (reportedState.equals("PC_PB_CH")) {
 			reportedPcVO.setReportedState("PC_AC_IN");
@@ -99,14 +109,46 @@ public class PcServiceImpl implements PcService {
 		} else {
 			return "NO";
 		}
-		
-		if(pcBiz.changeReportedState(reportedPcVO)) {
+
+		if (pcBiz.changeReportedState(reportedPcVO)) {
 			return "OK";
 		} else {
 			throw new RuntimeException("일시적인 오류가 발생했습니다.");
 		}
 	}
 
+	@Override
+	public ModelAndView educationPlaceSetting(HttpSession session) {
+		ModelAndView view = new ModelAndView();
+		view.setViewName("pc/eduPlaceSet");
+		return view;
+	}
+
+	@Override
+	public ModelAndView doRegistClass(PcVO pcVO, Errors errors, HttpSession session) {
+		ModelAndView view = new ModelAndView();
+		MemberVO memberVO = (MemberVO) session.getAttribute(Session.MEMBER);
+		String memeberType = (String) session.getAttribute(Session.MEMBER_TYPE);
+		memberVO.setId(memberVO.getId());
+		if (memberVO.getId() != null) {
+			if (memeberType.equals("ADM")) {
+				if (!errors.hasErrors()) {
+					
+					pcBiz.doRegistClassInformation(pcVO);
+					pcBiz.doRegistClassCommonObject(pcVO);
+
+					view.setViewName("pc/eduPlaceSet");
+				} else {
+					throw new RuntimeException("설정을 다시해주세요.");
+				}
+			} else {
+				throw new RuntimeException("등록권한이 없습니다.");
+			}
+		} else {
+			return new ModelAndView("redirect:/");
+		}
+		return view;
+	}
 	@Override
 	public ModelAndView viewEducationPlaceList() {
 		

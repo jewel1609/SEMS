@@ -3,6 +3,7 @@ package com.ktds.sems.pc.biz;
 import java.util.List;
 
 import com.ktds.sems.education.vo.EducationPlaceVO;
+import com.ktds.sems.pc.vo.PcVO;
 import com.ktds.sems.pc.vo.ReportedPcSearchVO;
 import com.ktds.sems.pc.vo.ReportedPcVO;
 import com.ktds.sems.pc.vo.UsedPcSearchVO;
@@ -19,6 +20,10 @@ public interface PcBiz {
 	public List<ReportedPcVO> getReportedPcListWithPaging(ReportedPcSearchVO reportedPcSearchVO);
 
 	public boolean changeReportedState(ReportedPcVO reportedPcVO);
+
+	public void doRegistClassInformation(PcVO pcVO);
+
+	public void doRegistClassCommonObject(PcVO pcVO);
 
 	public List<EducationPlaceVO> getEducationPlaceList();
 

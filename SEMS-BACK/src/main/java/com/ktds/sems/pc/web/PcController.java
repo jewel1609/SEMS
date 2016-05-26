@@ -2,12 +2,16 @@ package com.ktds.sems.pc.web;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.pc.service.PcService;
+import com.ktds.sems.pc.vo.PcVO;
 import com.ktds.sems.pc.vo.ReportedPcSearchVO;
 import com.ktds.sems.pc.vo.ReportedPcVO;
 import com.ktds.sems.pc.vo.UsedPcSearchVO;
@@ -41,9 +45,12 @@ public class PcController {
 	
 	@RequestMapping("/eduPlaceSet")
 	public ModelAndView educationPlaceSetting(HttpSession session){
-		ModelAndView view = new ModelAndView();
-		view.setViewName("pc/eduPlaceSet");
-		return view;
+		return pcService.educationPlaceSetting(session);
+	}
+	
+	@RequestMapping(value="/doRegistClass", method=RequestMethod.POST)
+	public ModelAndView doRegistClass(@Valid PcVO pcVO, Errors errors, HttpSession session){
+		return pcService.doRegistClass(pcVO, errors, session);
 	}
 	
 	@RequestMapping("/eduPlaceList")

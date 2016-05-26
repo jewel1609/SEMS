@@ -39,6 +39,16 @@ public class PcDAOImpl extends SqlSessionDaoSupport implements PcDAO {
 	}
 
 	@Override
+	public int nextEducationPlaceSequence() {
+		return getSqlSession().selectOne("PcDAO.nextEducationPlaceSequence");
+	}
+
+	@Override
+	public int nextPcSequence() {
+		return getSqlSession().selectOne("PcDAO.nextPcSequence");
+	}
+
+	@Override
 	public List<EducationPlaceVO> getEducationPlaceList() {
 		return getSqlSession().selectList("PcDAO.getEducationPlaceList");
 	}
