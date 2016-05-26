@@ -680,7 +680,7 @@
 				, B.TITLE title
 				, B.CONTENTS contents
 				, TO_CHAR(B.CREATE_DATE, 'YYYY-MM-DD') createDate
-				, B.MODIFY_DATE modifyDate
+				, TO_CHAR(B.MODIFY_DATE, 'YYYY-MM-DD') modifyDate
 				, B.HITS hits
 		FROM	(
 					SELECT	ROWNUM AS RNUM
