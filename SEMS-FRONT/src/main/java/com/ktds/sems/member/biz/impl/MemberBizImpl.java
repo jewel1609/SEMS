@@ -940,8 +940,8 @@ public class MemberBizImpl implements MemberBiz {
 	}
 
 	@Override
-	public List<EducationVO> getCourseList(EducationSearchVO myEducationList) {
-		return memberDAO.getCourseList(myEducationList);
+	public List<EducationVO> getCourseList(String memberId) {
+		return memberDAO.getCourseList(memberId);
 	}
 	
 	@Override
@@ -960,6 +960,11 @@ public class MemberBizImpl implements MemberBiz {
 	@Override
 	public List<ReportReplyVO> getReportReplyListByMemberId(String id) {
 		return memberDAO.getReportReplyListByMemberId(id);
+	}
+
+	@Override
+	public List<EducationVO> getPreCourseList(EducationSearchVO educationSearchVO) {
+		return memberDAO.getPreCourseList(educationSearchVO);
 	}
 
 }

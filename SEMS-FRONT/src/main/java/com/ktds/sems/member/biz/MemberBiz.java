@@ -131,7 +131,7 @@ public interface MemberBiz {
 
 	public boolean dropCourseApply(EducationHistoryVO educationHistory);
 	
-	public List<EducationVO> getCourseList(EducationSearchVO educationSearchVO);
+	public List<EducationVO> getCourseList(String memberId);
 
 	public int getCourseCountById(String id);
 	
@@ -166,5 +166,7 @@ public interface MemberBiz {
 	public List<AttendVO> getAllAttendHistory(MemberVO memberVO, String educationId);
 
 	public List<ReportReplyVO> getReportReplyListByMemberId(String id);
+
+	public List<EducationVO> getPreCourseList(EducationSearchVO educationSearchVO);
 
 }

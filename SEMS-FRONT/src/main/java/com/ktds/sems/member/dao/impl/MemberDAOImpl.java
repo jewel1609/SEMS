@@ -355,8 +355,8 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
 	}
 
 	@Override
-	public List<EducationVO> getCourseList(EducationSearchVO myEducationList) {
-		return getSqlSession().selectList("MemberDAO.getCourseList", myEducationList);
+	public List<EducationVO> getCourseList(String memberId) {
+		return getSqlSession().selectList("MemberDAO.getCourseList", memberId);
 	}
 
 	@Override
@@ -398,4 +398,9 @@ public class MemberDAOImpl extends SqlSessionDaoSupport implements MemberDAO {
    public int currentLoginHistorySeq() {
       return getSqlSession().selectOne("MemberDAO.currentLoginHistorySeq");
    }
+	
+	@Override
+	public List<EducationVO> getPreCourseList(EducationSearchVO educationSearchVO) {
+		return getSqlSession().selectList("MemberDAO.getPreCourseList", educationSearchVO);
+	}
 }

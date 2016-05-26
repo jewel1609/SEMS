@@ -943,15 +943,15 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public ModelAndView getCourseList(HttpSession session, int pageNo) {
 
-		EducationListVO educationListVO = new EducationListVO();
+		EducationListVO preEducationListVO = new EducationListVO();
 		Paging paging = new Paging();
-		educationListVO.setPaging(paging);
+		preEducationListVO.setPaging(paging);
 
 		paging.setPageNumber(pageNo + "");
 		
 		MemberVO memberVO = (MemberVO) session.getAttribute(Session.MEMBER);
-		int getCourseCountById = memberBiz.getCourseCountById(memberVO.getId());
-		paging.setTotalArticleCount(getCourseCountById);
+		int getPreCourseCountById = memberBiz.getCourseCountById(memberVO.getId());
+		paging.setTotalArticleCount(getPreCourseCountById);
 
 		EducationSearchVO educationSearchVO = new EducationSearchVO();
 		educationSearchVO.setPageNo(pageNo);
@@ -959,15 +959,17 @@ public class MemberServiceImpl implements MemberService {
 		educationSearchVO.setEndIndex(paging.getEndArticleNumber());
 		educationSearchVO.setMemberId(memberVO.getId());
 		
-		List<EducationVO> myEducationList = memberBiz.getCourseList(educationSearchVO);
-		educationListVO.setEducationList(myEducationList);
+		List<EducationVO> myEducationList = memberBiz.getCourseList(memberVO.getId());
+		List<EducationVO> myPreEducationList = memberBiz.getPreCourseList(educationSearchVO);
+		preEducationListVO.setEducationList(myPreEducationList);
 
 		ModelAndView view = new ModelAndView();
 		
 		// SM 이기연 수정 
 		if ( myEducationList.size() >= 0 ) {
 			view.setViewName("myPage/myEduCourseInfo");
-			view.addObject("educationListVO", educationListVO);
+			view.addObject("educationListVO", myEducationList);
+			view.addObject("preEducationListVO", preEducationListVO);
 		} 
 		else {
 			List<MenuManageVO> menuList = memberBiz.getMenuCategoryList();

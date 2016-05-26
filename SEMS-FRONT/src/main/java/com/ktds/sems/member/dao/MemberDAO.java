@@ -121,7 +121,7 @@ public interface MemberDAO {
 
 	public List<EducationCostVO> getCostList();
 
-	public List<EducationVO> getCourseList(EducationSearchVO myEducationList);
+	public List<EducationVO> getCourseList(String memberId);
 
 	public EducationHistoryVO getOneEducationByIdAndEducationId(String educationId, String id);
 
@@ -162,6 +162,8 @@ public interface MemberDAO {
 	public void deleteJunitTestStampLoginTime(int lgiHtrId);
 	
 	public int currentLoginHistorySeq();
+
+	public List<EducationVO> getPreCourseList(EducationSearchVO educationSearchVO);
 	
 
 }
