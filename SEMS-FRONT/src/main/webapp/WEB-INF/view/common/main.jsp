@@ -16,7 +16,7 @@
 <div class="wrapper row1">
   <header id="header" class="clear"> 
     <div id="logo" class="fl_left">
-      <h1><a href="index.html">Gravity</a></h1>
+      <h1><a href="/main">Kt'ds SEMS</a></h1>
     </div>
     <div class="fl_right">
       <ul class="inline">
@@ -34,7 +34,7 @@
 <div class="wrapper row2">
   <nav id="mainav" class="clear"> 
     <ul class="clear">
-      <li class="active"><a href="index.html">Home</a></li>
+      <li class="active"><a href="/main">Home</a></li>
       <li><a class="drop" href="#">Pages</a>
         <ul>
           <li><a href="pages/gallery.html">Gallery</a></li>
