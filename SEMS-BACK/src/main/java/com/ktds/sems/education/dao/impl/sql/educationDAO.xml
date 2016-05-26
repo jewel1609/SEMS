@@ -360,13 +360,16 @@
 		<if test="searchType == 1 and searchType != null">
 		WHERE	MBR_ID = #{searchKeyword}
 		AND		EDU_ID = #{educationId}
+		AND		ATC_ID LIKE '%'||'EQ'||'%'
 		</if>
 		<if test="searchType == 2 and searchType != null">
 		WHERE	TITLE = #{searchKeyword}
 		AND		EDU_ID = #{educationId}
+		AND		ATC_ID LIKE '%'||'EQ'||'%'
 		</if>
 		<if test="searchType == null">
 		WHERE	EDU_ID = #{educationId}
+		AND		ATC_ID LIKE '%'||'EQ'||'%'
 		</if>
 		ORDER	BY	ATC_ID DESC
 	</select>
@@ -390,13 +393,16 @@
 								<if test="searchType == 1 and searchType != null">
 								WHERE	MBR_ID LIKE '%'||#{searchKeyword}||'%'
 								AND		EDU_ID = #{educationId}
+								AND		ATC_ID LIKE '%'||'EQ'||'%'
 								</if>
 								<if test="searchType == 2 and searchType != null">
 								WHERE	TITLE LIKE '%'||#{searchKeyword}||'%'
 								AND		EDU_ID = #{educationId}
+								AND		ATC_ID LIKE '%'||'EQ'||'%'
 								</if>
 								<if test="searchType == null">
 								WHERE	EDU_ID = #{educationId}
+								AND		ATC_ID LIKE '%'||'EQ'||'%'
 								</if>
 								ORDER	BY ATC_ID
 							)EDU_QNA
@@ -827,4 +833,172 @@
 		AND		MBR.MBR_TP = 'MBR'
 		AND     INFO.SRT_DATE <![CDATA[<]]> SYSDATE
 	</select>
+	
+	<select id="confirmMemberOfEdu" parameterType="map" resultType="_int">
+		SELECT	COUNT(EDU_CLASS_ID)
+		FROM	EDU_CLASS
+		WHERE	EDU_ID = #{educationId}
+		AND		MBR_ID = #{memberId}
+		AND		STAT = 'EDU_JN_C'
+	</select>
+	
+	<select id="nextEqbSeq" resultType="_int">
+		SELECT	ATC_ID_SEQ.NEXTVAL
+		FROM	DUAL
+	</select>
+	
+	<insert id="insertEduQna" parameterType="EduQnaVO">
+		INSERT INTO EDU_QA_BBS	(
+								   ATC_ID
+								   , EDU_ID
+								   , MBR_ID
+								   , TITLE
+								   , CONTENTS
+								   , CREATE_DATE
+								) 
+		VALUES					( 
+									#{eduQnaId}
+									, #{educationId}
+									, #{memberId}
+									, #{title}
+									, #{contents}
+									, SYSDATE
+								
+								 )
+	</insert>
+	
+	<select id="detailOfEduQna" parameterType="string" resultType="EduQnaVO">
+		SELECT	ATC_ID eduQnaId
+				, EDU_ID educationId
+				, MBR_ID memberId
+				, TITLE title
+				, CONTENTS contents
+				, CREATE_DATE createDate
+				, HITS hits
+		FROM	EDU_QA_BBS
+		WHERE	ATC_ID = #{eduQnaId}
+	</select>
+	
+	<update id="addHitsToEduQna" parameterType="string">
+		UPDATE	EDU_QA_BBS
+		SET		HITS = HITS + 1
+		WHERE	ATC_ID = #{eduQnaId}
+	</update>
+	
+	<update id="addQnaEduReplyLike" parameterType="string">
+		UPDATE	BBS_RPL
+		SET		LIKE_CNT = LIKE_CNT+1
+		WHERE	REPLY_ID = #{replyId}
+	</update>
+	
+	<update id="addQnaEduReplyDisLike" parameterType="string">
+		UPDATE	BBS_RPL
+		SET		DISLIKE_CNT = DISLIKE_CNT+1
+		WHERE	REPLY_ID = #{replyId}
+	</update>
+	
+	<select id="getTotalQnaEduReplyCount" parameterType="string" resultType="_int">
+		SELECT	COUNT(REPLY_ID)
+		FROM	BBS_RPL
+		WHERE	ATC_ID = #{atcId}
+		AND		REPLY_ID LIKE 'ER%'
+		AND		ATC_ID LIKE 'EQ%'
+	</select>
+	
+	<select id="getEmail" parameterType="string" resultType="string">
+		SELECT	EMAIL
+		FROM	MBR
+		WHERE	ID = #{memberId}
+	</select>
+	
+	<select id="getNowDate" resultType="string">
+		SELECT	TO_CHAR(SYSDATE, 'YYYYMMDD')
+		FROM	DUAL
+	</select>
+	
+	<select id="getAllQNAReplyListByAtcId" parameterType="EducationQNAReplySearchVO" resultType="EducationQNAReplyVO">
+		SELECT	REPLY_ID replyId
+				, ATC_ID atcId
+				, PARENT_REPLY_ID parentReplyId
+				, ORDER_NO orderNo
+				, DESCRIPTION description
+				, MBR_ID mbrId
+				, LIKE_CNT likeCnt
+				, DISLIKE_CNT dislikeCnt
+				, TO_CHAR(CREATED_DATE, 'YYYY-MM-DD HH24:MI') createdDate
+				, (1.5*LIKE_CNT)-(DISLIKE_CNT) AS qnaReplyPoint
+		FROM	(
+					SELECT	ROWNUM AS RNUM
+							, RPL.*
+					FROM 	(
+								SELECT	*
+								FROM	BBS_RPL
+								WHERE	ATC_ID = #{atcId}
+								AND		REPLY_ID LIKE 'ER%'
+								ORDER	BY	REPLY_ID DESC	
+							) RPL
+					WHERE	ROWNUM <![CDATA[<=]]> #{endIndex}		
+		
+				)
+		WHERE	RNUM >= #{startIndex}
+	</select>
+	
+	<select id="getNextReplySeq" resultType="_int">
+		SELECT 	REPLY_ID_SEQ.NEXTVAL
+		FROM	DUAL
+	</select>
+	
+	<insert id="addQNAReply" parameterType="EducationQNAReplyVO">
+		INSERT INTO BBS_RPL (
+								   REPLY_ID 
+								   , ATC_ID 
+								   , PARENT_REPLY_ID 
+								   , ORDER_NO 
+								   , DESCRIPTION 
+								   , MBR_ID 
+								   , CREATED_DATE
+								   ) 
+						VALUES ( 
+								 #{replyId},
+								 #{atcId},
+								 '0',
+								 '4',
+								 #{description},
+								 #{mbrId},
+								 SYSDATE
+								 )
+	</insert>
+	
+	<select id="getNextReReplyEval" resultType="_int">
+		SELECT 	REPEPLY_EVAL_ID_SEQ.NEXTVAL
+		FROM	DUAL
+	</select>
+	
+	<select id="checkReReplyEval" parameterType="ReRplyEvalVO" resultType="_int">
+		SELECT	COUNT(REPLY_EVAL_ID)
+		FROM	RERPLY_EVAL
+		WHERE	MBR_ID = #{mbrId}
+		AND		REPLY_ID = #{replyId}
+		AND		(LIKE_CNT = 'Y'
+		OR		DISLIKE_CNT = 'Y')
+	</select>
+	
+	<insert id="insertReReplyEvalByDislike" parameterType="ReRplyEvalVO">
+		INSERT INTO RERPLY_EVAL (
+									   REPLY_ID
+									   , MBR_ID
+									   , LIKE_CNT
+									   , DISLIKE_CNT
+									   , CREATED_DATE
+									   , REPLY_EVAL_ID
+								   	) 
+		VALUES					( 
+										#{replyId}
+										, #{mbrId}
+										, 'N'
+								 		, 'Y'
+								 		, SYSDATE
+								 		, #{replyEvalId}
+									)
+	</insert>
 </mapper>

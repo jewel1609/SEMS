@@ -16,8 +16,11 @@ import com.ktds.sems.education.vo.EduReportSearchVO;
 import com.ktds.sems.education.vo.EduReportVO;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationHistoryVO;
+import com.ktds.sems.education.vo.EducationQNAReplySearchVO;
+import com.ktds.sems.education.vo.EducationQNAReplyVO;
 import com.ktds.sems.education.vo.EducationTypeVO;
 import com.ktds.sems.education.vo.EducationVO;
+import com.ktds.sems.education.vo.ReRplyEvalVO;
 import com.ktds.sems.education.vo.TeamVO;
 import com.ktds.sems.member.vo.AttendVO;
 import com.ktds.sems.member.vo.MemberVO;
@@ -116,4 +119,38 @@ public interface EducationBiz {
 	public List<TeamVO> getAllTeamList();
 
 	public List<MemberVO> getAllMemberListByTeamId(String teamId);
+
+	public boolean confirmMemberOfEdu(String educationId, String memberId);
+
+	public boolean insertEduQna(EduQnaVO eduQnaVO);
+
+	public int getNextEqbSeq();
+
+	public EduQnaVO detailOfEduQna(String eduQnaId);
+	
+	public boolean addHitsToEduQna(String eduQnaId);
+
+	public boolean addQnaEduReplyLike(String replyId);
+
+	public boolean addQnaEduReplyDisLike(String replyId);
+
+	public void sendEmailInEduQna(String toEmail, String fromEmail, EduQnaVO eduQnaVO, EducationQNAReplyVO eduBBSReplyVO);
+
+	public int getTotalQnaEduReplyCount(String eduQnaId);
+
+	public String getNowDate();
+
+	public List<EducationQNAReplyVO> getAllQNAReplyListByAtcId(EducationQNAReplySearchVO searchVO);
+
+	public int getNextReplySeq();
+
+	public void addQNAReply(EducationQNAReplyVO eduBBSReplyVO);
+
+	public String getEmail(String memberId);
+
+	public int getNextReReplyEval();
+
+	public boolean checkReReplyEval(ReRplyEvalVO reRplyEvalVO);
+
+	public boolean insertReReplyEvalByDislike(ReRplyEvalVO reRplyEvalVO);
 }

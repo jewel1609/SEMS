@@ -1,6 +1,7 @@
 package com.ktds.sems.education.web;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -20,10 +21,14 @@ import com.ktds.sems.education.vo.EduFileSearchVO;
 import com.ktds.sems.education.vo.EduNoticeSearchVO;
 import com.ktds.sems.education.vo.EduNoticeVO;
 import com.ktds.sems.education.vo.EduQnaSearchVO;
+import com.ktds.sems.education.vo.EduQnaVO;
 import com.ktds.sems.education.vo.EduReportSearchVO;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
+import com.ktds.sems.education.vo.EducationQNAReplyVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.member.vo.MemberVO;
+
+import kr.co.hucloud.utilities.web.AjaxUtil;
 
 @Controller
 public class EducationController {
@@ -206,5 +211,42 @@ public class EducationController {
 	@RequestMapping("/attendanceHistory/teamDetail/{educationId}/{teamId}")
 	public ModelAndView viewAttendanceHistoryOneTeam(@PathVariable String educationId, @PathVariable String teamId){
 		return educationService.getOneTeamAttendance(educationId, teamId);
+	}
+	
+	@RequestMapping("/writeEduQna/{educationId}")
+	public ModelAndView viewWriteEduQna(@PathVariable String educationId, HttpSession session){
+		return educationService.viewWriteEduQna(educationId, session);
+	}
+	
+	@RequestMapping("/doWriteEduQnaAction")
+	public ModelAndView doWriteEduQnaAction(EduQnaVO eduQnaVO,  HttpSession session){
+		return educationService.doWriteEduQnaAction(eduQnaVO, session);
+	}
+	
+	@RequestMapping("/detailOfEduQna/{eduQnaId}/{educationId}")
+	public ModelAndView detailOfEduQna(@PathVariable String eduQnaId, @PathVariable String educationId
+			, HttpSession session, @RequestParam(required=false, defaultValue="0") int pageNo){
+		return educationService.detailOfEduQna(eduQnaId, educationId, session, pageNo);
+	}
+	
+	@RequestMapping("/eduQnaReply/{educationId}")
+	public ModelAndView doEduQnaReplyAction(@Valid EducationQNAReplyVO eduBBSReplyVO, @PathVariable String educationId, Errors errors, HttpSession session) {
+		return educationService.doEduQnaReplyAction(eduBBSReplyVO, errors, session, educationId);
+	}
+	
+	@RequestMapping("/addQnaEduReplyLike")
+	public void addQnaEduReplyLike(HttpServletRequest request, HttpServletResponse response, HttpSession session){
+		String replyId = request.getParameter("replyId");
+		
+		String status = educationService.addQnaEduReplyLike(replyId, session);
+		AjaxUtil.sendResponse(response, status);
+	}
+	
+	@RequestMapping("/addQnaEduReplyDisLike")
+	public void addQnaEduReplyDisLike(HttpServletRequest request, HttpServletResponse response, HttpSession session){
+		String replyId = request.getParameter("replyId");
+		
+		String status = educationService.addQnaEduReplyDisLike(replyId, session);
+		AjaxUtil.sendResponse(response, status);
 	}
 }

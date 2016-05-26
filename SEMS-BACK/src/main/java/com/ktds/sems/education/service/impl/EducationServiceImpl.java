@@ -40,7 +40,11 @@ import com.ktds.sems.education.vo.EduReportVO;
 import com.ktds.sems.education.vo.EducationHistoryListVO;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationHistoryVO;
+import com.ktds.sems.education.vo.EducationQNAReplyListVO;
+import com.ktds.sems.education.vo.EducationQNAReplySearchVO;
+import com.ktds.sems.education.vo.EducationQNAReplyVO;
 import com.ktds.sems.education.vo.EducationVO;
+import com.ktds.sems.education.vo.ReRplyEvalVO;
 import com.ktds.sems.education.vo.TeamVO;
 import com.ktds.sems.file.biz.FileBiz;
 import com.ktds.sems.file.vo.FileVO;
@@ -376,25 +380,26 @@ public class EducationServiceImpl implements EducationService {
 	@Override
 	public ModelAndView getAllQnaArticle(EduQnaSearchVO eduQnaSearchVO, int pageNo) {
 		EduQnaListVO eduQnaListVO = new EduQnaListVO();
-		Paging paging = new Paging(20, 20);
-
+		Paging paging = new Paging(20,20);
+		
 		eduQnaListVO.setPaging(paging);
 		int totalReportCount = educationBiz.getTotalEduQnaCount(eduQnaSearchVO);
-
+		
 		paging.setPageNumber(pageNo + "");
 		paging.setTotalArticleCount(totalReportCount);
-
+		
 		eduQnaSearchVO.setStartIndex(paging.getStartArticleNumber());
 		eduQnaSearchVO.setEndIndex(paging.getEndArticleNumber());
 
 		List<EduQnaVO> eduQna = educationBiz.getAllEduQna(eduQnaSearchVO);
 		eduQnaListVO.setEduQnaList(eduQna);
-
+		
 		ModelAndView view = new ModelAndView();
 		view.setViewName("education/eduQnaPage");
 		view.addObject("eduQnaListVO", eduQnaListVO);
 		view.addObject("eduQnaSearchVO", eduQnaSearchVO);
-
+		view.addObject("searchType", eduQnaSearchVO.getSearchType());
+		
 		return view;
 	}
 
@@ -937,5 +942,226 @@ public class EducationServiceImpl implements EducationService {
 			view.addObject("AllMemberAllAttendanceList", AllMemberAllAttendanceList);
 		}
 		return view;
+	}
+
+	@Override
+	public ModelAndView viewWriteEduQna(String educationId, HttpSession session) {
+		ModelAndView view = new ModelAndView();
+		
+		MemberVO memberVO = (MemberVO) session.getAttribute(Session.MEMBER);
+		String memberId = memberVO.getId();
+		
+		boolean confirmMemberOfEdu = educationBiz.confirmMemberOfEdu(educationId, memberId);
+		if ( confirmMemberOfEdu || memberVO.getMemberType().equals("ADM") || memberVO.getMemberType().equals("TR") ) {
+			view.addObject("educationId", educationId);
+			view.setViewName("education/eduQnaWrite");
+		}else {
+			throw new RuntimeException("접근 가능한 권한이 아닙니다.");
+		}
+		
+		return view;
+	}
+
+	@Override
+	public ModelAndView doWriteEduQnaAction(EduQnaVO eduQnaVO, HttpSession session) {
+		ModelAndView view = new ModelAndView();
+		
+		MemberVO memberVO = (MemberVO) session.getAttribute(Session.MEMBER);
+		String memberId = memberVO.getId();
+		
+		String nowDate = educationBiz.getNowDate();
+		int nextEqbSeq = educationBiz.getNextEqbSeq();
+		String eduQnaId = "EQ-" + nowDate + "-" + lpad(nextEqbSeq + "", 6, "0");
+		
+		eduQnaVO.setMemberId(memberId);
+		eduQnaVO.setEduQnaId(eduQnaId);
+		
+		boolean confirmMemberOfEdu = educationBiz.confirmMemberOfEdu(eduQnaVO.getEducationId(), memberId);
+		
+		if ( confirmMemberOfEdu || memberVO.getMemberType().equals("ADM") || memberVO.getMemberType().equals("TR") ) {
+			boolean result = educationBiz.insertEduQna(eduQnaVO);
+			
+			if( result ) {
+				view.setViewName("redirect:/"+eduQnaVO.getEducationId()+"/eduQna");
+			}else {
+				throw new RuntimeException("일시적인 장애가 발생했습니다. 잠시 후 다시 시도해주세요.");
+			}
+		}else {
+			throw new RuntimeException("접근 가능한 권한이 아닙니다.");
+		}
+		
+		return view;
+	}
+
+	@Override
+	public ModelAndView detailOfEduQna(String eduQnaId, String educationId, HttpSession session, int pageNo) {
+		ModelAndView view = new ModelAndView();
+		
+		MemberVO memberVO = (MemberVO) session.getAttribute(Session.MEMBER);
+		String memberId = memberVO.getId();
+		String memberType = memberVO.getMemberType();
+		
+		boolean confirmMemberOfEdu = educationBiz.confirmMemberOfEdu(educationId, memberId);
+		if ( confirmMemberOfEdu || memberVO.getMemberType().equals("ADM") || memberVO.getMemberType().equals("TR") ) {
+
+			EduQnaVO eduQnaVO = educationBiz.detailOfEduQna(eduQnaId);
+			EducationQNAReplyListVO qnaReplyList = new EducationQNAReplyListVO();
+			
+			Paging paging = new Paging(5,10);
+			qnaReplyList.setPaging(paging);
+			paging.setPageNumber(pageNo + "");
+			
+			int totalQNAReplyCount = educationBiz.getTotalQnaEduReplyCount(eduQnaId);
+			paging.setTotalArticleCount(totalQNAReplyCount);
+			
+			EducationQNAReplySearchVO searchVO = new EducationQNAReplySearchVO();
+			searchVO.setStartIndex(paging.getStartArticleNumber());
+			searchVO.setEndIndex(paging.getEndArticleNumber());
+			searchVO.setAtcId(eduQnaId);
+			
+			List<EducationQNAReplyVO> qnaReplyListByAtcId = educationBiz.getAllQNAReplyListByAtcId(searchVO);
+			
+			qnaReplyList.setQnaReplyList(qnaReplyListByAtcId);
+
+			view.addObject("qnaReplyList", qnaReplyList);
+
+			if( eduQnaVO != null ) {
+				boolean result = educationBiz.addHitsToEduQna(eduQnaId);
+				if( result ) {
+					view.addObject("eduQnaVO", eduQnaVO);
+					view.addObject("memberType", memberType);
+					view.setViewName("education/eduQnaDetail");
+				}				
+			}else {
+				throw new RuntimeException("일시적인 장애가 발생했습니다. 잠시 후 다시 시도해주세요.");
+			}
+		}else {
+			throw new RuntimeException("접근 가능한 권한이 아닙니다.");
+		}
+		
+		return view;
+	}
+
+	@Override
+	public ModelAndView doEduQnaReplyAction(EducationQNAReplyVO eduBBSReplyVO, Errors errors, HttpSession session,
+			String educationId) {
+		ModelAndView view = new ModelAndView();
+		MemberVO sessionMember = (MemberVO) session.getAttribute("_MEMBER_");
+		String atcId = eduBBSReplyVO.getAtcId();
+		
+		String nowDate = educationBiz.getNowDate();
+		int nextSeq = educationBiz.getNextReplySeq();
+		String realReplyId = "ER-" + nowDate + "-" + lpad(nextSeq + "", 6, "0");
+		
+		eduBBSReplyVO.setMbrId(sessionMember.getId());
+		eduBBSReplyVO.setAtcId(atcId);
+		eduBBSReplyVO.setReplyId(realReplyId);
+		
+		if ( !errors.hasErrors() ) {
+			educationBiz.addQNAReply(eduBBSReplyVO);
+			view.setViewName("redirect:/detailOfEduQna/"+atcId+"/"+educationId);
+			
+			EduQnaVO eduQnaVO = educationBiz.detailOfEduQna(atcId);
+			
+			String toEmail = educationBiz.getEmail(eduQnaVO.getMemberId());//질문자 mail주소
+			String fromEmail = educationBiz.getEmail(sessionMember.getId());//답변자 아이디
+			
+			//mail 전송 메소드
+			//educationBiz.sendEmailInEduQna(toEmail, fromEmail, eduQnaVO, eduBBSReplyVO);
+			
+			
+		}else {
+			throw new RuntimeException("일시적인 장애가 발생했습니다. 잠시 후 다시 시도해주세요.");
+		}
+		
+		return view;
+	}
+
+	@Override
+	public String addQnaEduReplyLike(String replyId, HttpSession session) {
+		MemberVO memberVO = (MemberVO) session.getAttribute(Session.MEMBER);
+		
+		ReRplyEvalVO reRplyEvalVO = new ReRplyEvalVO();
+		
+		String nowDate = educationBiz.getNowDate();
+		int nextSeq = educationBiz.getNextReReplyEval();
+		String replyEvalId = "RE-" + nowDate + "-" + lpad(nextSeq + "", 6, "0");
+		
+		//댓글ID
+		reRplyEvalVO.setReplyId(replyId);
+		
+		// 싫어요 누른 아이디
+		reRplyEvalVO.setMbrId(memberVO.getId());
+		
+		// REPLY_EVAL_ID (pk)
+		reRplyEvalVO.setReplyEvalId(replyEvalId);
+		
+		if (!educationBiz.checkReReplyEval(reRplyEvalVO)){
+			boolean result = educationBiz.insertReReplyEvalByDislike(reRplyEvalVO);
+			
+			if(!result){
+				return "FAIL";
+			}
+			else{
+				if(educationBiz.addQnaEduReplyLike(replyId)){
+					return "OK";
+				}
+				else {
+					return "FAIL";
+				}
+			} 
+		}
+		else {
+			return "FAIL";
+		}
+	}
+
+	@Override
+	public String addQnaEduReplyDisLike(String replyId, HttpSession session) {
+		MemberVO memberVO = (MemberVO) session.getAttribute(Session.MEMBER);
+		
+		ReRplyEvalVO reRplyEvalVO = new ReRplyEvalVO();
+		
+		String nowDate = educationBiz.getNowDate();
+		int nextSeq = educationBiz.getNextReReplyEval();
+		String replyEvalId = "RE-" + nowDate + "-" + lpad(nextSeq + "", 6, "0");
+		
+		//댓글ID
+		reRplyEvalVO.setReplyId(replyId);
+		
+		// 싫어요 누른 아이디
+		reRplyEvalVO.setMbrId(memberVO.getId());
+		
+		// REPLY_EVAL_ID (pk)
+		reRplyEvalVO.setReplyEvalId(replyEvalId);
+		
+		if (!educationBiz.checkReReplyEval(reRplyEvalVO)){
+			boolean result = educationBiz.insertReReplyEvalByDislike(reRplyEvalVO);
+			
+			if(!result){
+				return "FAIL";
+			}
+			else{
+				if(educationBiz.addQnaEduReplyDisLike(replyId)){
+					return "OK";
+				}
+				else {
+					return "FAIL";
+				}
+			} 
+		}
+		else {
+			return "FAIL";
+		}
+	}
+	private String lpad(String source, int length, String defValue) {
+		int sourceLength = source.length();
+		int needLength = length - sourceLength;
+		
+		for (int i = 0; i < needLength; i++) {
+			source = defValue + source;
+		}
+		return source;
+		
 	}
 }

@@ -21,8 +21,11 @@ import com.ktds.sems.education.vo.EduReportSearchVO;
 import com.ktds.sems.education.vo.EduReportVO;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationHistoryVO;
+import com.ktds.sems.education.vo.EducationQNAReplySearchVO;
+import com.ktds.sems.education.vo.EducationQNAReplyVO;
 import com.ktds.sems.education.vo.EducationTypeVO;
 import com.ktds.sems.education.vo.EducationVO;
+import com.ktds.sems.education.vo.ReRplyEvalVO;
 import com.ktds.sems.education.vo.TeamVO;
 import com.ktds.sems.member.vo.AttendVO;
 import com.ktds.sems.member.vo.MemberVO;
@@ -281,5 +284,89 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 	@Override
 	public List<MemberVO> getAllMemberListByTeamId(String teamId) {
 		return getSqlSession().selectList("EducationDAO.getAllMemberListByTeamId", teamId);
+	}
+
+	@Override
+	public int confirmMemberOfEdu(String educationId, String memberId) {
+		Map<String, String> hashMap = new HashMap<String, String>();
+		hashMap.put("educationId", educationId);
+		hashMap.put("memberId", memberId);
+		return getSqlSession().selectOne("EducationDAO.confirmMemberOfEdu",hashMap);
+	}
+
+	@Override
+	public int insertEduQna(EduQnaVO eduQnaVO) {
+		return getSqlSession().insert("EducationDAO.insertEduQna", eduQnaVO);
+	}
+
+	@Override
+	public int getNextEqbSeq() {
+		return getSqlSession().selectOne("EducationDAO.nextEqbSeq");
+	}
+
+	@Override
+	public EduQnaVO detailOfEduQna(String eduQnaId) {
+		return getSqlSession().selectOne("EducationDAO.detailOfEduQna", eduQnaId);
+	}
+
+	@Override
+	public int addHitsToEduQna(String eduQnaId) {
+		return getSqlSession().update("EducationDAO.addHitsToEduQna", eduQnaId);
+	}
+
+	@Override
+	public int addQnaEduReplyLike(String replyId) {
+		return getSqlSession().update("EducationDAO.addQnaEduReplyLike", replyId);
+	}
+
+	@Override
+	public int addQnaEduReplyDisLike(String replyId) {
+		return getSqlSession().update("EducationDAO.addQnaEduReplyDisLike", replyId);
+	}
+
+	@Override
+	public int getTotalQnaEduReplyCount(String eduQnaId) {
+		return getSqlSession().selectOne("EducationDAO.getTotalQnaEduReplyCount", eduQnaId);
+	}
+	
+	@Override
+	public String getNowDate() {
+		return getSqlSession().selectOne("EducationDAO.getNowDate");
+	}
+
+	@Override
+	public List<EducationQNAReplyVO> getAllQNAReplyListByAtcId(EducationQNAReplySearchVO searchVO) {
+		return getSqlSession().selectList("EducationDAO.getAllQNAReplyListByAtcId", searchVO);
+	}
+
+	@Override
+	public int getNextReplySeq() {
+		return getSqlSession().selectOne("EducationDAO.getNextReplySeq");
+	}
+
+	@Override
+	public void addQNAReply(EducationQNAReplyVO eduBBSReplyVO) {
+		getSqlSession().insert("EducationDAO.addQNAReply", eduBBSReplyVO);
+		
+	}
+
+	@Override
+	public String getEmail(String memberId) {
+		return getSqlSession().selectOne("EducationDAO.getEmail", memberId);
+	}
+
+	@Override
+	public int getNextReReplyEval() {
+		return getSqlSession().selectOne("EducationDAO.getNextReReplyEval");
+	}
+
+	@Override
+	public int checkReReplyEval(ReRplyEvalVO reRplyEvalVO) {
+		return getSqlSession().selectOne("EducationDAO.checkReReplyEval", reRplyEvalVO);
+	}
+
+	@Override
+	public int insertReReplyEvalByDislike(ReRplyEvalVO reRplyEvalVO) {
+		return getSqlSession().insert("EducationDAO.insertReReplyEvalByDislike",reRplyEvalVO);
 	}
 }

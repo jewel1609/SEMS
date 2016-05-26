@@ -15,8 +15,10 @@ import com.ktds.sems.education.vo.EduNoticeSearchVO;
 import com.ktds.sems.education.vo.EduNoticeVO;
 import com.ktds.sems.education.vo.EduReportSearchVO;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
+import com.ktds.sems.education.vo.EducationQNAReplyVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.EduQnaSearchVO;
+import com.ktds.sems.education.vo.EduQnaVO;
 
 
 public interface EducationService {
@@ -78,4 +80,17 @@ public interface EducationService {
 	public ModelAndView getAllTeamList();
 
 	public ModelAndView getOneTeamAttendance(String educationId, String teamId);
+
+	public ModelAndView viewWriteEduQna(String educationId, HttpSession session);
+
+	public ModelAndView doWriteEduQnaAction(EduQnaVO eduQnaVO, HttpSession session);
+
+	public ModelAndView detailOfEduQna(String eduQnaId, String educationId, HttpSession session, int pageNo);
+
+	public ModelAndView doEduQnaReplyAction(EducationQNAReplyVO eduBBSReplyVO, Errors errors, HttpSession session,
+			String educationId);
+
+	public String addQnaEduReplyLike(String replyId, HttpSession session);
+
+	public String addQnaEduReplyDisLike(String replyId, HttpSession session);
 }

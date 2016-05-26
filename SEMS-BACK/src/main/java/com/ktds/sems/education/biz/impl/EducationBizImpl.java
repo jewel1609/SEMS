@@ -26,8 +26,11 @@ import com.ktds.sems.education.vo.EduReportSearchVO;
 import com.ktds.sems.education.vo.EduReportVO;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationHistoryVO;
+import com.ktds.sems.education.vo.EducationQNAReplySearchVO;
+import com.ktds.sems.education.vo.EducationQNAReplyVO;
 import com.ktds.sems.education.vo.EducationTypeVO;
 import com.ktds.sems.education.vo.EducationVO;
+import com.ktds.sems.education.vo.ReRplyEvalVO;
 import com.ktds.sems.education.vo.TeamVO;
 import com.ktds.sems.member.vo.AttendVO;
 import com.ktds.sems.member.vo.MemberVO;
@@ -435,5 +438,106 @@ public class EducationBizImpl implements EducationBiz {
 	@Override
 	public List<MemberVO> getAllMemberListByTeamId(String teamId) {
 		return educationDAO.getAllMemberListByTeamId(teamId);
+	}
+
+	@Override
+	public boolean confirmMemberOfEdu(String educationId, String memberId) {
+		return educationDAO.confirmMemberOfEdu(educationId, memberId) > 0;
+	}
+
+	@Override
+	public boolean insertEduQna(EduQnaVO eduQnaVO) {
+		return educationDAO.insertEduQna(eduQnaVO) > 0;
+	}
+
+	@Override
+	public int getNextEqbSeq() {
+		return educationDAO.getNextEqbSeq();
+	}
+
+	@Override
+	public EduQnaVO detailOfEduQna(String eduQnaId) {
+		return educationDAO.detailOfEduQna(eduQnaId);
+	}
+
+	@Override
+	public boolean addHitsToEduQna(String eduQnaId) {
+		return educationDAO.addHitsToEduQna(eduQnaId) > 0;
+	}
+
+	@Override
+	public boolean addQnaEduReplyLike(String replyId) {
+		return educationDAO.addQnaEduReplyLike(replyId) > 0;
+	}
+
+	@Override
+	public boolean addQnaEduReplyDisLike(String replyId) {
+		return educationDAO.addQnaEduReplyDisLike(replyId) > 0;
+	}
+
+	@Override
+	public void sendEmailInEduQna(String toEmail, String fromEmail, EduQnaVO eduQnaVO,
+			EducationQNAReplyVO eduBBSReplyVO) {
+		SendMail sendMail = new SendMail();
+		MailVO mailVO = new MailVO();
+
+		mailVO.setFromId(fromEmail);
+		mailVO.setFromPassword("123qwe!@#qwe");
+		mailVO.setSubject("문의하신 질문에 대한 답변입니다.");
+		mailVO.setText("<html><body>문의하신분 : " + eduQnaVO.getMemberId() + "<br/> 작성 시간 : " + eduQnaVO.getCreateDate()
+				+ "<br/> 문의 내용 : " + eduQnaVO.getContents() + "<br/><br/><br/><br/>" + " 답변 작성자: "
+				+ eduBBSReplyVO.getMbrId()  + "<br/> 답변 내용 : "
+				+ eduBBSReplyVO.getDescription() + "<br/><br/> 문의해 주셔서 감사합니다." + "</body></html>");
+
+		mailVO.setToId(toEmail);
+		
+		sendMail.sendMailToCustomer(mailVO);
+		
+	}
+
+	@Override
+	public int getTotalQnaEduReplyCount(String eduQnaId) {
+		return educationDAO.getTotalQnaEduReplyCount(eduQnaId);
+	}
+
+	@Override
+	public String getNowDate() {
+		return educationDAO.getNowDate();
+	}
+
+	@Override
+	public List<EducationQNAReplyVO> getAllQNAReplyListByAtcId(EducationQNAReplySearchVO searchVO) {
+		return educationDAO.getAllQNAReplyListByAtcId(searchVO);
+	}
+
+	@Override
+	public int getNextReplySeq() {
+		return educationDAO.getNextReplySeq();
+	}
+
+	@Override
+	public void addQNAReply(EducationQNAReplyVO eduBBSReplyVO) {
+		educationDAO.addQNAReply(eduBBSReplyVO);
+		
+	}
+
+	@Override
+	public String getEmail(String memberId) {
+		return educationDAO.getEmail(memberId);
+	}
+
+	@Override
+	public int getNextReReplyEval() {
+		return educationDAO.getNextReReplyEval();
+	}
+
+	@Override
+	public boolean checkReReplyEval(ReRplyEvalVO reRplyEvalVO) {
+		return educationDAO.checkReReplyEval(reRplyEvalVO) > 0;
+	}
+
+	@Override
+	public boolean insertReReplyEvalByDislike(ReRplyEvalVO reRplyEvalVO) {
+		return educationDAO.insertReReplyEvalByDislike(reRplyEvalVO) > 0;
 	}
 }
