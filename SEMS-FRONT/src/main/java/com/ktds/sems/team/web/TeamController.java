@@ -1,6 +1,8 @@
 package com.ktds.sems.team.web;
 
-import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -16,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.team.service.TeamService;
 import com.ktds.sems.team.vo.MinutesSearchVO;
 import com.ktds.sems.team.vo.MinutesVO;
@@ -24,22 +25,19 @@ import com.ktds.sems.team.vo.TeamBBSReplyVO;
 import com.ktds.sems.team.vo.TeamBBSVO;
 import com.ktds.sems.team.vo.TeamSearchVO;
 
-import kr.co.hucloud.utilities.SHA256Util;
 import kr.co.hucloud.utilities.web.AjaxUtil;
 
 @Controller
 public class TeamController {
-	
 	private Logger logger = LoggerFactory.getLogger(TeamController.class);
 	private TeamService teamService;
-	
+
 	public void setTeamService(TeamService teamService) {
 		this.teamService = teamService;
 	}
 
 	@RequestMapping("/team/teamBBS/board")
 	public ModelAndView viewTeamBBSPage(@RequestParam(required = false, defaultValue = "0") int pageNo) {
-			
 		return teamService.viewTeamBBSPage(pageNo);
 	}
 	
@@ -126,7 +124,6 @@ public class TeamController {
 		return teamService.getOneTeamDetail(teamId);
 		
 	}
-	
 	@RequestMapping("/team/teamBBS/searchBBSList")
 	public ModelAndView doSearchList(@RequestParam String createdYear, @RequestParam String createdMonth, @RequestParam String teamBBSId,
 				@RequestParam String modifiedYear, @RequestParam String modifiedMonth, @RequestParam String title, @RequestParam String memberId, 
@@ -206,7 +203,7 @@ public class TeamController {
 	public String doDislikeBBSAction(@PathVariable String teamBBSId, HttpSession session) {
 		return teamService.doDislikeBBSAction(teamBBSId, session);
 	}
-	
+
 	@RequestMapping("/team/doCheckPassword")
 	public void doCheckPassword(@RequestParam String password, HttpSession session,
 			HttpServletResponse response) {
@@ -230,14 +227,14 @@ public class TeamController {
 		return teamService.doDeleteBBS(teamBBSId);
 	}
 
+	
 	@RequestMapping("/searchInitBtn")
 	public String teamSearchInit(){
 		return "redirect:/teamList";
 	}
-	
 	@RequestMapping("/team/writeMinutes/{teamId}")
 	public ModelAndView viewWriteMinutesPage(@PathVariable String teamId) {
-
+		
 		ModelAndView view = new ModelAndView();
 		view.setViewName("team/writeMinutes");
 		view.addObject("teamId", teamId);
@@ -245,19 +242,19 @@ public class TeamController {
 	}
 	
 	@RequestMapping(value ="/team/teamBBS/detail/doWriteReply", method = RequestMethod.POST)
-	public ModelAndView doWriteBBSReplyAction(@Valid TeamBBSReplyVO teamBBSReplyVO, 
-			@RequestParam(required = false, defaultValue = "0") int pageNo ,HttpSession session ){
-		logger.info(teamBBSReplyVO.getDescript()+"");
-		return teamService.doWriteBBSReplyAction(teamBBSReplyVO, pageNo, session);
+	public ModelAndView doWriteBBSReplyAction(@Valid TeamBBSReplyVO teamBBSReplyVO , HttpSession session ){
+		return teamService.doWriteBBSReplyAction(teamBBSReplyVO,  session);
 	}
 	
 	@RequestMapping("/team/doWriteAction/{teamId}")
 	public ModelAndView doWriteAction(@PathVariable String teamId, @Valid MinutesVO minutesVO, Errors errors, HttpSession session){
+		
 		return teamService.writeNewMinutes(teamId, minutesVO, errors, session);
 	}
 	
 	@RequestMapping("/team/listMinutes")
 	public ModelAndView viewListMinutesPage(MinutesSearchVO  minutesSearchVO, @RequestParam(required=false, defaultValue="0") int pageNo) {
+		
 		return teamService.viewListMinutes(minutesSearchVO, pageNo);
 	}
 	
@@ -266,6 +263,11 @@ public class TeamController {
 		return teamService.minutesInit();
 	}
 	
+	@RequestMapping(value="/team/teamBBS/detail/doGetReReply", method = RequestMethod.POST)
+	public ModelAndView viewReReplyPage(@RequestParam String teamBBSId, HttpSession session,@RequestParam String parentReplyId ){
+		return teamService.viewReReplyPage(teamBBSId,session,parentReplyId  );
+	}
+
 	@RequestMapping("/{educationId}/registTeam")
 	public ModelAndView viewEduFilePage(HttpSession session, @PathVariable String educationId){
 		return teamService.getAllEduMember(educationId, session);
