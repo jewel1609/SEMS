@@ -8,6 +8,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
+import com.ktds.sems.education.vo.EducationSearchVO;
 import com.ktds.sems.member.vo.LoginHistorySearchVO;
 import com.ktds.sems.member.vo.MemberVO;
 
@@ -87,7 +88,7 @@ public interface MemberService {
 
 	public void checkValidationByMajorName(String majorName, HttpServletResponse response);
 
-	public ModelAndView getCourseList(HttpSession session, int pageNo);
+	public ModelAndView getCourseList(HttpSession session, int pageNo, EducationSearchVO educationSearchVO);
 
 	public ModelAndView writeResignCourse(String educationId, HttpSession session);
 	
