@@ -23,17 +23,17 @@ public class TeamDAOImpl  extends SqlSessionDaoSupport implements TeamDAO{
 	@Override
     public List<TeamVO> getAllMyTeamList(TeamSearchVO searchVO) {
 	return getSqlSession().selectList("teamDAO.getAllMyTeamList", searchVO);
-}
+	}
 
 	@Override
 	public int getMyTotalTeamCount() {
 	return getSqlSession().selectOne("teamDAO.getMyTotalTeamCount");
-}	
+	}	
 
 	@Override
 	public TeamVO getOneMyTeamDetail(String teamId) {
 	return getSqlSession().selectOne("teamDAO.getOneMyTeamDetail", teamId);
-}
+	}
 
 	
 	
@@ -279,19 +279,7 @@ public class TeamDAOImpl  extends SqlSessionDaoSupport implements TeamDAO{
 		return getSqlSession().selectList("teamDAO.getTeamBBSReReplies", parentReplyId);
 	}
 	
-	public int getTotalMinutesCountForAdmin(MinutesSearchVO minutesSearchVO) {
-		return getSqlSession().selectOne("teamDAO.getTotalMinutesCountForAdmin", minutesSearchVO);
-	}
-
-	public void doDeleteTeamListByMemberId(String memberId) {
-		getSqlSession().delete("teamDAO.doDeleteTeamListByMemberId", memberId);
-	}
 	
-	@Override
-	public MinutesVO getOneDetailMinutes(String minutesId) {
-		return getSqlSession().selectOne("teamDAO.getOneDetailMinutes", minutesId);
-	}
-
 	@Override
 	public String getOneDetailMinutesDate(String minutesId) {
 		return getSqlSession().selectOne("teamDAO.getOneDetailMinutesDate", minutesId);
