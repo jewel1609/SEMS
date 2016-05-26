@@ -690,12 +690,29 @@
 								FROM	EDU_FILE_BBS
 								WHERE	EDU_ID = #{educationId}
 								AND		IS_DELETE = 'N'
-								<if test="searchKeyword != null and searchType != null">
-								AND		(
-											<if test="searchType == 'memberId'">
-												MBR_ID LIKE '%' || #{searchKeyword} || '%'
-											</if>
-										)
+								<if test="searchType != null and searchType != ''">
+									<if test="searchType == 'title'">
+										AND TITLE LIKE '%' || #{searchKeyword} || '%'
+									</if>
+									<if test="searchType == 'contents'">
+										AND CONTENTS LIKE '%' || #{searchKeyword} || '%'
+									</if>
+									<if test="searchType == 'date'">
+										<if test="startDate != null and startDate != ''">
+											AND CREATE_DATE >= #{startDate}
+										</if>
+										<if test="endDate != null and endDate != ''">
+											AND CREATE_DATE <![CDATA[<]]> TO_DATE(#{endDate}, 'YYYY-MM-DD') + 1
+										</if>
+									</if>
+									<if test="searchType == 'date'">
+										<if test="startDate != null and startDate != ''">
+											AND CREATE_DATE >= #{startDate}
+										</if>
+										<if test="endDate != null and endDate != ''">
+											AND CREATE_DATE <![CDATA[<]]> TO_DATE(#{endDate}, 'YYYY-MM-DD') + 1
+										</if>
+									</if>
 								</if>
 								ORDER	BY ATC_ID DESC
 							) BBS
@@ -1252,10 +1269,32 @@
 		FROM	DUAL
 	</select>
 	
-	<select id="getEducationFileBBSCount" parameterType="string" resultType="_int">
+	<select id="getEducationFileBBSCount" parameterType="FileBBSSearchVO" resultType="_int">
 		SELECT	COUNT(ATC_ID)
 		FROM	EDU_FILE_BBS
 		WHERE	EDU_ID = #{educationId}
+		<if test="searchType == 'title'">
+			AND TITLE LIKE '%' || #{searchKeyword} || '%'
+		</if>
+		<if test="searchType == 'contents'">
+			AND CONTENTS LIKE '%' || #{searchKeyword} || '%'
+		</if>
+		<if test="searchType == 'date'">
+			<if test="startDate != null and startDate != ''">
+				AND CREATE_DATE >= #{startDate}
+			</if>
+			<if test="endDate != null and endDate != ''">
+				AND CREATE_DATE <![CDATA[<]]> TO_DATE(#{endDate}, 'YYYY-MM-DD') + 1
+			</if>
+		</if>
+		<if test="searchType == 'date'">
+			<if test="startDate != null and startDate != ''">
+				AND CREATE_DATE >= #{startDate}
+			</if>
+			<if test="endDate != null and endDate != ''">
+				AND CREATE_DATE <![CDATA[<]]> TO_DATE(#{endDate}, 'YYYY-MM-DD') + 1
+			</if>
+		</if>
 	</select>
 	
 	<select id="getOneEducationFileBBS" resultType="EducationFileBBSVO" parameterType="string">

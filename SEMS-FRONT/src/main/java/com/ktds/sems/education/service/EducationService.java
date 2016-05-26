@@ -18,6 +18,7 @@ import com.ktds.sems.education.vo.EducationQNAReplyVO;
 import com.ktds.sems.education.vo.EducationReportSearchVO;
 import com.ktds.sems.education.vo.EducationReportVO;
 import com.ktds.sems.education.vo.EducationVO;
+import com.ktds.sems.education.vo.FileBBSSearchVO;
 import com.ktds.sems.education.vo.QNASearchVO;
 import com.ktds.sems.education.vo.QNAVO;
 import com.ktds.sems.education.vo.ReportReplySearchVO;
@@ -61,7 +62,7 @@ public interface EducationService {
 
 	public String doReserveEducation(String educationId, HttpSession session);
 	
-	public ModelAndView showEducationFileBBSPage(String educationId, int pageNo);
+	public ModelAndView showEducationFileBBSPage(String educationId, FileBBSSearchVO searchVO, int pageNo);
 
 	public ModelAndView doWriteEducationFileBBSAction(EducationFileBBSVO educationFileBBSVO, MultipartHttpServletRequest request, HttpSession session);
 

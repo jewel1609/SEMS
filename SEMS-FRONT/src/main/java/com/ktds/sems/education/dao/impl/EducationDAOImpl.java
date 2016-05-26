@@ -454,8 +454,8 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 	}
 	
 	@Override
-	public int getEducationFileBBSCount(String educationId) {
-		return getSqlSession().selectOne("EducationDAO.getEducationFileBBSCount", educationId);
+	public int getEducationFileBBSCount(FileBBSSearchVO searchVO) {
+		return getSqlSession().selectOne("EducationDAO.getEducationFileBBSCount", searchVO);
 	}
 
 	@Override

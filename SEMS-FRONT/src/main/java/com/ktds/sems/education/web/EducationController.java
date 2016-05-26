@@ -28,6 +28,7 @@ import com.ktds.sems.education.vo.EducationQNAReplyVO;
 import com.ktds.sems.education.vo.EducationReportSearchVO;
 import com.ktds.sems.education.vo.EducationReportVO;
 import com.ktds.sems.education.vo.EducationVO;
+import com.ktds.sems.education.vo.FileBBSSearchVO;
 import com.ktds.sems.education.vo.QNASearchVO;
 import com.ktds.sems.education.vo.QNAVO;
 import com.ktds.sems.education.vo.ReportReplySearchVO;
@@ -235,8 +236,8 @@ public class EducationController {
 	}
 	
 	@RequestMapping("/education/fileBBS/{educationId}")
-	public ModelAndView viewEducationFileBBSPage (@PathVariable String educationId, @RequestParam(required = false, defaultValue = "0") int pageNo) {
-		return educationService.showEducationFileBBSPage(educationId, pageNo);
+	public ModelAndView viewEducationFileBBSPage (@PathVariable String educationId, FileBBSSearchVO searchVO, @RequestParam(required = false, defaultValue = "0") int pageNo) {
+		return educationService.showEducationFileBBSPage(educationId, searchVO, pageNo);
 	}
 	
 	@RequestMapping("/education/writeFileBBS")

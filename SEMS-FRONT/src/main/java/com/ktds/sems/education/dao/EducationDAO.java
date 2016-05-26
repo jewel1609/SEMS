@@ -167,7 +167,7 @@ public interface EducationDAO {
 
 	public String getNowDateTime();
 	
-	public int getEducationFileBBSCount(String educationId);
+	public int getEducationFileBBSCount(FileBBSSearchVO searchVO);
 	
 	public int getTotalEducationQNACount(EducationQNABBSSearchVO searchVO);
 

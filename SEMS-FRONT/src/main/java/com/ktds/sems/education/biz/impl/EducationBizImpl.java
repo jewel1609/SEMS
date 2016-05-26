@@ -506,8 +506,8 @@ public class EducationBizImpl implements EducationBiz {
 	}
 	
 	@Override
-	public int getEducationFileBBSCount(String educationId) {
-		return educationDAO.getEducationFileBBSCount(educationId);
+	public int getEducationFileBBSCount(FileBBSSearchVO searchVO) {
+		return educationDAO.getEducationFileBBSCount(searchVO);
 	}
 
 	@Override

@@ -184,7 +184,7 @@ public interface EducationBiz {
 
 	public int getTotalQNAReplyCountByAtcId(String atcId);
 
-	public int getEducationFileBBSCount(String educationId);
+	public int getEducationFileBBSCount(FileBBSSearchVO searchVO);
 
 	public EducationFileBBSVO getOneEducationFileBBS(String articleId);
 

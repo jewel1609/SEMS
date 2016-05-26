@@ -989,15 +989,14 @@ public class EducationServiceImpl implements EducationService {
 	}
 	
 	@Override
-	public ModelAndView showEducationFileBBSPage(String educationId, int pageNo) {
+	public ModelAndView showEducationFileBBSPage(String educationId, FileBBSSearchVO searchVO, int pageNo) {
 		ModelAndView view = new ModelAndView();
 		
 		// paging + search
-		FileBBSSearchVO searchVO = new FileBBSSearchVO();
 		searchVO.setPageNo(pageNo);
 		searchVO.setEducationId(educationId);
 
-		int totalBBSCount = educationBiz.getEducationFileBBSCount(educationId);
+		int totalBBSCount = educationBiz.getEducationFileBBSCount(searchVO);
 		Paging paging = new Paging();
 		paging.setTotalArticleCount(totalBBSCount);
 		paging.setPageNumber(pageNo + "");
@@ -1020,6 +1019,7 @@ public class EducationServiceImpl implements EducationService {
 		
 		String teacherId = educationVO.getMemberId();
 		
+		view.addObject("searchVO", searchVO);
 		view.addObject("educationFileBBSList", educationFileBBSList);
 		view.addObject("teacherId", teacherId);
 		view.setViewName("education/educationFileBBS");
