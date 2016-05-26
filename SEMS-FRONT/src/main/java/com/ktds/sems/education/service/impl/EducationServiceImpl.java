@@ -618,10 +618,7 @@ public class EducationServiceImpl implements EducationService {
 		else{
 			//댓글이 등록됐을때 이메일을 보냄.
 			// 받는사람 Id의 Email (String id 로 받아온거 는 EMAIL 전송할때 써야징)
-			String email = "testEmail";
-			if(!replyId.equals("testReplyId")) {
-				email = educationBiz.getEmail(id);
-			}
+			String email = educationBiz.getEmail(id);
 			
 			//문의댓글 작성자, 내용, 날짜
 			QNAVO questionVO = new QNAVO();
