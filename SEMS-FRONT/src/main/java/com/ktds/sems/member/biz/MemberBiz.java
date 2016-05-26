@@ -1,6 +1,7 @@
 package com.ktds.sems.member.biz;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -163,7 +164,7 @@ public interface MemberBiz {
 
 	public boolean updateLeaveClass(String memberId);
 
-	public List<AttendVO> getAllAttendHistory(MemberVO memberVO, String educationId);
+	public Map<String, List<String>> getAllAttendHistory(MemberVO memberVO, String educationId);
 
 	public List<ReportReplyVO> getReportReplyListByMemberId(String id);
 
