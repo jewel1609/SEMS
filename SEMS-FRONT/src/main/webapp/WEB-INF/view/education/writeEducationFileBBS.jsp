@@ -24,6 +24,7 @@
 		$("#deleteButton").click (function () {
 			if ( confirm("정말 삭제 하시겠습니까?") == true ) {
 				$("#fileDelete").val("Y");
+				$("#deleteFile").hide();
 			}
 			else {
 				return;
@@ -88,9 +89,17 @@
 		</c:if>
 		<c:if test="${isModify ne null}">
 			<input id="deleteButton" class="inputButton" type="button" value="기존 파일 삭제" />
+			<span id="deleteFile">
+			<c:forEach items="${fileList}" var="file">
+				<br/>${file.fileName}
+			</c:forEach>
+			<br/>
+			</span>
+			
 			<input id="fileDelete" type="hidden"  name="fileDelete" value="N" />
 			<input type="hidden" name="articleId" value="${educationFileBBSVO.articleId}" />
 		</c:if>
+
 		<input id="file" type="file" name="file" multiple="multiple"/>
 		<br/>
 		<br/>
