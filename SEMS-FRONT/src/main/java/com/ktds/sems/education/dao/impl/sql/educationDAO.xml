@@ -344,13 +344,13 @@
 								<if test="searchKeyword != null and searchType != null">
 								AND		(
 										<if test="searchType == 'replyId'">
-											REPLY_ID LIKE '%' || #{searchKeyword} || '%'
+											UPPER(REPLY_ID) LIKE UPPER('%' || #{searchKeyword} || '%')
 										</if>
 										<if test="searchType == 'eduId'">
-											EDU_ID LIKE '%' || #{searchKeyword} || '%'
+											UPPER(EDU_ID) LIKE UPPER('%' || #{searchKeyword} || '%')
 										</if>
 										<if test="searchType == 'description'">
-											DESCRIPTION LIKE '%' || #{searchKeyword} || '%'
+											UPPER(DESCRIPTION) LIKE UPPER('%' || #{searchKeyword} || '%')
 										</if>
 										)
 								</if>
@@ -392,13 +392,13 @@
 								<if test="searchKeyword != null and searchType != null">
 								AND		(
 										<if test="searchType == 'replyId'">
-											REPLY_ID LIKE '%' || #{searchKeyword} || '%'
+											UPPER(REPLY_ID) LIKE UPPER('%' || #{searchKeyword} || '%')
 										</if>
 										<if test="searchType == 'eduId'">
-											EDU_ID LIKE '%' || #{searchKeyword} || '%'
+											UPPER(EDU_ID) LIKE UPPER('%' || #{searchKeyword} || '%')
 										</if>
 										<if test="searchType == 'description'">
-											DESCRIPTION LIKE '%' || #{searchKeyword} || '%'
+											UPPER(DESCRIPTION) LIKE UPPER('%' || #{searchKeyword} || '%')
 										</if>
 										)
 								</if>

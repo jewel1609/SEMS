@@ -10,18 +10,21 @@
 	src="<c:url value='/resources/js/jquery.min.js"'/>"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
+		
 		$("#searchBtn").click(function(){
-			if( $("#searchKeyword").val() == "" ) {
+			/* if( $("#searchKeyword").val() == "" ) {
 				alert("검색어를 입력하세요!");
 				return;
-			}
+			} */
 			movePage('0');
 		});
 		
 		$("#searchInitBtn").click(function(){
 			location.href="<c:url value='/myPage/myQNAListInit' />"
 		});
+		
 	});
+
 </script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>교육 문의 사항 리스트 보기</title>
@@ -68,18 +71,17 @@
 							<option value="description" ${ selectedSearchType eq "description" ? "selected" : "" }>문의 내용</option>
 						</select>
 						
-						<input type="date" id="startDate" name="startDate" value="${ qnaSearchVO.startDate }" />
-						<input type="date" id="endDate" name="endDate" value="${ qnaSearchVO.endDate }" />
+						<label for="startDate">시작날짜</label>
+						<input type="date" id="startDate" name="startDate" value="${ QNASearchVO.startDate }" />
+						<label for="endDate">종료날짜</label>
+						<input type="date" id="endDate" name="endDate" value="${ QNASearchVO.endDate }" />
 						
-						<input type="text" id="searchKeyword" name="searchKeyword" value="${ qnaSearchVO.searchKeyword }" />
+						<input type="text" id="searchKeyword" name="searchKeyword" value="${ QNASearchVO.searchKeyword }" />
 						<input type="button" id="searchBtn" value="검색" />
 						<input type="button" id="searchInitBtn" value="검색 초기화" />
 					</div>
 				</form>
 			</td>
-		</tr>
-		<tr>
-			<td><select></select></td>
 		</tr>
 	</table>
 
