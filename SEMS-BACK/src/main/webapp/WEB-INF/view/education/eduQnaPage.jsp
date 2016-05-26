@@ -11,6 +11,16 @@
 <script type="text/javascript">
 
    $(document).ready(function() {
+	   
+	   $(document).on("keyup",".onlyText",function(){
+			regexp = /[@\#$%<>&\=_\’]/gi;
+	
+			v = $(this).val();
+			if (regexp.test(v)) {
+				alert("특수문자를 포함할 수 없습니다.");
+				$(this).val(v.replace(regexp, ''));
+			}
+		});
 	 
 	   $("#searchInitBtn").click(function() {
 			location.href="<c:url value='/${educationId}/eduQna' />";
@@ -33,11 +43,15 @@
 			}
 			movePage('0');
 		});
+	   
+	   $("#writeQna").click(function() {
+			location.href="<c:url value='/writeEduQna/${educationId}' />";
+		});
    });
 </script>
 <style>
   table {
-    width: 100%;
+    width: 50%;
     border-collapse: collapse;
   }
   th, td {
@@ -51,29 +65,20 @@
 </head>
 <body>
 
-
+	강의 QnA
 	<table>
 		<tr>
-			<td>eduQnaId</td>
-			<td>educationId</td>
-			<td>isDelete</td>
-			<td>memberId</td>
-			<td>title</td>
-			<td>contents</td>
-			<td>createDate</td>
-			<td>modifyDate</td>
-			<td>hits</td>
+			<td>제목</td>
+			<td>아이디</td>
+			<td>작성일</td>
 		</tr>
 		<c:forEach items="${ eduQnaListVO.eduQnaList }" var="eduQna">
 				<tr>
-					<td>${eduQna.eduQnaId }</td>
-					<td>${eduQna.educationId }</td>
-					<td>${eduQna.isDelete }</td>
+					
+					<td><a href="/backend/detailOfEduQna/${eduQna.eduQnaId}/${eduQna.educationId}" >${eduQna.title }</a></td>
 					<td>${eduQna.memberId }</td>
-					<td>${eduQna.title }</td>
-					<td>${eduQna.contents }</td>
-					<td>${eduQna.modifyDate }</td>
-					<td>${eduQna.hits }</td>
+					<td>${eduQna.createDate }</td>
+
 				</tr>
 		</c:forEach>
 		<tr>
@@ -85,13 +90,26 @@
 						</c:if> 
 					</div>
 					<div style="text-align: right;">
-						<select id="search" name="search">
-							<option id="title" value="2">제목</option>
-							<option id="id" value="1">아이디</option>
+						<select id=searchType name="searchType">
+							<c:if test="${not empty searchType }">
+								<c:if test="${searchType eq 2 }">
+								<option id="title" value="2" selected="selected">제목</option>
+								<option id="id" value="1">아이디</option>
+								</c:if>
+								<c:if test="${searchType eq 1 }">
+								<option id="title" value="2">제목</option>
+								<option id="id" value="1" selected="selected">아이디</option>
+								</c:if>
+							</c:if>
+							<c:if test="${empty searchType }">
+								<option id="title" value="2">제목</option>
+								<option id="id" value="1">아이디</option>
+							</c:if>
 						</select>
-						<input type="text" id="searchKeyword" name="searchKeyword" value="${ eduQnaSearchVO.searchKeyword }"/>
+						<input type="text" class="onlyText" id="searchKeyword" name="searchKeyword" value="${ eduQnaSearchVO.searchKeyword }"/>
 						<input type="button" id="searchBtn" value="검색" />
 						<input type="button" id="searchInitBtn" value="검색 초기화" />
+						<input type="button" id="writeQna" value="QnA등록" />
 					</div>
 				</form>
 			</td>
