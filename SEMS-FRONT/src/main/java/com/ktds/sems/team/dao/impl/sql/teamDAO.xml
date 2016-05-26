@@ -553,9 +553,10 @@
 													, TEAM
 											WHERE	MINU_INFO.TEAM_ID = TEAM.TEAM_ID
 										)MINU_INFO
+								WHERE	1=1
 							<if test="search != null and search != ''">
 							<if test="search == 'id'">
-								WHERE	MINU_INFO.MBR_ID LIKE '%'||#{searchIDKeyword}||'%'
+								AND		MINU_INFO.MBR_ID LIKE '%'||#{searchIDKeyword}||'%'
 							</if>
 							</if>
 							<if test="search != null and search != ''">
@@ -565,8 +566,8 @@
 							</if>
 							<if test="search != null and search != ''">
 							<if test="search == 'date'">
-								AND		START_DATE <![CDATA[>=]]> TO_DATE(#{startDate}, 'YYYY/MM/DD')
-								AND		START_DATE <![CDATA[<=]]> ( TO_DATE(#{endDate}, 'YYYY/MM/DD') + 1 )
+								AND		START_DATE <![CDATA[>=]]> TO_DATE(#{startDate}, 'YYYY-MM-DD')
+								AND		START_DATE <![CDATA[<=]]> ( TO_DATE(#{endDate}, 'YYYY-MM-DD') + 1 )
 							</if>
 							</if>
 								ORDER BY	MINU_INFO.MINU_ID DESC
@@ -584,9 +585,10 @@
 							, TEAM
 					WHERE	MINU_INFO.TEAM_ID = TEAM.TEAM_ID
 				)MINU_INFO
+		WHERE	1=1
 	<if test="search != null and search != ''">
 	<if test="search == 'id'">
-		WHERE	MINU_INFO.MBR_ID LIKE '%'||#{searchIDKeyword}||'%'
+		AND		MINU_INFO.MBR_ID LIKE '%'||#{searchIDKeyword}||'%'
 	</if>
 	</if>
 	<if test="search != null and search != ''">
@@ -596,11 +598,34 @@
 	</if>
 	<if test="search != null and search != ''">
 	<if test="search == 'date'">
-		AND		START_DATE <![CDATA[>=]]> TO_DATE(#{startDate}, 'YYYY/MM/DD')
-		AND		START_DATE <![CDATA[<=]]> ( TO_DATE(#{endDate}, 'YYYY/MM/DD') + 1 )
+		AND		START_DATE <![CDATA[>=]]> TO_DATE(#{startDate}, 'YYYY-MM-DD')
+		AND		START_DATE <![CDATA[<=]]> ( TO_DATE(#{endDate}, 'YYYY-MM-DD') + 1 )
 	</if>
 	</if>
 		ORDER BY	MINU_ID DESC
+	</select>
+	
+	<select id="getOneDetailMinutes" parameterType="String" resultType="MinutesVO">
+		SELECT 
+				MINU_ID minutesId
+				, MBR_ID memberId
+				, MINU_AGE minutesAgenda
+				, ATTENDACNCE attendance
+				, MINU_PLA minutesPlace
+				, MINU_CON minutesContent
+				, DSC_SBT decisionSubject
+				, REMARKS remarks
+				, TEAM_ID teamId
+				, TO_CHAR(START_DATE ,'HH24:MM:SS') startDate
+				, TO_CHAR(END_DATE ,'HH24:MM:SS') endDate
+		FROM 	MINU_INFO
+		WHERE	MINU_ID = #{ minutesId }
+	</select>
+	
+	<select id="getOneDetailMinutesDate" parameterType="string" resultType="string">
+		SELECT  TO_CHAR(START_DATE, 'YYYY/MM/DD') minutesDate
+		FROM	MINU_INFO
+		WHERE	MINU_ID = #{ minutesId }
 	</select>
 	
 </mapper>
