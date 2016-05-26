@@ -12,7 +12,7 @@
 	<c:forEach items="${eduPlaceList }" var="place">
 		ID : ${ place.educationPlaceId } 
 		Name : ${ place.educationPlaceName }  
-		Loc : ${ place.educationPlaceLocation } 
+		Loc : ${ place.educationLocation } 
 		Count : ${ place.pcCount } <br/>
 	</c:forEach>
 	

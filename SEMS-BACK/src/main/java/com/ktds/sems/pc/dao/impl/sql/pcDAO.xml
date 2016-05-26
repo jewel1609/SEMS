@@ -220,7 +220,7 @@
 	</insert>
 	
 	<select id="getEducationPlaceList" resultType="PcVO">
-		SELECT	EP.EDU_PLACE_ID educationPlaceId
+		SELECT	DISTINCT EP.EDU_PLACE_ID educationPlaceId
 				, EP.EDU_PLACE_NAME educationPlaceName
 				, EP.EDU_PLACE_LOC educationLocation
 				, (
