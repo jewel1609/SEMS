@@ -33,5 +33,10 @@ public interface PcDAO {
 
 	public void doRegistPC(PcVO pcVO);
 
+	public void doActionDeleteEduPlace(String educationPlaceId);
+
+	public void doActionDeleteEduPlaceBeforePCFKUpdate(String educationPlaceId);
+
+	public void doActionDeleteEduPC(String pcId);
 	
 }

@@ -69,4 +69,20 @@ public class PcDAOImpl extends SqlSessionDaoSupport implements PcDAO {
 		getSqlSession().insert("PcDAO.doRegistPC",pcVO);
 	}
 
+	@Override
+	public void doActionDeleteEduPlaceBeforePCFKUpdate(String educationPlaceId) {
+		getSqlSession().update("PcDAO.doActionDeleteEduPlaceBeforePCFKUpdate", educationPlaceId);
+	}
+
+	@Override
+	public void doActionDeleteEduPlace(String educationPlaceId) {
+		getSqlSession().delete("PcDAO.doActionDeleteEduPlace", educationPlaceId);
+	}
+
+	@Override
+	public void doActionDeleteEduPC(String pcId) {
+		getSqlSession().delete("PcDAO.doActionDeleteEduPC", pcId);
+	}
+
+
 }

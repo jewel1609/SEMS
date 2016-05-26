@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -55,4 +56,15 @@ public class PcController {
 	public ModelAndView viewEducationPlaceList() {
 		return pcService.viewEducationPlaceList();
 	}
+	
+	@RequestMapping("/doActionDeleteEduPlace/{educationPlaceId}")
+	public ModelAndView doActionDeleteEduPlace(@PathVariable String educationPlaceId,HttpSession session, HttpServletResponse response) {
+		return pcService.doActionDeleteEduPlace(educationPlaceId, session, response);
+	}
+
+	@RequestMapping("/doActionDeleteEduPC/{pcId}")
+	public ModelAndView doActionDeleteEduPC(@PathVariable String pcId,HttpSession session, HttpServletResponse response) {
+		return pcService.doActionDeleteEduPC(pcId, session, response);
+	}
+	
 }

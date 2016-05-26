@@ -1,5 +1,6 @@
 package com.ktds.sems.pc.service;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.web.servlet.ModelAndView;
@@ -22,4 +23,8 @@ public interface PcService {
 	public ModelAndView doRegistClass(PcVO pcVO, HttpSession session);
 
 	public ModelAndView viewEducationPlaceList();
+
+	public ModelAndView doActionDeleteEduPlace(String educationPlaceId, HttpSession session, HttpServletResponse response);
+
+	public ModelAndView doActionDeleteEduPC(String pcId, HttpSession session, HttpServletResponse response);
 }

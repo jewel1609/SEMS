@@ -232,5 +232,20 @@
 				, EDU_PLACE EP
 		WHERE	P.EDU_PLACE_ID = EP.EDU_PLACE_ID
 	</select>
+	<delete id="doActionDeleteEduPlace" parameterType="string">
+		DELETE	
+		FROM	EDU_PLACE
+		WHERE	EDU_PLACE_ID = #{educationPlaceId}
+	</delete>
+	<update id="doActionDeleteEduPlaceBeforePCFKUpdate" parameterType="string">
+		UPDATE	PC
+		SET		EDU_PLACE_ID = '강의실 없어짐'
+		WHERE	EDU_PLACE_ID = #{educationPlaceId}
+	</update>
+	<delete id="doActionDeleteEduPC" parameterType="string">
+		DELETE	
+		FROM	PC
+		WHERE	PC_ID = #{pcId}
+	</delete>
 	
 </mapper>

@@ -1,12 +1,16 @@
 package com.ktds.sems.pc.service.impl;
 
+import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.catalina.connector.Request;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.common.Session;
@@ -162,6 +166,56 @@ public class PcServiceImpl implements PcService {
 		view.setViewName("education/eduPlaceList");
 		view.addObject("eduPlaceList", eduPlaceList);
 
+		return view;
+	}
+
+	@Override
+	public ModelAndView doActionDeleteEduPlace(String educationPlaceId, HttpSession session, HttpServletResponse response) {
+		ModelAndView view = new ModelAndView();
+		MemberVO memberVO = (MemberVO) session.getAttribute(Session.MEMBER);
+		if ( memberVO.getId() != null) {
+			if(memberVO.getMemberType().equals("ADM")){
+				if(educationPlaceId != null) {
+					pcBiz.doActionDeleteEduPlace(educationPlaceId);
+					view.setViewName("education/eduPlaceList");
+				} else {
+					throw new RuntimeException("올바른 값을 적용시켜주세요.");
+				}
+			} else {
+				try {
+					response.sendError(HttpServletResponse.SC_FORBIDDEN, "권한없는 접속.");
+				} catch (IOException io) {
+					throw new RuntimeException(io.getMessage());
+				}
+			}
+		} else {
+			return new ModelAndView("redirect:/backend/");
+		}
+		return view;
+	}
+
+	@Override
+	public ModelAndView doActionDeleteEduPC(String pcId, HttpSession session, HttpServletResponse response) {
+		ModelAndView view = new ModelAndView();
+		MemberVO memberVO = (MemberVO) session.getAttribute(Session.MEMBER);
+		if ( memberVO.getId() != null) {
+			if(memberVO.getMemberType().equals("ADM")){
+				if(pcId != null) {
+					pcBiz.doActionDeleteEduPC(pcId);
+					view.setViewName("education/eduPlaceList");
+				} else {
+					throw new RuntimeException("올바른 값을 적용시켜주세요.");
+				}
+			} else {
+				try {
+					response.sendError(HttpServletResponse.SC_FORBIDDEN, "권한없는 접속.");
+				} catch (IOException io) {
+					throw new RuntimeException(io.getMessage());
+				}
+			}
+		} else {
+			return new ModelAndView("redirect:/backend/");
+		}
 		return view;
 	}
 

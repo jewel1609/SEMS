@@ -99,4 +99,15 @@ public class PcBizImpl implements PcBiz {
 		}
 		return sequences;
 	}
+
+	@Override
+	public void doActionDeleteEduPlace(String educationPlaceId) {
+		pcDAO.doActionDeleteEduPlaceBeforePCFKUpdate(educationPlaceId);
+		pcDAO.doActionDeleteEduPlace(educationPlaceId);
+	}
+
+	@Override
+	public void doActionDeleteEduPC(String pcId) {
+		pcDAO.doActionDeleteEduPC(pcId);
+	}
 }

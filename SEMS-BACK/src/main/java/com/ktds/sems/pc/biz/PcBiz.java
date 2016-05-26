@@ -27,4 +27,8 @@ public interface PcBiz {
 
 	public List<EducationPlaceVO> getEducationPlaceList();
 
+	public void doActionDeleteEduPlace(String educationPlaceId);
+
+	public void doActionDeleteEduPC(String pcId);
+
 }
