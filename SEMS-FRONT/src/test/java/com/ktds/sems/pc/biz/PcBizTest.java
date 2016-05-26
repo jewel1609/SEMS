@@ -11,8 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ktds.sems.SemsTestCase;
+import com.ktds.sems.education.vo.EducationVO;
+import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.pc.vo.ReportedPcSearchVO;
 import com.ktds.sems.pc.vo.ReportedPcVO;
+import com.ktds.sems.pc.vo.UsedPcVO;
 
 import kr.co.hucloud.utilities.web.Paging;
 
@@ -63,6 +66,44 @@ public class PcBizTest extends SemsTestCase {
 		boolean isSucsess = pcBiz.reportProblemPc(reportedPcVO);
 		assertTrue(isSucsess);
 		
+	}
+	
+	@Test
+	public void getEduListByMemberTest(){
+		MemberVO memberVO = new MemberVO();
+		memberVO.setId("testMember01");
+		List<EducationVO> eduList = pcBiz.getEduListByMember(memberVO);
+		
+		assertNotNull(eduList);
+	}
+	
+	@Test
+	public void getUsedPcListByMemberTest(){
+		MemberVO memberVO = new MemberVO();
+		memberVO.setId("JunitTest");
+		List<UsedPcVO> usedPcList = pcBiz.getUsedPcListByMember(memberVO);
+		
+		assertNotNull(usedPcList);
+	}
+	
+	@Test
+	public void doRegisterMyPcTest(){
+		UsedPcVO usedPcVO = new UsedPcVO();
+		usedPcVO.setPcId("JunitTest");
+		usedPcVO.setEducationId("JunitTest");
+		usedPcVO.setMemberId("JunitTest");
+		int result = pcBiz.doRegisterMyPc(usedPcVO);
+		
+		assertNotNull(result);
+	}
+	
+	@Test
+	public void getEduListExceptUsedTest(){
+		MemberVO memberVO = new MemberVO();
+		memberVO.setId("testMember01");
+		List<EducationVO> result = pcBiz.getEduListExceptUsed(memberVO);
+		
+		assertNotNull(result);
 	}
 
 }

@@ -152,5 +152,58 @@ public class PcServiceTest extends SemsTestCase {
 		String reportProblemPc = pcService.reportProblemPc(reportedPcVO, errors, session, request);
 		assertNotNull(reportProblemPc);
 	}
+	
+	@Test
+	public void viewMyPcPageTest() {
+		MockHttpServletRequest request= new MockHttpServletRequest();
+		
+		MockHttpSession session = new MockHttpSession();
+		MemberVO memberVO = new MemberVO();
+		memberVO.setId("testMember01");
+		session.setAttribute(Session.MEMBER, memberVO);
+		
+		String myPcIp= request.getRemoteHost();
+		
+		ModelAndView view = pcService.viewMyPcPage(session, request);
+		assertNotNull(view);
+		assertEquals(view.getViewName(), "myPage/pc/myPc");
+	}
+	
+	@Test
+	public void doRegisterMyPcTest1() {
+		String educationId = "JunitTest";
+		String eduLocation = "JunitTest";
+		String usedPcIp="00.00JunitTest";
+		
+		MockHttpSession session = new MockHttpSession();
+		MemberVO memberVO = new MemberVO();
+		memberVO.setId("testMember01");
+		session.setAttribute(Session.MEMBER, memberVO);
+		
+		String result = pcService.doRegisterMyPc(educationId, eduLocation, usedPcIp, session);
+		assertNotNull(result);
+	}
+	
+	@Test
+	public void doRegisterMyPcTest2() {
+		String educationId = "JunitTest";
+		String eduLocation = "JunitTest";
+		String usedPcIp="10.225.152.167";
+		
+		MockHttpSession session = new MockHttpSession();
+		MemberVO memberVO = new MemberVO();
+		memberVO.setId("testMember01");
+		session.setAttribute(Session.MEMBER, memberVO);
+		
+		String result = pcService.doRegisterMyPc(educationId, eduLocation, usedPcIp, session);
+		assertNotNull(result);
+	}
+	
+	@Test
+	public void doDeleteMyPcTest() {
+		String pcId = "JunitTest";
+		String result = pcService.doDeleteMyPc(pcId);
+		assertEquals(result, "redirect:/member/myPc");
+	}
 
 }
