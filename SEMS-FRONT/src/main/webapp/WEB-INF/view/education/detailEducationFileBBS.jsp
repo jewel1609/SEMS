@@ -166,7 +166,6 @@
 	<form:form commandName="educationFileBBSVO" id="modifyAndDeleteForm" method="POST">
 		<input type="hidden" name="educationId" value="${educationFileBBS.educationId}" />
 		<input type="hidden" name="articleId" value="${educationFileBBS.articleId}" />
-		<input type="hidden" name="memberId" value="${educationFileBBS.memberId}" />
 		<input type="hidden" name="title" value="${educationFileBBS.title}" />
 		<input type="hidden" name="contents" value="${educationFileBBS.contents}" />
 		<input type="hidden" name="createDate" value="${educationFileBBS.createDate}" />
