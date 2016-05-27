@@ -182,7 +182,6 @@ public class MemberServiceTest extends SemsTestCase {
 			
 			List<ReportReplyVO> reportReplyList = (List<ReportReplyVO>) view.getModelMap().get("reportReplyList");
 			assertNotNull(reportReplyList);
-			assertTrue(reportReplyList.size() > 0);
 		} else {
 			fail("list is null");
 		}
