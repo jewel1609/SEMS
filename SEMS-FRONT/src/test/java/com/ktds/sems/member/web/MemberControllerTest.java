@@ -86,7 +86,11 @@ public class MemberControllerTest extends SemsTestCase {
 	@Test
 	public void viewMyPageTest() {
 		
+		MemberVO memberVO = new MemberVO();
+		memberVO.setId("cocomo12");
 		MockHttpSession session = new MockHttpSession();
+		session.setAttribute("_MEMBER_", memberVO);
+		
 		ModelAndView view = memberController.viewMyPage(session);
 		assertNotNull(view);
 
