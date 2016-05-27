@@ -289,7 +289,8 @@ public class EducationBizImpl implements EducationBiz {
 			mailVO.setText( "교육이 폐강이 되었기에" + "(" + memberVO.getName() + ") 님에게 해당 내용을 알려드리는 바입니다.\n "
 					+ "추후 더 좋은 서비스로 찾아뵙도록 하겠습니다. 감사합니다.");
 			mailVO.setToId(memberVO.getEmail());
-			sendMail.sendMailToCustomer(mailVO);
+			// TODO  메일 보내기 주석 나중에 풀어주세요.
+			//sendMail.sendMailToCustomer(mailVO);
 		}
 	}
 
@@ -507,5 +508,6 @@ public class EducationBizImpl implements EducationBiz {
 	public boolean insertReReplyEvalByDislike(ReRplyEvalVO reRplyEvalVO) {
 		return educationDAO.insertReReplyEvalByDislike(reRplyEvalVO) > 0;
 	}
+
 
 }
