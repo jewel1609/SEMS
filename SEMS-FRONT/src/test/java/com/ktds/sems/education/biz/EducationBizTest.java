@@ -6,6 +6,8 @@ import static org.junit.Assert.fail;
 
 import java.util.List;
 
+import javax.validation.constraints.AssertFalse;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -625,5 +627,63 @@ public class EducationBizTest extends SemsTestCase {
 	public void getTotalQnaEduReplyCountTest() {
 		int totalReportCount = educationBiz.getTotalQnaEduReplyCount("EQ-20160525-000073");
 		assertTrue(totalReportCount>0);
+	}
+	
+	@Test
+	public void getAllQNAReplyListByAtcIdTest() {
+		EducationQNAReplySearchVO searchVO = new EducationQNAReplySearchVO();
+		searchVO.setAtcId("AT-20160524-000034");
+		String atcId = "AT-20160524-000034";
+		Paging paging = new Paging();
+		paging.setPageNumber(0 + "");
+
+		int totalCount = educationBiz.getTotalQNAReplyCountByAtcId(atcId);
+		paging.setTotalArticleCount(totalCount);
+
+		searchVO.setPageNo(0);
+		searchVO.setStartIndex(paging.getStartArticleNumber());
+		searchVO.setEndIndex(paging.getEndArticleNumber());
+		
+		List<EducationQNAReplyVO> eduQnaReplyList = educationBiz.getAllQNAReplyListByAtcId(searchVO);
+		assertNotNull(eduQnaReplyList);
+		
+	}
+	
+	@Test
+	public void getTotalQNAReplyCountByAtcIdTest () {
+		String atcId = "AT-20160524-000034";
+		int result = educationBiz.getTotalQNAReplyCountByAtcId(atcId);
+		assertNotNull(result);
+	}
+	
+	@Test
+	public void plusRecommendReplyTest() {
+		String replyId = "ER-20160525-000869";
+		boolean result = educationBiz.plusRecommendReply(replyId);
+		assertNotNull(result);
+		assertTrue(result);
+	}
+	
+	@Test
+	public void plusOpposeReplyTest() {
+		String replyId = "ER-20160525-000869";
+		boolean result = educationBiz.plusOpposeReply(replyId);
+		assertNotNull(result);
+		assertTrue(result);
+	}
+	
+	@Test
+	public void updateAdoptReplyTest() {
+		String replyId = "ER-20160525-000869";
+		boolean result = educationBiz.updateAdoptReply(replyId);
+		assertNotNull(result);
+		assertTrue(result);
+	}
+	
+	@Test
+	public void checkAdoptReplyTest() {
+		String replyId = "ER-20160525-000869";
+		boolean result = educationBiz.checkAdoptReply(replyId);
+		assertNotNull(result);
 	}
 }
