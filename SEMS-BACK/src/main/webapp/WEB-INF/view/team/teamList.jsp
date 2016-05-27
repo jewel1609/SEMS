@@ -32,7 +32,7 @@
 		</c:forEach>
 		<tr >
 			<td colspan="4" align="center">
-				<form id="searchForm">
+				<form id="pagingForm">
 				${teamSearchListVO.paging.getPagingList("pageNo", "[@]", "이전", "다음", "pagingForm")}
 			
 				<!-- <select name="searchItems">
