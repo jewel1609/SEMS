@@ -18,6 +18,10 @@ import com.ktds.sems.SemsTestCase;
 import com.ktds.sems.education.vo.EduQnaListVO;
 import com.ktds.sems.education.vo.EduQnaSearchVO;
 import com.ktds.sems.education.vo.EduQnaVO;
+import com.ktds.sems.education.vo.EducationQNABBSSearchVO;
+import com.ktds.sems.education.vo.EducationQNABBSVO;
+import com.ktds.sems.education.vo.EducationQNAReplySearchVO;
+import com.ktds.sems.education.vo.EducationQNAReplyVO;
 import com.ktds.sems.Testable;
 import com.ktds.sems.education.vo.EducationReportSearchVO;
 import com.ktds.sems.education.vo.EducationReportVO;
@@ -707,6 +711,95 @@ public class EducationDAOTest extends SemsTestCase{
 	public void getTotalQnaEduReplyCountTest() {
 		int totalReportCount = educationDAO.getTotalQnaEduReplyCount("EQ-20160525-000073");
 		assertTrue(totalReportCount>0);
+	}
+	
+	@Test
+	public void getAllEducationQNAListTest() {
+		EducationQNABBSSearchVO searchVO = new EducationQNABBSSearchVO();
+		searchVO.setEducationId("ED-20160519-000233");
+		Paging paging = new Paging();
+		paging.setPageNumber(0 + "");
+
+		int totalCount = educationDAO.getTotalEducationQNACount(searchVO);
+		paging.setTotalArticleCount(totalCount);
+
+		searchVO.setPageNo(0);
+		searchVO.setStartIndex(paging.getStartArticleNumber());
+		searchVO.setEndIndex(paging.getEndArticleNumber());
+		
+		List<EducationQNABBSVO> eduQnaBBSList = educationDAO.getAllEducationQNAList(searchVO);
+		assertNotNull(eduQnaBBSList);
+		
+	}
+	
+	@Test
+	public void getTotalEducationQNACountTest() {
+		EducationQNABBSSearchVO searchVO = new EducationQNABBSSearchVO();
+		searchVO.setEducationId("ED-20160519-000233");
+
+		int result = educationDAO.getTotalEducationQNACount(searchVO);
+		assertNotNull(result);
+	}
+	
+	@Test
+	public void getOneQNABBSByAtcIdTest() {
+		String atcId = "AT-20160524-000034";
+		
+		EducationQNABBSVO eduQNABBSVO = educationDAO.getOneQNABBSByAtcId(atcId);
+		assertNotNull(eduQNABBSVO);
+	}
+	
+	@Test
+	public void getAllQNAReplyListByAtcIdTest() {
+		EducationQNAReplySearchVO searchVO = new EducationQNAReplySearchVO();
+		searchVO.setAtcId("AT-20160524-000034");
+		Paging paging = new Paging();
+		paging.setPageNumber(0 + "");
+		String atcId = "AT-20160524-000034";
+		int totalCount = educationDAO.getTotalQNAReplyCountByAtcId(atcId);
+		paging.setTotalArticleCount(totalCount);
+
+		searchVO.setPageNo(0);
+		searchVO.setStartIndex(paging.getStartArticleNumber());
+		searchVO.setEndIndex(paging.getEndArticleNumber());
+		
+		List<EducationQNAReplyVO> eduQNAReplyList = educationDAO.getAllQNAReplyListByAtcId(searchVO);
+		assertNotNull(eduQNAReplyList);
+	}
+	
+	@Test
+	public void getTotalQNAReplyCountByAtcIdTest() {
+		String atcId = "AT-20160524-000034";
+		int result = educationDAO.getTotalQNAReplyCountByAtcId(atcId);
+		assertNotNull(result);
+	}
+	
+	@Test
+	public void plusRecommendReplyTest() {
+		String replyId = "ER-20160525-000869";
+		int result = educationDAO.plusRecommendReply(replyId);
+		assertNotNull(result);
+	}
+	
+	@Test
+	public void plusOpposeReplyTest() {
+		String replyId = "ER-20160525-000869";
+		int result = educationDAO.plusOpposeReply(replyId);
+		assertNotNull(result);
+	}
+	
+	@Test
+	public void updateAdoptReplyTest() {
+		String replyId = "ER-20160525-000869";
+		int result = educationDAO.updateAdoptReply(replyId);
+		assertNotNull(result);
+	}
+	
+	@Test
+	public void checkAdoptReplyTest() {
+		String replyId = "ER-20160525-000869";
+		int result = educationDAO.checkAdoptReply(replyId);
+		assertNotNull(result);
 	}
 }
 
