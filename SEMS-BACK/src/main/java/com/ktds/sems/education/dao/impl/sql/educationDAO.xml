@@ -522,6 +522,7 @@
 				, CREATE_DATE createDate
 				, MODIFY_DATE modifyDate
 				, HITS hits
+				, IMP_TP noticeType
 		FROM	IMP_ATC
 		WHERE	IS_DELETE = 'N' 
 		AND     ((EDU_ID =  #{educationId}  AND IMP_TP ='normal') OR IMP_TP ='important')
