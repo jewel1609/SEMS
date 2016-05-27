@@ -29,6 +29,7 @@ import com.ktds.sems.SemsTestCase;
 import com.ktds.sems.Testable;
 import com.ktds.sems.common.Session;
 import com.ktds.sems.education.biz.EducationBiz;
+import com.ktds.sems.education.dao.EducationDAO;
 import com.ktds.sems.education.vo.EduQnaSearchVO;
 import com.ktds.sems.education.vo.EduQnaVO;
 import com.ktds.sems.education.vo.EduReplyListVO;
@@ -56,6 +57,8 @@ public class EducationServiceTest extends SemsTestCase {
 	private EducationBiz educationBiz;
 	@Autowired
 	private EducationService educationService;
+	@Autowired
+	private EducationDAO educationDAO;
 
 	@Before
 	public void setUp() {
@@ -748,6 +751,20 @@ public class EducationServiceTest extends SemsTestCase {
 		session.setAttribute(Session.MEMBER, memberVO);
 		String result = educationService.addQnaEduReplyDisLike(replyId, session);
 		assertTrue(result == "OK");
+	}
+	
+	@Test
+	public void viewNoticeDetailPageTest(){
+		
+		String eduNoticeId =  educationDAO.getOneEduNoticeId();
+		
+		MemberVO memberVO = new MemberVO();
+		String memberId = memberVO.getId();
+		
+		ModelAndView view = educationService.viewNoticeDetailPage(memberId, eduNoticeId);
+		String viewName = view.getViewName();
+		assertNotNull(viewName);
+		assertEquals(viewName, "education/eduFileNoticeDetail");
 	}
 	
 	@Test

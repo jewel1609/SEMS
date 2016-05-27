@@ -15,6 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ktds.sems.SemsTestCase;
+import com.ktds.sems.education.dao.EducationDAO;
+import com.ktds.sems.education.vo.EduNoticeSearchVO;
+import com.ktds.sems.education.vo.EduNoticeVO;
 import com.ktds.sems.education.vo.EduQnaListVO;
 import com.ktds.sems.education.vo.EduQnaSearchVO;
 import com.ktds.sems.education.vo.EduQnaVO;
@@ -41,6 +44,9 @@ public class EducationBizTest extends SemsTestCase {
 
 	@Autowired
 	private EducationBiz educationBiz;
+	
+	@Autowired
+	private EducationDAO educationDAO;
 
 	@Before
 	public void setUp() {
@@ -631,6 +637,31 @@ public class EducationBizTest extends SemsTestCase {
 	public void getTotalQnaEduReplyCountTest() {
 		int totalReportCount = educationBiz.getTotalQnaEduReplyCount("EQ-20160525-000073");
 		assertTrue(totalReportCount>0);
+	}
+	
+	@Test
+	public void getAllEduFileNoticeTest(){
+		
+		EduNoticeSearchVO eduNoticeSearchVO = new EduNoticeSearchVO();
+		eduNoticeSearchVO.setEducationId(educationDAO.getOneEducationId());
+		
+		List<EduNoticeVO> eduNoticeList = educationBiz.getAllEduFileNotice(eduNoticeSearchVO);
+		
+		assertNotNull(eduNoticeList);
+		if ( eduNoticeList != null){
+			assertTrue(eduNoticeList.size() > 0);
+		}else{
+			fail("Fail...");
+		}
+	}
+	
+	@Test
+	public void getOneNoticeTest(){
+
+		String eduNoticeId = educationDAO.getOneEduNoticeId();
+		EduNoticeVO noticeVO = 	educationBiz.getOneNotice(eduNoticeId);
+		assertNotNull(noticeVO);
+		
 	}
 	
 	@Test

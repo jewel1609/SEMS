@@ -15,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ktds.sems.SemsTestCase;
+import com.ktds.sems.education.vo.EduNoticeSearchVO;
+import com.ktds.sems.education.vo.EduNoticeVO;
 import com.ktds.sems.education.vo.EduQnaListVO;
 import com.ktds.sems.education.vo.EduQnaSearchVO;
 import com.ktds.sems.education.vo.EduQnaVO;
@@ -711,6 +713,27 @@ public class EducationDAOTest extends SemsTestCase{
 	public void getTotalQnaEduReplyCountTest() {
 		int totalReportCount = educationDAO.getTotalQnaEduReplyCount("EQ-20160525-000073");
 		assertTrue(totalReportCount>0);
+	}
+	
+	@Test
+	public void getAllEduFileNoticeTest(){
+		
+		EduNoticeSearchVO eduNoticeSearchVO = new EduNoticeSearchVO();
+		eduNoticeSearchVO.setEducationId(educationDAO.getOneEducationId());
+		
+		List<EduNoticeVO> eduNoticeList = educationDAO.getAllEduFileNotice(eduNoticeSearchVO);
+		
+		assertNotNull(eduNoticeList);
+		assertTrue(eduNoticeList.size() > 0);
+	}
+	
+	@Test
+	public void getOneNoticeTest(){
+		
+		String eduNoticeId =  educationDAO.getOneEduNoticeId();
+		EduNoticeVO eduNotice = educationDAO.getOneNotice(eduNoticeId);
+		assertNotNull(eduNotice);
+		
 	}
 	
 	@Test
