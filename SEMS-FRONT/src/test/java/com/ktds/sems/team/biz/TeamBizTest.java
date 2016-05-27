@@ -18,9 +18,13 @@ import com.ktds.sems.Testable;
 import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.team.vo.MinutesSearchVO;
 import com.ktds.sems.team.vo.MinutesVO;
+import com.ktds.sems.team.vo.TeamBBSListVO;
+import com.ktds.sems.team.vo.TeamBBSVO;
 import com.ktds.sems.team.vo.TeamSearchVO;
 import com.ktds.sems.team.vo.TeamVO;
 import com.ktds.sems.team.vo.TeamsListVO;
+
+import kr.co.hucloud.utilities.web.Paging;
 
 @Transactional
 public class TeamBizTest extends SemsTestCase {
@@ -167,7 +171,47 @@ public class TeamBizTest extends SemsTestCase {
 		} else {
 			fail("Fail...");
 		}
+	}
+	
+	@Test
+	public void doSearchListTest(){
+		TeamBBSVO teamBBSVO = new TeamBBSVO();
+		Paging paging = new Paging(15,15);
+		TeamBBSListVO searchedListVO = new TeamBBSListVO();
 		
+		searchedListVO.setPaging(paging);
+		paging.setPageNumber(0 + "");
+		
+		teamBBSVO.setCreatedDate( "2016/05" );
+		teamBBSVO.setMemberId("test02");
+		teamBBSVO.setDescript("sdgasdgsdg");
+		
+		TeamSearchVO searchVO = new TeamSearchVO();
+		searchVO.setStartIndex(paging.getStartArticleNumber());
+		searchVO.setEndIndex(paging.getEndArticleNumber());	
+		
+		assertNotNull(teamBiz.doSearchList(teamBBSVO, searchVO));
+	}
+	
+	@Test
+	public void getSearchedBBSCountTest(){
+		assertNotNull(teamBiz.getSearchedBBSCount());
+	}
+	
+	@Test
+	public void getStartYearTest(){
+		assertNotNull(teamBiz.getStartYear());
+	}
+	
+	@Test
+	public void getEndYearTest(){
+		assertNotNull(teamBiz.getEndYear());
+	}
+	
+	@Test
+	public void getFileInfoTest(){
+		String teamBBSId = "TBBS-20160512-000054";
+		assertNotNull(teamBiz.getFileInfo(teamBBSId));
 	}
 	
 }

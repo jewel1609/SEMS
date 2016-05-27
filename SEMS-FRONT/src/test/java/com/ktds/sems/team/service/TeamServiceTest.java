@@ -260,4 +260,14 @@ public class TeamServiceTest extends SemsTestCase {
 		}
 	}
 	
+	@Test
+	public void doSearchListTest(){
+		TeamBBSVO teamBBSVO = new TeamBBSVO();
+		teamBBSVO.setCreatedDate( "2016/05" );
+		teamBBSVO.setMemberId("test02");
+		teamBBSVO.setDescript("sdgasdgsdg");
+		
+		assertNotNull(teamService.doSearchList(teamBBSVO, 0));
+	}
+	
 }
