@@ -62,10 +62,6 @@
 		
 	</select>
 
-
-
-
-
 	<select id="nextMinutesSeq" resultType="_int">
 		SELECT	MINU_ID_SEQ.NEXTVAL
 		FROM	DUAL
@@ -320,6 +316,12 @@
 								 #{teamBBSId}
 						    )
 	</insert>
+	
+	<delete id="removeHitsRecord" parameterType="String">
+		DELETE 
+		FROM	BBS_HTR
+		WHERE	BBS_HTR_ID = #{bbsHistoryId}
+	</delete>
 	
 	<select id="getNextBBSHistorySeq" resultType="_int">
 		SELECT	BBS_HTR_ID_SEQ.NEXTVAL
@@ -704,7 +706,7 @@
 		AND		PARENT_REPLY_ID = '0'
 	</select>
 	
-	<delete id="doDeleteTeamListByMemberId" parameterType="string">
+	<delete id="doDeleteTeamListByMemberId">
 		DELETE
 		FROM	TEAM_LIST
 		WHERE	MBR_ID = #{memberId}
@@ -741,4 +743,20 @@
 		WHERE	MINU_ID = #{ minutesId }
 	</select>
 	
+	<select id="deleteNewReply" >
+		DELETE 
+		FROM	TEAM_BBS_RPL	RPL
+		WHERE	RPL.REPLY_ID = (
+		                            SELECT	MAX(R.REPLY_ID)
+		                            FROM	TEAM_BBS_RPL R
+		                        )
+	</select>
+	
+	<update id="initLikeRecord" parameterType="TeamBBSVO">
+		UPDATE	BBS_HTR
+		SET		LIKE_YN = 'N' 
+				, DISLIKE_YN = 'N'
+		WHERE	BBS_ID = #{teamBBSId}
+		AND		MBR_ID	= #{memberId}
+	</update>
 </mapper>
