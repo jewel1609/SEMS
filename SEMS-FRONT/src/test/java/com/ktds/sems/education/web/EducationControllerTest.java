@@ -221,48 +221,47 @@ public class EducationControllerTest extends SemsTestCase {
 
 	@Test
 	public void getOneEducationDetailTest() {
-		// FILES에 없는 educationId를 넣으면 에러
 
-		int pageNo = 0;
-		String educationId = "ED-20160513-000167";
-		MockHttpSession session = new MockHttpSession();
+			int pageNo = 0;
+			String educationId = "ED-20160526-000315";
+			MockHttpSession session = new MockHttpSession();
 
-		MemberVO mockMbr = new MemberVO();
-		mockMbr.setId("pleasure57");
-		mockMbr.setPassword("11dd0e95242d3decc81eb693abfb25ce2945132b6b127cbd7175670fdf328c71");
-		mockMbr.setName("황성재");
-		mockMbr.setEmail("pleasure0507@hanmail.net");
-		mockMbr.setHighestEducationLevel("UNIV");
-		mockMbr.setUniversityName("백석대학교");
-		mockMbr.setMajorName("정보통신학부");
-		mockMbr.setGraduationType("EXPT");
-		mockMbr.setBirthDate("1988-05-07");
-		mockMbr.setPhoneNumber("01024410476");
-		mockMbr.setMemberType("MBR");
-		mockMbr.setSalt("12971a33944e134f");
-		mockMbr.setLoginFailCount(0);
-		mockMbr.setIsAccountLock("N");
-		mockMbr.setLatestLoginDate("16/05/12");
-		mockMbr.setResignDate("");
-		mockMbr.setIsResign("N");
-		mockMbr.setUuid("");
-		mockMbr.setModifyFailCount(0);
-		mockMbr.setIsModifyLock("N");
+			MemberVO mockMbr = new MemberVO();
+			mockMbr.setId("pleasure57");
+			mockMbr.setPassword("a4a8bfdd643d7a79322d0f3f8f3c7b5fec7d3f2df3f2108f103ab5dc605b6cb1");
+			mockMbr.setName("황성재");
+			mockMbr.setEmail("ab@aa.com");
+			mockMbr.setHighestEducationLevel("TEST");
+			mockMbr.setUniversityName("학과");
+			mockMbr.setMajorName("학교");
+			mockMbr.setGraduationType("TEST");
+			mockMbr.setBirthDate("2016-01-01");
+			mockMbr.setPhoneNumber("000-0000-0000");
+			mockMbr.setMemberType("MBR");
+			mockMbr.setSalt("149d23103698ba11");
+			mockMbr.setLoginFailCount(0);
+			mockMbr.setIsAccountLock("N");
+			mockMbr.setLatestLoginDate("2016/05/26 오후 3:43:28");
+			mockMbr.setResignDate("");
+			mockMbr.setIsResign("N");
+			mockMbr.setUuid("");
+			mockMbr.setModifyFailCount(0);
+			mockMbr.setIsModifyLock("N");
 
-		session.setAttribute(Session.MEMBER, mockMbr);
+			session.setAttribute(Session.MEMBER, mockMbr);
+			
+			ModelAndView view = educationController.getOneEducationDetail(educationId, session, pageNo);
+			assertNotNull(view);
 
-		ModelAndView view = educationController.getOneEducationDetail(educationId, session, pageNo);
-		assertNotNull(view);
+			if (view != null) {
+				String viewName = view.getViewName();
+				assertNotNull(viewName);
+				assertEquals(viewName, "education/eduDetail");
+			} else {
+				fail("view is null");
+			}
 
-		if (view != null) {
-			String viewName = view.getViewName();
-			assertNotNull(viewName);
-			assertEquals(viewName, "education/eduDetail");
-		} else {
-			fail("view is null");
 		}
-
-	}
 	
    @Test
    public void viewEducationCalendarPageTest(){
