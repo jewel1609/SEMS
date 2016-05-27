@@ -341,6 +341,56 @@ public class TeamBizTest extends SemsTestCase {
 
 
 	}
+	@Test
+	public void writeNewMinutesTest() {
+		
+		MinutesVO minutesVO = new MinutesVO();
+		
+		minutesVO.setMemberId("test02");
+		minutesVO.setMinutesAgenda("Junit_Test");
+		minutesVO.setAttendance("Junit_Test");
+		minutesVO.setMinutesPlace("Junit_Test");
+		minutesVO.setMinutesContent("Junit_Test");
+		minutesVO.setDecisionSubject("Junit_Test");
+		minutesVO.setRemarks("Junit_Test");
+		minutesVO.setTeamId("20");
+		minutesVO.setStartDate("2016-05-17 10:00");
+		minutesVO.setEndDate("2016-05-17 15:00");
+		
+		boolean result = teamBiz.writeNewMinutes(minutesVO);
+		
+		assertNotNull(result);
+	}
+	
+	@Test
+	public void getAllMinutesList() {
+		MinutesSearchVO minutesSearchVO = new MinutesSearchVO();
+		minutesSearchVO.setId("test02");
+		assertNotNull(teamBiz.getAllMinutesList(minutesSearchVO));
+	}
+	
+	@Test
+	public void getTotalMinutesCount() {
+		MinutesSearchVO minutesSearchVO = new MinutesSearchVO();
+		int MinutesCount = teamBiz.getTotalMinutesCount(minutesSearchVO);
+		
+		assertNotNull(MinutesCount);
+		assertTrue(MinutesCount > 0);
+	}
+	
+	@Test
+	public void getOneDetailMinutes() {
+		String minutesId = "MINU-046";
+		MinutesVO minutesVO = teamBiz.getOneDetailMinutes(minutesId);
+		assertNotNull(minutesVO);
+	}
+	
+	@Test
+	public void getOneDetailMinutesDate() {
+		String minutesId = "MINU-046";
+		String minutesDate = teamBiz.getOneDetailMinutesDate(minutesId);
+		assertNotNull(minutesDate);
+	}
 
 	
 }
