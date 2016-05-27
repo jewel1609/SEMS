@@ -261,7 +261,7 @@ public class EducationBizTest extends SemsTestCase{
 		CategoryVO categoryVO = new CategoryVO();
 		categoryVO.setCategoryId("ZCS");
 		categoryVO.setCategoryType("medium");
-		Boolean isExist = educationBiz.validCategoryId(categoryVO);
+		boolean isExist = educationBiz.validCategoryId(categoryVO);
 		assertTrue(isExist);
 	}
 	
@@ -270,7 +270,7 @@ public class EducationBizTest extends SemsTestCase{
 		CategoryVO categoryVO = new CategoryVO();
 		categoryVO.setCategoryName("데이터베이스");
 		categoryVO.setCategoryType("medium");
-		Boolean isExist = educationBiz.validCategoryName(categoryVO);
+		boolean isExist = educationBiz.validCategoryName(categoryVO);
 		assertTrue(isExist);
 	}
 	
