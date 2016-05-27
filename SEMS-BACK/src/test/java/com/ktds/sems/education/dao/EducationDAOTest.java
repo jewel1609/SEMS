@@ -35,7 +35,9 @@ import com.ktds.sems.education.vo.CostVO;
 import com.ktds.sems.education.vo.EduFileSearchVO;
 import com.ktds.sems.education.vo.EduNoticeSearchVO;
 import com.ktds.sems.education.vo.EduNoticeVO;
+import com.ktds.sems.education.vo.EduQnaListVO;
 import com.ktds.sems.education.vo.EduQnaSearchVO;
+import com.ktds.sems.education.vo.EduQnaVO;
 import com.ktds.sems.education.vo.EduReportSearchVO;
 import com.ktds.sems.education.vo.EduReportVO;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
@@ -1269,5 +1271,96 @@ public class EducationDAOTest extends SemsTestCase {
 		
 		List<MemberVO> memberList = educationDAO.getAllMemberListByTeamId(educationId, teamId);
 		assertNotNull(memberList);
+	}
+	
+	@Test
+	public void getTotalEduQnaCountTest() {
+		EduQnaSearchVO eduQnaSearchVO = new EduQnaSearchVO();
+		eduQnaSearchVO.setEducationId("ED-20160513-000166");
+		int result = educationDAO.getTotalEduQnaCount(eduQnaSearchVO);
+		assertTrue(result>0);
+	}
+	
+	@Test
+	public void getAllEduQnaTest() {
+		EduQnaListVO eduQnaListVO = new EduQnaListVO();
+		EduQnaSearchVO eduQnaSearchVO = new EduQnaSearchVO();
+		eduQnaSearchVO.setEducationId("ED-20160513-000166");
+		Paging paging = new Paging(20,20);
+		
+		eduQnaListVO.setPaging(paging);
+		int totalReportCount = educationDAO.getTotalEduQnaCount(eduQnaSearchVO);
+		assertTrue(totalReportCount>0);
+		
+		paging.setPageNumber(0 + "");
+		paging.setTotalArticleCount(totalReportCount);
+		
+		eduQnaSearchVO.setStartIndex(paging.getStartArticleNumber());
+		eduQnaSearchVO.setEndIndex(paging.getEndArticleNumber());
+		
+		List<EduQnaVO> list = educationDAO.getAllEduQna(eduQnaSearchVO);
+		
+		assertTrue(list.size() > 0);
+	}
+	
+	@Test
+	public void confirmMemberOfEduTest() {
+		String memberId = "test02";
+		String educationId = "ED-20160513-000166";
+		
+		int confirmMemberOfEdu = educationDAO.confirmMemberOfEdu(educationId, memberId);
+		assertTrue(confirmMemberOfEdu>0);
+	}
+	
+	@Test
+	public void insertEduQnaTest() {
+		EduQnaVO eduQnaVO = new EduQnaVO();
+		String memberId = "test02";
+		String eduQnaId = "JUNIT TEST";
+		
+		eduQnaVO.setMemberId(memberId);
+		eduQnaVO.setEduQnaId(eduQnaId);
+		eduQnaVO.setEducationId("ED-20160513-000166");
+		eduQnaVO.setTitle("JUNIT TEST");
+		eduQnaVO.setContents("JUNIT TEST");
+		
+		int result = educationDAO.insertEduQna(eduQnaVO);
+		assertTrue(result>0);
+	}
+	
+	@Test
+	public void getNextEqbSeqTest() {
+		int nextEqbSeq = educationDAO.getNextEqbSeq();
+		assertTrue(nextEqbSeq>0);
+	}
+	
+	@Test
+	public void detailOfEduQnaTest() {
+		EduQnaVO eduQnaVO = educationDAO.detailOfEduQna("EQ-20160525-000073");
+		assertNotNull(eduQnaVO);
+	}
+	
+	@Test
+	public void addHitsToEduQnaTest() {
+		int result = educationDAO.addHitsToEduQna("EQ-20160525-000073");
+		assertTrue(result>0);
+	}
+	
+	@Test
+	public void addQnaEduReplyLikeTest() {
+		int resultTwo = educationDAO.addQnaEduReplyLike("ER-20160525-000904");
+		assertTrue(resultTwo>0);
+	}
+	
+	@Test
+	public void addQnaEduReplyDisLikeTest() {
+		int resultTwo = educationDAO.addQnaEduReplyDisLike("ER-20160525-000904");
+		assertTrue(resultTwo>0);
+	}
+	
+	@Test
+	public void getTotalQnaEduReplyCountTest() {
+		int totalReportCount = educationDAO.getTotalQnaEduReplyCount("EQ-20160525-000073");
+		assertTrue(totalReportCount>0);
 	}
 }

@@ -32,6 +32,7 @@ import com.ktds.sems.common.Session;
 import com.ktds.sems.education.vo.EducationHistoryListVO;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationHistoryVO;
+import com.ktds.sems.education.vo.EducationQNAReplyVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.dao.EducationDAO;
 import com.ktds.sems.education.vo.EduFileListVO;
@@ -1821,32 +1822,6 @@ public class EducationServiceTest extends SemsTestCase {
 			fail("getAllReportArticle Fail");
 		}
 	}
-	
-/*	@Test
-	public void getAllQnaArticle() {
-		EduQnaSearchVO eduQnaSearchVO = new EduQnaSearchVO();
-		eduQnaSearchVO.setEducationId("ED-20160519-000233");
-		ModelAndView view = educationService.getAllQnaArticle(eduQnaSearchVO, 0);
-		if ( view != null ) {
-			String viewName = view.getViewName();
-			assertNotNull(viewName);
-			assertEquals(viewName, "education/eduQnaPage");
-			
-			EduQnaListVO eduQnaListVO = (EduQnaListVO) view.getModel().get("eduQnaListVO");
-			assertNotNull(eduQnaListVO);
-			
-			Paging paging = eduQnaListVO.getPaging();
-			assertNotNull(paging);
-			assertTrue(paging.getTotalArticleCount() > 0);
-			
-			List<EduQnaVO> eduQna = eduQnaListVO.getEduQnaList();
-			assertNotNull(eduQna);
-			assertTrue(eduQna.size() > 0);
-		}
-		else {
-			fail("getAllQnaArticle Fail");
-		}
-	}*/
 
 	@Test
 	public void getAllEduFileArticle() {
@@ -2009,5 +1984,118 @@ public class EducationServiceTest extends SemsTestCase {
 		}else {
 			fail("fail");
 		}
+	}
+	
+	@Test
+	public void getAllQnaArticleTest() {
+		EduQnaSearchVO eduQnaSearchVO = new EduQnaSearchVO();
+		int pageNo = 0;
+		eduQnaSearchVO.setEducationId("ED-20160513-000166");
+		ModelAndView view = educationService.getAllQnaArticle(eduQnaSearchVO, pageNo);
+		String viewName = view.getViewName();
+		assertNotNull(viewName);
+		assertTrue(viewName == "education/eduQnaPage");
+	}
+	
+	@Test
+	public void viewWriteEduQnaTest() {
+		MockHttpSession session = new MockHttpSession();
+		String educationId = "ED-20160513-000166";
+		
+		MemberVO memberVO = new MemberVO();
+		memberVO.setId("test02");
+		
+		session.setAttribute(Session.MEMBER, memberVO);
+		
+		ModelAndView view = educationService.viewWriteEduQna(educationId, session);
+		String viewName = view.getViewName();
+		assertNotNull(viewName);
+		assertTrue(viewName == "education/eduQnaWrite");
+	}
+	
+	@Test
+	public void doWriteEduQnaActionTest() {
+		EduQnaVO eduQnaVO = new EduQnaVO();
+		MockHttpSession session = new MockHttpSession();
+		String educationId = "ED-20160513-000166";
+		
+		MemberVO memberVO = new MemberVO();
+		memberVO.setId("test02");
+		memberVO.setMemberType("MBR");
+		
+		session.setAttribute(Session.MEMBER, memberVO);
+		eduQnaVO.setMemberId(memberVO.getId());
+		eduQnaVO.setEduQnaId("EQ-20160525-000073");
+		eduQnaVO.setEducationId(educationId);
+		eduQnaVO.setTitle("JUNIT TEST");
+		eduQnaVO.setContents("JUNIT TEST");
+		
+		ModelAndView view = educationService.doWriteEduQnaAction(eduQnaVO, session);
+		String viewName = view.getViewName();
+		assertNotNull(viewName);
+	}
+	
+	@Test
+	public void detailOfEduQnaTest() {
+		String eduQnaId = "EQ-20160525-000073";
+		String educationId = "ED-20160513-000166";
+		MockHttpSession session = new MockHttpSession();
+		MemberVO memberVO = new MemberVO();
+		memberVO.setId("test02");
+		memberVO.setMemberType("MBR");
+		
+		session.setAttribute(Session.MEMBER, memberVO);
+		int pageNo = 0;
+		
+		ModelAndView view = educationService.detailOfEduQna(eduQnaId, educationId, session, pageNo);
+		String viewName = view.getViewName();
+		assertNotNull(viewName);
+		assertTrue(viewName == "education/eduQnaDetail");
+	}
+	
+	@Test
+	public void doEduQnaReplyActionTest() {
+		EducationQNAReplyVO eduBBSReplyVO = new EducationQNAReplyVO();
+		MockHttpSession session = new MockHttpSession();
+		MemberVO memberVO = new MemberVO();
+		memberVO.setId("test02");
+		memberVO.setMemberType("MBR");
+		
+		session.setAttribute(Session.MEMBER, memberVO);
+		String educationId = "ED-20160513-000166";
+		
+		BindingResult errors = new BeanPropertyBindingResult(eduBBSReplyVO,"replyWriteForm");
+		
+		eduBBSReplyVO.setAtcId("EQ-20160525-000073");
+		eduBBSReplyVO.setDescription("JUNIT TEST");
+		ModelAndView view = educationService.doEduQnaReplyAction(eduBBSReplyVO, errors, session, educationId);
+		String viewName = view.getViewName();
+		assertNotNull(viewName);
+	}
+	
+	@Test
+	public void addQnaEduReplyLikeTest() {
+		String replyId = "ER-20160525-000906";
+		MockHttpSession session = new MockHttpSession();
+		MemberVO memberVO = new MemberVO();
+		memberVO.setId("test02");
+		memberVO.setMemberType("MBR");
+		
+		session.setAttribute(Session.MEMBER, memberVO);
+		String result = educationService.addQnaEduReplyLike(replyId, session);
+		assertTrue(result == "OK");
+	}
+	
+	@Test
+	public void addQnaEduReplyDisLikeTest() {
+		String replyId = "ER-20160525-000906";
+		MockHttpSession session = new MockHttpSession();
+		MemberVO memberVO = new MemberVO();
+		memberVO.setId("test02");
+		memberVO.setMemberType("MBR");
+		
+		session.setAttribute(Session.MEMBER, memberVO);
+		String result = educationService.addQnaEduReplyDisLike(replyId, session);
+		assertTrue(result == "OK");
 	}
 }
