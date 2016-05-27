@@ -3,8 +3,8 @@ package com.ktds.sems.team.service;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.List;
 
@@ -14,20 +14,22 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.BeanPropertyBindingResult;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.SemsTestCase;
-import com.ktds.sems.team.biz.TeamBiz;
-import com.ktds.sems.team.vo.TeamBBSVO;
 import com.ktds.sems.Testable;
+import com.ktds.sems.common.Session;
+import com.ktds.sems.member.vo.MemberTypeVO;
+import com.ktds.sems.member.vo.MemberVO;
+import com.ktds.sems.team.biz.TeamBiz;
+import com.ktds.sems.team.vo.MinutesSearchVO;
+import com.ktds.sems.team.vo.TeamBBSVO;
 import com.ktds.sems.team.vo.TeamSearchVO;
 import com.ktds.sems.team.vo.TeamsListVO;
 import com.ktds.sems.team.vo.TeamsListsVO;
-import com.ktds.sems.common.Session;
-import com.ktds.sems.education.dao.EducationDAO;
-import com.ktds.sems.education.vo.EducationVO;
-import com.ktds.sems.member.vo.MemberTypeVO;
-import com.ktds.sems.team.vo.MinutesSearchVO;
 
 @Transactional
 public class TeamServiceTest extends SemsTestCase {
@@ -280,4 +282,24 @@ public class TeamServiceTest extends SemsTestCase {
 		ModelAndView view = teamService.viewReReplyPage(teamBBSId,session,parentReplyId );
 		assertNotNull(view);
 	}
+	
+	@Test
+	public void viewTeamBBSPage(){
+		
+		assertNotNull(teamService.viewTeamBBSPage(0));
+	}
+	
+	@Test
+	public void viewTeamBBSDetailPage(){
+		String teamBBSId = "TBBS-20160512-000047";
+		int pageNo = 0;
+		MockHttpSession session = new MockHttpSession();
+		
+		MemberVO member = new MemberVO();
+		member.setId("test02");
+		session.setAttribute("_MEMBER_", member);
+		assertNotNull(teamService.viewTeamBBSDetailPage(teamBBSId, pageNo ,session));
+	}
+	
+	
 }
