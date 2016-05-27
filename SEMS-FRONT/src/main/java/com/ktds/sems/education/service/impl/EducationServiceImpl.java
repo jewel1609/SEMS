@@ -1035,7 +1035,6 @@ public class EducationServiceImpl implements EducationService {
 		view.addObject("teacherId", teacherId);
 		view.addObject("eduNoticeListVO", eduNoticeListVO);
 		
-		
 		return view;
 	}
 
