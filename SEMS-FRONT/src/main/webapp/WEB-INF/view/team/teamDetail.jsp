@@ -4,7 +4,18 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script type="text/javascript"
+	src="<c:url value='/resources/js/jquery.min.js"'/>"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#teamBBS").click(function(){
+			location.href="<c:url value='/team/teamBBS/board' />"
+		});
+	});
+
+
+</script>
 <title>Insert title here</title>
 </head>
 <body>
@@ -22,7 +33,9 @@
 				<td>${ teamsList.mbrId }</td>
 			</tr>
 		</c:forEach>
+		
 	</table>
+			<input type="button" id="teamBBS" value="팀별 게시판 가기" />
 	
 </body>
 </html>
