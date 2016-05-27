@@ -215,7 +215,7 @@ public class PcServiceTest extends SemsTestCase {
 		memberVO.setMemberType("ADM");
 		session.setAttribute(Session.MEMBER, memberVO);
 		
-		ModelAndView view = pcService.doActionDeleteEduPlace(pcId, session, response);
+		ModelAndView view = pcService.doActionDeleteEduPC(pcId, session, response);
 		
 		if ( view != null ) {
 			String viewName = view.getViewName();
