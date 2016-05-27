@@ -405,8 +405,8 @@ public class TeamServiceImpl implements TeamService{
 		if ( memberVO != null ) {
 			minutesVO.setMemberId(memberVO.getId());
 			minutesVO.setTeamId(teamId);
-			System.out.println("Controller teamId"+teamId);
-			System.out.println(memberVO.getId());
+			//System.out.println("Controller teamId"+teamId);
+			//System.out.println(memberVO.getId());
 		}
 		
 		if (errors.hasErrors()) {
@@ -431,7 +431,7 @@ public class TeamServiceImpl implements TeamService{
 	public ModelAndView viewListMinutes(MinutesSearchVO minutesSearchVO, int pageNo) {
 		
 		MinutesListVO minutesListVO = new MinutesListVO();
-		Paging paging = new Paging(5, 5);
+		Paging paging = new Paging(10, 10);
 		
 		minutesListVO.setPaging(paging);
 		int totalHistoryCount = teamBiz.getTotalMinutesCount(minutesSearchVO);
@@ -480,12 +480,6 @@ public class TeamServiceImpl implements TeamService{
 	@Override
 	public ModelAndView getOneDetailMinutes(String minutesId, HttpSession session) {
 		
-		//MemberVO loginMember = (MemberVO) session.getAttribute("_MEMBER_");
-		
-		//String loginMemberId = loginMember.getId();
-		
-		//System.out.println(loginMemberId);
-		//System.out.println(memberId);
 		if (minutesId != null) {
 			MinutesVO minutesVO = teamBiz.getOneDetailMinutes(minutesId);
 			
