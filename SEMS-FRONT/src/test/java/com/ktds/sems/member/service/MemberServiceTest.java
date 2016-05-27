@@ -760,23 +760,6 @@ public class MemberServiceTest extends SemsTestCase {
 	}
 
 	@Test
-	public void registerStudentTestErrorCaseExistSession() {
-		MockHttpSession session = new MockHttpSession();
-		MemberVO sessionMember = new MemberVO();
-		session.setAttribute("_MEMBER_", sessionMember);
-
-		ModelAndView view = memberService.registerStudent();
-
-		if (view != null) {
-			String viewName = view.getViewName();
-			assertNotNull(viewName);
-			assertEquals(viewName, "member/registErrorPage");
-		} else {
-			fail("Fail...");
-		}
-	}
-
-	@Test
 	public void registerTeacherTest() {
 		String viewName = memberService.registerTeacher();
 
