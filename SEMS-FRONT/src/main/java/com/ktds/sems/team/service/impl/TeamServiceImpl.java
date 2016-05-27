@@ -80,7 +80,7 @@ public class TeamServiceImpl implements TeamService{
 	}
 
 	@Override
-	public ModelAndView getOneMyTeamDetail(String teamId, HttpSession session, int pageNo) {
+	public ModelAndView getOneMyTeamDetail(String teamId) {
 	
 		ModelAndView view = new ModelAndView();
 		TeamVO team = teamBiz.getOneMyTeamDetail(teamId);

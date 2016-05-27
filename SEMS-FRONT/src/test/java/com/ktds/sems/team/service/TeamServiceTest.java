@@ -18,6 +18,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.SemsTestCase;
 import com.ktds.sems.Testable;
+import com.ktds.sems.team.vo.TeamSearchVO;
+import com.ktds.sems.team.vo.TeamsListVO;
+import com.ktds.sems.team.vo.TeamsListsVO;
 import com.ktds.sems.common.Session;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.member.vo.MemberTypeVO;
@@ -26,9 +29,6 @@ import com.ktds.sems.team.biz.TeamBiz;
 import com.ktds.sems.team.dao.TeamDAO;
 import com.ktds.sems.team.vo.MinutesSearchVO;
 import com.ktds.sems.team.vo.TeamBBSVO;
-import com.ktds.sems.team.vo.TeamSearchVO;
-import com.ktds.sems.team.vo.TeamsListVO;
-import com.ktds.sems.team.vo.TeamsListsVO;
 
 @Transactional
 public class TeamServiceTest extends SemsTestCase {
@@ -228,6 +228,47 @@ public class TeamServiceTest extends SemsTestCase {
 			fail("fail");
 		}
 	}
+	
+	@Test
+	public void getAllMyTeamList() {
+
+		TeamSearchVO teamSearchVO = new TeamSearchVO();
+		teamSearchVO.setPageNo(0);
+
+		ModelAndView view = teamService.getAllMyTeamList(0);
+
+		if (view != null) {
+
+			String viewName = view.getViewName();
+			assertNotNull(viewName);
+			assertEquals(viewName, "myPage/myTeamList");
+			
+
+
+		} else {
+			fail("fail");
+		}
+	}
+	
+
+	@Test
+	public void getOneMyTeamDetail() {
+		String teamId = "JUNIT TEST";
+		ModelAndView view = teamService.getOneMyTeamDetail(teamId);
+		
+		if (view != null) {
+
+			String viewName = view.getViewName();
+			assertNotNull(viewName);
+			assertEquals(viewName, "myPage/teamDetail");
+			
+
+
+		} else {
+			fail("fail");
+		}
+	}
+
 	
 	@Test
 	public void getAllEduMember(){

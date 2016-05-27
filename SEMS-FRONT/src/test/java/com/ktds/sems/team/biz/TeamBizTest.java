@@ -97,6 +97,16 @@ public class TeamBizTest extends SemsTestCase {
 	}
 	
 	@Test
+	public void  getOneMyTeamDetail() {
+		String teamId = "1";
+		
+		TeamVO team = new TeamVO();
+		team = teamBiz.getOneMyTeamDetail(teamId);
+		assertNotNull(team);
+	}
+
+	
+	@Test
 	public void getSaltByIdTest() {
 		String sessionId = "test02";
 		
@@ -135,6 +145,42 @@ public class TeamBizTest extends SemsTestCase {
 		} else {
 			fail("fail");
 		}
+	}
+	
+	
+	@Test
+	public void getAllMyTeamList() {
+		TeamSearchVO searchVO = new TeamSearchVO();
+		
+		searchVO.setStartIndex(0);
+		searchVO.setEndIndex(10);
+		
+		List<TeamVO> teamList = teamBiz.getAllMyTeamList(searchVO);
+		if (teamList != null){
+			for (TeamVO teamVO : teamList) {
+				assertNotNull(teamVO.getTeamId());
+				assertNotNull(teamVO.getTeamName());
+				assertNotNull(teamVO.getTeamDate());
+				assertNotNull(teamVO.getEducationId());
+				assertNotNull(teamVO.getEducationName());
+				assertNotNull(teamVO.getTeamCount());
+			}
+			
+	
+			
+		}
+		else{
+			fail("Fail...");
+		}
+	}
+	
+
+	@Test
+	public void getMyTotalTeamCount() {
+		
+		int count = teamBiz.getMyTotalTeamCount();
+		assertNotNull(count);
+		
 	}
 	
 	@Test

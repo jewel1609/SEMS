@@ -133,6 +133,52 @@ public class TeamDAOTest extends SemsTestCase {
 			fail("fail");
 		}
 	}
+	
+	@Test
+	public void getAllMyTeamList() {
+		TeamSearchVO searchVO = new TeamSearchVO();
+
+		searchVO.setStartIndex(0);
+		searchVO.setEndIndex(10);
+
+		List<TeamVO> teamList = teamDAO.getAllMyTeamList(searchVO);
+		if (teamList != null){
+			for (TeamVO teamVO : teamList) {
+				assertNotNull(teamVO.getTeamId());
+				assertNotNull(teamVO.getTeamName());
+				assertNotNull(teamVO.getTeamDate());
+				assertNotNull(teamVO.getEducationId());
+				assertNotNull(teamVO.getEducationName());
+				assertNotNull(teamVO.getTeamCount());
+			}
+		}
+		else{
+			fail("Fail...");
+		}
+	}
+	
+
+
+	@Test
+	public void getMyTotalTeamCount() {
+	int count = teamDAO.getMyTotalTeamCount();
+	assertNotNull(count);
+		
+	}	
+
+	@Test
+	public void getOneMyTeamDetail() {
+	TeamVO team = new TeamVO();
+	String teamId = "1";
+	team = teamDAO.getOneMyTeamDetail(teamId);
+	assertNotNull(team.getTeamName());
+	assertNotNull(team.getMemberId());
+	assertNotNull(team.getTeamCount());
+	
+		
+	}
+	
+	
 
 	@Test
 	public void getAllEduMember(){

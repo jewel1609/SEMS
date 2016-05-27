@@ -17,7 +17,7 @@ public interface TeamService {
 	
 	public ModelAndView getAllMyTeamList(int pageNo);
 
-	public ModelAndView getOneMyTeamDetail(String teamId, HttpSession session, int pageNo);
+	public ModelAndView getOneMyTeamDetail(String teamId);
 
 	public ModelAndView getAllTeamListPage(TeamSearchVO teamSearchVO);
 	

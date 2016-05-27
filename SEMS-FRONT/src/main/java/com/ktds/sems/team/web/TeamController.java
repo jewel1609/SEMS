@@ -37,8 +37,8 @@ public class TeamController {
 	}
 
 	@RequestMapping("/myTeamDetail/{teamId}")
-	public ModelAndView getOneMyTeamDetail(@PathVariable String teamId, HttpSession session, @RequestParam(required=false, defaultValue="0") int pageNo){
-		return teamService.getOneMyTeamDetail(teamId, session, pageNo);
+	public ModelAndView getOneMyTeamDetail(@PathVariable String teamId){
+		return teamService.getOneMyTeamDetail(teamId);
 	}
 
 	@RequestMapping("/myTeamList")
