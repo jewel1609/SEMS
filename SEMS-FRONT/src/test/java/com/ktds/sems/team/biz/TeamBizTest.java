@@ -145,7 +145,7 @@ public class TeamBizTest extends SemsTestCase {
 		members = teamBiz.getAllEduMember(educationId);
 		if (members != null){
 			assertNotNull(members);
-			assertTrue(members.size() >0);
+			assertTrue(members.size() >= 0);
 			}
 		else{
 			fail("Fail...");

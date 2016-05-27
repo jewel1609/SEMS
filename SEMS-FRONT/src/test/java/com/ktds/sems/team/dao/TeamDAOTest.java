@@ -136,13 +136,13 @@ public class TeamDAOTest extends SemsTestCase {
 
 	@Test
 	public void getAllEduMember(){
-		String educationId = "junitId";
+		String educationId = "ED-20160519-000241";
 		List<MemberVO> members = new ArrayList<MemberVO>();
 		members = teamDAO.getAllEduMember(educationId);
 
 		if (members != null ) {
 			assertNotNull(members);
-			assertTrue(members.size() > 0 );
+			assertTrue(members.size() >= 0 );
 		}
 		else {
 			fail("Fail...");
