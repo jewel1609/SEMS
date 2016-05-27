@@ -1921,13 +1921,12 @@ public class EducationServiceImpl implements EducationService {
 		ModelAndView view = new ModelAndView();
 		// 사용자 확인
 		MemberVO member = (MemberVO) session.getAttribute(Session.MEMBER);
-		String writer = educationFileBBSVO.getMemberId();
+		String articleId = educationFileBBSVO.getArticleId();
+		String writer = educationBiz.getOneEducationFileBBS(articleId).getMemberId();
 		
 		boolean isEquals = member.getId().equals(writer);
 		boolean isSuccess = false;
 		if ( isEquals ) {
-			String articleId = educationFileBBSVO.getArticleId();
-			
 			isSuccess = educationBiz.deleteFileBBSByArticleId(articleId);
 			
 			if (isSuccess) {
@@ -1950,23 +1949,27 @@ public class EducationServiceImpl implements EducationService {
 	public ModelAndView modifyFileBBS(EducationFileBBSVO educationFileBBSVO, MultipartHttpServletRequest request, String fileDelete , HttpSession session) {
 		ModelAndView view = new ModelAndView();
 		String articleId = educationFileBBSVO.getArticleId();
+		String writer = educationBiz.getOneEducationFileBBS(articleId).getMemberId();
 		
 		MemberVO member = (MemberVO) session.getAttribute(Session.MEMBER);
 		educationFileBBSVO.setMemberId(member.getId());
 		
-		boolean isSuccess = educationBiz.modifyFileBBS(educationFileBBSVO);
-		
-		if ( isSuccess ) {
-			if ( fileDelete.equals("Y") ) {
-				fileBiz.deleteFile(articleId);
+		boolean isEquals = member.getId().equals(writer);
+		if ( isEquals ) {
+			boolean isSuccess = educationBiz.modifyFileBBS(educationFileBBSVO);
+			
+			if ( isSuccess ) {
+				if ( fileDelete.equals("Y") ) {
+					fileBiz.deleteFile(articleId);
+				}
+				
+				fileBiz.doUploadAndWriteFiles(request, articleId);
+				
+				view.setViewName("redirect:/education/fileBBS/detail/" + educationFileBBSVO.getArticleId());
 			}
-			
-			fileBiz.doUploadAndWriteFiles(request, articleId);
-			
-			view.setViewName("redirect:/education/fileBBS/detail/" + educationFileBBSVO.getArticleId());
-		}
-		else {
-			throw new RuntimeException("글 수정 실패");
+			else {
+				throw new RuntimeException("글 수정 실패");
+			}
 		}
 
 		return view; 
@@ -1977,7 +1980,9 @@ public class EducationServiceImpl implements EducationService {
 		ModelAndView view = new ModelAndView();
 		
 		MemberVO member = (MemberVO) session.getAttribute(Session.MEMBER);
-		String writer = educationFileBBSVO.getMemberId();
+		
+		String articleId = educationFileBBSVO.getArticleId();
+		String writer = educationBiz.getOneEducationFileBBS(articleId).getMemberId();
 		
 		boolean isEquals = member.getId().equals(writer);
 		if ( isEquals ) {
