@@ -123,6 +123,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+
 	<h2>강의 자료 게시판</h2>
 	<hr/>
 	<table>
@@ -132,9 +133,6 @@
 			</th>
 			<th style="width: 200px;">
 				제목
-			</th>
-			<th style="width: 200px;">
-				내용
 			</th>
 			<th>
 				작성일
@@ -146,6 +144,15 @@
 				조회수
 			</th>
 		</tr>
+		<c:forEach items="${eduNoticeListVO.eduNoticeList}" var="notice">
+			<tr style="background-color: #e2c241;">
+				<th>공지</th>
+				<td><a href="<c:url value='/${notice.educationId}/eduFileNotice/detail/${notice.eduNoticeId}' />">${notice.title }</a></td>
+				<td>${ notice.createDate}</td>
+				<td>${ notice.modifyDate}</td>
+				<td >${ notice.hits}</td>
+			</tr>
+		</c:forEach>
 		<c:forEach items="${educationFileBBSList.educationFileBBSVOs}" var="educationFileBBS">
 		<tr>
 			<td>
@@ -156,9 +163,6 @@
 				<a href="<c:url value='/education/fileBBS/detail/${educationFileBBS.articleId}'/>">
 					${educationFileBBS.title}
 				</a>
-			</td>
-			<td>
-				${educationFileBBS.contents}
 			</td>
 			<td>
 				${educationFileBBS.createDate}
