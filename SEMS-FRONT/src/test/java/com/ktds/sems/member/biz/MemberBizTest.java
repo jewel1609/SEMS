@@ -624,7 +624,7 @@ public class MemberBizTest extends SemsTestCase {
 	public void checkValidationCourseAccesTrueTest() {
 		//boolean
 		String memberId = "cocomo12";
-		assertTrue(memberBiz.checkValidationCourseAccess(memberId));
+		assertTrue(!memberBiz.checkValidationCourseAccess(memberId));
 	}
 	
 	@Test
