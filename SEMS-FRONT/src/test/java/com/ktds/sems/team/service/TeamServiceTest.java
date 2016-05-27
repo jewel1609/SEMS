@@ -24,6 +24,8 @@ import com.ktds.sems.team.vo.TeamSearchVO;
 import com.ktds.sems.team.vo.TeamsListVO;
 import com.ktds.sems.team.vo.TeamsListsVO;
 import com.ktds.sems.common.Session;
+import com.ktds.sems.education.dao.EducationDAO;
+import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.member.vo.MemberTypeVO;
 import com.ktds.sems.team.vo.MinutesSearchVO;
 
@@ -34,9 +36,10 @@ public class TeamServiceTest extends SemsTestCase {
 	private TeamService teamService;
 	@Autowired
 	private TeamBiz teamBiz;
-	
+
 	@Before
 	public void setUp() {
+		
 		
 		testHelper(new Testable() {
 			
@@ -206,7 +209,7 @@ public class TeamServiceTest extends SemsTestCase {
 	public void getAllEduMember(){
 		
 		ModelAndView view = new ModelAndView();
-		String educationId = "JunitTest";
+		String educationId = "junitId";
 		MockHttpSession session = new MockHttpSession();
 		
 		MemberTypeVO memberType = new MemberTypeVO();
@@ -223,21 +226,21 @@ public class TeamServiceTest extends SemsTestCase {
 		}
 	}
 	
-//	@Test
-//	public void massiveInsertMember(){
-//		ModelAndView view = new ModelAndView();
-//		String educationId = "JunitTest";
-//		String teamName = "JunitTest";
-//		String[] insertMemberIds = {"JunitTest","JunitTest2"};
-//		String teamListId = "JunitTest";
-//		
-//		view.setViewName("team/teamBoard");
-//		if( teamService.massiveInsertMember(insertMemberIds, educationId, teamName, teamListId) != null ){
-//			assertEquals(view.getViewName(), teamService.massiveInsertMember(insertMemberIds, educationId, teamName, teamListId).getViewName());
-//		} else {
-//			fail("fail");
-//		}
-//	}
+	@Test
+	public void massiveInsertMember(){
+		ModelAndView view = new ModelAndView();
+		String educationId = "JunitTest";
+		String teamName = "JunitTest";
+		String[] insertMemberIds = {"JunitTest","JunitTest2"};
+		String teamListId = "JunitTest";
+		
+		view.setViewName("team/teamBoard");
+		if( teamService.massiveInsertMember(insertMemberIds, educationId, teamName, teamListId) != null ){
+			assertEquals(view.getViewName(), teamService.massiveInsertMember(insertMemberIds, educationId, teamName, teamListId).getViewName());
+		} else {
+			fail("fail");
+		}
+	}
 
 	@Test
 	public void getAllMinutes(){
