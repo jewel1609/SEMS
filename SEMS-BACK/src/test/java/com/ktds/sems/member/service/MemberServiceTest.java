@@ -468,8 +468,9 @@ public class MemberServiceTest extends SemsTestCase {
 	@Test
 	public void doWriteMemberDetailInfo() {
 		PersonalInfoReadVO personalInfoReadVO = new PersonalInfoReadVO();
-		personalInfoReadVO.setMemberId("junitTest");
-		personalInfoReadVO.setTargetMemberId("test01");
+		personalInfoReadVO.setMemberId("cocomo12");
+		personalInfoReadVO.setTargetMemberId("oph312");
+		personalInfoReadVO.setMemberType("MBR");
 		personalInfoReadVO.setDescription("desc");
 		personalInfoReadVO.setReadDate("Junitdate");
 		
