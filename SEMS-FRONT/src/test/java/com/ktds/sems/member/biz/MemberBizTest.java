@@ -312,6 +312,48 @@ public class MemberBizTest extends SemsTestCase {
 		assertTrue(isExistEmail);
 	}
 	
+	@Test
+	public void checkValidationByNameTest() {
+		String name = "테스트";
+		boolean check = memberBiz.checkValidationByName(name);
+		assertTrue(check);
+	}
+	
+	@Test
+	public void checkValidationByNameTestError() {
+		String name = "테스트!!!!";
+		boolean check = memberBiz.checkValidationByName(name);
+		assertTrue(!check);
+	}
+	
+	@Test
+	public void checkValidationByUniversityNameTest() {
+		String universityName = "가나다대학교";
+		boolean check = memberBiz.checkValidationByUniversityName(universityName);
+		assertTrue(check);
+	}
+	
+	@Test
+	public void checkValidationByUniversityNameTestError() {
+		String universityName = "가나다대학교★";
+		boolean check = memberBiz.checkValidationByUniversityName(universityName);
+		assertTrue(!check);
+	}
+		
+	@Test
+	public void checkValidationByMajorNameTest() {
+		String majorName = "컴퓨터공학과";
+		boolean check = memberBiz.checkValidationByMajorName(majorName);
+		assertTrue(check);
+	}
+	
+	@Test
+	public void checkValidationByMajorNameTestError() {
+		String majorName = "컴퓨터공학과★";
+		boolean check = memberBiz.checkValidationByMajorName(majorName);
+		assertTrue(!check);
+	}
+		
 	//오름차순에서 맨마지막에 실행하기위해
 	@Test
 	public void doDeleteTest(){
