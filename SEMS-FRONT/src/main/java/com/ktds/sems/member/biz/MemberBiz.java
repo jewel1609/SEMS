@@ -170,4 +170,6 @@ public interface MemberBiz {
 
 	public List<EducationVO> getPreCourseList(EducationSearchVO educationSearchVO);
 
+	public EducationVO getOneEducationInfo(Map<String, String> eduIdAndMemberId);
+
 }

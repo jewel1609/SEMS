@@ -1,6 +1,7 @@
 package com.ktds.sems.member.service.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -1031,16 +1032,20 @@ public class MemberServiceImpl implements MemberService {
 		//TODO 중복 클릭 처리
 		//TODO 출결이력 업데이트
 		
-		
 	}
 
 	@Override
 	public ModelAndView getAllAttendHistory(HttpSession session, String educationId) {
 		
 		MemberVO memberVO = (MemberVO) session.getAttribute(Session.MEMBER);
-		//memberBiz.getAllAttendClassListById(loginVO);
+		Map<String, String> eduIdAndMemberId = new HashMap<String, String>();
+
+		eduIdAndMemberId.put("educationId", educationId);
+		eduIdAndMemberId.put("memberId", memberVO.getId());
+		EducationVO eduInfo = memberBiz.getOneEducationInfo(eduIdAndMemberId);
+		
 		Map<String, List<String>> attendList = memberBiz.getAllAttendHistory(memberVO, educationId);
-		EducationVO eduInfo = memberBiz.getOneEducationByIdAndEducationId(educationId, memberVO.getId());
+		
 		ModelAndView view = new ModelAndView();
 		view.addObject("eduInfo", eduInfo);
 		view.addObject("attendList", attendList);

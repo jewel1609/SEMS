@@ -1005,4 +1005,9 @@ public class MemberBizImpl implements MemberBiz {
 		return memberDAO.getPreCourseList(educationSearchVO);
 	}
 
+	@Override
+	public EducationVO getOneEducationInfo(Map<String, String> eduIdAndMemberId) {
+		return memberDAO.getOneEducationInfo(eduIdAndMemberId);
+	}
+
 }
