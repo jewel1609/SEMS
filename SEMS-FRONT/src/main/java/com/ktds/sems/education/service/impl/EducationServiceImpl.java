@@ -822,7 +822,7 @@ public class EducationServiceImpl implements EducationService {
 		eduBBS.setAtcId(realAtcId);
 		
 		
-		//TODO 강의 아이디 받아와서 집어넣기
+		//강의 아이디 받아와서 집어넣기
 		eduBBS.setEduId(educationId);
 		
 		if ( !errors.hasErrors() ) {
