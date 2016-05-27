@@ -376,21 +376,17 @@ public class MemberControllerTest extends SemsTestCase {
 
 	@Test
 	public void writeResignCourseTest(){
-		String educationId = "ED-20160516-000185";
+		String educationId = "JunitEduId";
 		MockHttpSession session = new MockHttpSession();
 		MemberVO sessionMember = new MemberVO();
-		sessionMember.setId("test02");
+		sessionMember.setId("JunitMbrId");
 		session.setAttribute("_MEMBER_", sessionMember);
 		
 		ModelAndView view = new ModelAndView();
-		view.setViewName("member/resignCourseWrite");
+		view.setViewName("myPage/resignCourseWrite");
 		
-		if( view != null ){
-			assertEquals(view.getViewName(), memberController.writeResignCourse(educationId,session).getViewName());
-		}
-		else{
-			fail("Fail...");
-		}
+		assertEquals(view.getViewName(), memberController.writeResignCourse(educationId,session).getViewName());
+
 	}
 
 	@Test
