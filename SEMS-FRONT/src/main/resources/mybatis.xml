@@ -57,6 +57,9 @@
 		<typeAlias type="com.ktds.sems.team.vo.MinutesSearchVO" alias="MinutesSearchVO"/>
 		<typeAlias type="com.ktds.sems.team.vo.TeamBBSReplyVO" alias="TeamBBSReplyVO" />
 		<typeAlias type="com.ktds.sems.team.vo.TeamsListsVO" alias="TeamsListsVO"/>
+		<typeAlias type="com.ktds.sems.education.vo.EduNoticeVO" alias="EduNoticeVO"/>
+		<typeAlias type="com.ktds.sems.education.vo.EduNoticeListVO" alias="EduNoticeListVO" />
+		<typeAlias type="com.ktds.sems.education.vo.EduNoticeSearchVO" alias="EduNoticeSearchVO"/>
 	</typeAliases>
 
 	<mappers>
