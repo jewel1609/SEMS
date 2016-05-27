@@ -18,33 +18,7 @@
 </style>
 <script type="text/javascript" src="<c:url value='/resources/js/jquery.min.js'/>"></script>
 <script type="text/javascript">
-$(document).ready(function() {
-	$("#searchBtn").click(function() {
-		if ($("#startDate") || $("#endDate")) {
-			
-			var startDate = $("#startDate").val();
-			var endDate = $("#endDate").val();
 
-			if (startDate == "" || endDate == "") {
-
-				if (startDate == "") {
-					alert("검색 시작일을 입력해주세요.");
-					return;
-				}
-				if (endDate == "") {
-					alert("검색 종료일을 입력해주세요.");
-					return;
-				}
-			} else if (startDate > endDate) {
-				alert("검색일을 잘못 입력하셨습니다.");
-				return;
-			}
-		} else {
-			alert("검색 조건을 입력하세요.");
-		}
-		movePage('0');
-	});
-});
 </script>
 <title>수강생 출결 이력</title>
 </head>
@@ -73,7 +47,7 @@ $(document).ready(function() {
 						<td style="CURSOR:hand;" title="${ attend.leaveTime }">${ attend.attendTime }</td>
 						<td>
 						<c:if test="${ attend.state eq 'X' }">
-							${ attend.state } <a href="<c:url value='/attendanceHistory/updateState'/>">변경</a>
+							${ attend.state } <a href="">변경</a>
 						</c:if>
 						<c:if test="${ attend.state ne 'X' }">${ attend.state }</c:if>
 						</td>
@@ -148,11 +122,5 @@ $(document).ready(function() {
 		</tr>
 	</table>
 	
-	<form name="searchForm" id="searchForm">
-		<input type="date" id="startDate" name="startDate"/> 
-		<input type="date" id="endDate" name="endDate"/> 
-		<input type="button" id="searchBtn" value="검색" /> 
-		<input type="button" id="searchInitBtn" value="검색 초기화" />
-	</form>
 </body>
 </html>
