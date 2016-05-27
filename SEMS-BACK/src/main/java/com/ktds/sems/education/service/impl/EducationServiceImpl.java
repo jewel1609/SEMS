@@ -656,7 +656,7 @@ public class EducationServiceImpl implements EducationService {
 		
 		ModelAndView view = new ModelAndView();
 		
-		if (educationInfoList.size() == 0) {
+		if (attendanceList.size() == 0 || educationInfoList.size() == 0) {
 			view.setViewName("redirect:/attendanceHistory/memberList");
 			//view = this.getAllMemberList();
 			//view.addObject("errorCode", "NOATD");
@@ -699,7 +699,7 @@ public class EducationServiceImpl implements EducationService {
 		
 		ModelAndView view = new ModelAndView();
 		
-		if (educationVO == null) {
+		if (allMemberList.size() == 0 || educationVO == null) {
 			view.setViewName("redirect:/attendanceHistory/educationList");
 		} else {
 			view.setViewName("education/attendanceOneEduList");
@@ -740,7 +740,7 @@ public class EducationServiceImpl implements EducationService {
 		
 		ModelAndView view = new ModelAndView();
 		
-		if (educationVO == null) {
+		if (allMemberList.size() == 0 || educationVO == null) {
 			view.setViewName("redirect:/attendanceHistory/teamList");
 		} else {
 			view.setViewName("education/attendanceOneTeamList");
