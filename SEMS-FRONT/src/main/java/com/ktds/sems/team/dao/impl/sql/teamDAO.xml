@@ -154,7 +154,7 @@
 		FROM	TEAM_BBS
 	 </select>
 	
-	<select id="getTeamBBSList" resultType="TeamBBSVO">
+	<select id="getTeamBBSList" parameterType ="TeamSearchVO" resultType="TeamBBSVO">
 		SELECT	TEAM_BBS.TEAM_BBS_ID teamBBSId,
 	    		TEAM_BBS.TEAM_ID teamId, 
 	    		TEAM_BBS.TITLE title, 
@@ -165,7 +165,7 @@
 			    TEAM_BBS.MBR_ID memberId, 
 			    TEAM_BBS.CREATED_DATE createdDate, 
 		   		TEAM_BBS.MODIFIED_DATE modifiedDate,
-		   		TEAM_BBS.IS_NOTICE isNotice
+		   		TEAM_BBS.IS_NOTICE isNotice,
 		   		FILES.FCOUNT fileCount		
 		FROM	(
 					SELECT	ROWNUM AS RNUM
