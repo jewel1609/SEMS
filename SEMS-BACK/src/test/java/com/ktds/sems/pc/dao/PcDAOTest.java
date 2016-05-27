@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ktds.sems.SemsTestCase;
 import com.ktds.sems.Testable;
+import com.ktds.sems.pc.vo.PcVO;
 import com.ktds.sems.pc.vo.ReportedPcSearchVO;
 import com.ktds.sems.pc.vo.ReportedPcVO;
 import com.ktds.sems.pc.vo.UsedPcSearchVO;
@@ -31,24 +32,37 @@ public class PcDAOTest extends SemsTestCase {
 	private PcDAO pcDAO;
 	
 	@Before
-	public void setUp(){
+	public void setUp() {
 		testHelper(new Testable() {
-			
 			@Override
 			public void preparedTest() {
-				
+				PcVO pcVO = new PcVO();
+				pcVO.setEducationPlaceId("test");
+				pcVO.setEducationPlaceName("testEducationPlaceName");
+				pcVO.setEducationLocation("testEducationLocation");
+				pcVO.setPcId("test");
+				pcVO.setPcName("testPcName");
+				pcVO.setIp("testIp");
+				pcDAO.doRegistEduPlace(pcVO);
+				pcDAO.doRegistPC(pcVO);
 			}
 		});
-		
 	}
-	
+
 	@After
 	public void tearDown() {
 		testHelper(new Testable() {
-			
 			@Override
 			public void preparedTest() {
-				
+				PcVO pcVO = new PcVO();
+				pcVO.setEducationPlaceId("test");
+				pcVO.setEducationPlaceName("testEducationPlaceName");
+				pcVO.setEducationLocation("testEducationLocation");
+				pcVO.setPcId("test");
+				pcVO.setPcName("testPcName");
+				pcVO.setIp("testIp");
+				pcDAO.doActionDeleteEduPlace(pcVO.getEducationPlaceId());
+				pcDAO.doActionDeleteEduPC(pcVO.getPcId());
 			}
 		});
 	}
