@@ -759,4 +759,45 @@
 		WHERE	BBS_ID = #{teamBBSId}
 		AND		MBR_ID	= #{memberId}
 	</update>
+	
+	<insert id="insertNewEducation" parameterType="educationVO">
+
+		INSERT INTO SEMS.EDU_INFO (
+									   EDU_ID 
+									   , EDU_CTGR  
+									   , EDU_TTL  
+									   , MBR_ID 
+									   , MAX_MBR 
+									   , EDU_LOC 
+									   , EDU_CLCM 
+									   , EDU_INTR 
+									   , SRT_DATE 
+									   , END_DATE 
+									   , START_TM 
+									   , END_TM 
+									   , EDU_TP 
+									   , COST 
+									) 
+		VALUES 					 (	#{educationId}
+									 , #{educationCategory}
+									 , #{educationTitle}
+									 , #{memberId}
+									 , #{maxMember}
+									 , #{educationLocation}
+									 , #{educationCurriculum}
+									 , #{educationIntroduce}
+									 , #{startDate}
+									 , #{endDate }
+									 , #{startTime}
+									 , #{endTime}
+									 , #{educationType}
+									 , #{cost}
+								)
+	</insert>
+	
+	<delete id="deleteEducation" parameterType="string">
+		DELETE 
+		FROM	SEMS.EDU_INFO
+		WHERE	EDU_ID = #{educationId}
+	</delete>
 </mapper>

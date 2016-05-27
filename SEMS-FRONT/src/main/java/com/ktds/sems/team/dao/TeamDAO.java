@@ -2,6 +2,7 @@ package com.ktds.sems.team.dao;
 
 import java.util.List;
 
+import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.team.vo.MinutesSearchVO;
 import com.ktds.sems.team.vo.MinutesVO;
@@ -124,5 +125,9 @@ public interface TeamDAO {
 	public int removeHitsRecord(String bbsHistoryId);
 
 	public void doDeleteTeamByTeamName(String teamName);
+
+	public void insertNewEducation(EducationVO educationVO);
+
+	public void deleteEducation(String educationId);
 
 }
