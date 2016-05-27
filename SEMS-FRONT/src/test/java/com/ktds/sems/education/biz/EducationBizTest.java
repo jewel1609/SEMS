@@ -18,6 +18,8 @@ import com.ktds.sems.SemsTestCase;
 import com.ktds.sems.education.vo.EduQnaListVO;
 import com.ktds.sems.education.vo.EduQnaSearchVO;
 import com.ktds.sems.education.vo.EduQnaVO;
+import com.ktds.sems.education.vo.EducationQNABBSSearchVO;
+import com.ktds.sems.education.vo.EducationQNABBSVO;
 import com.ktds.sems.education.vo.EducationQNAReplyListVO;
 import com.ktds.sems.education.vo.EducationQNAReplySearchVO;
 import com.ktds.sems.education.vo.EducationQNAReplyVO;
@@ -684,6 +686,34 @@ public class EducationBizTest extends SemsTestCase {
 	public void checkAdoptReplyTest() {
 		String replyId = "ER-20160525-000869";
 		boolean result = educationBiz.checkAdoptReply(replyId);
+		assertNotNull(result);
+	}
+	
+	@Test
+	public void getAllEducationQNAListTest() {
+		EducationQNABBSSearchVO searchVO = new EducationQNABBSSearchVO();
+		searchVO.setEducationId("ED-20160519-000233");
+		Paging paging = new Paging();
+		paging.setPageNumber(0 + "");
+
+		int totalCount = educationBiz.getTotalEducationQNACount(searchVO);
+		paging.setTotalArticleCount(totalCount);
+
+		searchVO.setPageNo(0);
+		searchVO.setStartIndex(paging.getStartArticleNumber());
+		searchVO.setEndIndex(paging.getEndArticleNumber());
+		
+		List<EducationQNABBSVO> eduQnaBBSList = educationBiz.getAllEducationQNAList(searchVO);
+		assertNotNull(eduQnaBBSList);
+		
+	}
+	
+	@Test
+	public void getTotalEducationQNACountTest() {
+		EducationQNABBSSearchVO searchVO = new EducationQNABBSSearchVO();
+		searchVO.setEducationId("ED-20160519-000233");
+
+		int result = educationBiz.getTotalEducationQNACount(searchVO);
 		assertNotNull(result);
 	}
 }
