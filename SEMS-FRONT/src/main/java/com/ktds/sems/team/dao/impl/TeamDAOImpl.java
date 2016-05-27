@@ -285,6 +285,21 @@ public class TeamDAOImpl  extends SqlSessionDaoSupport implements TeamDAO{
 	}
 
 	@Override
+	public int deleteNewReply() {
+		return getSqlSession().delete("teamDAO.deleteNewReply");
+	}
+
+	@Override
+	public int initLikeRecord(TeamBBSVO TeamBBSVO) {
+		return getSqlSession().update("teamDAO.initLikeRecord", TeamBBSVO);
+	}
+
+	@Override
+	public int removeHitsRecord(String bbsHistoryId) {
+		return getSqlSession().delete("teamDAO.removeHitsRecord",bbsHistoryId);
+	}
+
+	@Override
 	public void doDeleteTeamByTeamName(String teamName) {
 		getSqlSession().delete("teamDAO.doDeleteTeamByTeamName", teamName);
 	}
