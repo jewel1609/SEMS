@@ -38,6 +38,7 @@ import com.ktds.sems.education.vo.EducationQNAReplyVO;
 import com.ktds.sems.education.vo.EducationReportVO;
 import com.ktds.sems.education.vo.EducationSearchVO;
 import com.ktds.sems.education.vo.EducationVO;
+import com.ktds.sems.education.vo.FileBBSSearchVO;
 import com.ktds.sems.education.vo.QNAListVO;
 import com.ktds.sems.education.vo.QNAVO;
 import com.ktds.sems.education.vo.ReportReplyVO;
@@ -828,6 +829,62 @@ public class EducationServiceTest extends SemsTestCase {
 		
 		String result = educationService.plusRecommendReply(replyId, session);
 		assertTrue(result == "OK");
+	}
+	
+	@Test
+	public void showEducationFileBBSPageTest () {
+		FileBBSSearchVO searchVO = new FileBBSSearchVO();
+		String educationId = "ED-20160513-000176";
+		int pageNo = 0;
+		
+		ModelAndView view = educationService.showEducationFileBBSPage(educationId, searchVO, pageNo);
+		
+		if (view != null) {
+			assertNotNull(view);
+			
+			String viewName = view.getViewName();
+			assertNotNull(viewName);
+			assertEquals(viewName, "education/educationFileBBS");
+			
+			assertNotNull(view.getModelMap().get("searchVO"));
+			assertNotNull(view.getModelMap().get("educationFileBBSList"));
+			assertNotNull(view.getModelMap().get("teacherId"));
+			assertNotNull(view.getModelMap().get("eduNoticeListVO"));
+		}
+		else {
+			fail("실패....");
+		}
+	}
+	
+	@Test
+	public void getEduBoardByEducationIdTest () {
+		String educationId = "ED-20160520-000278";
+		
+		MockHttpSession session = new MockHttpSession();
+		MemberVO member = new MemberVO();
+		
+		member.setId("oph312");
+		session.setAttribute(Session.MEMBER, member);
+		
+		ModelAndView view = educationService.getEduBoardByEducationId(educationId, session);
+		
+		if (view != null) {
+			assertNotNull(view);
+			
+			String viewName = view.getViewName();
+			assertNotNull(viewName);
+			assertEquals(viewName, "myPage/educationBBS");
+			
+			assertNotNull(view.getModelMap().get("memberList"));
+			assertNotNull(view.getModelMap().get("educationVO"));
+			assertNotNull(view.getModelMap().get("educationItems"));
+			assertNotNull(view.getModelMap().get("educationQNAList"));
+			assertNotNull(view.getModelMap().get("educationReportList"));
+		}
+		else {
+			fail("실패....");
+		}
+		
 	}
 	
 	
