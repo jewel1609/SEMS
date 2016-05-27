@@ -83,8 +83,6 @@ public interface EducationBiz {
 
 	public List<EduReportVO> getAllEduReportHistory(EduReportSearchVO reportSearchVO);
 	
-	public int getTotalEduFileNoticeCount( EduNoticeSearchVO eduNoticeSearchVO);
-
 	public List<EduNoticeVO> getAllEduFileNotice( EduNoticeSearchVO eduNoticeSearchVO);
 
 	public EduNoticeVO getOneNotice(String eduNoticeId);

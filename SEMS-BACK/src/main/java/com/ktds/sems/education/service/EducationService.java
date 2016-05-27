@@ -51,11 +51,11 @@ public interface EducationService {
 
 	public ModelAndView viewReportHistoryPage(EduReportSearchVO reportSearchVO, int pageNo);
 	
-	public ModelAndView viewDetail(String memberId, String eduNoticeId);
+	public ModelAndView viewNoticeDetailPage(String memberId, String eduNoticeId);
 
 	public String doDeleteEduNotice(String educationId, String eduNoticeId);
 
-	public String massiveDeleteNoice(String educationId, String[] deleteNoiceIds);
+	public String massiveDeleteNotice(String educationId, String[] deleteNoiceIds);
 
 	public ModelAndView viewModifyNoticePage(String eduNoticeId);
 

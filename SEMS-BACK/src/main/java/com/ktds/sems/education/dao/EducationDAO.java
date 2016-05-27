@@ -68,7 +68,6 @@ public interface EducationDAO {
 	public List<AttendVO> getOneMemberAttendance(String memberId);
 	public List<EducationVO> getAllStartedEducationList();
 	public List<MemberVO> getAllMemberListByEduId(String educationId);
-	public int getTotalEduFileNoticeCount(EduNoticeSearchVO eduNoticeSearchVO);
 	public List<EduNoticeVO> getAllEduFileNotice(EduNoticeSearchVO eduNoticeSearchVO);
 	public EduNoticeVO getOneNotice(String eduNoticeId);
 	public void addhits(String eduNoticeId);
@@ -92,4 +91,6 @@ public interface EducationDAO {
 	public int getNextReReplyEval();
 	public int checkReReplyEval(ReRplyEvalVO reRplyEvalVO);
 	public int insertReReplyEvalByDislike(ReRplyEvalVO reRplyEvalVO);
+	public String getOneEduNoticeId();
+	public String getOneEducationId();
 }

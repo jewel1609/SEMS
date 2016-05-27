@@ -319,17 +319,15 @@
 		</if>
 		ORDER	BY	ATC_ID DESC
 	</select>
-	
+
 	<select id="getAllEduReport" parameterType="EduReportSearchVO" resultType="EduReportVO">
 		 SELECT ATC_ID eduReportId
 		 		, EDU_ID educationId
-		 		, IS_DELETE isDelete
 		 		, MBR_ID memberId
 		 		, TITLE title
 		 		, CONTENTS contents
-		 		, CREATE_DATE createDate
-		 		, MODIFY_DATE modifyDate
-		 		, HITS hits
+		 		, START_DATE 
+		 		, END_DATE 
 		FROM	(
 					SELECT	ROWNUM AS RNUM
 							, EDU_RPT.*
@@ -513,10 +511,6 @@
 	
 	</insert>
 	
-	<select id="getTotalEduFileNoticeCount" resultType="_int">
-		SELECT	COUNT(IMP_ATC_ID)
-		FROM	IMP_ATC
-	</select>
 	
 	<select id="getAllEduFileNotice" parameterType="EduNoticeSearchVO" resultType="EduNoticeVO">
 		SELECT	IMP_ATC_ID eduNoticeId
@@ -768,6 +762,18 @@
 		AND		CL.STAT = 'EDU_JN_C'
 		AND		MBR.MBR_TP = 'MBR'
 		AND     INFO.SRT_DATE <![CDATA[<]]> SYSDATE
+	</select>
+	
+	<select id="getOneEduNoticeId" resultType="string">
+		SELECT  IMP_ATC_ID
+		FROM    IMP_ATC
+		WHERE   ROWNUM=1
+	</select>
+	
+	<select id="getOneEducationId" resultType="string">
+		SELECT  EDU_ID
+		FROM    EDU_INFO
+		WHERE   ROWNUM=1
 	</select>
 	
 	<select id="confirmMemberOfEdu" parameterType="map" resultType="_int">

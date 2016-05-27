@@ -143,8 +143,8 @@ public class EducationController {
 	}
 	
 	@RequestMapping("/{educationId}/eduFileNotice/detail/{eduNoticeId}")
-	public ModelAndView viewDetailPage(@PathVariable String educationId, @PathVariable String eduNoticeId){
-		return educationService.viewDetail(educationId , eduNoticeId );
+	public ModelAndView viewNoticeDetailPage(@PathVariable String educationId, @PathVariable String eduNoticeId){
+		return educationService.viewNoticeDetailPage(educationId , eduNoticeId );
 	}
 	
 	@RequestMapping("/{educationId}/eduFileNotice/delete/{eduNoticeId}")
@@ -153,9 +153,9 @@ public class EducationController {
 	}
 	
 	@RequestMapping("/{educationId}/massiveDeleteNotice")
-	public String massiveDeleteNoice(@PathVariable String educationId, HttpServletRequest request){
+	public String massiveDeleteNotice(@PathVariable String educationId, HttpServletRequest request){
 		String[] deleteNoiceIds = request.getParameterValues("deleteNoticeId");
-		return educationService.massiveDeleteNoice(educationId, deleteNoiceIds);
+		return educationService.massiveDeleteNotice(educationId, deleteNoiceIds);
 	}
 	
 	@RequestMapping("/{educationId}/modify/{eduNoticeId}")

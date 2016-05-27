@@ -178,10 +178,6 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 		return getSqlSession().insert("EducationDAO.insertNewEduFileNotice", eduNoticeVO);
 	}
 
-	@Override
-	public int getTotalEduFileNoticeCount(EduNoticeSearchVO eduNoticeSearchVO) {
-		return getSqlSession().selectOne("EducationDAO.getTotalEduFileNoticeCount");
-	}
 
 	@Override
 	public List<EduNoticeVO> getAllEduFileNotice(EduNoticeSearchVO eduNoticeSearchVO) {
@@ -193,7 +189,6 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 	public EduNoticeVO getOneNotice(String eduNoticeId) {
 		return getSqlSession().selectOne("EducationDAO.getOneNotice", eduNoticeId);
 	}
-
 	@Override
 	public void addhits(String eduNoticeId) {
 		getSqlSession().update("EducationDAO.addhits", eduNoticeId);
@@ -222,6 +217,16 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 	@Override
 	public List<EduReportVO> getAllEduReportHistory(EduReportSearchVO reportSearchVO) {
 		return getSqlSession().selectList("EducationDAO.getAllEduReportHistory", reportSearchVO);
+	}
+
+	@Override
+	public String getOneEduNoticeId() {
+		return getSqlSession().selectOne("EducationDAO.getOneEduNoticeId");
+	}
+
+	@Override
+	public String getOneEducationId() {
+		return getSqlSession().selectOne("EducationDAO.getOneEducationId");
 	}
 
 	@Override

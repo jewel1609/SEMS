@@ -311,10 +311,6 @@ public class EducationBizImpl implements EducationBiz {
 		
 	}
 
-	@Override
-	public int getTotalEduFileNoticeCount( EduNoticeSearchVO eduNoticeSearchVO) {
-		return educationDAO.getTotalEduFileNoticeCount(eduNoticeSearchVO);
-	}
 
 	@Override
 	public List<EduNoticeVO> getAllEduFileNotice( EduNoticeSearchVO eduNoticeSearchVO) {

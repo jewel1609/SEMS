@@ -411,7 +411,7 @@ public class EducationServiceImpl implements EducationService {
 
 		eduFileListVO.setPaging(paging);
 		int totalReportCount = educationBiz.getTotalEduFileCount(eduFileSearchVO);
-		int totalNoticeCount = educationBiz.getTotalEduFileNoticeCount(eduNoticeSearchVO);
+//		int totalNoticeCount = educationBiz.getTotalEduFileNoticeCount(eduNoticeSearchVO);
 		paging.setPageNumber(pageNo + "");
 		paging.setTotalArticleCount(totalReportCount);
 
@@ -511,7 +511,7 @@ public class EducationServiceImpl implements EducationService {
 	}
 
 	@Override
-	public ModelAndView viewDetail(String memberId, String eduNoticeId) {
+	public ModelAndView viewNoticeDetailPage(String memberId, String eduNoticeId) {
 
 		ModelAndView view = new ModelAndView();
 
@@ -539,7 +539,7 @@ public class EducationServiceImpl implements EducationService {
 	}
 
 	@Override
-	public String massiveDeleteNoice(String educationId, String[] deleteNoiceIds) {
+	public String massiveDeleteNotice(String educationId, String[] deleteNoiceIds) {
 
 		if (deleteNoiceIds != null || deleteNoiceIds.length > 0) {
 
@@ -1285,5 +1285,4 @@ public class EducationServiceImpl implements EducationService {
 		return source;
 		
 	}
-
 }
