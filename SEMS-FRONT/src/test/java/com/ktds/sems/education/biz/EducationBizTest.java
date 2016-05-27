@@ -18,6 +18,7 @@ import com.ktds.sems.SemsTestCase;
 import com.ktds.sems.education.vo.EduQnaListVO;
 import com.ktds.sems.education.vo.EduQnaSearchVO;
 import com.ktds.sems.education.vo.EduQnaVO;
+import com.ktds.sems.education.vo.EducationFileBBSVO;
 import com.ktds.sems.education.vo.EducationQNABBSSearchVO;
 import com.ktds.sems.education.vo.EducationQNABBSVO;
 import com.ktds.sems.education.vo.EducationQNAReplyListVO;
@@ -26,6 +27,7 @@ import com.ktds.sems.education.vo.EducationQNAReplyVO;
 import com.ktds.sems.Testable;
 import com.ktds.sems.education.vo.EducationReportSearchVO;
 import com.ktds.sems.education.vo.EducationReportVO;
+import com.ktds.sems.education.vo.FileBBSSearchVO;
 import com.ktds.sems.education.vo.QNASearchVO;
 import com.ktds.sems.education.vo.QNAVO;
 import com.ktds.sems.education.vo.ReRplyEvalVO;
@@ -716,4 +718,24 @@ public class EducationBizTest extends SemsTestCase {
 		int result = educationBiz.getTotalEducationQNACount(searchVO);
 		assertNotNull(result);
 	}
+	
+	@Test
+	public void getEducationFileBBSListTest() {
+		String educationId = "ED-20160520-000278";
+		
+		FileBBSSearchVO searchVO = new FileBBSSearchVO();
+		searchVO.setEndIndex(10);
+		searchVO.setStartIndex(1);
+		searchVO.setEducationId(educationId);
+		
+		List<EducationFileBBSVO> educationItems = educationBiz.getEducationFileBBSList(searchVO);
+		
+		if ( educationItems != null ) {
+			assertNotNull(educationItems);
+		}
+		else {
+			fail("실패....");
+		}
+	}
+
 }
