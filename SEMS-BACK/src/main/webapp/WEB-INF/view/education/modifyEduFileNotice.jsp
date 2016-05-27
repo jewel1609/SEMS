@@ -58,11 +58,11 @@
 		style="width: 70%; height: 100%; border: thin; border-style: double; border-radius: 5px; padding: 5px;">
 		<form:form id="registerForm" commandName="EduNoticeVO" method="post" >
 				<select name="noticeType" style="width: auto;">
-					<c:if test="${ noticeType eq normal }">
-			        	<option value="normal">일반 공지사항</option>
+					<c:if test="${ eduNotice.noticeType eq 'normal' }">
+			        	<option value="normal" selected>일반 공지사항</option>
 			        </c:if>
-			        <c:if test="${ noticeType eq important}">
-			        	<option value="important" >전체 공지사항</option>
+			        <c:if test="${ eduNotice.noticeType eq 'important'}">
+			        	<option value="important" selected >전체 공지사항</option>
 			        </c:if>
 			    </select> 
 			
