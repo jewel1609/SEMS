@@ -270,4 +270,14 @@ public class TeamServiceTest extends SemsTestCase {
 		assertNotNull(teamService.doSearchList(teamBBSVO, 0));
 	}
 	
+	@Test
+	public void viewReReplyPage(){
+		MockHttpSession session = new MockHttpSession();
+		MemberTypeVO memberType = new MemberTypeVO();
+		session.setAttribute(Session.MEMBER_TYPE, memberType.getCdId());
+		String teamBBSId = "test";
+		String parentReplyId = "test1";
+		ModelAndView view = teamService.viewReReplyPage(teamBBSId,session,parentReplyId );
+		assertNotNull(view);
+	}
 }
