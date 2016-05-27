@@ -33,6 +33,11 @@
 		});
 		
 		$("#writeReplyButton").click(function () {
+			if($("#description").val() == '') {
+				alert("질문을 입력하세요!");
+				return;
+			}
+			
 			$("#writeReplyForm").attr("action", "<c:url value='/education/fileBBS/doWriteReply' />");
 			$("#writeReplyForm").submit();
 		});
