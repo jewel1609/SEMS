@@ -923,10 +923,10 @@ public class MemberServiceTest extends SemsTestCase {
 	public void dropCourseApply(){
 		MockHttpSession session = new MockHttpSession();
 		MemberVO sessionMember = new MemberVO();
-		sessionMember.setId("test02");
+		sessionMember.setId("JUnit");
 		session.setAttribute("_MEMBER_", sessionMember);
-		String educationId = "ED-20160516-000185";
-		String courseDropReason = "JUnit..............";
+		String educationId = "JUnit";
+		String courseDropReason = "JUnit";
 		
 		String dropCourseApply = memberService.dropCourseApply(educationId, session, courseDropReason);
 		
@@ -939,10 +939,10 @@ public class MemberServiceTest extends SemsTestCase {
 		ModelAndView view = new ModelAndView();
 		MockHttpSession session = new MockHttpSession();
 		MemberVO sessionMember = new MemberVO();
-		sessionMember.setId("test02");
+		sessionMember.setId("JunitMbrId");
 		session.setAttribute("_MEMBER_", sessionMember);
-		String educationId = "ED-20160516-000185";
-		view.setViewName("member/resignCourseWrite");
+		String educationId = "JunitEduId";
+		view.setViewName("myPage/resignCourseWrite");
 		
 		assertEquals(view.getViewName(),memberService.writeResignCourse(educationId, session).getViewName());
 	}
