@@ -288,10 +288,22 @@ public class MemberBizTest extends SemsTestCase {
 		assertTrue(checkVerifyPn);
 	}
 	@Test
+	public void isVerifyPhoneNumberTestError(){
+		String phoneNumber = "01000-0000-1154";
+		boolean checkVerifyPn = memberBiz.isVerifyPhoneNumber(phoneNumber);
+		assertTrue(!checkVerifyPn);
+	}
+	@Test
 	public void isVerifyEmailTest(){
 		String email = "junit1@naver.com";
 		boolean checkVerifyEmail = memberBiz.isVerifyEmail(email);
 		assertTrue(checkVerifyEmail);
+	}
+	@Test
+	public void isVerifyEmailTestError(){
+		String email = "junit1!naver.comcom";
+		boolean checkVerifyEmail = memberBiz.isVerifyEmail(email);
+		assertTrue(!checkVerifyEmail);
 	}
 	@Test
 	public void isExistEmailTest(){
