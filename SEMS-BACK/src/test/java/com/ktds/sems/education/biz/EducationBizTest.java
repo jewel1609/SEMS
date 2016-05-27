@@ -3,6 +3,7 @@ package com.ktds.sems.education.biz;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -30,7 +31,10 @@ import org.springframework.web.multipart.MultipartFile;
 import com.ktds.sems.SemsTestCase;
 import com.ktds.sems.Testable;
 import com.ktds.sems.common.Session;
+import com.ktds.sems.education.dao.EducationDAO;
 import com.ktds.sems.education.vo.EduFileSearchVO;
+import com.ktds.sems.education.vo.EduNoticeSearchVO;
+import com.ktds.sems.education.vo.EduNoticeVO;
 import com.ktds.sems.education.vo.EduQnaSearchVO;
 import com.ktds.sems.education.vo.EduReportSearchVO;
 import com.ktds.sems.education.vo.EduReportVO;
@@ -47,6 +51,9 @@ public class EducationBizTest extends SemsTestCase {
 
 	@Autowired
 	private EducationBiz educationBiz;
+	
+	@Autowired
+	private EducationDAO educationDAO;
 	
 	/**
 	 * @author 김동규 
@@ -815,7 +822,7 @@ public class EducationBizTest extends SemsTestCase {
 		boolean result = educationBiz.modifyNewEducation(educationVO);
 		assertEquals(result, true);
 	}
-	
+
 	public class EducationValidator implements Validator {
 		
 		@Override
@@ -975,6 +982,74 @@ public class EducationBizTest extends SemsTestCase {
 		assertTrue(reports.size() > 0);
 	}
 	
+	@Test
+	public void writeEduFileNoticeActionTest(){
+		
+		EduNoticeVO eduNoticeVO = new EduNoticeVO();
+		eduNoticeVO.setEducationId(educationDAO.getOneEducationId());
+		eduNoticeVO.setMemberId("JUNIT");
+		eduNoticeVO.setTitle("JUNIT 공지 테스ㅡㅌ");
+		eduNoticeVO.setContents("ㅋㅋㅋㅋㅋㅋㅋㅋ");
+		eduNoticeVO.setCreateDate("2016/05/24");
+		eduNoticeVO.setNoticeType("normal");
+		
+		boolean result = educationBiz.writeEduFileNoticeAction(eduNoticeVO);
+		assertTrue(result);
+	}
+	
+	@Test
+	public void getAllEduFileNoticeTest(){
+		
+		EduNoticeSearchVO eduNoticeSearchVO = new EduNoticeSearchVO();
+		eduNoticeSearchVO.setEducationId(educationDAO.getOneEducationId());
+		
+		List<EduNoticeVO> eduNoticeList = educationBiz.getAllEduFileNotice(eduNoticeSearchVO);
+		
+		assertNotNull(eduNoticeList);
+		if ( eduNoticeList != null){
+			assertTrue(eduNoticeList.size() > 0);
+		}else{
+			fail("Fail...");
+		}
+
+	}
+	
+	@Test
+	public void getOneNoticeTest(){
+		
+		String eduNoticeId = educationDAO.getOneEduNoticeId();
+		EduNoticeVO noticeVO = 	educationBiz.getOneNotice(eduNoticeId);
+		assertNotNull(noticeVO);
+		
+	}
+	
+	
+	@Test
+	public void doDeleteEduNoticeTest(){
+		
+		String eduNoticeId = educationDAO.getOneEduNoticeId();
+		boolean result =  educationBiz.doDeleteEduNotice(eduNoticeId);
+		assertTrue(result);
+		
+	}
+	
+	@Test
+	public void doEduFileNoticeModifyTest(){
+		
+		String eduNoticeId = educationDAO.getOneEduNoticeId();
+		
+		EduNoticeVO eduNoticeVO = new EduNoticeVO();
+		eduNoticeVO.setEduNoticeId(eduNoticeId);
+		eduNoticeVO.setEducationId("IMP-20160526-000045");
+		eduNoticeVO.setMemberId("JUNIT");
+		eduNoticeVO.setTitle("JUNIT 공지 테스ㅡㅌ");
+		eduNoticeVO.setContents("ㅋㅋㅋㅋㅋㅋㅋㅋ");
+		eduNoticeVO.setCreateDate("2016/05/24");
+		eduNoticeVO.setNoticeType("normal");
+		
+		boolean result = educationBiz.doEduFileNoticeModify(eduNoticeVO);
+		assertTrue(result);
+	}
 	@Test
 	public void getAllMemberListTest() {
 		List<MemberVO> memberList = educationBiz.getAllMemberList();
