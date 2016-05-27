@@ -24,7 +24,6 @@ import com.ktds.sems.member.vo.MbrTpVO;
 import com.ktds.sems.member.vo.MemberVO;
 
 @Transactional
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MemberDAOTest extends SemsTestCase {
 
 	@Autowired
@@ -43,6 +42,11 @@ public class MemberDAOTest extends SemsTestCase {
 				codeMngVO.setCdTp("TE");
 				codeMngVO.setCdTp2("ST");
 				memberDAO.doCodeMngInsert(codeMngVO);
+				
+				MbrTpVO mbrTpVO = new MbrTpVO();
+				mbrTpVO.setCdId("TEST");
+				mbrTpVO.setCdNm("JUNITTEST");
+				memberDAO.doInsertMbrTp(mbrTpVO);
 			}
 		});
 	}
@@ -53,9 +57,8 @@ public class MemberDAOTest extends SemsTestCase {
 
 			@Override
 			public void preparedTest() {
-
-				String cdId = "TEST_CM2";
-				memberDAO.doCodeMngDelete(cdId);
+				memberDAO.doCodeMngDelete("TEST_CM2");
+				memberDAO.doMbrTpDelete("TEST");
 			}
 		});
 	}
@@ -80,7 +83,7 @@ public class MemberDAOTest extends SemsTestCase {
 	public void loginTest() {
 		MemberVO loginVO = new MemberVO();
 		loginVO.setId("cocomo12");
-		loginVO.setPassword("cbf430bc6a30cc454e07fe1243eed8f7cb712395dfefbe38ff0c1c030b8e136c");
+		loginVO.setPassword("afd547fcea7810b7fb5512c0eff23922b5a0cdfa0c731c4447e7d9af31f7e955");
 
 		MemberVO memberVO = memberDAO.login(loginVO);
 		if (memberVO != null) {
@@ -233,6 +236,9 @@ public class MemberDAOTest extends SemsTestCase {
 
 	@Test
 	public void doInsertMbrTpTest() {
+		
+		tearDown();
+		
 		MbrTpVO mbrTpVO = new MbrTpVO();
 		mbrTpVO.setCdId("TEST");
 		mbrTpVO.setCdNm("JUNITTEST");
