@@ -206,7 +206,7 @@ public class TeamServiceImpl implements TeamService{
 		teamsListsVO.setTeamsListsVO(teamBiz.getOneTeamDetail(teamListId));
 
 		view.setViewName("team/teamDetail");
-		view.addObject("teamsListVO", teamBiz.getOneTeamDetail(teamListId));
+		view.addObject("teamsListsVO",teamsListsVO);
 		return view;
 	}
 	
