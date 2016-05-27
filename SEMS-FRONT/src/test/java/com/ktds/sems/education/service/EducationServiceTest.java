@@ -33,6 +33,7 @@ import com.ktds.sems.education.vo.EduQnaSearchVO;
 import com.ktds.sems.education.vo.EduQnaVO;
 import com.ktds.sems.education.vo.EduReplyListVO;
 import com.ktds.sems.education.vo.EducationListVO;
+import com.ktds.sems.education.vo.EducationQNABBSVO;
 import com.ktds.sems.education.vo.EducationQNAReplyVO;
 import com.ktds.sems.education.vo.EducationReportVO;
 import com.ktds.sems.education.vo.EducationSearchVO;
@@ -747,5 +748,60 @@ public class EducationServiceTest extends SemsTestCase {
 		String result = educationService.addQnaEduReplyDisLike(replyId, session);
 		assertTrue(result == "OK");
 	}
+	
+	@Test
+	public void viewEduBoardQNADetailPageTest() {
+		
+		String atcId = "AT-20160524-000034";
+		int pageNo = 0;
+		MockHttpSession session = new MockHttpSession();
+		MemberVO member = new MemberVO();
+		member.setId("test02");
+		session.setAttribute("_MEMBER_", member);
+		
+		ModelAndView view = educationService.viewEduBoardQNADetailPage(atcId, pageNo, session);
+		assertNotNull(view);
+		
+	}
+	
+	@Test
+	public void doQNAWriteTest() {
+		
+		String educationId = "ED-20160519-000233";
+
+		EducationQNABBSVO eduBBS = new EducationQNABBSVO();
+		MockHttpSession session = new MockHttpSession();
+		
+		eduBBS.setTitle("JUNIT_TITLE");
+		eduBBS.setContents("JUNIT_CONTENTS");
+		BindingResult errors = new BeanPropertyBindingResult(eduBBS, "eduBBS");
+		
+		MemberVO member = new MemberVO();
+		member.setId("test02");
+		session.setAttribute("_MEMBER_", member);
+		
+		ModelAndView view = educationService.doQNAWrite(eduBBS, errors, session, educationId);
+		assertNotNull(view);
+		
+	}
+	
+	@Test
+	public void getAllEducationQNAListTest() {
+		int pageNo = 0;
+		String educationId = "ED-20160519-000233"; 
+		String searchKeyword = "test";
+		String searchType = "selectMbrId";
+		MockHttpSession session = new MockHttpSession();
+		
+		
+		ModelAndView view = educationService.getAllEducationQNAList(pageNo, educationId, searchKeyword, searchType, session);
+		assertNotNull(view);
+	}
+	
+	
+	
+	
+	
+	
 	
 }
