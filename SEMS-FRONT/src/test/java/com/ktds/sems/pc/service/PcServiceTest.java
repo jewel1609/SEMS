@@ -146,28 +146,42 @@ public class PcServiceTest extends SemsTestCase {
 		assertNotNull(result);
 		assertEquals(result, "FAIL");
 	}
-
+	
 	@Test
 	public void doRegisterMyPcTest2() {
 		String educationId = "JunitTest";
 		String eduLocation = "JunitTest";
 		String usedPcIp = "10.225.152.167";
-
+		
 		MockHttpSession session = new MockHttpSession();
 		MemberVO memberVO = new MemberVO();
 		memberVO.setId("junitTest1316");
 		session.setAttribute(Session.MEMBER, memberVO);
-
+		
 		String result = pcService.doRegisterMyPc(educationId, eduLocation, usedPcIp, session);
 		assertNotNull(result);
 		assertEquals(result, "OK");
 	}
-
+	
 	@Test
 	public void doDeleteMyPcTest() {
 		String pcId = "JunitTest";
 		String result = pcService.doDeleteMyPc(pcId);
 		assertEquals(result, "redirect:/member/myPc");
+	}
+	
+	@Test
+	public void getEduLocationByIdTest() {
+		String educationId = "JunitTest";
+		
+		MockHttpSession session = new MockHttpSession();
+		MemberVO memberVO = new MemberVO();
+		memberVO.setId("junitTest1316");
+		session.setAttribute(Session.MEMBER, memberVO);
+		
+		MockHttpServletResponse response = new MockHttpServletResponse();
+		
+		pcService.getEduLocationById(educationId, response, session);
 	}
 
 }

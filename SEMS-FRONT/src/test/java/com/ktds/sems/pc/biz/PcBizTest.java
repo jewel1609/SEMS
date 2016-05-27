@@ -40,7 +40,7 @@ public class PcBizTest extends SemsTestCase {
 		
 		reportedPcSearchVO.setStartIndex(paging.getStartArticleNumber());
 		reportedPcSearchVO.setEndIndex(paging.getEndArticleNumber());
-
+		
 		List<ReportedPcVO> reportedPcList = pcBiz.getMyReportedPcList(reportedPcSearchVO);
 		
 		if(reportedPcList != null) {
