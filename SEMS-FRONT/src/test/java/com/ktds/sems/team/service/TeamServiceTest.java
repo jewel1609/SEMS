@@ -14,17 +14,16 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.BeanPropertyBindingResult;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.SemsTestCase;
 import com.ktds.sems.Testable;
 import com.ktds.sems.common.Session;
+import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.member.vo.MemberTypeVO;
 import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.team.biz.TeamBiz;
+import com.ktds.sems.team.dao.TeamDAO;
 import com.ktds.sems.team.vo.MinutesSearchVO;
 import com.ktds.sems.team.vo.TeamBBSVO;
 import com.ktds.sems.team.vo.TeamSearchVO;
@@ -38,6 +37,8 @@ public class TeamServiceTest extends SemsTestCase {
 	private TeamService teamService;
 	@Autowired
 	private TeamBiz teamBiz;
+	@Autowired
+	private TeamDAO teamDAO;
 
 	@Before
 	public void setUp() {
@@ -55,6 +56,24 @@ public class TeamServiceTest extends SemsTestCase {
 				String teamListId = "testTeamListId";
 				
 				teamService.massiveInsertMember(insertMemberIds, educationId, teamName, teamListId);
+				
+				EducationVO educationVO = new EducationVO();
+				educationVO.setEducationId("Junit");
+				educationVO.setEducationCategory("Juni");
+				educationVO.setEducationTitle("Junit");
+				educationVO.setMemberId("Junit");
+				educationVO.setMaxMember(10);
+				educationVO.setEducationLocation("Junit");
+				educationVO.setEducationCurriculum("Junit");
+				educationVO.setEducationIntroduce("Junit");
+				educationVO.setStartDate("Junit");
+				educationVO.setEndDate("Junit");
+				educationVO.setStartTime("Junit");
+				educationVO.setEndTime("Junit");
+				educationVO.setEducationType("Juni");
+				educationVO.setCost("Juni");
+				
+				teamDAO.insertNewEducation(educationVO);
 			}
 		});
 	}
@@ -71,6 +90,9 @@ public class TeamServiceTest extends SemsTestCase {
 				String memberId = "testMemberId";
 				String teamName = "testTeamName";
 				teamService.doDeleteTeamListByMemberId(memberId, teamName);
+				
+				String educationId = "Junit";
+				teamDAO.deleteEducation(educationId);
 			}
 		});
 	}
@@ -211,7 +233,7 @@ public class TeamServiceTest extends SemsTestCase {
 	public void getAllEduMember(){
 		
 		ModelAndView view = new ModelAndView();
-		String educationId = "junitId";
+		String educationId = "ED-20160519-000241";
 		MockHttpSession session = new MockHttpSession();
 		
 		MemberTypeVO memberType = new MemberTypeVO();
