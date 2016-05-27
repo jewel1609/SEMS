@@ -3,6 +3,7 @@ package com.ktds.sems.team.service;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.io.IOException;
@@ -19,6 +20,8 @@ import org.springframework.mock.web.MockHttpSession;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.mock.web.MockMultipartHttpServletRequest;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.BeanPropertyBindingResult;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -27,13 +30,18 @@ import com.ktds.sems.Testable;
 import com.ktds.sems.team.vo.TeamSearchVO;
 import com.ktds.sems.team.vo.TeamsListVO;
 import com.ktds.sems.team.vo.TeamsListsVO;
+
+import kr.co.hucloud.utilities.web.Paging;
+
 import com.ktds.sems.common.Session;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.member.vo.MemberTypeVO;
 import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.team.biz.TeamBiz;
 import com.ktds.sems.team.dao.TeamDAO;
+import com.ktds.sems.team.vo.MinutesListVO;
 import com.ktds.sems.team.vo.MinutesSearchVO;
+import com.ktds.sems.team.vo.MinutesVO;
 import com.ktds.sems.team.vo.TeamBBSVO;
 
 @Transactional
@@ -414,5 +422,83 @@ public class TeamServiceTest extends SemsTestCase {
 		assertNotNull(teamService.viewTeamBBSDetailPage(teamBBSId, pageNo ,session));
 	}
 	
+	@Test
+	public void writeNewMinutesTest() {
+		String teamId = "20";
+		
+		MinutesVO minutesVO = new MinutesVO();
+		MockHttpSession session = new MockHttpSession();
+		
+		minutesVO.setMinutesId("MINU-077");
+		minutesVO.setMinutesAgenda("Junit_Test");
+		minutesVO.setAttendance("Junit_Test");
+		minutesVO.setMinutesPlace("Junit_Test");
+		minutesVO.setMinutesContent("Junit_Test");
+		minutesVO.setDecisionSubject("Junit_Test");
+		minutesVO.setRemarks("Junit_Test");
+		minutesVO.setAgendaDate("2016-05-17");
+		minutesVO.setStartTime("10:00");
+		minutesVO.setEndTime("17:00");
+		
+		BindingResult errors = new BeanPropertyBindingResult(minutesVO, "minutesVO");
+		
+		MemberVO member = new MemberVO();
+		member.setId("test02");
+		session.setAttribute("_MEMBER_", member);
+		
+		ModelAndView view = teamService.writeNewMinutes( teamId, minutesVO, errors, session);
+		assertNotNull(view);
+	}
+	
+	@Test
+	public void viewListMinutesTest() {
+		
+		MinutesSearchVO minutesSearchVO = new MinutesSearchVO();
+		minutesSearchVO.setId("test02");
+		ModelAndView view = teamService.viewListMinutes(minutesSearchVO, 0);
+		
+		if ( view != null ) {
+			String viewName = view.getViewName();
+			assertNotNull(viewName);
+			assertEquals(viewName, "team/listMinutes");
+			
+			MinutesListVO minutesListVO = (MinutesListVO) view.getModel().get("minutesListVO");
+			minutesSearchVO = (MinutesSearchVO) view.getModel().get("minutesSearchVO");
+			assertNotNull(minutesListVO);
+			assertNotNull(minutesSearchVO);
+			
+			Paging paging = minutesListVO.getPaging();
+			assertNotNull(paging);
+			assertTrue(paging.getTotalArticleCount() > 0);
+			
+			List<MinutesVO> minutesList = minutesListVO.getMinutesList();
+			assertNotNull(minutesList);
+			assertTrue(minutesList.size() > 0);
+		}
+		else {
+			fail("viewListMinutesTest Fail");
+		}
+	}
+	
+	@Test
+	public void getOneDetailMinutes() {
+		
+		String MinutesId = "MINU-054";
+		
+		ModelAndView view = teamService.getOneDetailMinutes(MinutesId, null);
+		
+		assertNotNull(view);
+		
+		if ( view != null ) {
+			String viewName = view.getViewName();
+			assertNotNull(viewName);
+			assertEquals(viewName, "team/detailMinutes");
+		}
+		else {
+			fail("fail...");
+		}
+		
+		
+	}
 	
 }
