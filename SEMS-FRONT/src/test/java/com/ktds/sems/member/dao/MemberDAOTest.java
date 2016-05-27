@@ -26,6 +26,7 @@ import com.ktds.sems.education.vo.EducationSearchVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.QNAVO;
 import com.ktds.sems.education.vo.ReportReplyVO;
+import com.ktds.sems.member.vo.AttendVO;
 import com.ktds.sems.member.vo.LoginHistorySearchVO;
 import com.ktds.sems.member.vo.LoginHistoryVO;
 import com.ktds.sems.member.vo.MemberVO;
@@ -694,5 +695,23 @@ public class MemberDAOTest extends SemsTestCase {
 		educationSearchVO.setStartIndex(1);
 		educationSearchVO.setEndIndex(10);
 		assertTrue(memberDAO.getPreCourseList(educationSearchVO).size() >= 0);
+	}
+	
+	@Test
+	public void getAllAttendHistoryListByIdTest(){
+		Map<String, String> eduIdAndMemberId = new HashMap<String, String>();
+		eduIdAndMemberId.put("educationId", "ED-20160513-000166");
+		eduIdAndMemberId.put("memberId", "test02");
+		List<AttendVO> attendList = memberDAO.getAllAttendHistoryListById(eduIdAndMemberId);
+		assertTrue(attendList.size() >= 0);
+	}
+	
+	@Test
+	public void getOneEducationInfoTest(){
+		Map<String, String> eduIdAndMemberId = new HashMap<String, String>();
+		eduIdAndMemberId.put("educationId", "ED-20160513-000166");
+		eduIdAndMemberId.put("memberId", "test02");
+		EducationVO educationVO = memberDAO.getOneEducationInfo(eduIdAndMemberId);
+		assertNotNull(educationVO);
 	}
 }

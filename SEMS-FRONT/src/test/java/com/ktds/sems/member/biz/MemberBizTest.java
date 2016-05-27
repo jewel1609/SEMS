@@ -4,7 +4,9 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.After;
 import org.junit.Before;
@@ -22,6 +24,7 @@ import com.ktds.sems.common.Session;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationHistoryVO;
 import com.ktds.sems.education.vo.EducationSearchVO;
+import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.QNAVO;
 import com.ktds.sems.education.vo.ReportReplyVO;
 import com.ktds.sems.member.vo.LoginHistoryListVO;
@@ -652,4 +655,41 @@ public class MemberBizTest extends SemsTestCase {
 		educationSearchVO.setEndIndex(10);
 		assertTrue(memberBiz.getPreCourseList(educationSearchVO).size() >= 0);
 	}
+	
+	@Test
+	public void getAllAttendClassListByIdTest(){
+		
+		MemberVO loginVO = new MemberVO();
+		loginVO.setId("test02");
+		List<EducationVO> resultList = memberBiz.getAllAttendClassListById(loginVO);
+		assertNotNull(resultList);
+		assertTrue( resultList.size() >= 0 );
+	
+	}
+	
+	@Test
+	public void getOneEducationInfoTest(){
+		
+		Map<String, String> eduIdAndMemberId = new HashMap<String, String>();
+		eduIdAndMemberId.put("educationId", "ED-20160513-000166");
+		eduIdAndMemberId.put("memberId", "test02");
+		
+		EducationVO educationVO = memberBiz.getOneEducationInfo(eduIdAndMemberId);
+		assertNotNull(educationVO);
+		
+	}
+	
+	@Test
+	public void getAllAttendHistoryTest(){
+		
+		MemberVO memberVO = new MemberVO();
+		memberVO.setId("test02");
+		
+		String educationId = "ED-20160513-000166";
+		Map<String, List<String>> resultList = memberBiz.getAllAttendHistory(memberVO, educationId);
+		assertNotNull(resultList);
+		assertTrue(resultList.size() >= 0 );
+		
+	}
+
 }
