@@ -731,26 +731,36 @@ public class MemberServiceTest extends SemsTestCase {
 	}
 
 	@Test
-	public void registerStudent() {
-		ModelAndView view = memberService.registerStudent();
-
-		if (view != null) {
-			String viewName = view.getViewName();
+	public void registerStudentTest() {
+		ModelAndView view = new ModelAndView();
+		view = memberService.registerStudent();
+				
+		if(view != null) {
+			String viewName = view.getViewName(); 
 			assertNotNull(viewName);
 			assertEquals(viewName, "member/registerStudent");
-
 			List<HighestEducationLevelVO> highestEducationLevelList = (List<HighestEducationLevelVO>) view.getModel().get("highestEducationLevelList");
-			assertNotNull(highestEducationLevelList);
-
 			List<GraduationTypeVO> graduationTypeList = (List<GraduationTypeVO>) view.getModel().get("graduationTypeList");
-			assertNotNull(graduationTypeList);
-		} else {
-			fail("Fail...");
+
+			if(graduationTypeList != null) {
+				for (GraduationTypeVO graduationTypeVO : graduationTypeList) {
+					assertNotNull(graduationTypeVO);
+				}
+			}
+			else if (highestEducationLevelList != null) {
+				for (HighestEducationLevelVO highestEducationLevelVO : highestEducationLevelList) {
+					assertNotNull(highestEducationLevelVO);
+				}
+			}
+			else {
+				fail("fail...");
+			}
 		}
+		
 	}
 
 	@Test
-	public void registerStudentErrorCaseExistSession() {
+	public void registerStudentTestErrorCaseExistSession() {
 		MockHttpSession session = new MockHttpSession();
 		MemberVO sessionMember = new MemberVO();
 		session.setAttribute("_MEMBER_", sessionMember);
@@ -767,30 +777,11 @@ public class MemberServiceTest extends SemsTestCase {
 	}
 
 	@Test
-	public void registerTeacher() {
-		MockHttpSession session = new MockHttpSession();
-		MemberVO sessionMember = new MemberVO();
-
+	public void registerTeacherTest() {
 		String viewName = memberService.registerTeacher();
 
 		if (viewName != null) {
 			assertEquals(viewName, "member/registerTeacher");
-		} else {
-			fail("Fail...");
-		}
-	}
-
-	@Test
-	public void registerTeacherErrorCaseExistSession() {
-		MockHttpSession session = new MockHttpSession();
-		MemberVO sessionMember = new MemberVO();
-		session.setAttribute("_MEMBER_", sessionMember);
-
-		String viewName = memberService.registerTeacher();
-		assertNotNull(viewName);
-
-		if (viewName != null) {
-			assertEquals(viewName, "member/registErrorPage");
 		} else {
 			fail("Fail...");
 		}
