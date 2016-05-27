@@ -37,6 +37,8 @@ import com.ktds.sems.education.vo.EduQnaSearchVO;
 import com.ktds.sems.education.vo.EduReportSearchVO;
 import com.ktds.sems.education.vo.EduReportVO;
 import com.ktds.sems.education.vo.EducationVO;
+import com.ktds.sems.education.vo.TeamVO;
+import com.ktds.sems.member.vo.AttendVO;
 import com.ktds.sems.member.vo.MemberVO;
 
 import kr.co.hucloud.utilities.web.Paging;
@@ -975,20 +977,81 @@ public class EducationBizTest extends SemsTestCase {
 		assertTrue(reports.size() > 0);
 	}
 	
-	/**
-	 * @author 김동규
-	 */
 	@Test
-	public void doActionDeleteBeforeCheckTest() {
-		MemberVO memberVO = new MemberVO();
-		memberVO.setId("cainGwiz88");
-		memberVO.setMemberType("ADM");
-		boolean check = educationBiz.doActionDeleteBeforeCheck(memberVO);
-		if(check) {
-			assertTrue(check);
-		} else {
-			assertFalse(check);
-			fail("[Biz Part] doActionDeleteBeforeCheckTest Fail.");
-		}
+	public void getAllMemberListTest() {
+		List<MemberVO> memberList = educationBiz.getAllMemberList();
+		assertNotNull(memberList);
+	}
+	
+	@Test
+	public void getJoinEducationTest1() {
+		String memberId = "test02";
+		List<EducationVO> educationList = educationBiz.getJoinEducation(memberId);
+		assertNotNull(educationList);
+	}
+	
+	@Test
+	public void getJoinEducationTest2() {
+		String memberId = "test03";
+		List<EducationVO> educationList = educationBiz.getJoinEducation(memberId);
+		assertNotNull(educationList);
+	}
+	
+	@Test
+	public void getOneMemberAttendanceTest1() {
+		String memberId = "test02";
+		List<AttendVO> attendList = educationBiz.getOneMemberAttendance(memberId);
+		assertNotNull(attendList);
+	}
+	
+	@Test
+	public void getOneMemberAttendanceTest2() {
+		String memberId = "test03";
+		List<AttendVO> attendList = educationBiz.getOneMemberAttendance(memberId);
+		assertNotNull(attendList);
+	}
+	
+	@Test
+	public void getAllStartedEducationListTest() {
+		List<EducationVO> educationList = educationBiz.getAllStartedEducationList();
+		assertNotNull(educationList);
+	}
+	
+	@Test
+	public void getAllMemberListByEduIdTest1() {
+		String educationId = "ED-20160516-000181";
+		List<MemberVO> memberList = educationBiz.getAllMemberListByEduId(educationId);
+		assertNotNull(memberList);
+	}
+	
+	@Test
+	public void getAllMemberListByEduIdTest2() {
+		String educationId = "ED-20160513-000174";
+		List<MemberVO> memberList = educationBiz.getAllMemberListByEduId(educationId);
+		assertNotNull(memberList);
+	}
+	
+	@Test
+	public void getAllTeamListTest() {
+		List<TeamVO> teamList = educationBiz.getAllTeamList();
+		assertNotNull(teamList);
+	}
+	
+	@Test
+	public void getAllMemberListByTeamIdTest1() {
+		String educationId = "ED-20160513-000166";
+		String teamId = "2";
+		
+		List<MemberVO> memberList = educationBiz.getAllMemberListByTeamId(educationId, teamId);
+		assertNotNull(memberList);
+	}
+	
+	@Test
+	public void getAllMemberListByTeamIdTest2() {
+		String educationId = "";
+		String teamId = "";
+		
+		List<MemberVO> memberList = educationBiz.getAllMemberListByTeamId(educationId, teamId);
+		assertNotNull(memberList);
 	}
 }
