@@ -135,6 +135,8 @@
 		
 		
 		
+		
+		
 	});
 </script>
 <title>QNA 상세페이지</title>
@@ -202,6 +204,9 @@
 	<input type="button" id="replyBtn" value="답변 쓰기"/>
 	</form:form>
 	<input type="button" id="listBtn" value="질문 리스트로"/>
+	<c:if test="${oneQNABBSByAtcId.mbrId eq sessionId}">
+	<input type="button" id="deleteBtn" value="삭제" />
+	</c:if>
 	<form id="searchForm">
 	<input type="hidden" id="searchKeyword" name="searchKeyword" value="${searchSessionVO.searchKeyword}"/>
 	<input type="hidden" id="searchType" name="searchType" value="${searchSessionVO.searchType}"/>
