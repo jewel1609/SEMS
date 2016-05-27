@@ -258,7 +258,7 @@ public class TeamBizTest extends SemsTestCase {
 	}
 	
 	@Test
-	public ModelAndView viewTeamBBSDetailPage( ) {
+	public void viewTeamBBSDetailPage( ) {
 		
 		String teamBBSId = "TBBS-20160512-000047";
 		TeamBBSReplyListVO teamBBSReplyListVO = new TeamBBSReplyListVO();
@@ -289,23 +289,7 @@ public class TeamBizTest extends SemsTestCase {
 		assertNotNull(likeState);
 		String dislikeState = teamBiz.getDislikeState(bbs);
 		assertNotNull(dislikeState);
-		teamBBS.setLikeState(likeState);
-		teamBBS.setDislikeState(dislikeState);
 		
-		ModelAndView view = new ModelAndView();
-		if( teamBBS.getFileCount() == 0 ){
-			String fileName = teamBiz.getFileInfo(teamBBSId);
-			view.addObject("fileName", fileName);
-		}else{
-			view.addObject("fileName", " ");
-		}
-		
-		teamBBSReplyListVO.setTeamBBSReplyList(replies);
-		view.addObject("teamBBSReplyListVO", teamBBSReplyListVO);
-		view.addObject("teamBBS",teamBBS );
-		
-		view.setViewName("team/detailTeamBBS");
-		return view;
 	}
 
 	
