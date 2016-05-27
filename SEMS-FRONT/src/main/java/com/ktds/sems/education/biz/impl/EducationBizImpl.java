@@ -767,6 +767,7 @@ public class EducationBizImpl implements EducationBiz {
 		return educationDAO.getAllEduFileNotice(eduNoticeSearchVO);
 	}
 
+
 	@Override
 	public EduNoticeVO getOneNotice(String eduNoticeId) {
 		return educationDAO.getOneNotice(eduNoticeId);
