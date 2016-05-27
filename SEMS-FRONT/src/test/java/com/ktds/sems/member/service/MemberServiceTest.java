@@ -28,7 +28,10 @@ import com.ktds.sems.education.vo.EducationCostVO;
 import com.ktds.sems.education.vo.EducationHistoryListVO;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationHistoryVO;
+import com.ktds.sems.education.vo.EducationListVO;
+import com.ktds.sems.education.vo.EducationSearchVO;
 import com.ktds.sems.education.vo.EducationStateVO;
+import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.QNAVO;
 import com.ktds.sems.education.vo.ReportReplyVO;
 import com.ktds.sems.member.dao.MemberDAO;
@@ -1038,4 +1041,38 @@ public class MemberServiceTest extends SemsTestCase {
 			}
 		}
 	}
+	
+	@Test
+	public void getCourseListTest() {
+		ModelAndView view = new ModelAndView();
+		int pageNo = 0;
+		
+		MemberVO memberVO = new MemberVO();
+		memberVO.setId("oph312");
+		
+		MockHttpSession session = new MockHttpSession();
+		session.setAttribute("_MEMBER_", memberVO);
+		
+		EducationSearchVO educationSearchVO = new EducationSearchVO();
+		educationSearchVO.setSearchKeyword("ll");
+		view = memberService.getCourseList(session, pageNo, educationSearchVO);
+		
+		if ( view != null ) {
+			List<EducationVO> myEducationList = (List<EducationVO>)view.getModel().get("educationListVO");
+			EducationSearchVO educationSearchVO2 = (EducationSearchVO)view.getModel().get("educationSearchVO");
+			EducationListVO preEducationListVO = (EducationListVO)view.getModel().get("preEducationListVO");
+
+			assertNotNull(view);
+			assertEquals(view.getViewName(), "myPage/myEduCourseInfo");
+			assertNotNull(myEducationList);
+			assertTrue(myEducationList.size() >= 0);
+			assertNotNull(educationSearchVO2);
+			assertNotNull(preEducationListVO);
+			
+		}
+		else {
+			fail("Fail...");
+		}
+	}
+	
 }

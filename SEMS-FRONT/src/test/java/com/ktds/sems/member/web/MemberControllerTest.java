@@ -7,6 +7,8 @@ import static org.junit.Assert.fail;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletRequest;
@@ -21,6 +23,7 @@ import com.ktds.sems.common.Session;
 import com.ktds.sems.education.vo.EducationHistoryListVO;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationHistoryVO;
+import com.ktds.sems.education.vo.EducationSearchVO;
 import com.ktds.sems.member.dao.MemberDAO;
 import com.ktds.sems.member.vo.GraduationTypeVO;
 import com.ktds.sems.member.vo.HighestEducationLevelVO;
@@ -387,41 +390,6 @@ public class MemberControllerTest extends SemsTestCase {
 			fail("Fail...");
 		}
 	}
-	
-//	@Test
-//	public void viewResignPage() {
-//		
-//		MemberVO memberVO = new MemberVO();
-//		memberVO.setId("test02");
-//
-//		int pageNo = 0;
-//		MockHttpSession session = new MockHttpSession();
-//		session.setAttribute(Session.MEMBER, memberVO);
-//
-//		ModelAndView view = memberController.viewResignPage(pageNo, session);
-//
-//		if (view != null) {
-//
-//			String viewName = view.getViewName();
-//			assertNotNull(viewName);
-//			assertEquals(viewName, "member/resignCourseList");
-//
-//			EducationHistoryListVO educationHistoryListVO = (EducationHistoryListVO) view.getModelMap()
-//					.get("educationHistoryListVO");
-//			assertNotNull(educationHistoryListVO);
-//
-//			List<EducationHistoryVO> educationHistoryList = educationHistoryListVO.getEducationHistoryList();
-//			assertNotNull(educationHistoryList);
-//			assertTrue(educationHistoryList.size() > 0);
-//
-//			Paging paging = educationHistoryListVO.getPaging();
-//			assertNotNull(paging);
-//			assertTrue(paging.getTotalArticleCount() > 0);
-//
-//		} else {
-//			fail("fail");
-//		}
-//	}
 
 	@Test
 	public void loginForResine(){
@@ -434,7 +402,29 @@ public class MemberControllerTest extends SemsTestCase {
 		view = memberController.loginForResine(resignCode, id);
 		
 		assertEquals(viewName, view.getViewName());
+	}
+	
+	@Test
+	public void viewMyEduCoursePageTest() {
+		ModelAndView view = new ModelAndView();
+		int pageNo = 0;
 		
+		MemberVO memberVO = new MemberVO();
+		memberVO.setId("oph312");
+		
+		MockHttpSession session = new MockHttpSession();
+		session.setAttribute("_MEMBER_", memberVO);
+		
+		EducationSearchVO educationSearchVO = new EducationSearchVO();
+		educationSearchVO.setSearchKeyword("ll");
+		view = memberController.viewMyEduCoursePage(pageNo, session, educationSearchVO);
+		
+		if ( view != null ) {
+			assertNotNull(view);
+		}
+		else {
+			fail("Fail...");
+		}
 	}
 	
 }

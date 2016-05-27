@@ -21,6 +21,7 @@ import com.ktds.sems.Testable;
 import com.ktds.sems.common.Session;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationHistoryVO;
+import com.ktds.sems.education.vo.EducationSearchVO;
 import com.ktds.sems.education.vo.QNAVO;
 import com.ktds.sems.education.vo.ReportReplyVO;
 import com.ktds.sems.member.vo.LoginHistoryListVO;
@@ -583,13 +584,6 @@ public class MemberBizTest extends SemsTestCase {
 		assertNotNull(educationHistory);
 	}
 	
-	@Test
-	public void getCourseCountById() {
-		String id = "test04";
-		int result = memberBiz.getCourseCountById(id);
-		
-		assertTrue(result > 0);
-	}
 	/*
 	@Test
 	public void getCourseList() {
@@ -637,4 +631,25 @@ public class MemberBizTest extends SemsTestCase {
 		assertTrue(memberBiz.checkValidationCourseAccess(memberId));
 	}
 	
+	@Test
+	public void getCourseCountByIdTest() {
+		String id = "oph312";
+		assertTrue(memberBiz.getCourseCountById(id) >= 0);
+	}
+	
+	@Test
+	public void getCourseListTest() {
+		String id = "oph312";
+		assertTrue(memberBiz.getCourseList(id).size() >= 0);
+	}
+	
+	@Test
+	public void getPreCourseListTest() {
+		EducationSearchVO educationSearchVO = new EducationSearchVO();
+		educationSearchVO.setPageNo(0);
+		educationSearchVO.setMemberId("oph312");
+		educationSearchVO.setStartIndex(1);
+		educationSearchVO.setEndIndex(10);
+		assertTrue(memberBiz.getPreCourseList(educationSearchVO).size() >= 0);
+	}
 }

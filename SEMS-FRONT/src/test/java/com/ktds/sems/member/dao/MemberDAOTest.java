@@ -22,6 +22,7 @@ import com.ktds.sems.SemsTestCase;
 import com.ktds.sems.Testable;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationHistoryVO;
+import com.ktds.sems.education.vo.EducationSearchVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.QNAVO;
 import com.ktds.sems.education.vo.ReportReplyVO;
@@ -569,12 +570,6 @@ public class MemberDAOTest extends SemsTestCase {
 	}*/
 
 	@Test
-	public void getCourseCountById() {
-		String id = "test04";
-		assertTrue(memberDAO.getCourseCountById(id) > 0);
-	}
-
-	@Test
 	public void getOneEducationByIdAndEducationId() {
 		String id = "test02";
 		String eduId = "ED-20160516-000185";
@@ -677,5 +672,27 @@ public class MemberDAOTest extends SemsTestCase {
 		String id = "newId";
 		int check = memberDAO.checkRegistState(id);
 		assertTrue(check == 0);
+	}
+	
+	@Test
+	public void getCourseCountByIdTest() {
+		String id = "oph312";
+		assertTrue(memberDAO.getCourseCountById(id) >=0);
+	}
+	
+	@Test
+	public void getCourseListTest() {
+		String id = "oph312";
+		assertTrue(memberDAO.getCourseList(id).size() >=0);
+	}
+	
+	@Test
+	public void getPreCourseListTest() {
+		EducationSearchVO educationSearchVO = new EducationSearchVO();
+		educationSearchVO.setPageNo(0);
+		educationSearchVO.setMemberId("oph312");
+		educationSearchVO.setStartIndex(1);
+		educationSearchVO.setEndIndex(10);
+		assertTrue(memberDAO.getPreCourseList(educationSearchVO).size() >= 0);
 	}
 }
