@@ -1797,4 +1797,38 @@
 		ORDER	BY IMP_ATC_ID
 		
 	</select>
+	
+	<select id="getOneNotice" parameterType="String" resultType="EduNoticeVO" >
+		SELECT	IMP_ATC_ID eduNoticeId
+		        , EDU_ID educationId
+		        , MBR_ID memberId
+		        , IS_DELETE isDelete
+		        , TITLE title
+		        , CONTENTS contents
+		        , CREATE_DATE createDate
+		        , MODIFY_DATE modifyDate
+		        , HITS hits
+		        , IMP_TP noticeType
+		FROM	IMP_ATC
+		WHERE	IMP_ATC_ID =  #{eduNoticeId} 
+		
+	</select>
+	
+	<update id="addhits" parameterType="String">
+		UPDATE	IMP_ATC
+		SET		HITS = HITS +1
+		WHERE	IMP_ATC_ID = #{eduNoticeId} 
+	</update>
+	
+	<select id="getOneEduNoticeId" resultType="string">
+		SELECT  IMP_ATC_ID
+		FROM    IMP_ATC
+		WHERE   ROWNUM=1
+	</select>
+	
+	<select id="getOneEducationId" resultType="string">
+		SELECT  EDU_ID
+		FROM    EDU_INFO
+		WHERE   ROWNUM=1
+	</select>
 </mapper>

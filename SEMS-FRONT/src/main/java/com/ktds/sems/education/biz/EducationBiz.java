@@ -253,4 +253,8 @@ public interface EducationBiz {
 	public boolean insertEduStateToReserve(String educationId, String id);
 
 	public List<EduNoticeVO> getAllEduFileNotice(EduNoticeSearchVO eduNoticeSearchVO);
+
+	public EduNoticeVO getOneNotice(String eduNoticeId);
+
+	public void addhits(String eduNoticeId);
 }

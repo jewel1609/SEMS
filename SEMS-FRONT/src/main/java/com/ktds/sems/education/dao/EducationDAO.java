@@ -252,4 +252,12 @@ public interface EducationDAO {
 
 	public List<EduNoticeVO> getAllEduFileNotice(EduNoticeSearchVO eduNoticeSearchVO);
 
+	public EduNoticeVO getOneNotice(String eduNoticeId);
+
+	public void addhits(String eduNoticeId);
+
+	public String getOneEduNoticeId();
+
+	public String getOneEducationId();
+
 }

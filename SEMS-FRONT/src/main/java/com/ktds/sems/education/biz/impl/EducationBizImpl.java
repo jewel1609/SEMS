@@ -766,6 +766,17 @@ public class EducationBizImpl implements EducationBiz {
 	public List<EduNoticeVO> getAllEduFileNotice(EduNoticeSearchVO eduNoticeSearchVO) {
 		return educationDAO.getAllEduFileNotice(eduNoticeSearchVO);
 	}
+
+	@Override
+	public EduNoticeVO getOneNotice(String eduNoticeId) {
+		return educationDAO.getOneNotice(eduNoticeId);
+	}
+
+	@Override
+	public void addhits(String eduNoticeId) {
+		educationDAO.addhits(eduNoticeId);
+	}
+
 	
 }
 

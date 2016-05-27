@@ -1999,6 +1999,21 @@ public class EducationServiceImpl implements EducationService {
 	public void doReReplyDelete(QNAVO qnaVO) {
 		educationBiz.doReReplyDelete(qnaVO);
 	}
+	
+	@Override
+	public ModelAndView viewNoticeDetailPage(String memberId, String eduNoticeId) {
+
+		ModelAndView view = new ModelAndView();
+
+		EduNoticeVO eduNoticeVO = new EduNoticeVO();
+		eduNoticeVO = educationBiz.getOneNotice(eduNoticeId);
+		educationBiz.addhits(eduNoticeId);
+
+		view.setViewName("education/eduFileNoticeDetail");
+		view.addObject("eduNoticeVO", eduNoticeVO);
+
+		return view;
+	}
 
 }
 

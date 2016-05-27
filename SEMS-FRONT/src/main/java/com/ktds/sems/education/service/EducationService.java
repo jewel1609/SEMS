@@ -138,4 +138,6 @@ public interface EducationService {
 
 	public void doReReplyDelete(QNAVO qnaVO);
 
+	public ModelAndView viewNoticeDetailPage(String educationId, String eduNoticeId);
+
 }

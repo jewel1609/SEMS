@@ -677,4 +677,23 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 		return getSqlSession().selectList("EducationDAO.getAllEduFileNotice", eduNoticeSearchVO);
 	}
 
+	@Override
+	public EduNoticeVO getOneNotice(String eduNoticeId) {
+		return getSqlSession().selectOne("EducationDAO.getOneNotice", eduNoticeId);
+	}
+
+	@Override
+	public void addhits(String eduNoticeId) {
+		getSqlSession().update("EducationDAO.addhits", eduNoticeId);
+	}
+
+	@Override
+	public String getOneEduNoticeId() {
+		return getSqlSession().selectOne("EducationDAO.getOneEduNoticeId");
+	}
+
+	@Override
+	public String getOneEducationId() {
+		return getSqlSession().selectOne("EducationDAO.getOneEducationId");
+	}
 }

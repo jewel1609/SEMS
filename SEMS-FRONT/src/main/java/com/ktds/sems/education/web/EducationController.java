@@ -445,4 +445,9 @@ public class EducationController {
 		return educationService.deleteFileBBS(educationFileBBSVO, session);
 	}
 	
+	@RequestMapping("/{educationId}/eduFileNotice/detail/{eduNoticeId}")
+	public ModelAndView viewNoticeDetailPage(@PathVariable String educationId, @PathVariable String eduNoticeId){
+		return educationService.viewNoticeDetailPage(educationId , eduNoticeId );
+	}
+	
 }
