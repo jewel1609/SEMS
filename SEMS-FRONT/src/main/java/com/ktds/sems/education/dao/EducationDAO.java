@@ -47,7 +47,6 @@ public interface EducationDAO {
 	public List<EducationVO> doSearchList(EducationVO educationVO, EducationSearchVO searchVO);
 
 	public int insertNewComment(QNAVO qnaVO);
-	
 
 	public List<QNAVO> getAllCommentByEducationId(String educationId, EducationSearchVO searchVO);
 
