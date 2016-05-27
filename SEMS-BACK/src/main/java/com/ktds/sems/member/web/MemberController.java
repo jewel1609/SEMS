@@ -154,9 +154,9 @@ public class MemberController {
 		return memberService.memberDeleteById(id);
 	}
 
-	@RequestMapping("/requestMemberDetail/{id}")
-	public ModelAndView requestMemberDetail(@PathVariable String id) {
-		return memberService.requestMemberDetail(id);
+	@RequestMapping("/requestMemberDetail/{memberId}")
+	public ModelAndView requestMemberDetail(@PathVariable String memberId) {
+		return memberService.requestMemberDetail(memberId);
 	}
 	
 	@RequestMapping(value = "/memberDetail", method = RequestMethod.POST)
