@@ -1,14 +1,15 @@
 package com.ktds.sems.member.service;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.FixMethodOrder;
 import org.junit.Test;
-import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpSession;
@@ -25,7 +26,6 @@ import com.ktds.sems.member.vo.MbrTpVO;
 import com.ktds.sems.member.vo.MemberVO;
 
 @Transactional
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MemberServiceTest extends SemsTestCase {
 
 	@Autowired
@@ -45,6 +45,19 @@ public class MemberServiceTest extends SemsTestCase {
 				codeMngVO.setCdTp2("TEST");
 
 				memberService.doCodeMngInsert(codeMngVO);
+			}
+		});
+	}
+	
+	@After
+	public void tearDown() {
+		testHelper(new Testable() {
+			@Override
+			public void preparedTest() {
+				try {
+					memberService.doCodeMngDelete("TEST_CM");
+				}
+				catch(RuntimeException re) {}
 			}
 		});
 	}
@@ -158,8 +171,8 @@ public class MemberServiceTest extends SemsTestCase {
 	@Test
 	public void doGrdtInsertTest() {
 		GrdtTpVO grdtTpVO = new GrdtTpVO();
-		grdtTpVO.setCdId("JunitTestCdId");
-		grdtTpVO.setCdNm("JunitTestCdNm");
+		grdtTpVO.setCdId("CdId");
+		grdtTpVO.setCdNm("CdNm");
 
 		String checkStr = memberService.doGrdtInsert(grdtTpVO.getCdId(), grdtTpVO.getCdNm());
 		assertNotNull(checkStr);
