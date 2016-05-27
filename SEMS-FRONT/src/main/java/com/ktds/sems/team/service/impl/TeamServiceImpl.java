@@ -502,8 +502,7 @@ public class TeamServiceImpl implements TeamService{
 	@Override
 	public ModelAndView getAllMinutes(MinutesSearchVO minutesSearchVO, int pageNo, HttpSession session) {
 
-		String memberType = (String) session.getAttribute("_MEMBER_");
-
+		String memberType = (String) session.getAttribute(Session.MEMBER_TYPE);
 		MinutesListVO minutesListVO = new MinutesListVO();
 		Paging paging = new Paging();
 
