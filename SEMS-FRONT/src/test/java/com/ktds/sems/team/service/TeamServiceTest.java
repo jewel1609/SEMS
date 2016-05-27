@@ -34,8 +34,43 @@ public class TeamServiceTest extends SemsTestCase {
 	private TeamService teamService;
 	@Autowired
 	private TeamBiz teamBiz;
+	
+	@Before
+	public void setUp() {
+		
+		testHelper(new Testable() {
+			
+			@Override
+			public void preparedTest() {
+				
+				// Team_List 테이블에 데이터 넣기
+				String[] insertMemberIds = {"testMemberId"};
+				String educationId = "testEducationId";
+				String teamName = "testTeamName";
+				String teamListId = "testTeamListId";
+				
+				teamService.massiveInsertMember(insertMemberIds, educationId, teamName, teamListId);
+			}
+		});
+	}
+	
+	@After
+	public void tearDown() {
+		
+		testHelper(new Testable() {
+			
+			@Override
+			public void preparedTest() {
+				
+				// 넣은 Team_List 데이터 지우기
+				String memberId = "testMemberId";
+				teamService.doDeleteTeamListByMemberId(memberId);
+			}
+		});
+	}
+	
 	/**
-	 * 민
+	 * 전씨
 	 */
 	@Test
 	public void viewModifyPageTest(){
@@ -54,8 +89,9 @@ public class TeamServiceTest extends SemsTestCase {
 			fail("fail");
 		}
 	}
+	
 	/**
-	 * 민
+	 * 전씨
 	 */
 	@Test
 	public void checkPasswordTest() {
@@ -77,7 +113,7 @@ public class TeamServiceTest extends SemsTestCase {
 	}
 	
 	/**
-	 * 민정
+	 * 전씨
 	 */
 	@Test
 	public void getSaltByIdTest(){
@@ -86,44 +122,10 @@ public class TeamServiceTest extends SemsTestCase {
 		String view = teamService.getSaltById(sessionId);
 		assertNotNull(view);
 	}
-	
 
-	@Before
-	public void setUp() {
-
-		testHelper(new Testable() {
-
-			@Override
-			public void preparedTest() {
-
-				// Team_List 테이블에 데이터 넣기
-				String[] insertMemberIds = {"testMemberId"};
-				String educationId = "testEducationId";
-				String teamName = "testTeamName";
-				String teamListId = "testTeamListId";
-				
-				teamService.massiveInsertMember(insertMemberIds, educationId, teamName, teamListId);
-			}
-		});
-	}
-
-	@After
-	public void tearDown() {
-
-		testHelper(new Testable() {
-
-			@Override
-			public void preparedTest() {
-
-				// 넣은 Team_List 데이터 지우기
-				String memberId = "testMemberId";
-				teamService.doDeleteTeamListByMemberId(memberId);
-			}
-		});
-	}
 
 	/**
-	 * 민정
+	 * 전씨
 	 */
 	@Test
 	public void getPasswordByIdTest(){
@@ -142,7 +144,7 @@ public class TeamServiceTest extends SemsTestCase {
 	}
 	
 	/**
-	 * 민정
+	 * 전씨
 	 */
 	@Test
 	public void isReplyByTeamBBSIdTest() {
