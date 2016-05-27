@@ -520,7 +520,7 @@ public class EducationBizImpl implements EducationBiz {
 	@Override
 	public void addHitsEducationFileBBSByArticleId(BBSHistoryVO bbsHistoryVO) {
 		String articleId = bbsHistoryVO.getBbsId();
-		boolean isExistHit = educationDAO.isExistedHitMemberIdByArtileId(articleId);
+		boolean isExistHit = educationDAO.isExistedHitMemberId(bbsHistoryVO);
 		if ( !isExistHit ) {
 			String nowDate = getNowDate();
 			int bbsHistorySeq = educationDAO.getBBSHistorySeq();

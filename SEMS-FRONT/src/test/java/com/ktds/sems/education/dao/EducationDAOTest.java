@@ -15,20 +15,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ktds.sems.SemsTestCase;
+import com.ktds.sems.Testable;
+import com.ktds.sems.education.vo.BBSHistoryVO;
+import com.ktds.sems.education.vo.BBSReplySearchVO;
+import com.ktds.sems.education.vo.BBSReplyVO;
 import com.ktds.sems.education.vo.EduNoticeSearchVO;
 import com.ktds.sems.education.vo.EduNoticeVO;
 import com.ktds.sems.education.vo.EduQnaListVO;
 import com.ktds.sems.education.vo.EduQnaSearchVO;
 import com.ktds.sems.education.vo.EduQnaVO;
+import com.ktds.sems.education.vo.EducationFileBBSVO;
 import com.ktds.sems.education.vo.EducationQNABBSSearchVO;
 import com.ktds.sems.education.vo.EducationQNABBSVO;
 import com.ktds.sems.education.vo.EducationQNAReplySearchVO;
 import com.ktds.sems.education.vo.EducationQNAReplyVO;
-import com.ktds.sems.Testable;
 import com.ktds.sems.education.vo.EducationReportSearchVO;
 import com.ktds.sems.education.vo.EducationReportVO;
 import com.ktds.sems.education.vo.EducationSearchVO;
 import com.ktds.sems.education.vo.EducationVO;
+import com.ktds.sems.education.vo.FileBBSSearchVO;
 import com.ktds.sems.education.vo.QNASearchVO;
 import com.ktds.sems.education.vo.QNAVO;
 import com.ktds.sems.education.vo.ReRplyEvalVO;
@@ -823,6 +828,231 @@ public class EducationDAOTest extends SemsTestCase{
 		String replyId = "ER-20160525-000869";
 		int result = educationDAO.checkAdoptReply(replyId);
 		assertNotNull(result);
+	}
+	
+	@Test
+	public void getEducationFileBBSCountTest() {
+		FileBBSSearchVO searchVO = new FileBBSSearchVO();
+		searchVO.setEndIndex(10);
+		searchVO.setStartIndex(1);
+		searchVO.setEducationId("ED-20160520-000278");
+		int count = educationDAO.getEducationFileBBSCount(searchVO);
+		
+		assertTrue(count >= 0);
+	}
+	
+	@Test
+	public void getEducationFileBBSListTest() {
+		FileBBSSearchVO searchVO = new FileBBSSearchVO();
+		searchVO.setEndIndex(10);
+		searchVO.setStartIndex(1);
+		searchVO.setEducationId("ED-20160520-000278");
+
+		List<EducationFileBBSVO> educationItems = educationDAO.getEducationFileBBSList(searchVO);
+
+		if (educationItems != null) {
+			assertNotNull(educationItems);
+		} else {
+			fail("실패....");
+		}
+	}
+	
+	@Test
+	public void getArticleSEQTest() {
+		String articleSEQ = educationDAO.getArticleSEQ();
+
+		if (articleSEQ != null) {
+			assertNotNull(articleSEQ);
+		} else {
+			fail("실패....");
+		}
+	}
+	
+	@Test
+	public void getMemberIdByEducationIdTest() {
+		String articleWriterId = educationDAO.getMemberIdByEducationId("ED-20160520-000278");
+
+		if (articleWriterId != null) {
+			assertNotNull(articleWriterId);
+		} else {
+			fail("실패....");
+		}
+	}
+	
+	@Test
+	public void writeNewFileBBSTest() {
+		EducationFileBBSVO educationFileBBSVO = new EducationFileBBSVO();
+		educationFileBBSVO.setEducationId("ED-20160513-000176");
+		educationFileBBSVO.setTitle("타이틀");
+		educationFileBBSVO.setContents("내용");
+		educationFileBBSVO.setArticleId("FL-20110101-000001");
+		educationFileBBSVO.setMemberId("teacher02");
+
+		int count = educationDAO.writeNewFileBBS(educationFileBBSVO);
+
+		if (count > 0) {
+			assertTrue(count > 0);
+		} else {
+			fail("실패....");
+		}
+	}
+	
+	@Test
+	public void getOneEducationFileBBSTest() {
+		String articleId = "FL-20160524-000041";
+		
+		EducationFileBBSVO educationFileBBS = educationDAO.getOneEducationFileBBS(articleId);
+
+		if (educationFileBBS != null) {
+			assertNotNull(educationFileBBS);
+		} else {
+			fail("실패....");
+		}
+	}
+	
+	@Test
+	public void isExistedHitMemberIdTest() {
+		BBSHistoryVO bbsHistoryVO = new BBSHistoryVO();
+		bbsHistoryVO.setBbsId("FL-20160524-000041");
+		bbsHistoryVO.setMemberId("없지롱");
+		
+		boolean isExist = educationDAO.isExistedHitMemberId(bbsHistoryVO);
+		
+		if (!isExist) {
+			assertTrue(!isExist);
+		} else {
+			fail("실패....");
+		}
+	}
+	
+	@Test
+	public void getBBSHistorySeqTest() {
+		int bbsHistorySeq = educationDAO.getBBSHistorySeq();
+		
+		if (bbsHistorySeq > 0) {
+			assertTrue(bbsHistorySeq > 0);
+		} else {
+			fail("실패....");
+		}
+	}
+	
+	@Test
+	public void addHitsEducationFileBBSByArticleIdTest() {
+		int count = educationDAO.addHitsEducationFileBBSByArticleId("FL-20160524-000041");
+		
+		if (count > 0) {
+			assertTrue(count > 0);
+		} else {
+			fail("실패....");
+		}
+	}
+	
+	@Test
+	public void addBBSHistoryHitByArticleIdTest() {
+		BBSHistoryVO bbsHistoryVO = new BBSHistoryVO();
+		bbsHistoryVO.setBbsHistoryId("BHTR-20110505-000162");
+		bbsHistoryVO.setBbsId("FL-20160524-000041");
+		bbsHistoryVO.setMemberId("없지롱");
+		
+		int count = educationDAO.addBBSHistoryHitByArticleId(bbsHistoryVO);
+		
+		if (count > 0) {
+			assertTrue(count > 0);
+		} else {
+			fail("실패....");
+		}
+	}
+	
+	@Test
+	public void getTotalFileBBSReplyCountByArticleIdTest() {
+		String articleId = "FL-20160524-000041";
+		
+		int totalReplyCount = educationDAO.getTotalFileBBSReplyCountByArticleId(articleId);
+		
+		if (totalReplyCount >= 0) {
+			assertTrue(totalReplyCount >= 0);
+		} else {
+			fail("실패....");
+		}
+	}
+	
+	@Test
+	public void getAllBBSReplyByArticleTest() {
+		BBSReplySearchVO searchVO = new BBSReplySearchVO();
+		searchVO.setArticleId("FL-20160524-000041");
+		searchVO.setPageNo(0);
+		searchVO.setStartIndex(0);
+		searchVO.setEndIndex(10);
+		
+		List<BBSReplyVO> replys = educationDAO.getAllBBSReplyByArticle(searchVO);
+		
+		if (replys != null) {
+			assertNotNull(replys);
+		} else {
+			fail("실패....");
+		}
+	}
+	
+	@Test
+	public void writeFileBBSReplyTest() {
+		BBSReplyVO bbsReplyVO = new BBSReplyVO();
+		bbsReplyVO.setReplyId("RP-20110524-000830");
+		bbsReplyVO.setMemberId("teacher02");
+		bbsReplyVO.setOrderNo(0);
+		bbsReplyVO.setArticleId("FL-20160524-000041");
+		bbsReplyVO.setDescription("내용");
+		
+		int count = educationDAO.writeFileBBSReply(bbsReplyVO);
+		
+		if ( count > 0 ) {
+			assertTrue(count > 0);
+		} else {
+			fail("실패....");
+		}
+	}
+	
+	@Test
+	public void getNextOrderNoTest() {
+		String parentReplyId = "RP-20160527-001177";
+		
+		int orderNo = educationDAO.getNextOrderNo(parentReplyId);
+		
+		if ( orderNo >= 0 ) {
+			assertTrue(orderNo >= 0);
+		} else {
+			fail("실패....");
+		}
+	}
+	
+	@Test
+	public void deleteFileBBSByArticleIdTest() {
+		String articleId = "FL-20160524-000041";
+		
+		int count = educationDAO.deleteFileBBSByArticleId(articleId);
+		
+		if ( count > 0 ) {
+			assertTrue(count > 0);
+		} else {
+			fail("실패....");
+		}
+	}
+	
+	@Test
+	public void modifyFileBBSTest() {
+		EducationFileBBSVO educationFileBBSVO = new EducationFileBBSVO();
+		educationFileBBSVO.setEducationId("ED-20160513-000176");
+		educationFileBBSVO.setTitle("타이틀");
+		educationFileBBSVO.setContents("내용");
+		educationFileBBSVO.setArticleId("FL-20160524-000041");
+		educationFileBBSVO.setMemberId("teacher02");
+		
+		int count = educationDAO.modifyFileBBS(educationFileBBSVO);
+		
+		if ( count > 0 ) {
+			assertTrue(count > 0);
+		} else {
+			fail("실패....");
+		}
 	}
 }
 

@@ -16,6 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ktds.sems.SemsTestCase;
 import com.ktds.sems.education.dao.EducationDAO;
+import com.ktds.sems.education.vo.BBSReplySearchVO;
+import com.ktds.sems.education.vo.BBSReplyVO;
 import com.ktds.sems.education.vo.EduNoticeSearchVO;
 import com.ktds.sems.education.vo.EduNoticeVO;
 import com.ktds.sems.education.vo.EduQnaListVO;
@@ -30,6 +32,7 @@ import com.ktds.sems.education.vo.EducationQNAReplyVO;
 import com.ktds.sems.Testable;
 import com.ktds.sems.education.vo.EducationReportSearchVO;
 import com.ktds.sems.education.vo.EducationReportVO;
+import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.FileBBSSearchVO;
 import com.ktds.sems.education.vo.QNASearchVO;
 import com.ktds.sems.education.vo.QNAVO;
@@ -44,14 +47,14 @@ public class EducationBizTest extends SemsTestCase {
 
 	@Autowired
 	private EducationBiz educationBiz;
-	
+
 	@Autowired
 	private EducationDAO educationDAO;
 
 	@Before
 	public void setUp() {
 		testHelper(new Testable() {
-			
+
 			@Override
 			public void preparedTest() {
 				EducationReportVO educationReportVO = new EducationReportVO();
@@ -66,11 +69,11 @@ public class EducationBizTest extends SemsTestCase {
 			}
 		});
 	}
-	
+
 	@After
 	public void tearDown() {
 		testHelper(new Testable() {
-			
+
 			@Override
 			public void preparedTest() {
 				EducationReportVO educationReportVO = new EducationReportVO();
@@ -79,7 +82,7 @@ public class EducationBizTest extends SemsTestCase {
 			}
 		});
 	}
-	
+
 	@Test
 	public void hasApplyHistoryTest() {
 		String memberId = "test04";
@@ -300,7 +303,7 @@ public class EducationBizTest extends SemsTestCase {
 		boolean test = educationBiz.exportQNAListAsExcel(memberId);
 		assertTrue(test);
 	}
-	
+
 	@Test
 	public void getTotalReportReplyCountTest() {
 		ReportReplySearchVO reportReplySearchVO = new ReportReplySearchVO();
@@ -342,233 +345,225 @@ public class EducationBizTest extends SemsTestCase {
 	}
 
 	/**
-	 * Education Report
-	 * Search Title
+	 * Education Report Search Title
 	 */
 	@Test
-	public void getAllEducationReportListTest_SearchTitle( ) {
-		
+	public void getAllEducationReportListTest_SearchTitle() {
+
 		EducationReportSearchVO educationReportSearchVO = new EducationReportSearchVO();
 		educationReportSearchVO.setPageNo(0);
-		
+
 		Paging paging = new Paging();
 		paging.setPageNumber(educationReportSearchVO.getPageNo() + "");
-		
+
 		int totalCount = educationBiz.getTotalEducationReportCount(educationReportSearchVO);
 		paging.setTotalArticleCount(totalCount);
-		
+
 		educationReportSearchVO.setStartIndex(paging.getStartArticleNumber());
 		educationReportSearchVO.setEndIndex(paging.getEndArticleNumber());
 		educationReportSearchVO.setEducationId("testEducationId");
 		educationReportSearchVO.setSearchType("title");
 		educationReportSearchVO.setSearchKeyword("test");
-		
+
 		List<EducationReportVO> educationReportList = educationBiz.getAllEducationReportList(educationReportSearchVO);
-		if(educationReportList != null) {
+		if (educationReportList != null) {
 			for (EducationReportVO educationReportVO : educationReportList) {
-				
+
 				assertNotNull(educationReportVO.getArticleId());
 				assertNotNull(educationReportVO.getEducationId());
 				assertNotNull(educationReportVO.getMemberId());
 				assertNotNull(educationReportVO.getTitle());
 				assertNotNull(educationReportVO.getStartDate());
 				assertNotNull(educationReportVO.getEndDate());
-				
+
 			}
 		} else {
 			fail("fail");
 		}
 	}
-	
+
 	/**
-	 * Education Report
-	 * Search startDate
+	 * Education Report Search startDate
 	 */
 	@Test
-	public void getAllEducationReportListTest_SearchStartDate( ) {
-		
+	public void getAllEducationReportListTest_SearchStartDate() {
+
 		EducationReportSearchVO educationReportSearchVO = new EducationReportSearchVO();
 		educationReportSearchVO.setPageNo(0);
-		
+
 		Paging paging = new Paging();
 		paging.setPageNumber(educationReportSearchVO.getPageNo() + "");
-		
+
 		int totalCount = educationBiz.getTotalEducationReportCount(educationReportSearchVO);
 		paging.setTotalArticleCount(totalCount);
-		
+
 		educationReportSearchVO.setStartIndex(paging.getStartArticleNumber());
 		educationReportSearchVO.setEndIndex(paging.getEndArticleNumber());
 		educationReportSearchVO.setEducationId("testEducationId");
 		educationReportSearchVO.setSearchType("startDate");
 		educationReportSearchVO.setStartDate("2015-05-01");
 		educationReportSearchVO.setEndDate("2017-05-01");
-		
+
 		List<EducationReportVO> educationReportList = educationBiz.getAllEducationReportList(educationReportSearchVO);
-		if(educationReportList != null) {
+		if (educationReportList != null) {
 			for (EducationReportVO educationReportVO : educationReportList) {
-				
+
 				assertNotNull(educationReportVO.getArticleId());
 				assertNotNull(educationReportVO.getEducationId());
 				assertNotNull(educationReportVO.getMemberId());
 				assertNotNull(educationReportVO.getTitle());
 				assertNotNull(educationReportVO.getStartDate());
 				assertNotNull(educationReportVO.getEndDate());
-				
+
 			}
 		} else {
 			fail("fail");
 		}
 	}
-	
+
 	/**
-	 * Education Report
-	 * Search endDate
+	 * Education Report Search endDate
 	 */
 	@Test
-	public void getAllEducationReportListTest_SearchEndDate( ) {
-		
+	public void getAllEducationReportListTest_SearchEndDate() {
+
 		EducationReportSearchVO educationReportSearchVO = new EducationReportSearchVO();
 		educationReportSearchVO.setPageNo(0);
-		
+
 		Paging paging = new Paging();
 		paging.setPageNumber(educationReportSearchVO.getPageNo() + "");
-		
+
 		int totalCount = educationBiz.getTotalEducationReportCount(educationReportSearchVO);
 		paging.setTotalArticleCount(totalCount);
-		
+
 		educationReportSearchVO.setStartIndex(paging.getStartArticleNumber());
 		educationReportSearchVO.setEndIndex(paging.getEndArticleNumber());
 		educationReportSearchVO.setEducationId("testEducationId");
 		educationReportSearchVO.setSearchType("endDate");
 		educationReportSearchVO.setStartDate("2015-05-01");
 		educationReportSearchVO.setEndDate("2017-05-01");
-		
+
 		List<EducationReportVO> educationReportList = educationBiz.getAllEducationReportList(educationReportSearchVO);
-		if(educationReportList != null) {
+		if (educationReportList != null) {
 			for (EducationReportVO educationReportVO : educationReportList) {
-				
+
 				assertNotNull(educationReportVO.getArticleId());
 				assertNotNull(educationReportVO.getEducationId());
 				assertNotNull(educationReportVO.getMemberId());
 				assertNotNull(educationReportVO.getTitle());
 				assertNotNull(educationReportVO.getStartDate());
 				assertNotNull(educationReportVO.getEndDate());
-				
+
 			}
 		} else {
 			fail("fail");
 		}
 	}
-	
+
 	/**
-	 * Education Report
-	 * Search title
+	 * Education Report Search title
 	 */
 	@Test
 	public void getTotalEducationReportCountTest_SearchTitle() {
-	
+
 		EducationReportSearchVO educationReportSearchVO = new EducationReportSearchVO();
 		educationReportSearchVO.setSearchType("title");
 		educationReportSearchVO.setSearchKeyword("test");
-		
-		int totalCount = educationBiz.getTotalEducationReportCount(educationReportSearchVO);
-		assertTrue(totalCount > 0);
-	}
-	
-	/**
-	 * Education Report
-	 * Search startDate
-	 */
-	@Test
-	public void getTotalEducationReportCountTest_SearchStartDate() {
-		
-		EducationReportSearchVO educationReportSearchVO = new EducationReportSearchVO();
-		educationReportSearchVO.setSearchType("startDate");
-		educationReportSearchVO.setStartDate("2015-05-01");
-		educationReportSearchVO.setEndDate("2017-05-01");
-		
-		int totalCount = educationBiz.getTotalEducationReportCount(educationReportSearchVO);
-		assertTrue(totalCount > 0);
-	}
-	
-	/**
-	 * Education Report
-	 * Search endDate
-	 */
-	@Test
-	public void getTotalEducationReportCountTest_SearchEndDate() {
-		
-		EducationReportSearchVO educationReportSearchVO = new EducationReportSearchVO();
-		educationReportSearchVO.setSearchType("endDate");
-		educationReportSearchVO.setStartDate("2015-05-01");
-		educationReportSearchVO.setEndDate("2017-05-01");
-		
+
 		int totalCount = educationBiz.getTotalEducationReportCount(educationReportSearchVO);
 		assertTrue(totalCount > 0);
 	}
 
 	/**
-	 * Education Report
-	 * Get One Education Report Test
+	 * Education Report Search startDate
+	 */
+	@Test
+	public void getTotalEducationReportCountTest_SearchStartDate() {
+
+		EducationReportSearchVO educationReportSearchVO = new EducationReportSearchVO();
+		educationReportSearchVO.setSearchType("startDate");
+		educationReportSearchVO.setStartDate("2015-05-01");
+		educationReportSearchVO.setEndDate("2017-05-01");
+
+		int totalCount = educationBiz.getTotalEducationReportCount(educationReportSearchVO);
+		assertTrue(totalCount > 0);
+	}
+
+	/**
+	 * Education Report Search endDate
+	 */
+	@Test
+	public void getTotalEducationReportCountTest_SearchEndDate() {
+
+		EducationReportSearchVO educationReportSearchVO = new EducationReportSearchVO();
+		educationReportSearchVO.setSearchType("endDate");
+		educationReportSearchVO.setStartDate("2015-05-01");
+		educationReportSearchVO.setEndDate("2017-05-01");
+
+		int totalCount = educationBiz.getTotalEducationReportCount(educationReportSearchVO);
+		assertTrue(totalCount > 0);
+	}
+
+	/**
+	 * Education Report Get One Education Report Test
 	 */
 	@Test
 	public void getOneEducationReportTest() {
-		
+
 		EducationReportVO educationReportVO = new EducationReportVO();
 		educationReportVO.setArticleId("testArticleId");
-		
+
 		EducationReportVO newEducationReportVO = educationBiz.getOneEducationReport(educationReportVO);
-		if(newEducationReportVO != null) {
+		if (newEducationReportVO != null) {
 			assertNotNull(newEducationReportVO.getArticleId());
 			assertNotNull(newEducationReportVO.getEducationId());
 			assertNotNull(newEducationReportVO.getMemberId());
 			assertNotNull(newEducationReportVO.getTitle());
 			assertNotNull(newEducationReportVO.getStartDate());
 			assertNotNull(newEducationReportVO.getEndDate());
-			
+
 		} else {
 			fail("fail");
 		}
 	}
-	
+
 	/**
-	 * Education Report
-	 * Get One Education Report Test - Error
+	 * Education Report Get One Education Report Test - Error
 	 */
 	@Test
 	public void getOneEducationReportTest_Error() {
-		
+
 		EducationReportVO educationReportVO = new EducationReportVO();
 		educationReportVO.setArticleId("NO_TEST_DATE");
-		
+
 		EducationReportVO newEducationReportVO = educationBiz.getOneEducationReport(educationReportVO);
-		if(newEducationReportVO != null) {
+		if (newEducationReportVO != null) {
 			fail("fail");
 		}
 	}
-	
+
 	@Test
 	public void getTotalEduQnaCountTest() {
 		EduQnaSearchVO eduQnaSearchVO = new EduQnaSearchVO();
 		eduQnaSearchVO.setEducationId("ED-20160513-000166");
 		int totalReportCount = educationBiz.getTotalEduQnaCount(eduQnaSearchVO);
-		assertTrue(totalReportCount>0);
+		assertTrue(totalReportCount > 0);
 	}
-	
+
 	@Test
 	public void getAllEduQnaTest() {
 		EduQnaListVO eduQnaListVO = new EduQnaListVO();
 		EduQnaSearchVO eduQnaSearchVO = new EduQnaSearchVO();
 		eduQnaSearchVO.setEducationId("ED-20160513-000166");
-		Paging paging = new Paging(20,20);
-		
+		Paging paging = new Paging(20, 20);
+
 		eduQnaListVO.setPaging(paging);
 		int totalReportCount = educationBiz.getTotalEduQnaCount(eduQnaSearchVO);
-		assertTrue(totalReportCount>0);
-		
+		assertTrue(totalReportCount > 0);
+
 		paging.setPageNumber(0 + "");
 		paging.setTotalArticleCount(totalReportCount);
-		
+
 		eduQnaSearchVO.setStartIndex(paging.getStartArticleNumber());
 		eduQnaSearchVO.setEndIndex(paging.getEndArticleNumber());
 
@@ -577,93 +572,93 @@ public class EducationBizTest extends SemsTestCase {
 		assertTrue(eduQna.size() > 0);
 
 	}
-	
+
 	@Test
 	public void confirmMemberOfEduTest() {
 		String memberId = "test02";
 		String educationId = "ED-20160513-000166";
-		
+
 		boolean confirmMemberOfEdu = educationBiz.confirmMemberOfEdu(educationId, memberId);
 		assertTrue(confirmMemberOfEdu);
 	}
-	
+
 	@Test
 	public void insertEduQnaTest() {
 		EduQnaVO eduQnaVO = new EduQnaVO();
 		String memberId = "test02";
 		String eduQnaId = "JUNIT TEST";
-		
+
 		eduQnaVO.setMemberId(memberId);
 		eduQnaVO.setEduQnaId(eduQnaId);
 		eduQnaVO.setEducationId("ED-20160513-000166");
 		eduQnaVO.setTitle("JUNIT TEST");
 		eduQnaVO.setContents("JUNIT TEST");
-		
+
 		boolean result = educationBiz.insertEduQna(eduQnaVO);
 		assertTrue(result);
 	}
-	
+
 	@Test
 	public void getNextEqbSeqTest() {
 		int nextEqbSeq = educationBiz.getNextEqbSeq();
-		assertTrue(nextEqbSeq>0);
+		assertTrue(nextEqbSeq > 0);
 	}
-	
+
 	@Test
 	public void detailOfEduQnaTest() {
 		EduQnaVO eduQnaVO = educationBiz.detailOfEduQna("EQ-20160525-000073");
-		assertNotNull(eduQnaVO);		
+		assertNotNull(eduQnaVO);
 	}
-	
+
 	@Test
 	public void addHitsToEduQnaTest() {
 		boolean result = educationBiz.addHitsToEduQna("EQ-20160525-000073");
 		assertTrue(result);
 	}
-	
+
 	@Test
 	public void addQnaEduReplyLikeTest() {
 		boolean resultTwo = educationBiz.addQnaEduReplyLike("ER-20160525-000904");
 		assertTrue(resultTwo);
 	}
-	
+
 	@Test
 	public void addQnaEduReplyDisLikeTest() {
 		boolean resultTwo = educationBiz.addQnaEduReplyDisLike("ER-20160525-000904");
 		assertTrue(resultTwo);
 	}
-	
+
 	@Test
 	public void getTotalQnaEduReplyCountTest() {
 		int totalReportCount = educationBiz.getTotalQnaEduReplyCount("EQ-20160525-000073");
-		assertTrue(totalReportCount>0);
+		assertTrue(totalReportCount > 0);
 	}
-	
+
 	@Test
-	public void getAllEduFileNoticeTest(){
-		
+	public void getAllEduFileNoticeTest() {
+
 		EduNoticeSearchVO eduNoticeSearchVO = new EduNoticeSearchVO();
 		eduNoticeSearchVO.setEducationId(educationDAO.getOneEducationId());
-		
+
 		List<EduNoticeVO> eduNoticeList = educationBiz.getAllEduFileNotice(eduNoticeSearchVO);
-		
+
 		assertNotNull(eduNoticeList);
-		if ( eduNoticeList != null){
+		if (eduNoticeList != null) {
 			assertTrue(eduNoticeList.size() > 0);
-		}else{
+		} else {
 			fail("Fail...");
 		}
 	}
-	
+
 	@Test
-	public void getOneNoticeTest(){
+	public void getOneNoticeTest() {
 
 		String eduNoticeId = educationDAO.getOneEduNoticeId();
-		EduNoticeVO noticeVO = 	educationBiz.getOneNotice(eduNoticeId);
+		EduNoticeVO noticeVO = educationBiz.getOneNotice(eduNoticeId);
 		assertNotNull(noticeVO);
-		
+
 	}
-	
+
 	@Test
 	public void getAllQNAReplyListByAtcIdTest() {
 		EducationQNAReplySearchVO searchVO = new EducationQNAReplySearchVO();
@@ -678,19 +673,19 @@ public class EducationBizTest extends SemsTestCase {
 		searchVO.setPageNo(0);
 		searchVO.setStartIndex(paging.getStartArticleNumber());
 		searchVO.setEndIndex(paging.getEndArticleNumber());
-		
+
 		List<EducationQNAReplyVO> eduQnaReplyList = educationBiz.getAllQNAReplyListByAtcId(searchVO);
 		assertNotNull(eduQnaReplyList);
-		
+
 	}
-	
+
 	@Test
-	public void getTotalQNAReplyCountByAtcIdTest () {
+	public void getTotalQNAReplyCountByAtcIdTest() {
 		String atcId = "AT-20160524-000034";
 		int result = educationBiz.getTotalQNAReplyCountByAtcId(atcId);
 		assertNotNull(result);
 	}
-	
+
 	@Test
 	public void plusRecommendReplyTest() {
 		String replyId = "ER-20160525-000869";
@@ -698,7 +693,7 @@ public class EducationBizTest extends SemsTestCase {
 		assertNotNull(result);
 		assertTrue(result);
 	}
-	
+
 	@Test
 	public void plusOpposeReplyTest() {
 		String replyId = "ER-20160525-000869";
@@ -706,7 +701,7 @@ public class EducationBizTest extends SemsTestCase {
 		assertNotNull(result);
 		assertTrue(result);
 	}
-	
+
 	@Test
 	public void updateAdoptReplyTest() {
 		String replyId = "ER-20160525-000869";
@@ -714,14 +709,14 @@ public class EducationBizTest extends SemsTestCase {
 		assertNotNull(result);
 		assertTrue(result);
 	}
-	
+
 	@Test
 	public void checkAdoptReplyTest() {
 		String replyId = "ER-20160525-000869";
 		boolean result = educationBiz.checkAdoptReply(replyId);
 		assertNotNull(result);
 	}
-	
+
 	@Test
 	public void getAllEducationQNAListTest() {
 		EducationQNABBSSearchVO searchVO = new EducationQNABBSSearchVO();
@@ -735,12 +730,12 @@ public class EducationBizTest extends SemsTestCase {
 		searchVO.setPageNo(0);
 		searchVO.setStartIndex(paging.getStartArticleNumber());
 		searchVO.setEndIndex(paging.getEndArticleNumber());
-		
+
 		List<EducationQNABBSVO> eduQnaBBSList = educationBiz.getAllEducationQNAList(searchVO);
 		assertNotNull(eduQnaBBSList);
-		
+
 	}
-	
+
 	@Test
 	public void getTotalEducationQNACountTest() {
 		EducationQNABBSSearchVO searchVO = new EducationQNABBSSearchVO();
@@ -749,22 +744,228 @@ public class EducationBizTest extends SemsTestCase {
 		int result = educationBiz.getTotalEducationQNACount(searchVO);
 		assertNotNull(result);
 	}
-	
+
 	@Test
 	public void getEducationFileBBSListTest() {
 		String educationId = "ED-20160520-000278";
-		
+
 		FileBBSSearchVO searchVO = new FileBBSSearchVO();
 		searchVO.setEndIndex(10);
 		searchVO.setStartIndex(1);
 		searchVO.setEducationId(educationId);
-		
+
 		List<EducationFileBBSVO> educationItems = educationBiz.getEducationFileBBSList(searchVO);
-		
-		if ( educationItems != null ) {
+
+		if (educationItems != null) {
 			assertNotNull(educationItems);
+		} else {
+			fail("실패....");
 		}
-		else {
+	}
+
+	@Test
+	public void getEducationFileBBSCountListTest() {
+		String educationId = "ED-20160520-000278";
+
+		FileBBSSearchVO searchVO = new FileBBSSearchVO();
+		searchVO.setEndIndex(10);
+		searchVO.setStartIndex(1);
+		searchVO.setEducationId(educationId);
+
+		List<EducationFileBBSVO> educationItems = educationBiz.getEducationFileBBSList(searchVO);
+
+		if (educationItems != null) {
+			assertNotNull(educationItems);
+		} else {
+			fail("실패....");
+		}
+	}
+
+	@Test
+	public void getEducationFileBBSCountTest() {
+		String educationId = "ED-20160520-000278";
+
+		FileBBSSearchVO searchVO = new FileBBSSearchVO();
+		searchVO.setEducationId(educationId);
+
+		int totalBBSCount = educationBiz.getEducationFileBBSCount(searchVO);
+
+		if (totalBBSCount >= 0) {
+			assertTrue(totalBBSCount >= 0);
+		} else {
+			fail("실패....");
+		}
+	}
+
+	@Test
+	public void getOneEducationDetailTest() {
+		String educationId = "ED-20160520-000278";
+
+		EducationVO educationVO = educationBiz.getOneEducationDetail(educationId);
+
+		if (educationVO != null) {
+			assertNotNull(educationVO);
+		} else {
+			fail("실패....");
+		}
+	}
+
+	@Test
+	public void generateArticleIdTest() {
+		String articleId = educationBiz.generateArticleId();
+
+		if (articleId != null) {
+			assertNotNull(articleId);
+		} else {
+			fail("실패....");
+		}
+	}
+
+	@Test
+	public void getMemberIdByEducationIdTest() {
+		String educationId = "ED-20160520-000278";
+
+		String articleWriterId = educationBiz.getMemberIdByEducationId(educationId);
+
+		if (articleWriterId != null) {
+			assertNotNull(articleWriterId);
+		} else {
+			fail("실패....");
+		}
+	}
+
+	@Test
+	public void writeNewFileBBSTest() {
+		EducationFileBBSVO educationFileBBSVO = new EducationFileBBSVO();
+		String articleId = educationBiz.generateArticleId();
+		educationFileBBSVO.setEducationId("ED-20160513-000176");
+		educationFileBBSVO.setTitle("타이틀");
+		educationFileBBSVO.setContents("내용");
+		educationFileBBSVO.setArticleId(articleId);
+		educationFileBBSVO.setMemberId("teacher02");
+
+		boolean isSuccess = educationBiz.writeNewFileBBS(educationFileBBSVO);
+
+		if (isSuccess) {
+			assertTrue(isSuccess);
+		} else {
+			fail("실패....");
+		}
+	}
+
+	@Test
+	public void getOneEducationFileBBSTest() {
+		String articleId = "FL-20160524-000041";
+		
+		EducationFileBBSVO educationFileBBS = educationBiz.getOneEducationFileBBS(articleId);
+
+		if (educationFileBBS != null) {
+			assertNotNull(educationFileBBS);
+		} else {
+			fail("실패....");
+		}
+	}
+	
+	@Test
+	public void getTotalFileBBSReplyCountByArticleIdTest() {
+		String articleId = "FL-20160524-000041";
+		
+		int totalReplyCount = educationBiz.getTotalFileBBSReplyCountByArticleId(articleId);
+		
+		if (totalReplyCount >= 0) {
+			assertTrue(totalReplyCount >= 0);
+		} else {
+			fail("실패....");
+		}
+	}
+	
+	@Test
+	public void getAllBBSReplyByArticleTest() {
+		BBSReplySearchVO searchVO = new BBSReplySearchVO();
+		searchVO.setArticleId("FL-20160524-000041");
+		searchVO.setPageNo(0);
+		searchVO.setStartIndex(0);
+		searchVO.setEndIndex(10);
+		
+		List<BBSReplyVO> replys = educationBiz.getAllBBSReplyByArticle(searchVO);
+		
+		if (replys != null) {
+			assertNotNull(replys);
+		} else {
+			fail("실패....");
+		}
+	}
+	
+	@Test
+	public void generateBBSReplyIdTest() {
+		String bbsReplyId = educationBiz.generateBBSReplyId();
+		
+		if (bbsReplyId != null) {
+			assertNotNull(bbsReplyId);
+		} else {
+			fail("실패....");
+		}
+	}
+	
+	@Test
+	public void writeFileBBSReplyTest() {
+		BBSReplyVO bbsReplyVO = new BBSReplyVO();
+		String bbsReplyId = educationBiz.generateBBSReplyId();
+		bbsReplyVO.setReplyId(bbsReplyId);
+		bbsReplyVO.setMemberId("teacher02");
+		bbsReplyVO.setOrderNo(0);
+		bbsReplyVO.setArticleId("FL-20160524-000041");
+		bbsReplyVO.setDescription("내용");
+		
+		boolean isSuccess = educationBiz.writeFileBBSReply(bbsReplyVO);
+		
+		if ( isSuccess ) {
+			assertTrue(isSuccess);
+		} else {
+			fail("실패....");
+		}
+	}
+	
+	@Test
+	public void getNextOrderNoTest() {
+		String parentReplyId = "RP-20160527-001177";
+		
+		int orderNo = educationBiz.getNextOrderNo(parentReplyId);
+		
+		if ( orderNo >= 0 ) {
+			assertTrue(orderNo >= 0);
+		} else {
+			fail("실패....");
+		}
+	}
+	
+	@Test
+	public void deleteFileBBSByArticleIdTest() {
+		String articleId = "FL-20160524-000041";
+		
+		boolean isSuccess = educationBiz.deleteFileBBSByArticleId(articleId);
+		
+		if ( isSuccess ) {
+			assertTrue(isSuccess);
+		} else {
+			fail("실패....");
+		}
+	}
+	
+	@Test
+	public void modifyFileBBSTest() {
+		EducationFileBBSVO educationFileBBSVO = new EducationFileBBSVO();
+		educationFileBBSVO.setEducationId("ED-20160513-000176");
+		educationFileBBSVO.setTitle("타이틀");
+		educationFileBBSVO.setContents("내용");
+		educationFileBBSVO.setArticleId("FL-20160524-000041");
+		educationFileBBSVO.setMemberId("teacher02");
+		
+		boolean isSuccess = educationBiz.modifyFileBBS(educationFileBBSVO);
+		
+		if ( isSuccess ) {
+			assertTrue(isSuccess);
+		} else {
 			fail("실패....");
 		}
 	}

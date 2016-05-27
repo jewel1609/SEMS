@@ -1245,10 +1245,11 @@ public class EducationServiceImpl implements EducationService {
 		bbsHistoryVO.setMemberId(member.getId());
 		bbsHistoryVO.setBbsId(articleId);
 		
+		educationBiz.addHitsEducationFileBBSByArticleId(bbsHistoryVO);
+
 		EducationFileBBSVO educationFileBBS = educationBiz.getOneEducationFileBBS(articleId);
 		
 		if ( educationFileBBS != null ) {
-			educationBiz.addHitsEducationFileBBSByArticleId(bbsHistoryVO);
 			
 			List<FileVO> fileList = fileBiz.getAllFilesByArticleId(articleId);
 			

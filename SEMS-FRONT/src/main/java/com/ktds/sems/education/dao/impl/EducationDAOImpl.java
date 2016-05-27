@@ -466,8 +466,8 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 	}
 
 	@Override
-	public boolean isExistedHitMemberIdByArtileId(String articleId) {
-		return getSqlSession().selectOne("EducationDAO.isExistedHitMemberIdByArtileId", articleId) != null;
+	public boolean isExistedHitMemberId(BBSHistoryVO bbsHistoryVO) {
+		return getSqlSession().selectOne("EducationDAO.isExistedHitMemberIdByArtileId", bbsHistoryVO) != null;
 	}
 
 	@Override

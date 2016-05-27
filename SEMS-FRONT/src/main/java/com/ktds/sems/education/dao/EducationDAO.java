@@ -186,7 +186,7 @@ public interface EducationDAO {
 
 	public EducationFileBBSVO getOneEducationFileBBS(String articleId);
 
-	public boolean isExistedHitMemberIdByArtileId(String articleId);
+	public boolean isExistedHitMemberId(BBSHistoryVO bbsHistoryVO);
 
 	public int plusRecommendReply(String replyId);
 

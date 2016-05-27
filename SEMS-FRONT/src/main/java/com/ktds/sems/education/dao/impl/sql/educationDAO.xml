@@ -1311,10 +1311,11 @@
 		WHERE	ATC_ID = #{articleId}
 	</select>
 	
-	<select id="isExistedHitMemberIdByArtileId" resultType="string" parameterType="string">
+	<select id="isExistedHitMemberIdByArtileId" resultType="string" parameterType="BBSHistoryVO">
 		SELECT	MBR_ID memberId
 		FROM	BBS_HTR
-		WHERE	BBS_ID = #{articleId}
+		WHERE	BBS_ID = #{bbsId}
+		AND		MBR_ID = #{memberId}
 	</select>
 	
 	<select id="getTotalEducationQNACount" parameterType="EducationQNABBSSearchVO" resultType="_int">

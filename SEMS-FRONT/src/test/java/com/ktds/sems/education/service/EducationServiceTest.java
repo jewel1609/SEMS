@@ -30,9 +30,11 @@ import com.ktds.sems.Testable;
 import com.ktds.sems.common.Session;
 import com.ktds.sems.education.biz.EducationBiz;
 import com.ktds.sems.education.dao.EducationDAO;
+import com.ktds.sems.education.vo.BBSReplyVO;
 import com.ktds.sems.education.vo.EduQnaSearchVO;
 import com.ktds.sems.education.vo.EduQnaVO;
 import com.ktds.sems.education.vo.EduReplyListVO;
+import com.ktds.sems.education.vo.EducationFileBBSVO;
 import com.ktds.sems.education.vo.EducationListVO;
 import com.ktds.sems.education.vo.EducationQNABBSVO;
 import com.ktds.sems.education.vo.EducationQNAReplyVO;
@@ -904,7 +906,191 @@ public class EducationServiceTest extends SemsTestCase {
 		
 	}
 	
+	@Test
+	public void doWriteEducationFileBBSActionTest () {
+		EducationFileBBSVO educationFileBBSVO = new EducationFileBBSVO();
+		educationFileBBSVO.setEducationId("ED-20160513-000176");
+		educationFileBBSVO.setTitle("타이틀");
+		educationFileBBSVO.setContents("내용");
+		
+		MockHttpSession session = new MockHttpSession();
+		MemberVO member = new MemberVO();
+		member.setId("teacher02");
+		session.setAttribute(Session.MEMBER, member);
+		
+		MockMultipartHttpServletRequest request = new MockMultipartHttpServletRequest();
+		
+		ModelAndView view = educationService.doWriteEducationFileBBSAction(educationFileBBSVO, request, session);
+		
+		if (view != null) {
+			assertNotNull(view);
+			
+			String viewName = view.getViewName();
+			assertNotNull(viewName);
+			assertEquals(viewName, "redirect:/education/fileBBS/" + educationFileBBSVO.getEducationId());
+		}
+		else {
+			fail("실패....");
+		}
+	}
 	
+	@Test
+	public void showWriteFileBBSPageTest () {
+		String educationId = "ED-20160513-000176";
+		
+		ModelAndView view = educationService.showWriteFileBBSPage(educationId);
+		
+		if (view != null) {
+			assertNotNull(view);
+			
+			String viewName = view.getViewName();
+			assertNotNull(viewName);
+			assertEquals(viewName, "education/writeEducationFileBBS");
+		}
+		else {
+			fail("실패....");
+		}
+	}
+	
+	@Test
+	public void showDetailEducationFileBBSTest () {
+		String articleId = "FL-20160524-000041";
+		int pageNo = 0;
+		
+		MockHttpSession session = new MockHttpSession();
+		MemberVO member = new MemberVO();
+		member.setId("teacher02");
+		session.setAttribute(Session.MEMBER, member);
+		
+		ModelAndView view = educationService.showDetailEducationFileBBS(articleId, pageNo, session);
+		
+		if (view != null) {
+			assertNotNull(view);
+			
+			String viewName = view.getViewName();
+			assertNotNull(viewName);
+			assertEquals(viewName, "education/detailEducationFileBBS");
+			
+			assertNotNull(view.getModelMap().get("replyList"));
+			assertNotNull(view.getModelMap().get("fileList"));
+			assertNotNull(view.getModelMap().get("educationFileBBS"));
+		}
+		else {
+			fail("실패....");
+		}
+	}
+	
+	@Test
+	public void writeFileBBSReplyTest () {
+		BBSReplyVO bbsReplyVO = new BBSReplyVO();
+		bbsReplyVO.setArticleId("FL-20160524-000041");
+		bbsReplyVO.setOrderNo(0);
+		bbsReplyVO.setDescription("내용");
+		
+		MockHttpSession session = new MockHttpSession();
+		MemberVO member = new MemberVO();
+		member.setId("teacher02");
+		session.setAttribute(Session.MEMBER, member);
+		
+		ModelAndView view = educationService.writeFileBBSReply(bbsReplyVO, session);
+		
+		if (view != null) {
+			assertNotNull(view);
+			
+			String viewName = view.getViewName();
+			assertNotNull(viewName);
+			assertEquals(viewName, "redirect:/education/fileBBS/detail/" + bbsReplyVO.getArticleId());
+		}
+		else {
+			fail("실패....");
+		}
+	}
+
+	@Test
+	public void deleteFileBBSTest () {
+		EducationFileBBSVO educationFileBBSVO = new EducationFileBBSVO();
+		educationFileBBSVO.setMemberId("teacher02");
+		educationFileBBSVO.setEducationId("ED-20160513-000176");
+		educationFileBBSVO.setArticleId("FL-20160524-000041");
+		
+		MockHttpSession session = new MockHttpSession();
+		MemberVO member = new MemberVO();
+		member.setId("teacher02");
+		session.setAttribute(Session.MEMBER, member);
+		
+		ModelAndView view = educationService.deleteFileBBS(educationFileBBSVO, session);
+		
+		if (view != null) {
+			assertNotNull(view);
+			
+			String viewName = view.getViewName();
+			assertNotNull(viewName);
+			assertEquals(viewName, "redirect:/education/fileBBS/" + educationFileBBSVO.getEducationId());
+		}
+		else {
+			fail("실패....");
+		}
+	}
+	
+	@Test
+	public void modifyFileBBSTest () {
+		EducationFileBBSVO educationFileBBSVO = new EducationFileBBSVO();
+		educationFileBBSVO.setArticleId("FL-20160524-000041");
+		educationFileBBSVO.setTitle("수정");
+		educationFileBBSVO.setContents("수정");
+		
+		MockMultipartHttpServletRequest request = new MockMultipartHttpServletRequest();
+		String fileDelete = "N";
+		
+		MockHttpSession session = new MockHttpSession();
+		MemberVO member = new MemberVO();
+		member.setId("teacher02");
+		session.setAttribute(Session.MEMBER, member);
+		
+		ModelAndView view = educationService.modifyFileBBS(educationFileBBSVO, request, fileDelete, session);
+		
+		if (view != null) {
+			assertNotNull(view);
+			
+			String viewName = view.getViewName();
+			assertNotNull(viewName);
+			assertEquals(viewName, "redirect:/education/fileBBS/detail/" + educationFileBBSVO.getArticleId());
+		}
+		else {
+			fail("실패....");
+		}
+	}
+	
+	@Test
+	public void showModifyFileBBSTest () {
+		EducationFileBBSVO educationFileBBSVO = new EducationFileBBSVO();
+		educationFileBBSVO.setMemberId("teacher02");
+		educationFileBBSVO.setArticleId("FL-20160524-000041");
+		educationFileBBSVO.setTitle("수정");
+		educationFileBBSVO.setContents("수정");
+		
+		MockHttpSession session = new MockHttpSession();
+		MemberVO member = new MemberVO();
+		member.setId("teacher02");
+		session.setAttribute(Session.MEMBER, member);
+		
+		ModelAndView view = educationService.showModifyFileBBS(educationFileBBSVO, session);
+		
+		if (view != null) {
+			assertNotNull(view);
+			
+			String viewName = view.getViewName();
+			assertNotNull(viewName);
+			assertEquals(viewName, "education/writeEducationFileBBS");
+			
+			assertNotNull(view.getModelMap().get("educationFileBBSVO"));
+			assertNotNull(view.getModelMap().get("isModify"));
+			assertNotNull(view.getModelMap().get("fileList"));
+		}
+		else {
+			fail("실패....");
+		}
+	}
 	
 	
 	
