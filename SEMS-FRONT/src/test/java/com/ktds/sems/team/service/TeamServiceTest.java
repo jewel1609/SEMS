@@ -226,21 +226,21 @@ public class TeamServiceTest extends SemsTestCase {
 		}
 	}
 	
-	@Test
-	public void massiveInsertMember(){
-		ModelAndView view = new ModelAndView();
-		String educationId = "JunitTest";
-		String teamName = "JunitTest";
-		String[] insertMemberIds = {"JunitTest","JunitTest2"};
-		String teamListId = "JunitTest";
-		
-		view.setViewName("team/teamBoard");
-		if( teamService.massiveInsertMember(insertMemberIds, educationId, teamName, teamListId) != null ){
-			assertEquals(view.getViewName(), teamService.massiveInsertMember(insertMemberIds, educationId, teamName, teamListId).getViewName());
-		} else {
-			fail("fail");
-		}
-	}
+//	@Test
+//	public void massiveInsertMember(){
+//		ModelAndView view = new ModelAndView();
+//		String educationId = "JunitTest";
+//		String teamName = "JunitTest";
+//		String[] insertMemberIds = {"JunitTest","JunitTest2"};
+//		String teamListId = "JunitTest";
+//		
+//		view.setViewName("team/teamBoard");
+//		if( teamService.massiveInsertMember(insertMemberIds, educationId, teamName, teamListId) != null ){
+//			assertEquals(view.getViewName(), teamService.massiveInsertMember(insertMemberIds, educationId, teamName, teamListId).getViewName());
+//		} else {
+//			fail("fail");
+//		}
+//	}
 
 	@Test
 	public void getAllMinutes(){
