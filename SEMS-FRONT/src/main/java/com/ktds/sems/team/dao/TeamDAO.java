@@ -129,5 +129,6 @@ public interface TeamDAO {
 	public void insertNewEducation(EducationVO educationVO);
 
 	public void deleteEducation(String educationId);
-
+	
+	public int deleteTestMinutes(String minutesId);
 }
