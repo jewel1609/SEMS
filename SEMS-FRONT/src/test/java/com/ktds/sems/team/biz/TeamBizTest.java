@@ -145,6 +145,7 @@ public class TeamBizTest extends SemsTestCase {
 		members = teamBiz.getAllEduMember(educationId);
 		if (members != null){
 			assertNotNull(members);
+			assertTrue(members.size() >=0);
 			assertTrue(members.size() >= 0);
 			}
 		else{
@@ -290,6 +291,9 @@ public class TeamBizTest extends SemsTestCase {
 		String dislikeState = teamBiz.getDislikeState(bbs);
 		assertNotNull(dislikeState);
 		
+		teamBBSReplyListVO.setTeamBBSReplyList(replies);
+
+
 	}
 
 	
