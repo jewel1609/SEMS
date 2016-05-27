@@ -531,8 +531,9 @@ public class TeamServiceImpl implements TeamService{
 		return view;
 	}
 	@Override
-	public void doDeleteTeamListByMemberId(String memberId) {
+	public void doDeleteTeamListByMemberId(String memberId, String teamName) {
 		teamBiz.doDeleteTeamListByMemberId(memberId);
+		teamBiz.doDeleteTeamByTeamName(teamName);
 	}
 
 	@Override

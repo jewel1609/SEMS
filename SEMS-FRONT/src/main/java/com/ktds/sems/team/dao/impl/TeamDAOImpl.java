@@ -283,4 +283,9 @@ public class TeamDAOImpl  extends SqlSessionDaoSupport implements TeamDAO{
 	public int getReplyCountByTeamBBSId(String teamBBSId) {
 		return getSqlSession().selectOne("teamDAO.getReplyCountByTeamBBSId", teamBBSId);
 	}
+
+	@Override
+	public void doDeleteTeamByTeamName(String teamName) {
+		getSqlSession().delete("teamDAO.doDeleteTeamByTeamName", teamName);
+	}
 }

@@ -64,7 +64,8 @@ public class TeamServiceTest extends SemsTestCase {
 				
 				// 넣은 Team_List 데이터 지우기
 				String memberId = "testMemberId";
-				teamService.doDeleteTeamListByMemberId(memberId);
+				String teamName = "testTeamName";
+				teamService.doDeleteTeamListByMemberId(memberId, teamName);
 			}
 		});
 	}

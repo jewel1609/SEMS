@@ -53,7 +53,7 @@ public interface TeamService {
 
 	public ModelAndView getAllMinutes(MinutesSearchVO minutesSearchVO, int pageNo, HttpSession session);
 
-	public void doDeleteTeamListByMemberId(String memberId);
+	public void doDeleteTeamListByMemberId(String memberId, String teamName);
 
 	public ModelAndView getAllEduMember(String educationId, HttpSession session);
 

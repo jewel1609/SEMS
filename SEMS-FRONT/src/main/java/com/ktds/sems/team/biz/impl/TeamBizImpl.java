@@ -344,5 +344,9 @@ public class TeamBizImpl implements TeamBiz {
 	public String getOneDetailMinutesDate(String minutesId) {
 		return teamDAO.getOneDetailMinutesDate(minutesId);
 	}
+	@Override
+	public void doDeleteTeamByTeamName(String teamName) {
+		teamDAO.doDeleteTeamByTeamName(teamName);
+	}
 
 }

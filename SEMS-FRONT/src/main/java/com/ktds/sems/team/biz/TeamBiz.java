@@ -104,4 +104,6 @@ public interface TeamBiz {
 
 	public void doDeleteTeamListByMemberId(String memberId);
 
+	public void doDeleteTeamByTeamName(String teamName);
+
 }

@@ -704,11 +704,19 @@
 		AND		PARENT_REPLY_ID = '0'
 	</select>
 	
-	<delete id="doDeleteTeamListByMemberId">
+	<delete id="doDeleteTeamListByMemberId" parameterType="string">
 		DELETE
 		FROM	TEAM_LIST
 		WHERE	MBR_ID = #{memberId}
 	</delete>
+	
+	<delete id="doDeleteTeamByTeamName" parameterType="string" >
+		DELETE
+		FROM	TEAM
+		WHERE	TEAM_NM = #{teamName}
+	</delete>
+	
+	
 	
 	<select id="getOneDetailMinutes" parameterType="String" resultType="MinutesVO">
 		SELECT 
