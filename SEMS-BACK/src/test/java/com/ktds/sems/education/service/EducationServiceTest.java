@@ -15,7 +15,6 @@ import javax.servlet.http.HttpSession;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.mock.web.MockMultipartHttpServletRequest;
@@ -29,11 +28,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.SemsTestCase;
 import com.ktds.sems.common.Session;
-import com.ktds.sems.education.vo.EducationHistoryListVO;
-import com.ktds.sems.education.vo.EducationHistorySearchVO;
-import com.ktds.sems.education.vo.EducationHistoryVO;
-import com.ktds.sems.education.vo.EducationQNAReplyVO;
-import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.dao.EducationDAO;
 import com.ktds.sems.education.vo.EduFileListVO;
 import com.ktds.sems.education.vo.EduFileSearchVO;
@@ -41,15 +35,19 @@ import com.ktds.sems.education.vo.EduFileVO;
 import com.ktds.sems.education.vo.EduNoticeListVO;
 import com.ktds.sems.education.vo.EduNoticeSearchVO;
 import com.ktds.sems.education.vo.EduNoticeVO;
-import com.ktds.sems.education.vo.EduQnaListVO;
 import com.ktds.sems.education.vo.EduQnaSearchVO;
 import com.ktds.sems.education.vo.EduQnaVO;
 import com.ktds.sems.education.vo.EduReportListVO;
 import com.ktds.sems.education.vo.EduReportSearchVO;
 import com.ktds.sems.education.vo.EduReportVO;
-
+import com.ktds.sems.education.vo.EducationHistoryListVO;
+import com.ktds.sems.education.vo.EducationHistorySearchVO;
+import com.ktds.sems.education.vo.EducationHistoryVO;
+import com.ktds.sems.education.vo.EducationQNAReplyVO;
+import com.ktds.sems.education.vo.EducationVO;
+import com.ktds.sems.education.vo.TeamVO;
 import com.ktds.sems.file.biz.FileBiz;
-import com.ktds.sems.file.vo.FileVO;
+import com.ktds.sems.member.vo.AttendVO;
 import com.ktds.sems.member.vo.MemberVO;
 
 import kr.co.hucloud.utilities.web.Paging;
@@ -2097,5 +2095,136 @@ public class EducationServiceTest extends SemsTestCase {
 		session.setAttribute(Session.MEMBER, memberVO);
 		String result = educationService.addQnaEduReplyDisLike(replyId, session);
 		assertTrue(result == "OK");
+	}
+	
+	@Test
+	public void getAllMemberListTest() {
+		ModelAndView view = educationService.getAllMemberList();
+		assertNotNull(view);
+		
+		String viewName = view.getViewName();
+		assertNotNull(viewName);
+		assertEquals(viewName, "education/attendanceAllMemberList");
+		
+		List<MemberVO> memberList = (List<MemberVO>)view.getModel().get("memberList");
+		assertNotNull(memberList);
+		assertTrue(memberList.size() > 0);
+	}
+	
+	@Test
+	public void getOneMemberAttendanceTest1() {
+		
+		String memberId = "test02";
+		
+		ModelAndView view = educationService.getOneMemberAttendance(memberId);
+		assertNotNull(view);
+		
+		String viewName = view.getViewName();
+		assertNotNull(viewName);
+		assertEquals(viewName, "education/attendanceOneMemberList");
+		
+		List<List<AttendVO>> AllEduAllAttendanceList = (List<List<AttendVO>>)view.getModel().get("AllEduAllAttendanceList");
+		assertNotNull(AllEduAllAttendanceList);
+		assertTrue(AllEduAllAttendanceList.size() > 0);
+	}
+	
+	@Test
+	public void getOneMemberAttendanceTest2() {
+		String memberId = "test03";
+		
+		ModelAndView view = educationService.getOneMemberAttendance(memberId);
+		assertNotNull(view);
+		
+		String viewName = view.getViewName();
+		assertNotNull(viewName);
+		assertEquals(viewName, "redirect:/attendanceHistory/memberList");
+	}
+	
+	@Test
+	public void getAllStartedEducationListTest() {
+		ModelAndView view = educationService.getAllStartedEducationList();
+		assertNotNull(view);
+		
+		String viewName = view.getViewName();
+		assertNotNull(viewName);
+		assertEquals(viewName, "education/attendanceAllEducationList");
+		
+		List<EducationVO> educationList = (List<EducationVO>)view.getModel().get("educationList");
+		assertNotNull(educationList);
+		assertTrue(educationList.size() > 0);
+	}
+	
+	@Test
+	public void getOneEducationAttendanceTest1() {
+		String educationId = "ED-20160516-000181";
+		
+		ModelAndView view = educationService.getOneEducationAttendance(educationId);
+		assertNotNull(view);
+		
+		String viewName = view.getViewName();
+		assertNotNull(viewName);
+		assertEquals(viewName, "education/attendanceOneEduList");
+		
+		List<AttendVO> attendanceList = (List<AttendVO>)view.getModel().get("attendanceList");
+		assertNotNull(attendanceList);
+		assertTrue(attendanceList.size() > 0);
+	}
+	
+	@Test
+	public void getOneEducationAttendanceTest2() {
+		String educationId = "ED-20160513-000174";
+		
+		ModelAndView view = educationService.getOneEducationAttendance(educationId);
+		assertNotNull(view);
+		
+		String viewName = view.getViewName();
+		assertNotNull(viewName);
+		assertEquals(viewName, "redirect:/attendanceHistory/educationList");
+	}
+	
+	@Test
+	public void getAllTeamListTest() {
+		ModelAndView view = educationService.getAllTeamList();
+		assertNotNull(view);
+		
+		String viewName = view.getViewName();
+		assertNotNull(viewName);
+		assertEquals(viewName, "education/attendanceAllTeamList");
+		
+		List<TeamVO> teamList = (List<TeamVO>)view.getModel().get("teamList");
+		assertNotNull(teamList);
+		assertTrue(teamList.size() > 0);
+	}
+	
+	@Test
+	public void getOneTeamAttendance1() {
+		String educationId = "ED-20160513-000166";
+		String teamId = "2";
+		String teamName = "Spring";
+		
+		ModelAndView view = educationService.getOneTeamAttendance(educationId, teamId, teamName);
+		assertNotNull(view);
+		
+		String viewName = view.getViewName();
+		assertNotNull(viewName);
+		assertEquals(viewName, "education/attendanceOneTeamList");
+		
+		List<AttendVO> attendanceList = (List<AttendVO>)view.getModel().get("attendanceList");
+		assertNotNull(attendanceList);
+		assertTrue(attendanceList.size() > 0);
+	}
+	
+	@Test
+	public void getOneTeamAttendance2() {
+		String educationId = "";
+		String teamId = "";
+		String teamName = "";
+		
+		ModelAndView view = educationService.getOneTeamAttendance(educationId, teamId, teamName);
+		assertNotNull(view);
+		
+		String viewName = view.getViewName();
+		assertNotNull(viewName);
+		assertEquals(viewName, "redirect:/attendanceHistory/teamList");
 	}
 }
