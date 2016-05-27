@@ -9,6 +9,8 @@ import com.ktds.sems.education.vo.EducationBoardHistoryVO;
 import com.ktds.sems.education.vo.BBSHistoryVO;
 import com.ktds.sems.education.vo.BBSReplySearchVO;
 import com.ktds.sems.education.vo.BBSReplyVO;
+import com.ktds.sems.education.vo.EduNoticeSearchVO;
+import com.ktds.sems.education.vo.EduNoticeVO;
 import com.ktds.sems.education.vo.EducationFileBBSVO;
 import com.ktds.sems.education.vo.EducationQNABBSSearchVO;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
@@ -248,5 +250,7 @@ public interface EducationDAO {
 	public int insertEducationState(String educationId, String memberId);
 
 	public int insertEduStateToReserve(String educationId, String id);
+
+	public List<EduNoticeVO> getAllEduFileNotice(EduNoticeSearchVO eduNoticeSearchVO);
 
 }

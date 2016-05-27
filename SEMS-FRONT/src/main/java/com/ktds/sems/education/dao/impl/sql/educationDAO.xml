@@ -1780,4 +1780,21 @@
 									, 'EDU_RE_A'
 							 	)
    	</insert>
+   	
+   	<select id="getAllEduFileNotice" parameterType="EduNoticeSearchVO" resultType="EduNoticeVO">
+		SELECT	IMP_ATC_ID eduNoticeId
+				, EDU_ID educationId
+				, MBR_ID memberId
+				, IS_DELETE isDelete
+				, TITLE title
+				, CONTENTS contents
+				, TO_CHAR(CREATE_DATE,'YYYY-MM-DD') createDate
+				, TO_CHAR(MODIFY_DATE,'YYYY-MM-DD') modifyDate
+				, HITS hits
+		FROM	IMP_ATC
+		WHERE	IS_DELETE = 'N' 
+		AND     ((EDU_ID =  #{educationId}  AND IMP_TP ='normal') OR IMP_TP ='important')
+		ORDER	BY IMP_ATC_ID
+		
+	</select>
 </mapper>

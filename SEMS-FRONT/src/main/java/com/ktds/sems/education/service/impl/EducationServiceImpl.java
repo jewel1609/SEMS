@@ -31,6 +31,9 @@ import com.ktds.sems.education.vo.BBSHistoryVO;
 import com.ktds.sems.education.vo.BBSReplyListVO;
 import com.ktds.sems.education.vo.BBSReplySearchVO;
 import com.ktds.sems.education.vo.BBSReplyVO;
+import com.ktds.sems.education.vo.EduNoticeListVO;
+import com.ktds.sems.education.vo.EduNoticeSearchVO;
+import com.ktds.sems.education.vo.EduNoticeVO;
 import com.ktds.sems.education.vo.EduQnaListVO;
 import com.ktds.sems.education.vo.EduQnaSearchVO;
 import com.ktds.sems.education.vo.EduQnaVO;
@@ -822,7 +825,7 @@ public class EducationServiceImpl implements EducationService {
 		eduBBS.setAtcId(realAtcId);
 		
 		
-		//강의 아이디 받아와서 집어넣기
+		//TODO 강의 아이디 받아와서 집어넣기
 		eduBBS.setEduId(educationId);
 		
 		if ( !errors.hasErrors() ) {
@@ -1014,15 +1017,24 @@ public class EducationServiceImpl implements EducationService {
 		
 		List<EducationFileBBSVO> educationFileBBSVOs = educationBiz.getEducationFileBBSList(searchVO);
 		
+		EduNoticeListVO eduNoticeListVO = new EduNoticeListVO();
+		EduNoticeSearchVO eduNoticeSearchVO = new EduNoticeSearchVO();
+		eduNoticeSearchVO.setEducationId(educationId);
+		
+		List<EduNoticeVO> eduFileNotice = educationBiz.getAllEduFileNotice(eduNoticeSearchVO);
+		eduNoticeListVO.setEduNoticeList(eduFileNotice);
+		
 		educationFileBBSList.setEducationFileBBSVOs(educationFileBBSVOs);
 		educationFileBBSList.setPaging(paging);
 		
 		String teacherId = educationVO.getMemberId();
 		
+		view.setViewName("education/educationFileBBS");
 		view.addObject("searchVO", searchVO);
 		view.addObject("educationFileBBSList", educationFileBBSList);
 		view.addObject("teacherId", teacherId);
-		view.setViewName("education/educationFileBBS");
+		view.addObject("eduNoticeListVO", eduNoticeListVO);
+		
 		
 		return view;
 	}

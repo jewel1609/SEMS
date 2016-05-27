@@ -16,6 +16,8 @@ import com.ktds.sems.education.dao.EducationDAO;
 import com.ktds.sems.education.vo.BBSHistoryVO;
 import com.ktds.sems.education.vo.BBSReplySearchVO;
 import com.ktds.sems.education.vo.BBSReplyVO;
+import com.ktds.sems.education.vo.EduNoticeSearchVO;
+import com.ktds.sems.education.vo.EduNoticeVO;
 import com.ktds.sems.education.vo.EduQnaSearchVO;
 import com.ktds.sems.education.vo.EduQnaVO;
 import com.ktds.sems.education.vo.EducationBoardHistoryVO;
@@ -758,6 +760,11 @@ public class EducationBizImpl implements EducationBiz {
 	@Override
 	public boolean insertEduStateToReserve(String educationId, String id) {
 		return educationDAO.insertEduStateToReserve(educationId, id) > 0;
+	}
+
+	@Override
+	public List<EduNoticeVO> getAllEduFileNotice(EduNoticeSearchVO eduNoticeSearchVO) {
+		return educationDAO.getAllEduFileNotice(eduNoticeSearchVO);
 	}
 	
 }

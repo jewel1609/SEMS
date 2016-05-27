@@ -15,6 +15,8 @@ import com.ktds.sems.education.vo.EducationBoardHistoryVO;
 import com.ktds.sems.education.vo.BBSHistoryVO;
 import com.ktds.sems.education.vo.BBSReplySearchVO;
 import com.ktds.sems.education.vo.BBSReplyVO;
+import com.ktds.sems.education.vo.EduNoticeSearchVO;
+import com.ktds.sems.education.vo.EduNoticeVO;
 import com.ktds.sems.education.vo.EducationFileBBSVO;
 import com.ktds.sems.education.vo.EducationQNABBSSearchVO;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
@@ -668,6 +670,11 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 		paramMap.put("id", id);
 		
 		return getSqlSession().insert("EducationDAO.insertEduStateToReserve", paramMap);
+	}
+
+	@Override
+	public List<EduNoticeVO> getAllEduFileNotice(EduNoticeSearchVO eduNoticeSearchVO) {
+		return getSqlSession().selectList("EducationDAO.getAllEduFileNotice", eduNoticeSearchVO);
 	}
 
 }
