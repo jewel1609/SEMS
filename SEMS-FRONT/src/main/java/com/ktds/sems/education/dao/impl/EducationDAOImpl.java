@@ -696,4 +696,9 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 	public String getOneEducationId() {
 		return getSqlSession().selectOne("EducationDAO.getOneEducationId");
 	}
+
+	@Override
+	public void deleteEducationHistoryByMemberId(String memberId) {
+		getSqlSession().delete("EducationDAO.deleteEducationHistoryByMemberId", memberId);
+	}
 }
