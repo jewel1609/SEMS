@@ -33,6 +33,8 @@ import com.ktds.sems.Testable;
 import com.ktds.sems.education.vo.CategoryVO;
 import com.ktds.sems.education.vo.CostVO;
 import com.ktds.sems.education.vo.EduFileSearchVO;
+import com.ktds.sems.education.vo.EduNoticeSearchVO;
+import com.ktds.sems.education.vo.EduNoticeVO;
 import com.ktds.sems.education.vo.EduQnaSearchVO;
 import com.ktds.sems.education.vo.EduReportSearchVO;
 import com.ktds.sems.education.vo.EduReportVO;
@@ -98,9 +100,9 @@ public class EducationDAOTest extends SemsTestCase {
 		});
 	}
 	
-	/* ED-20160512-000139 이미 등록돼 있음
+/*	 ED-20160512-000139 이미 등록돼 있음
 	 * 
-	 * @Test 
+	 *  
 	public void insertNewEducationTest(){
 		EducationVO educationVO = new EducationVO();
 		
@@ -123,21 +125,21 @@ public class EducationDAOTest extends SemsTestCase {
 		 
 	}*/
 	
-	@Test 
+	@Test
 	public void costCodeListTest(){
 		List<CostVO> costcode = educationDAO.costCodeList();
 		assertNotNull(costcode);
 		assertTrue(costcode.size() > 0);
 	}
 	
-	@Test 
+	@Test
 	public void typeCodeListTest(){
 		List<EducationTypeVO> typecode = educationDAO.typeCodeList();
 		assertNotNull(typecode);
 		assertTrue(typecode.size() > 0);
 	}
 	
-	@Test 
+	@Test
 	public void categoryCodeListTest(){
 		List<CategoryVO>  categorycode = educationDAO.categoryCodeList();
 		assertNotNull(categorycode);
@@ -146,7 +148,7 @@ public class EducationDAOTest extends SemsTestCase {
 	
 	/*
 	 * educationId 값 재설정
-	@Test
+	
 	public void getOneEducationTest() {
 		String educationId = "ED-20160518-000206";
 		EducationVO educationVO =  educationDAO.getOneEducation(educationId);
@@ -1004,7 +1006,7 @@ public class EducationDAOTest extends SemsTestCase {
 		assertTrue(result >= 0);		
 	}
 	
-	@Test 
+	@Test
 	public void getTotalEduReportCount(){
 		EduReportSearchVO eduReportSearchVO = new EduReportSearchVO();
 		eduReportSearchVO.setEducationId("ED-20160519-000233");
@@ -1052,7 +1054,7 @@ public class EducationDAOTest extends SemsTestCase {
 	@Test
 	public void doActionDeleteBeforeCheckTest() {
 		MemberVO memberVO = new MemberVO();
-		memberVO.setId("cainGwiz88");
+		memberVO.setId("cocomo12");
 		memberVO.setMemberType("ADM");
 		String check = educationDAO.doActionDeleteBeforeCheck(memberVO);
 		if(check != null) {
@@ -1115,6 +1117,80 @@ public class EducationDAOTest extends SemsTestCase {
 		List<EduReportVO> reports = educationDAO.getAllEduReportHistory(reportSearchVO);
 		assertNotNull(reports);
 		assertTrue(reports.size() > 0);
+	}
+	
+	@Test
+	public void nextEduNoticeSeqTest(){
+		
+		int result = educationDAO.nextEduNoticeSeq();
+		assertNotNull(result);
+	}
+	
+	@Test
+	public void insertNewEduFileNoticeTest(){
+		
+		int nextEduFileNoticeId = educationDAO.nextEduNoticeSeq();
+		String nowDate = educationDAO.nowDate();
+		String noticeId = "JunitTest"+nowDate+ nextEduFileNoticeId;
+		
+		EduNoticeVO eduNoticeVO = new EduNoticeVO();
+		eduNoticeVO.setEduNoticeId(noticeId);
+		eduNoticeVO.setEducationId(educationDAO.getOneEducationId());
+		eduNoticeVO.setMemberId("JUNIT");
+		eduNoticeVO.setTitle("JUNIT 공지 테스ㅡㅌ");
+		eduNoticeVO.setContents("ㅋㅋㅋㅋㅋㅋㅋㅋ");
+		eduNoticeVO.setCreateDate("2016/05/24");
+		eduNoticeVO.setNoticeType("normal");
+		
+		int result = educationDAO.insertNewEduFileNotice(eduNoticeVO);
+		assertNotNull(result);
+	}
+	
+	@Test
+	public void getAllEduFileNoticeTest(){
+		
+		EduNoticeSearchVO eduNoticeSearchVO = new EduNoticeSearchVO();
+		eduNoticeSearchVO.setEducationId(educationDAO.getOneEducationId());
+		
+		List<EduNoticeVO> eduNoticeList = educationDAO.getAllEduFileNotice(eduNoticeSearchVO);
+		
+		assertNotNull(eduNoticeList);
+		assertTrue(eduNoticeList.size() > 0);
+	
+	}
+	
+	@Test
+	public void getOneNoticeTest(){
+		
+		String eduNoticeId =  educationDAO.getOneEduNoticeId();
+		EduNoticeVO eduNotice = educationDAO.getOneNotice(eduNoticeId);
+		assertNotNull(eduNotice);
+	}
+	
+	@Test
+	public void doDeleteEduNoticeTest(){
+		
+		String eduNoticeId =  educationDAO.getOneEduNoticeId();
+		int result = educationDAO.doDeleteEduNotice(eduNoticeId);
+		assertNotNull(result);
+	}
+	
+	@Test
+	public void doEduFileNoticeModifyTest(){
+	
+		String eduNoticeId = educationDAO.getOneEduNoticeId();
+		
+		EduNoticeVO changeEduNoticeVO = new EduNoticeVO();
+		changeEduNoticeVO.setEduNoticeId(eduNoticeId);
+		changeEduNoticeVO.setEducationId("IMP-20160526-000045");
+		changeEduNoticeVO.setMemberId("JUNIT");
+		changeEduNoticeVO.setTitle("JUNIT 공지 테스ㅡㅌ");
+		changeEduNoticeVO.setContents("ㅋㅋㅋㅋㅋㅋㅋㅋ");
+		changeEduNoticeVO.setCreateDate("2016/05/24");
+		changeEduNoticeVO.setNoticeType("normal");
+	
+		int result = educationDAO.doEduFileNoticeModify(changeEduNoticeVO);
+		assertNotNull(result);
 	}
 	
 	@Test
