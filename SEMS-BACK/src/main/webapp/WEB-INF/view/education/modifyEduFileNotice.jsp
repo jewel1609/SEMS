@@ -57,11 +57,29 @@
 <div
 		style="width: 70%; height: 100%; border: thin; border-style: double; border-radius: 5px; padding: 5px;">
 		<form:form id="registerForm" commandName="EduNoticeVO" method="post" >
-		
-			<select name="noticeType" style="width: auto;">
-		        	<option value="normal" selected>일반 공지사항</option>
-		        	<option value="important">전체 공지사항</option>
-		    </select> 
+				<select name="noticeType" style="width: auto;">
+					<c:if test="${ noticeType eq normal }">
+			        	<option value="normal">일반 공지사항</option>
+			        </c:if>
+			        <c:if test="${ noticeType eq important}">
+			        	<option value="important" >전체 공지사항</option>
+			        </c:if>
+			    </select> 
+			
+		  <%--   <c:choose>
+				<c:when test="${ noticeType eq normal}">
+					<select name="noticeType" style="width: auto;">
+				        	<option value="normal" selected>일반 공지사항</option>
+				        	<option value="important" >전체 공지사항</option>
+				    </select> 
+				 </c:when>
+				<c:when test="${noticeType eq important }"> 
+					<select name="noticeType" style="width: auto;">
+				        	<option value="normal" >일반 공지사항</option>
+				        	<option value="important" selected >전체 공지사항</option>
+				    </select> 
+				</c:when>
+			</c:choose> --%>
 		        <br><br>
 	     	제목 : <input type="text" name="title" id="title" value="${eduNotice.title }" style="height: 45px; width: 90%;">
 	     	<br/>

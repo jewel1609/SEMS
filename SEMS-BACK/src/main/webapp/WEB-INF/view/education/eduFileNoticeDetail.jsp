@@ -33,7 +33,7 @@
 		});
 		
 		$("#noticeListBtn").click(function(){
-			location.href = "<c:url value='/${eduNoticeVO.educationId}/eduFile' />";
+			location.href = "<c:url value='/${educationId}/eduFile' />";
 		});
 		
 	});
