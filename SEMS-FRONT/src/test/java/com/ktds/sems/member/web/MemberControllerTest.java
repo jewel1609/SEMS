@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -23,6 +24,7 @@ import com.ktds.sems.common.Session;
 import com.ktds.sems.education.vo.EducationHistoryListVO;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationHistoryVO;
+
 import com.ktds.sems.education.vo.EducationSearchVO;
 import com.ktds.sems.member.dao.MemberDAO;
 import com.ktds.sems.member.vo.GraduationTypeVO;
@@ -426,5 +428,7 @@ public class MemberControllerTest extends SemsTestCase {
 			fail("Fail...");
 		}
 	}
+	
+
 	
 }
