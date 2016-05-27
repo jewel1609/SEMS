@@ -43,6 +43,11 @@ public class MemberBizTest extends SemsTestCase {
 				codeMngVO.setCdTp("TEST");
 				codeMngVO.setCdTp2("TEST");
 				memberBiz.doCodeMngInsert(codeMngVO);
+				
+				MbrTpVO mbrTpVO = new MbrTpVO();
+				mbrTpVO.setCdId("TEST");
+				mbrTpVO.setCdNm("JUNITTEST");
+				memberBiz.doInsertMbrTp(mbrTpVO);
 			}
 		});
 	}
@@ -54,8 +59,8 @@ public class MemberBizTest extends SemsTestCase {
 			
 			@Override
 			public void preparedTest() {
-				String cdId = "TEST";
-				memberBiz.doCodeMngDelete(cdId);
+				memberBiz.doCodeMngDelete("TEST");
+				memberBiz.doMbrTpDelete("TEST");
 			}
 		});
 	}
@@ -229,7 +234,7 @@ public class MemberBizTest extends SemsTestCase {
 		grdtTpVO.setCdNm("실패");
 		
 		int checkExistCdNmData = memberBiz.isExistCdNmData(grdtTpVO);
-		assertFalse(checkExistCdNmData == 0);
+		assertTrue(checkExistCdNmData == 0);
 	}
 	
 	@Test
@@ -241,6 +246,9 @@ public class MemberBizTest extends SemsTestCase {
 	
 	@Test
 	public void doInsertMbrTpTest(){
+		
+		tearDown();
+		
 		MbrTpVO mbrTpVO = new MbrTpVO();
 		mbrTpVO.setCdId("TEST");
 		mbrTpVO.setCdNm("JUNITTEST");
