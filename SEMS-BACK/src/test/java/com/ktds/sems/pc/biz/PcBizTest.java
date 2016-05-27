@@ -135,5 +135,17 @@ public class PcBizTest extends SemsTestCase {
 		boolean isSuccess = pcBiz.changeReportedState(reportedPcVO);
 		assertTrue(isSuccess);
 	}
+	@Test
+	public void doRegistEduPlaceTest() {
+		PcVO pcVO = new PcVO();
+		pcVO.setEducationPlaceName("testEducationPlaceName");
+		pcVO.setEducationLocation("testEducationLocation");
+		String educationPlaceId = pcBiz.doRegistEduPlace(pcVO);
+		if (educationPlaceId != null) {
+			assertTrue(pcVO.getEducationPlaceId().equals(educationPlaceId));
+		} else {
+			fail("[Biz Part] doRegistEduPlaceTest fail.");
+		}
+	}
 
 }
