@@ -1421,6 +1421,12 @@
 		WHERE	ATC_ID	= #{articleId}
 	</delete>
 	
+	<delete id="deleteEducationHistoryByMemberId" parameterType="string">
+		DELETE
+		FROM	EDU_HTR
+		WHERE	MBR_ID	= #{memberId}
+	</delete>
+	
 	<select id="reportCheckEndDate" parameterType="string" resultType="string">
 		SELECT  *
 		FROM    EDU_RPT_BBS
