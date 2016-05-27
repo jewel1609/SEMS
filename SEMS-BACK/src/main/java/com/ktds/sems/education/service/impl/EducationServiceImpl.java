@@ -647,12 +647,6 @@ public class EducationServiceImpl implements EducationService {
 		// 멤버의 출석 이력
 		attendanceList = educationBiz.getOneMemberAttendance(memberId);
 		
-		for (EducationVO educationVO : educationInfoList) {
-			
-			// 출결 상태 구하기
-			allAttendanceList = this.getState(educationVO, attendanceList, memberId);
-			AllEduAllAttendanceList.add(allAttendanceList);
-		}
 		
 		ModelAndView view = new ModelAndView();
 		
@@ -661,6 +655,12 @@ public class EducationServiceImpl implements EducationService {
 			//view = this.getAllMemberList();
 			//view.addObject("errorCode", "NOATD");
 		} else {
+			for (EducationVO educationVO : educationInfoList) {
+				
+				// 출결 상태 구하기
+				allAttendanceList = this.getState(educationVO, attendanceList, memberId);
+				AllEduAllAttendanceList.add(allAttendanceList);
+			}
 			view.setViewName("education/attendanceOneMemberList");
 			view.addObject("AllEduAllAttendanceList", AllEduAllAttendanceList);
 		}
@@ -694,14 +694,13 @@ public class EducationServiceImpl implements EducationService {
 		// 멤버가 수강 중인교육 정보 하나
 		educationVO = educationBiz.getOneEducation(educationId);
 					
-		// 출결 상태 구하기
-		attendanceList = this.getAllMemberState(educationVO, allMemberList);
-		
 		ModelAndView view = new ModelAndView();
 		
 		if (allMemberList.size() == 0 || educationVO == null) {
 			view.setViewName("redirect:/attendanceHistory/educationList");
 		} else {
+			// 출결 상태 구하기
+			attendanceList = this.getAllMemberState(educationVO, allMemberList);
 			view.setViewName("education/attendanceOneEduList");
 			view.addObject("attendanceList", attendanceList);
 		}
@@ -734,15 +733,14 @@ public class EducationServiceImpl implements EducationService {
 		
 		// 멤버가 수강 중인교육 정보
 		educationVO = educationBiz.getOneEducation(educationId);
-			
-		// 출결 상태 구하기
-		attendanceList = this.getAllMemberState(educationVO, allMemberList);
 		
 		ModelAndView view = new ModelAndView();
 		
 		if (allMemberList.size() == 0 || educationVO == null) {
 			view.setViewName("redirect:/attendanceHistory/teamList");
 		} else {
+			// 출결 상태 구하기
+			attendanceList = this.getAllMemberState(educationVO, allMemberList);
 			view.setViewName("education/attendanceOneTeamList");
 			view.addObject("attendanceList", attendanceList);
 			view.addObject("teamId", teamId);
