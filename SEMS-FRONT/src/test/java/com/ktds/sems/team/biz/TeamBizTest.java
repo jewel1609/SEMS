@@ -12,6 +12,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.SemsTestCase;
 import com.ktds.sems.Testable;
@@ -19,6 +20,8 @@ import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.team.vo.MinutesSearchVO;
 import com.ktds.sems.team.vo.MinutesVO;
 import com.ktds.sems.team.vo.TeamBBSListVO;
+import com.ktds.sems.team.vo.TeamBBSReplyListVO;
+import com.ktds.sems.team.vo.TeamBBSReplyVO;
 import com.ktds.sems.team.vo.TeamBBSVO;
 import com.ktds.sems.team.vo.TeamSearchVO;
 import com.ktds.sems.team.vo.TeamVO;
@@ -213,5 +216,97 @@ public class TeamBizTest extends SemsTestCase {
 		String teamBBSId = "TBBS-20160512-000054";
 		assertNotNull(teamBiz.getFileInfo(teamBBSId));
 	}
+	
+	@Test
+	public void addNewTeamBBSArticle() {
+		//TeamBBSVO teamBBS, Errors errors, MultipartHttpServletRequest request,  HttpSession session
+	}
+	
+	@Test
+	public void viewTeamBBSPage() {
+		TeamBBSListVO searchedListVO = new TeamBBSListVO();
+		Paging paging = new Paging(15,15);
+		
+		searchedListVO.setPaging(paging);
+		paging.setPageNumber(0 + "");
+		
+		int searchedBBSCount = teamBiz.getSearchedBBSCount();
+		assertTrue(searchedBBSCount > 0);
+
+		paging.setTotalArticleCount(searchedBBSCount);
+		
+		TeamSearchVO searchVO = new TeamSearchVO();
+		searchVO.setStartIndex(paging.getStartArticleNumber());
+		searchVO.setEndIndex(paging.getEndArticleNumber());	
+		
+		String startYear = teamBiz.getStartYear();
+		String endYear = teamBiz.getEndYear();
+		assertNotNull(startYear);
+		assertNotNull(endYear);
+		
+		List<TeamBBSVO> teamBBSList = teamBiz.getTeamBBSList(searchVO);
+		assertTrue(teamBBSList.size() > 0);
+	}
+	
+	
+	@Test
+	public void viewReReplyPage() {
+		String parentReplyId = "TBRP-20160504-000123";
+		List<TeamBBSReplyVO> reReplies = teamBiz.getTeamBBSReReplies(parentReplyId); 
+		
+		assertTrue(reReplies.size() > 0);
+	}
+	
+	@Test
+	public ModelAndView viewTeamBBSDetailPage( ) {
+		
+		String teamBBSId = "TBBS-20160512-000047";
+		TeamBBSReplyListVO teamBBSReplyListVO = new TeamBBSReplyListVO();
+		Paging paging = new Paging(15,15);
+		teamBBSReplyListVO.setPaging(paging);
+		paging.setPageNumber(0 +"");
+		
+		int replyCount = teamBiz.getReplyCountByTeamBBSId(teamBBSId);
+		assertTrue(replyCount > 0);
+		
+		paging.setTotalArticleCount(replyCount);
+		TeamSearchVO searchVO = new TeamSearchVO();
+		searchVO.setStartIndex(paging.getStartArticleNumber());
+		searchVO.setEndIndex(paging.getEndArticleNumber());
+		searchVO.setTeamBBSId(teamBBSId);
+		
+		TeamBBSVO teamBBS = teamBiz.getTeamBBS(teamBBSId); 
+		List<TeamBBSReplyVO> replies = teamBiz.getTeamBBSReplies(searchVO);
+		assertTrue(replies.size() > 0);
+		TeamBBSVO bbs = new TeamBBSVO();
+		bbs.setMemberId("test02");
+		bbs.setTeamBBSId(teamBBSId);
+		// 조회수를 추가해준다.
+		teamBiz.addHitsRecord(bbs);
+		
+		// 좋아요 싫어요 정보를 가져온다.
+		String likeState = teamBiz.getLikeState(bbs);
+		assertNotNull(likeState);
+		String dislikeState = teamBiz.getDislikeState(bbs);
+		assertNotNull(dislikeState);
+		teamBBS.setLikeState(likeState);
+		teamBBS.setDislikeState(dislikeState);
+		
+		ModelAndView view = new ModelAndView();
+		if( teamBBS.getFileCount() == 0 ){
+			String fileName = teamBiz.getFileInfo(teamBBSId);
+			view.addObject("fileName", fileName);
+		}else{
+			view.addObject("fileName", " ");
+		}
+		
+		teamBBSReplyListVO.setTeamBBSReplyList(replies);
+		view.addObject("teamBBSReplyListVO", teamBBSReplyListVO);
+		view.addObject("teamBBS",teamBBS );
+		
+		view.setViewName("team/detailTeamBBS");
+		return view;
+	}
+
 	
 }
