@@ -422,7 +422,7 @@ public class EducationDAOTest extends SemsTestCase{
 		reportReplySearchVO.setMbrId("test02");
 		int count = educationDAO.getTotalReportReplyCount(reportReplySearchVO);
 		assertNotNull(count);
-		assertTrue(count > 0);
+		assertTrue(count >= 0);
 	}
 	
 	@Test
