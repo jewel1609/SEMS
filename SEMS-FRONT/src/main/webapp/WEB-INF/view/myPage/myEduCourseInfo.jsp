@@ -5,6 +5,18 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css">
+.inputButton {
+	border:none;
+	border-radius:5px;
+	padding:6px 12px;
+	font-weight:bold;
+	text-transform:uppercase;
+	color:#FFFFFF;
+	background-color:#E05149;
+	cursor: pointer;
+}
+</style>
 <title>강의 게시판</title>
 <script type="text/javascript" src="<c:url value="/resources/js/jquery.min.js"/>"></script>
 <script type="text/javascript">
@@ -99,7 +111,7 @@
 					<td><a href="<c:url value='/resignCourse/${educationVO.educationId}'/>" target="_blank" 
 					onclick="window.open(this.href, 'popupName', 'width=800, height=500, left=50, top=50, statusbar=0, scrollbars=1'); return false;" 
 					onkeypress="this.onclick(); return false;" >DROP</a></td>
-					<td><input type="hidden" id="${ educationVO.educationId }" value="${ educationVO.educationId }" /></td>
+					<td border=0 ><input type="hidden" id="${ educationVO.educationId }" value="${ educationVO.educationId }" /></td>
 				</tr>
 			</c:forEach>
 		</table>
@@ -128,7 +140,6 @@
 					<td>${ educationVO.status }</td>
 					<td>${ educationVO.startDate }</td>
 					<td>${ educationVO.endDate }</td>
-					<td></td>
 					<td><input type="hidden" id="${ educationVO.educationId }" value="${ educationVO.educationId }" /></td>
 				</tr>
 			</c:forEach>
@@ -140,7 +151,7 @@
 					</div>
 					<div>
 					
-				<select id ="searchType" name ="searchType">
+				<select id ="searchType" name ="searchType" class="inputButton">
 				<option value="" selected="selected">선택</option>
 				<option value="selectTitleDesc">교육명</option>
 				<option value="selectDate">날짜</option>
@@ -156,11 +167,11 @@
 					<option value="selectDate" selected="selected">날짜</option>
 				</c:if>
 				</select>
-				<input type="text" id="searchKeyword" name="searchKeyword" value="${educationSearchVO.searchKeyword}" />
-				<input type="date" id="searchStartDate" name="searchStartDate" value="${educationSearchVO.searchStartDate}"/>
-				<input type="date" id="searchEndDate" name="searchEndDate" value="${educationSearchVO.searchEndDate}"/>
-				<input type="button" id="searchBtn" value="검색" />
-				<input type="button" id="initSearchBtn" value="검색초기화" />
+				<input type="text" id="searchKeyword" name="searchKeyword" class="inputButton" value="${educationSearchVO.searchKeyword}" />
+				<input type="date" id="searchStartDate" name="searchStartDate" class="inputButton" value="${educationSearchVO.searchStartDate}"/>
+				<input type="date" id="searchEndDate" name="searchEndDate" class="inputButton" value="${educationSearchVO.searchEndDate}"/>
+				<input type="button" id="searchBtn"  class="inputButton" value="검색" />
+				<input type="button" id="initSearchBtn" class="inputButton" value="검색초기화" />
 			</div>
 					</form>
 				</td>

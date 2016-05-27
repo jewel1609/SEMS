@@ -126,7 +126,7 @@
 
 	<h2>강의 자료 게시판</h2>
 	<hr/>
-	<table>
+	<table  border=1 style="width: 65%">
 		<tr>
 			<th>
 				강사명
@@ -145,7 +145,7 @@
 			</th>
 		</tr>
 		<c:forEach items="${eduNoticeListVO.eduNoticeList}" var="notice">
-			<tr style="background-color: #e2c241;">
+			<tr style="background-color: #e2c241; text-align: center;">
 				<th>공지</th>
 				<td><a href="<c:url value='/${notice.educationId}/eduFileNotice/detail/${notice.eduNoticeId}' />">${notice.title }</a></td>
 				<td>${ notice.createDate}</td>
@@ -154,7 +154,7 @@
 			</tr>
 		</c:forEach>
 		<c:forEach items="${educationFileBBSList.educationFileBBSVOs}" var="educationFileBBS">
-		<tr>
+		<tr text-align: center; >
 			<td>
 				
 				${educationFileBBS.memberId}
