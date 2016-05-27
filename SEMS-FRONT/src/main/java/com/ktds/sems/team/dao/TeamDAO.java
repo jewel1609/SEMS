@@ -82,13 +82,13 @@ public interface TeamDAO {
 
 	public List<MinutesVO> getAllMinutesList(MinutesSearchVO minutesSearchVO);
 
-	public int doModifyAction(TeamBBSVO teamBBS);
+	public void doModifyAction(TeamBBSVO teamBBS);
 
 	public String getSaltById(String sessionId);
 
 	public String getPasswordById(String sessionId);
 
-	public int doDeleteBBS(String teamBBSId);
+	public void doDeleteBBS(String teamBBSId);
 
 	public List<String> isReplyByTeamBBSId(String teamBBSId);
 

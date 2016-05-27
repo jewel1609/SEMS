@@ -106,6 +106,17 @@
 </script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>팀별 커뮤니티 게시판 </title>
+<style>
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  th, td {
+    border-top: 1px solid #bcbcbc;
+    border-bottom: 1px solid #bcbcbc;
+    padding: 5px 10px;
+  }
+</style>
 </head>
 <body>
 	
@@ -188,7 +199,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td colspan="2">
+			<td colspan="9" align="right">
 				<input type="hidden" value="0" id="searchPageNo" />
 				<input type="button" value="검색" id="searchBtn"/>
 				<input type="button"  value="검색 초기화" id="initSearch" name="initSearch" />
@@ -239,7 +250,7 @@
 			</c:forEach>
 			
 			<tr>
-				<td colspan="5" align="center">
+				<td colspan="9" align="center">
 					<c:if test="${ TeamBBSListVO ne null }">
 					${TeamBBSListVO.paging.getPagingList("pageNo", "[@]", "이전", "다음", "searchForm")}
 					</c:if>
@@ -250,7 +261,9 @@
 			</tr>  
 		</table>
 	</form>
-	<input type="button" id="write" value="글쓰기">
+	<div align="right">
+	<input type="button" id="write" value="글쓰기" >
+	</div>
 	<div class="clear"></div>
 	
 </body>

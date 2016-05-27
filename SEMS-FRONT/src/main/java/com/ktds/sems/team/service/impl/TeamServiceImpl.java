@@ -191,9 +191,11 @@ public class TeamServiceImpl implements TeamService{
 	@Override
 	public ModelAndView viewModifyPage(String teamBBSId) {
 		ModelAndView view = new ModelAndView();
+		String FileName = teamBiz.getFileInfo(teamBBSId);
 
 		TeamBBSVO teamBBS = teamBiz.getTeamBBS(teamBBSId);
 		view.addObject("teamBBS",teamBBS );
+		view.addObject("FileName", FileName);
 		view.setViewName("team/modifyBBS");
 		return view;
 	}
@@ -597,7 +599,7 @@ public class TeamServiceImpl implements TeamService{
 	@Override
 	public String doDeleteBBS(String teamBBSId) {
 
-		boolean result = teamBiz.doDeleteBBS(teamBBSId);
+		teamBiz.doDeleteBBS(teamBBSId);
 		return "redirect:/team/teamBBS/board";
 	}
 	
@@ -661,18 +663,18 @@ public class TeamServiceImpl implements TeamService{
 		}
 		if( !prevFileName.equals(fileName) && !file.isEmpty() ){
 			changeTeamBBS.setFileName(teamBBS.getFileName());
-			isFileName = "파일이 " + prevTeamBBS.getFileName() + " 에서 " + fileName + " 로 변경 되었습니다.<br/>";
+			isFileName = "파일이 " + prevFileName + " 에서 " + fileName + " 로 변경 되었습니다.<br/>";
 		}
 
 		String Descript = isTitle + isDescript + isNotice + isFileName;
-		// 이거 자꾸 안됩니다... null이면 writeBBSReply 실행 안되게 해놨는데 왜 혼자되냐고....
+		
 		if ( Descript != null && !Descript.equals("") ) {
 			replyVO.setDescript(Descript);
 			teamBiz.writeBBSReply(replyVO);
 		}
 
 		//내용 업데이트
-		boolean result = teamBiz.doModifyAction(teamBBS);
+		teamBiz.doModifyAction(teamBBS);
 
 		if ( !file.isEmpty() ) {
 

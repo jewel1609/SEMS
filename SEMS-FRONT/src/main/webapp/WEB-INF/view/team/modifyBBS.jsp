@@ -83,7 +83,7 @@
 			</tr>
 			<tr>
 				<td>
-					파일 이름 : ${ teamBBS.fileName }
+					파일 이름 : ${ FileName }
 					<input type="file" name="file" />
 				</td>
 			</tr>

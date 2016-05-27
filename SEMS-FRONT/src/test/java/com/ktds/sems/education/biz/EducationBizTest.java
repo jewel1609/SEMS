@@ -144,7 +144,7 @@ public class EducationBizTest extends SemsTestCase {
 		assertTrue(checkBoolean);
 		assertTrue(educationBiz.doReReplyDelete(qnaVO));
 	}
-
+	
 	@Test
 	public void getEmailTest() {
 		String id = "test02";

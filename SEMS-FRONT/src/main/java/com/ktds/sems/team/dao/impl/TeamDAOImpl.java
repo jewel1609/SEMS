@@ -138,8 +138,8 @@ public class TeamDAOImpl  extends SqlSessionDaoSupport implements TeamDAO{
 	}
 	
 	@Override
-	public int doModifyAction(TeamBBSVO teamBBS) {
-		return getSqlSession().update("teamDAO.doModifyAction", teamBBS);
+	public void doModifyAction(TeamBBSVO teamBBS) {
+		getSqlSession().update("teamDAO.doModifyAction", teamBBS);
 	}
 
 	@Override
@@ -153,8 +153,8 @@ public class TeamDAOImpl  extends SqlSessionDaoSupport implements TeamDAO{
 	}
 
 	@Override
-	public int doDeleteBBS(String teamBBSId) {
-		return getSqlSession().delete("teamDAO.doDeleteBBS", teamBBSId);
+	public void doDeleteBBS(String teamBBSId) {
+		getSqlSession().delete("teamDAO.doDeleteBBS", teamBBSId);
 	}
 
 	@Override

@@ -88,13 +88,13 @@ public interface TeamBiz {
 
 	int getTotalMinutesCountForAdmin(MinutesSearchVO minutesSearchVO);
 
-	public boolean doModifyAction(TeamBBSVO teamBBS);
+	public void doModifyAction(TeamBBSVO teamBBS);
 
 	public String getSaltById(String sessionId);
 
 	public String getPasswordById(String sessionId);
 
-	public boolean doDeleteBBS(String teamBBSId);
+	public void doDeleteBBS(String teamBBSId);
 
 	public boolean isReplyByTeamBBSId(String teamBBSId);
 	

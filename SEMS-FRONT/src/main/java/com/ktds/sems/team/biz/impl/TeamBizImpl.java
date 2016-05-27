@@ -190,8 +190,8 @@ public class TeamBizImpl implements TeamBiz {
 		return teamDAO.getFileInfo(teamBBSId);
 	}
 	@Override
-	public boolean doModifyAction(TeamBBSVO teamBBS) {
-		return teamDAO.doModifyAction(teamBBS) > 0;
+	public void doModifyAction(TeamBBSVO teamBBS) {
+		teamDAO.doModifyAction(teamBBS);
 	}
 
 	@Override
@@ -205,8 +205,8 @@ public class TeamBizImpl implements TeamBiz {
 	}
 
 	@Override
-	public boolean doDeleteBBS(String teamBBSId) {
-		return teamDAO.doDeleteBBS(teamBBSId) > 0;
+	public void doDeleteBBS(String teamBBSId) {
+		teamDAO.doDeleteBBS(teamBBSId);
 	}
 
 	@Override

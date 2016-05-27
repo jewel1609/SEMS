@@ -449,6 +449,45 @@ public class EducationServiceTest extends SemsTestCase {
 		String checkStr = educationService.doReReplyInsert(replyId, eduId, id, description, session);
 		assertNotNull(checkStr);
 	}
+	
+	/**
+	 * 민정
+	 */
+	@Test
+	public void doReportSubmitTest() {
+		MockHttpSession session = new MockHttpSession();
+		MemberVO sessionMember = new MemberVO();
+		sessionMember.setId("admin01");
+		session.setAttribute("_MEMBER_", sessionMember);
+		
+		ReportReplyVO reportReplyVO = new ReportReplyVO();
+		
+		reportReplyVO.setRptRplId("JUnit Test");
+		reportReplyVO.setBbsId("Junit");
+		reportReplyVO.setMbrId("Junit");
+		reportReplyVO.setCreatedDate("Junit");
+		
+		MockMultipartHttpServletRequest request = new MockMultipartHttpServletRequest();
+
+		Path path = Paths.get("D:\\핸드폰.xlsx");
+		String name = "file";
+		String originalFileName = "핸드폰";
+		String contentType = "text/plain";
+
+		byte[] content = null;
+
+		try {
+			content = Files.readAllBytes(path);
+		} catch (final IOException e) {
+
+		}
+
+		MultipartFile file = new MockMultipartFile(name, originalFileName, contentType, content);
+		request.addFile(file);
+		
+		ModelAndView view = educationService.doReportSubmit(reportReplyVO, request, session);
+		assertNotNull(view);
+	}
 
 	@Test
 	public void plusReReplyLikeTest() {

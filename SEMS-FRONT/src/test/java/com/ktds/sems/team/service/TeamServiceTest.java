@@ -3,9 +3,12 @@ package com.ktds.sems.team.service;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 import org.junit.After;
@@ -13,7 +16,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpSession;
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.mock.web.MockMultipartHttpServletRequest;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.SemsTestCase;
@@ -163,14 +169,7 @@ public class TeamServiceTest extends SemsTestCase {
 		assertNotNull(view);
 	}
 	
-	/**
-	 * 지한오빠
-	 */
-	@Test
-	public void doDeleteBBSTest(){
-		
-	}
-	
+
 	/**
 	 * 전씨
 	 */
@@ -178,8 +177,59 @@ public class TeamServiceTest extends SemsTestCase {
 	public void isReplyByTeamBBSIdTest() {
 		String teamBBSId = "TBBS-20160512-000054";
 		
-		boolean result = teamBiz.isReplyByTeamBBSId(teamBBSId);
-		assertTrue(result);
+		String result = teamService.isReplyByTeamBBSId(teamBBSId);
+		assertNotNull(result);
+	}
+	
+	/**
+	 * 전씨
+	 */
+	@Test
+	public void doModifyActionTest() {
+		MockHttpSession session = new MockHttpSession();
+		MemberVO sessionMember = new MemberVO();
+		sessionMember.setId("admin01");
+		session.setAttribute("_MEMBER_", sessionMember);
+		
+		TeamBBSVO teamBBS = new TeamBBSVO();
+		
+		teamBBS.setTeamBBSId("TBBS-20160501-000053");
+		teamBBS.setTeamId("JUnit");
+		teamBBS.setTitle("JUnit");
+		teamBBS.setMemberId("JUnit");
+		teamBBS.setIsNotice("Y");
+		teamBBS.setDescript("JUnit");
+		teamBBS.setCreatedDate("2016/05/24 오전 10:00:55");
+		
+		MockMultipartHttpServletRequest request = new MockMultipartHttpServletRequest();
+
+		Path path = Paths.get("D:\\152.png");
+		String name = "file";
+		String originalFileName = "핸드폰";
+		String contentType = "text/plain";
+
+		byte[] content = null;
+
+		try {
+			content = Files.readAllBytes(path);
+		} catch (final IOException e) {
+
+		}
+
+		MultipartFile file = new MockMultipartFile(name, originalFileName, contentType, content);
+		request.addFile(file);
+		
+		
+		ModelAndView view = teamService.doModifyAction(teamBBS, request, session);
+		
+		if ( view != null ) {
+			String viewName = view.getViewName();
+			assertNotNull(viewName);
+			assertEquals(viewName, "redirect:/team/teamBBS/board");
+		}
+		else {
+			fail("fail");
+		}
 	}
 	
 	@Test
