@@ -442,7 +442,7 @@ public class EducationDAOTest extends SemsTestCase{
 		reportReplySearchVO.setEndIndex(10);
 		List<ReportReplyVO> reports = educationDAO.getAllReportReply(reportReplySearchVO);
 		assertNotNull(reports);
-		assertTrue(reports.size() > 0);
+		assertTrue(reports.size() >= 0);
 	}
 	
 	@Test

@@ -95,7 +95,7 @@ public class MemberDAOTest extends SemsTestCase {
 	public void loginTest() {
 		MemberVO loginVO = new MemberVO();
 		loginVO.setId("cocomo12");
-		loginVO.setPassword("cbf430bc6a30cc454e07fe1243eed8f7cb712395dfefbe38ff0c1c030b8e136c");
+		loginVO.setPassword("afd547fcea7810b7fb5512c0eff23922b5a0cdfa0c731c4447e7d9af31f7e955");
 
 		MemberVO memberVO = memberDAO.login(loginVO);
 		if (memberVO != null) {
