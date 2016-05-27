@@ -382,6 +382,7 @@
         SELECT  NVL(FILE_NM,'') fileName
 		FROM    FILES, TEAM_BBS
 		WHERE   ATC_ID = #{teamBBSId}
+		AND		TEAM_BBS_ID = #{teamBBSId}
 	</select>
 	
 	<update id="doModifyAction" parameterType="TeamBBSVO">
