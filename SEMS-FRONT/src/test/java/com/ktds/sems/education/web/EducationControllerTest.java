@@ -21,6 +21,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.SemsTestCase;
 import com.ktds.sems.common.Session;
+import com.ktds.sems.education.vo.EducationQNABBSVO;
+import com.ktds.sems.education.vo.EducationQNAReplyVO;
 import com.ktds.sems.education.vo.QNASearchVO;
 import com.ktds.sems.education.vo.QNAVO;
 import com.ktds.sems.member.vo.MemberVO;
@@ -284,6 +286,63 @@ public class EducationControllerTest extends SemsTestCase {
       } else {
          fail("view is null");
       }*/
+   }
+   
+   @Test
+   public void viewEduBoardQNAListPageTest() {
+	   int pageNo = 0;
+	   String educationId = "ED-20160519-000233";
+	   String searchKeyword = "test";
+	   String searchType = "selectMbrId";
+	   
+	   MockHttpSession session = new MockHttpSession();
+	   
+	   ModelAndView view = educationController.viewEduBoardQNAListPage(pageNo, educationId, searchKeyword, searchType, session);
+	   assertNotNull(view);
+   }
+   
+   @Test
+   public void viewEduBoardQNAWritePageTest() {
+	   String educationId = "ED-20160519-000233";
+	   
+	   ModelAndView view = educationController.viewEduBoardQNAWritePage(educationId);
+	   assertNotNull(view);
+   }
+   
+   @Test
+   public void doQNAWriteActionTest() {
+	   
+	   EducationQNABBSVO eduBBS = new EducationQNABBSVO();
+	   MockHttpSession session = new MockHttpSession();
+	   MemberVO sessionMember = new MemberVO();
+	   sessionMember.setId("test02");
+	   
+	   session.setAttribute("_MEMBER_", sessionMember);
+	   
+	   String educationId = "ED-20160519-000233";
+	   
+	   eduBBS.setTitle("JUNIT_TEST");
+	   eduBBS.setContents("JUNIT_CONTENTS");
+	   
+	   BindingResult errors = new BeanPropertyBindingResult(eduBBS, "eduBBS");
+	   
+	   ModelAndView view = educationController.doQNAWriteAction(eduBBS, errors, session, educationId);
+	   assertNotNull(view);
+	   
+   }
+   
+   @Test
+   public void viewEduBoardQNADetailPageTest() {
+	   String atcId = "AT-20160524-000034";
+	   int pageNo = 0;
+	   MockHttpSession session = new MockHttpSession();
+	   MemberVO sessionMember = new MemberVO();
+	   sessionMember.setId("test02");
+	   
+	   session.setAttribute("_MEMBER_", sessionMember);
+	   
+	   ModelAndView view = educationController.viewEduBoardQNADetailPage(atcId, pageNo, session);
+	   assertNotNull(view);
    }
 
 	
