@@ -44,6 +44,7 @@ import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationHistoryVO;
 import com.ktds.sems.education.vo.EducationTypeVO;
 import com.ktds.sems.education.vo.EducationVO;
+import com.ktds.sems.education.vo.ReRplyEvalVO;
 import com.ktds.sems.education.vo.TeamVO;
 import com.ktds.sems.member.vo.AttendVO;
 import com.ktds.sems.member.vo.MemberVO;
@@ -1362,5 +1363,40 @@ public class EducationDAOTest extends SemsTestCase {
 	public void getTotalQnaEduReplyCountTest() {
 		int totalReportCount = educationDAO.getTotalQnaEduReplyCount("EQ-20160525-000073");
 		assertTrue(totalReportCount>0);
+	}
+	
+	@Test
+	public void getNowDateTest(){
+		assertNotNull(educationDAO.getNowDate());
+	}
+	
+	@Test
+	public void getNextReplySeqTest(){
+		assertNotNull(educationDAO.getNextReplySeq());
+	}
+	
+	@Test
+	public void getEmailTest(){
+		assertNotNull(educationDAO.getEmail("test02"));
+	}
+	
+	@Test
+	public void getNextReReplyEvalTest(){
+		assertNotNull(educationDAO.getNextReReplyEval());
+	}
+	
+	@Test
+	public void checkReReplyEvalTest(){
+		ReRplyEvalVO reRplyEvalVO = new ReRplyEvalVO();
+		//댓글ID
+		reRplyEvalVO.setReplyId("RP-20160517-000202");
+		
+		// 좋아요 누른 아이디
+		reRplyEvalVO.setMbrId("test01");
+		
+		// REPLY_EVAL_ID (pk)
+		reRplyEvalVO.setReplyEvalId("RE-20160517-000015");
+		
+		assertTrue(educationDAO.checkReReplyEval(reRplyEvalVO) > 0);
 	}
 }

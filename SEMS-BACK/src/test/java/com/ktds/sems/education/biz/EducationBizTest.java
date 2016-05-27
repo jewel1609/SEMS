@@ -41,6 +41,7 @@ import com.ktds.sems.education.vo.EduQnaVO;
 import com.ktds.sems.education.vo.EduReportSearchVO;
 import com.ktds.sems.education.vo.EduReportVO;
 import com.ktds.sems.education.vo.EducationVO;
+import com.ktds.sems.education.vo.ReRplyEvalVO;
 import com.ktds.sems.education.vo.TeamVO;
 import com.ktds.sems.member.vo.AttendVO;
 import com.ktds.sems.member.vo.MemberVO;
@@ -1220,5 +1221,33 @@ public class EducationBizTest extends SemsTestCase {
 	public void getTotalQnaEduReplyCountTest() {
 		int totalReportCount = educationBiz.getTotalQnaEduReplyCount("EQ-20160525-000073");
 		assertTrue(totalReportCount>0);
+	}
+	
+	@Test
+	public void getNowDateTest() {
+		String checkStr = educationBiz.getNowDate();
+		assertNotNull(checkStr);
+	}
+	
+	@Test
+	public void getNextReplySeq() {
+		int checkInt = educationBiz.getNextReplySeq();
+		assertTrue(checkInt > 0);
+	}
+	
+	@Test
+	public void checkReReplyEvalTest() {
+		ReRplyEvalVO reRplyEvalVO = new ReRplyEvalVO();
+		// 댓글ID
+		reRplyEvalVO.setReplyId("RP-20160517-000202");
+
+		// 좋아요 누른 아이디
+		reRplyEvalVO.setMbrId("test01");
+
+		// REPLY_EVAL_ID (pk)
+		reRplyEvalVO.setReplyEvalId("RE-20160517-000015");
+
+		boolean checkBoolean = educationBiz.checkReReplyEval(reRplyEvalVO);
+		assertTrue(checkBoolean);
 	}
 }
