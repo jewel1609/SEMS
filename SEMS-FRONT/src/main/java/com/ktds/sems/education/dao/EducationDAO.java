@@ -260,4 +260,6 @@ public interface EducationDAO {
 
 	public String getOneEducationId();
 
+	public void deleteEducationHistoryByMemberId(String memberId);
+
 }
