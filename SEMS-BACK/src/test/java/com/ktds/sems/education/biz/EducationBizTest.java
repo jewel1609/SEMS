@@ -1,6 +1,8 @@
 package com.ktds.sems.education.biz;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -24,14 +26,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.SemsTestCase;
 import com.ktds.sems.Testable;
-import com.ktds.sems.common.SendMail;
 import com.ktds.sems.common.Session;
-import com.ktds.sems.common.vo.MailVO;
-import com.ktds.sems.education.service.EducationServiceTest.EducationValidator;
 import com.ktds.sems.education.vo.EduFileSearchVO;
 import com.ktds.sems.education.vo.EduQnaSearchVO;
 import com.ktds.sems.education.vo.EduReportSearchVO;
@@ -69,8 +67,8 @@ public class EducationBizTest extends SemsTestCase {
 				educationVO.setEducationLocation("JUNIT...");
 				educationVO.setEducationCurriculum("JUNIT...");
 				educationVO.setEducationIntroduce("JUNIT...");
-				educationVO.setStartDate("JUNIT...");
-				educationVO.setEndDate("JUNIT...");
+				educationVO.setStartDate("2016-05-01");
+				educationVO.setEndDate("2016-05-04");
 				educationVO.setStartTime("01:00");
 				educationVO.setEndTime("01:00");
 				educationVO.setEducationType("TIMM");
@@ -116,8 +114,8 @@ public class EducationBizTest extends SemsTestCase {
 		educationVO.setEducationLocation("JUNIT...");
 		educationVO.setEducationCurriculum("JUNIT...");
 		educationVO.setEducationIntroduce("JUNIT...");
-		educationVO.setStartDate("JUNIT...");
-		educationVO.setEndDate("JUNIT...");
+		educationVO.setStartDate("2016-05-01");
+		educationVO.setEndDate("2016-05-04");
 		educationVO.setStartTime("01:00");
 		educationVO.setEndTime("01:00");
 		educationVO.setEducationType("TIMM");
@@ -167,8 +165,8 @@ public class EducationBizTest extends SemsTestCase {
 		educationVO.setEducationLocation("JUNIT...");
 		educationVO.setEducationCurriculum("JUNIT...");
 		educationVO.setEducationIntroduce("JUNIT...");
-		educationVO.setStartDate("JUNIT...");
-		educationVO.setEndDate("JUNIT...");
+		educationVO.setStartDate("2016-05-01");
+		educationVO.setEndDate("2016-05-04");
 		educationVO.setStartTime("01:00");
 		educationVO.setEndTime("01:00");
 		educationVO.setEducationType("TIMM");
@@ -218,8 +216,8 @@ public class EducationBizTest extends SemsTestCase {
 		educationVO.setEducationLocation("JUNIT...");
 		educationVO.setEducationCurriculum("JUNIT...");
 		educationVO.setEducationIntroduce("JUNIT...");
-		educationVO.setStartDate("JUNIT...");
-		educationVO.setEndDate("JUNIT...");
+		educationVO.setStartDate("2016-05-01");
+		educationVO.setEndDate("2016-05-04");
 		educationVO.setStartTime("01:00");
 		educationVO.setEndTime("01:00");
 		educationVO.setEducationType("TIMM");
@@ -269,8 +267,8 @@ public class EducationBizTest extends SemsTestCase {
 		educationVO.setEducationLocation("JUNIT...");
 		educationVO.setEducationCurriculum("JUNIT...");
 		educationVO.setEducationIntroduce("JUNIT...");
-		educationVO.setStartDate("JUNIT...");
-		educationVO.setEndDate("JUNIT...");
+		educationVO.setStartDate("2016-05-01");
+		educationVO.setEndDate("2016-05-04");
 		educationVO.setStartTime("01:00");
 		educationVO.setEndTime("01:00");
 		educationVO.setEducationType("TIMM");
@@ -320,8 +318,8 @@ public class EducationBizTest extends SemsTestCase {
 		educationVO.setEducationLocation("JUNIT...");
 		educationVO.setEducationCurriculum("JUNIT...");
 		educationVO.setEducationIntroduce("JUNIT...");
-		educationVO.setStartDate("JUNIT...");
-		educationVO.setEndDate("JUNIT...");
+		educationVO.setStartDate("2016-05-01");
+		educationVO.setEndDate("2016-05-04");
 		educationVO.setStartTime("01:00");
 		educationVO.setEndTime("01:00");
 		educationVO.setEducationType("TIMM");
@@ -371,8 +369,8 @@ public class EducationBizTest extends SemsTestCase {
 		//educationVO.setEducationLocation("JUNIT...");
 		educationVO.setEducationCurriculum("JUNIT...");
 		educationVO.setEducationIntroduce("JUNIT...");
-		educationVO.setStartDate("JUNIT...");
-		educationVO.setEndDate("JUNIT...");
+		educationVO.setStartDate("2016-05-01");
+		educationVO.setEndDate("2016-05-04");
 		educationVO.setStartTime("01:00");
 		educationVO.setEndTime("01:00");
 		educationVO.setEducationType("TIMM");
@@ -422,8 +420,8 @@ public class EducationBizTest extends SemsTestCase {
 		educationVO.setEducationLocation("JUNIT...");
 		//educationVO.setEducationCurriculum("JUNIT...");
 		educationVO.setEducationIntroduce("JUNIT...");
-		educationVO.setStartDate("JUNIT...");
-		educationVO.setEndDate("JUNIT...");
+		educationVO.setStartDate("2016-05-01");
+		educationVO.setEndDate("2016-05-04");
 		educationVO.setStartTime("01:00");
 		educationVO.setEndTime("01:00");
 		educationVO.setEducationType("TIMM");
@@ -473,8 +471,8 @@ public class EducationBizTest extends SemsTestCase {
 		educationVO.setEducationLocation("JUNIT...");
 		educationVO.setEducationCurriculum("JUNIT...");
 		//educationVO.setEducationIntroduce("JUNIT...");
-		educationVO.setStartDate("JUNIT...");
-		educationVO.setEndDate("JUNIT...");
+		educationVO.setStartDate("2016-05-01");
+		educationVO.setEndDate("2016-05-04");
 		educationVO.setStartTime("01:00");
 		educationVO.setEndTime("01:00");
 		educationVO.setEducationType("TIMM");
@@ -524,8 +522,8 @@ public class EducationBizTest extends SemsTestCase {
 		educationVO.setEducationLocation("JUNIT...");
 		educationVO.setEducationCurriculum("JUNIT...");
 		educationVO.setEducationIntroduce("JUNIT...");
-		//educationVO.setStartDate("JUNIT...");
-		educationVO.setEndDate("JUNIT...");
+		//educationVO.setStartDate("2016-05-01");
+		educationVO.setEndDate("2016-05-04");
 		educationVO.setStartTime("01:00");
 		educationVO.setEndTime("01:00");
 		educationVO.setEducationType("TIMM");
@@ -575,8 +573,8 @@ public class EducationBizTest extends SemsTestCase {
 		educationVO.setEducationLocation("JUNIT...");
 		educationVO.setEducationCurriculum("JUNIT...");
 		educationVO.setEducationIntroduce("JUNIT...");
-		educationVO.setStartDate("JUNIT...");
-		//educationVO.setEndDate("JUNIT...");
+		educationVO.setStartDate("2016-05-01");
+		//educationVO.setEndDate("2016-05-04");
 		educationVO.setStartTime("01:00");
 		educationVO.setEndTime("01:00");
 		educationVO.setEducationType("TIMM");
@@ -626,8 +624,8 @@ public class EducationBizTest extends SemsTestCase {
 		educationVO.setEducationLocation("JUNIT...");
 		educationVO.setEducationCurriculum("JUNIT...");
 		educationVO.setEducationIntroduce("JUNIT...");
-		educationVO.setStartDate("JUNIT...");
-		educationVO.setEndDate("JUNIT...");
+		educationVO.setStartDate("2016-05-01");
+		educationVO.setEndDate("2016-05-04");
 		//educationVO.setStartTime("01:00");
 		educationVO.setEndTime("01:00");
 		educationVO.setEducationType("TIMM");
@@ -677,8 +675,8 @@ public class EducationBizTest extends SemsTestCase {
 		educationVO.setEducationLocation("JUNIT...");
 		educationVO.setEducationCurriculum("JUNIT...");
 		educationVO.setEducationIntroduce("JUNIT...");
-		educationVO.setStartDate("JUNIT...");
-		educationVO.setEndDate("JUNIT...");
+		educationVO.setStartDate("2016-05-01");
+		educationVO.setEndDate("2016-05-04");
 		educationVO.setStartTime("01:00");
 		//educationVO.setEndTime("01:00");
 		educationVO.setEducationType("TIMM");
@@ -728,8 +726,8 @@ public class EducationBizTest extends SemsTestCase {
 		educationVO.setEducationLocation("JUNIT...");
 		educationVO.setEducationCurriculum("JUNIT...");
 		educationVO.setEducationIntroduce("JUNIT...");
-		educationVO.setStartDate("JUNIT...");
-		educationVO.setEndDate("JUNIT...");
+		educationVO.setStartDate("2016-05-01");
+		educationVO.setEndDate("2016-05-04");
 		educationVO.setStartTime("01:00");
 		educationVO.setEndTime("01:00");
 		//educationVO.setEducationType("TIMM");
@@ -779,8 +777,8 @@ public class EducationBizTest extends SemsTestCase {
 		educationVO.setEducationLocation("JUNIT...");
 		educationVO.setEducationCurriculum("JUNIT...");
 		educationVO.setEducationIntroduce("JUNIT...");
-		educationVO.setStartDate("JUNIT...");
-		educationVO.setEndDate("JUNIT...");
+		educationVO.setStartDate("2016-05-01");
+		educationVO.setEndDate("2016-05-04");
 		educationVO.setStartTime("01:00");
 		educationVO.setEndTime("01:00");
 		educationVO.setEducationType("TIMM");
