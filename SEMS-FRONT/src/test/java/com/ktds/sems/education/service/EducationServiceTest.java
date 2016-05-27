@@ -798,6 +798,37 @@ public class EducationServiceTest extends SemsTestCase {
 		assertNotNull(view);
 	}
 	
+	@Test
+	public void doAdoptReplyTest() {
+		String replyId = "RP-20160524-000830";
+		
+		String result = educationService.doAdoptReply(replyId);
+		assertTrue(result == "OK");
+	}
+	
+	@Test 
+	public void plusOpposeReplyTest() {
+		String replyId = "RP-20160524-000830";
+		MockHttpSession session = new MockHttpSession();
+		MemberVO member = new MemberVO();
+		member.setId("test02");
+		session.setAttribute("_MEMBER_", member);
+		
+		String result = educationService.plusOpposeReply(replyId, session);
+		assertTrue(result == "OK");
+	}
+	
+	@Test
+	public void plusRecommendReplyTest() {
+		String replyId = "RP-20160524-000830";
+		MockHttpSession session = new MockHttpSession();
+		MemberVO member = new MemberVO();
+		member.setId("test02");
+		session.setAttribute("_MEMBER_", member);
+		
+		String result = educationService.plusRecommendReply(replyId, session);
+		assertTrue(result == "OK");
+	}
 	
 	
 	
