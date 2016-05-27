@@ -390,4 +390,57 @@ public class TeamDAOTest extends SemsTestCase {
 		assertNotNull(teamDAO.getFileInfo(teamBBSId));
 	}
 	
+	@Test
+	public void insertNewMinutesTest() {
+		
+		MinutesVO minutesVO = new MinutesVO();
+		
+		String minutesId = "tEST-043";
+		String memberId = "test02";
+		
+		minutesVO.setMinutesId(minutesId);
+		minutesVO.setMemberId(memberId);
+		minutesVO.setMinutesAgenda("Junit_Test");
+		minutesVO.setAttendance("Junit_Test");
+		minutesVO.setMinutesPlace("Junit_Test");
+		minutesVO.setMinutesContent("Junit_Test");
+		minutesVO.setDecisionSubject("Junit_Test");
+		minutesVO.setRemarks("Junit_Test");
+		minutesVO.setTeamId("20");
+		minutesVO.setStartDate("2016-05-17 10:00");
+		minutesVO.setEndDate("2016-05-17 15:00");
+		
+		int result = teamDAO.insertNewMinutes(minutesVO);
+		assertTrue(result>0);
+		assertTrue(teamDAO.deleteTestMinutes(minutesId) > 0);
+		
+	}
+	
+	@Test
+	public void getTotalMinutesCountTest() {
+		MinutesSearchVO minutesSearchVO = new MinutesSearchVO();
+		minutesSearchVO.setSearchSBTKeyword("ㅎㅎ");
+		assertNotNull(teamDAO.getTotalMinutesCount(minutesSearchVO));
+	}
+	
+	@Test
+	public void getAllMinutesListTest() {
+		MinutesSearchVO minutesSearchVO = new MinutesSearchVO();
+		minutesSearchVO.setSearchSBTKeyword("ㅎㅋ");
+		minutesSearchVO.setMemberId("test01");
+		assertNotNull(teamDAO.getAllMinutesList(minutesSearchVO));
+	}
+	
+	@Test
+	public void getOneDetailMinutesTest() {
+		String minutesId = "MINU-047";
+		assertNotNull(teamDAO.getOneDetailMinutes(minutesId));
+	}
+	
+	@Test
+	public void getOneDetailMinutesDateTest() {
+		String minutesId = "MINU-047";
+		assertNotNull(teamDAO.getOneDetailMinutesDate(minutesId));
+	}
+	
 }
