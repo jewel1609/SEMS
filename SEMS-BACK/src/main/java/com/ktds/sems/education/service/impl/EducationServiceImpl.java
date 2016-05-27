@@ -491,12 +491,8 @@ public class EducationServiceImpl implements EducationService {
 	public ModelAndView doActionDelete(String educationId, HttpSession session) {
 		ModelAndView view = new ModelAndView();
 		MemberVO memberVO = (MemberVO) session.getAttribute(Session.MEMBER);
-		String memberType = (String) session.getAttribute(Session.MEMBER_TYPE);
-
-		if (memberType.equals("ADM")) {
+		if (memberVO.getMemberType().equals("ADM")) {
 			if (educationId != null) {
-				memberVO.setId(memberVO.getId());
-				memberVO.setMemberType(memberVO.getMemberType());
 				boolean checkPass = educationBiz.doActionDeleteBeforeCheck(memberVO);
 				if (checkPass) {
 					educationBiz.doActionDelete(educationId);

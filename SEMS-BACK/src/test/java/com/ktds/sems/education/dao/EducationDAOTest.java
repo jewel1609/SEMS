@@ -2,7 +2,6 @@ package com.ktds.sems.education.dao;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -54,7 +53,7 @@ public class EducationDAOTest extends SemsTestCase {
 	
 	/**
 	 * @author 김동규 
-	 * Action - insert/update Setting
+	 * Action - insert
 	 */
 	@Before
 	public void setUp() {
@@ -62,9 +61,24 @@ public class EducationDAOTest extends SemsTestCase {
 			
 			@Override
 			public void preparedTest() {
+				EducationVO educationVO = new EducationVO();
+				educationVO.setEducationId("ED-20160519-000251");
+				educationVO.setEducationCategory("ZCS");
+				educationVO.setEducationTitle("JUNIT...");
+				educationVO.setMemberId("JUNIT...");
+				educationVO.setMaxMember(30);
+				educationVO.setEducationLocation("JUNIT...");
+				educationVO.setEducationCurriculum("JUNIT...");
+				educationVO.setEducationIntroduce("JUNIT...");
+				educationVO.setStartDate("JUNIT...");
+				educationVO.setEndDate("JUNIT...");
+				educationVO.setStartTime("01:00");
+				educationVO.setEndTime("01:00");
+				educationVO.setEducationType("TIMM");
+				educationVO.setCost("CSTC");
+				educationDAO.insertNewEducation(educationVO);
 			}
 		});
-		
 	}
 	
 	/**
@@ -77,7 +91,7 @@ public class EducationDAOTest extends SemsTestCase {
 			
 			@Override
 			public void preparedTest() {
-				educationDAO.doActionDelete("ED-20160519-000241");
+				educationDAO.doActionDelete("ED-20160519-000251");
 			}
 		});
 	}
@@ -1036,7 +1050,7 @@ public class EducationDAOTest extends SemsTestCase {
 	@Test
 	public void doActionDeleteBeforeCheckTest() {
 		MemberVO memberVO = new MemberVO();
-		memberVO.setId("cocomo12");
+		memberVO.setId("cainGwiz88");
 		memberVO.setMemberType("ADM");
 		String check = educationDAO.doActionDeleteBeforeCheck(memberVO);
 		if(check != null) {
@@ -1046,6 +1060,7 @@ public class EducationDAOTest extends SemsTestCase {
 			fail("[DAO Part] doActionDeleteBeforeCheckTest Fail.");
 		}
 	}
+	
 	/**
 	 * @author 김동규
 	 */	

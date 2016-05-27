@@ -10,7 +10,11 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.mock.web.MockMultipartHttpServletRequest;
@@ -23,6 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.SemsTestCase;
+import com.ktds.sems.Testable;
 import com.ktds.sems.common.SendMail;
 import com.ktds.sems.common.Session;
 import com.ktds.sems.common.vo.MailVO;
@@ -32,14 +37,61 @@ import com.ktds.sems.education.vo.EduQnaSearchVO;
 import com.ktds.sems.education.vo.EduReportSearchVO;
 import com.ktds.sems.education.vo.EduReportVO;
 import com.ktds.sems.education.vo.EducationVO;
+import com.ktds.sems.member.vo.MemberVO;
 
 import kr.co.hucloud.utilities.web.Paging;
 
 @Transactional
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class EducationBizTest extends SemsTestCase {
 
 	@Autowired
 	private EducationBiz educationBiz;
+	
+	/**
+	 * @author 김동규 
+	 * Action - insert
+	 */
+	@Before
+	public void setUp() {
+		testHelper(new Testable() {
+			
+			@Override
+			public void preparedTest() {
+				EducationVO educationVO = new EducationVO();
+				educationVO.setEducationId("ED-20160519-000251");
+				educationVO.setEducationCategory("ZCS");
+				educationVO.setEducationTitle("JUNIT...");
+				educationVO.setMemberId("JUNIT...");
+				educationVO.setMaxMember(30);
+				educationVO.setEducationLocation("JUNIT...");
+				educationVO.setEducationCurriculum("JUNIT...");
+				educationVO.setEducationIntroduce("JUNIT...");
+				educationVO.setStartDate("JUNIT...");
+				educationVO.setEndDate("JUNIT...");
+				educationVO.setStartTime("01:00");
+				educationVO.setEndTime("01:00");
+				educationVO.setEducationType("TIMM");
+				educationVO.setCost("CSTC");
+				educationBiz.writeNewEducation(educationVO);
+			}
+		});
+	}
+
+	/**
+	 * @author 김동규 
+	 * Action - Delete
+	 */
+	@After
+	public void tearDown() {
+		testHelper(new Testable() {
+			
+			@Override
+			public void preparedTest() {
+				educationBiz.doActionDelete("ED-20160519-000251");
+			}
+		});
+	}
 	
 	@Test
 	public void getOneEducationTest() {
@@ -923,4 +975,20 @@ public class EducationBizTest extends SemsTestCase {
 		assertTrue(reports.size() > 0);
 	}
 	
+	/**
+	 * @author 김동규
+	 */
+	@Test
+	public void doActionDeleteBeforeCheckTest() {
+		MemberVO memberVO = new MemberVO();
+		memberVO.setId("cainGwiz88");
+		memberVO.setMemberType("ADM");
+		boolean check = educationBiz.doActionDeleteBeforeCheck(memberVO);
+		if(check) {
+			assertTrue(check);
+		} else {
+			assertFalse(check);
+			fail("[Biz Part] doActionDeleteBeforeCheckTest Fail.");
+		}
+	}
 }

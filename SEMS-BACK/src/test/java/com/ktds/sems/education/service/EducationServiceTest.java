@@ -13,9 +13,13 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.mock.web.MockHttpSession;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.mock.web.MockMultipartHttpServletRequest;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,10 +31,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.SemsTestCase;
-import com.ktds.sems.education.vo.EducationHistoryListVO;
-import com.ktds.sems.education.vo.EducationHistorySearchVO;
-import com.ktds.sems.education.vo.EducationHistoryVO;
-import com.ktds.sems.education.vo.EducationVO;
+import com.ktds.sems.Testable;
+import com.ktds.sems.common.Session;
 import com.ktds.sems.education.vo.EduFileListVO;
 import com.ktds.sems.education.vo.EduFileSearchVO;
 import com.ktds.sems.education.vo.EduFileVO;
@@ -41,20 +43,74 @@ import com.ktds.sems.education.vo.EduQnaVO;
 import com.ktds.sems.education.vo.EduReportListVO;
 import com.ktds.sems.education.vo.EduReportSearchVO;
 import com.ktds.sems.education.vo.EduReportVO;
-
-import com.ktds.sems.file.biz.FileBiz;
-import com.ktds.sems.file.vo.FileVO;
+import com.ktds.sems.education.vo.EducationHistoryListVO;
+import com.ktds.sems.education.vo.EducationHistorySearchVO;
+import com.ktds.sems.education.vo.EducationHistoryVO;
+import com.ktds.sems.education.vo.EducationVO;
+import com.ktds.sems.member.vo.LoginHistoryVO;
+import com.ktds.sems.member.vo.MemberVO;
 
 import kr.co.hucloud.utilities.web.Paging;
 
 @Transactional
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class EducationServiceTest extends SemsTestCase {
 
 	@Autowired
 	private EducationService educationService;
+
+	/**
+	 * @author 김동규 
+	 * Action - insert
+	 */
+	@Before
+	public void setUp() {
+		testHelper(new Testable() {
+			
+			@Override
+			public void preparedTest() {
+				EducationVO educationVO = new EducationVO();
+				educationVO.setEducationId("ED-20160519-000251");
+				educationVO.setEducationCategory("ZCS");
+				educationVO.setEducationTitle("JUNIT...");
+				educationVO.setMemberId("JUNIT...");
+				educationVO.setMaxMember(30);
+				educationVO.setEducationLocation("JUNIT...");
+				educationVO.setEducationCurriculum("JUNIT...");
+				educationVO.setEducationIntroduce("JUNIT...");
+				educationVO.setStartDate("JUNIT...");
+				educationVO.setEndDate("JUNIT...");
+				educationVO.setStartTime("01:00");
+				educationVO.setEndTime("01:00");
+				educationVO.setEducationType("TIMM");
+				educationVO.setCost("CSTC");
+				BindingResult errors = new BeanPropertyBindingResult(educationVO, "writeForm");
+				MockMultipartHttpServletRequest request = new MockMultipartHttpServletRequest();
+				
+				educationService.writeNewEducation(educationVO, errors, request);
+			}
+		});
+	}
 	
-	@Autowired
-	private FileBiz fileBiz;
+	/**
+	 * @author 김동규 
+	 * Action - Delete
+	 */
+	@After
+	public void tearDown() {
+		testHelper(new Testable() {
+			
+			@Override
+			public void preparedTest() {
+				MockHttpSession session = new MockHttpSession();
+				MemberVO memberVO = new MemberVO();
+				memberVO.setId("cainGwiz88");
+				memberVO.setMemberType("ADM");
+				session.setAttribute(Session.MEMBER, memberVO);
+				educationService.doActionDelete("ED-20160519-000251", session);
+			}
+		} );
+	}
 	
 	@Test
 	public void getOneEducationForUpdateTest(){
@@ -1881,4 +1937,32 @@ public class EducationServiceTest extends SemsTestCase {
 		assertNotNull(reportListVO);
 		assertTrue(reportListVO.getEduReportList().size() > 0);
 	}
+	
+	/**
+	 * @author 김동규
+	 * ※ 보안정책상 mail protocol 차단
+	 */
+//	@Test
+//	public void doActionDeleteTest() {
+//		EducationVO educationVO = new EducationVO();
+//		educationVO.setEducationId("ED-20160519-000251");
+//
+//		MemberVO memberVO = new MemberVO();
+//		memberVO.setId("cainGwiz88");
+//		memberVO.setMemberType("ADM");
+//		
+//		MockHttpSession session = new MockHttpSession();
+//		session.setAttribute(Session.MEMBER, memberVO);
+//		
+//		ModelAndView view = educationService.doActionDelete(educationVO.getEducationId(), session);
+//		
+//		if( view != null ) {
+//			String viewName = view.getViewName();
+//			assertNotNull(viewName);
+//			assertEquals(viewName, "/");
+//		} else {
+//			fail("[Service Part]doActionDeleteTest Fail.");
+//		}
+//		
+//	}
 }
