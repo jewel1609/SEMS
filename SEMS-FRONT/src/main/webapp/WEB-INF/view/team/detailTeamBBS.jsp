@@ -93,7 +93,7 @@
 			<td>작성일</td>
 			<td>수정일</td>
 			<td>공지여부 Y/N</td>
-			<td>첨부파일List(다운로드)</td>
+			<!-- <td>첨부파일List(다운로드)</td> -->
 		</tr>
 		<tr>
 			<td>${teamBBS.teamBBSId }</td>
@@ -104,7 +104,9 @@
 			<td>${teamBBS.modifiedDate }</td>
 			<td>${teamBBS.isNotice}</td>
 				<!-- EducationController에 있는 "/downloadFile"로 teamBBSId 전송 및 처리 -->
+		<%-- 
 			<td><a href="/downloadFile/${teamBBS.teamBBSId }">${fileName}</a></td>
+			 --%>
 		</tr>	
 	</table>
 	<c:if test="${teamBBS.likeState eq 'Y' }">
