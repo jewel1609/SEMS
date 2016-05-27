@@ -37,9 +37,9 @@ public class EducationControllerTest extends SemsTestCase {
 	public void viewRequestRetractionPageTest() {
 		MockHttpSession session = new MockHttpSession();
 		MemberVO memberVO = new MemberVO();
-		memberVO.setId("test04");
+		memberVO.setId("egipyo21");
 		session.setAttribute(Session.MEMBER, memberVO);
-		String educationId = "ED-20160513-000173";
+		String educationId = "ED-20160524-000288";
 		ModelAndView view = educationController.viewRequestRetractionPage(session, educationId);
 		assertNotNull(view);
 		String viewName = view.getViewName();
@@ -50,12 +50,12 @@ public class EducationControllerTest extends SemsTestCase {
 	@Test
 	public void doRequestRetractionActionTest() {
 		MockHttpServletRequest request = new MockHttpServletRequest();
-		request.setParameter("educationId", "ED-20160513-000173");
+		request.setParameter("educationId", "ED-20160524-000288");
 		request.setParameter("retractionMessage", "하기싫어요");
 
 		MockHttpSession session = new MockHttpSession();
 		MemberVO memberVO = new MemberVO();
-		memberVO.setId("test04");
+		memberVO.setId("egipyo21");
 		session.setAttribute(Session.MEMBER, memberVO);
 
 		String result = educationController.doRequestRetractionAction(request, session);

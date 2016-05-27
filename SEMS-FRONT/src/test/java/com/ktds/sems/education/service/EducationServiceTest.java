@@ -340,10 +340,10 @@ public class EducationServiceTest extends SemsTestCase {
 
 		MockHttpSession session = new MockHttpSession();
 		MemberVO memberVO = new MemberVO();
-		memberVO.setId("test02");
+		memberVO.setId("egipyo21");
 		session.setAttribute(Session.MEMBER, memberVO);
 
-		String educationId = "ED-20160513-000166";
+		String educationId = "ED-20160524-000288";
 
 		ModelAndView view = educationService.viewRequestRetractionPage(session, educationId);
 		assertNotNull(view);
@@ -357,7 +357,7 @@ public class EducationServiceTest extends SemsTestCase {
 
 		MockHttpSession session = new MockHttpSession();
 		MemberVO memberVO = new MemberVO();
-		memberVO.setId("test04");
+		memberVO.setId("egipyo21");
 		session.setAttribute(Session.MEMBER, memberVO);
 
 		String educationId = "NO-EXIST-EDUCATION-ID";
@@ -385,12 +385,12 @@ public class EducationServiceTest extends SemsTestCase {
 	@Test
 	public void doRequestRetractionTest() {
 		MockHttpServletRequest request = new MockHttpServletRequest();
-		request.setParameter("educationId", "ED-20160513-000166");
+		request.setParameter("educationId", "ED-20160524-000288");
 		request.setParameter("retractionMessage", "하기싫어요");
 
 		MockHttpSession session = new MockHttpSession();
 		MemberVO memberVO = new MemberVO();
-		memberVO.setId("test02");
+		memberVO.setId("egipyo21");
 		session.setAttribute(Session.MEMBER, memberVO);
 
 		String result = educationService.doRequestRetraction(request, session);
@@ -415,12 +415,12 @@ public class EducationServiceTest extends SemsTestCase {
 	@Test
 	public void doRequestRetractionTestWithError2() {
 		MockHttpServletRequest request = new MockHttpServletRequest();
-		request.setParameter("educationId", "ED-20160516-000181");
+		request.setParameter("educationId", "ED-20160527-000344");
 		request.setParameter("retractionMessage", "하기싫어요");
 
 		MockHttpSession session = new MockHttpSession();
 		MemberVO memberVO = new MemberVO();
-		memberVO.setId("test02");
+		memberVO.setId("egipyo21");
 		session.setAttribute(Session.MEMBER, memberVO);
 
 		String result = educationService.doRequestRetraction(request, session);
