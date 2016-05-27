@@ -742,7 +742,12 @@
 		FROM	MINU_INFO
 		WHERE	MINU_ID = #{ minutesId }
 	</select>
-	
+
+	<delete id="deleteTestMinutes" parameterType="String">
+		DELETE	
+		FROM	MINU_INFO
+		WHERE	MINU_ID = #{ minutesId }
+	</delete>	
 	<select id="deleteNewReply" >
 		DELETE 
 		FROM	TEAM_BBS_RPL	RPL
