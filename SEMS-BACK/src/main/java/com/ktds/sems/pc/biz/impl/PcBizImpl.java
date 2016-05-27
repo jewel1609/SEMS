@@ -116,4 +116,9 @@ public class PcBizImpl implements PcBiz {
 	public void doActionDeleteEduPC(String pcId) {
 		pcDAO.doActionDeleteEduPC(pcId);
 	}
+
+	@Override
+	public PcVO callIdJunitTest(PcVO pcVO) {
+		return pcDAO.callIdJunitTest(pcVO);
+	}
 }

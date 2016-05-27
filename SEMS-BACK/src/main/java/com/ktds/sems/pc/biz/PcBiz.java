@@ -33,5 +33,7 @@ public interface PcBiz {
 	public void doActionDeleteEduPlace(String educationPlaceId);
 
 	public void doActionDeleteEduPC(String pcId);
+	
+	public PcVO callIdJunitTest(PcVO pcVO);
 
 }

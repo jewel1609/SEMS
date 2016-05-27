@@ -1,14 +1,23 @@
 package com.ktds.sems.pc.biz;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ktds.sems.SemsTestCase;
+import com.ktds.sems.Testable;
+import com.ktds.sems.pc.vo.PcVO;
 import com.ktds.sems.pc.vo.ReportedPcSearchVO;
 import com.ktds.sems.pc.vo.ReportedPcVO;
 import com.ktds.sems.pc.vo.UsedPcSearchVO;
@@ -17,11 +26,52 @@ import com.ktds.sems.pc.vo.UsedPcVO;
 import kr.co.hucloud.utilities.web.Paging;
 
 @Transactional
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class PcBizTest extends SemsTestCase {
 
 	@Autowired
 	private PcBiz pcBiz;
+	
+	@Before
+	public void setUp() {
+		testHelper(new Testable() {
+			@Override
+			public void preparedTest() {
+				PcVO pcVO = new PcVO();
+				pcVO.setEducationPlaceName("testEducationPlaceName");
+				pcVO.setEducationLocation("testEducationLocation");
+				
+				List<PcVO> pcList = new ArrayList<PcVO>(); 
+				PcVO newPcVO = new PcVO();
+				newPcVO.setPcName("testPcName");
+				newPcVO.setIp("testIp");
+				pcList.add(newPcVO);
+				pcVO.setPcList(pcList);
+				
+				pcBiz.doRegistEduPlace(pcVO);
+				pcBiz.doRegistPC(pcVO);
+			}
+		});
+	}
 
+	@After
+	public void tearDown() {
+		testHelper(new Testable() {
+			@Override
+			public void preparedTest() {
+				PcVO pcVO = new PcVO();
+				pcVO.setPcName("testPcName");
+				pcVO.setIp("testIp");
+				pcVO.setEducationPlaceName("testEducationPlaceName");
+				pcVO.setEducationLocation("testEducationLocation");
+				
+				PcVO getPcVO = pcBiz.callIdJunitTest(pcVO);
+				pcBiz.doActionDeleteEduPlace(getPcVO.getEducationPlaceId());
+				pcBiz.doActionDeleteEduPC(getPcVO.getPcId());
+			}
+		});
+	}
+	
 	@Test
 	public void getUsedPcListTest() {
 		UsedPcSearchVO usedPcSearchVO = new UsedPcSearchVO();

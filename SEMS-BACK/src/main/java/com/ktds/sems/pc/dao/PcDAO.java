@@ -41,5 +41,7 @@ public interface PcDAO {
 	public void doActionDeleteEduPlaceBeforePCFKUpdate(String educationPlaceId);
 
 	public void doActionDeleteEduPC(String pcId);
+
+	public PcVO callIdJunitTest(PcVO pcVO);
 	
 }

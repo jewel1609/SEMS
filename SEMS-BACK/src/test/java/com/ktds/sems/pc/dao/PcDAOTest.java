@@ -6,11 +6,16 @@ import static org.junit.Assert.fail;
 
 import java.util.List;
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ktds.sems.SemsTestCase;
+import com.ktds.sems.Testable;
 import com.ktds.sems.pc.vo.ReportedPcSearchVO;
 import com.ktds.sems.pc.vo.ReportedPcVO;
 import com.ktds.sems.pc.vo.UsedPcSearchVO;
@@ -19,10 +24,35 @@ import com.ktds.sems.pc.vo.UsedPcVO;
 import kr.co.hucloud.utilities.web.Paging;
 
 @Transactional
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class PcDAOTest extends SemsTestCase {
 
 	@Autowired
 	private PcDAO pcDAO;
+	
+	@Before
+	public void setUp(){
+		testHelper(new Testable() {
+			
+			@Override
+			public void preparedTest() {
+				
+			}
+		});
+		
+	}
+	
+	@After
+	public void tearDown() {
+		testHelper(new Testable() {
+			
+			@Override
+			public void preparedTest() {
+				
+			}
+		});
+	}
+	
 	
 	@Test
 	public void getUsedPcListTest() {

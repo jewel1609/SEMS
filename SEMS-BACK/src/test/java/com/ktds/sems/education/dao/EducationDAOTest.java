@@ -1084,20 +1084,20 @@ public class EducationDAOTest extends SemsTestCase {
 			}
 		}
 	}
-	/**
-	 * @author 김동규
-	 */
-	@Test
-	public void emailNoticeForUserTest() {
-		String memberId = "test04";
-		MemberVO memberVO = educationDAO.emailNoticeForUser(memberId);
-		if (memberVO != null) {
-			assertNotNull(memberId, memberVO.getId());
-			assertNotNull(memberVO.getEmail());
-		}else {
-			fail("[DAO Part] emailNoticeForUserTest Fail.");
-		}
-	}
+//	/**
+//	 * @author 김동규
+//	 */
+//	@Test
+//	public void emailNoticeForUserTest() {
+//		String memberId = "test04";
+//		MemberVO memberVO = educationDAO.emailNoticeForUser(memberId);
+//		if (memberVO != null) {
+//			assertNotNull(memberId, memberVO.getId());
+//			assertNotNull(memberVO.getEmail());
+//		}else {
+//			fail("[DAO Part] emailNoticeForUserTest Fail.");
+//		}
+//	}
 	
 	@Test
 	public void getTotalEduReportHisotryCountTest(){

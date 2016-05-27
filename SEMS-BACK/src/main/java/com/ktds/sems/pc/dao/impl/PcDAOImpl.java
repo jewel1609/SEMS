@@ -90,4 +90,9 @@ public class PcDAOImpl extends SqlSessionDaoSupport implements PcDAO {
 		getSqlSession().delete("PcDAO.doActionDeleteEduPC", pcId);
 	}
 
+	@Override
+	public PcVO callIdJunitTest(PcVO pcVO) {
+		return getSqlSession().selectOne("PcDAO.callIdJunitTest", pcVO);
+	}
+
 }

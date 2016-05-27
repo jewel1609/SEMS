@@ -257,11 +257,20 @@
 		FROM	PC
 		WHERE	PC_ID = #{pcId}
 	</delete>
-	
 	<select id="getTotalEduPlaceCount" parameterType="EducationPlaceSearchVO" resultType="_int">
 		SELECT	COUNT(EDU_PLACE_ID)
 		FROM	EDU_PLACE
-		
+	</select>
+	<select id="callIdJunitTest" parameterType="PcVO" resultType="PcVO">
+		SELECT	P.PC_ID pcId
+				, EP.EDU_PLACE_ID educationPlaceId
+		FROM	EDU_PLACE EP
+				, PC P
+		WHERE	EP.EDU_PLACE_ID = P.EDU_PLACE_ID
+		AND		P.PC_NAME = #{pcName}
+		AND		P.IP = #{ip}
+		AND     EP.EDU_PLACE_NAME = #{educationPlaceName}
+        AND		EP.EDU_PLACE_LOC = #{educationLocation}		
 	</select>
 	
 </mapper>
