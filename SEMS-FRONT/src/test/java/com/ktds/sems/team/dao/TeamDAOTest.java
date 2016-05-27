@@ -18,11 +18,14 @@ import com.ktds.sems.Testable;
 import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.team.vo.MinutesSearchVO;
 import com.ktds.sems.team.vo.MinutesVO;
+import com.ktds.sems.team.vo.TeamBBSListVO;
 import com.ktds.sems.team.vo.TeamBBSReplyVO;
 import com.ktds.sems.team.vo.TeamBBSVO;
 import com.ktds.sems.team.vo.TeamSearchVO;
 import com.ktds.sems.team.vo.TeamVO;
 import com.ktds.sems.team.vo.TeamsListVO;
+
+import kr.co.hucloud.utilities.web.Paging;
 
 @Transactional
 public class TeamDAOTest extends SemsTestCase {
