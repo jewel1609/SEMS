@@ -18,13 +18,11 @@ import com.ktds.sems.Testable;
 import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.team.vo.MinutesSearchVO;
 import com.ktds.sems.team.vo.MinutesVO;
-import com.ktds.sems.team.vo.TeamBBSListVO;
+import com.ktds.sems.team.vo.TeamBBSReplyVO;
 import com.ktds.sems.team.vo.TeamBBSVO;
 import com.ktds.sems.team.vo.TeamSearchVO;
 import com.ktds.sems.team.vo.TeamVO;
 import com.ktds.sems.team.vo.TeamsListVO;
-
-import kr.co.hucloud.utilities.web.Paging;
 
 @Transactional
 public class TeamDAOTest extends SemsTestCase {
@@ -172,6 +170,136 @@ public class TeamDAOTest extends SemsTestCase {
 		}
 	}
 	
+	@Test
+	public void getReplyCountByTeamBBSId( ) {
+		String teamBBSId = "TBBS-20160512-000054";
+		assertNotNull(teamDAO.getReplyCountByTeamBBSId(teamBBSId));
+	}
+	
+	@Test
+	public void getTeamBBSReReplies(){
+		String parentReplyId = "TBRP-20160504-000130";
+		assertNotNull(teamDAO.getTeamBBSReReplies(parentReplyId));
+	}
+	
+	@Test
+	public void writeBBSReReply() {
+		TeamBBSReplyVO replyVO = new TeamBBSReplyVO();
+		
+		String teamBBSReplyId = String.valueOf(teamDAO.getNextTeamBBSReplySeq());
+		String sysdate = teamDAO.getSysDate();
+		teamBBSReplyId = lpad(teamBBSReplyId, 6 ,"0");
+		teamBBSReplyId = "TBRP" + '-' + sysdate + '-' + teamBBSReplyId;
+		replyVO.setReplyId(teamBBSReplyId);
+		replyVO.setOrderNo(0);
+		replyVO.setDescript("TEST");
+		replyVO.setTeamBBSId("TEST");
+		replyVO.setDepth(0);
+		replyVO.setMemberId("test");
+		replyVO.setParentReplyId("?");
+		assertTrue(teamDAO.writeBBSReReply(replyVO) > 0);
+		assertTrue(teamDAO.deleteNewReply() > 0);
+	}
+	
+	@Test
+	public void getTeamBBSList() {
+		TeamSearchVO searchVO = new TeamSearchVO();
+		searchVO.setEndIndex(10);
+		searchVO.setStartIndex(0);
+		assertNotNull(teamDAO.getTeamBBSList(searchVO));
+	}
+	
+	@Test
+	public void writeBBSReply() {
+		TeamBBSReplyVO replyVO = new TeamBBSReplyVO();
+		
+		String teamBBSReplyId = String.valueOf(teamDAO.getNextTeamBBSReplySeq());
+		String sysdate = teamDAO.getSysDate();
+		teamBBSReplyId = lpad(teamBBSReplyId, 6 ,"0");
+		teamBBSReplyId = "TBRP" + '-' + sysdate + '-' + teamBBSReplyId;
+		replyVO.setReplyId(teamBBSReplyId);
+		replyVO.setOrderNo(0);
+		replyVO.setDescript("TEST");
+		replyVO.setTeamBBSId("TEST");
+		replyVO.setDepth(0);
+		replyVO.setMemberId("test");
+		replyVO.setParentReplyId("0");
+		assertTrue(teamDAO.writeBBSReply(replyVO) > 0);
+		
+	//	assertNotNull(teamDAO.getLikeState(bbs));
+		
+		assertTrue(teamDAO.deleteNewReply() > 0);
+	}
+	
+	@Test
+	public void addDislikeCount() {
+		TeamBBSVO bbs = new TeamBBSVO();
+		bbs.setMemberId("test02");
+		bbs.setTeamBBSId("TBBS-20160512-000040");
+		assertTrue(teamDAO.addDislikeCount(bbs) > 0);
+	}
+	
+	@Test
+	public void addLikeCount() {
+		TeamBBSVO bbs = new TeamBBSVO();
+		bbs.setMemberId("test02");
+		bbs.setTeamBBSId("TBBS-20160512-000040");
+		assertTrue( teamDAO.addLikeCount(bbs) > 0);
+	}
+	
+	@Test
+	public void addLikeRecord() {
+		TeamBBSVO bbs = new TeamBBSVO();
+		bbs.setMemberId("test02");
+		bbs.setTeamBBSId("TBBS-20160512-000040");
+		
+		assertTrue(teamDAO.addLikeRecord(bbs) > 0);
+		assertNotNull(teamDAO.getLikeState(bbs));
+		assertTrue(teamDAO.checkLikeByTeamBBSVO(bbs) > 0);
+		assertTrue(teamDAO.initLikeRecord(bbs) > 0);
+		
+	}
+	
+	@Test
+	public void addDislikeRecord() {
+		TeamBBSVO bbs = new TeamBBSVO();
+		bbs.setMemberId("test02");
+		bbs.setTeamBBSId("TBBS-20160512-000040");
+		
+		assertTrue(teamDAO.addDislikeRecord(bbs) > 0);
+		assertNotNull(teamDAO.getDislikeState(bbs));
+		assertTrue(teamDAO.checkDislikeByTeamBBSVO(bbs) > 0);
+		assertTrue(teamDAO.initLikeRecord(bbs) > 0);
+	}
+	
+	@Test
+	public void addHitsRecord() {
+		TeamBBSVO bbs = new TeamBBSVO();
+		bbs.setMemberId("test05");
+		bbs.setBbsHistoryId("testest");
+		bbs.setTeamBBSId("TBBS-20160512-000040");
+		assertTrue(teamDAO.addHitsRecord(bbs) > 0);	
+		assertTrue(teamDAO.removeHitsRecord(bbs.getBbsHistoryId()) > 0);
+	}
+	
+	@Test 
+	public void getTeamBBS(){
+		String teamBBSId = "TBBS-20160512-000040";
+		assertNotNull(teamDAO.getTeamBBS(teamBBSId));
+	}
+	
+	private String lpad(String source, int length, String defValue) {
+		
+		int sourceLength = source.length();
+		int needLength = length - sourceLength;
+		
+		for ( int i = 0 ; i < needLength ; i++ ) {
+			source = defValue + source;
+		}
+		return source;
+	}
+	
+
 	@Test
 	public void getSearchedBBSCountTest(){
 		assertNotNull(teamDAO.getSearchedBBSCount());
