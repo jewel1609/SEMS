@@ -314,4 +314,10 @@ public class TeamDAOImpl  extends SqlSessionDaoSupport implements TeamDAO{
 	public void deleteEducation(String educationId) {
 		getSqlSession().delete("teamDAO.deleteEducation", educationId);
 	}
+	
+	@Override
+	public int deleteTestMinutes(String minutesId) {
+		return getSqlSession().delete("teamDAO.deleteTestMinutes",minutesId);
+	}
+
 }
