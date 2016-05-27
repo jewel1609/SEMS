@@ -35,14 +35,11 @@ public class TeamController {
 	public void setTeamService(TeamService teamService) {
 		this.teamService = teamService;
 	}
-	
-	
 
 	@RequestMapping("/myTeamDetail/{teamId}")
 	public ModelAndView getOneMyTeamDetail(@PathVariable String teamId, HttpSession session, @RequestParam(required=false, defaultValue="0") int pageNo){
 		return teamService.getOneMyTeamDetail(teamId, session, pageNo);
 	}
-
 
 	@RequestMapping("/myTeamList")
 	public ModelAndView getAllMyTeamList(@RequestParam(required=false, defaultValue="0") int pageNo){
@@ -50,10 +47,6 @@ public class TeamController {
 		logger.info(""+pageNo);
 		return teamService.getAllMyTeamList(pageNo);
 	}
-
-	
-	
-	
 
 	@RequestMapping("/team/teamBBS/board")
 	public ModelAndView viewTeamBBSPage(@RequestParam(required = false, defaultValue = "0") int pageNo) {

@@ -54,5 +54,22 @@ public interface TeamService {
 	public ModelAndView getAllMinutes(MinutesSearchVO minutesSearchVO, int pageNo, HttpSession session);
 
 	public void doDeleteTeamListByMemberId(String memberId);
+
+	public ModelAndView getAllEduMember(String educationId, HttpSession session);
+
+	public ModelAndView massiveInsertMember(String[] insertMemberIds, String educationId, String teamName,
+			String teamListId);
+
+	public ModelAndView minutesListInit();
+
+	public String getPasswordById(String sessionId);
+
+	public String getSaltById(String sessionId);
+
+	public String doDeleteBBS(String teamBBSId);
+
+	public String isReplyByTeamBBSId(String teamBBSId);
+
+	public ModelAndView doModifyAction(TeamBBSVO teamBBS, MultipartHttpServletRequest request, HttpSession session);
 	
 }

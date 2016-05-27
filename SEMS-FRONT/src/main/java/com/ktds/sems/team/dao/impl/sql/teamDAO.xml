@@ -166,7 +166,7 @@
 			    TEAM_BBS.CREATED_DATE createdDate, 
 		   		TEAM_BBS.MODIFIED_DATE modifiedDate,
 		   		TEAM_BBS.IS_NOTICE isNotice,
-		   		FILES.FCOUNT fileCount		
+		   		NVL(FILES.FCOUNT,0) fileCount		
 		FROM	(
 					SELECT	ROWNUM AS RNUM
 							, TEAM_BBS.*
@@ -291,8 +291,7 @@
 					MBR_ID memberId, 
 					CREATED_DATE createdDate, 
 			   		MODIFIED_DATE modifiedDate,
-			   		IS_NOTICE isNotice,
-			   		FILE_NM	fileName
+			   		IS_NOTICE isNotice
 		FROM		TEAM_BBS
 					,
 					(
@@ -300,9 +299,7 @@
 						FROM	BBS_HTR
 						WHERE 	BBS_ID = #{teamBBSId}
 					) COUNT_HITS
-					, FILES
 		WHERE		TEAM_BBS_ID = #{teamBBSId}
-		AND			TEAM_BBS.TEAM_BBS_ID = FILES.ATC_ID
 	</select>
 	
 	<select id="isAlreadyCheckBBS" parameterType="TeamBBSVO" resultType="_int">
@@ -382,10 +379,9 @@
 	</update>
 	
 	<select id="getFileInfo" parameterType="string" resultType="string">
-		SELECT  FILE_NM fileName
+        SELECT  NVL(FILE_NM,'') fileName
 		FROM    FILES, TEAM_BBS
-		WHERE	TEAM_BBS_ID = #{teamBBSId}
-		AND   	ATC_ID = TEAM_BBS_ID
+		WHERE   ATC_ID = #{teamBBSId}
 	</select>
 	
 	<update id="doModifyAction" parameterType="TeamBBSVO">
