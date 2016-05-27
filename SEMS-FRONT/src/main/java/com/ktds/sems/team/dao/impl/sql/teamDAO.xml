@@ -60,7 +60,6 @@
 		GROUP BY 	TEAM.TEAM_NM , TEAM_LIST.MBR_ID		
 	
 		
-		
 	</select>
 
 

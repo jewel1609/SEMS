@@ -27,6 +27,7 @@ public class TeamBizTest extends SemsTestCase {
 
 	@Autowired
 	private TeamBiz teamBiz;
+	
 
 	@Before
 	public void setUp() {
@@ -87,6 +88,31 @@ public class TeamBizTest extends SemsTestCase {
 			fail("Fail...");
 		}
 	}
+	
+	@Test
+	public void getSaltByIdTest() {
+		String sessionId = "test02";
+		
+		String result = teamBiz.getSaltById(sessionId);
+		assertNotNull(result);
+	}
+	
+	@Test
+	public void getPasswordByIdTest() {
+		String sessionId = "test02";
+		
+		String result = teamBiz.getPasswordById(sessionId);
+		assertNotNull(result);
+	}
+	
+	@Test
+	public void isReplyByTeamBBSIdTest() {
+		String teamBBSId = "TBBS-20160512-000054";
+		
+		boolean result = teamBiz.isReplyByTeamBBSId(teamBBSId);
+		assertTrue(result);
+	}
+
 	
 	@Test
 	public void getOneTeamDetailTest(){

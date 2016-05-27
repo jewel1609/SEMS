@@ -88,6 +88,32 @@ public class TeamDAOTest extends SemsTestCase {
 	}
 	
 	@Test
+	public void getSaltByIdTest() {
+		String sessionId = "test02";
+		
+		String result = teamDAO.getSaltById(sessionId);
+		assertNotNull(result);
+	}
+	
+	@Test
+	public void getPasswordByIdTest() {
+		String sessionId = "test02";
+		
+		String result = teamDAO.getPasswordById(sessionId);
+		assertNotNull(result);
+	}
+	
+	@Test
+	public void isReplyByTeamBBSIdTest() {
+		String teamBBSId = "TBBS-20160512-000054";
+		
+		List<String> list = teamDAO.isReplyByTeamBBSId(teamBBSId);
+		for (String stringCheck : list) {
+			assertNotNull(stringCheck);
+		}
+	}
+
+	@Test
 	public void getOneTeamDetailTest(){
 		String teamId = "testTeamListId";
 		List<TeamsListVO> teamsList = teamDAO.getOneTeamDetail(teamId);

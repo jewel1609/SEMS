@@ -132,8 +132,8 @@ public class TeamDAOImpl  extends SqlSessionDaoSupport implements TeamDAO{
 	}
 
 	@Override
-	public List<String> getFileInfo(String teamBBSId) {
-		return getSqlSession().selectList("teamDAO.getFileInfo", teamBBSId);
+	public String getFileInfo(String teamBBSId) {
+		return getSqlSession().selectOne("teamDAO.getFileInfo", teamBBSId);
 	}
 	
 	@Override

@@ -186,7 +186,7 @@ public class TeamBizImpl implements TeamBiz {
 		return teamDAO.addDislikeRecord(bbs) > 0;
 	}
 
-	public List<String> getFileInfo(String teamBBSId) {
+	public String getFileInfo(String teamBBSId) {
 		return teamDAO.getFileInfo(teamBBSId);
 	}
 	@Override

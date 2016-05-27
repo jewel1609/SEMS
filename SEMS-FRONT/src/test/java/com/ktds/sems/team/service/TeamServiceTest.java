@@ -1,8 +1,10 @@
 package com.ktds.sems.team.service;
 
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
@@ -15,6 +17,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.SemsTestCase;
+import com.ktds.sems.team.biz.TeamBiz;
+import com.ktds.sems.team.vo.TeamBBSVO;
 import com.ktds.sems.Testable;
 import com.ktds.sems.team.vo.TeamSearchVO;
 import com.ktds.sems.team.vo.TeamsListVO;
@@ -25,9 +29,64 @@ import com.ktds.sems.team.vo.MinutesSearchVO;
 
 @Transactional
 public class TeamServiceTest extends SemsTestCase {
-
+	
 	@Autowired
 	private TeamService teamService;
+	@Autowired
+	private TeamBiz teamBiz;
+	/**
+	 * 민
+	 */
+	@Test
+	public void viewModifyPageTest(){
+		String teamBBSId = "TBBS-20160501-000050";
+		TeamBBSVO teamBBS = teamBiz.getTeamBBS(teamBBSId);
+		assertNotNull(teamBBS);
+		
+		ModelAndView view = teamService.viewModifyPage(teamBBSId);
+		
+		if ( view != null ) {
+			String viewName = view.getViewName();
+			assertNotNull(viewName);
+			assertEquals(viewName, "team/modifyBBS");
+		}
+		else {
+			fail("fail");
+		}
+	}
+	/**
+	 * 민
+	 */
+	@Test
+	public void checkPasswordTest() {
+		
+		String teamBBSId = "TBBS-20160501-000050";
+		String type = "modify";
+		
+		ModelAndView view = teamService.checkPassword(teamBBSId, type);
+		
+		if ( view != null ) {
+			String viewName = view.getViewName();
+			assertNotNull(viewName);
+			assertEquals(viewName, "team/checkPassword");
+		}
+		else {
+			fail("fail");
+		}
+				
+	}
+	
+	/**
+	 * 민정
+	 */
+	@Test
+	public void getSaltByIdTest(){
+		String sessionId = "test02";
+		
+		String view = teamService.getSaltById(sessionId);
+		assertNotNull(view);
+	}
+	
 
 	@Before
 	public void setUp() {
@@ -63,6 +122,36 @@ public class TeamServiceTest extends SemsTestCase {
 		});
 	}
 
+	/**
+	 * 민정
+	 */
+	@Test
+	public void getPasswordByIdTest(){
+		String sessionId = "test02";
+		
+		String view = teamService.getPasswordById(sessionId);
+		assertNotNull(view);
+	}
+	
+	/**
+	 * 지한오빠
+	 */
+	@Test
+	public void doDeleteBBSTest(){
+		
+	}
+	
+	/**
+	 * 민정
+	 */
+	@Test
+	public void isReplyByTeamBBSIdTest() {
+		String teamBBSId = "TBBS-20160512-000054";
+		
+		boolean result = teamBiz.isReplyByTeamBBSId(teamBBSId);
+		assertTrue(result);
+	}
+	
 	@Test
 	public void getAllTeamListPageTest() {
 

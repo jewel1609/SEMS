@@ -52,7 +52,7 @@ public interface TeamBiz {
 
 	public boolean addDislikeRecord(TeamBBSVO bbs);
 
-	public List<String> getFileInfo(String teamBBSId);
+	public String getFileInfo(String teamBBSId);
 
 	public String getLikeState(TeamBBSVO bbs);
 

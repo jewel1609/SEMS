@@ -293,7 +293,7 @@ public class TeamServiceImpl implements TeamService{
 		ModelAndView view = new ModelAndView();
 		logger.info("teamBBS.getFileCount()"+teamBBS.getFileCount());
 		if( teamBBS.getFileCount() == 0 ){
-			List<String> fileName = teamBiz.getFileInfo(teamBBSId);
+			String fileName = teamBiz.getFileInfo(teamBBSId);
 			view.addObject("fileName", fileName);
 		}else{
 			view.addObject("fileName", " ");
@@ -630,6 +630,7 @@ public class TeamServiceImpl implements TeamService{
 		//이전 내용
 		TeamBBSVO prevTeamBBS = teamBiz.getTeamBBS(teamBBS.getTeamBBSId()); 
 		TeamBBSVO changeTeamBBS = new TeamBBSVO();
+		String prevFileName = teamBiz.getFileInfo(teamBBS.getTeamBBSId());
 
 		// 댓글
 		TeamBBSReplyVO replyVO = new TeamBBSReplyVO();
@@ -658,7 +659,7 @@ public class TeamServiceImpl implements TeamService{
 			changeTeamBBS.setIsNotice(teamBBS.getIsNotice());
 			isNotice = "공지가 " + prevTeamBBS.getIsNotice() + " 에서 " + changeTeamBBS.getIsNotice() + " 로 변경 되었습니다.<br/>";
 		}
-		if( !prevTeamBBS.getFileName().equals(fileName) && !file.isEmpty() ){
+		if( !prevFileName.equals(fileName) && !file.isEmpty() ){
 			changeTeamBBS.setFileName(teamBBS.getFileName());
 			isFileName = "파일이 " + prevTeamBBS.getFileName() + " 에서 " + fileName + " 로 변경 되었습니다.<br/>";
 		}
