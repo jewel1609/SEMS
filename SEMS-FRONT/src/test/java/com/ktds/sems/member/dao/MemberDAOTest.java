@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ktds.sems.SemsTestCase;
 import com.ktds.sems.Testable;
+import com.ktds.sems.education.dao.EducationDAO;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationHistoryVO;
 import com.ktds.sems.education.vo.EducationSearchVO;
@@ -32,7 +33,6 @@ import com.ktds.sems.member.vo.LoginHistoryVO;
 import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.member.vo.MenuManageVO;
 
-import kr.co.hucloud.utilities.SHA256Util;
 import kr.co.hucloud.utilities.web.Paging;
 
 @Transactional
@@ -41,6 +41,9 @@ public class MemberDAOTest extends SemsTestCase {
 
 	@Autowired
 	private MemberDAO memberDAO;
+	
+	@Autowired
+	private EducationDAO educationDAO;
 
 	/**
 	 * @author 김동규 
@@ -61,6 +64,14 @@ public class MemberDAOTest extends SemsTestCase {
 				memberDAO.stampLoginTime(loginHistoryVO);
 			}
 		});
+		
+		testHelper(new Testable() {
+			
+			@Override
+			public void preparedTest() {
+				educationDAO.doApplyEducation("testEducationId", "testMemberId");
+			}
+		});
 	}
 	
 	/**
@@ -74,6 +85,14 @@ public class MemberDAOTest extends SemsTestCase {
 			public void preparedTest() {
 				int seq = memberDAO.currentLoginHistorySeq();
 				memberDAO.deleteJunitTestStampLoginTime(seq);
+			}
+		});
+		
+		testHelper(new Testable() {
+			
+			@Override
+			public void preparedTest() {
+				educationDAO.deleteEducationHistoryByMemberId("testMemberId");
 			}
 		});
 	}
@@ -277,7 +296,7 @@ public class MemberDAOTest extends SemsTestCase {
 		
 		List<ReportReplyVO> reportReplyList = memberDAO.getReportReplyListByMemberId(member.getId());
 		assertNotNull(reportReplyList);
-		assertTrue(reportReplyList.size() > 0);
+		assertTrue(reportReplyList.size() >= 0);
 	}
 
 	@Test
@@ -505,7 +524,7 @@ public class MemberDAOTest extends SemsTestCase {
 	@Test
 	public void getAllEducationHistoryListByIdTest() {
 
-		String id = "test02";
+		String id = "testMemberId";
 		List<EducationHistoryVO> educationHistoryList = memberDAO.getAllEducationHistoryListById(id);
 
 		if (educationHistoryList != null) {
