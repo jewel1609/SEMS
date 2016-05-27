@@ -117,6 +117,12 @@ public interface TeamDAO {
 
 	public void doDeleteTeamListByMemberId(String memberId);
 
+	public int deleteNewReply();
+
+	public int initLikeRecord(TeamBBSVO TeamBBSVO);
+
+	public int removeHitsRecord(String bbsHistoryId);
+
 	public void doDeleteTeamByTeamName(String teamName);
 
 }
