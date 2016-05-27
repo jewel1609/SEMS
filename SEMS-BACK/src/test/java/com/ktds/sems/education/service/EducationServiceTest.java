@@ -13,12 +13,9 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.FixMethodOrder;
 import org.junit.Test;
-import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.mock.web.MockMultipartHttpServletRequest;
@@ -31,92 +28,42 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ktds.sems.SemsTestCase;
-import com.ktds.sems.Testable;
 import com.ktds.sems.common.Session;
-import com.ktds.sems.education.vo.TeamVO;
+import com.ktds.sems.education.vo.EducationHistoryListVO;
+import com.ktds.sems.education.vo.EducationHistorySearchVO;
+import com.ktds.sems.education.vo.EducationHistoryVO;
+import com.ktds.sems.education.vo.EducationVO;
+import com.ktds.sems.education.dao.EducationDAO;
 import com.ktds.sems.education.vo.EduFileListVO;
 import com.ktds.sems.education.vo.EduFileSearchVO;
 import com.ktds.sems.education.vo.EduFileVO;
+import com.ktds.sems.education.vo.EduNoticeListVO;
 import com.ktds.sems.education.vo.EduNoticeSearchVO;
+import com.ktds.sems.education.vo.EduNoticeVO;
 import com.ktds.sems.education.vo.EduQnaListVO;
 import com.ktds.sems.education.vo.EduQnaSearchVO;
 import com.ktds.sems.education.vo.EduQnaVO;
 import com.ktds.sems.education.vo.EduReportListVO;
 import com.ktds.sems.education.vo.EduReportSearchVO;
 import com.ktds.sems.education.vo.EduReportVO;
-import com.ktds.sems.education.vo.EducationHistoryListVO;
-import com.ktds.sems.education.vo.EducationHistorySearchVO;
-import com.ktds.sems.education.vo.EducationHistoryVO;
-import com.ktds.sems.education.vo.EducationVO;
-import com.ktds.sems.member.vo.LoginHistoryVO;
-import com.ktds.sems.member.vo.MemberVO;
 
 import com.ktds.sems.file.biz.FileBiz;
 import com.ktds.sems.file.vo.FileVO;
-import com.ktds.sems.member.vo.AttendVO;
 import com.ktds.sems.member.vo.MemberVO;
 
 import kr.co.hucloud.utilities.web.Paging;
 
 @Transactional
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class EducationServiceTest extends SemsTestCase {
 
 	@Autowired
 	private EducationService educationService;
-
-	/**
-	 * @author 김동규 
-	 * Action - insert
-	 */
-	@Before
-	public void setUp() {
-		testHelper(new Testable() {
-			
-			@Override
-			public void preparedTest() {
-				EducationVO educationVO = new EducationVO();
-				educationVO.setEducationId("ED-20160519-000251");
-				educationVO.setEducationCategory("ZCS");
-				educationVO.setEducationTitle("JUNIT...");
-				educationVO.setMemberId("JUNIT...");
-				educationVO.setMaxMember(30);
-				educationVO.setEducationLocation("JUNIT...");
-				educationVO.setEducationCurriculum("JUNIT...");
-				educationVO.setEducationIntroduce("JUNIT...");
-				educationVO.setStartDate("2016-05-01");
-				educationVO.setEndDate("2016-05-04");
-				educationVO.setStartTime("01:00");
-				educationVO.setEndTime("01:00");
-				educationVO.setEducationType("TIMM");
-				educationVO.setCost("CSTC");
-				BindingResult errors = new BeanPropertyBindingResult(educationVO, "writeForm");
-				MockMultipartHttpServletRequest request = new MockMultipartHttpServletRequest();
-				
-				educationService.writeNewEducation(educationVO, errors, request);
-			}
-		});
-	}
 	
-	/**
-	 * @author 김동규 
-	 * Action - Delete
-	 */
-	@After
-	public void tearDown() {
-		testHelper(new Testable() {
-			
-			@Override
-			public void preparedTest() {
-				MockHttpSession session = new MockHttpSession();
-				MemberVO memberVO = new MemberVO();
-				memberVO.setId("cainGwiz88");
-				memberVO.setMemberType("ADM");
-				session.setAttribute(Session.MEMBER, memberVO);
-				educationService.doActionDelete("ED-20160519-000251", session);
-			}
-		} );
-	}
+	@Autowired
+	private FileBiz fileBiz;
+	
+	@Autowired
+	private EducationDAO educationDAO;
 	
 	@Test
 	public void getOneEducationForUpdateTest(){
@@ -198,8 +145,8 @@ public class EducationServiceTest extends SemsTestCase {
 		educationVO.setEducationLocation("JUNIT...");
 		educationVO.setEducationCurriculum("JUNIT...");
 		educationVO.setEducationIntroduce("JUNIT...");
-		educationVO.setStartDate("2016-05-01");
-		educationVO.setEndDate("2016-05-04");
+		educationVO.setStartDate("JUNIT...");
+		educationVO.setEndDate("JUNIT...");
 		educationVO.setStartTime("01:00");
 		educationVO.setEndTime("01:00");
 		educationVO.setEducationType("TIMM");
@@ -256,8 +203,8 @@ public class EducationServiceTest extends SemsTestCase {
 		educationVO.setEducationLocation("JUNIT...");
 		educationVO.setEducationCurriculum("JUNIT...");
 		educationVO.setEducationIntroduce("JUNIT...");
-		educationVO.setStartDate("2016-05-01");
-		educationVO.setEndDate("2016-05-04");
+		educationVO.setStartDate("JUNIT...");
+		educationVO.setEndDate("JUNIT...");
 		educationVO.setStartTime("01:00");
 		educationVO.setEndTime("01:00");
 		educationVO.setEducationType("TIMM");
@@ -314,8 +261,8 @@ public class EducationServiceTest extends SemsTestCase {
 		educationVO.setEducationLocation("JUNIT...");
 		educationVO.setEducationCurriculum("JUNIT...");
 		educationVO.setEducationIntroduce("JUNIT...");
-		educationVO.setStartDate("2016-05-01");
-		educationVO.setEndDate("2016-05-04");
+		educationVO.setStartDate("JUNIT...");
+		educationVO.setEndDate("JUNIT...");
 		educationVO.setStartTime("01:00");
 		educationVO.setEndTime("01:00");
 		educationVO.setEducationType("TIMM");
@@ -372,8 +319,8 @@ public class EducationServiceTest extends SemsTestCase {
 		educationVO.setEducationLocation("JUNIT...");
 		educationVO.setEducationCurriculum("JUNIT...");
 		educationVO.setEducationIntroduce("JUNIT...");
-		educationVO.setStartDate("2016-05-01");
-		educationVO.setEndDate("2016-05-04");
+		educationVO.setStartDate("JUNIT...");
+		educationVO.setEndDate("JUNIT...");
 		educationVO.setStartTime("01:00");
 		educationVO.setEndTime("01:00");
 		educationVO.setEducationType("TIMM");
@@ -430,8 +377,8 @@ public class EducationServiceTest extends SemsTestCase {
 		//educationVO.setEducationLocation("JUNIT...");
 		educationVO.setEducationCurriculum("JUNIT...");
 		educationVO.setEducationIntroduce("JUNIT...");
-		educationVO.setStartDate("2016-05-01");
-		educationVO.setEndDate("2016-05-04");
+		educationVO.setStartDate("JUNIT...");
+		educationVO.setEndDate("JUNIT...");
 		educationVO.setStartTime("01:00");
 		educationVO.setEndTime("01:00");
 		educationVO.setEducationType("TIMM");
@@ -488,8 +435,8 @@ public class EducationServiceTest extends SemsTestCase {
 		educationVO.setEducationLocation("JUNIT...");
 		//educationVO.setEducationCurriculum("JUNIT...");
 		educationVO.setEducationIntroduce("JUNIT...");
-		educationVO.setStartDate("2016-05-01");
-		educationVO.setEndDate("2016-05-04");
+		educationVO.setStartDate("JUNIT...");
+		educationVO.setEndDate("JUNIT...");
 		educationVO.setStartTime("01:00");
 		educationVO.setEndTime("01:00");
 		educationVO.setEducationType("TIMM");
@@ -546,8 +493,8 @@ public class EducationServiceTest extends SemsTestCase {
 		educationVO.setEducationLocation("JUNIT...");
 		educationVO.setEducationCurriculum("JUNIT...");
 		//educationVO.setEducationIntroduce("JUNIT...");
-		educationVO.setStartDate("2016-05-01");
-		educationVO.setEndDate("2016-05-04");
+		educationVO.setStartDate("JUNIT...");
+		educationVO.setEndDate("JUNIT...");
 		educationVO.setStartTime("01:00");
 		educationVO.setEndTime("01:00");
 		educationVO.setEducationType("TIMM");
@@ -604,8 +551,8 @@ public class EducationServiceTest extends SemsTestCase {
 		educationVO.setEducationLocation("JUNIT...");
 		educationVO.setEducationCurriculum("JUNIT...");
 		educationVO.setEducationIntroduce("JUNIT...");
-		//educationVO.setStartDate("2016-05-01");
-		educationVO.setEndDate("2016-05-04");
+		//educationVO.setStartDate("JUNIT...");
+		educationVO.setEndDate("JUNIT...");
 		educationVO.setStartTime("01:00");
 		educationVO.setEndTime("01:00");
 		educationVO.setEducationType("TIMM");
@@ -662,8 +609,8 @@ public class EducationServiceTest extends SemsTestCase {
 		educationVO.setEducationLocation("JUNIT...");
 		educationVO.setEducationCurriculum("JUNIT...");
 		educationVO.setEducationIntroduce("JUNIT...");
-		educationVO.setStartDate("2016-05-01");
-		//educationVO.setEndDate("2016-05-04");
+		educationVO.setStartDate("JUNIT...");
+		//educationVO.setEndDate("JUNIT...");
 		educationVO.setStartTime("01:00");
 		educationVO.setEndTime("01:00");
 		educationVO.setEducationType("TIMM");
@@ -720,8 +667,8 @@ public class EducationServiceTest extends SemsTestCase {
 		educationVO.setEducationLocation("JUNIT...");
 		educationVO.setEducationCurriculum("JUNIT...");
 		educationVO.setEducationIntroduce("JUNIT...");
-		educationVO.setStartDate("2016-05-01");
-		educationVO.setEndDate("2016-05-04");
+		educationVO.setStartDate("JUNIT...");
+		educationVO.setEndDate("JUNIT...");
 		//educationVO.setStartTime("01:00");
 		educationVO.setEndTime("01:00");
 		educationVO.setEducationType("TIMM");
@@ -778,8 +725,8 @@ public class EducationServiceTest extends SemsTestCase {
 		educationVO.setEducationLocation("JUNIT...");
 		educationVO.setEducationCurriculum("JUNIT...");
 		educationVO.setEducationIntroduce("JUNIT...");
-		educationVO.setStartDate("2016-05-01");
-		educationVO.setEndDate("2016-05-04");
+		educationVO.setStartDate("JUNIT...");
+		educationVO.setEndDate("JUNIT...");
 		educationVO.setStartTime("01:00");
 		//educationVO.setEndTime("01:00");
 		educationVO.setEducationType("TIMM");
@@ -836,8 +783,8 @@ public class EducationServiceTest extends SemsTestCase {
 		educationVO.setEducationLocation("JUNIT...");
 		educationVO.setEducationCurriculum("JUNIT...");
 		educationVO.setEducationIntroduce("JUNIT...");
-		educationVO.setStartDate("2016-05-01");
-		educationVO.setEndDate("2016-05-04");
+		educationVO.setStartDate("JUNIT...");
+		educationVO.setEndDate("JUNIT...");
 		educationVO.setStartTime("01:00");
 		educationVO.setEndTime("01:00");
 		//educationVO.setEducationType("TIMM");
@@ -894,8 +841,8 @@ public class EducationServiceTest extends SemsTestCase {
 		educationVO.setEducationLocation("JUNIT...");
 		educationVO.setEducationCurriculum("JUNIT...");
 		educationVO.setEducationIntroduce("JUNIT...");
-		educationVO.setStartDate("2016-05-01");
-		educationVO.setEndDate("2016-05-04");
+		educationVO.setStartDate("JUNIT...");
+		educationVO.setEndDate("JUNIT...");
 		educationVO.setStartTime("01:00");
 		educationVO.setEndTime("01:00");
 		educationVO.setEducationType("TIMM");
@@ -944,13 +891,14 @@ public class EducationServiceTest extends SemsTestCase {
 	 * D:\\핸드폰.xlsx 해당 파일이 있어야 insert 가능합니다.
 	 * 
 	 */
+
 	public void writeNewEducationTest() {
 		// List 보는건 차 후에 test 시도
 
 		// EducationId 가 없을 경우 ..
 		EducationVO educationVO = new EducationVO();
 		educationVO.setEducationCategory("ZCS");
-		educationVO.setEducationTitle("JUNIT...");
+		educationVO.setEducationTitle("JUNIT!!!!!!.");
 		educationVO.setMemberId("JUNIT...");
 		educationVO.setMaxMember(32);
 		educationVO.setEducationLocation("JUNIT...");
@@ -1182,7 +1130,7 @@ public class EducationServiceTest extends SemsTestCase {
 	}
 
 
-	@Test
+
 	public void doWriteActionTestWithError5() {
 		// List 보는건 차 후에 test 시도
 
@@ -1714,7 +1662,7 @@ public class EducationServiceTest extends SemsTestCase {
 	}
 	
 	
-	
+
 	public class EducationValidator implements Validator {
 		
 		@Override
@@ -1874,9 +1822,8 @@ public class EducationServiceTest extends SemsTestCase {
 		}
 	}
 	
-	@Test
+/*	@Test
 	public void getAllQnaArticle() {
-		
 		EduQnaSearchVO eduQnaSearchVO = new EduQnaSearchVO();
 		eduQnaSearchVO.setEducationId("ED-20160519-000233");
 		ModelAndView view = educationService.getAllQnaArticle(eduQnaSearchVO, 0);
@@ -1899,14 +1846,15 @@ public class EducationServiceTest extends SemsTestCase {
 		else {
 			fail("getAllQnaArticle Fail");
 		}
-	}
-	
+	}*/
+
 	@Test
 	public void getAllEduFileArticle() {
 		
 		EduFileSearchVO eduFileSearchVO = new EduFileSearchVO();
 		EduNoticeSearchVO eduNoticeSearchVO = new EduNoticeSearchVO();
-		eduFileSearchVO.setEducationId("ED-20160519-000233");
+		eduFileSearchVO.setEducationId("ED-20160513-000176");
+		eduNoticeSearchVO.setEducationId("ED-20160513-000176");
 		ModelAndView view = educationService.getAllEduFileArticle(eduFileSearchVO, 0, eduNoticeSearchVO);
 		if ( view != null ) {
 			String viewName = view.getViewName();
@@ -1916,6 +1864,9 @@ public class EducationServiceTest extends SemsTestCase {
 			EduFileListVO eduFileListVO = (EduFileListVO) view.getModel().get("eduFileListVO");
 			assertNotNull(eduFileListVO);
 			
+			EduNoticeListVO eduNoticeListVO = (EduNoticeListVO) view.getModel().get("eduNoticeListVO");
+			assertNotNull(eduNoticeListVO);
+			
 			Paging paging = eduFileListVO.getPaging();
 			assertNotNull(paging);
 			assertTrue(paging.getTotalArticleCount() > 0);
@@ -1923,6 +1874,11 @@ public class EducationServiceTest extends SemsTestCase {
 			List<EduFileVO> eduFile = eduFileListVO.getEduFileList();
 			assertNotNull(eduFile);
 			assertTrue(eduFile.size() > 0);
+			
+			List<EduNoticeVO> eduFileNotice  = eduNoticeListVO.getEduNoticeList();
+			assertNotNull(eduFileNotice);
+			assertTrue(eduFileNotice.size() > 0);
+			
 		}
 		else {
 			fail("getAllFileArticle Fail");
@@ -1943,163 +1899,115 @@ public class EducationServiceTest extends SemsTestCase {
 		assertNotNull(reportListVO);
 		assertTrue(reportListVO.getEduReportList().size() > 0);
 	}
+	
+	@Test
+	public void writeEduFileNoticeActionTest(){
+		
+		EduNoticeVO eduNoticeVO = new EduNoticeVO();
+		eduNoticeVO.setEducationId(educationDAO.getOneEducationId());
+		eduNoticeVO.setMemberId("JUNIT");
+		eduNoticeVO.setTitle("JUNIT 공지 테스ㅡㅌ");
+		eduNoticeVO.setContents("ㅋㅋㅋㅋㅋㅋㅋㅋ");
+		eduNoticeVO.setCreateDate("2016/05/24");
+		eduNoticeVO.setNoticeType("normal");
+		
+		MockHttpSession session = new MockHttpSession();
+		session.getAttribute(Session.MEMBER);
 
-	/**
-	 * @author 김동규
-	 * ※ 보안정책상 mail protocol 차단
-	 */
-//	@Test
-//	public void doActionDeleteTest() {
-//		EducationVO educationVO = new EducationVO();
-//		educationVO.setEducationId("ED-20160519-000251");
-//
-//		MemberVO memberVO = new MemberVO();
-//		memberVO.setId("cainGwiz88");
-//		memberVO.setMemberType("ADM");
-//		
-//		MockHttpSession session = new MockHttpSession();
-//		session.setAttribute(Session.MEMBER, memberVO);
-//		
-//		ModelAndView view = educationService.doActionDelete(educationVO.getEducationId(), session);
-//		
-//		if( view != null ) {
-//			String viewName = view.getViewName();
-//			assertNotNull(viewName);
-//			assertEquals(viewName, "/");
-//		} else {
-//			fail("[Service Part]doActionDeleteTest Fail.");
-//		}
-//		
-//	}
-	
-	@Test
-	public void getAllMemberListTest() {
-		ModelAndView view = educationService.getAllMemberList();
-		assertNotNull(view);
-		
+		BindingResult errors = new BeanPropertyBindingResult(eduNoticeVO, "registerForm");
+		ModelAndView view = educationService.writeEduFileNoticeAction(eduNoticeVO, errors, session);
+
 		String viewName = view.getViewName();
 		assertNotNull(viewName);
-		assertEquals(viewName, "education/attendanceAllMemberList");
-		
-		List<MemberVO> memberList = (List<MemberVO>)view.getModel().get("memberList");
-		assertNotNull(memberList);
-		assertTrue(memberList.size() > 0);
+		assertEquals(viewName, "redirect:/{educationId}/eduFile");
+	
 	}
 	
 	@Test
-	public void getOneMemberAttendanceTest1() {
+	public void viewNoticeDetailPageTest(){
 		
-		String memberId = "test02";
+		EduNoticeVO eduNoticeVO = new EduNoticeVO();
+		String eduNoticeId =  educationDAO.getOneEduNoticeId();
 		
-		ModelAndView view = educationService.getOneMemberAttendance(memberId);
-		assertNotNull(view);
+		MemberVO memberVO = new MemberVO();
+		String memberId = memberVO.getId();
 		
+		ModelAndView view = educationService.viewNoticeDetailPage(memberId, eduNoticeId);
 		String viewName = view.getViewName();
 		assertNotNull(viewName);
-		assertEquals(viewName, "education/attendanceOneMemberList");
+		assertEquals(viewName, "education/eduFileNoticeDetail");
 		
-		List<List<AttendVO>> AllEduAllAttendanceList = (List<List<AttendVO>>)view.getModel().get("AllEduAllAttendanceList");
-		assertNotNull(AllEduAllAttendanceList);
-		assertTrue(AllEduAllAttendanceList.size() > 0);
 	}
 	
 	@Test
-	public void getOneMemberAttendanceTest2() {
-		String memberId = "test03";
+	public void doDeleteEduNoticeTest(){
 		
-		ModelAndView view = educationService.getOneMemberAttendance(memberId);
-		assertNotNull(view);
+		EduNoticeVO eduNoticeVO = new EduNoticeVO();
+		eduNoticeVO.setEducationId("ED-20160513-000176");
+		eduNoticeVO.setMemberId("JUNIT");
+		eduNoticeVO.setTitle("JUNIT 공지 테스ㅡㅌ");
+		eduNoticeVO.setContents("ㅋㅋㅋㅋㅋㅋㅋㅋ");
+		eduNoticeVO.setCreateDate("2016/05/24");
+		eduNoticeVO.setNoticeType("normal");
 		
-		String viewName = view.getViewName();
-		assertNotNull(viewName);
-		assertEquals(viewName, "redirect:/attendanceHistory/memberList");
+		String educationId = "ED-20160513-000176";
+		String eduNoticeId = educationDAO.getOneEduNoticeId();
+		String deleteResult = educationService.doDeleteEduNotice(educationId , eduNoticeId);
+		assertNotNull(deleteResult);
+		assertEquals(deleteResult, "redirect:/{educationId}/eduFile");
+		
+	}
+
+	@Test
+	public void massiveDeleteNoticeTest(){
+		
+		String[] deleteNoiceIds = {"IMP-20160524-000013", "IMP-20160525-000038"};
+		String educationId = educationDAO.getOneEducationId();
+		String result = educationService.massiveDeleteNotice(educationId, deleteNoiceIds);
+		assertEquals(result, "redirect:/{educationId}/eduFile");
+		
 	}
 	
 	@Test
-	public void getAllStartedEducationListTest() {
-		ModelAndView view = educationService.getAllStartedEducationList();
-		assertNotNull(view);
+	public void viewModifyNoticePageTest(){
+		
+		EduNoticeVO eduNoticeVO = new EduNoticeVO();
+		String eduNoticeId = educationDAO.getOneEduNoticeId();
+		ModelAndView view = educationService.viewModifyNoticePage(eduNoticeId);
 		
 		String viewName = view.getViewName();
-		assertNotNull(viewName);
-		assertEquals(viewName, "education/attendanceAllEducationList");
-		
-		List<EducationVO> educationList = (List<EducationVO>)view.getModel().get("educationList");
-		assertNotNull(educationList);
-		assertTrue(educationList.size() > 0);
+		assertNotNull(view);
+		assertTrue(viewName == "education/modifyEduFileNotice");
+
 	}
-	
+
 	@Test
-	public void getOneEducationAttendanceTest1() {
-		String educationId = "ED-20160516-000181";
+	public void doEduFileNoticeModifyTest(){
 		
-		ModelAndView view = educationService.getOneEducationAttendance(educationId);
-		assertNotNull(view);
+		EduNoticeVO eduNoticeVO = new EduNoticeVO();
+		eduNoticeVO.setEducationId("ED-20160513-000176");
+		eduNoticeVO.setEduNoticeId("IMP-20160526-000045");
+		eduNoticeVO.setMemberId("JUNIT");
+		eduNoticeVO.setTitle("JUNIT 공지 테스ㅡㅌ");
+		eduNoticeVO.setContents("ㅋㅋㅋㅋㅋㅋㅋㅋ");
+		eduNoticeVO.setCreateDate("2016/05/24");
+		eduNoticeVO.setNoticeType("normal");
 		
-		String viewName = view.getViewName();
-		assertNotNull(viewName);
-		assertEquals(viewName, "education/attendanceOneEduList");
+		String educationId= "ED-20160513-000176";
+		String eduNoticeId ="IMP-20160526-000045";
 		
-		List<AttendVO> attendanceList = (List<AttendVO>)view.getModel().get("attendanceList");
-		assertNotNull(attendanceList);
-		assertTrue(attendanceList.size() > 0);
-	}
-	
-	@Test
-	public void getOneEducationAttendanceTest2() {
-		String educationId = "ED-20160513-000174";
+		BindingResult errors = new BeanPropertyBindingResult(eduNoticeVO, "registerForm");
+		MockHttpSession session = new MockHttpSession();
+		MemberVO memberVO = (MemberVO) session.getAttribute(Session.MEMBER);
+		session.getAttribute(Session.MEMBER);
+		ModelAndView view = educationService.doEduFileNoticeModify(educationId, eduNoticeId, eduNoticeVO, errors, session);
 		
-		ModelAndView view = educationService.getOneEducationAttendance(educationId);
-		assertNotNull(view);
-		
-		String viewName = view.getViewName();
-		assertNotNull(viewName);
-		assertEquals(viewName, "redirect:/attendanceHistory/educationList");
-	}
-	
-	@Test
-	public void getAllTeamListTest() {
-		ModelAndView view = educationService.getAllTeamList();
-		assertNotNull(view);
-		
-		String viewName = view.getViewName();
-		assertNotNull(viewName);
-		assertEquals(viewName, "education/attendanceAllTeamList");
-		
-		List<TeamVO> teamList = (List<TeamVO>)view.getModel().get("teamList");
-		assertNotNull(teamList);
-		assertTrue(teamList.size() > 0);
-	}
-	
-	@Test
-	public void getOneTeamAttendance1() {
-		String educationId = "ED-20160513-000166";
-		String teamId = "2";
-		String teamName = "Spring";
-		
-		ModelAndView view = educationService.getOneTeamAttendance(educationId, teamId, teamName);
-		assertNotNull(view);
-		
-		String viewName = view.getViewName();
-		assertNotNull(viewName);
-		assertEquals(viewName, "education/attendanceOneTeamList");
-		
-		List<AttendVO> attendanceList = (List<AttendVO>)view.getModel().get("attendanceList");
-		assertNotNull(attendanceList);
-		assertTrue(attendanceList.size() > 0);
-	}
-	
-	@Test
-	public void getOneTeamAttendance2() {
-		String educationId = "";
-		String teamId = "";
-		String teamName = "";
-		
-		ModelAndView view = educationService.getOneTeamAttendance(educationId, teamId, teamName);
-		assertNotNull(view);
-		
-		String viewName = view.getViewName();
-		assertNotNull(viewName);
-		assertEquals(viewName, "redirect:/attendanceHistory/teamList");
+		if( view != null){
+			 String viewName = view.getViewName();
+			 assertNotNull(viewName);
+			 assertEquals(viewName, "redirect:/"+educationId+"/eduFileNotice/detail/"+eduNoticeId);
+		}else {
+			fail("fail");
+		}
 	}
 }
