@@ -2,7 +2,9 @@ package com.ktds.sems.team.vo;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-public class MinutesVO {
+import com.ktds.sems.member.vo.MemberVO;
+
+public class MinutesVO extends MemberVO{
 
 	private String minutesId;
 	private String teamId;
