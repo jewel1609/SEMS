@@ -146,7 +146,12 @@
 		</tr>
 		<c:forEach items="${eduNoticeListVO.eduNoticeList}" var="notice">
 			<tr style="background-color: #e2c241; text-align: center;">
-				<th>공지</th>
+				<c:if test="${notice.noticeType eq 'normal' }">
+					<th>공지</th>
+				</c:if>
+				<c:if test="${notice.noticeType ne 'normal' }">
+					<th> 전체 공지</th>
+				</c:if>
 				<td><a href="<c:url value='/${notice.educationId}/eduFileNotice/detail/${notice.eduNoticeId}' />">${notice.title }</a></td>
 				<td>${ notice.createDate}</td>
 				<td>${ notice.modifyDate}</td>

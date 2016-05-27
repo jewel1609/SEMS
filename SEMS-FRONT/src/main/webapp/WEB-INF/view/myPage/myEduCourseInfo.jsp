@@ -140,6 +140,7 @@
 					<td>${ educationVO.status }</td>
 					<td>${ educationVO.startDate }</td>
 					<td>${ educationVO.endDate }</td>
+					<td></td>
 					<td><input type="hidden" id="${ educationVO.educationId }" value="${ educationVO.educationId }" /></td>
 				</tr>
 			</c:forEach>
