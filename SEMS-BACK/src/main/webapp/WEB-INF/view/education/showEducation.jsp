@@ -67,21 +67,11 @@ table, tr, td, th {
 				<td colspan="4"><select name="searchType">
 						<c:if test="${searchVO.searchType eq 'title'}">
 							<option value="title" selected="selected">제목</option>
-						</c:if>
-						<c:if test="${searchVO.searchType ne 'title'}">
-							<option value="title">제목</option>
-						</c:if>
-						<c:if test="${searchVO.searchType eq 'member'}">
-							<option value="member" selected="selected">강사명</option>
-						</c:if>
-						<c:if test="${searchVO.searchType ne 'member'}">
 							<option value="member">강사명</option>
 						</c:if>
-						<c:if test="${searchVO.searchType eq 'date'}">
-							<option value="date" selected="selected">날짜</option>
-						</c:if>
-						<c:if test="${searchVO.searchType ne 'date'}">
-							<option value="date">날짜</option>
+						<c:if test="${searchVO.searchType eq 'member'}">
+							<option value="title">제목</option>
+							<option value="member" selected="selected">강사명</option>
 						</c:if>
 				</select> 
 				<input type="text" id="searchKeyword" name="searchKeyword" value="${searchVO.searchKeyword}"/>
