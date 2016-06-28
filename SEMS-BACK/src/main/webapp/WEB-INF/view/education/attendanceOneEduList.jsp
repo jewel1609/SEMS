@@ -41,5 +41,8 @@
 			</tr>
 		</c:forEach>
 	</table>
+	<form id="searchForm">
+		${paging.getPagingList("pageNo", "[@]", "이전", "다음", "searchForm") }
+	</form>
 </body>
 </html>

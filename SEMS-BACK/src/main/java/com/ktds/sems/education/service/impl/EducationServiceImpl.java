@@ -638,7 +638,7 @@ public class EducationServiceImpl implements EducationService {
 	 * @author 206-002 공정민
 	 */
 	@Override
-	public ModelAndView getOneMemberAttendance(String memberId) {
+	public ModelAndView getOneMemberAttendance(String memberId, int PageNo) {
 		List<AttendVO> attendanceList = new ArrayList<AttendVO>();
 		List<AttendVO> allAttendanceList = new ArrayList<AttendVO>();
 		List<EducationVO> educationInfoList = new ArrayList<EducationVO>();
@@ -665,7 +665,22 @@ public class EducationServiceImpl implements EducationService {
 				AllEduAllAttendanceList.add(allAttendanceList);
 			}
 			view.setViewName("education/attendanceOneMemberList");
-			view.addObject("AllEduAllAttendanceList", AllEduAllAttendanceList);
+			List<AttendVO> resultList = new ArrayList<AttendVO>();
+			for ( int i = 0; i < AllEduAllAttendanceList.size(); i++ ) {
+				resultList.addAll(AllEduAllAttendanceList.get(i));
+			}
+			Paging paging = new Paging(10,10);
+			paging.setPageNumber(PageNo+"");
+			paging.setTotalArticleCount(resultList.size());
+			int startIndex = paging.getStartArticleNumber();
+			int endIndex = paging.getEndArticleNumber();
+			for ( int i = resultList.size() - 1; i >= 0; i--  ) {
+				if ( !(i >= startIndex && i <= endIndex) ) {
+					resultList.remove(i);
+				}
+			}
+			view.addObject("resultList", resultList);
+			view.addObject("paging", paging);
 		}
 		return view;
 	}
@@ -686,7 +701,7 @@ public class EducationServiceImpl implements EducationService {
 	 * @author 206-002 공정민
 	 */
 	@Override
-	public ModelAndView getOneEducationAttendance(String educationId) {
+	public ModelAndView getOneEducationAttendance(String educationId, int pageNo) {
 		List<AttendVO> attendanceList = new ArrayList<AttendVO>();
 		List<MemberVO> allMemberList = new ArrayList<MemberVO>();
 		EducationVO educationVO = new EducationVO();
@@ -704,8 +719,21 @@ public class EducationServiceImpl implements EducationService {
 		} else {
 			// 출결 상태 구하기
 			attendanceList = this.getAllMemberState(educationVO, allMemberList);
+			Paging paging = new Paging();
+			paging.setPageNumber(pageNo+"");
+			paging.setTotalArticleCount(attendanceList.size());
+			
+			int startIndex = paging.getStartArticleNumber();
+			int endIndex = paging.getEndArticleNumber();
+			for ( int i = attendanceList.size() - 1; i >= 0; i-- ) {
+				if ( !(i >= startIndex && i <= endIndex) ) {
+					attendanceList.remove(i);
+				}
+			}
+			
 			view.setViewName("education/attendanceOneEduList");
 			view.addObject("attendanceList", attendanceList);
+			view.addObject("paging", paging);
 		}
 		return view;
 	}
@@ -726,7 +754,7 @@ public class EducationServiceImpl implements EducationService {
 	 * @author 206-002 공정민
 	 */
 	@Override
-	public ModelAndView getOneTeamAttendance(String educationId, String teamId, String teamName) {
+	public ModelAndView getOneTeamAttendance(String educationId, String teamId, String teamName, int pageNo) {
 		List<MemberVO> allMemberList = new ArrayList<MemberVO>();
 		EducationVO educationVO = new EducationVO();
 		List<AttendVO> attendanceList = new ArrayList<AttendVO>();
@@ -744,10 +772,22 @@ public class EducationServiceImpl implements EducationService {
 		} else {
 			// 출결 상태 구하기
 			attendanceList = this.getAllMemberState(educationVO, allMemberList);
+			
+			Paging paging = new Paging();
+			paging.setPageNumber(pageNo+"");
+			paging.setTotalArticleCount(attendanceList.size());
+			int startIndex = paging.getStartArticleNumber();
+			int endIndex = paging.getEndArticleNumber();
+			for ( int i = attendanceList.size() - 1; i >= 0; i-- ) {
+				if ( !(i >= startIndex && i <= endIndex) ) {
+					attendanceList.remove(i);
+				}
+			}
 			view.setViewName("education/attendanceOneTeamList");
 			view.addObject("attendanceList", attendanceList);
 			view.addObject("teamId", teamId);
 			view.addObject("teamName", teamName);
+			view.addObject("paging", paging);
 		}
 		return view;
 	}

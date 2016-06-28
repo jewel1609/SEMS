@@ -183,8 +183,8 @@ public class EducationController {
 	}
 	
 	@RequestMapping("/attendanceHistory/memberDetail/{memberId}")
-	public ModelAndView viewAttendanceHistoryOneMember(@PathVariable String memberId) {
-		return educationService.getOneMemberAttendance(memberId);
+	public ModelAndView viewAttendanceHistoryOneMember(@PathVariable String memberId, @RequestParam(required=false, defaultValue="0") int pageNo) {
+		return educationService.getOneMemberAttendance(memberId, pageNo);
 	}
 	
 	@RequestMapping("/attendanceHistory/educationList")
@@ -193,8 +193,8 @@ public class EducationController {
 	}
 	
 	@RequestMapping("/attendanceHistory/educationDetail/{educationId}")
-	public ModelAndView viewAttendanceHistoryOneEducation(@PathVariable String educationId) {
-		return educationService.getOneEducationAttendance(educationId);
+	public ModelAndView viewAttendanceHistoryOneEducation(@PathVariable String educationId, @RequestParam(required=false, defaultValue="0") int pageNo) {
+		return educationService.getOneEducationAttendance(educationId, pageNo);
 	}
 	
 	@RequestMapping("/attendanceHistory/teamList")
@@ -204,8 +204,8 @@ public class EducationController {
 	
 	@RequestMapping("/attendanceHistory/teamDetail/{educationId}/{teamId}/{educationTitle}")
 	public ModelAndView viewAttendanceHistoryOneTeam(@PathVariable String educationId
-			, @PathVariable String teamId, @PathVariable String educationTitle){
-		return educationService.getOneTeamAttendance(educationId, teamId, educationTitle);
+			, @PathVariable String teamId, @PathVariable String educationTitle, @RequestParam(required=false, defaultValue="0") int pageNo){
+		return educationService.getOneTeamAttendance(educationId, teamId, educationTitle, pageNo);
 	}
 	
 	@RequestMapping("/writeEduQna/{educationId}")

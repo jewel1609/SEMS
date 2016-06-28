@@ -25,36 +25,33 @@
 <body>
 	수강생 출결 이력<br/><br/>
 	
-	수강생 아이디 : ${ AllEduAllAttendanceList.get(0).get(0).memberId } <br/><br/>
+	수강생 아이디 : ${ resultList.get(0).memberId } <br/><br/>
 	
 	정상 출석 : ○ / 지각 : △ / 조퇴 : ● / 결석 : X<br/><br/>
 	
 	
 	
 		
-		<c:forEach items="${ AllEduAllAttendanceList }" var="oneMemberATD">
-		
-			교육명 : ${ oneMemberATD.get(0).educationTitle } <br/>
-			교육 아이디 : ${ oneMemberATD.get(0).educationId } <br/>
-			<table>
+		<table>
+			<tr>
+				<th>교육명 (교육 아이디)</th>
+				<th>날짜</th>
+				<th>출결 상태</th>
+			</tr>
+	
+			<c:forEach items="${ resultList }" var="attend">
 				<tr>
-					<th>날짜</th>
-					<th>출결 상태</th>
+					<td>${ attend.educationTitle } (${ attend.educationId })</td>
+					<td style="CURSOR:hand;" title="${ attend.leaveTime }">${ attend.attendTime }</td>
+					<td>
+					<c:if test="${ attend.state eq 'X' }">
+						${ attend.state } <a href="">변경</a>
+					</c:if>
+					<c:if test="${ attend.state ne 'X' }">${ attend.state }</c:if>
+					</td>
 				</tr>
-		
-				<c:forEach items="${ oneMemberATD }" var="attend">
-					<tr>
-						<td style="CURSOR:hand;" title="${ attend.leaveTime }">${ attend.attendTime }</td>
-						<td>
-						<c:if test="${ attend.state eq 'X' }">
-							${ attend.state } <a href="">변경</a>
-						</c:if>
-						<c:if test="${ attend.state ne 'X' }">${ attend.state }</c:if>
-						</td>
-					</tr>
-				</c:forEach>	
-			</table><br/>
-		</c:forEach>
+			</c:forEach>	
+		</table><br/>
 	
 	<%
 		int day = 0;
@@ -64,32 +61,30 @@
 		int attend = 0;
 	%>
 	
-	<c:forEach items="${ AllEduAllAttendanceList }" var="oneMemberATD">
-			<c:forEach items="${ oneMemberATD }" var="attend">
+		<c:forEach items="${ resultList }" var="attend">
+			<%
+				day++;
+			%>
+			<c:if test="${ attend.state eq '△' }">
 				<%
-					day++;
+					late++;
 				%>
-				<c:if test="${ attend.state eq '△' }">
-					<%
-						late++;
-					%>
-				</c:if>
-				<c:if test="${ attend.state eq 'X' }">
-					<%
-						absence++;
-					%>
-				</c:if>
-				<c:if test="${ attend.state eq '●' }">
-					<%
-						earlyLeave++;
-					%>
-				</c:if>
-				<c:if test="${ attend.state eq '○' }">
-					<%
-						attend++;
-					%>
-				</c:if>
-		</c:forEach>
+			</c:if>
+			<c:if test="${ attend.state eq 'X' }">
+				<%
+					absence++;
+				%>
+			</c:if>
+			<c:if test="${ attend.state eq '●' }">
+				<%
+					earlyLeave++;
+				%>
+			</c:if>
+			<c:if test="${ attend.state eq '○' }">
+				<%
+					attend++;
+				%>
+			</c:if>
 	</c:forEach>
 	
 	<table>
@@ -121,6 +116,9 @@
 			</td>
 		</tr>
 	</table>
+	<form id="searchForm">
+		${paging.getPagingList("pageNo", "[@]", "이전", "다음", "searchForm") }
+	</form>
 	
 </body>
 </html>
