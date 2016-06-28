@@ -964,7 +964,7 @@
 									)
 	</insert>
 	
-	<select id="getAllEucationList" resultType="educationVO">
+	<select id="getAllEucationList" resultType="EducationVO" parameterType="EducationSearchVO">
 		SELECT	EDU_ID educationId
 				, EDU_CTGR educationCategory
 				, EDU_TTL educationTitle
@@ -979,6 +979,41 @@
 				, END_TM endTime
 				, EDU_TP educationType
 				, COST cost
+		FROM	(
+					SELECT	ROWNUM AS RNUM
+							, EDU.*
+					FROM 	(
+								SELECT	*
+								FROM	EDU_INFO
+								<if test="searchType != null and searchType == 'title'">
+									WHERE	EDU_TTL LIKE '%' || #{searchKeyword} || '%'
+								</if>
+								<if test="searchType != null and searchType == 'member'">
+									WHERE	MBR_ID LIKE '%' || #{searchKeyword} || '%'
+								</if>
+								<if test="searchType != null and searchType == 'date'">
+									WHERE	SRT_DATE = #{searchStartDate}
+									AND		END_DATE = #{searchEndDate}
+								</if>
+								ORDER	BY EDU_ID DESC
+							) EDU
+					WHERE	ROWNUM <![CDATA[<=]]> #{endIndex}
+				)
+		WHERE	RNUM >= #{startIndex}
+	</select>
+	
+	<select id="getTotalEducationCount" resultType="_int" parameterType="EducationSearchVO">
+		SELECT	COUNT(EDU_ID)
 		FROM	EDU_INFO
+		<if test="searchType != null and searchType == 'title'">
+			WHERE	EDU_TTL LIKE '%' || #{searchKeyword} || '%'
+		</if>
+		<if test="searchType != null and searchType == 'member'">
+			WHERE	MBR_ID LIKE '%' || #{searchKeyword} || '%'
+		</if>
+		<if test="searchType != null and searchType == 'date'">
+			WHERE	SRT_DATE = #{searchStartDate}
+			AND		END_DATE = #{searchEndDate}
+		</if>
 	</select>
 </mapper>

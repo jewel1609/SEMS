@@ -38,9 +38,11 @@ import com.ktds.sems.education.vo.EduReportVO;
 import com.ktds.sems.education.vo.EducationHistoryListVO;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationHistoryVO;
+import com.ktds.sems.education.vo.EducationListVO;
 import com.ktds.sems.education.vo.EducationQNAReplyListVO;
 import com.ktds.sems.education.vo.EducationQNAReplySearchVO;
 import com.ktds.sems.education.vo.EducationQNAReplyVO;
+import com.ktds.sems.education.vo.EducationSearchVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.ReRplyEvalVO;
 import com.ktds.sems.education.vo.TeamVO;
@@ -1288,13 +1290,30 @@ public class EducationServiceImpl implements EducationService {
 	}
 
 	@Override
-	public ModelAndView getAllEucationList() {
+	public ModelAndView getAllEucationList(EducationSearchVO searchVO) {
 		ModelAndView view = new ModelAndView();
 		
-		List<EducationVO> educationList = educationBiz.getAllEucationList();
+		if (searchVO.getPageNo() == 0) {
+			searchVO.setPageNo(0);
+		}
+		
+		Paging paging = new Paging();
+		paging.setPageNumber(searchVO.getPageNo() + "");
+		int totalCount = educationBiz.getTotalEducationCount(searchVO);
+		paging.setTotalArticleCount(totalCount);
+		
+		searchVO.setStartIndex(paging.getStartArticleNumber());
+		searchVO.setEndIndex(paging.getEndArticleNumber());
+		
+		List<EducationVO> educations = educationBiz.getAllEucationList(searchVO);
+		
+		EducationListVO educationList = new EducationListVO();
+		educationList.setEducationList(educations);
+		educationList.setPaging(paging);
 		
 		view.setViewName("education/showEducation");
 		view.addObject("educationList", educationList);
+		view.addObject("searchVO", searchVO);
 		
 		return view;
 	}

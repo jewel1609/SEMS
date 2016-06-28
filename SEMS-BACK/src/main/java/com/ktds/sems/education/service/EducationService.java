@@ -14,6 +14,7 @@ import com.ktds.sems.education.vo.EduQnaVO;
 import com.ktds.sems.education.vo.EduReportSearchVO;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationQNAReplyVO;
+import com.ktds.sems.education.vo.EducationSearchVO;
 import com.ktds.sems.education.vo.EducationVO;
 
 public interface EducationService {
@@ -87,7 +88,7 @@ public interface EducationService {
 
 	public String addQnaEduReplyDisLike(String replyId, HttpSession session);
 
-	public ModelAndView getAllEucationList();
+	public ModelAndView getAllEucationList(EducationSearchVO searchVO);
 
 	public ModelAndView getOneEducation(String educationId);
 }

@@ -23,6 +23,7 @@ import com.ktds.sems.education.vo.EduQnaVO;
 import com.ktds.sems.education.vo.EduReportSearchVO;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationQNAReplyVO;
+import com.ktds.sems.education.vo.EducationSearchVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.member.vo.MemberVO;
 
@@ -245,8 +246,9 @@ public class EducationController {
 	}
 	
 	@RequestMapping("/showEducationList")
-	public ModelAndView viewEducationListPage() {
-		return educationService.getAllEucationList();
+	public ModelAndView viewEducationListPage(EducationSearchVO searchVO) {
+		System.out.println("검색어" + searchVO.getSearchKeyword() + "타입" + searchVO.getSearchType());
+		return educationService.getAllEucationList(searchVO);
 	}
 	
 	@RequestMapping("/showDetailEducation/{educationId}")

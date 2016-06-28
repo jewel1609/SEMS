@@ -24,6 +24,7 @@ import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationHistoryVO;
 import com.ktds.sems.education.vo.EducationQNAReplySearchVO;
 import com.ktds.sems.education.vo.EducationQNAReplyVO;
+import com.ktds.sems.education.vo.EducationSearchVO;
 import com.ktds.sems.education.vo.EducationTypeVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.ReRplyEvalVO;
@@ -510,13 +511,18 @@ public class EducationBizImpl implements EducationBiz {
 	}
 
 	@Override
-	public List<EducationVO> getAllEucationList() {
-		return educationDAO.getAllEucationList();
+	public List<EducationVO> getAllEucationList(EducationSearchVO searchVO) {
+		return educationDAO.getAllEucationList(searchVO);
 	}
 
 	@Override
 	public EducationVO getOneEducationByAllCondition(String educationId) {
 		return educationDAO.getOneEducationByAllCondition(educationId);
+	}
+
+	@Override
+	public int getTotalEducationCount(EducationSearchVO searchVO) {
+		return educationDAO.getTotalEducationCount(searchVO);
 	}
 
 

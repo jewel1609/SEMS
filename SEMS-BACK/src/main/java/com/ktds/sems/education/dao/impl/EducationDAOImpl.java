@@ -21,6 +21,7 @@ import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationHistoryVO;
 import com.ktds.sems.education.vo.EducationQNAReplySearchVO;
 import com.ktds.sems.education.vo.EducationQNAReplyVO;
+import com.ktds.sems.education.vo.EducationSearchVO;
 import com.ktds.sems.education.vo.EducationTypeVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.ReRplyEvalVO;
@@ -357,8 +358,13 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 	}
 
 	@Override
-	public List<EducationVO> getAllEucationList() {
-		return getSqlSession().selectList("EducationDAO.getAllEucationList");
+	public List<EducationVO> getAllEucationList(EducationSearchVO searchVO) {
+		return getSqlSession().selectList("EducationDAO.getAllEucationList", searchVO);
+	}
+
+	@Override
+	public int getTotalEducationCount(EducationSearchVO searchVO) {
+		return getSqlSession().selectOne("EducationDAO.getTotalEducationCount", searchVO);
 	}
 	
 }

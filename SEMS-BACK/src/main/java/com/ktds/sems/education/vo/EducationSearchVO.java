@@ -6,6 +6,7 @@ public class EducationSearchVO {
 	private int startIndex;
 	private int endIndex;
 	private String memberId;
+	private String searchType;
 	private String searchKeyword;
 	private String searchStartDate;
 	private String searchEndDate;
@@ -51,6 +52,12 @@ public class EducationSearchVO {
 	}
 	public void setSearchEndDate(String searchEndDate) {
 		this.searchEndDate = searchEndDate;
+	}
+	public String getSearchType() {
+		return searchType;
+	}
+	public void setSearchType(String searchType) {
+		this.searchType = searchType;
 	}
 	
 }

@@ -16,6 +16,7 @@ import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationHistoryVO;
 import com.ktds.sems.education.vo.EducationQNAReplySearchVO;
 import com.ktds.sems.education.vo.EducationQNAReplyVO;
+import com.ktds.sems.education.vo.EducationSearchVO;
 import com.ktds.sems.education.vo.EducationTypeVO;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.education.vo.ReRplyEvalVO;
@@ -93,6 +94,7 @@ public interface EducationDAO {
 	public int insertReReplyEvalByDislike(ReRplyEvalVO reRplyEvalVO);
 	public String getOneEduNoticeId();
 	public String getOneEducationId();
-	public List<EducationVO> getAllEucationList();
+	public List<EducationVO> getAllEucationList(EducationSearchVO searchVO);
 	public EducationVO getOneEducationByAllCondition(String educationId);
+	public int getTotalEducationCount(EducationSearchVO searchVO);
 }
