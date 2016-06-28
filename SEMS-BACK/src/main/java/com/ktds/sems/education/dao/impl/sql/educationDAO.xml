@@ -991,10 +991,6 @@
 								<if test="searchType != null and searchType == 'member'">
 									WHERE	MBR_ID LIKE '%' || #{searchKeyword} || '%'
 								</if>
-								<if test="searchType != null and searchType == 'date'">
-									WHERE	SRT_DATE = #{searchStartDate}
-									AND		END_DATE = #{searchEndDate}
-								</if>
 								ORDER	BY EDU_ID DESC
 							) EDU
 					WHERE	ROWNUM <![CDATA[<=]]> #{endIndex}
@@ -1010,10 +1006,6 @@
 		</if>
 		<if test="searchType != null and searchType == 'member'">
 			WHERE	MBR_ID LIKE '%' || #{searchKeyword} || '%'
-		</if>
-		<if test="searchType != null and searchType == 'date'">
-			WHERE	SRT_DATE = #{searchStartDate}
-			AND		END_DATE = #{searchEndDate}
 		</if>
 	</select>
 </mapper>
