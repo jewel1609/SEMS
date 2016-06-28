@@ -2116,7 +2116,7 @@ public class EducationServiceTest extends SemsTestCase {
 		
 		String memberId = "test02";
 		
-		ModelAndView view = educationService.getOneMemberAttendance(memberId);
+		ModelAndView view = educationService.getOneMemberAttendance(memberId, 0);
 		assertNotNull(view);
 		
 		String viewName = view.getViewName();
@@ -2132,7 +2132,7 @@ public class EducationServiceTest extends SemsTestCase {
 	public void getOneMemberAttendanceTest2() {
 		String memberId = "test03";
 		
-		ModelAndView view = educationService.getOneMemberAttendance(memberId);
+		ModelAndView view = educationService.getOneMemberAttendance(memberId, 0);
 		assertNotNull(view);
 		
 		String viewName = view.getViewName();
@@ -2158,7 +2158,7 @@ public class EducationServiceTest extends SemsTestCase {
 	public void getOneEducationAttendanceTest1() {
 		String educationId = "ED-20160516-000181";
 		
-		ModelAndView view = educationService.getOneEducationAttendance(educationId);
+		ModelAndView view = educationService.getOneEducationAttendance(educationId, 0);
 		assertNotNull(view);
 		
 		String viewName = view.getViewName();
@@ -2174,7 +2174,7 @@ public class EducationServiceTest extends SemsTestCase {
 	public void getOneEducationAttendanceTest2() {
 		String educationId = "ED-20160513-000174";
 		
-		ModelAndView view = educationService.getOneEducationAttendance(educationId);
+		ModelAndView view = educationService.getOneEducationAttendance(educationId, 0);
 		assertNotNull(view);
 		
 		String viewName = view.getViewName();
@@ -2202,7 +2202,7 @@ public class EducationServiceTest extends SemsTestCase {
 		String teamId = "2";
 		String teamName = "Spring";
 		
-		ModelAndView view = educationService.getOneTeamAttendance(educationId, teamId, teamName);
+		ModelAndView view = educationService.getOneTeamAttendance(educationId, teamId, teamName, 0);
 		assertNotNull(view);
 		
 		String viewName = view.getViewName();
@@ -2220,7 +2220,7 @@ public class EducationServiceTest extends SemsTestCase {
 		String teamId = "";
 		String teamName = "";
 		
-		ModelAndView view = educationService.getOneTeamAttendance(educationId, teamId, teamName);
+		ModelAndView view = educationService.getOneTeamAttendance(educationId, teamId, teamName, 0);
 		assertNotNull(view);
 		
 		String viewName = view.getViewName();
