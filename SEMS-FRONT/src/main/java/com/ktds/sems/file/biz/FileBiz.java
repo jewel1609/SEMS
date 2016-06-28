@@ -21,4 +21,6 @@ public interface FileBiz {
 	public FileVO getOneFileByFileId(String fileId);
 
 	public boolean deleteFile(String articleId);
+
+	public List<FileVO> getFileList(FileVO file);
 }

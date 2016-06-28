@@ -69,8 +69,6 @@ public class TeamBizImpl implements TeamBiz {
 
 		String teamBBSId = String.valueOf(teamDAO.getNextTeamBBSSeq());
 		String sysdate = teamDAO.getSysDate();
-
-		
 		
 		// 따로 teamId을 받아와야하나 테스트용으로 만듬
 		String teamId = "cannon";
@@ -81,36 +79,39 @@ public class TeamBizImpl implements TeamBiz {
 		teamBBSId = "TBBS" + '-' + sysdate + '-' + teamBBSId;
 		teamBBS.setTeamBBSId(teamBBSId);
 
-		MultipartFile file = request.getFile("file");
 		
-		String fileName = file.getOriginalFilename();
-		String salt = SHA256Util.generateSalt();
-		String saltFileName = SHA256Util.getEncrypt(fileName, salt);
+		List<MultipartFile> files = request.getFiles("file");
 		
-		String filePath = "D:\\" + saltFileName;
+		FileVO fileVO = null;
 		
-		if ( !file.isEmpty() ) {
-			
-			File files = new File(filePath);
-			
-			try {
-				file.transferTo(files);
+		if (files != null && files.size() > 0 && !files.get(0).getOriginalFilename().equals("")) {
+			for (MultipartFile multipartFile : files) {
 				
-				FileVO fileVO = new FileVO();
-				fileVO.setArticleId(teamBBS.getTeamBBSId());
-				fileVO.setFileName(fileName);
-				fileVO.setFileLocation(filePath);
-				
-				fileDAO.doWriteFile(fileVO);
-				
-			} catch (IllegalStateException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}		
+				fileVO = new FileVO();
 
-		
+				String salt = SHA256Util.generateSalt();
+				String originalFileName = multipartFile.getOriginalFilename();
+				fileVO.setFileName(originalFileName);
+				
+				String[] fileName = originalFileName.split("\\."); 
+				String fileExtension = "." + fileName[fileName.length-1];
+				String newFilePath = "D:\\" + SHA256Util.getEncrypt(originalFileName, salt) + fileExtension;
+				fileVO.setFileLocation(newFilePath);
+
+				fileVO.setArticleId(teamBBSId);
+				logger.info("파일테스트 : " + multipartFile);
+				File uploadFile = new File(fileVO.getFileLocation());
+				fileDAO.doWriteFile(fileVO);
+				try {
+					multipartFile.transferTo(uploadFile);
+				} catch (IllegalStateException e) {
+					throw new RuntimeException(e.getMessage());
+				} catch (IOException e) {
+					throw new RuntimeException(e.getMessage());
+				}
+			}
+		}
+
 		logger.info(teamBBS.getTeamBBSId());
 		logger.info(teamBBS.getTeamId());
 		logger.info(teamBBS.getTitle());
@@ -358,6 +359,10 @@ public class TeamBizImpl implements TeamBiz {
 	@Override
 	public void doDeleteTeamByTeamName(String teamName) {
 		teamDAO.doDeleteTeamByTeamName(teamName);
+	}
+	@Override
+	public List<FileVO> getFileListInfo(String teamBBSId) {
+		return teamDAO.getFileListInfo(teamBBSId);
 	}
 
 }

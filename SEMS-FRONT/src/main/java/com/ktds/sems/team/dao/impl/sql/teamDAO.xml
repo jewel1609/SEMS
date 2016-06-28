@@ -386,6 +386,15 @@
 		AND		TEAM_BBS_ID = #{teamBBSId}
 	</select>
 	
+	<select id="getFileListInfo" parameterType="string" resultType="FileVO">
+		SELECT	NVL(FILE_ID,'') fileId,  
+				NVL(FILE_NM,'') fileName,
+				NVL(ATC_ID,'') articleId
+		FROM    FILES, TEAM_BBS
+		WHERE   ATC_ID = #{teamBBSId}
+		AND		TEAM_BBS_ID = #{teamBBSId}
+	</select>
+	
 	<update id="doModifyAction" parameterType="TeamBBSVO">
 		UPDATE SEMS.TEAM_BBS
 		SET    DESCRIPT      = #{descript},

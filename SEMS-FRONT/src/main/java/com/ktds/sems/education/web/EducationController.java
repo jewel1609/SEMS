@@ -162,7 +162,11 @@ public class EducationController {
 	public void doDownloadFile(@PathVariable String educationId, HttpServletRequest request, HttpServletResponse response){
 		educationService.doDownloadFile(educationId, request, response);
 	}
-
+	
+	@RequestMapping("/downloadFileList/{educationId}&{fileId}")
+	public void doDownloadFileList(@PathVariable String educationId, @PathVariable String fileId, HttpServletRequest request, HttpServletResponse response){
+		educationService.doDownloadFileList(educationId, fileId, request, response);
+	}
 
 	@RequestMapping("/doCancelEducation/{educationId}")
 	public String doCancelEducation(@PathVariable String educationId,  HttpSession session) {

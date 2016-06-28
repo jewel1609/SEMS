@@ -3,6 +3,7 @@ package com.ktds.sems.team.dao;
 import java.util.List;
 
 import com.ktds.sems.education.vo.EducationVO;
+import com.ktds.sems.file.vo.FileVO;
 import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.team.vo.MinutesSearchVO;
 import com.ktds.sems.team.vo.MinutesVO;
@@ -131,4 +132,6 @@ public interface TeamDAO {
 	public void deleteEducation(String educationId);
 	
 	public int deleteTestMinutes(String minutesId);
+
+	public List<FileVO> getFileListInfo(String teamBBSId);
 }

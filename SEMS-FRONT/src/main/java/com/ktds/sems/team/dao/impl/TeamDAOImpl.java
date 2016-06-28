@@ -7,6 +7,7 @@ import java.util.Map;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 
 import com.ktds.sems.education.vo.EducationVO;
+import com.ktds.sems.file.vo.FileVO;
 import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.team.dao.TeamDAO;
 import com.ktds.sems.team.vo.MinutesSearchVO;
@@ -318,6 +319,11 @@ public class TeamDAOImpl  extends SqlSessionDaoSupport implements TeamDAO{
 	@Override
 	public int deleteTestMinutes(String minutesId) {
 		return getSqlSession().delete("teamDAO.deleteTestMinutes",minutesId);
+	}
+
+	@Override
+	public List<FileVO> getFileListInfo(String teamBBSId) {
+		return getSqlSession().selectList("teamDAO.getFileListInfo", teamBBSId);
 	}
 
 }

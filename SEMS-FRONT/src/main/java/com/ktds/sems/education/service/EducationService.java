@@ -140,4 +140,7 @@ public interface EducationService {
 
 	public ModelAndView viewNoticeDetailPage(String educationId, String eduNoticeId);
 
+	public void doDownloadFileList(String educationId, String fileId, HttpServletRequest request,
+			HttpServletResponse response);
+
 }

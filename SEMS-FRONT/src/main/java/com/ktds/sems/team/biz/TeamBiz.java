@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.ktds.sems.file.vo.FileVO;
 import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.team.vo.MinutesSearchVO;
 import com.ktds.sems.team.vo.MinutesVO;
@@ -105,5 +106,7 @@ public interface TeamBiz {
 	public void doDeleteTeamListByMemberId(String memberId);
 
 	public void doDeleteTeamByTeamName(String teamName);
+
+	public List<FileVO> getFileListInfo(String teamBBSId);
 
 }

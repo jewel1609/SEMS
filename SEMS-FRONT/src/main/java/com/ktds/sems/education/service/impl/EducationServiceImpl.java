@@ -2020,6 +2020,25 @@ public class EducationServiceImpl implements EducationService {
 		return view;
 	}
 
+	@Override
+	public void doDownloadFileList(String educationId, String fileId, HttpServletRequest request,
+			HttpServletResponse response) {
+		
+		List<FileVO> fileList = fileBiz.getOneFileId(educationId);
+		
+		for (FileVO fileVO : fileList){
+			if ( fileVO.getFileId() == Integer.parseInt(fileId) ){
+				DownloadUtil downloadUtil = DownloadUtil.getInstance("D:\\");
+				String userFileName = fileVO.getFileName();
+				String displayFileName = (fileVO.getFileLocation()).substring(3);
+				try {
+					downloadUtil.download(request, response, displayFileName, userFileName);
+				} catch (UnsupportedEncodingException e) {}
+			}
+		}
+		
+	}
+
 
 }
 

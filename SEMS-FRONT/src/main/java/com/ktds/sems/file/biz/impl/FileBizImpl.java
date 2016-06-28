@@ -5,17 +5,20 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.ktds.sems.file.biz.FileBiz;
 import com.ktds.sems.file.dao.FileDAO;
 import com.ktds.sems.file.vo.FileVO;
+import com.ktds.sems.team.biz.impl.TeamBizImpl;
 
 import kr.co.hucloud.utilities.SHA256Util;
 
 public class FileBizImpl implements FileBiz {
-
+	private Logger logger = LoggerFactory.getLogger(FileBizImpl.class);
 	private FileDAO fileDAO;
 	
 	public void setFileDAO(FileDAO fileDAO) {
@@ -35,10 +38,11 @@ public class FileBizImpl implements FileBiz {
 		
 		if (files != null && files.size() > 0 && !files.get(0).getOriginalFilename().equals("")) {
 			for (MultipartFile multipartFile : files) {
+				
 				fileVO = new FileVO();
 				setFileNameAndPath(fileVO, multipartFile);
 				fileVO.setArticleId(articleId);
-				
+				logger.info("파일테스트 : " + multipartFile);
 				File uploadFile = new File(fileVO.getFileLocation());
 				fileDAO.insertFile(fileVO);
 				try {
@@ -86,6 +90,11 @@ public class FileBizImpl implements FileBiz {
 	@Override
 	public boolean deleteFile(String articleId) {
 		return fileDAO.deleteFile(articleId) > 0;
+	}
+
+	@Override
+	public List<FileVO> getFileList(FileVO file) {
+		return fileDAO.getFileList(file);
 	}
 
 }

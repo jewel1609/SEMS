@@ -11,7 +11,15 @@
 		FROM SEMS.FILES
 		WHERE ATC_ID = #{educationId}
 	</select>
-
+	<select id="getFileList" parameterType="FileVO" resultType="FileVO">
+		SELECT FILE_ID fileId
+		, FILE_NM fileName
+		, FILE_LOC fileLocation
+		, ATC_ID articleId
+		FROM FILES
+		WHERE ATC_ID = #{articleId}
+		AND FILE_NM = #{fileName}
+	</select>
 	<insert id="insertFile" parameterType="FileVO">
 		INSERT	INTO FILES	(
 								FILE_ID

@@ -129,7 +129,7 @@ public class TeamServiceImpl implements TeamService{
 		ModelAndView view = new ModelAndView();
 		MemberVO memberVO = (MemberVO) session.getAttribute(Session.MEMBER);
 		if(errors.hasErrors()){
-			view.setViewName("/team/teamBBS/write");
+			view.setViewName("redirect:/team/teamBBS/write");
 		}else{
 			teamBBS.setMemberId(memberVO.getId());
 			// 공지사항 체크박스 선택유무
@@ -315,7 +315,8 @@ public class TeamServiceImpl implements TeamService{
 		ModelAndView view = new ModelAndView();
 		logger.info("teamBBS.getFileCount()"+teamBBS.getFileCount());
 		if( teamBBS.getFileCount() == 0 ){
-			String fileName = teamBiz.getFileInfo(teamBBSId);
+			
+			List<FileVO> fileName = teamBiz.getFileListInfo(teamBBSId);
 			view.addObject("fileName", fileName);
 		}else{
 			view.addObject("fileName", " ");

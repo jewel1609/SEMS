@@ -65,7 +65,7 @@
 			</tr>
 			<tr>
 				<td>
-					<input type="file" name="file" id="file" />
+					<input type="file" name="file" id="file" multiple="multiple"/>
 				</td>
 			</tr>
 			<tr>
