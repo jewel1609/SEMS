@@ -1,5 +1,6 @@
 package com.ktds.sems.team.service;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.validation.Errors;
@@ -21,7 +22,7 @@ public interface TeamService {
 
 	public ModelAndView getAllTeamListPage(TeamSearchVO teamSearchVO);
 	
-	public String addNewTeamBBSArticle(TeamBBSVO teamBBS, Errors errors, MultipartHttpServletRequest request, HttpSession session);
+	public ModelAndView addNewTeamBBSArticle(TeamBBSVO teamBBS, Errors errors, MultipartHttpServletRequest request, HttpSession session, HttpServletResponse response);
 
 	public ModelAndView viewTeamBBSPage(int pageNo);
 
@@ -71,5 +72,7 @@ public interface TeamService {
 	public String isReplyByTeamBBSId(String teamBBSId);
 
 	public ModelAndView doModifyAction(TeamBBSVO teamBBS, MultipartHttpServletRequest request, HttpSession session);
+
+	public ModelAndView viewWriteTeamBBSPage(HttpSession session, HttpServletResponse response);
 	
 }

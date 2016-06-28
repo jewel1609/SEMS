@@ -53,22 +53,16 @@ public class TeamController {
 		return teamService.viewTeamBBSPage(pageNo);
 	}
 	
+
 	@RequestMapping("/team/teamBBS/write")
-	public String viewWriteTeamBBSPage() {
-		return "team/writeTeamBBS";
+	public ModelAndView viewWriteTeamBBSPage(HttpSession session, HttpServletResponse response) {
+		return teamService.viewWriteTeamBBSPage(session, response);
 	}
+	
 
 	@RequestMapping(value ="/team/teamBBS/doWrite", method = RequestMethod.POST)
-	public String doWriteTeamBBSAction(@Valid TeamBBSVO teamBBSVO, Errors errors, MultipartHttpServletRequest request, HttpSession session) {
-		
-		if (teamBBSVO.getIsNotice() != null){
-			if(teamBBSVO.getIsNotice().equals("on")){
-				teamBBSVO.setIsNotice("Y");	
-			}
-		}else{
-			teamBBSVO.setIsNotice("N");	
-		}
-		return teamService.addNewTeamBBSArticle(teamBBSVO, errors, request , session);
+	public ModelAndView doWriteTeamBBSAction(@Valid TeamBBSVO teamBBSVO, Errors errors, MultipartHttpServletRequest request, HttpSession session, HttpServletResponse response) {
+		return teamService.addNewTeamBBSArticle(teamBBSVO, errors, request , session, response);
 	}
 	
 	@RequestMapping("/team/teamBBS/detail/{teamBBSId}")

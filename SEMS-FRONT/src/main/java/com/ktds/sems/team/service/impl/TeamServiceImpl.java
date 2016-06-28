@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -123,24 +124,43 @@ public class TeamServiceImpl implements TeamService{
 	}
 
 	@Override
-	public String addNewTeamBBSArticle(TeamBBSVO teamBBS, Errors errors, MultipartHttpServletRequest request,  HttpSession session) {
+	public ModelAndView addNewTeamBBSArticle(TeamBBSVO teamBBS, Errors errors, MultipartHttpServletRequest request,  HttpSession session, HttpServletResponse response) {
 	
-		MemberVO sessionMember = (MemberVO) session.getAttribute("_MEMBER_");
-		
-		if ( sessionMember != null ) {
-			teamBBS.setMemberId(sessionMember.getId());
-		} 
-		
+		ModelAndView view = new ModelAndView();
+		MemberVO memberVO = (MemberVO) session.getAttribute(Session.MEMBER);
 		if(errors.hasErrors()){
-			return "redirect:/team/teamBBS/write";
+			view.setViewName("/team/teamBBS/write");
 		}else{
-			boolean success = teamBiz.addNewTeamBBSArticle(teamBBS, request);
-			if(success){
-				return "redirect:/team/teamBBS/board";
-			}else { 
-				throw new RuntimeException("팀별 게시판 글쓰기 실패");
+			teamBBS.setMemberId(memberVO.getId());
+			// 공지사항 체크박스 선택유무
+			if (teamBBS.getIsNotice() != null){
+				if(teamBBS.getIsNotice().equals("on")){
+					teamBBS.setIsNotice("Y");
+				} 
+			} else {
+				teamBBS.setIsNotice("N");	
+			}
+			
+			// 로그인 했을 시
+			if( memberVO.getId() != null ) {
+				boolean success = teamBiz.addNewTeamBBSArticle(teamBBS, request);
+				logger.info("결과는 : " + success);
+				
+				if(success){
+					view.setViewName("redirect:/team/teamBBS/board");
+				}else { 
+					throw new RuntimeException("팀별 게시판 글쓰기 실패");
+				}
+			// 로그인 안했을 시
+			} else {
+				try {
+					response.sendError(HttpServletResponse.SC_FORBIDDEN, "권한없는 접속.");
+				} catch (IOException io) {
+					throw new RuntimeException(io.getMessage());
+				}
 			}
 		}
+		return view;
 	}
 
 	@Override
@@ -695,6 +715,25 @@ public class TeamServiceImpl implements TeamService{
 		view.setViewName("redirect:/team/teamBBS/board");
 		return view;
 	}
+	
+	@Override
+	public ModelAndView viewWriteTeamBBSPage(HttpSession session, HttpServletResponse response) {
+
+		ModelAndView view = new ModelAndView();
+		MemberVO memberVO = (MemberVO) session.getAttribute(Session.MEMBER);
+			
+		if ( memberVO.getId() != null) {
+			view.setViewName("team/writeTeamBBS");
+		} else {
+			try {
+				response.sendError(HttpServletResponse.SC_FORBIDDEN, "권한없는 접속.");
+			} catch (IOException io) {
+				throw new RuntimeException(io.getMessage());
+			}
+		}
+		return view;
+	}
+
 	
 
 }

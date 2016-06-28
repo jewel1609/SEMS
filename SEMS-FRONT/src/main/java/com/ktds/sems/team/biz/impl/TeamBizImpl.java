@@ -70,6 +70,8 @@ public class TeamBizImpl implements TeamBiz {
 		String teamBBSId = String.valueOf(teamDAO.getNextTeamBBSSeq());
 		String sysdate = teamDAO.getSysDate();
 
+		
+		
 		// 따로 teamId을 받아와야하나 테스트용으로 만듬
 		String teamId = "cannon";
 
@@ -108,6 +110,15 @@ public class TeamBizImpl implements TeamBiz {
 			}
 		}		
 
+		
+		logger.info(teamBBS.getTeamBBSId());
+		logger.info(teamBBS.getTeamId());
+		logger.info(teamBBS.getTitle());
+		logger.info(teamBBS.getDescript());
+		logger.info(teamBBS.getMemberId());
+		logger.info(teamBBS.getCreatedDate());
+		logger.info(teamBBS.getIsNotice());
+		
 		return teamDAO.addNewTeamBBSArticle(teamBBS) > 0;
 	}
 
