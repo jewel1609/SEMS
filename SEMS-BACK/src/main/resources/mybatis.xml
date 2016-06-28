@@ -61,6 +61,7 @@
 		<typeAlias type="com.ktds.sems.education.vo.EducationQNAReplyListVO" alias="EducationQNAReplyListVO"/>
 		<typeAlias type="com.ktds.sems.education.vo.ReRplyEvalVO" alias="ReRplyEvalVO"/>
 		<typeAlias type="com.ktds.sems.education.vo.BBSReplyVO" alias="BBSReplyVO" />
+		<typeAlias type="com.ktds.sems.education.vo.EducationSearchVO" alias="EducationSearchVO"/>
 	</typeAliases>
 
 	<mappers>
