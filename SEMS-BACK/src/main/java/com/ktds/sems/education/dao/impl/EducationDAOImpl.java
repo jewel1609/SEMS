@@ -50,6 +50,11 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 	public EducationVO getOneEducation(String educationId) {
 		return getSqlSession().selectOne("EducationDAO.getOneEducation", educationId);
 	}
+	
+	@Override
+	public EducationVO getOneEducationByAllCondition(String educationId) {
+		return getSqlSession().selectOne("EducationDAO.getOneEducationByAllCondition", educationId);
+	}
 
 	@Override
 	public int modifyNewEducation(EducationVO changedEducationVO) {
@@ -349,6 +354,11 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 	@Override
 	public int insertReReplyEvalByDislike(ReRplyEvalVO reRplyEvalVO) {
 		return getSqlSession().insert("EducationDAO.insertReReplyEvalByDislike",reRplyEvalVO);
+	}
+
+	@Override
+	public List<EducationVO> getAllEucationList() {
+		return getSqlSession().selectList("EducationDAO.getAllEucationList");
 	}
 	
 }

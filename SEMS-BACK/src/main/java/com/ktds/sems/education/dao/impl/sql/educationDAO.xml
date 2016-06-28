@@ -70,6 +70,25 @@
 		AND		F.ATC_ID = E.EDU_ID
 	</select>
 	
+	<select id="getOneEducationByAllCondition" parameterType="string" resultType="EducationVO">
+		SELECT	E.EDU_ID educationId
+				, EDU_CTGR educationCategory
+				, EDU_TTL educationTitle
+				, MBR_ID memberId
+				, MAX_MBR maxMember
+				, EDU_LOC educationLocation
+				, EDU_CLCM educationCurriculum
+				, EDU_INTR educationIntroduce
+				, SRT_DATE startDate
+				, END_DATE endDate
+				, START_TM startTime
+				, END_TM endTime
+				, EDU_TP educationType
+				, COST cost
+		FROM	EDU_INFO E
+		WHERE	E.EDU_ID = #{educationId}
+	</select>
+	
 	<update id="modifyNewEducation" parameterType="EducationVO">
 	 	UPDATE	EDU_INFO
 	 	SET		EDU_ID = #{educationId}
@@ -944,4 +963,22 @@
 								 		, #{replyEvalId}
 									)
 	</insert>
+	
+	<select id="getAllEucationList" resultType="educationVO">
+		SELECT	EDU_ID educationId
+				, EDU_CTGR educationCategory
+				, EDU_TTL educationTitle
+				, MBR_ID memberId
+				, MAX_MBR maxMember
+				, EDU_LOC educationLocation
+				, EDU_CLCM educationCurriculum
+				, EDU_INTR educationIntroduce
+				, SRT_DATE startDate
+				, END_DATE endDate
+				, START_TM startTime
+				, END_TM endTime
+				, EDU_TP educationType
+				, COST cost
+		FROM	EDU_INFO
+	</select>
 </mapper>

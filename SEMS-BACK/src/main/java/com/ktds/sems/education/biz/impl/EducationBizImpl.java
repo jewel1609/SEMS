@@ -509,5 +509,15 @@ public class EducationBizImpl implements EducationBiz {
 		return educationDAO.insertReReplyEvalByDislike(reRplyEvalVO) > 0;
 	}
 
+	@Override
+	public List<EducationVO> getAllEucationList() {
+		return educationDAO.getAllEucationList();
+	}
+
+	@Override
+	public EducationVO getOneEducationByAllCondition(String educationId) {
+		return educationDAO.getOneEducationByAllCondition(educationId);
+	}
+
 
 }

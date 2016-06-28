@@ -140,4 +140,8 @@ public interface EducationBiz {
 	public boolean checkReReplyEval(ReRplyEvalVO reRplyEvalVO);
 
 	public boolean insertReReplyEvalByDislike(ReRplyEvalVO reRplyEvalVO);
+
+	public List<EducationVO> getAllEucationList();
+	
+	public EducationVO getOneEducationByAllCondition(String educationId);
 }

@@ -93,4 +93,6 @@ public interface EducationDAO {
 	public int insertReReplyEvalByDislike(ReRplyEvalVO reRplyEvalVO);
 	public String getOneEduNoticeId();
 	public String getOneEducationId();
+	public List<EducationVO> getAllEucationList();
+	public EducationVO getOneEducationByAllCondition(String educationId);
 }

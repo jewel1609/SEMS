@@ -9,6 +9,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import javax.management.RuntimeErrorException;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -1284,6 +1285,30 @@ public class EducationServiceImpl implements EducationService {
 		}
 		return source;
 		
+	}
+
+	@Override
+	public ModelAndView getAllEucationList() {
+		ModelAndView view = new ModelAndView();
+		
+		List<EducationVO> educationList = educationBiz.getAllEucationList();
+		
+		view.setViewName("education/showEducation");
+		view.addObject("educationList", educationList);
+		
+		return view;
+	}
+
+	@Override
+	public ModelAndView getOneEducation(String educationId) {
+		ModelAndView view = new ModelAndView();
+		
+		EducationVO education = educationBiz.getOneEducationByAllCondition(educationId);
+		
+		view.setViewName("education/detailEducation");
+		view.addObject("education", education);
+		
+		return view;
 	}
 
 }

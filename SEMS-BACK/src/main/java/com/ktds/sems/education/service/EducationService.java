@@ -86,4 +86,8 @@ public interface EducationService {
 	public String addQnaEduReplyLike(String replyId, HttpSession session);
 
 	public String addQnaEduReplyDisLike(String replyId, HttpSession session);
+
+	public ModelAndView getAllEucationList();
+
+	public ModelAndView getOneEducation(String educationId);
 }

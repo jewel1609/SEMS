@@ -243,4 +243,15 @@ public class EducationController {
 		String status = educationService.addQnaEduReplyDisLike(replyId, session);
 		AjaxUtil.sendResponse(response, status);
 	}
+	
+	@RequestMapping("/showEducationList")
+	public ModelAndView viewEducationListPage() {
+		return educationService.getAllEucationList();
+	}
+	
+	@RequestMapping("/showDetailEducation/{educationId}")
+	public ModelAndView viewDetailEducationPage(@PathVariable String educationId) {
+		return educationService.getOneEducation(educationId);
+	}
+	
 }
