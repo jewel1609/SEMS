@@ -63,7 +63,7 @@ table, tr, td, th {
 					</div>
 				</td>
 			</tr>
-			<tr>
+			<tr style="text-align: center;">
 				<td colspan="4"><select name="searchType">
 						<c:if test="${searchVO.searchType eq 'title'}">
 							<option value="title" selected="selected">제목</option>
