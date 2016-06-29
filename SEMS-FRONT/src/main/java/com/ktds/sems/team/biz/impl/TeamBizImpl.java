@@ -364,5 +364,9 @@ public class TeamBizImpl implements TeamBiz {
 	public List<FileVO> getFileListInfo(String teamBBSId) {
 		return teamDAO.getFileListInfo(teamBBSId);
 	}
+	@Override
+	public int getSearchedBBSCountByTeamId(String teamId) {
+		return teamDAO.getSearchedBBSCountByTeamId(teamId);
+	}
 
 }

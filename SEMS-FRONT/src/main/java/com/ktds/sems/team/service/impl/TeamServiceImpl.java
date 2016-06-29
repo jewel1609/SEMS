@@ -129,7 +129,7 @@ public class TeamServiceImpl implements TeamService{
 		ModelAndView view = new ModelAndView();
 		MemberVO memberVO = (MemberVO) session.getAttribute(Session.MEMBER);
 		if(errors.hasErrors()){
-			view.setViewName("redirect:/team/teamBBS/write");
+			view.setViewName("/team/teamBBS/write");
 		}else{
 			teamBBS.setMemberId(memberVO.getId());
 			// 공지사항 체크박스 선택유무
@@ -164,7 +164,7 @@ public class TeamServiceImpl implements TeamService{
 	}
 
 	@Override
-	public ModelAndView viewTeamBBSPage(int pageNo) {
+	public ModelAndView viewTeamBBSPage(String teamId, int pageNo) {
 		
 		TeamBBSListVO searchedListVO = new TeamBBSListVO();
 		Paging paging = new Paging(15,15);
@@ -181,6 +181,7 @@ public class TeamServiceImpl implements TeamService{
 		TeamSearchVO searchVO = new TeamSearchVO();
 		searchVO.setStartIndex(paging.getStartArticleNumber());
 		searchVO.setEndIndex(paging.getEndArticleNumber());
+		searchVO.setTeamId(teamId);
 		
 		String startYear = teamBiz.getStartYear();
 		String endYear = teamBiz.getEndYear();
@@ -315,8 +316,7 @@ public class TeamServiceImpl implements TeamService{
 		ModelAndView view = new ModelAndView();
 		logger.info("teamBBS.getFileCount()"+teamBBS.getFileCount());
 		if( teamBBS.getFileCount() == 0 ){
-			
-			List<FileVO> fileName = teamBiz.getFileListInfo(teamBBSId);
+			String fileName = teamBiz.getFileInfo(teamBBSId);
 			view.addObject("fileName", fileName);
 		}else{
 			view.addObject("fileName", " ");
@@ -447,25 +447,19 @@ public class TeamServiceImpl implements TeamService{
 	@Override
 	public ModelAndView viewListMinutes(String teamId, MinutesSearchVO minutesSearchVO, int pageNo) {
 		
-		logger.info("teamId:"+ teamId);
-		
 		MinutesListVO minutesListVO = new MinutesListVO();
 		Paging paging = new Paging(10, 10);
 		
 		minutesListVO.setPaging(paging);
 		int totalHistoryCount = teamBiz.getTotalMinutesCount(minutesSearchVO);
 		paging.setPageNumber(pageNo + "");
-		logger.info("teamId:"+ totalHistoryCount);
 		paging.setTotalArticleCount(totalHistoryCount);
 
 		minutesSearchVO.setStartIndex(paging.getStartArticleNumber());
 		minutesSearchVO.setEndIndex(paging.getEndArticleNumber());
 		minutesSearchVO.setTeamId(teamId);
-		logger.info("paging:"+ paging.getStartArticleNumber());
-		logger.info("paging:"+ paging.getEndArticleNumber());
 		
 		List<MinutesVO> minutesList = teamBiz.getAllMinutesList(minutesSearchVO);
-		logger.info("totalHistoryCount:"+ minutesList.size());
 		
 		minutesListVO.setMinutesList(minutesList);
 

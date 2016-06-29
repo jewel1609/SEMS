@@ -48,9 +48,9 @@ public class TeamController {
 		return teamService.getAllMyTeamList(pageNo);
 	}
 	
-	@RequestMapping("/team/teamBBS/board/")
-	public ModelAndView viewTeamBBSPage(@RequestParam(required = false, defaultValue = "0") int pageNo) {
-		return teamService.viewTeamBBSPage(pageNo);
+	@RequestMapping("/team/teamBBS/board/{teamId}")
+	public ModelAndView viewTeamBBSPage(@PathVariable String teamId, @RequestParam(required = false, defaultValue = "0") int pageNo) {
+		return teamService.viewTeamBBSPage(teamId, pageNo);
 	}
 	
 

@@ -134,4 +134,6 @@ public interface TeamDAO {
 	public int deleteTestMinutes(String minutesId);
 
 	public List<FileVO> getFileListInfo(String teamBBSId);
+	
+	public int getSearchedBBSCountByTeamId(String teamId);
 }
