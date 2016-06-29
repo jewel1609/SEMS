@@ -23,6 +23,7 @@
 		
 		$("#leaveClassBtn").click( function(){
 			$.post("<c:url value="/doLeaveClass" />", { }, function(data){
+				
 				if(!data) {
 					alert("인터넷 연결이 끊겼습니다.");
 				} 
