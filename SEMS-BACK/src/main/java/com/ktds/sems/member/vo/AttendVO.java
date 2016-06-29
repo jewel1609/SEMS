@@ -8,6 +8,7 @@ public class AttendVO {
 	private String attendTime;
 	private String educationId;
 	private String leaveTime;
+	private String stateComment;
 	
 	private String memberName;
 	private String state;
@@ -60,5 +61,11 @@ public class AttendVO {
 	}
 	public void setEducationId(String educationId) {
 		this.educationId = educationId;
+	}
+	public String getStateComment() {
+		return stateComment;
+	}
+	public void setStateComment(String stateComment) {
+		this.stateComment = stateComment;
 	}
 }
