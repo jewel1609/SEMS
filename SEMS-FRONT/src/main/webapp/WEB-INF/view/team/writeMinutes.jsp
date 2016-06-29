@@ -11,13 +11,11 @@
 $(document).ready(function() {
 	$("#registerButton").click(function() {
 		var form = $("#minutesForm");
-		form.attr("action", "<c:url value="/team/doWriteAction/${ teamId }" />");
+		form.attr("action", "<c:url value="/team/doWriteAction/${teamId}" />");
 		form.submit();
 		alert("회의록이 등록되었습니다.");
 	});
-	
 });
-	
 </script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
@@ -27,9 +25,7 @@ $(document).ready(function() {
 	<h3>회의록 작성</h3>
 	<br />
 	<br />
-
-	<form:form id="minutesForm" commandName="minutesVO" method="post"
-		action="/doRegisterAction">
+	<form:form id="minutesForm" commandName="minutesVO" method="POST" >
 	회의 일자:	<input type="date" id="agendaDate" name="agendaDate" value="${ minutesVO.agendaDate }" />
 		<br />
 	회의 시간 : <input type="time" id="startTime" name="startTime" value="${ minutesVO.startTime }" /> 
@@ -59,7 +55,7 @@ $(document).ready(function() {
 			placeholder="비고를 입력하세요." value="${ minutesVO.remarks }" />
 		<br />
 
-		<input type="button" id="registerButton" value="등록" />
+		<input type="submit" id="registerButton" value="등록" />
 	</form:form>
 
 </body>
