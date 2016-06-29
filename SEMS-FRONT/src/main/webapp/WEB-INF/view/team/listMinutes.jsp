@@ -63,6 +63,13 @@ $(document).ready(function() {
 		location.href = "<c:url value='/team/minutesInit' />";
 
 	});
+	
+	$("#minutesButton").click(function() {
+
+		var teamId = $("#teamId").val();
+		location.href = "<c:url value='/team/writeMinutes/' />" + teamId;
+
+	});
 
 	$("#search").change(function() {
 		var option = $("#search option:selected").val();
@@ -168,10 +175,13 @@ th, td {
 								</select> 
 								<input type="text" id="searchIDKeyword" name="searchIDKeyword" value="${ minutesSearchVO.searchIDKeyword }"/>
 								<input type="text" id="searchSBTKeyword" name="searchSBTKeyword" value="${ minutesSearchVO.searchSBTKeyword }"/>
-								<input type="date" id="startDate" name="startDate" value="${ minutesSearchVO.startDate }"/> 
+								<input type="date" id="startDate" name="startD	ate" value="${ minutesSearchVO.startDate }"/> 
 								<input type="date" id="endDate" name="endDate" value="${ minutesSearchVO.endDate }"/> 
+								<input type="hidden" id="teamId" name="teamId" value="${ minutesSearchVO.teamId }"/> 
+							
 								<input type="button" id="searchBtn" value="검색" /> 
 								<input type="button" id="searchInitBtn" value="검색 초기화" />
+								<input type="button" id="minutesButton" value="회의록 쓰기" />
 							</div>
 					</form>
 				</td>
