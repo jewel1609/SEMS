@@ -37,6 +37,7 @@
 				<th>교육명 (교육 아이디)</th>
 				<th>날짜</th>
 				<th>출결 상태</th>
+				<th>수정 사유</th>
 			</tr>
 	
 			<c:forEach items="${ resultList }" var="attend">
@@ -44,10 +45,22 @@
 					<td>${ attend.educationTitle } (${ attend.educationId })</td>
 					<td style="CURSOR:hand;" title="${ attend.leaveTime }">${ attend.attendTime }</td>
 					<td>
-					<c:if test="${ attend.state eq 'X' }">
-						${ attend.state } <a href="">변경</a>
-					</c:if>
-					<c:if test="${ attend.state ne 'X' }">${ attend.state }</c:if>
+						<c:if test="${ attend.state eq 'X' }">
+							${ attend.state } <a href="<c:url value="/attendanceHistory/memberDetail/modifyState/${ attend.educationId }/${ attend.memberId }/${ attend.attendTime }"/>">변경</a>
+						</c:if>
+					
+						<c:if test="${ attend.state ne 'X' }">
+							${ attend.state }
+							<c:if test="${ attend.stateComment ne null }">
+								( 변경됨 )
+							</c:if>
+						</c:if>
+					</td>
+					
+					<td>
+						<c:if test="${ attend.stateComment ne null }">
+							${ attend.stateComment}
+						</c:if>
 					</td>
 				</tr>
 			</c:forEach>	
