@@ -50,30 +50,32 @@ public class TeamServiceImpl implements TeamService{
 	}
 	
 	@Override
-	public ModelAndView getAllMyTeamList(int pageNo) {
+	public ModelAndView getAllMyTeamList(int pageNo, HttpSession session) {
 		
 		TeamListVO teamListVO = new TeamListVO();
 		Paging paging = new Paging(15,15);
 
+		MemberVO member = (MemberVO) session.getAttribute(Session.MEMBER);
+		String memberId = member.getId();
+		
 		teamListVO.setPaging(paging);
 		paging.setPageNumber(pageNo + "");
 		
-		int totalTeamCount = teamBiz.getTotalTeamCount();
-		if( totalTeamCount == 0 ){
-			totalTeamCount++;
+		int totalMyTeamCount = teamBiz.getTotalMyTeamCount(session);
+		if( totalMyTeamCount == 0 ){
+			totalMyTeamCount++;
 		}
-		paging.setTotalArticleCount(totalTeamCount);
+		paging.setTotalArticleCount(totalMyTeamCount);
 
 		TeamSearchVO searchVO = new TeamSearchVO();
 		searchVO.setStartIndex(paging.getStartArticleNumber());	
 		searchVO.setEndIndex(paging.getEndArticleNumber());
 		
-		List<TeamVO> teamList = teamBiz.getAllMyTeamList(searchVO);
+		List<TeamVO> teamList = teamBiz.getAllMyTeamList(searchVO, memberId);
 		teamListVO.setTeamList(teamList);
 		
 		ModelAndView view = new ModelAndView();
 		view.setViewName("myPage/myTeamList");
-		logger.info("!!!");
 		if(teamListVO.getTeamList().size() > 0 ){
 			view.addObject("teamListVO", teamListVO);
 		}

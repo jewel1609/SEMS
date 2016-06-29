@@ -28,12 +28,12 @@
 					<td>${ team.teamName }</td>
 				</tr>
 				<tr>
-					<td>팀원 아이디</td>
-					<td>${ team.memberId }</td>
-				</tr>
-				<tr>
 					<td>팀원 수</td>
 					<td>${ team.teamCount }</td>
+				</tr>
+				<tr>
+					<td>팀원 아이디</td>
+					<td>${ team.memberId }</td>
 				</tr>
 			</table>
 			

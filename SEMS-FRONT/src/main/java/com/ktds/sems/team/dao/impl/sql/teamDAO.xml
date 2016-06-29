@@ -11,7 +11,7 @@
 	</select>
 
 
-	<select id="getAllMyTeamList"  parameterType="TeamSearchVO" resultType="TeamVO">
+	<select id="getAllMyTeamList"  parameterType="map" resultType="TeamVO">
 		SELECT	T.TEAM_ID teamId
 					, T.TEAM_NM teamName
 					, T.TEAM_DT teamDate
@@ -26,7 +26,7 @@
                                 FROM	TEAM
                                 ORDER	BY TEAM_ID DESC
                             ) T
-                    WHERE	ROWNUM <![CDATA[<=]]> #{endIndex}
+                    WHERE	ROWNUM <![CDATA[<=]]> #{searchVO.endIndex}
                 ) T
                 , 
                 (
@@ -35,9 +35,15 @@
                     GROUP   BY TEAM_ID
                 ) L
                 , EDU_INFO EI
-        WHERE	RNUM >= #{startIndex}
+                , (
+              	    SELECT  MBR_ID, TEAM_ID
+                    FROM    TEAM_LIST
+                    WHERE   MBR_ID = #{memberId}
+                   ) M
+        WHERE	RNUM <![CDATA[>=]]> #{searchVO.startIndex}
         AND     L.TEAM_ID (+)= T.TEAM_ID
         AND		EI.EDU_ID = T.EDU_ID
+        AND     M.TEAM_ID = T.TEAM_ID
 
 
 	</select>
@@ -52,13 +58,11 @@
 
 		<select id="getOneMyTeamDetail" parameterType="String" resultType="TeamVO">
 		SELECT 		TEAM.TEAM_NM	teamName
-					, TEAM_LIST.MBR_ID	memberId
-					, COUNT(MBR_ID)	teamCount
+					, COUNT(MBR_ID)	 teamCount
 		FROM   	    TEAM_LIST,	TEAM
 		WHERE 	    TEAM_LIST.TEAM_ID = #{teamId}
 		AND			TEAM_LIST.TEAM_ID = TEAM.TEAM_ID
-		GROUP BY 	TEAM.TEAM_NM , TEAM_LIST.MBR_ID		
-	
+		GROUP BY 	TEAM.TEAM_NM
 		
 	</select>
 
@@ -147,6 +151,16 @@
 	<select id="getTotalteamCount" resultType="_int">
 	 	SELECT	COUNT(*)
 		FROM	TEAM_BBS
+	 </select>
+	 
+		<select id="getTotalMyTeamCount" parameterType="string" resultType="_int">
+	 	SELECT	COUNT(*)
+		FROM	TEAM
+		WHERE	TEAM_ID IN (
+							SELECT 	TEAM_ID
+							FROM	TEAM_LIST
+							WHERE	MBR_ID = #{memberId}
+						  )
 	 </select>
 	
 	<select id="getTeamBBSList" parameterType ="TeamSearchVO" resultType="TeamBBSVO">

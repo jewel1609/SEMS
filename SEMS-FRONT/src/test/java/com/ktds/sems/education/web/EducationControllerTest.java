@@ -4,11 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
-import javax.servlet.http.HttpServletResponse;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
-
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletRequest;
@@ -22,7 +17,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ktds.sems.SemsTestCase;
 import com.ktds.sems.common.Session;
 import com.ktds.sems.education.vo.EducationQNABBSVO;
-import com.ktds.sems.education.vo.EducationQNAReplyVO;
 import com.ktds.sems.education.vo.QNASearchVO;
 import com.ktds.sems.education.vo.QNAVO;
 import com.ktds.sems.member.vo.MemberVO;

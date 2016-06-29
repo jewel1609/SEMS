@@ -292,8 +292,12 @@ public class TeamServiceTest extends SemsTestCase {
 
 		TeamSearchVO teamSearchVO = new TeamSearchVO();
 		teamSearchVO.setPageNo(0);
+		MockHttpSession session = new MockHttpSession();
+		MemberVO member = new MemberVO();
+		member.setId("test02");
+		session.setAttribute(Session.MEMBER, member);
 
-		ModelAndView view = teamService.getAllMyTeamList(0);
+		ModelAndView view = teamService.getAllMyTeamList(0, session);
 
 		if (view != null) {
 

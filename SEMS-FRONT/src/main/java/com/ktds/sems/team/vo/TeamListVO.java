@@ -18,7 +18,7 @@ public class TeamListVO {
 	
 	public void setTeamList(List<TeamVO> teamList) {
 		List<TeamVO> teams = new ArrayList<TeamVO>();
-		teams.addAll(teamList);
+		//teams.addAll(teamList);
 		
 		this.teamList = teams;
 	}

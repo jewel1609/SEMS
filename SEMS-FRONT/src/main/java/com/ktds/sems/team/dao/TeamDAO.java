@@ -2,6 +2,8 @@ package com.ktds.sems.team.dao;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.file.vo.FileVO;
 import com.ktds.sems.member.vo.MemberVO;
@@ -15,7 +17,7 @@ import com.ktds.sems.team.vo.TeamsListVO;
 
 public interface TeamDAO {
 	
-	public List<TeamVO> getAllMyTeamList(TeamSearchVO searchVO);
+	public List<TeamVO> getAllMyTeamList(TeamSearchVO searchVO, String memberId);
 
 	public int getMyTotalTeamCount();
 
@@ -132,6 +134,8 @@ public interface TeamDAO {
 	public void deleteEducation(String educationId);
 	
 	public int deleteTestMinutes(String minutesId);
+
+	public int getTotalMyTeamCount(HttpSession session);
 
 	public List<FileVO> getFileListInfo(String teamBBSId);
 	

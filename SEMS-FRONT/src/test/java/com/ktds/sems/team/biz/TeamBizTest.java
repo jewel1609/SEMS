@@ -155,7 +155,9 @@ public class TeamBizTest extends SemsTestCase {
 		searchVO.setStartIndex(0);
 		searchVO.setEndIndex(10);
 		
-		List<TeamVO> teamList = teamBiz.getAllMyTeamList(searchVO);
+		String memberId = "test02";
+		
+		List<TeamVO> teamList = teamBiz.getAllMyTeamList(searchVO, memberId);
 		if (teamList != null){
 			for (TeamVO teamVO : teamList) {
 				assertNotNull(teamVO.getTeamId());
@@ -165,9 +167,6 @@ public class TeamBizTest extends SemsTestCase {
 				assertNotNull(teamVO.getEducationName());
 				assertNotNull(teamVO.getTeamCount());
 			}
-			
-	
-			
 		}
 		else{
 			fail("Fail...");

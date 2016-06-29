@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
@@ -39,8 +41,8 @@ public class TeamBizImpl implements TeamBiz {
 	}
 	
 	@Override
-	public List<TeamVO> getAllMyTeamList(TeamSearchVO searchVO) {
-		return teamDAO.getAllMyTeamList(searchVO);
+	public List<TeamVO> getAllMyTeamList(TeamSearchVO searchVO, String memberId) {
+		return teamDAO.getAllMyTeamList(searchVO, memberId);
 	}
 	
 	@Override
@@ -359,6 +361,10 @@ public class TeamBizImpl implements TeamBiz {
 	@Override
 	public void doDeleteTeamByTeamName(String teamName) {
 		teamDAO.doDeleteTeamByTeamName(teamName);
+	}
+	@Override
+	public int getTotalMyTeamCount(HttpSession session) {
+		return teamDAO.getTotalMyTeamCount(session);
 	}
 	@Override
 	public List<FileVO> getFileListInfo(String teamBBSId) {

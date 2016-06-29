@@ -11,10 +11,12 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mock.web.MockHttpSession;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ktds.sems.SemsTestCase;
 import com.ktds.sems.Testable;
+import com.ktds.sems.common.Session;
 import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.team.vo.MinutesSearchVO;
 import com.ktds.sems.team.vo.MinutesVO;
@@ -140,8 +142,10 @@ public class TeamDAOTest extends SemsTestCase {
 
 		searchVO.setStartIndex(0);
 		searchVO.setEndIndex(10);
+		
+		String memberId = "test02";
 
-		List<TeamVO> teamList = teamDAO.getAllMyTeamList(searchVO);
+		List<TeamVO> teamList = teamDAO.getAllMyTeamList(searchVO, memberId);
 		if (teamList != null){
 			for (TeamVO teamVO : teamList) {
 				assertNotNull(teamVO.getTeamId());

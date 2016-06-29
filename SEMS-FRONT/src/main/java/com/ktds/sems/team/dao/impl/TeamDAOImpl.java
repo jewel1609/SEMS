@@ -4,8 +4,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 
+import com.ktds.sems.common.Session;
 import com.ktds.sems.education.vo.EducationVO;
 import com.ktds.sems.file.vo.FileVO;
 import com.ktds.sems.member.vo.MemberVO;
@@ -21,8 +24,12 @@ import com.ktds.sems.team.vo.TeamsListVO;
 public class TeamDAOImpl  extends SqlSessionDaoSupport implements TeamDAO{
 
 	@Override
-    public List<TeamVO> getAllMyTeamList(TeamSearchVO searchVO) {
-	return getSqlSession().selectList("teamDAO.getAllMyTeamList", searchVO);
+    public List<TeamVO> getAllMyTeamList(TeamSearchVO searchVO, String memberId) {
+		
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("memberId", memberId);
+		paramMap.put("searchVO", searchVO);
+		return getSqlSession().selectList("teamDAO.getAllMyTeamList", paramMap);
 	}
 
 	@Override
@@ -40,11 +47,6 @@ public class TeamDAOImpl  extends SqlSessionDaoSupport implements TeamDAO{
 		return getSqlSession().selectOne("teamDAO.getTotalteamCount");
 	}
 
-	@Override
-	public List<TeamVO> getAllTeamList(TeamSearchVO searchVO) {
-		return getSqlSession().selectList("teamDAO.getAllTeamList", searchVO);
-	}
-	
 	@Override
 	public int addNewTeamBBSArticle(TeamBBSVO TeamBBSVO) {
 		return getSqlSession().insert("teamDAO.addNewTeamBBS", TeamBBSVO);
@@ -331,6 +333,19 @@ public class TeamDAOImpl  extends SqlSessionDaoSupport implements TeamDAO{
 	public int getSearchedBBSCountByTeamId(String teamId) {
 		
 		return getSqlSession().update("teamDAO.getSearchedBBSCountByTeamId", teamId);
+	}
+
+	@Override
+	public List<TeamVO> getAllTeamList(TeamSearchVO searchVO) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int getTotalMyTeamCount(HttpSession session) {
+		MemberVO member = (MemberVO) session.getAttribute(Session.MEMBER);
+		String memberId = member.getId();
+		return getSqlSession().selectOne("teamDAO.getTotalMyTeamCount", memberId);
 	}
 
 }

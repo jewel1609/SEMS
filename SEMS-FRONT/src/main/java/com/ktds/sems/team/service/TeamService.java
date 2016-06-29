@@ -16,7 +16,7 @@ import com.ktds.sems.team.vo.TeamSearchVO;
 public interface TeamService {
 	
 	
-	public ModelAndView getAllMyTeamList(int pageNo);
+	public ModelAndView getAllMyTeamList(int pageNo, HttpSession session);
 
 	public ModelAndView getOneMyTeamDetail(String teamId);
 

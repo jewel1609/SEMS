@@ -42,10 +42,8 @@ public class TeamController {
 	}
 
 	@RequestMapping("/myTeamList")
-	public ModelAndView getAllMyTeamList(@RequestParam(required=false, defaultValue="0") int pageNo){
-		logger.info("실행");
-		logger.info(""+pageNo);
-		return teamService.getAllMyTeamList(pageNo);
+	public ModelAndView getAllMyTeamList(@RequestParam(required=false, defaultValue="0") int pageNo, HttpSession session){	
+		return teamService.getAllMyTeamList(pageNo, session);
 	}
 	
 	@RequestMapping("/team/teamBBS/board/{teamId}")

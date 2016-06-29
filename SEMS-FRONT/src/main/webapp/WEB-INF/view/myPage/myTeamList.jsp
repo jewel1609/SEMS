@@ -37,12 +37,12 @@ $(document).ready(function() {
 				$("#searchYear").focus();
 				return;
 			}
+			
 			if (searchMonth == "" || searchMonth.length == 0) {
 				alert("시작 월을 선택하세요.");
 				$("#searchMonth").focus();
 				return;
 			}
-			
 			
 			$("#searchForm").attr("action", "<c:url value="/searchList"/>");		//searchList
 			$("#searchForm").attr("method", "POST");

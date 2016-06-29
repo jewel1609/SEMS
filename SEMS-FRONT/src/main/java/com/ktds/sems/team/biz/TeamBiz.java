@@ -2,6 +2,8 @@ package com.ktds.sems.team.biz;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.ktds.sems.file.vo.FileVO;
@@ -19,7 +21,7 @@ public interface TeamBiz {
 	
 	public int getMyTotalTeamCount();
 
-	public List<TeamVO> getAllMyTeamList(TeamSearchVO searchVO);
+	public List<TeamVO> getAllMyTeamList(TeamSearchVO searchVO, String memberId);
 
 	public TeamVO getOneMyTeamDetail(String teamId);
 
@@ -110,5 +112,7 @@ public interface TeamBiz {
 	public int getSearchedBBSCountByTeamId(String teamId);
 
 	public List<FileVO> getFileListInfo(String teamBBSId);
+
+	public int getTotalMyTeamCount(HttpSession session);
 
 }
