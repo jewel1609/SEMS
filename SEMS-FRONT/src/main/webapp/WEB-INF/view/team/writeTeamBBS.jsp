@@ -10,6 +10,7 @@
 <title>팀 게시판 댓글</title>
 <script type="text/javascript">
 	$(document).ready(function() {
+		var count = 1;
 		$("#submit").click(function() {
 			
 			// 제목 Validation
@@ -41,6 +42,26 @@
 				return;
 			}
 		});
+		
+		$("#btnAddFile").click(function() {
+			if (count <= 2) {
+				var tmp = '<input type="file" name="file" id="file" /><br/>';
+				$("#fileTransper").append(tmp);
+				count++;
+			} else {
+				alert("최대 3개까지만 등록이 가능합니다.");
+			}
+		});		
+		
+		function handleKeyUp(e) {
+			e = e || event;
+			var key = e.keyCode || e.which;
+			if ( key == 13 ) {
+				return true;
+			} else {
+				return false;
+			}
+		}		
 	});
 </script>
 </head>
@@ -50,28 +71,29 @@
 		<table>
 			<tr>
 				<td>	
-					공지사항 : <input type="checkbox" id="isNotice" name="isNotice" >
+					공지사항 : <input type="checkbox" id="isNotice" name="isNotice"  tabindex="1">
 				</td>
 			</tr>
 			<tr>
 				<td>
-					<input type="text" name="title" id="title" size="50" style="width:550px;" placeholder="제목을 입력하세요."  />
+					<input type="text" name="title" id="title" size="50" style="width:550px;" placeholder="제목을 입력하세요."  tabindex="2" />
 				</td>
 			</tr>
 			<tr>
 				<td>
-					<textarea id="descript" name="descript" style="width:550px; height: 550px;" placeholder="내용을 입력하세요." ></textarea>
+					<textarea id="descript" name="descript" style="width:550px; height: 550px;" placeholder="내용을 입력하세요." tabindex="3" ></textarea>
 				</td>
 			</tr>
 			<tr>
 				<td>
-					<input type="file" name="file" id="file" multiple="multiple"/>
+					<input type="file" name="file" id="file" /><input type="button" id="btnAddFile" name="btnAddFile" value="+" tabindex="4" /><br/>
+					<span id="fileTransper"></span>
 				</td>
 			</tr>
 			<tr>
 				<td align="right">
-					<input type="submit" id="submit" value="submit">
-					<input type="button" id="cancel" value="cancel">
+					<input type="submit" id="submit" value="submit" onkeyup="return handleKeyUp(event)" tabindex="5" />
+					<input type="button" id="cancel" value="cancel" onkeyup="return handleKeyUp(event)" tabindex="6" />
 				</td>
 			</tr>
 		</table>
