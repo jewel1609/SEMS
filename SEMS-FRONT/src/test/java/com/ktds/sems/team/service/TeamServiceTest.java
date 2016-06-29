@@ -406,8 +406,8 @@ public class TeamServiceTest extends SemsTestCase {
 	
 	@Test
 	public void viewTeamBBSPage(){
-		
-		assertNotNull(teamService.viewTeamBBSPage(0));
+		String teamId = "JUNIT TEST";
+		assertNotNull(teamService.viewTeamBBSPage(teamId, 0));
 	}
 	
 	@Test
@@ -448,36 +448,6 @@ public class TeamServiceTest extends SemsTestCase {
 		
 		ModelAndView view = teamService.writeNewMinutes( teamId, minutesVO, errors, session);
 		assertNotNull(view);
-	}
-	
-	@Test
-	public void viewListMinutesTest() {
-		
-		MinutesSearchVO minutesSearchVO = new MinutesSearchVO();
-		minutesSearchVO.setId("test02");
-		ModelAndView view = teamService.viewListMinutes(minutesSearchVO, 0);
-		
-		if ( view != null ) {
-			String viewName = view.getViewName();
-			assertNotNull(viewName);
-			assertEquals(viewName, "team/listMinutes");
-			
-			MinutesListVO minutesListVO = (MinutesListVO) view.getModel().get("minutesListVO");
-			minutesSearchVO = (MinutesSearchVO) view.getModel().get("minutesSearchVO");
-			assertNotNull(minutesListVO);
-			assertNotNull(minutesSearchVO);
-			
-			Paging paging = minutesListVO.getPaging();
-			assertNotNull(paging);
-			assertTrue(paging.getTotalArticleCount() > 0);
-			
-			List<MinutesVO> minutesList = minutesListVO.getMinutesList();
-			assertNotNull(minutesList);
-			assertTrue(minutesList.size() > 0);
-		}
-		else {
-			fail("viewListMinutesTest Fail");
-		}
 	}
 	
 	@Test
