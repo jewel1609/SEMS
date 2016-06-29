@@ -320,10 +320,17 @@ public class TeamDAOImpl  extends SqlSessionDaoSupport implements TeamDAO{
 	public int deleteTestMinutes(String minutesId) {
 		return getSqlSession().delete("teamDAO.deleteTestMinutes",minutesId);
 	}
-
+	
 	@Override
 	public List<FileVO> getFileListInfo(String teamBBSId) {
 		return getSqlSession().selectList("teamDAO.getFileListInfo", teamBBSId);
+	}
+
+
+	@Override
+	public int getSearchedBBSCountByTeamId(String teamId) {
+		
+		return getSqlSession().update("teamDAO.getSearchedBBSCountByTeamId", teamId);
 	}
 
 }
