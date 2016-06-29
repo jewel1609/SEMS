@@ -840,20 +840,19 @@
  		AND     EI.END_TM >= TO_CHAR(SYSDATE, 'HH24:MI')
 	</select>
 	
-	<update id="updateLeaveClass" parameterType="AttendVO">
+	<update id="updateLeaveClass" parameterType="string">
 		UPDATE ATD
 		SET    LEAV_TM = TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI')
-		WHERE  MBR_ID  = #{memberId}
+		WHERE  MBR_ID = #{memberId}
 		AND    TO_CHAR(SYSDATE, 'YYYY-MM-DD') = SUBSTR(ATD_TM, 1, 10)
-		AND    TO_CHAR(SYSDATE, 'HH24:MI') <![CDATA[<=]]> (
-					                                        SELECT END_TM
-					                                        FROM   EDU_INFO
-					                                        WHERE  EDU_ID = #{educationId}
-					                                   	  )   
 	</update>
 	
 	<select id="getNowClassInfoById" resultType="AttendVO" parameterType="string">
-		SELECT	A.* 
+		SELECT	A.ID id
+				, A.MBR_ID memberId
+				, A.ATD_TM attendTime
+				, A.EDU_ID leaveTime
+				, A.LEAV_TM educationId
 		FROM    ATD A, EDU_INFO E
 		WHERE   A.EDU_ID = E.EDU_ID
 		AND     A.MBR_ID = #{memberId}

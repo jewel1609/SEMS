@@ -992,6 +992,7 @@ public class MemberBizImpl implements MemberBiz {
 	public boolean updateLeaveClass(String memberId) {
 		
 		AttendVO attendVO = memberDAO.getNowClassInfoById(memberId);
+		System.out.println(attendVO.getMemberId());
 		return memberDAO.updateLeaveClass(attendVO) > 0;
 	}
 
