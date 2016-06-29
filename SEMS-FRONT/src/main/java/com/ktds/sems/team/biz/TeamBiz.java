@@ -106,6 +106,8 @@ public interface TeamBiz {
 	public void doDeleteTeamListByMemberId(String memberId);
 
 	public void doDeleteTeamByTeamName(String teamName);
+	
+	public int getSearchedBBSCountByTeamId(String teamId);
 
 	public List<FileVO> getFileListInfo(String teamBBSId);
 
