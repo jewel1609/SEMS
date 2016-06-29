@@ -18,6 +18,29 @@
 </style>
 <script type="text/javascript" src="<c:url value='/resources/js/jquery.min.js'/>"></script>
 <script type="text/javascript">
+	
+	$(document).ready(function(){
+		$("#searchBtn").click(function(){
+			
+			if ( $("#searchStartDate").val() == '' ) {
+				alert("검색 시작 날짜를 입력하세요.");
+				return;
+			}
+			else if ( $("#searchEndDate").val() == '' ) {
+				alert("검색 끝 날짜를 입력하세요.");
+				return;
+			}
+			
+			if ( $("#searchStartDate").val() > $("#searchEndDate").val() ) {
+				alert("끝 날짜가 시작 날짜보다 빠릅니다.");
+				return;
+			}
+			
+			movePage('0');
+			
+		});
+		
+	});
 
 </script>
 <title>수강생 출결 이력</title>
@@ -25,7 +48,7 @@
 <body>
 	수강생 출결 이력<br/><br/>
 	
-	수강생 아이디 : ${ resultList.get(0).memberId } <br/><br/>
+	수강생 아이디 : <c:if test="${ resultList.size() ne 0 }"> ${ resultList.get(0).memberId } </c:if> <br/><br/>
 	
 	정상 출석 : ○ / 지각 : △ / 조퇴 : ● / 결석 : X<br/><br/>
 	
@@ -131,6 +154,10 @@
 	</table>
 	<form id="searchForm">
 		${paging.getPagingList("pageNo", "[@]", "이전", "다음", "searchForm") }
+		<br/>
+		<input type="date" id="searchStartDate" name="searchStartDate">
+		<input type="date" id="searchEndDate" name="searchEndDate">
+		<input type="button" id="searchBtn" value="검색"> 
 	</form>
 	
 </body>

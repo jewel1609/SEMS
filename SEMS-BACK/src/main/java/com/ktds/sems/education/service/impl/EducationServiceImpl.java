@@ -270,7 +270,6 @@ public class EducationServiceImpl implements EducationService {
 
 		logger.info("1" + eduHistorySearchVO.getSearchKeyword());
 		logger.info("2" + eduHistorySearchVO.getSearchType());
-		logger.info("3" + eduHistorySearchVO.getSearchDate());
 
 		EducationHistoryListVO eduHistoryListVO = new EducationHistoryListVO();
 		Paging paging = new Paging(15, 15);
@@ -638,7 +637,7 @@ public class EducationServiceImpl implements EducationService {
 	 * @author 206-002 공정민
 	 */
 	@Override
-	public ModelAndView getOneMemberAttendance(String memberId, int PageNo) {
+	public ModelAndView getOneMemberAttendance(EducationHistorySearchVO searchVO, String memberId, int PageNo) {
 		List<AttendVO> attendanceList = new ArrayList<AttendVO>();
 		List<AttendVO> allAttendanceList = new ArrayList<AttendVO>();
 		List<EducationVO> educationInfoList = new ArrayList<EducationVO>();
@@ -668,6 +667,17 @@ public class EducationServiceImpl implements EducationService {
 			List<AttendVO> resultList = new ArrayList<AttendVO>();
 			for ( int i = 0; i < AllEduAllAttendanceList.size(); i++ ) {
 				resultList.addAll(AllEduAllAttendanceList.get(i));
+			}
+			if ( searchVO.getSearchStartDate() != null && searchVO.getSearchStartDate() != "" && searchVO.getSearchEndDate() != null && searchVO.getSearchEndDate() != "" ) {
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+				for ( int i = resultList.size() - 1; i >= 0; i-- ) {
+					try {
+						if ( sdf.parse(resultList.get(i).getAttendTime()).after(sdf.parse(searchVO.getSearchEndDate()))
+								|| sdf.parse(resultList.get(i).getAttendTime()).before(sdf.parse(searchVO.getSearchStartDate())) ) {
+							resultList.remove(i);
+						}
+					} catch (ParseException e) {}
+				}
 			}
 			Paging paging = new Paging(10,10);
 			paging.setPageNumber(PageNo+"");
@@ -701,7 +711,7 @@ public class EducationServiceImpl implements EducationService {
 	 * @author 206-002 공정민
 	 */
 	@Override
-	public ModelAndView getOneEducationAttendance(String educationId, int pageNo) {
+	public ModelAndView getOneEducationAttendance(EducationHistorySearchVO searchVO, String educationId, int pageNo) {
 		List<AttendVO> attendanceList = new ArrayList<AttendVO>();
 		List<MemberVO> allMemberList = new ArrayList<MemberVO>();
 		EducationVO educationVO = new EducationVO();
@@ -719,6 +729,17 @@ public class EducationServiceImpl implements EducationService {
 		} else {
 			// 출결 상태 구하기
 			attendanceList = this.getAllMemberState(educationVO, allMemberList);
+			if ( searchVO.getSearchStartDate() != null && searchVO.getSearchStartDate() != "" && searchVO.getSearchEndDate() != null && searchVO.getSearchEndDate() != "" ) {
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+				for ( int i = attendanceList.size() - 1; i >= 0; i-- ) {
+					try {
+						if ( sdf.parse(attendanceList.get(i).getAttendTime()).after(sdf.parse(searchVO.getSearchEndDate()))
+								|| sdf.parse(attendanceList.get(i).getAttendTime()).before(sdf.parse(searchVO.getSearchStartDate())) ) {
+							attendanceList.remove(i);
+						}
+					} catch (ParseException e) {}
+				}
+			}
 			Paging paging = new Paging();
 			paging.setPageNumber(pageNo+"");
 			paging.setTotalArticleCount(attendanceList.size());
@@ -754,7 +775,7 @@ public class EducationServiceImpl implements EducationService {
 	 * @author 206-002 공정민
 	 */
 	@Override
-	public ModelAndView getOneTeamAttendance(String educationId, String teamId, String teamName, int pageNo) {
+	public ModelAndView getOneTeamAttendance(EducationHistorySearchVO searchVO, String educationId, String teamId, String teamName, int pageNo) {
 		List<MemberVO> allMemberList = new ArrayList<MemberVO>();
 		EducationVO educationVO = new EducationVO();
 		List<AttendVO> attendanceList = new ArrayList<AttendVO>();
@@ -772,7 +793,17 @@ public class EducationServiceImpl implements EducationService {
 		} else {
 			// 출결 상태 구하기
 			attendanceList = this.getAllMemberState(educationVO, allMemberList);
-			
+			if ( searchVO.getSearchStartDate() != null && searchVO.getSearchStartDate() != "" && searchVO.getSearchEndDate() != null && searchVO.getSearchEndDate() != "" ) {
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+				for ( int i = attendanceList.size() - 1; i >= 0; i-- ) {
+					try {
+						if ( sdf.parse(attendanceList.get(i).getAttendTime()).after(sdf.parse(searchVO.getSearchEndDate()))
+								|| sdf.parse(attendanceList.get(i).getAttendTime()).before(sdf.parse(searchVO.getSearchStartDate())) ) {
+							attendanceList.remove(i);
+						}
+					} catch (ParseException e) {}
+				}
+			}
 			Paging paging = new Paging();
 			paging.setPageNumber(pageNo+"");
 			paging.setTotalArticleCount(attendanceList.size());
@@ -818,8 +849,6 @@ public class EducationServiceImpl implements EducationService {
 		
 		String startDate = "";
 		String endDate = "";
-		String changedAttendMonth;
-		String changedAttendDate;
 
 		Date eduStartDate = new Date();
 		Date eduEndDate = new Date();
@@ -842,6 +871,7 @@ public class EducationServiceImpl implements EducationService {
 		
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+		SimpleDateFormat tmpFormat = new SimpleDateFormat("yyyy-MM-dd");
 		
 			startDate = educationVO.getStartDate() + " " + educationVO.getStartTime();
 			endDate = educationVO.getEndDate() + " " + educationVO.getEndTime();
@@ -937,20 +967,11 @@ public class EducationServiceImpl implements EducationService {
 						}
 					}
 					
-					if (cal6.get(Calendar.MONTH)+1 < 10) {
-						changedAttendMonth = "0"+String.valueOf(cal6.get(Calendar.MONTH)+1);
-					} else {
-						changedAttendMonth = String.valueOf(cal6.get(Calendar.MONTH)+1);
-					}
+					long tmpMillis = cal6.getTimeInMillis();
+					cal6.add(Calendar.MONTH, 1);
 					
-					if (cal6.get(Calendar.DATE) < 10) {
-						changedAttendDate = "0"+String.valueOf(cal6.get(Calendar.DATE));
-					} else {
-						changedAttendDate = String.valueOf(cal6.get(Calendar.DATE));
-					}
-					
-					attendVO.setAttendTime(String.valueOf(cal6.get(Calendar.YEAR))+"-"
-							+changedAttendMonth+"-"+changedAttendDate);
+					attendVO.setAttendTime(tmpFormat.format(cal6.getTime()));
+					cal6.setTimeInMillis(tmpMillis);
 					attendVO.setEducationId(educationVO.getEducationId());
 					attendVO.setEducationTitle(educationVO.getEducationTitle());
 					attendVO.setState("총 "+allMemberList.size()+" 명, 정상 출석 "+attendNum+" 명, 지각 "+
@@ -988,8 +1009,6 @@ public class EducationServiceImpl implements EducationService {
 		
 		String startDate = "";
 		String endDate = "";
-		String changedAttendMonth;
-		String changedAttendDate;
 
 		Date eduStartDate = new Date();
 		Date eduEndDate = new Date();
@@ -1012,6 +1031,7 @@ public class EducationServiceImpl implements EducationService {
 		
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+		SimpleDateFormat tmpFormat = new SimpleDateFormat("yyyy-MM-dd");
 		
 			startDate = educationVO.getStartDate() + " " + educationVO.getStartTime();
 			endDate = educationVO.getEndDate() + " " + educationVO.getEndTime();
@@ -1044,6 +1064,7 @@ public class EducationServiceImpl implements EducationService {
 				}
 				
 				while(calDateVar <= calEduEndDate) {
+					System.out.println(calDateVar + " -> " + calEduEndDate);
 					// 교육 시작일부터 종료일까지 하루하루
 					attendVO = new AttendVO();
 					
@@ -1104,29 +1125,18 @@ public class EducationServiceImpl implements EducationService {
 						// 출석 이력이 없다면 결석
 						attendVO.setState("X");
 					}
-					
-					if (cal6.get(Calendar.MONTH)+1 < 10) {
-						changedAttendMonth = "0"+String.valueOf(cal6.get(Calendar.MONTH)+1);
-					} else {
-						changedAttendMonth = String.valueOf(cal6.get(Calendar.MONTH)+1);
-					}
-					
-					if (cal6.get(Calendar.DATE) < 10) {
-						changedAttendDate = "0"+String.valueOf(cal6.get(Calendar.DATE));
-					} else {
-						changedAttendDate = String.valueOf(cal6.get(Calendar.DATE));
-					}
-					
+					long tmpMillis = cal6.getTimeInMillis();
+					cal6.add(Calendar.MONTH, 1);
 					attendVO.setMemberId(memberId);
 					attendVO.setEducationId(educationVO.getEducationId());
 					attendVO.setEducationTitle(educationVO.getEducationTitle());
-					attendVO.setAttendTime(String.valueOf(cal6.get(Calendar.YEAR))+"-"
-							+changedAttendMonth+"-"+changedAttendDate);
+					attendVO.setAttendTime(tmpFormat.format(cal6.getTime()));
+					cal6.setTimeInMillis(tmpMillis);
 					
 					allAttendanceList.add(attendVO);
 					
 					isAttend = false;
-					cal6.add(Calendar.DATE, +1);
+					cal6.add(Calendar.DAY_OF_YEAR, 1);
 					calDateVar = cal6.getTimeInMillis();
 				}
 			} catch (ParseException e) {

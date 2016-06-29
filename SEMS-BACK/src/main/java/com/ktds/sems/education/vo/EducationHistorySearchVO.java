@@ -8,8 +8,9 @@ public class EducationHistorySearchVO {
 	private String memberId;
 	private String searchKeyword;
 	private String searchType;
-	private String searchDate;
-	
+	private String searchStartDate;
+	private String searchEndDate;
+
 	public int getPageNo() {
 		return pageNo;
 	}
@@ -58,13 +59,20 @@ public class EducationHistorySearchVO {
 		this.searchType = searchType;
 	}
 
-	public String getSearchDate() {
-		return searchDate;
+	public String getSearchStartDate() {
+		return searchStartDate;
 	}
 
-	public void setSearchDate(String searchDate) {
-		this.searchDate = searchDate;
+	public void setSearchStartDate(String searchStartDate) {
+		this.searchStartDate = searchStartDate;
 	}
 
+	public String getSearchEndDate() {
+		return searchEndDate;
+	}
+
+	public void setSearchEndDate(String searchEndDate) {
+		this.searchEndDate = searchEndDate;
+	}
 	
 }

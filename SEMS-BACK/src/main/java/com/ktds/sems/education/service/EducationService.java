@@ -65,15 +65,15 @@ public interface EducationService {
 
 	public ModelAndView getAllMemberList();
 
-	public ModelAndView getOneMemberAttendance(String memberId, int pageNo);
+	public ModelAndView getOneMemberAttendance(EducationHistorySearchVO searchVO, String memberId, int pageNo);
 
 	public ModelAndView getAllStartedEducationList();
 
-	public ModelAndView getOneEducationAttendance(String educationId, int pageNo);
+	public ModelAndView getOneEducationAttendance(EducationHistorySearchVO searchVO, String educationId, int pageNo);
 
 	public ModelAndView getAllTeamList();
 
-	public ModelAndView getOneTeamAttendance(String educationId, String teamId, String educationTitle, int pageNo);
+	public ModelAndView getOneTeamAttendance(EducationHistorySearchVO searchVO, String educationId, String teamId, String educationTitle, int pageNo);
 
 	public ModelAndView viewWriteEduQna(String educationId, HttpSession session);
 
