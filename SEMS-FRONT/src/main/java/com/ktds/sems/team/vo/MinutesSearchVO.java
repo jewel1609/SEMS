@@ -11,7 +11,14 @@ public class MinutesSearchVO extends MinutesVO{
 	private String searchSBTKeyword;
 	private String startDate;
 	private String endDate;
+	private String teamId;
 	
+	public String getTeamId() {
+		return teamId;
+	}
+	public void setTeamId(String teamId) {
+		this.teamId = teamId;
+	}
 	public int getPageNo() {
 		return pageNo;
 	}
