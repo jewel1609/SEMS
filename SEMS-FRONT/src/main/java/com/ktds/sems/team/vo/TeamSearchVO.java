@@ -9,7 +9,14 @@ public class TeamSearchVO {
 	private String searchType;
 	private String startDate;
 	private String endDate;
+	private String teamId;
 	
+	public String getTeamId() {
+		return teamId;
+	}
+	public void setTeamId(String teamId) {
+		this.teamId = teamId;
+	}
 	private String teamBBSId;
 	
 	public int getPageNo() {
