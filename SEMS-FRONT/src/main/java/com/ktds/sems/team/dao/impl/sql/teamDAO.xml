@@ -156,9 +156,9 @@
 	    		BBS_HTR.HITS hits,
 			    TEAM_BBS.DESCRIPT descript, 
 			    TEAM_BBS.LIKE_CNT likeCount,
-			    TEAM_BBS.DISLIKE_CNT disLikeCount, 
+			    TEAM_BBS.DISLIKE_CNT disLikeCount,
 			    TEAM_BBS.MBR_ID memberId, 
-			    TEAM_BBS.CREATED_DATE createdDate, 
+			    TEAM_BBS.CREATED_DATE createdDate,
 		   		TEAM_BBS.MODIFIED_DATE modifiedDate,
 		   		TEAM_BBS.IS_NOTICE isNotice,
 		   		NVL(FILES.FCOUNT,0) fileCount		
@@ -168,6 +168,7 @@
 					FROM	(
 								SELECT	*
 								FROM	TEAM_BBS
+								WHERE	TEAM_ID = #{teamId}
 								ORDER	BY TEAM_BBS_ID DESC
 							) TEAM_BBS
 					WHERE	ROWNUM <![CDATA[<=]]> #{endIndex}
@@ -381,15 +382,6 @@
 	
 	<select id="getFileInfo" parameterType="string" resultType="string">
         SELECT  NVL(FILE_NM,'') fileName
-		FROM    FILES, TEAM_BBS
-		WHERE   ATC_ID = #{teamBBSId}
-		AND		TEAM_BBS_ID = #{teamBBSId}
-	</select>
-	
-	<select id="getFileListInfo" parameterType="string" resultType="FileVO">
-		SELECT	NVL(FILE_ID,'') fileId,  
-				NVL(FILE_NM,'') fileName,
-				NVL(ATC_ID,'') articleId
 		FROM    FILES, TEAM_BBS
 		WHERE   ATC_ID = #{teamBBSId}
 		AND		TEAM_BBS_ID = #{teamBBSId}
@@ -644,8 +636,7 @@
 								FROM	(
 											SELECT	MINU_INFO.*
 											FROM	MINU_INFO
-													, TEAM
-											WHERE	MINU_INFO.TEAM_ID = TEAM.TEAM_ID
+											WHERE	MINU_INFO.TEAM_ID = #{teamId}
 										)MINU_INFO
 								WHERE	1=1
 							<if test="search != null and search != ''">
@@ -676,8 +667,7 @@
 		FROM	(
 					SELECT	MINU_INFO.*
 					FROM	MINU_INFO
-							, TEAM
-					WHERE	MINU_INFO.TEAM_ID = TEAM.TEAM_ID
+					WHERE	MINU_INFO.TEAM_ID = #{teamId}
 				)MINU_INFO
 		WHERE	1=1
 	<if test="search != null and search != ''">
@@ -814,4 +804,9 @@
 		FROM	SEMS.EDU_INFO
 		WHERE	EDU_ID = #{educationId}
 	</delete>
+	
+	<select  id="getSearchedBBSCountByTeamId" resultType="_int">
+		SELECT	COUNT(*)
+		FROM	TEAM_BBS
+	</select>	
 </mapper>
