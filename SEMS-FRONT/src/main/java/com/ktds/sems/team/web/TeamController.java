@@ -48,7 +48,7 @@ public class TeamController {
 		return teamService.getAllMyTeamList(pageNo);
 	}
 	
-	@RequestMapping("/team/teamBBS/board")
+	@RequestMapping("/team/teamBBS/board/")
 	public ModelAndView viewTeamBBSPage(@RequestParam(required = false, defaultValue = "0") int pageNo) {
 		return teamService.viewTeamBBSPage(pageNo);
 	}
@@ -240,11 +240,7 @@ public class TeamController {
 	}
 	@RequestMapping("/team/writeMinutes/{teamId}")
 	public ModelAndView viewWriteMinutesPage(@PathVariable String teamId) {
-		
-		ModelAndView view = new ModelAndView();
-		view.setViewName("team/writeMinutes");
-		view.addObject("teamId", teamId);
-		return view;
+		return teamService.viewWriteMinutesPage(teamId);
 	}
 	
 	@RequestMapping(value ="/team/teamBBS/detail/doWriteReply", method = RequestMethod.POST)
@@ -252,16 +248,15 @@ public class TeamController {
 		return teamService.doWriteBBSReplyAction(teamBBSReplyVO,  session);
 	}
 	
-	@RequestMapping("/team/doWriteAction/{teamId}")
+	@RequestMapping(value="/team/doWriteAction/{teamId}", method = RequestMethod.POST)
 	public ModelAndView doWriteAction(@PathVariable String teamId, @Valid MinutesVO minutesVO, Errors errors, HttpSession session){
-		
 		return teamService.writeNewMinutes(teamId, minutesVO, errors, session);
 	}
 	
-	@RequestMapping("/team/listMinutes")
-	public ModelAndView viewListMinutesPage(MinutesSearchVO  minutesSearchVO, @RequestParam(required=false, defaultValue="0") int pageNo) {
+	@RequestMapping("/team/listMinutes/{teamId}")
+	public ModelAndView viewListMinutesPage(@PathVariable String teamId, MinutesSearchVO  minutesSearchVO, @RequestParam(required=false, defaultValue="0") int pageNo) {
 		
-		return teamService.viewListMinutes(minutesSearchVO, pageNo);
+		return teamService.viewListMinutes(teamId, minutesSearchVO, pageNo);
 	}
 	
 	@RequestMapping("/member/minutesInit")
