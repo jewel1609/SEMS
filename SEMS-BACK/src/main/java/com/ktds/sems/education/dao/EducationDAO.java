@@ -97,4 +97,6 @@ public interface EducationDAO {
 	public List<EducationVO> getAllEucationList(EducationSearchVO searchVO);
 	public EducationVO getOneEducationByAllCondition(String educationId);
 	public int getTotalEducationCount(EducationSearchVO searchVO);
+	public int doModifyStateComment(AttendVO attendVO);
+	public int nextAttendSeq();
 }

@@ -356,7 +356,7 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 	public int insertReReplyEvalByDislike(ReRplyEvalVO reRplyEvalVO) {
 		return getSqlSession().insert("EducationDAO.insertReReplyEvalByDislike",reRplyEvalVO);
 	}
-
+	
 	@Override
 	public List<EducationVO> getAllEucationList(EducationSearchVO searchVO) {
 		return getSqlSession().selectList("EducationDAO.getAllEucationList", searchVO);
@@ -365,6 +365,16 @@ public class EducationDAOImpl extends SqlSessionDaoSupport implements EducationD
 	@Override
 	public int getTotalEducationCount(EducationSearchVO searchVO) {
 		return getSqlSession().selectOne("EducationDAO.getTotalEducationCount", searchVO);
+	}
+
+	@Override
+	public int doModifyStateComment(AttendVO attendVO) {
+		return getSqlSession().insert("EducationDAO.doModifyStateComment", attendVO);
+	}
+
+	@Override
+	public int nextAttendSeq() {
+		return getSqlSession().selectOne("EducationDAO.nextAttendSeq");
 	}
 	
 }

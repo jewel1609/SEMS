@@ -187,6 +187,16 @@ public class EducationController {
 		return educationService.getOneMemberAttendance(memberId, pageNo);
 	}
 	
+	@RequestMapping("/attendanceHistory/memberDetail/modifyState/{educationId}/{memberId}/{attendTime}")
+	public ModelAndView viewModifyStatePage(@PathVariable String educationId, @PathVariable String memberId, @PathVariable String attendTime) {
+		return educationService.viewModifyStatePage(educationId, memberId, attendTime);
+	}
+	
+	@RequestMapping("/attendanceHistory/memberDetail/doModifyState/")
+	public ModelAndView doModifyState(@RequestParam("educationId") String educationId, @RequestParam("memberId") String memberId, @RequestParam("attendTime") String attendTime, @RequestParam("comment") String comment) {
+		return educationService.writeModifyStateComment(educationId, memberId, attendTime, comment);
+	}
+	
 	@RequestMapping("/attendanceHistory/educationList")
 	public ModelAndView viewAttendanceHistoryEducation() {
 		return educationService.getAllStartedEducationList();

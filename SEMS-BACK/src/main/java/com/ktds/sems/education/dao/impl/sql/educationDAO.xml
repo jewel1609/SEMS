@@ -694,6 +694,7 @@
 				, ATD.ATD_TM attendTime
 				, INFO.EDU_ID educationId
 				, ATD.LEAV_TM leaveTime
+				, ATD.CMNT stateComment
 				, INFO.EDU_TTL educationTitle
 				, MBR.NM memberName
 		FROM	ATD
@@ -1007,5 +1008,29 @@
 		<if test="searchType != null and searchType == 'member'">
 			WHERE	MBR_ID LIKE '%' || #{searchKeyword} || '%'
 		</if>
+	</select>
+		
+	<insert id="doModifyStateComment" parameterType="AttendVO">
+		INSERT INTO ATD (
+							ID
+							, MBR_ID
+							, ATD_TM
+							, EDU_ID
+							, LEAV_TM
+							, CMNT
+						)
+		VALUES ( 
+					#{id}
+					, #{memberId}
+					, #{attendTime}
+					, #{educationId}
+					, #{leaveTime}
+					, #{stateComment}
+		)
+	</insert>
+	
+	<select id="nextAttendSeq" resultType="_int">
+		SELECT	ATD_ID_SEQ.NEXTVAL
+		FROM	DUAL
 	</select>
 </mapper>

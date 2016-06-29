@@ -87,8 +87,12 @@ public interface EducationService {
 	public String addQnaEduReplyLike(String replyId, HttpSession session);
 
 	public String addQnaEduReplyDisLike(String replyId, HttpSession session);
-
+	
 	public ModelAndView getAllEucationList(EducationSearchVO searchVO);
 
 	public ModelAndView getOneEducation(String educationId);
+
+	public ModelAndView writeModifyStateComment(String educationId, String memberId, String attendTime, String comment);
+
+	public ModelAndView viewModifyStatePage(String educationId, String memberId, String attendTime);	
 }

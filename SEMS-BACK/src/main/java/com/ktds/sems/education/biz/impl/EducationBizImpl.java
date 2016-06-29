@@ -509,7 +509,7 @@ public class EducationBizImpl implements EducationBiz {
 	public boolean insertReReplyEvalByDislike(ReRplyEvalVO reRplyEvalVO) {
 		return educationDAO.insertReReplyEvalByDislike(reRplyEvalVO) > 0;
 	}
-
+	
 	@Override
 	public List<EducationVO> getAllEucationList(EducationSearchVO searchVO) {
 		return educationDAO.getAllEucationList(searchVO);
@@ -525,5 +525,14 @@ public class EducationBizImpl implements EducationBiz {
 		return educationDAO.getTotalEducationCount(searchVO);
 	}
 
+	@Override
+	public boolean doModifyStateComment(AttendVO attendVO) {
+		return educationDAO.doModifyStateComment(attendVO) > 0;
+	}
+
+	@Override
+	public int nextAttendSeq() {
+		return educationDAO.nextAttendSeq();
+	}
 
 }

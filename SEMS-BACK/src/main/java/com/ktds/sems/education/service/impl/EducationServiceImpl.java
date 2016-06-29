@@ -818,6 +818,8 @@ public class EducationServiceImpl implements EducationService {
 		
 		String startDate = "";
 		String endDate = "";
+		String changedAttendMonth;
+		String changedAttendDate;
 
 		Date eduStartDate = new Date();
 		Date eduEndDate = new Date();
@@ -935,9 +937,20 @@ public class EducationServiceImpl implements EducationService {
 						}
 					}
 					
+					if (cal6.get(Calendar.MONTH)+1 < 10) {
+						changedAttendMonth = "0"+String.valueOf(cal6.get(Calendar.MONTH)+1);
+					} else {
+						changedAttendMonth = String.valueOf(cal6.get(Calendar.MONTH)+1);
+					}
+					
+					if (cal6.get(Calendar.DATE) < 10) {
+						changedAttendDate = "0"+String.valueOf(cal6.get(Calendar.DATE));
+					} else {
+						changedAttendDate = String.valueOf(cal6.get(Calendar.DATE));
+					}
+					
 					attendVO.setAttendTime(String.valueOf(cal6.get(Calendar.YEAR))+"-"
-							+String.valueOf(cal6.get(Calendar.MONTH)+1)+"-"
-							+String.valueOf(cal6.get(Calendar.DATE)));
+							+changedAttendMonth+"-"+changedAttendDate);
 					attendVO.setEducationId(educationVO.getEducationId());
 					attendVO.setEducationTitle(educationVO.getEducationTitle());
 					attendVO.setState("총 "+allMemberList.size()+" 명, 정상 출석 "+attendNum+" 명, 지각 "+
@@ -975,6 +988,8 @@ public class EducationServiceImpl implements EducationService {
 		
 		String startDate = "";
 		String endDate = "";
+		String changedAttendMonth;
+		String changedAttendDate;
 
 		Date eduStartDate = new Date();
 		Date eduEndDate = new Date();
@@ -1080,6 +1095,8 @@ public class EducationServiceImpl implements EducationService {
 									attendVO.setState("X");
 								}
 							}
+							
+							attendVO.setStateComment(attend.getStateComment());
 						}
 					}
 					
@@ -1088,12 +1105,23 @@ public class EducationServiceImpl implements EducationService {
 						attendVO.setState("X");
 					}
 					
+					if (cal6.get(Calendar.MONTH)+1 < 10) {
+						changedAttendMonth = "0"+String.valueOf(cal6.get(Calendar.MONTH)+1);
+					} else {
+						changedAttendMonth = String.valueOf(cal6.get(Calendar.MONTH)+1);
+					}
+					
+					if (cal6.get(Calendar.DATE) < 10) {
+						changedAttendDate = "0"+String.valueOf(cal6.get(Calendar.DATE));
+					} else {
+						changedAttendDate = String.valueOf(cal6.get(Calendar.DATE));
+					}
+					
 					attendVO.setMemberId(memberId);
 					attendVO.setEducationId(educationVO.getEducationId());
 					attendVO.setEducationTitle(educationVO.getEducationTitle());
 					attendVO.setAttendTime(String.valueOf(cal6.get(Calendar.YEAR))+"-"
-							+String.valueOf(cal6.get(Calendar.MONTH)+1)+"-"
-							+String.valueOf(cal6.get(Calendar.DATE)));
+							+changedAttendMonth+"-"+changedAttendDate);
 					
 					allAttendanceList.add(attendVO);
 					
@@ -1328,7 +1356,7 @@ public class EducationServiceImpl implements EducationService {
 		return source;
 		
 	}
-
+	
 	@Override
 	public ModelAndView getAllEucationList(EducationSearchVO searchVO) {
 		ModelAndView view = new ModelAndView();
@@ -1367,6 +1395,39 @@ public class EducationServiceImpl implements EducationService {
 		view.setViewName("education/detailEducation");
 		view.addObject("education", education);
 		
+		return view;
+	}
+
+	@Override
+	public ModelAndView viewModifyStatePage(String educationId, String memberId, String attendTime) {
+		ModelAndView view = new ModelAndView();
+		view.setViewName("education/writeAttendanceComment");
+		view.addObject("memberId", memberId);
+		view.addObject("attendTime", attendTime);
+		view.addObject("educationId", educationId);
+		return view;
+	}
+
+	@Override
+	public ModelAndView writeModifyStateComment(String educationId, String memberId, String attendTime, String comment) {
+		ModelAndView view = new ModelAndView();
+		AttendVO attendVO = new AttendVO();
+		
+		int nextAttendId = educationBiz.nextAttendSeq();
+		EducationVO educationVO = educationBiz.getOneEducation(educationId);
+		
+		//ID, MBR_ID, ATD_TM, EDU_ID, LEAV_TM, CMNT
+		attendVO.setId(nextAttendId);
+		attendVO.setMemberId(memberId);
+		attendVO.setAttendTime(attendTime + " " + educationVO.getStartTime());
+		attendVO.setEducationId(educationId);
+		attendVO.setLeaveTime(attendTime + " " + educationVO.getEndTime());
+		attendVO.setStateComment(comment);
+		
+		// 해당날짜 출석 등록, 수정 사유 등록
+		educationBiz.doModifyStateComment(attendVO);
+		
+		view.setViewName("redirect:/attendanceHistory/memberDetail/"+memberId);
 		return view;
 	}
 
