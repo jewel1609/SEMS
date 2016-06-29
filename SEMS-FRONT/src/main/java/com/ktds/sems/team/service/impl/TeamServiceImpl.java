@@ -172,7 +172,7 @@ public class TeamServiceImpl implements TeamService{
 		searchedListVO.setPaging(paging);
 		paging.setPageNumber(pageNo + "");
 		
-		int searchedBBSCount = teamBiz.getSearchedBBSCount();
+		int searchedBBSCount = teamBiz.getSearchedBBSCountByTeamId(teamId);
 		if(searchedBBSCount == 0 ){
 			searchedBBSCount ++;
 		}
@@ -180,7 +180,7 @@ public class TeamServiceImpl implements TeamService{
 		
 		TeamSearchVO searchVO = new TeamSearchVO();
 		searchVO.setStartIndex(paging.getStartArticleNumber());
-		searchVO.setEndIndex(paging.getEndArticleNumber());	
+		searchVO.setEndIndex(paging.getEndArticleNumber());
 		
 		String startYear = teamBiz.getStartYear();
 		String endYear = teamBiz.getEndYear();
@@ -415,28 +415,25 @@ public class TeamServiceImpl implements TeamService{
 
 	@Override
 	public ModelAndView writeNewMinutes(String teamId, MinutesVO minutesVO, Errors errors, HttpSession session) {
-		
-		minutesVO.setStartDate(minutesVO.getAgendaDate() + " " + minutesVO.getStartTime());
-		minutesVO.setEndDate(minutesVO.getAgendaDate() + " " + minutesVO.getEndTime());
-		
 		ModelAndView view = new ModelAndView();
-		MemberVO memberVO = (MemberVO) session.getAttribute("_MEMBER_");
+		MemberVO memberVO = (MemberVO) session.getAttribute(Session.MEMBER);
 		
-		
-		if ( memberVO != null ) {
-			minutesVO.setMemberId(memberVO.getId());
-			minutesVO.setTeamId(teamId);
-			//System.out.println("Controller teamId"+teamId);
-			//System.out.println(memberVO.getId());
-		}
-		
-		if (errors.hasErrors()) {
-			view.setViewName("team/writeMinutes");
-			view.addObject("minutesVO", minutesVO);
-			return view;
+		if (!errors.hasErrors()) {
+			view.setViewName("redirect:/team/writeMinutes/"+teamId);
 		}
 		else {
+			if ( memberVO != null ) {
+				minutesVO.setMemberId(memberVO.getId());
+				minutesVO.setTeamId(teamId);
+				minutesVO.setStartDate(minutesVO.getAgendaDate() + " " + minutesVO.getStartTime());
+				minutesVO.setEndDate(minutesVO.getAgendaDate() + " " + minutesVO.getEndTime());
+			} else {
+				throw new RuntimeException("값을 입력해 주세요.");
+			}
+			
 			boolean result = teamBiz.writeNewMinutes(minutesVO);
+			
+			logger.info("마지막 결과값 : " + result);
 			if ( result ) {
 				view.setViewName("redirect:/listMinutes");
 			}
@@ -444,26 +441,32 @@ public class TeamServiceImpl implements TeamService{
 				throw new RuntimeException("일시적인 장애가 발생했습니다. 잠시 후 다시 이용해주세요.");
 			}
 		}
-		
 		return view;
 	}
 
 	@Override
-	public ModelAndView viewListMinutes(MinutesSearchVO minutesSearchVO, int pageNo) {
+	public ModelAndView viewListMinutes(String teamId, MinutesSearchVO minutesSearchVO, int pageNo) {
+		
+		logger.info("teamId:"+ teamId);
 		
 		MinutesListVO minutesListVO = new MinutesListVO();
 		Paging paging = new Paging(10, 10);
 		
 		minutesListVO.setPaging(paging);
 		int totalHistoryCount = teamBiz.getTotalMinutesCount(minutesSearchVO);
-		
 		paging.setPageNumber(pageNo + "");
+		logger.info("teamId:"+ totalHistoryCount);
 		paging.setTotalArticleCount(totalHistoryCount);
-		
+
 		minutesSearchVO.setStartIndex(paging.getStartArticleNumber());
 		minutesSearchVO.setEndIndex(paging.getEndArticleNumber());
+		minutesSearchVO.setTeamId(teamId);
+		logger.info("paging:"+ paging.getStartArticleNumber());
+		logger.info("paging:"+ paging.getEndArticleNumber());
 		
 		List<MinutesVO> minutesList = teamBiz.getAllMinutesList(minutesSearchVO);
+		logger.info("totalHistoryCount:"+ minutesList.size());
+		
 		minutesListVO.setMinutesList(minutesList);
 
 		ModelAndView view = new ModelAndView();
@@ -732,6 +735,13 @@ public class TeamServiceImpl implements TeamService{
 				throw new RuntimeException(io.getMessage());
 			}
 		}
+		return view;
+	}
+	
+	@Override
+	public ModelAndView viewWriteMinutesPage(String teamId) {
+		ModelAndView view = new ModelAndView();
+		view.setViewName("team/writeMinutes");
 		return view;
 	}
 
