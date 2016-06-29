@@ -2111,7 +2111,7 @@ public class EducationServiceTest extends SemsTestCase {
 		assertTrue(memberList.size() > 0);
 	}
 	
-	@Test
+	/*@Test
 	public void getOneMemberAttendanceTest1() {
 		
 		String memberId = "test02";
@@ -2226,5 +2226,5 @@ public class EducationServiceTest extends SemsTestCase {
 		String viewName = view.getViewName();
 		assertNotNull(viewName);
 		assertEquals(viewName, "redirect:/attendanceHistory/teamList");
-	}
+	}*/
 }
