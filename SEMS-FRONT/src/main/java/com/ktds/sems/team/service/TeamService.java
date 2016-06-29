@@ -24,7 +24,7 @@ public interface TeamService {
 	
 	public ModelAndView addNewTeamBBSArticle(TeamBBSVO teamBBS, Errors errors, MultipartHttpServletRequest request, HttpSession session, HttpServletResponse response);
 
-	public ModelAndView viewTeamBBSPage(int pageNo);
+	public ModelAndView viewTeamBBSPage(String teamId, int pageNo);
 
 	public ModelAndView doSearchList(TeamBBSVO teamBBSVO, int pageNo );
 
@@ -44,7 +44,7 @@ public interface TeamService {
 
 	public ModelAndView writeNewMinutes(String teamId, MinutesVO minutesVO, Errors errors, HttpSession session);
 
-	public ModelAndView viewListMinutes(MinutesSearchVO intminutesSearchVO, int pageNo);
+	public ModelAndView viewListMinutes(String teamId, MinutesSearchVO intminutesSearchVO, int pageNo);
 
 	public ModelAndView minutesInit();
 
@@ -74,5 +74,7 @@ public interface TeamService {
 	public ModelAndView doModifyAction(TeamBBSVO teamBBS, MultipartHttpServletRequest request, HttpSession session);
 
 	public ModelAndView viewWriteTeamBBSPage(HttpSession session, HttpServletResponse response);
+
+	public ModelAndView viewWriteMinutesPage(String teamId);
 	
 }
