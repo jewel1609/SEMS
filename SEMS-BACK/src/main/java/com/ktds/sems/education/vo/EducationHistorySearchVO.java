@@ -8,6 +8,7 @@ public class EducationHistorySearchVO {
 	private String memberId;
 	private String searchKeyword;
 	private String searchType;
+	private String searchDate;
 	private String searchStartDate;
 	private String searchEndDate;
 
@@ -57,6 +58,14 @@ public class EducationHistorySearchVO {
 
 	public void setSearchType(String searchType) {
 		this.searchType = searchType;
+	}
+	
+	public String getSearchDate() {
+		return searchDate;
+	}
+
+	public void setSearchDate(String searchDate) {
+		this.searchDate = searchDate;
 	}
 
 	public String getSearchStartDate() {
