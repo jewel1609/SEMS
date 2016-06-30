@@ -60,6 +60,10 @@
     </ul>
   </nav>
 </div>
+
+
+
+
 <div class="wrapper row3">
   <div id="slider" class="clear"> 
     <div class="flexslider basicslider">
@@ -146,6 +150,8 @@
     <div class="clear"></div>
   </main>
 </div>
+
+
 <div class="wrapper row4">
   <footer id="footer" class="clear"> 
     <div class="one_quarter first">
