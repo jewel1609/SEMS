@@ -1064,7 +1064,6 @@ public class EducationServiceImpl implements EducationService {
 				}
 				
 				while(calDateVar <= calEduEndDate) {
-					System.out.println(calDateVar + " -> " + calEduEndDate);
 					// 교육 시작일부터 종료일까지 하루하루
 					attendVO = new AttendVO();
 					
