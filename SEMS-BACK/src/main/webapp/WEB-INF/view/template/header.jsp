@@ -28,11 +28,11 @@
         </ul>
       </li>
       
-      <li><a class="drop" href="#">회원 관리</a></li>
+      <li><a class="drop" href="<c:url value="/memberManage"/>">회원 관리</a></li>
       
-      <li><a class="drop" href="#">강사 관리</a></li>
+      <li><a class="drop" href="<c:url value="/teacher/teaacherList"/>">강사 관리</a></li>
       
-      <li><a class="drop" href="#">협력사 관리</a></li>
+      <li><a class="drop" href="<c:url value="/cooList"/>">협력사 관리</a></li>
       
       <li><a class="drop" href="#">시스템 관리</a></li>
     </ul>

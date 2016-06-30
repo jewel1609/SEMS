@@ -17,6 +17,7 @@
 	
 	<a href="<c:url value="/memberManage/addMember"/>">등록</a> <br/>
 	<a href="<c:url value="/memberManage/memberList"/>">조회</a> <br/>
+	<a href="<c:url value="/memberHistory"/>">로그인/로그아웃 이력 조회</a> <br/>
 	
 </body>
 </html>

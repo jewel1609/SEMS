@@ -27,6 +27,10 @@
 				location.href = "<c:url value='/teacherDelete/${ teacherInfo.memberId}'/>";
 			}
 		});
+		
+		$("#updateBtn").click(function(){
+			location.href = "<c:url value='/teacherModify/${ teacherInfo.memberId}'/>";
+		});
 	});
 </script>
 </head>
@@ -80,5 +84,6 @@
 	</c:forEach>
 
 	<input type="button" id="deleteBtn" class="inputButton" value="삭제" />
+	<input type="button" id="updateBtn" class="inputButton" value="수정" />
 </body>
 </html>
