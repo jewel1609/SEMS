@@ -257,7 +257,6 @@ public class EducationController {
 	
 	@RequestMapping("/showEducationList")
 	public ModelAndView viewEducationListPage(EducationSearchVO searchVO) {
-		System.out.println("검색어" + searchVO.getSearchKeyword() + "타입" + searchVO.getSearchType());
 		return educationService.getAllEucationList(searchVO);
 	}
 	
