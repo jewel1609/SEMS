@@ -11,8 +11,6 @@
 <link rel="stylesheet" href="/backend/resources/css/layout.css" />
 </head>
 <body id="top">
-<div class="wrapper row3">
-  <main class="container clear"> 
     <!-- main body --> 
     <ul class="nospace group btmspace-80">
       <li class="one_third first">
@@ -82,9 +80,6 @@
         </article>
       </li>
     </ul>
-    <!-- / main body -->
-    <div class="clear"></div>
-  </main>
 </div>
 </body>
 </html>
