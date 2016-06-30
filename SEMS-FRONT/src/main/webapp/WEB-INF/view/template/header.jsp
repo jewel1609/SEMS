@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
+<c:set value="${sessionScope._MEMBER_}" var="memberInfo" />
 <c:set value="${sessionScope._MEMBER_TYPE_}" var="memberType" />
 
 <div class="wrapper row1">
@@ -10,8 +11,8 @@
     </div>
     <div class="fl_right">
       <ul class="inline">
-        <li><i class="fa fa-phone"></i> +00 (123) 456 1316</li>
-        <li><i class="fa fa-envelope-o"></i> cocomo@ktds.com</li>
+        <li><i class="fa fa-phone"></i> ${memberInfo.phoneNumber}</li>
+        <li><i class="fa fa-envelope-o"></i> ${memberInfo.email}</li>
         <li><i class="fa fa-power-off"></i> <a href="/logout"> logout </a> </li>
         <!-- 관리자라면 관리하기 버튼 보여주기 -->
         <c:if test="${memberType eq 'ADM' }">
@@ -25,28 +26,15 @@
   <nav id="mainav" class="clear"> 
     <ul class="clear">
       <li class="active"><a href="/main">Home</a></li>
-      <li><a class="drop" href="#">Pages</a>
+      <li><a href="/educationList">Education</a></li>
+      <li><a href="/myTeamList">My Team</a></li>
+      <li><a href="/member/myPage">My Page</a></li>
+      <li><a class="drop" href="#">Profile</a>
         <ul>
-          <li><a href="pages/gallery.html">Gallery</a></li>
-          <li><a href="pages/full-width.html">Full Width</a></li>
-          <li><a href="pages/sidebar-left.html">Sidebar Left</a></li>
-          <li><a href="pages/sidebar-right.html">Sidebar Right</a></li>
-          <li><a href="pages/basic-grid.html">Basic Grid</a></li>
+          <li><a href="/myPage/checkPassword">Edit Profile</a></li>
+          <li><a href="/member/myPage/resignMember">Delete Account</a></li>
         </ul>
       </li>
-      <li><a class="drop" href="#">Dropdown</a>
-        <ul>
-          <li><a href="#">Level 2</a></li>
-          <li><a class="drop" href="#">Level 2 + Drop</a>
-            <ul>
-              <li><a href="#">Level 3</a></li>
-              <li><a href="#">Level 3</a></li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-      <li><a href="#">Link Text</a></li>
-      <li><a href="#">Link Text</a></li>
     </ul>
   </nav>
 </div>
