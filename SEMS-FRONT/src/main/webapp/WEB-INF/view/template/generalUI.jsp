@@ -23,8 +23,11 @@
 		<div id="templateHeader">
 			<jsp:include page="header.jsp" />
 		</div>
-		<div id="templateBody" class="row2">
-			<decorator:body />
+		<div id="templateBody" class="wrapper row3">
+			<main class="container clear">
+				<decorator:body />
+			<div class="clear"></div>
+			</main>
 		</div>
 		<div id="templateFooter">
 			<jsp:include page="footer.jsp" />
