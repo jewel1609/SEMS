@@ -28,18 +28,29 @@
       
       <li><a class="drop" href="<c:url value="/memberManage"/>">회원 관리</a>
       	<ul>
-          <li><a href="<c:url value="/showEducationList" />">출결 조회</a></li>
+          <li><a href="<c:url value="/memberManage"/>">회원 조회</a></li>
+          <li><a href="<c:url value="/attendanceHistory" />">출결 조회</a></li>
+          <li><a href="<c:url value="/educationHistory" />">교육 참가 신청 조회</a></li>
         </ul>
       </li>
       
-      <li><a class="drop" href="<c:url value="/teacher/teaacherList"/>">강사 관리</a></li>
+      <li><a href="<c:url value="/teacher/teaacherList"/>">강사 관리</a></li>
       
-      <li><a class="drop" href="<c:url value="/cooList"/>">협력사 관리</a></li>
+      <li><a href="<c:url value="/cooList"/>">협력사 관리</a></li>
       
       <li><a class="drop" href="<c:url value="/memberHistory" />">시스템 관리</a>
       	<ul>
           <li><a href="<c:url value="/memberHistory" />">회원 로그인 이력</a></li>
           <li><a href="<c:url value="/adminHistory" />">관리자 로그인 이력</a></li>
+        </ul>
+      </li>
+      
+      <li><a href="<c:url value="/teamList"/>">팀 관리</a></li>
+      
+      <li><a class="drop" href="<c:url value="/usedPcList"/>">PC 관리</a>
+      	<ul>
+          <li><a href="<c:url value="/usedPcList" />">사용중인 PC 조회</a></li>
+          <li><a href="<c:url value="/reportedPcList" />">신고 PC 조회</a></li>
         </ul>
       </li>
     </ul>
