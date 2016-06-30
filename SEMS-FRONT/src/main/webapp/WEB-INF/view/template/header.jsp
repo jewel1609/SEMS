@@ -50,14 +50,3 @@
     </ul>
   </nav>
 </div>
-<div class="wrapper row3">
-  <div id="slider" class="clear"> 
-    <div class="flexslider basicslider">
-      <ul class="slides">
-        <li><a href="#"><img class="radius-10" src="images/demo/slides/01.png" alt=""></a></li>
-        <li><a href="#"><img class="radius-10" src="images/demo/slides/02.png" alt=""></a></li>
-        <li><a href="#"><img class="radius-10" src="images/demo/slides/03.png" alt=""></a></li>
-      </ul>
-    </div>
-  </div>
-</div>

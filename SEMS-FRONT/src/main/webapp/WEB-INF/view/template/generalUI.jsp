@@ -23,7 +23,7 @@
 		<div id="templateHeader">
 			<jsp:include page="header.jsp" />
 		</div>
-		<div id="templateBody">
+		<div id="templateBody" class="row2">
 			<decorator:body />
 		</div>
 		<div id="templateFooter">
