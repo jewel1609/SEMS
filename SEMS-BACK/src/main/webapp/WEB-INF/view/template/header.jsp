@@ -22,19 +22,26 @@
       <li><a class="drop" href="<c:url value="/showEducationList" />">교육 관리</a>
         <ul>
           <li><a href="<c:url value="/showEducationList" />">교육 조회</a></li>
-          <li><a href="<c:url value="/eduregister" />">교육 등록</a></li>
-          <li><a href="<c:url value="/eduregister" />">교육 삭제</a></li>
-          <li><a href="<c:url value="/eduregister" />">교육장 관리</a></li>
+          <li><a href="<c:url value="/eduPlaceList" />">교육장 조회</a></li>
         </ul>
       </li>
       
-      <li><a class="drop" href="<c:url value="/memberManage"/>">회원 관리</a></li>
+      <li><a class="drop" href="<c:url value="/memberManage"/>">회원 관리</a>
+      	<ul>
+          <li><a href="<c:url value="/showEducationList" />">출결 조회</a></li>
+        </ul>
+      </li>
       
       <li><a class="drop" href="<c:url value="/teacher/teaacherList"/>">강사 관리</a></li>
       
       <li><a class="drop" href="<c:url value="/cooList"/>">협력사 관리</a></li>
       
-      <li><a class="drop" href="#">시스템 관리</a></li>
+      <li><a class="drop" href="<c:url value="/memberHistory" />">시스템 관리</a>
+      	<ul>
+          <li><a href="<c:url value="/memberHistory" />">회원 로그인 이력</a></li>
+          <li><a href="<c:url value="/adminHistory" />">관리자 로그인 이력</a></li>
+        </ul>
+      </li>
     </ul>
   </nav>
 </div>
