@@ -355,8 +355,8 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/member/myPage/attendHistory/{educationId}")
-	public ModelAndView doAttendHistoryAction(@PathVariable String educationId, HttpSession session) {
-		return memberService.getAllAttendHistory(session, educationId);
+	public ModelAndView doAttendHistoryAction(@PathVariable String educationId, HttpSession session, @RequestParam(required = false, defaultValue = "0") int pageNo) {
+		return memberService.getAllAttendHistory(session, educationId, pageNo);
 	}
 
 }
