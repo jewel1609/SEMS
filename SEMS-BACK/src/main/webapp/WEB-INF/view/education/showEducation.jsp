@@ -31,23 +31,30 @@ input, select {
 		$("#btnSearch").click(function() {
 			movePage('0');
 		});
-		
-		$("#searchKeyword").keypress(function(e) {
-		    if(e.which == 13) {
-		    	movePage('0');
-		    }
-		});
-	});
-	
 
-	
+		$("#searchKeyword").keypress(function(e) {
+			if (e.which == 13) {
+				movePage('0');
+			}
+		});
+		
+		$("#btnEduRegister").click(function() {
+			location.href="<c:url value="/eduregister" />";
+		});
+		
+		
+	});
 </script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
 
+	<div style="float:right;">
+		<input type="button" id="btnEduRegister" value="교육등록" />
+	</div>
 	<table>
+
 		<tr>
 			<th>교육명</th>
 			<th>강사명</th>
@@ -66,7 +73,8 @@ input, select {
 				</tr>
 			</c:forEach>
 		</c:if>
-		<form:form commandName="educationSearchVO" name="searchForm" id="searchForm">
+		<form:form commandName="educationSearchVO" name="searchForm"
+			id="searchForm">
 			<tr>
 				<td colspan="4">
 					<div style="text-align: center;">
@@ -90,10 +98,16 @@ input, select {
 							<option value="title">제목</option>
 							<option value="member">강사명</option>
 						</c:if>
+				</select> <input type="text" id="searchKeyword" name="searchKeyword"
+					value="${searchVO.searchKeyword}" /> <input type="button"
+					id="btnSearch" value="검색" /></td>
+
+
 				</select> 
 				<input type="text" id="searchKeyword" name="searchKeyword" value="${searchVO.searchKeyword}"/>
 				<input class="inputButton" type="button" id="btnSearch" value="검색" /></td>
 			</tr>
+
 		</form:form>
 	</table>
 
