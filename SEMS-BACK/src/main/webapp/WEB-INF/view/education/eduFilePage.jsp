@@ -15,6 +15,10 @@
 	color: #FFFFFF;
 	background-color: #E05149;
 }
+
+select, input {
+   display: inline;
+}
 </style>
 <script type="text/javascript"
    src="<c:url value='/resources/js/jquery.min.js'/>"></script>
@@ -109,7 +113,7 @@
 
 <h1>강의 자료 게시판 </h1>
 	<hr>
-	<table border=1 style="width: 70%">
+	<table border=1 style="width: 100%">
 		<tr>	
 			<td style="width: 15px"><input type="checkbox"
 				id="massiveSelectCheckBox" /></td>
@@ -155,12 +159,12 @@
 		<tr>
 			<td colspan="9" align="center">
 				<form name="searchForm" id="searchForm">
-				 <div style = "text-align:center;">
+				 <div style = "text-align:right;">
 						<c:if test="${ eduFileListVO ne null }">
 							${eduFileListVO.paging.getPagingList("pageNo", "[@]", "이전", "다음", "searchForm")}
 						</c:if> 
 					</div> 
-					<div style="text-align: right;">
+					<div style="text-align: right; left; display: inline;">
 						<select id="search" name="search" class="inputButton">
 							<c:if test="${eduFileSearchVO.searchType eq '1' }">
 								<option value="1" selected="selected">아이디</option>
@@ -181,10 +185,11 @@
 		
 	</table> 
 	<br/>
+	<div style="float : right; display: inline;">
 						<input type="button" id="noticeWrite" class="inputButton" value="공지사항 글쓰기" />
 						<input id="massiveDeleteBtn" class="inputButton" type="button"
 													value="공지 일괄삭제" style="cursor: pointer;" />
-	
+	</div>
 	
 </body>
 </html>
