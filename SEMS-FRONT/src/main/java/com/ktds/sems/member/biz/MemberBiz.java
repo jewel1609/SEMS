@@ -24,6 +24,8 @@ import com.ktds.sems.member.vo.MemberTypeVO;
 import com.ktds.sems.member.vo.MemberVO;
 import com.ktds.sems.member.vo.MenuManageVO;
 
+import kr.co.hucloud.utilities.web.Paging;
+
 public interface MemberBiz {
 
 	public boolean addNewMember(MemberVO member);
@@ -164,7 +166,7 @@ public interface MemberBiz {
 
 	public boolean updateLeaveClass(String memberId);
 
-	public Map<String, List<String>> getAllAttendHistory(MemberVO memberVO, String educationId);
+	public Map<String, List<String>> getAllAttendHistory(MemberVO memberVO, String educationId, Paging paging);
 
 	public List<ReportReplyVO> getReportReplyListByMemberId(String id);
 
