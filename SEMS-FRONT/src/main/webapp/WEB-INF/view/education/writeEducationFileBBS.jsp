@@ -81,10 +81,10 @@ select, input {
 <body>
 	<form:form id="writeForm" commandName="educationFileBBSVO" method="POST" enctype="multipart/form-data">
 		
-		<input id="title" name="title" type="text" class="textInput" placeholder="제목을 입력하세요." style="width: 500px;" value="${educationFileBBSVO.title}"/>
+		<input id="title" name="title" type="text" class="textInput" placeholder="제목을 입력하세요." style="width: 100%;" value="${educationFileBBSVO.title}"/>
 		<br/>
 		<br/>
-		<textarea id="contents" name="contents" class="textInput" placeholder="내용을 입력하세요." style="width: 500px; height: 400px;">${educationFileBBSVO.contents}</textarea>
+		<textarea id="contents" name="contents" class="textInput" placeholder="내용을 입력하세요." style="width: 100%; height: 400px;">${educationFileBBSVO.contents}</textarea>
 		<br/>
 		<c:if test="${isModify eq null}">
 			<input type="hidden" name="educationId" value="${educationId}"/>
