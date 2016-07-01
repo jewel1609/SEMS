@@ -35,55 +35,83 @@
 </script>
 </head>
 <body>
-
-	<span>${ teacherInfo.memberId }</span><br/>
-	<span>${ teacherInfo.name }</span><br/>
-	<span>${ teacherInfo.companyName }</span><br/>
-	<span>${ teacherInfo.businessNumber }</span><br/>
-	<span>${ teacherInfo.annual }</span><br/>
+	<span>강사 정보</span>
+	<table border=1 style="width: 100%">
+		<tr>
+			<th style="text-align: center;">강사 아이디</th>
+			<th style="text-align: center;">강사 명</th>
+			<th style="text-align: center;">소속 업체</th>
+			<th style="text-align: center;">사업자 번호</th>
+			<th style="text-align: center;">연차</th>
+			<th style="text-align: center;">평점</th>
+		</tr>
+		<tr>
+			<td>${ teacherInfo.memberId }</td>
+			<td>${ teacherInfo.name }</td>
+			<td>${ teacherInfo.companyName }</td>
+			<td>${ teacherInfo.businessNumber }</td>
+			<td>${ teacherInfo.annual }</td>
+			<td>${ teacherEducationGrade }</td>
+		</tr>
+	</table>
 	<br/><br/>
-	<span>${ teacherEducationGrade }</span>
+	<span>강의 이력</span>
+	<table border=1 style="width: 100%">
+		<tr>
+			<th style="text-align: center;">강의 아이디</th>
+			<th style="text-align: center;">강의 명</th>
+			<th style="text-align: center;">강의 시작날짜</th>
+			<th style="text-align: center;">강의 종료날짜</th>			
+			<th style="text-align: center;">기관명</th>
+		</tr>
+		<c:forEach items="${ teacherEducationHistory }" var="educationHistory">
+			<tr>
+				<td>${ educationHistory.id }</td>
+				<td>${ educationHistory.educationName }</td>
+				<td>${ educationHistory.startDate }</td>
+				<td>${ educationHistory.endDate }</td>
+				<td>${ educationHistory.educationLocation }</td>
+			</tr>
+		</c:forEach>
+	</table>
 	<br/><br/>
-	<c:forEach items="${ teacherEducationHistory }" var="educationHistory">
-	 	<span>${ educationHistory.id }</span><br/>
-		<span>${ educationHistory.startDate }</span><br/>
-		<span>${ educationHistory.endDate }</span><br/>
-		<span>${ educationHistory.educationName }</span><br/>
-		<span>${ educationHistory.educationLocation }</span><br/>
-	</c:forEach>
+	<span>프로젝트 이력</span>
+	<table border=1 style="width: 100%">
+		<tr>
+			<th style="text-align: center;">프로젝트 아이디</th>
+			<th style="text-align: center;">프로젝트 명</th>	
+			<th style="text-align: center;">프로젝트 시작날짜</th>
+			<th style="text-align: center;">프로젝트 종료날짜</th>					
+			<th style="text-align: center;">프로젝트 장소</th>
+		</tr>
+		<c:forEach items="${ teacherProjectHistory }" var="projectHistory">
+			<tr>
+				<td>${ projectHistory.id }</td>
+				<td>${ projectHistory.projectName }</td>
+				<td>${ projectHistory.startDate }</td>
+				<td>${ projectHistory.endDate }</td>
+				<td>${ projectHistory.projectLocation }</td>
+			</tr>
+		</c:forEach>
+	</table>
 	<br/><br/>
-	<c:forEach items="${ teacherProjectHistory }" var="projectHistory">
-		<span>${ projectHistory.id }</span><br/>
-		<span>${ projectHistory.startDate }</span><br/>
-		<span>${ projectHistory.endDate }</span><br/>
-		<span>${ projectHistory.projectName }</span><br/>
-		<span>${ projectHistory.projectLocation }</span><br/>
-	</c:forEach>
-	<br/><br/>
-	<c:forEach items="${ educationHistory }" var="educationHistory">
-		<span>${ educationHistory.educationId }</span><br/>
-		<span>${ educationHistory.educationCategory }</span><br/>
-		<span>${ educationHistory.educationTitle }</span><br/>
-		<span>${ educationHistory.memberId }</span><br/>
-		<span>${ educationHistory.maxMember }</span><br/>
-		<span>${ educationHistory.educationLocation }</span><br/>
-		<span>${ educationHistory.educationCurriculum }</span><br/>
-		<span>${ educationHistory.educationIntroduce }</span><br/>
-		<span>${ educationHistory.startDate }</span><br/>
-		<span>${ educationHistory.endDate }</span><br/>
-		<span>${ educationHistory.startTime }</span><br/>
-		<span>${ educationHistory.endTime }</span><br/>
-		<span>${ educationHistory.educationType }</span><br/>
-		<span>${ educationHistory.cost }</span><br/>
-	</c:forEach>
-	<br/><br/>
-	<c:forEach items="${ teacherBook }" var="book">
-		<span>${ book.id }</span><br/>
-		<span>${ book.bookName }</span><br/>
-		<span>${ book.bookCompany }</span><br/>
-	</c:forEach>
-
-	<input type="button" id="deleteBtn" class="inputButton" value="삭제" />
-	<input type="button" id="updateBtn" class="inputButton" value="수정" />
+	<table border=1 style="width: 100%">
+		<tr>
+			<th style="text-align: center;">책 아이디</th>
+			<th style="text-align: center;">책 이름</th>	
+			<th style="text-align: center;">출판사</th>
+		</tr>
+		<c:forEach items="${ teacherBook }" var="book">
+			<tr>
+				<td>${ book.id }</td>
+				<td>${ book.bookName }</td>
+				<td>${ book.bookCompany }</td>
+			</tr>
+		</c:forEach>
+	</table>
+	<div style="float: left;">
+		<input type="button" style="float: left; cursor: pointer;" id="deleteBtn" class="inputButton" value="삭제" />
+		<input type="button" style="float: right; cursor: pointer;" id="updateBtn" class="inputButton" value="수정" />
+	</div>	
 </body>
 </html>

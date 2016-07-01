@@ -66,6 +66,9 @@
 		$("#initSearch").click(function() {
 			location.href = "<c:url value='/teacher/teaacherList'/>";
 		});
+	 	$("#insertTeacher").click(function() {
+			location.href = "<c:url value='/insertNewTeacher'/>";
+		});
 
 		$("#searchBtn").click(function() {
 
@@ -86,28 +89,30 @@
 </head>
 <body>
 	<h1>강사 리스트</h1>
-	<table border=1 style="width: 40%">
+	<input id="insertTeacher" class="inputButton" type="button"
+				value="강사등록" style="cursor: pointer; float: right;" />
+	<table border=1 style="width: 100%">
 		<tr>
 			<th style="width: 15px"><input type="checkbox"
 				id="massiveSelectCheckBox" /></th>
-			<th>강사 명</th>
-			<th>소속 업체</th>
-			<th>연차</th>
+			<th style="text-align: center;">강사 명</th>
+			<th style="text-align: center;">소속 업체</th>
+			<th style="text-align: center;">연차</th>
 		</tr>
 		<form name="teacherListForm" id="teacherListForm">
 			<c:forEach items="${ searchedListVO.teacherList }" var="teacher">
 				<tr>
 					<td><input class="deleteTeacherId" name="deleteTeacherId"
 						value="${teacher.memberId}" type="checkbox" /></td>
-					<td><a href="<c:url value='/teacher/detail/${teacher.memberId}' />">${ teacher.name }</a></td>
+					<td style="text-align: center;"><a href="<c:url value='/teacher/detail/${teacher.memberId}' />">${ teacher.name }</a></td>
 					
 					<c:if test="${ not empty teacher.companyName  }">
-						<td>${ teacher.companyName }</td>
+						<td style="text-align: center;">${ teacher.companyName }</td>
 					</c:if>
 					<c:if test="${ empty teacher.companyName  }">
-						<td>프리랜서</td>
+						<td style="text-align: center;">프리랜서</td>
 					</c:if>
-					<td>${ teacher.annual }</td>
+					<td style="text-align: center;">${ teacher.annual }</td>
 				</tr>
 			</c:forEach>
 		</form>
@@ -121,7 +126,7 @@
 						</c:if>
 					</div>
 					<div style="float: right;">
-						<select name="searchType" class="inputButton">
+						<select name="searchType" class="inputButton" style="float: left;">
 							<c:if test="${searchVO.searchType eq '1' }">
 								<option value="1" selected="selected">강사명</option>
 								<option value="2">소속업체</option>
@@ -132,14 +137,14 @@
 							</c:if>
 						</select> 
 						<input type="text" id="searchKeyword" class="inputButton" 
-									name="searchKeyword" value="${searchVO.searchKeyword }" /> 
-						<input type="button" id="searchBtn" class="inputButton" value="검색" />
-						<input type="button"  value="검색 초기화" id="initSearch" class="inputButton"  name="initSearch" />
+									name="searchKeyword" value="${searchVO.searchKeyword }" style="float: left; height: 32px;"/> 
+						<input type="button" id="searchBtn" class="inputButton" value="검색" style="float: left;"/>
+						<input type="button" style="float: left;" value="검색 초기화" id="initSearch" class="inputButton"  name="initSearch" />
 							
 					</div>
 		<div>
 			<input id="massiveDeleteBtn" class="inputButton" type="button"
-				value="일괄삭제" style="cursor: pointer;" />
+				value="일괄삭제" style="cursor: pointer; float: left;" />
 		</div>
 				</form>
 			</td>

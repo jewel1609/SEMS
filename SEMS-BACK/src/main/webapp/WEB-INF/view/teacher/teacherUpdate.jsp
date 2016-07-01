@@ -6,6 +6,17 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css">
+.inputButton {
+	border: none;
+	border-radius: 5px;
+	padding: 6px 12px;
+	font-weight: bold;
+	text-transform: uppercase;
+	color: #FFFFFF;
+	background-color: #E05149;
+}
+</style>
 <title>Teacher 수정 페이지</title>
 <script type="text/javascript" src="<c:url value='/resources/js/jquery.min.js'/>"></script>
 <script type="text/javascript">
@@ -298,7 +309,7 @@
 <body>
 
 	<div
-		style="width: 40%; height: 100%; border: thin; border-style: double; border-radius: 5px; padding: 5px;">
+		style="width: 100%; height: 100%; border: thin; border-style: double; border-radius: 5px; padding: 5px;">
 		<form:form commandName="teacherVO" method="post"
 			action="/backend/doTeacherInfoModifyAction">
 		강사 수정
@@ -336,7 +347,7 @@
 			
 		</div>
 		<br />
-	   	강의 이력(<input type="button" id="addEduHis" value="추가"/>)  : 
+	   	강의 이력<input type="button" class="inputButton" id="addEduHis" value="추가"/>
 			<table border="1" id="EduHisTable">
 				<tr>
 					<th>시작날짜</th>
@@ -378,7 +389,7 @@
 				</c:forEach>
 			</table>			
 			<br />
-	     집필 서적(<input type="button" id="addBook" value="추가"/>)  :  
+	     집필 서적<input type="button" class="inputButton" id="addBook" value="추가"/>
 	    	<table border="1" id="BookTable">
 				<tr>
 					<th>책이름</th>
@@ -409,7 +420,7 @@
 				</c:forEach>
 			</table>
 			<br />
-	     프로젝트 이력(<input type="button" id="addProHis" value="추가"/>)  :  
+	     프로젝트 이력<input type="button" class="inputButton" id="addProHis" value="추가"/>
 	     	<table border="1" id="ProHisTable">
 				<tr>
 					<th>시작날짜</th>
@@ -453,7 +464,7 @@
 			</table>			
 			<br />
 			<input type="hidden" id="memberId" name="memberId" value="${teacherVO.memberId}">
-			<input type="submit" id="update" value="수정하기" />
+			<input type="submit" id="update" class="inputButton" value="수정하기" />
 		</form:form>	
 			
 	</div>
