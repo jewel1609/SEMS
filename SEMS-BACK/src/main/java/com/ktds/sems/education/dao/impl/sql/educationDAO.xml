@@ -71,22 +71,28 @@
 	</select>
 	
 	<select id="getOneEducationByAllCondition" parameterType="string" resultType="EducationVO">
-		SELECT	E.EDU_ID educationId
-				, EDU_CTGR educationCategory
-				, EDU_TTL educationTitle
-				, MBR_ID memberId
-				, MAX_MBR maxMember
-				, EDU_LOC educationLocation
-				, EDU_CLCM educationCurriculum
-				, EDU_INTR educationIntroduce
-				, SRT_DATE startDate
-				, END_DATE endDate
-				, START_TM startTime
-				, END_TM endTime
-				, EDU_TP educationType
-				, COST cost
-		FROM	EDU_INFO E
-		WHERE	E.EDU_ID = #{educationId}
+		SELECT	INFO.EDU_ID educationId
+				, CTGR.CD_NM educationCategory
+				, INFO.EDU_TTL educationTitle
+				, INFO.MBR_ID memberId
+				, INFO.MAX_MBR maxMember
+				, INFO.EDU_LOC educationLocation
+				, INFO.EDU_CLCM educationCurriculum
+				, INFO.EDU_INTR educationIntroduce
+				, INFO.SRT_DATE startDate
+				, INFO.END_DATE endDate
+				, INFO.START_TM startTime
+				, INFO.END_TM endTime
+				, TIME.CD_NM educationType
+				, CST.CD_NM cost
+		FROM	EDU_INFO INFO
+				, EDU_CST CST
+				, EDU_TIME TIME
+				, LRG_CTGR CTGR
+		WHERE	CST.CD_ID = INFO.COST
+		AND		TIME.CD_ID = INFO.EDU_TP
+		AND		CTGR.CD_ID = INFO.EDU_CTGR
+		AND		INFO.EDU_ID = #{educationId}
 	</select>
 	
 	<update id="modifyNewEducation" parameterType="EducationVO">
