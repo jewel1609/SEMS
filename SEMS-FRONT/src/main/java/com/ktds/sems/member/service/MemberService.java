@@ -104,7 +104,7 @@ public interface MemberService {
 
 	public void updateLeaveClass(HttpServletResponse response, HttpSession session);
 
-	public ModelAndView getAllAttendHistory(HttpSession session, String educationId);
+	public ModelAndView getAllAttendHistory(HttpSession session, String educationId, int pageNo);
 
 	
 }
