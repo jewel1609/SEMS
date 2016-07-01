@@ -30,6 +30,7 @@ import com.ktds.sems.education.vo.QNAVO;
 import com.ktds.sems.education.vo.ReportReplyVO;
 import com.ktds.sems.member.biz.MemberBiz;
 import com.ktds.sems.member.service.MemberService;
+import com.ktds.sems.member.vo.AttendListVO;
 import com.ktds.sems.member.vo.AttendVO;
 import com.ktds.sems.member.vo.GraduationTypeVO;
 import com.ktds.sems.member.vo.HighestEducationLevelVO;
@@ -1035,7 +1036,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public ModelAndView getAllAttendHistory(HttpSession session, String educationId) {
+	public ModelAndView getAllAttendHistory(HttpSession session, String educationId, int pageNo) {
 		
 		MemberVO memberVO = (MemberVO) session.getAttribute(Session.MEMBER);
 		Map<String, String> eduIdAndMemberId = new HashMap<String, String>();
@@ -1044,7 +1045,15 @@ public class MemberServiceImpl implements MemberService {
 		eduIdAndMemberId.put("memberId", memberVO.getId());
 		EducationVO eduInfo = memberBiz.getOneEducationInfo(eduIdAndMemberId);
 		
-		Map<String, List<String>> attendList = memberBiz.getAllAttendHistory(memberVO, educationId);
+		Paging paging = new Paging();
+		paging.setPageNumber(pageNo+"");
+		
+		Map<String, List<String>> attends = memberBiz.getAllAttendHistory(memberVO, educationId, paging);
+		
+		AttendListVO attendList = new AttendListVO();
+		attendList.setAttends(attends);
+		attendList.setPaging(paging);
+		
 		
 		ModelAndView view = new ModelAndView();
 		view.addObject("eduInfo", eduInfo);
