@@ -12,6 +12,19 @@ table, tr, td, th {
 	border: 1px;
 	border-style: solid;
 }
+input, select {
+	display: inline;
+}
+.inputButton {
+	border:none;
+	border-radius:5px;
+	padding:6px 12px;
+	font-weight:bold;
+	text-transform:uppercase;
+	color:#FFFFFF;
+	background-color:#E05149;
+	cursor: pointer;
+}
 </style>
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -73,9 +86,13 @@ table, tr, td, th {
 							<option value="title">제목</option>
 							<option value="member" selected="selected">강사명</option>
 						</c:if>
+						<c:if test="${searchVO.searchType eq null}">
+							<option value="title">제목</option>
+							<option value="member">강사명</option>
+						</c:if>
 				</select> 
 				<input type="text" id="searchKeyword" name="searchKeyword" value="${searchVO.searchKeyword}"/>
-				<input type="button" id="btnSearch" value="검색" /></td>
+				<input class="inputButton" type="button" id="btnSearch" value="검색" /></td>
 			</tr>
 		</form:form>
 	</table>
