@@ -19,6 +19,9 @@
 	background-color:#E05149;
 	cursor: pointer; 
 }
+input, select {
+	display: inline;
+}
 </style>
 
 <script type="text/javascript">
