@@ -22,7 +22,7 @@
 <body>
 
 	<div id="teamMember">
-		<table border="1">
+		<table border="1" style="width: 100%">
 			<tr>
 				<th colspan="7" align="center">팀원</th>
 			</tr>
@@ -51,7 +51,7 @@
 	<br/>
 	<br/>
 	<div id="BBS">
-		<table border="1">
+		<table border="1" style="width: 100%">
 			<tr>
 				<th colspan=7>팀 게시판</th>
 			</tr>
