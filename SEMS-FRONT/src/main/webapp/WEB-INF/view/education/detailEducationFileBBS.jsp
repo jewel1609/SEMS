@@ -16,6 +16,9 @@
 	background-color:#E05149;
 	cursor: pointer;
 }
+th {
+	width: 200px;
+}
 select, input {
 	display: inline;
 }
@@ -111,33 +114,29 @@ select, input {
 	<table>
 		<tr>
 			<th>
-				교육 번호
-			</th>
-			<td>
-				${educationFileBBS.educationId}
-			</td>
-		</tr>
-		<tr>
-			<th>
-				강의 자료 번호
-			</th>
-			<td>
-				${educationFileBBS.articleId}
-			</td>
-		</tr>
-		<tr>
-			<th>
 				강사 아이디
 			</th>
 			<td>
 				${educationFileBBS.memberId}
+			</td>
+			<th>
+				작성일
+			</th>
+			<td>
+				${educationFileBBS.createDate}
+			</td>
+			<th>
+				조회수
+			</th>
+			<td>
+				${educationFileBBS.hits}
 			</td>
 		</tr>
 		<tr>
 			<th>
 				제목
 			</th>
-			<td>
+			<td colspan="5">
 				${educationFileBBS.title}
 			</td>
 		</tr>
@@ -145,24 +144,8 @@ select, input {
 			<th>
 				내용
 			</th>
-			<td>
+			<td colspan="5">
 				${educationFileBBS.contents}
-			</td>
-		</tr>
-		<tr>
-			<th>
-				작성일
-			</th>
-			<td>
-				${educationFileBBS.createDate}
-			</td>
-		</tr>
-		<tr>
-			<th>
-				조회수
-			</th>
-			<td>
-				${educationFileBBS.hits}
 			</td>
 		</tr>
 	</table>
@@ -185,6 +168,7 @@ select, input {
 		<input id="deleteButton" type="button" class="inputButton" value="삭제하기" />
 	</c:if>
 	<hr/>
+	<br/>
 	<div style="width: 500px;">
 		<h3>질문등록</h3>
 		
