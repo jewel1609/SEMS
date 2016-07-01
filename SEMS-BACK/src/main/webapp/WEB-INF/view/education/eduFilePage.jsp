@@ -157,7 +157,7 @@ select, input {
 				</tr>
 		</c:forEach>
 		<tr>
-			<td colspan="9" align="center">
+			<td colspan="9" align="right">
 				<form name="searchForm" id="searchForm">
 				 <div style = "text-align:right;">
 						<c:if test="${ eduFileListVO ne null }">
