@@ -679,17 +679,17 @@ public class MemberBizTest extends SemsTestCase {
 		
 	}
 	
-	@Test
-	public void getAllAttendHistoryTest(){
-		
-		MemberVO memberVO = new MemberVO();
-		memberVO.setId("test02");
-		
-		String educationId = "ED-20160513-000166";
-		Map<String, List<String>> resultList = memberBiz.getAllAttendHistory(memberVO, educationId);
-		assertNotNull(resultList);
-		assertTrue(resultList.size() >= 0 );
-		
-	}
+//	@Test
+//	public void getAllAttendHistoryTest(){
+//		
+//		MemberVO memberVO = new MemberVO();
+//		memberVO.setId("test02");
+//		
+//		String educationId = "ED-20160513-000166";
+//		Map<String, List<String>> resultList = memberBiz.getAllAttendHistory(memberVO, educationId);
+//		assertNotNull(resultList);
+//		assertTrue(resultList.size() >= 0 );
+//		
+//	}
 
 }
