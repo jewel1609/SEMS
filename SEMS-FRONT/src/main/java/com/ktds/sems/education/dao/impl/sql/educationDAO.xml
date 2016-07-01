@@ -1305,7 +1305,7 @@
 				, IS_DELETE isDelete
 				, TITLE title
 				, CONTENTS contents
-				, CREATE_DATE createDate
+				, TO_CHAR(CREATE_DATE,'YYYY-MM-DD') createDate
 				, MODIFY_DATE modifyDate
 				, HITS hits
 		FROM	EDU_FILE_BBS
