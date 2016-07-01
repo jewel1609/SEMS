@@ -51,7 +51,7 @@ input, select {
 <body>
 
 	<div style="float:right;">
-		<input type="button" id="btnEduRegister" value="교육등록" />
+		<input type="button" id="btnEduRegister" class="inputButton"  value="교육등록" />
 	</div>
 	<table>
 

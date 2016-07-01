@@ -9,7 +9,16 @@
 		border: 1px;
 		border-style: solid;
 	}
-</style>
+.inputButton {
+	border: none;
+	border-radius: 5px;
+	padding: 6px 12px;
+	font-weight: bold;
+	text-transform: uppercase;
+	color: #FFFFFF;
+	background-color: #E05149;
+}
+	</style>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
@@ -76,7 +85,16 @@
 		<td>${education.educationType}</td>
 		<td>${education.cost}</td>
 	</tr>
+
+	
 </table>
+
+
+<div style="float: right;">
+		<a id="btnEduModify" class="inputButton" href='<c:url value="/educationModify/${education.educationId}"/>'>교육수정 </a>
+		<a id="btnlist" class="inputButton" href='<c:url value="/showEducationList"/>'>목록 </a>
+	</div>
+
 
 </body>
 </html>

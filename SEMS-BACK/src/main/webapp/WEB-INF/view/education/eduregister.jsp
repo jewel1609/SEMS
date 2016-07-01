@@ -12,6 +12,24 @@
 <script src="<c:url value="/resources/js/jquery.timepicker.min.js"/>"></script>
 <link href="http://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/jquery.timepicker.min.css"/>">
+<style type="text/css">
+input, select {
+	display: inline;
+}
+	table, tr, td, th {
+		border: 1px;
+		border-style: solid;
+	}
+.inputButton {
+	border: none;
+	border-radius: 5px;
+	padding: 6px 12px;
+	font-weight: bold;
+	text-transform: uppercase;
+	color: #FFFFFF;
+	background-color: #E05149;
+}
+	</style>
 <script type="text/javascript">
 	$(document).ready(function() {
 		
@@ -246,16 +264,23 @@
 			}
 		});
 
+		$("#cancel").click(function(){
+			var form = $("#writeForm");
+			form.attr("method","post");
+			form.attr("action","<c:url value="/showEducationList"/>");
+			alert("글쓰기를 취소했습니다.");
+			form.submit();
+		});
 	});
 </script>
 </head>
 <body>
 
-	테스터 입니다.
+	<h1>교육등록</h1>
 
 	<div
-		style="width: 30%; height: 100%; border: thin; border-style: double; border-radius: 5px; padding: 5px;">
-		<form:form commandName="educationVO" method="post"
+		style="width: 97%; height: 100%; border: thin; border-style: double; border-radius: 10px; padding: 10px; ">
+		<form:form commandName="educationVO" id="writeForm" method="post"
 			action="/backend/doWriteAction" enctype="multipart/form-data">
 	     	
 	     교육 카테고리 : 
@@ -358,8 +383,10 @@
 			</c:forEach>
 			<form:errors path="cost" />
 			<br />
-
-			<input type="button" id="write" value="등록하기" />
+			<div style="float: center">
+			<input type="button" id="write" class="inputButton" value="등록하기" />
+			<input type="button" id="cancel" class="inputButton" value="취소" />
+			</div>
 		</form:form>
 	</div>
 </body>
