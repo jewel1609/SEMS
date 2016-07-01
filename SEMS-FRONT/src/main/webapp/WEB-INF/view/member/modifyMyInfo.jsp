@@ -19,6 +19,11 @@
    color:#FFFFFF;
    background-color:#E05149;
 }
+
+select, input {
+   display: inline;
+}
+
 </style>
 
 <script type="text/javascript">
@@ -240,18 +245,13 @@ function daysInMonth(month, year) {
 <form:form id="memberInfoForm" commandName="member" method="post">
 
 	아이디 : ${member.id}  <br/>
-	<br />
-		
 	비밀번호 : <input type="password" name="password" id="password" tabindex="1" maxlength="16"/>
 	<br /><span id="messageByPassword"></span>
 	<form:errors path="password"></form:errors>
 	<br />
-	
 	이름 : <input type="text" name="name" id="name" value="${member.name}" placeholder="이름을 입력하세요." tabindex="1" maxlength="10"/>
 	<br /><span id="messageByName"></span>
 	<form:errors path="name" /><br/>
-	<br />
-		
 	이메일 : <input type="text" name="email" id="email"  value="${member.email}" placeholder="이메일을 입력하세요. " tabindex="2"  maxlength="30"/> 
 	<br /><span id="messageByEmail"></span>
 	<form:errors path="email" />
@@ -259,16 +259,13 @@ function daysInMonth(month, year) {
 	
 	<c:if test="${selectedMemberTypeCodeId eq 'STD' || selectedMemberTypeCodeId eq 'MBR'}">
 	대학교 : ${member.universityName}  <br />	
-	<br />
 	전공 : ${member.majorName} <br /> 	
-	<br />
 	</c:if>
 	생년월일 : 
-	<select id="years" name="years" tabindex="5"></select>&nbsp;년
+	<select id="years" name="years" tabindex="5" ></select>년
 	<select id="months" name="months" tabindex="6"></select>&nbsp;월
     <select id="days" name="days" tabindex="7"></select>&nbsp;일
 	<input type="hidden" id="birthDate" name="birthDate" value="${ member.birthDate }" />
-	<br />
 	<br />
 	전화번호 : <input type="text" name="phoneNumber" id="phoneNumber"  value="${member.phoneNumber}" placeholder="전화번호를 입력하세요." tabindex="8" /> 
 	<br /><span id="messageByPhoneNumber"></span>
@@ -276,7 +273,6 @@ function daysInMonth(month, year) {
 	<br />
 	
 	회원구분 : ${selectedMemberTypeCodeName} <br />
-	<br />
 	<c:if test="${selectedMemberTypeCodeId eq 'STD' || selectedMemberTypeCodeId eq 'MBR'}">
 	졸업구분 : 
 	<c:forEach items="${graduationTypeList}" var="graduationType">
@@ -287,7 +283,7 @@ function daysInMonth(month, year) {
 				<input type="radio" class="graduationType" name="graduationType" value="${graduationType.cdId}"/>${graduationType.cdNm}
 				</c:if>
 	</c:forEach>
-	<br/><br/>
+	<br/>
 	최종학력 : 
 	<c:forEach items="${highestEducationLevelList}" var="helCodeName">
 				<c:if test="${helCodeName.cdId eq selectedHighestEducationLevelCodeId}">
@@ -298,7 +294,7 @@ function daysInMonth(month, year) {
 				</c:if>
 	</c:forEach>
 	</c:if>
-	<input type="hidden" name="id" id="id" value="${member.id}"/> <br/><br/>
+	<input type="hidden" name="id" id="id" value="${member.id}"/> <br/>
 	<input type="hidden" name="memberType" id="memberType" value="${member.memberType}"/> 
 	<input type="button" id="modifyBtn" value="수정 완료" />
 	
