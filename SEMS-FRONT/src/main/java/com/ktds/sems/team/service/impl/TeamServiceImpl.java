@@ -437,7 +437,7 @@ public class TeamServiceImpl implements TeamService{
 			
 			logger.info("마지막 결과값 : " + result);
 			if ( result ) {
-				view.setViewName("redirect:/listMinutes/"+teamId);
+				view.setViewName("redirect:/team/listMinutes/"+teamId);
 			}
 			else {
 				throw new RuntimeException("일시적인 장애가 발생했습니다. 잠시 후 다시 이용해주세요.");
