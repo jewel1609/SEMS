@@ -333,6 +333,7 @@ input, select {
 <body>
 
 	<form id="registerForm" name="registerForm">
+	<div style="text-align: center;">
 		아이디 : <input type="text" id="id" name="id" value="${ member.id }" tabindex="1" maxlength="20"/>
 		<br/><span class="deleteMessageId" id="messageById"></span>
 		<form:errors class="deleteMessageId message" path="id"/><br/>
@@ -372,6 +373,7 @@ input, select {
 
 		<input type="hidden" name="memberType" value="TR" />
 		<input id="registerButton" class="inputButton" type="button" value="가입"/>
+	</div>
 	</form>
 
 </body>
