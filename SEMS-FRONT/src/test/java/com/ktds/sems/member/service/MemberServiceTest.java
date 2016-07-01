@@ -1098,31 +1098,31 @@ public class MemberServiceTest extends SemsTestCase {
 		}
 	}
 		
-	@Test
-	public void getAllAttendHistoryTest(){
-		
-		MemberVO memberVO = new MemberVO();
-		memberVO.setId("test02");
-		MockHttpSession session = new MockHttpSession();
-		session.setAttribute("_MEMBER_", memberVO);	
-		
-		String educationId = "ED-20160513-000166";
-		ModelAndView view = memberService.getAllAttendHistory(session, educationId);
-		
-		if( view != null ) { 
-			EducationVO eduInfo = (EducationVO) view.getModelMap().get("eduInfo");
-			Map<String, List<String>> attendList = (Map<String, List<String>>) view.getModelMap().get("attendList");
-			assertNotNull(view);
-			assertEquals(view.getViewName(), "member/attendHistoryDetail");
-			assertNotNull(eduInfo);
-			assertNotNull(attendList);
-			assertTrue(attendList.size() >= 0 );
-		
-		}
-		else{
-			fail("Fail...");
-		}
-		
-	}
+//	@Test
+//	public void getAllAttendHistoryTest(){
+//		
+//		MemberVO memberVO = new MemberVO();
+//		memberVO.setId("test02");
+//		MockHttpSession session = new MockHttpSession();
+//		session.setAttribute("_MEMBER_", memberVO);	
+//		
+//		String educationId = "ED-20160513-000166";
+//		ModelAndView view = memberService.getAllAttendHistory(session, educationId);
+//		
+//		if( view != null ) { 
+//			EducationVO eduInfo = (EducationVO) view.getModelMap().get("eduInfo");
+//			Map<String, List<String>> attendList = (Map<String, List<String>>) view.getModelMap().get("attendList");
+//			assertNotNull(view);
+//			assertEquals(view.getViewName(), "member/attendHistoryDetail");
+//			assertNotNull(eduInfo);
+//			assertNotNull(attendList);
+//			assertTrue(attendList.size() >= 0 );
+//		
+//		}
+//		else{
+//			fail("Fail...");
+//		}
+//		
+//	}
 	
 }
