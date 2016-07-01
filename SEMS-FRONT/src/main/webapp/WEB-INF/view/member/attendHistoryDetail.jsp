@@ -21,6 +21,22 @@ table, td, th {
 	display:none;
 }
 
+<style type="text/css">
+.inputButton {
+	border:none;
+	border-radius:5px;
+	padding:6px 12px;
+	font-weight:bold;
+	text-transform:uppercase;
+	color:#FFFFFF;
+	background-color:#E05149;
+	cursor: pointer;
+}
+select, input {
+	display: inline;
+}
+</style>
+
 </style>
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -48,9 +64,10 @@ table, td, th {
 강의기간 : ${eduInfo.startYear}-${eduInfo.startMonth}-${eduInfo.startDate} ~ ${eduInfo.endYear}-${eduInfo.endMonth}-${eduInfo.endDate}
 <br/>
 <div>
-
+	<input type="checkbox" id="attendLeaveTime" name="attendLeaveTime">출석/퇴근 시간 보기<br>
+	지각 △ 결석 X 조퇴 ●  출석 ○
 	<table>
-		<c:forEach var="attendHistory" items="${attendList}">
+		<c:forEach var="attendHistory" items="${attendList.attends}">
 				<tr>
 					<td class="classDate" style="CURSOR:hand;" title="${attendHistory.value.get(1)}">${attendHistory.key} 
 							&nbsp;
@@ -63,11 +80,17 @@ table, td, th {
 	
 	</table>
 	
-	<input type="checkbox" id="attendLeaveTime" name="attendLeaveTime">출석/퇴근 시간 보기<br>
 
-지각 △ 결석 X 조퇴 ●  출석 ○
+
+
 
 </div>
+
+<form id="pagingForm">
+	<div style="text-align: center;">
+		${ attendList.paging.getPagingList("pageNo", "[@]", "이전", "다음", "pagingForm") }
+	</div>
+</form>
 
 </body>
 </html>
