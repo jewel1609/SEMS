@@ -16,6 +16,9 @@
 	background-color:#E05149;
 	cursor: pointer;
 }
+select, input {
+	display: inline;
+}
 </style>
 <script type="text/javascript" src="<c:url value='/resources/js/jquery.min.js'/>"></script>
 <script type="text/javascript">
@@ -83,7 +86,6 @@
 		<br/>
 		<textarea id="contents" name="contents" class="textInput" placeholder="내용을 입력하세요." style="width: 500px; height: 400px;">${educationFileBBSVO.contents}</textarea>
 		<br/>
-		<br/>
 		<c:if test="${isModify eq null}">
 			<input type="hidden" name="educationId" value="${educationId}"/>
 		</c:if>
@@ -93,16 +95,12 @@
 			<c:forEach items="${fileList}" var="file">
 				<br/>${file.fileName}
 			</c:forEach>
-			<br/>
 			</span>
-			
 			<input id="fileDelete" type="hidden"  name="fileDelete" value="N" />
 			<input type="hidden" name="articleId" value="${educationFileBBSVO.articleId}" />
 		</c:if>
 
 		<input id="file" type="file" name="file" multiple="multiple"/>
-		<br/>
-		<br/>
 		<span id="fileName"></span>
 	</form:form>
 	<br/>

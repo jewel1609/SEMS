@@ -17,6 +17,9 @@
 	background-color:#E05149;
 	cursor: pointer;
 }
+select, input {
+	display: inline;
+}
 </style>
 <script type="text/javascript" src="<c:url value='/resources/js/jquery.min.js'/>"></script>
 <script type="text/javascript">

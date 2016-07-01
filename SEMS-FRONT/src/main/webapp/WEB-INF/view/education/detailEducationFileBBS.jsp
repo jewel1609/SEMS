@@ -16,6 +16,9 @@
 	background-color:#E05149;
 	cursor: pointer;
 }
+select, input {
+	display: inline;
+}
 </style>
 <link href="<c:url value='/resources/css/eduDetail.css'/>" rel="stylesheet"/>
 <script type="text/javascript" src="<c:url value='/resources/js/jquery.min.js'/>"></script> 
@@ -247,7 +250,6 @@
 	<form:form id="writeReplyForm" commandName="bbsReplyVO" method="post">
 		<input type="hidden" name="articleId" value="${educationFileBBS.articleId}">
 		<textarea id="description" name="description" cols="51" rows="5" placeholder="내용을 입력하세요.">${qnaVO.description}</textarea>
-		<br />
 		<br />
 		<input id="writeReplyButton" type="button" class="inputButton" value="질문하기" />
 	</form:form>
