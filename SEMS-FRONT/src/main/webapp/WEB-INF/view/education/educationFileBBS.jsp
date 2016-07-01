@@ -129,7 +129,27 @@ select, input {
 
 	<h2>강의 자료 게시판</h2>
 	<hr/>
-	<table  border=1 style="width: 65%">
+	<table  border=1 style="width: 100%">
+		<tr>
+			<th colspan="5">
+				공지사항
+			</th>
+		</tr>
+		<c:forEach items="${eduNoticeListVO.eduNoticeList}" var="notice">
+		<tr style="background-color: #e2c241; text-align: center;">
+			<c:if test="${notice.noticeType eq 'normal' }">
+				<th>공지</th>
+			</c:if>
+			<c:if test="${notice.noticeType ne 'normal' }">
+				<th> 전체 공지</th>
+			</c:if>
+			<td><a href="<c:url value='/${notice.educationId}/eduFileNotice/detail/${notice.eduNoticeId}' />">${notice.title }</a></td>
+			<td>${ notice.createDate}</td>
+			<td>${ notice.modifyDate}</td>
+			<td >${ notice.hits}</td>
+		</tr>
+		</c:forEach>
+		
 		<tr>
 			<th>
 				강사명
@@ -147,22 +167,8 @@ select, input {
 				조회수
 			</th>
 		</tr>
-		<c:forEach items="${eduNoticeListVO.eduNoticeList}" var="notice">
-			<tr style="background-color: #e2c241; text-align: center;">
-				<c:if test="${notice.noticeType eq 'normal' }">
-					<th>공지</th>
-				</c:if>
-				<c:if test="${notice.noticeType ne 'normal' }">
-					<th> 전체 공지</th>
-				</c:if>
-				<td><a href="<c:url value='/${notice.educationId}/eduFileNotice/detail/${notice.eduNoticeId}' />">${notice.title }</a></td>
-				<td>${ notice.createDate}</td>
-				<td>${ notice.modifyDate}</td>
-				<td >${ notice.hits}</td>
-			</tr>
-		</c:forEach>
 		<c:forEach items="${educationFileBBSList.educationFileBBSVOs}" var="educationFileBBS">
-		<tr text-align: center; >
+		<tr style="text-align: center;">
 			<td>
 				
 				${educationFileBBS.memberId}
