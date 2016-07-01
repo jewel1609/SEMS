@@ -28,7 +28,17 @@
       <li class="active"><a href="/main">Home</a></li>
       <li><a href="/educationList">Education</a></li>
       <li><a href="/myTeamList">My Team</a></li>
-      <li><a href="/member/myPage">My Page</a></li>
+      <li><a class="drop" href="/member/myPage">My Page</a>
+      	<ul>
+          <li><a href="/myPage/myReportList">과제 이력</a></li>
+          <li><a href="/myPage/myQNAList">문의 이력</a></li>
+          <li><a href="/member/myPage/educationHistory">교육참가 이력</a></li>
+          <li><a href="/member/myPage/attendHistory">출결 이력</a></li>
+          <li><a href="/member/loginHistory">로그인 이력</a></li>
+          <li><a href="/member/myPc">내 컴퓨터 등록</a></li>
+          <li><a href="/member/myPage/course">강의 게시판</a></li>
+        </ul>
+      </li>
       <li><a class="drop" href="#">Profile</a>
         <ul>
           <li><a href="/myPage/checkPassword">Edit Profile</a></li>
