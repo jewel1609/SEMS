@@ -4,25 +4,41 @@
 <!DOCTYPE html>
 <html>
 <head>
-
+<style type="text/css">
+. {
+	width: 50%;
+}
+</style>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
 
-<table>
+<table class="as">
 	<tr>
-		<th>
+		<th style="width: 12.5%">
 			교육 분야
 		</th>
-		<th>
+		<th style="width: 12.5%">
 			최대 인원	
 		</th>
-		<th>
+		<th style="width: 12.5%">
 			강의 형태
 		</th>
-		<th>
+		<th style="width: 12.5%">
 			강의 비용
+		</th>
+		<th style="width: 12.5%">
+			시작 날짜
+		</th>
+		<th style="width: 12.5%">
+			종료 날짜
+		</th>
+		<th style="width: 12.5%">
+			강의 시작 시간
+		</th>
+		<th style="width: 12.5%">
+			강의 종료 시간
 		</th>
 	</tr>
 	<tr>
@@ -30,31 +46,13 @@
 		<td>${education.maxMember}</td>
 		<td>${education.educationType}</td>
 		<td>${education.cost}</td>
-	</tr>
-</table>
-
-<table>	
-	<tr>
-		<th style="width: 25%">
-			시작 날짜
-		</th>
-		<th style="width: 25%">
-			종료 날짜
-		</th>
-		<th style="width: 25%">
-			강의 시작 시간
-		</th>
-		<th style="width: 25%">
-			강의 종료 시간
-		</th>
-	</tr>
-	<tr>
 		<td>${education.startDate}</td>
 		<td>${education.endDate}</td>
 		<td>${education.startTime}</td>
 		<td>${education.endTime}</td>
 	</tr>
-</table>	
+</table>
+
 <table>	
 	<tr>
 		<th>
@@ -63,14 +61,6 @@
 		<th>
 			강의실
 		</th>
-	</tr>
-	<tr>
-		<td>${education.memberId}</td>
-		<td>${education.educationLocation}</td>
-	</tr>
-</table>
-<table>
-	<tr>
 		<th>
 			교육명
 		</th>
@@ -79,6 +69,8 @@
 		</th>
 	</tr>
 	<tr>
+		<td>${education.memberId}</td>
+		<td>${education.educationLocation}</td>
 		<td>${education.educationTitle}</td>
 		<td>${education.educationCurriculum}</td>
 	</tr>
@@ -91,7 +83,7 @@
 		</th>
 	</tr>
 	<tr>
-		<td>${education.educationIntroduce}</td>
+		<td style="height: 300px;">${education.educationIntroduce}</td>
 	</tr>
 </table>
 
