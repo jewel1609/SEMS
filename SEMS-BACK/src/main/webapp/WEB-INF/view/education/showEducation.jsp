@@ -104,8 +104,7 @@ input, select {
 
 
 				</select> 
-				<input type="text" id="searchKeyword" name="searchKeyword" value="${searchVO.searchKeyword}"/>
-				<input class="inputButton" type="button" id="btnSearch" value="검색" /></td>
+	
 			</tr>
 
 		</form:form>
