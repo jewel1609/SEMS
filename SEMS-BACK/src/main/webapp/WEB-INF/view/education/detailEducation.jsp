@@ -5,10 +5,38 @@
 <html>
 <head>
 <style type="text/css">
-. {
-	width: 50%;
+.inputButton {
+   border: none;
+   border-radius: 5px;
+   padding: 6px 12px;
+   font-weight: bold;
+   text-transform: uppercase;
+   color: #FFFFFF;
+   background-color: #E05149;
+}
+
+select, input {
+   display: inline;
 }
 </style>
+<script type="text/javascript"
+   src="<c:url value='/resources/js/jquery.min.js'/>"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+
+		$("#eduQna").click(function() {
+			location.href = "<c:url value='/${educationId}/eduQna' />";
+		});
+
+		$("#eduReport").click(function() {
+			location.href = "<c:url value='/${educationId}/eduReport' />";
+		});
+
+		$("#eduFile").click(function() {
+			location.href = "<c:url value='/${educationId}/eduFile' />";
+		});
+	});
+</script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
@@ -86,6 +114,18 @@
 		<td style="height: 300px;">${education.educationIntroduce}</td>
 	</tr>
 </table>
+	<div style="text-align: left; display: inline;">
+		<input type="button" id="eduFile" class="inputButton" value="강의자료게시판" />
+		<input type="button" id="eduReport" class="inputButton" value="과제게시판" />
+		<input type="button" id="eduQna" class="inputButton" value="QA 게시판" />
+		<div style="float: right; display: inline;">
+			<span style="margin: 5px;"> <a class="inputButton"
+				href="<c:url value="/educationModify/${education.educationId}"/>">수정하기
+			</a>
+			</span> <a class="inputButton" href="<c:url value="/showEducationList"/>">목록
+			</a>
+		</div>
+	</div>
 
 </body>
 </html>
