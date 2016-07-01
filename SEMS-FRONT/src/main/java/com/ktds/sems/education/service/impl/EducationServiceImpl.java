@@ -1251,6 +1251,9 @@ public class EducationServiceImpl implements EducationService {
 		
 		if ( educationFileBBS != null ) {
 			
+			String contents = educationFileBBS.getContents().replace("\n", "<br />");
+			educationFileBBS.setContents(contents);
+			
 			List<FileVO> fileList = fileBiz.getAllFilesByArticleId(articleId);
 			
 			BBSReplySearchVO searchVO = new BBSReplySearchVO();
@@ -1983,6 +1986,8 @@ public class EducationServiceImpl implements EducationService {
 		
 		String articleId = educationFileBBSVO.getArticleId();
 		String writer = educationBiz.getOneEducationFileBBS(articleId).getMemberId();
+		String contents = educationFileBBSVO.getContents().replace("<br />", "");
+		educationFileBBSVO.setContents(contents);
 		
 		boolean isEquals = member.getId().equals(writer);
 		if ( isEquals ) {
