@@ -93,6 +93,19 @@ th, td {
 	border-bottom: 1px solid #bcbcbc;
 	padding: 5px 10px;
 }
+.inputButton, .selectButton {
+	border:none;
+	border-radius:5px;
+	padding:6px 12px;
+	font-weight:bold;
+	text-transform:uppercase;
+	color:#FFFFFF;
+	background-color:#E05149;
+	cursor: pointer;
+}
+select, input {
+	display : inline;
+}
 </style>
 
 <title>Insert title here</title>
@@ -107,7 +120,7 @@ th, td {
 					<th>로그인 IP</th>
 					<th>로그인 시간</th>
 					<th>로그아웃 시간</th>
-					<th>회원 종류</th>
+					<th>회원 종류병훈</th>
 				</tr>
 				<c:forEach items="${ loginHistoryListVO.loginHistoryList }"
 					var="history">
@@ -119,14 +132,17 @@ th, td {
 						<td>${ history.memberType }</td>
 					</tr>
 				</c:forEach>
+				<form name="searchForm" id="searchForm">
 				<tr>
 					<td colspan="5" align="center">
-						<form name="searchForm" id="searchForm">
 							<div style="text-align: center;">
 									${ loginHistoryListVO.paging.getPagingList("pageNo", "[@]", "[이전]", "[다음]", "searchForm") }
 							</div>
-							<div style="text-align: right;">
-								<select id="search" name="search">
+					</td>
+				</tr>
+				<tr  style="text-align: center;">
+					<td  colspan="5" >
+							<select id="search" name="search" class="selectButton">
 									<option value="">선택</option>
 									<c:if test="${loginHistorySearchVO.search eq 'id'}">
 										<option value="id" id="id" selected="selected">회원 아이디</option>
@@ -144,12 +160,11 @@ th, td {
 								<input type="text" id="searchKeyword" name="searchKeyword" value="${ loginHistorySearchVO.searchKeyword }"/> 
 								<input type="date" id="startDate" name="startDate" value="${ loginHistorySearchVO.startDate }"/> 
 								<input type="date" id="endDate" name="endDate" value="${ loginHistorySearchVO.endDate }"/> 
-								<input type="button" id="searchBtn" value="검색" /> 
-								<input type="button" id="searchInitBtn" value="검색 초기화" />
-							</div>
-						</form>
-					</td>
-				</tr>
+								<input type="button" id="searchBtn" class="inputButton" value="검색" /> 
+								<input type="button" id="searchInitBtn" class="inputButton" value="검색 초기화" />
+						</td>
+					</tr>
+				</form>
 			</table>
 	</div>
 </body>

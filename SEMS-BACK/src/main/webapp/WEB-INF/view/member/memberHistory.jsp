@@ -156,6 +156,19 @@
     border-bottom: 1px solid #bcbcbc;
     padding: 5px 10px;
   }
+  .inputButton, .selectButton {
+	border:none;
+	border-radius:5px;
+	padding:6px 12px;
+	font-weight:bold;
+	text-transform:uppercase;
+	color:#FFFFFF;
+	background-color:#E05149;
+	cursor: pointer;
+	}
+	select, input {
+		display : inline;
+	}
 </style>
 
 <title>Insert title here</title>
@@ -179,60 +192,62 @@
 			<td class="menutd">${ history.memberType }</td>
 		</tr>
 		</c:forEach>
-		<tr>
-			<td colspan="5" align="center">
-				<form name="searchForm" id="searchForm">
-				<div style = "text-align:center;">
-					<c:if test="${ loginHistoryListVO ne null }">
-						${loginHistoryListVO.paging.getPagingList("pageNo", "[@]", "[이전]", "[다음]", "searchForm")}
-					</c:if> 
-				</div>
-				<div style="text-align: right;">
-					<select id="search" name="search" >
-						<option value="">선택</option>
-						<c:if test="${loginHistorySearchVO.search eq 'id' }">
-							<option id="id" value="id" selected="selected">회원 아이디</option>
-						</c:if>
-						<c:if test="${loginHistorySearchVO.search ne 'id' }">
-							<option id="id" value="id" >회원 아이디</option>
-						</c:if>
-						<c:if test="${loginHistorySearchVO.search eq 'type' }">
-							<option id="type" value="type" selected="selected">회원 종류</option>
-						</c:if>
-						<c:if test="${loginHistorySearchVO.search ne 'type' }">
-							<option id="type" value="type" >회원 종류</option>
-						</c:if>
-						<c:if test="${loginHistorySearchVO.search eq 'date' }">
-							<option id="date" value="date" selected="selected">날짜</option>
-						</c:if>
-						<c:if test="${loginHistorySearchVO.search ne 'date' }">
-							<option id="date" value="date" >날짜</option>
-						</c:if>
-					</select>
+		<form name="searchForm" id="searchForm">
+			<tr>
+				<td colspan="5" align="center">
 					
-					<input type="text" class="onlyText" id="searchKeyword" name="searchKeyword" value="${ loginHistorySearchVO.searchKeyword }"/>
-					
-					<select id="searchType" name="searchType">
-						<option value="" selected="selected"></option>
-						<c:forEach items="${ typeList }" var="type">
-							<c:if test="${ loginHistorySearchVO.searchType eq type.cdId }">
-								<option id="memType" value="${ type.cdId }" selected="selected">${ type.cdNm }</option>
+					<div style = "text-align:center;">
+						<c:if test="${ loginHistoryListVO ne null }">
+							${loginHistoryListVO.paging.getPagingList("pageNo", "[@]", "[이전]", "[다음]", "searchForm")}
+						</c:if> 
+					</div>
+				</td>
+			</tr>
+			<tr style="text-align: center;">
+				<td colspan="5" >
+						<select id="search" name="search" class="selectButton">
+							<option value="">선택</option>
+							<c:if test="${loginHistorySearchVO.search eq 'id' }">
+								<option id="id" value="id" selected="selected">회원 아이디</option>
 							</c:if>
-							<c:if test="${ loginHistorySearchVO.searchType ne type.cdId }">
-								<option id="memType" value="${ type.cdId }">${ type.cdNm }</option>
+							<c:if test="${loginHistorySearchVO.search ne 'id' }">
+								<option id="id" value="id" >회원 아이디</option>
 							</c:if>
-						</c:forEach>
-					</select>
-					
-					<input type="date" name="startDate" id="startDate" value="${loginHistorySearchVO.startDate}" />
-					<input type="date" name="endDate" id="endDate" value="${loginHistorySearchVO.endDate}" /> 
-					
-					<input type="button" id="searchBtn" value="검색" />
-					<input type="button" id="searchInitBtn" value="검색 초기화" />
-				</div>
-				</form>
-			</td>
-		</tr>
+							<c:if test="${loginHistorySearchVO.search eq 'type' }">
+								<option id="type" value="type" selected="selected">회원 종류</option>
+							</c:if>
+							<c:if test="${loginHistorySearchVO.search ne 'type' }">
+								<option id="type" value="type" >회원 종류</option>
+							</c:if>
+							<c:if test="${loginHistorySearchVO.search eq 'date' }">
+								<option id="date" value="date" selected="selected">날짜</option>
+							</c:if>
+							<c:if test="${loginHistorySearchVO.search ne 'date' }">
+								<option id="date" value="date" >날짜</option>
+							</c:if>
+						</select>
+						
+						<input type="text" class="onlyText" id="searchKeyword" name="searchKeyword" value="${ loginHistorySearchVO.searchKeyword }"/>
+						
+						<select id="searchType" name="searchType" class="selectButton">
+							<option value="" selected="selected"></option>
+							<c:forEach items="${ typeList }" var="type">
+								<c:if test="${ loginHistorySearchVO.searchType eq type.cdId }">
+									<option id="memType" value="${ type.cdId }" selected="selected">${ type.cdNm }</option>
+								</c:if>
+								<c:if test="${ loginHistorySearchVO.searchType ne type.cdId }">
+									<option id="memType" value="${ type.cdId }">${ type.cdNm }</option>
+								</c:if>
+							</c:forEach>
+						</select>
+						
+						<input type="date" name="startDate" id="startDate" value="${loginHistorySearchVO.startDate}" />	
+						<input type="date" name="endDate" id="endDate" value="${loginHistorySearchVO.endDate}" /> 
+						<input type="button" id="searchBtn" class="inputButton" value="검색" /> 
+						<input type="button" id="searchInitBtn" class="inputButton"  value="검색 초기화" />
+				</td>
+			</tr>
+		</form>
 	</table>
 
 </body>
