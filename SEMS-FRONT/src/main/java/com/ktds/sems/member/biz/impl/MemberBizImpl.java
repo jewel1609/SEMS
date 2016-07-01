@@ -1,10 +1,8 @@
 package com.ktds.sems.member.biz.impl;
 
 import java.io.File;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -13,7 +11,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -27,7 +24,6 @@ import com.ktds.sems.common.LoginStore;
 import com.ktds.sems.common.SendMail;
 import com.ktds.sems.common.Session;
 import com.ktds.sems.common.vo.MailVO;
-import com.ktds.sems.education.vo.EduClassVO;
 import com.ktds.sems.education.vo.EducationCostVO;
 import com.ktds.sems.education.vo.EducationHistorySearchVO;
 import com.ktds.sems.education.vo.EducationHistoryVO;
@@ -50,6 +46,7 @@ import com.ktds.sems.member.vo.MenuManageVO;
 import kr.co.hucloud.utilities.SHA256Util;
 import kr.co.hucloud.utilities.excel.option.WriteOption;
 import kr.co.hucloud.utilities.excel.write.ExcelWrite;
+import kr.co.hucloud.utilities.web.Paging;
 
 public class MemberBizImpl implements MemberBiz {
 
@@ -755,7 +752,7 @@ public class MemberBizImpl implements MemberBiz {
 	}
 
 	@Override
-	public Map<String, List<String>> getAllAttendHistory(MemberVO memberVO, String educationId) {
+	public Map<String, List<String>> getAllAttendHistory(MemberVO memberVO, String educationId, Paging paging) {
 		
 		Map<String, String> eduIdAndMemberId = new HashMap<String, String>();
 
@@ -763,13 +760,14 @@ public class MemberBizImpl implements MemberBiz {
 		eduIdAndMemberId.put("memberId", memberVO.getId());
 		EducationVO educationVO = memberDAO.getOneEducationInfo(eduIdAndMemberId);
 		List<AttendVO> attendList = memberDAO.getAllAttendHistoryListById(eduIdAndMemberId);
-		Map<String, List<String>> attendHistoryList= getStateByEachClass(educationVO, attendList);
-			
+		
+		Map<String, List<String>> attendHistoryList= getStateByEachClass(educationVO, attendList, paging);
+		
 		return attendHistoryList;
 	}
 	
 	
-	private Map<String, List<String>> getStateByEachClass(EducationVO educationVO, List<AttendVO> attendList) {
+	private Map<String, List<String>> getStateByEachClass(EducationVO educationVO, List<AttendVO> attendList, Paging paging) {
 		
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
@@ -801,9 +799,11 @@ public class MemberBizImpl implements MemberBiz {
 		Date today = new Date();
 		Date beforeDate = new Date();
 		beforeDate.setTime( today.getTime() - ( (long) 1000 * 60 * 60 * 24 ) );
-
+		
 		/* 날짜들이 들어있는 List */
 		List<Date> dates = getDaysBetweenDates(startDate, endDate);
+		
+		List<Date> pagingDate = pagingMap(dates, paging);
 		
 		/* 어제까지의 날짜들이 들어있는 List */
 		List<Date> datesUntilToday = getDaysBetweenDates(startDate, beforeDate);
@@ -902,17 +902,37 @@ public class MemberBizImpl implements MemberBiz {
 		} catch (ParseException e) {
 			System.out.println("형식 변환 오류");
 		}
-
+		
 		Map<String, List<String>> treeMap = new TreeMap<String, List<String>>(attendHistoryMap);
-		Iterator<String> treeMapIter = treeMap.keySet().iterator();
-		String key = null;
-		while(treeMapIter.hasNext()){
-			key = treeMapIter.next();
-			System.out.println("날짜 : " + key + " 값 : "+ attendHistoryMap.get(key));
+		Map<String, List<String>> pagingMap = new TreeMap<String, List<String>>();
+		for (Date date : pagingDate) {
+			eachDate = dateFormat.format(date);
+			pagingMap.put(eachDate, treeMap.get(eachDate));	
 		}
 		
-		return treeMap;
 		
+		return pagingMap;
+	}
+	
+	private List<Date> pagingMap(List<Date> dates, Paging paging) {
+		int totalCount = dates.size()-1;
+
+		paging.setTotalArticleCount(totalCount);
+		
+		int startIndex = paging.getStartArticleNumber();
+		int endIndex = paging.getEndArticleNumber();
+		
+		List<Date> pagingDate = new ArrayList<Date>();
+		for( int i = startIndex-1; i< endIndex; i++ ) {
+			System.out.println(i);
+			if ( i > totalCount) {
+				break;
+			}
+			pagingDate.add(dates.get(i));
+
+		}
+		
+		return pagingDate;
 	}
 	
 	
