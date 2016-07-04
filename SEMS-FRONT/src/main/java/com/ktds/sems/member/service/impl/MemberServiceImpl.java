@@ -238,33 +238,47 @@ public class MemberServiceImpl implements MemberService {
 		AjaxUtil.sendResponse(response, message);
 		return;
 	}
+	
+	public static final String NOT_EXIST_ID = "NO";
+	public static final String WAS_RESIGN_ID = "RSN";
+	public static final String WAS_BLOCK_ID = "OVER";
+	public static final String VALID_ID = "OK";
+	public static final String CHANGE_PASSWORD = "OK";
 
+	/**
+	 * 
+	 * @see NOT_EXIST_ID- NO - 아이디가 없을 경우
+	 * @see WAS_RESIGN_ID- RSN - 탈퇴한 회원일 경우
+	 * @see WAS_BLOCK_ID- OVER - 비밀번호가 3회이상 틀려 막혔을 경우
+	 * @see VALID_ID- OK - 정상적인 회원일 경우
+	 * @see CHANGE_PASSWORD- CNGPW - 비밀번호를 변경하지 않았을 경우
+	 */
 	@Override
 	public String login(MemberVO loginVO, Errors errors, HttpSession session, HttpServletRequest request) {
 
 		// 아이디 있는지 확인
 		if (!memberBiz.isExistId(loginVO.getId())) {
-			return "NO";
+			return NOT_EXIST_ID;
 		}
 
 		// 탈퇴한 회원인지 확인
 		if (memberBiz.isResign(loginVO.getId())) {
-			return "RSN";
+			return WAS_RESIGN_ID;
 		}
 
 		// 잠긴 계정은 로그인 못하도록 막는다.
 		if (memberBiz.isAccountLock(loginVO.getId())) {
-			return "OVER";
+			return WAS_BLOCK_ID;
 		}
 		
 		//회원정보수정 3번실패 시 잠금됬기 때문에 로그인 못하도록 막는다.
 		if (memberBiz.isModifyAccountLock(loginVO.getId())) {
-			return "OVER";
+			return WAS_BLOCK_ID;
 		}
 
 		// 로그인 30일 경과 계정
 		if (memberBiz.needToChangPassword(loginVO.getId())) {
-			return "CNGPW";
+			return CHANGE_PASSWORD;
 		}
 
 		boolean isLoginSuccess = memberBiz.login(session, loginVO, request);
@@ -290,10 +304,10 @@ public class MemberServiceImpl implements MemberService {
 				// 로그인 내역 남기기
 				memberBiz.stampLoginTime(session, request, loginVO);
 
-				return "OK";
+				return VALID_ID;
 
 			} else {
-				return "NO";
+				return NOT_EXIST_ID;
 			}
 
 		} else {
@@ -302,13 +316,13 @@ public class MemberServiceImpl implements MemberService {
 			 * 1. LOGIN_FAIL_COUNT를 1 증가 시킨다.
 			 */
 			if (!memberBiz.plusLoginFailCount(loginVO.getId())) {
-				return "NO";
+				return NOT_EXIST_ID;
 			}
 			/*
 			 * 1. LOGIN_FAIL_COUNT를 5 이상이면 IS_ACCOUNT_LOCK을 'Y'로 수정한다.
 			 */
 			if (!memberBiz.updateAccountLock(loginVO.getId())) {
-				return "NO";
+				return NOT_EXIST_ID;
 			}
 			/*
 			 * 1. IS_ACCOUNT_LOCK이 'Y'라면 브라우저에게 'OVER'라고 보낸다. 'OVER'를 응답으로 받은
@@ -317,9 +331,9 @@ public class MemberServiceImpl implements MemberService {
 			boolean isLock = memberBiz.isAccountLock(loginVO.getId());
 
 			if (isLock) {
-				return "OVER";
+				return WAS_BLOCK_ID;
 			}
-			return "NO";
+			return NOT_EXIST_ID;
 		}
 	}
 

@@ -93,4 +93,8 @@
 		<property name="pcService" ref="pcService" />
 	</bean>
 
+	<bean id="mobileMemberController" class="com.ktds.sems.mobile.web.MemberController">
+		<property name="memberService" ref="memberService" />
+	</bean>
+
 </beans>
